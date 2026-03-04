@@ -23,7 +23,7 @@ export default function ContactPage() {
         const body = encodeURIComponent(
             `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
         );
-        window.location.href = `mailto:support@bookkraftai.com?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:hello@bookkraftai.com?subject=${subject}&body=${body}`;
         setStatus('Opening your email client...');
     }
 
@@ -113,8 +113,8 @@ export default function ContactPage() {
 
                     <div style={{ marginTop: '2.5rem', padding: '1.5rem', background: '#faf9f7', borderRadius: 12, textAlign: 'center' }}>
                         <p style={{ fontWeight: 600, marginBottom: 8 }}>Or email us directly</p>
-                        <a href="mailto:support@bookkraftai.com" style={{ color: '#b8860b', fontWeight: 500 }}>
-                            support@bookkraftai.com
+                        <a href="mailto:hello@bookkraftai.com" style={{ color: '#b8860b', fontWeight: 500 }}>
+                            hello@bookkraftai.com
                         </a>
                     </div>
                 </div>
