@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# old static site files (not part of Next.js app)
+/index.html
+/worker.js
+/wrangler.toml
