@@ -3,6 +3,7 @@
 import { useAuth } from './AuthProvider';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Navbar() {
     const { user, signOut } = useAuth();
@@ -20,8 +21,9 @@ export default function Navbar() {
     return (
         <nav id="main-nav">
             <div className="nav-inner">
-                <Link href="/" className="nav-logo" style={{ textDecoration: 'none' }}>
-                    📖 Book<span>Kraft</span>
+                <Link href="/" className="nav-logo" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Image src="/logo.png" alt="BookKraft" width={32} height={32} />
+                    Book<span>Kraft</span>
                 </Link>
                 {!user ? (
                     <div className="nav-links">
