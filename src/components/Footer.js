@@ -8,7 +8,7 @@ export default function Footer() {
                 <div className="footer-links">
                     <Link href="/privacy">Privacy Policy</Link>
                     <Link href="/terms">Terms of Service</Link>
-                    <a href="mailto:hello@bookkraftai.com">Contact</a>
+                    <Link href="/contact">Contact</Link>
                 </div>
             </div>
             <div className="footer-inner">
