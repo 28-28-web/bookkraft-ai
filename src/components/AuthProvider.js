@@ -32,6 +32,14 @@ export function AuthProvider({ children }) {
     }
 
     useEffect(() => {
+        // Safety timeout: force loading to false after 5s
+        const timeout = setTimeout(() => {
+            setLoading((prev) => {
+                if (prev) console.warn('Auth loading timed out after 5s');
+                return false;
+            });
+        }, 5000);
+
         const getSession = async () => {
             try {
                 const { data: { session } } = await supabase.auth.getSession();
@@ -42,6 +50,7 @@ export function AuthProvider({ children }) {
             } catch (err) {
                 console.error('Session error:', err);
             } finally {
+                clearTimeout(timeout);
                 setLoading(false);
             }
         };
@@ -60,7 +69,10 @@ export function AuthProvider({ children }) {
             }
         );
 
-        return () => subscription.unsubscribe();
+        return () => {
+            clearTimeout(timeout);
+            subscription.unsubscribe();
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
