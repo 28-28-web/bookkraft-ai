@@ -12,12 +12,18 @@ export function AuthProvider({ children }) {
     const supabase = createClient();
 
     async function loadProfile(userId) {
-        const { data } = await supabase
-            .from('users')
-            .select('*')
-            .eq('id', userId)
-            .single();
-        setProfile(data || { plan: 'free', runs_this_month: 0 });
+        try {
+            const { data, error } = await supabase
+                .from('users')
+                .select('*')
+                .eq('id', userId)
+                .single();
+            if (error) console.warn('Profile load error:', error.message);
+            setProfile(data || { plan: 'free', runs_this_month: 0 });
+        } catch (err) {
+            console.error('Failed to load profile:', err);
+            setProfile({ plan: 'free', runs_this_month: 0 });
+        }
     }
 
     async function refreshProfile() {
@@ -26,12 +32,17 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         const getSession = async () => {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session?.user) {
-                setUser(session.user);
-                await loadProfile(session.user.id);
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session?.user) {
+                    setUser(session.user);
+                    await loadProfile(session.user.id);
+                }
+            } catch (err) {
+                console.error('Session error:', err);
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
         };
         getSession();
 
