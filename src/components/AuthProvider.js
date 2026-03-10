@@ -1,8 +1,8 @@
-// Build v2 - 2026-03-05
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { TOOL_CREDIT_COSTS } from '@/lib/constants';
 
 const AuthContext = createContext({});
 
@@ -20,10 +20,22 @@ export function AuthProvider({ children }) {
                 .eq('id', userId)
                 .single();
             if (error) console.warn('Profile load error:', error.message);
-            setProfile(data || { plan: 'free', runs_this_month: 0 });
+            setProfile(data || {
+                credits_balance: 0,
+                has_logic_bundle: false,
+                has_full_access: false,
+                is_lifetime: false,
+                is_admin: false,
+            });
         } catch (err) {
             console.error('Failed to load profile:', err);
-            setProfile({ plan: 'free', runs_this_month: 0 });
+            setProfile({
+                credits_balance: 0,
+                has_logic_bundle: false,
+                has_full_access: false,
+                is_lifetime: false,
+                is_admin: false,
+            });
         }
     }
 
@@ -31,8 +43,64 @@ export function AuthProvider({ children }) {
         if (user) await loadProfile(user.id);
     }
 
+    // v8.0: Check if user can access a tool
+    function checkToolAccess(toolSlug) {
+        const freeTools = ['epub-validator', 'metadata-builder'];
+        if (freeTools.includes(toolSlug)) return true;
+        if (!profile) return false;
+        if (profile.has_full_access || profile.is_lifetime) return true;
+
+        // Logic tools: require Essentials Bundle
+        const logicTools = [
+            'kindle-format-fixer', 'epub-formatter', 'toc-generator',
+            'front-matter-generator', 'css-snippet-generator',
+        ];
+        if (logicTools.includes(toolSlug)) {
+            return profile.has_logic_bundle === true;
+        }
+
+        // AI tools: require sufficient credits
+        const cost = TOOL_CREDIT_COSTS[toolSlug];
+        if (cost) {
+            return (profile.credits_balance || 0) >= cost;
+        }
+
+        return false;
+    }
+
+    // v8.0: Check if user has enough credits for a specific tool
+    function hasCredits(toolSlug) {
+        if (!profile) return false;
+        if (profile.is_lifetime) return true;
+        const cost = TOOL_CREDIT_COSTS[toolSlug];
+        if (!cost) return true; // logic/free tools don't need credits
+        return (profile.credits_balance || 0) >= cost;
+    }
+
+    // v8.0: Get access state for tool card badge
+    function getToolAccessState(toolSlug) {
+        const freeTools = ['epub-validator', 'metadata-builder'];
+        if (freeTools.includes(toolSlug)) return 'free';
+        if (!profile) return 'locked';
+        if (profile.has_full_access || profile.is_lifetime) return 'full_access';
+
+        const logicTools = [
+            'kindle-format-fixer', 'epub-formatter', 'toc-generator',
+            'front-matter-generator', 'css-snippet-generator',
+        ];
+        if (logicTools.includes(toolSlug)) {
+            return profile.has_logic_bundle ? 'logic_owned' : 'logic_locked';
+        }
+
+        const cost = TOOL_CREDIT_COSTS[toolSlug];
+        if (cost) {
+            return (profile.credits_balance || 0) >= cost ? 'ai_enough' : 'ai_short';
+        }
+
+        return 'locked';
+    }
+
     useEffect(() => {
-        // Safety timeout: force loading to false after 5s
         const timeout = setTimeout(() => {
             setLoading((prev) => {
                 if (prev) console.warn('Auth loading timed out after 5s');
@@ -83,7 +151,11 @@ export function AuthProvider({ children }) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, profile, loading, signOut, refreshProfile, supabase }}>
+        <AuthContext.Provider value={{
+            user, profile, loading, signOut,
+            refreshProfile, checkToolAccess, hasCredits,
+            getToolAccessState, supabase,
+        }}>
             {children}
         </AuthContext.Provider>
     );

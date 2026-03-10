@@ -11,6 +11,7 @@ export default function LoginPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [magicLinkSent, setMagicLinkSent] = useState(false);
     const router = useRouter();
     const { showToast } = useToast();
     const supabase = createClient();
@@ -43,44 +44,57 @@ export default function LoginPage() {
         }
     };
 
-    const handleForgotPassword = async () => {
+    const handleMagicLink = async () => {
         if (!email) { setError('Enter your email address first.'); return; }
+        setError('');
+        setLoading(true);
         try {
-            await supabase.auth.resetPasswordForEmail(email, {
-                redirectTo: `${window.location.origin}/account`,
+            const { error: otpError } = await supabase.auth.signInWithOtp({
+                email,
+                options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=/dashboard` }
             });
-            showToast('Password reset email sent. Check your inbox.');
+            if (otpError) throw otpError;
+            setMagicLinkSent(true);
         } catch (err) {
-            setError(err.message);
+            setError(err.message || 'Failed to send magic link.');
+        } finally {
+            setLoading(false);
         }
     };
+
+    if (magicLinkSent) {
+        return (
+            <div className="auth-wrap">
+                <div className="auth-card" style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: '48px', marginBottom: 'var(--space-4)' }}>&#9993;</div>
+                    <h2>Check your email</h2>
+                    <p style={{ color: 'var(--mid)', margin: 'var(--space-4) 0' }}>
+                        We sent a magic link to <strong>{email}</strong>.<br />Click the link in the email to sign in.
+                    </p>
+                    <button className="btn btn-outline btn-sm" onClick={() => setMagicLinkSent(false)}>
+                        Try another method
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="auth-wrap">
             <div className="auth-card">
                 <h2>Welcome back</h2>
-                <p>Sign in to continue writing your book.</p>
+                <p>Sign in to continue formatting your book.</p>
                 {error && <div className="auth-error">{error}</div>}
                 <form onSubmit={handleLogin}>
                     <div className="form-group">
                         <label className="form-label">Email address</label>
-                        <input
-                            type="email"
-                            className="form-input"
-                            placeholder="you@example.com"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
+                        <input type="email" className="form-input" placeholder="you@example.com"
+                            value={email} onChange={(e) => setEmail(e.target.value)} />
                     </div>
                     <div className="form-group">
                         <label className="form-label">Password</label>
-                        <input
-                            type="password"
-                            className="form-input"
-                            placeholder="Your password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
+                        <input type="password" className="form-input" placeholder="Your password"
+                            value={password} onChange={(e) => setPassword(e.target.value)} />
                     </div>
                     <button className="btn btn-primary btn-full" type="submit" disabled={loading}>
                         {loading ? 'Signing in...' : 'Sign In'}
@@ -90,9 +104,12 @@ export default function LoginPage() {
                 <button className="btn btn-google btn-full" onClick={handleGoogleAuth}>
                     <img src="https://www.google.com/favicon.ico" width="16" height="16" alt="Google" /> Continue with Google
                 </button>
+                <button className="btn btn-outline btn-full" style={{ marginTop: 'var(--space-3)' }} onClick={handleMagicLink}>
+                    Send Magic Link
+                </button>
                 <p className="auth-switch">No account yet? <Link href="/signup">Sign up free</Link></p>
                 <p className="auth-switch" style={{ marginTop: '.5rem' }}>
-                    <a onClick={handleForgotPassword} style={{ cursor: 'pointer' }}>Forgot password?</a>
+                    <Link href="/forgot-password">Forgot password?</Link>
                 </p>
             </div>
         </div>

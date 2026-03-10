@@ -1,32 +1,36 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useAuth } from './AuthProvider';
-import { FREE_TOOLS } from '@/lib/constants';
+import Link from 'next/link';
 
-export default function ToolCard({ tool, linkToSignup }) {
-    const router = useRouter();
-    const { profile } = useAuth();
-    const plan = profile?.plan || 'free';
-    const locked = plan === 'free' && !FREE_TOOLS.includes(tool.id);
-
-    const handleClick = () => {
-        if (linkToSignup) {
-            router.push('/signup');
-        } else if (locked) {
-            router.push('/upgrade');
-        } else {
-            router.push(`/tools/${tool.id}`);
-        }
-    };
+export default function ToolCard({ tool, hasAccess }) {
+    const isFree = tool.free;
+    const isOwned = hasAccess && !isFree;
+    const isLocked = !hasAccess && !isFree;
 
     return (
-        <div className="tool-card" onClick={handleClick}>
-            {locked && <div className="tool-lock">🔒</div>}
-            <div className={`tool-icon ${tool.category}`}>{tool.icon}</div>
+        <div className={`tool-card ${isLocked ? 'tool-card-locked' : ''}`}>
+            <div className="tool-card-top">
+                <span className="tool-icon">{tool.icon}</span>
+                {isFree && <span className="badge badge-free">FREE</span>}
+                {isOwned && <span className="badge badge-gold">✓ Owned</span>}
+                {isLocked && <span className="badge badge-locked">🔒 ${tool.price}</span>}
+            </div>
             <h3>{tool.name}</h3>
             <p>{tool.desc}</p>
-            <span className={`tool-badge badge-${tool.category}`}>{tool.category}</span>
+            <div className="tool-card-bottom">
+                <span className={`tool-card-price ${isFree ? 'free' : ''}`}>
+                    {isFree ? 'Free' : isOwned ? 'Owned' : `$${tool.price}`}
+                </span>
+                {isLocked ? (
+                    <Link href={`/checkout?tool=${tool.slug}`} className="tool-card-cta" style={{ textDecoration: 'none' }}>
+                        Unlock — ${tool.price} →
+                    </Link>
+                ) : (
+                    <Link href={`/tools/${tool.slug}`} className="tool-card-cta" style={{ textDecoration: 'none' }}>
+                        Open →
+                    </Link>
+                )}
+            </div>
         </div>
     );
 }

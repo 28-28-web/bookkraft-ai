@@ -74,7 +74,7 @@ export default function HistoryPage() {
                         <h1 style={{ fontSize: '1.75rem', marginBottom: '.25rem' }}>Output History</h1>
                         <p style={{ color: 'var(--muted)', fontSize: '.9rem' }}>All your saved AI-generated content.</p>
                     </div>
-                    <button className="btn btn-outline btn-sm" onClick={downloadAll}>⬇️ Download All</button>
+                    <button className="btn btn-outline btn-sm" onClick={downloadAll}>Download All</button>
                 </div>
                 <div className="history-search">
                     <input
@@ -95,12 +95,15 @@ export default function HistoryPage() {
                 ) : (
                     <div className="history-table">
                         <div className="history-row header">
-                            <span>Tool</span><span>Date</span><span>Preview</span><span>Actions</span>
+                            <span>Tool</span><span>Credits</span><span>Date</span><span>Preview</span><span>Actions</span>
                         </div>
                         {filtered.map((h) => (
                             <div className="history-row" key={h.id}>
                                 <span className="history-tool">{h.tool_name || h.tool_slug}</span>
-                                <span style={{ color: 'var(--muted)', fontSize: '.8rem' }}>
+                                <span style={{ color: h.credits_spent ? 'var(--gold)' : 'var(--mid)', fontWeight: 600, fontSize: '.8rem' }}>
+                                    {h.credits_spent ? `${h.credits_spent} cr` : 'Free'}
+                                </span>
+                                <span style={{ color: 'var(--mid)', fontSize: '.8rem' }}>
                                     {new Date(h.created_at).toLocaleDateString()}
                                 </span>
                                 <span className="history-preview">{(h.output || '').substring(0, 80)}...</span>

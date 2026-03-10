@@ -3,93 +3,192 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
-import { useToast } from '@/components/Toast';
 import Sidebar from '@/components/Sidebar';
 
 export default function AdminPage() {
     const { profile, supabase, loading: authLoading } = useAuth();
-    const { showToast } = useToast();
     const router = useRouter();
-    const [stats, setStats] = useState({ total: '—', paid: '—', runs: '—', mrr: '—' });
+    const [stats, setStats] = useState({
+        totalUsers: '—', totalRevenue: '—', fullAccessUsers: '—',
+        creditsSold: '—', creditsSpent: '—',
+    });
+    const [purchases, setPurchases] = useState([]);
+    const [creditTxns, setCreditTxns] = useState([]);
     const [users, setUsers] = useState([]);
+    const [tab, setTab] = useState('overview');
 
     useEffect(() => {
         if (!authLoading) {
-            if (!profile?.is_admin) {
-                router.push('/dashboard');
-                return;
-            }
+            if (!profile?.is_admin) { router.push('/dashboard'); return; }
             loadAdminData();
         }
     }, [authLoading, profile]);
 
     const loadAdminData = async () => {
         try {
-            const { data: allUsers, count } = await supabase
-                .from('users')
-                .select('*', { count: 'exact' })
-                .order('created_at', { ascending: false })
-                .limit(50);
+            // Users
+            const { data: allUsers, count: userCount } = await supabase
+                .from('users').select('*', { count: 'exact' })
+                .order('created_at', { ascending: false }).limit(50);
 
-            if (allUsers) {
-                const paid = allUsers.filter((u) => u.plan !== 'free').length;
-                const totalRuns = allUsers.reduce((sum, u) => sum + (u.runs_this_month || 0), 0);
-                const mrr = allUsers.reduce((sum, u) => {
-                    if (u.plan === 'starter') return sum + 9;
-                    if (u.plan === 'pro') return sum + 29;
-                    return sum;
-                }, 0);
+            // Purchases
+            const { data: allPurchases } = await supabase
+                .from('purchases').select('*')
+                .order('created_at', { ascending: false }).limit(50);
 
-                setStats({
-                    total: (count || allUsers.length).toLocaleString(),
-                    paid: paid.toString(),
-                    runs: totalRuns.toLocaleString(),
-                    mrr: '$' + mrr.toLocaleString()
-                });
+            // Credit transactions
+            const { data: allTxns } = await supabase
+                .from('credit_transactions').select('*')
+                .order('created_at', { ascending: false }).limit(50);
 
-                setUsers(allUsers.slice(0, 20));
-            }
+            const totalRevenue = (allPurchases || []).reduce((s, p) => s + Number(p.amount_paid || 0), 0);
+            const fullAccessCount = (allUsers || []).filter(u => u.has_full_access).length;
+            const creditsSold = (allTxns || []).filter(t => t.type === 'purchase').reduce((s, t) => s + t.credits, 0);
+            const creditsSpent = (allTxns || []).filter(t => t.type === 'spend').reduce((s, t) => s + Math.abs(t.credits), 0);
+
+            setStats({
+                totalUsers: (userCount || (allUsers || []).length).toLocaleString(),
+                totalRevenue: `$${totalRevenue.toFixed(2)}`,
+                fullAccessUsers: fullAccessCount.toString(),
+                creditsSold: creditsSold.toLocaleString(),
+                creditsSpent: creditsSpent.toLocaleString(),
+            });
+            setUsers((allUsers || []).slice(0, 30));
+            setPurchases((allPurchases || []).slice(0, 20));
+            setCreditTxns((allTxns || []).slice(0, 30));
         } catch (err) {
             console.error('Admin data error:', err);
-            // Show demo data
-            setStats({ total: '2,418', paid: '312', runs: '18,492', mrr: '$4,830' });
-            setUsers([
-                { email: 'alice@example.com', plan: 'pro', runs_this_month: 234, created_at: '2026-01-15' },
-                { email: 'bob@example.com', plan: 'starter', runs_this_month: 67, created_at: '2026-02-01' },
-                { email: 'carol@example.com', plan: 'free', runs_this_month: 8, created_at: '2026-02-20' },
-                { email: 'dave@example.com', plan: 'lifetime', runs_this_month: 412, created_at: '2026-01-05' },
-            ]);
         }
     };
+
+    const tabs = [
+        { id: 'overview', label: 'Overview' },
+        { id: 'users', label: 'Users' },
+        { id: 'purchases', label: 'Purchases' },
+        { id: 'credits', label: 'Credit Transactions' },
+    ];
 
     return (
         <div className="app-layout">
             <Sidebar />
             <div className="main-content">
-                <h1 style={{ fontSize: '1.75rem', marginBottom: '1.75rem' }}>Admin Panel</h1>
+                <h1 style={{ fontSize: '1.75rem', marginBottom: 'var(--space-6)' }}>Admin Panel</h1>
+
+                {/* 5 KPI Cards */}
                 <div className="stats-grid">
-                    <div className="stat-card"><div className="stat-val">{stats.total}</div><div className="stat-label">Total Users</div></div>
-                    <div className="stat-card"><div className="stat-val">{stats.paid}</div><div className="stat-label">Paid Subscribers</div></div>
-                    <div className="stat-card"><div className="stat-val">{stats.runs}</div><div className="stat-label">Runs This Month</div></div>
-                    <div className="stat-card"><div className="stat-val">{stats.mrr}</div><div className="stat-label">Est. MRR</div></div>
-                </div>
-                <h3 style={{ marginBottom: '1rem' }}>Users</h3>
-                <div className="admin-table">
-                    <div className="admin-table-row header">
-                        <span>Email</span><span>Plan</span><span>Runs</span><span>Joined</span><span>Actions</span>
+                    <div className="stat-card">
+                        <div className="stat-val">{stats.totalUsers}</div>
+                        <div className="stat-label">Total Users</div>
                     </div>
-                    {users.map((u, i) => (
-                        <div className="admin-table-row" key={i}>
-                            <span>{u.email || 'Unknown'}</span>
-                            <span><span className={`plan-badge plan-${u.plan}`} style={{ fontSize: '.7rem' }}>{u.plan}</span></span>
-                            <span>{u.runs_this_month || 0}</span>
-                            <span>{u.created_at ? new Date(u.created_at).toLocaleDateString() : '—'}</span>
-                            <span>
-                                <button className="btn-icon" onClick={() => showToast('Plan override coming in v1.1')}>✏️</button>
-                            </span>
-                        </div>
+                    <div className="stat-card">
+                        <div className="stat-val">{stats.totalRevenue}</div>
+                        <div className="stat-label">Total Revenue</div>
+                    </div>
+                    <div className="stat-card">
+                        <div className="stat-val">{stats.fullAccessUsers}</div>
+                        <div className="stat-label">Full Access Users</div>
+                    </div>
+                    <div className="stat-card">
+                        <div className="stat-val">{stats.creditsSold}</div>
+                        <div className="stat-label">Credits Sold</div>
+                    </div>
+                    <div className="stat-card">
+                        <div className="stat-val">{stats.creditsSpent}</div>
+                        <div className="stat-label">Credits Spent</div>
+                    </div>
+                </div>
+
+                {/* Tabs */}
+                <div className="cat-filter" style={{ marginTop: 'var(--space-8)' }}>
+                    {tabs.map(t => (
+                        <button key={t.id} className={`cat-btn ${tab === t.id ? 'active' : ''}`}
+                            onClick={() => setTab(t.id)}>{t.label}</button>
                     ))}
                 </div>
+
+                {/* Users Table */}
+                {tab === 'overview' || tab === 'users' ? (
+                    <div style={{ marginTop: 'var(--space-6)' }}>
+                        <h3 style={{ marginBottom: 'var(--space-4)' }}>Users</h3>
+                        <div className="admin-table">
+                            <div className="admin-table-row header">
+                                <span>Email</span><span>Credits</span><span>Access</span><span>Joined</span>
+                            </div>
+                            {users.map((u, i) => (
+                                <div className="admin-table-row" key={i}>
+                                    <span style={{ fontSize: 'var(--text-sm)' }}>{u.email || 'Unknown'}</span>
+                                    <span>{u.credits_balance || 0}</span>
+                                    <span>
+                                        {u.is_lifetime ? (
+                                            <span className="badge" style={{ background: 'var(--gold)', color: 'var(--ink)', fontSize: '11px', padding: '2px 8px', borderRadius: '100px' }}>Lifetime</span>
+                                        ) : u.has_full_access ? (
+                                            <span className="badge" style={{ background: 'var(--gold-light)', color: 'var(--gold)', fontSize: '11px', padding: '2px 8px', borderRadius: '100px' }}>Full Access</span>
+                                        ) : u.has_logic_bundle ? (
+                                            <span className="badge" style={{ background: 'var(--sage-bg, #EDF5EC)', color: 'var(--sage)', fontSize: '11px', padding: '2px 8px', borderRadius: '100px' }}>Essentials</span>
+                                        ) : (
+                                            <span style={{ color: 'var(--mid)', fontSize: '11px' }}>Free</span>
+                                        )}
+                                    </span>
+                                    <span style={{ fontSize: 'var(--text-sm)', color: 'var(--mid)' }}>
+                                        {u.created_at ? new Date(u.created_at).toLocaleDateString() : '—'}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ) : null}
+
+                {/* Purchases Table */}
+                {tab === 'purchases' && (
+                    <div style={{ marginTop: 'var(--space-6)' }}>
+                        <h3 style={{ marginBottom: 'var(--space-4)' }}>Recent Purchases</h3>
+                        <div className="admin-table">
+                            <div className="admin-table-row header">
+                                <span>Type</span><span>Amount</span><span>Credits</span><span>Date</span>
+                            </div>
+                            {purchases.map((p, i) => (
+                                <div className="admin-table-row" key={i}>
+                                    <span style={{ fontSize: 'var(--text-sm)' }}>{p.purchase_type}</span>
+                                    <span>${Number(p.amount_paid || 0).toFixed(2)}</span>
+                                    <span style={{ color: 'var(--gold)', fontWeight: 600 }}>{p.credits_added || 0}</span>
+                                    <span style={{ fontSize: 'var(--text-sm)', color: 'var(--mid)' }}>
+                                        {new Date(p.created_at).toLocaleDateString()}
+                                    </span>
+                                </div>
+                            ))}
+                            {purchases.length === 0 && <p style={{ padding: 'var(--space-4)', color: 'var(--mid)' }}>No purchases yet.</p>}
+                        </div>
+                    </div>
+                )}
+
+                {/* Credit Transactions Table */}
+                {tab === 'credits' && (
+                    <div style={{ marginTop: 'var(--space-6)' }}>
+                        <h3 style={{ marginBottom: 'var(--space-4)' }}>Credit Transactions</h3>
+                        <div className="admin-table">
+                            <div className="admin-table-row header">
+                                <span>Type</span><span>Credits</span><span>Tool</span><span>Date</span>
+                            </div>
+                            {creditTxns.map((t, i) => (
+                                <div className="admin-table-row" key={i}>
+                                    <span style={{
+                                        fontSize: 'var(--text-sm)',
+                                        color: t.type === 'purchase' ? 'var(--sage)' : t.type === 'refund' ? 'var(--gold)' : 'var(--rust)',
+                                        fontWeight: 600,
+                                    }}>{t.type}</span>
+                                    <span style={{ fontWeight: 600, color: t.credits > 0 ? 'var(--sage)' : 'var(--rust)' }}>
+                                        {t.credits > 0 ? '+' : ''}{t.credits}
+                                    </span>
+                                    <span style={{ fontSize: 'var(--text-sm)', color: 'var(--mid)' }}>{t.tool_slug || '—'}</span>
+                                    <span style={{ fontSize: 'var(--text-sm)', color: 'var(--mid)' }}>
+                                        {new Date(t.created_at).toLocaleDateString()}
+                                    </span>
+                                </div>
+                            ))}
+                            {creditTxns.length === 0 && <p style={{ padding: 'var(--space-4)', color: 'var(--mid)' }}>No transactions yet.</p>}
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -3,7 +3,7 @@ import Footer from '@/components/Footer';
 
 export const metadata = {
     title: 'Terms of Service — BookKraft AI',
-    description: 'BookKraft terms of service — read our terms before using the service.',
+    description: 'BookKraft AI terms of service — please read before using our eBook formatting tools.',
 };
 
 export default function TermsPage() {
@@ -11,28 +11,91 @@ export default function TermsPage() {
         <>
             <div className="legal-wrap">
                 <h1>Terms of Service</h1>
-                <p className="legal-date">Last updated: February 2026</p>
-                <p>By using BookKraft you agree to these terms. Please read them carefully.</p>
-                <h2>1. Acceptance</h2>
-                <p>By creating an account or using any BookKraft tools, you agree to be bound by these Terms. If you disagree, do not use the service.</p>
-                <h2>2. Subscriptions &amp; Refunds</h2>
-                <p>Monthly subscriptions are billed in advance. We offer a 7-day money-back guarantee on your first payment. After 7 days, no refunds are issued for the current billing period. You may cancel at any time; cancellation takes effect at the end of your billing cycle.</p>
-                <h2>3. AI Output Disclaimer</h2>
-                <p>BookKraft uses AI (Claude by Anthropic) to generate content. Outputs are starting points and writing aids — not guaranteed publishable, legally accurate, or factually verified content. You are responsible for reviewing, editing, and verifying any AI-generated content before using it.</p>
-                <h2>4. Prohibited Uses</h2>
+                <p className="legal-date">Last updated: March 2026</p>
+
+                <h2>1. Acceptance of Terms</h2>
+                <p>By creating an account on BookKraft AI or using any of our tools (including the free EPUB Validator and Metadata Builder), you agree to be bound by these Terms of Service. If you do not agree to these Terms, do not use the service.</p>
+
+                <h2>2. Description of Service</h2>
+                <p>BookKraft AI is a web-based eBook formatting toolkit that provides 12 tools for indie authors to format, validate, and prepare their manuscripts for publication. The service includes:</p>
                 <ul>
-                    <li>Using outputs to deceive, defraud, or harm others</li>
-                    <li>Generating content that violates Anthropic&apos;s usage policies</li>
-                    <li>Attempting to reverse-engineer or scrape the platform</li>
-                    <li>Sharing account access across multiple users</li>
+                    <li>2 free tools (EPUB Validator, Metadata Builder) — available without an account</li>
+                    <li>5 logic-based tools (Kindle Format Fixer, EPUB Formatter, TOC Generator, Front Matter Generator, CSS Snippet Generator) — available with the Essentials Bundle or Full Access purchase</li>
+                    <li>5 AI-powered tools (Manuscript Cleanup, Back Matter Generator, Style Sheet Auditor, Print-to-Digital Adapter, KDP Keyword Finder) — available via the credit system</li>
                 </ul>
-                <h2>5. Intellectual Property</h2>
-                <p>Content you input remains yours. AI-generated output is provided to you for your personal and commercial use as part of your subscription.</p>
-                <h2>6. Governing Law</h2>
-                <p>These Terms are governed by the laws of the jurisdiction in which BookKraft operates. Any disputes will be resolved through binding arbitration.</p>
-                <h2>7. Contact</h2>
-                <p>Questions? Email <strong>legal@bookkraftai.com</strong>.</p>
-                <Link href="/" className="btn btn-outline btn-sm" style={{ marginTop: '1rem', textDecoration: 'none' }}>← Back to Home</Link>
+
+                <h2>3. Purchases and Credit System</h2>
+                <h3>3.1 One-Time Payments</h3>
+                <p>BookKraft AI does not use subscriptions. All purchases are one-time payments. Available purchase options:</p>
+                <ul>
+                    <li><strong>Essentials Bundle ($4.99):</strong> Unlocks all 5 logic tools permanently.</li>
+                    <li><strong>Starter Credits ($7.00):</strong> Adds 15 AI credits to your balance.</li>
+                    <li><strong>Author Pro Credits ($15.00):</strong> Adds 40 AI credits to your balance.</li>
+                    <li><strong>Full Access ($9.99):</strong> Unlocks all logic tools + adds 30 AI credits.</li>
+                    <li><strong>Lifetime ($149):</strong> Unlimited access to all tools (rate-limited to 20 AI runs/hour).</li>
+                </ul>
+                <h3>3.2 Credits</h3>
+                <p>AI credits never expire. Credits are deducted only after a successful AI tool run — if the AI processing fails, no credits are deducted. Credit costs per tool: KDP Keyword Finder (1 credit), Back Matter Generator (2 credits), Manuscript Cleanup (3 credits), Style Sheet Auditor (3 credits), Print-to-Digital (3 credits).</p>
+                <h3>3.3 Taxes</h3>
+                <p>All prices are inclusive of applicable taxes. Tax is calculated and collected by our payment processor, Paddle, based on your location.</p>
+
+                <h2>4. Refund Policy</h2>
+                <p>We offer a <strong>7-day money-back guarantee</strong> on all purchases. If you are unsatisfied for any reason, contact us within 7 days of purchase for a full refund. After 7 days, purchases are non-refundable. Refunds are processed through Paddle and typically take 5–10 business days to appear.</p>
+                <p>Spent credits are non-refundable, but unused credit balances are refundable within the 7-day window.</p>
+
+                <h2>5. AI Output Disclaimer</h2>
+                <p>BookKraft AI uses Claude (by Anthropic) to power its AI tools. Important disclaimers regarding AI-generated output:</p>
+                <ul>
+                    <li>AI outputs are starting points and writing aids — not guaranteed publishable, legally accurate, or factually verified content.</li>
+                    <li>You are solely responsible for reviewing, editing, and verifying any AI-generated content before publishing or distributing it.</li>
+                    <li>AI-generated keywords, metadata, and category suggestions are recommendations only — verify accuracy against current Amazon KDP guidelines.</li>
+                    <li>BookKraft AI is not liable for any content generated by the AI tools or any consequences of publishing AI-generated content.</li>
+                </ul>
+
+                <h2>6. Acceptable Use</h2>
+                <p>You agree NOT to:</p>
+                <ul>
+                    <li>Use AI tool outputs to deceive, defraud, or harm others</li>
+                    <li>Generate content that violates Anthropic&apos;s usage policies</li>
+                    <li>Attempt to circumvent word limits, rate limits, or credit systems</li>
+                    <li>Use automated scripts or bots to access the service</li>
+                    <li>Attempt to reverse-engineer, decompile, or scrape the platform</li>
+                    <li>Share account credentials with multiple users</li>
+                    <li>Use the free sample feature to batch-process entire manuscripts (rate limited to 5 samples/hour)</li>
+                </ul>
+
+                <h2>7. Intellectual Property</h2>
+                <h3>7.1 Your Content</h3>
+                <p>Content you input (manuscripts, metadata, text) remains yours. We do not claim ownership of any content you provide to our tools.</p>
+                <h3>7.2 AI-Generated Output</h3>
+                <p>AI-generated output (cleaned text, back matter, keywords, style audits) is provided to you for your personal and commercial use. You may use, modify, and publish AI-generated content without restriction.</p>
+                <h3>7.3 Our Content</h3>
+                <p>The BookKraft AI name, logo, website design, tool interfaces, and all original content are the intellectual property of BookKraft AI and may not be reproduced without permission.</p>
+
+                <h2>8. Account Termination</h2>
+                <p>You may delete your account at any time via Account &gt; Danger Zone. Account deletion permanently removes all your data, including history, credits, and purchases. This action is irreversible.</p>
+                <p>We reserve the right to suspend or terminate accounts that violate these Terms, particularly for abuse of rate limits, automated scraping, or generation of prohibited content.</p>
+
+                <h2>9. Service Availability</h2>
+                <p>BookKraft AI is provided &quot;as is&quot; and &quot;as available.&quot; We make reasonable efforts to maintain uptime but do not guarantee uninterrupted service. We are not liable for any downtime, data loss, or service interruptions.</p>
+
+                <h2>10. Limitation of Liability</h2>
+                <p>To the maximum extent permitted by law, BookKraft AI shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the service, including but not limited to: lost profits, lost data, eBook rejection by retailers, or inaccurate AI outputs.</p>
+
+                <h2>11. Governing Law</h2>
+                <p>These Terms are governed by and construed in accordance with applicable laws. Any disputes arising from these Terms or your use of BookKraft AI will be resolved through binding arbitration.</p>
+
+                <h2>12. Changes to These Terms</h2>
+                <p>We may update these Terms from time to time. Material changes will be communicated via email to registered users. Your continued use of BookKraft AI after changes constitutes acceptance of the updated Terms.</p>
+
+                <h2>13. Contact</h2>
+                <p>For questions about these Terms:</p>
+                <ul>
+                    <li>Email: <strong>hello@bookkraftai.com</strong></li>
+                    <li>Website: <a href="https://bookkraftai.com/contact">bookkraftai.com/contact</a></li>
+                </ul>
+
+                <Link href="/" className="btn btn-outline btn-sm" style={{ marginTop: 'var(--space-6)', textDecoration: 'none' }}>&#8592; Back to Home</Link>
             </div>
             <Footer />
         </>

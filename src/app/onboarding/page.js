@@ -1,86 +1,107 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
-import { useToast } from '@/components/Toast';
-import { ONBOARD_STEPS } from '@/lib/constants';
+import { ONBOARD_STEPS, TOOL_RECOMMENDATIONS } from '@/lib/constants';
+import { TOOLS } from '@/lib/tools';
+import Link from 'next/link';
 
 export default function OnboardingPage() {
+    const { user, loading, supabase } = useAuth();
+    const router = useRouter();
     const [step, setStep] = useState(0);
     const [answers, setAnswers] = useState({});
-    const router = useRouter();
-    const { supabase, user, refreshProfile } = useAuth();
-    const { showToast } = useToast();
+
+    useEffect(() => {
+        if (!loading && !user) router.replace('/login');
+    }, [loading, user, router]);
+
+    if (loading) return <div className="loading-state" style={{ paddingTop: '120px' }}><div className="spinner" /> Loading...</div>;
+    if (!user) return null;
 
     const currentStep = ONBOARD_STEPS[step];
+    const isLastFormStep = step === ONBOARD_STEPS.length - 1;
+    const showRecommendations = step === ONBOARD_STEPS.length;
 
-    const selectOption = (key, value) => {
-        setAnswers((prev) => ({ ...prev, [key]: value }));
-    };
+    const handleSelect = async (value) => {
+        const newAnswers = { ...answers, [currentStep.key]: value };
+        setAnswers(newAnswers);
 
-    const handleNext = async () => {
-        if (step < ONBOARD_STEPS.length - 1) {
-            setStep(step + 1);
-        } else {
-            // Save and go to dashboard
+        if (isLastFormStep) {
+            // Save formatting_goal to profile
             try {
-                if (user) {
-                    await supabase.from('users').update(answers).eq('id', user.id);
-                    await refreshProfile();
-                }
-                router.push('/dashboard');
+                await supabase.from('users').update({ formatting_goal: newAnswers.formatting_goal }).eq('id', user.id);
             } catch (err) {
-                showToast('Failed to save preferences', 'error');
-                router.push('/dashboard');
+                console.error('Failed to save onboarding:', err);
             }
+            setStep(step + 1); // Show recommendations
+        } else {
+            setStep(step + 1);
         }
     };
 
-    const handleBack = () => {
-        if (step > 0) setStep(step - 1);
-    };
+    // Get recommendations
+    const goal = answers.formatting_goal || 'unsure';
+    const stage = answers.writing_stage || 'starting';
+    const recommendedSlugs = TOOL_RECOMMENDATIONS[goal]?.[stage] || TOOL_RECOMMENDATIONS.unsure.starting;
+    const recommendedTools = recommendedSlugs.map((s) => TOOLS.find((t) => t.slug === s)).filter(Boolean);
+
+    if (showRecommendations) {
+        return (
+            <div className="onboard-wrap">
+                <div className="onboard-card" style={{ maxWidth: '640px' }}>
+                    <div className="onboard-step-dots">
+                        {ONBOARD_STEPS.map((_, i) => <div key={i} className="onboard-dot done" />)}
+                        <div className="onboard-dot active" />
+                    </div>
+                    <h2>Here&apos;s where to start</h2>
+                    <p style={{ color: 'var(--muted)', marginBottom: '1.5rem' }}>Based on your answers, we recommend these tools:</p>
+
+                    <div className="recommended-tools">
+                        {recommendedTools.map((tool) => (
+                            <Link key={tool.slug} href={`/tools/${tool.slug}`} className="recommended-tool" style={{ textDecoration: 'none' }}>
+                                <span className="recommended-icon">{tool.icon}</span>
+                                <div>
+                                    <h4>{tool.name}</h4>
+                                    <p>{tool.desc}</p>
+                                </div>
+                                <span className={`recommended-badge ${tool.free ? 'free' : 'paid'}`}>
+                                    {tool.free ? 'Free' : `$${tool.price}`}
+                                </span>
+                            </Link>
+                        ))}
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '.75rem', marginTop: '1.5rem' }}>
+                        <Link href="/dashboard" className="btn btn-primary btn-full" style={{ textDecoration: 'none' }}>
+                            Go to Dashboard →
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="onboard-wrap">
             <div className="onboard-card">
                 <div className="onboard-step-dots">
                     {ONBOARD_STEPS.map((_, i) => (
-                        <div
-                            key={i}
-                            className={`onboard-dot ${i < step ? 'done' : i === step ? 'active' : ''}`}
-                        ></div>
+                        <div key={i} className={`onboard-dot ${i < step ? 'done' : i === step ? 'active' : ''}`} />
                     ))}
-                    <div className="onboard-dot"></div>
+                    <div className="onboard-dot" />
                 </div>
-
-                <h2 style={{ fontSize: '1.5rem', marginBottom: '.4rem' }}>{currentStep.title}</h2>
-                <p style={{ color: 'var(--muted)', fontSize: '.9rem', marginBottom: '1.5rem' }}>{currentStep.subtitle}</p>
-
+                <h2>{currentStep.title}</h2>
+                <p style={{ color: 'var(--muted)' }}>{currentStep.subtitle}</p>
                 <div className="onboard-options">
                     {currentStep.options.map((opt) => (
-                        <div
-                            key={opt.value}
-                            className={`onboard-option ${answers[currentStep.key] === opt.value ? 'selected' : ''}`}
-                            onClick={() => selectOption(currentStep.key, opt.value)}
-                        >
+                        <div key={opt.value} className={`onboard-option ${answers[currentStep.key] === opt.value ? 'selected' : ''}`}
+                            onClick={() => handleSelect(opt.value)}>
                             <div className="onboard-option-icon">{opt.icon}</div>
                             <div className="onboard-option-label">{opt.label}</div>
                         </div>
                     ))}
-                </div>
-
-                <div style={{ display: 'flex', gap: '.75rem', marginTop: '2rem' }}>
-                    {step > 0 && (
-                        <button className="btn btn-outline" onClick={handleBack}>Back</button>
-                    )}
-                    <button
-                        className="btn btn-primary"
-                        onClick={handleNext}
-                        style={{ flex: 1, justifyContent: 'center' }}
-                    >
-                        {step === ONBOARD_STEPS.length - 1 ? 'Go to Dashboard →' : 'Continue →'}
-                    </button>
                 </div>
             </div>
         </div>

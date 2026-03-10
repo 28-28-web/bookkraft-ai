@@ -1,232 +1,140 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
-import Link from 'next/link';
+import { use } from 'react';
+import { getToolBySlug } from '@/lib/tools';
 import { useAuth } from '@/components/AuthProvider';
-import { useToast } from '@/components/Toast';
 import Sidebar from '@/components/Sidebar';
-import Modal from '@/components/Modal';
-import { TOOLS } from '@/lib/tools';
-import { PLAN_LIMITS, FREE_TOOLS } from '@/lib/constants';
+import Link from 'next/link';
 
-function escapeHtml(str) {
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
+// Tool components (lazy-loaded concept, but inline for simplicity)
+import KindleFormatFixer from './KindleFormatFixer';
+import EpubFormatter from './EpubFormatter';
+import TocGenerator from './TocGenerator';
+import FrontMatterGenerator from './FrontMatterGenerator';
+import CssSnippetGenerator from './CssSnippetGenerator';
+import EpubValidator from './EpubValidator';
+import MetadataBuilder from './MetadataBuilder';
+import ManuscriptCleanup from './ManuscriptCleanup';
+import BackMatterGenerator from './BackMatterGenerator';
+import StyleSheetAuditor from './StyleSheetAuditor';
+import PrintToDigital from './PrintToDigital';
+import KdpKeywordFinder from './KdpKeywordFinder';
 
-export default function ToolPage() {
-    const { slug } = useParams();
-    const tool = TOOLS.find((t) => t.id === slug);
-    const { user, profile, refreshProfile, supabase } = useAuth();
-    const { showToast } = useToast();
+const TOOL_COMPONENTS = {
+    'kindle-format-fixer': KindleFormatFixer,
+    'epub-formatter': EpubFormatter,
+    'toc-generator': TocGenerator,
+    'front-matter-generator': FrontMatterGenerator,
+    'css-snippet-generator': CssSnippetGenerator,
+    'epub-validator': EpubValidator,
+    'metadata-builder': MetadataBuilder,
+    'manuscript-cleanup': ManuscriptCleanup,
+    'back-matter-generator': BackMatterGenerator,
+    'style-sheet-auditor': StyleSheetAuditor,
+    'print-to-digital': PrintToDigital,
+    'kdp-keyword-finder': KdpKeywordFinder,
+};
 
-    const [fieldValues, setFieldValues] = useState({});
-    const [output, setOutput] = useState('');
-    const [generating, setGenerating] = useState(false);
-    const [showUpgradeModal, setShowUpgradeModal] = useState(false);
-
-    useEffect(() => {
-        if (tool) {
-            const initial = {};
-            tool.fields.forEach((f) => {
-                initial[f.id] = f.type === 'select' ? f.options[0] : '';
-            });
-            setFieldValues(initial);
-        }
-    }, [slug]);
+export default function ToolPage({ params }) {
+    const resolvedParams = use(params);
+    const slug = resolvedParams.slug;
+    const tool = getToolBySlug(slug);
+    const { user, checkToolAccess, loading } = useAuth();
 
     if (!tool) {
         return (
             <div className="app-layout">
                 <Sidebar />
-                <div className="main-content">
+                <main className="main-content">
                     <div className="empty-state">
                         <div className="empty-state-icon">🔍</div>
                         <h3>Tool not found</h3>
                         <p>This tool doesn&apos;t exist.</p>
-                        <Link href="/dashboard" className="btn btn-primary btn-sm" style={{ marginTop: '1rem', textDecoration: 'none' }}>
+                        <Link href="/dashboard" className="btn btn-primary" style={{ textDecoration: 'none', marginTop: '1rem', display: 'inline-flex' }}>
                             Back to Dashboard
                         </Link>
                     </div>
-                </div>
+                </main>
             </div>
         );
     }
 
-    const plan = profile?.plan || 'free';
-    const locked = plan === 'free' && !FREE_TOOLS.includes(tool.id);
+    // Free tools: no auth needed
+    const isFree = tool.free;
+    const hasAccess = isFree || checkToolAccess(slug);
 
-    const handleFieldChange = (fieldId, value) => {
-        setFieldValues((prev) => ({ ...prev, [fieldId]: value }));
-    };
-
-    const handleGenerate = async () => {
-        const runs = profile?.runs_this_month || 0;
-        const limit = PLAN_LIMITS[plan] || 10;
-        if (runs >= limit) { setShowUpgradeModal(true); return; }
-
-        // Check required fields
-        const hasEmpty = tool.fields.some((f) => f.type !== 'select' && !fieldValues[f.id]?.trim());
-        if (hasEmpty) { showToast('Please fill in all fields before generating.', 'error'); return; }
-
-        setGenerating(true);
-        setOutput('');
-
-        const prompt = tool.prompt(fieldValues);
-
-        try {
-            const res = await fetch('/api/generate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt })
-            });
-
-            const data = await res.json();
-
-            if (!res.ok) {
-                if (data.error === 'limit_reached') { setShowUpgradeModal(true); return; }
-                throw new Error(data.error || 'Generation failed');
-            }
-
-            setOutput(data.content);
-            await refreshProfile();
-            showToast('Content generated ✨');
-        } catch (err) {
-            setOutput('');
-            showToast('Generation failed: ' + err.message, 'error');
-        } finally {
-            setGenerating(false);
-        }
-    };
-
-    const handleCopy = () => {
-        if (!output) return;
-        navigator.clipboard.writeText(output).then(() => showToast('Copied to clipboard ✓'));
-    };
-
-    const handleSave = async () => {
-        if (!output) return;
-        try {
-            await fetch('/api/history', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ tool_slug: tool.id, inputs: fieldValues, output })
-            });
-            showToast('Saved to history ✓');
-        } catch (err) {
-            showToast('Failed to save', 'error');
-        }
-    };
-
-    if (locked) {
+    // If loading, show loading state
+    if (loading) {
         return (
             <div className="app-layout">
                 <Sidebar />
-                <div className="main-content">
+                <main className="main-content">
+                    <div className="loading-state"><div className="spinner" /> Loading...</div>
+                </main>
+            </div>
+        );
+    }
+
+    // If not free and no access, show purchase prompt
+    if (!isFree && !hasAccess) {
+        return (
+            <div className="app-layout">
+                <Sidebar />
+                <main className="main-content">
                     <div className="tool-page-wrap">
-                        <div className="empty-state">
-                            <div className="empty-state-icon">🔒</div>
-                            <h3>{tool.name} is locked</h3>
-                            <p>Upgrade to a paid plan to use this tool.</p>
-                            <Link href="/upgrade" className="btn btn-gold btn-sm" style={{ marginTop: '1rem', textDecoration: 'none' }}>
-                                Upgrade Now
-                            </Link>
+                        <div className="tool-page-header">
+                            <Link href="/dashboard" className="back-btn">← Back to Dashboard</Link>
+                            <h1>{tool.icon} {tool.name}</h1>
+                            <p>{tool.desc}</p>
+                        </div>
+                        <div className="tool-locked-card">
+                            <div className="tool-locked-icon">🔒</div>
+                            <h3>This tool requires purchase</h3>
+                            <p>Unlock {tool.name} for just ${tool.price} — use it forever, no limits.</p>
+                            <div className="tool-locked-actions">
+                                <Link href={`/checkout?tool=${slug}`} className="btn btn-gold" style={{ textDecoration: 'none' }}>
+                                    Unlock for ${tool.price} →
+                                </Link>
+                                <Link href="/checkout?plan=full" className="btn btn-outline" style={{ textDecoration: 'none' }}>
+                                    Get All Tools — $9.99
+                                </Link>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </main>
+            </div>
+        );
+    }
+
+    // Render tool component
+    const ToolComponent = TOOL_COMPONENTS[slug];
+    if (!ToolComponent) {
+        return (
+            <div className="app-layout">
+                <Sidebar />
+                <main className="main-content">
+                    <div className="empty-state">
+                        <h3>Tool under construction</h3>
+                        <p>This tool is being built. Check back soon.</p>
+                    </div>
+                </main>
             </div>
         );
     }
 
     return (
         <div className="app-layout">
-            <Sidebar />
-            <div className="main-content">
+            {!isFree && <Sidebar />}
+            <main className={isFree ? 'main-content main-content-full' : 'main-content'}>
                 <div className="tool-page-wrap">
                     <div className="tool-page-header">
                         <Link href="/dashboard" className="back-btn">← Back to Dashboard</Link>
-                        <h1>{tool.name}</h1>
+                        <h1>{tool.icon} {tool.name}</h1>
                         <p>{tool.desc}</p>
                     </div>
-                    <div className="tool-layout">
-                        <div className="tool-input-card">
-                            <h3>Your Details</h3>
-                            {tool.fields.map((f) => (
-                                <div className="form-group" key={f.id}>
-                                    <label className="form-label">{f.label}</label>
-                                    {f.type === 'select' ? (
-                                        <select
-                                            className="form-select"
-                                            value={fieldValues[f.id] || ''}
-                                            onChange={(e) => handleFieldChange(f.id, e.target.value)}
-                                        >
-                                            {f.options.map((o) => <option key={o} value={o}>{o}</option>)}
-                                        </select>
-                                    ) : f.type === 'textarea' ? (
-                                        <textarea
-                                            className="form-textarea"
-                                            placeholder={f.placeholder || ''}
-                                            value={fieldValues[f.id] || ''}
-                                            onChange={(e) => handleFieldChange(f.id, e.target.value)}
-                                        ></textarea>
-                                    ) : (
-                                        <input
-                                            type="text"
-                                            className="form-input"
-                                            placeholder={f.placeholder || ''}
-                                            value={fieldValues[f.id] || ''}
-                                            onChange={(e) => handleFieldChange(f.id, e.target.value)}
-                                        />
-                                    )}
-                                </div>
-                            ))}
-                            <button
-                                className="btn btn-primary generate-btn"
-                                onClick={handleGenerate}
-                                disabled={generating}
-                            >
-                                {generating ? (
-                                    <><div className="spinner"></div> Generating...</>
-                                ) : (
-                                    '✨ Generate'
-                                )}
-                            </button>
-                        </div>
-                        <div className="tool-output-card">
-                            <h3>Generated Content</h3>
-                            <div>
-                                {generating ? (
-                                    <div className="loading-state">
-                                        <div className="spinner"></div> Generating your content...
-                                    </div>
-                                ) : output ? (
-                                    <div className="output-area" dangerouslySetInnerHTML={{ __html: escapeHtml(output) }}></div>
-                                ) : (
-                                    <div className="output-placeholder">
-                                        Your AI-generated content will appear here. Fill in the fields and click Generate.
-                                    </div>
-                                )}
-                            </div>
-                            {output && !generating && (
-                                <div className="output-actions">
-                                    <button className="btn btn-outline btn-sm" onClick={handleCopy}>📋 Copy</button>
-                                    <button className="btn btn-outline btn-sm" onClick={handleSave}>💾 Save</button>
-                                    <button className="btn btn-outline btn-sm" onClick={handleGenerate}>🔄 Regenerate</button>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+                    <ToolComponent tool={tool} />
                 </div>
-            </div>
-
-            <Modal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)}>
-                <h3>You&apos;ve used all your free runs 🎉</h3>
-                <p>You&apos;ve hit the limit for your plan this month. Upgrade to get more runs and access to all tools.</p>
-                <div className="modal-actions">
-                    <button className="btn btn-outline btn-sm" onClick={() => setShowUpgradeModal(false)}>Maybe Later</button>
-                    <Link href="/upgrade" className="btn btn-gold btn-sm" style={{ textDecoration: 'none' }}>Upgrade Now →</Link>
-                </div>
-            </Modal>
+            </main>
         </div>
     );
 }
