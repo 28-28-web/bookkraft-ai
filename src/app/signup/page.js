@@ -29,7 +29,7 @@ export default function SignupPage() {
             const { data, error: signUpError } = await supabase.auth.signUp({
                 email,
                 password,
-                options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=/onboarding` }
+                options: { emailRedirectTo: `https://bookkraftai.com/auth/callback?next=/onboarding` }
             });
             if (signUpError) throw signUpError;
 

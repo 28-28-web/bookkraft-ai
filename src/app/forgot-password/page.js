@@ -24,7 +24,7 @@ export default function ForgotPasswordPage() {
         setLoading(true);
         try {
             const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
-                redirectTo: `${window.location.origin}/account`,
+                redirectTo: `https://bookkraftai.com/account`,
             });
             if (resetError) throw resetError;
             setSent(true);

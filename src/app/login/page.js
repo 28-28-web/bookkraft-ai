@@ -37,7 +37,7 @@ export default function LoginPage() {
         try {
             await supabase.auth.signInWithOAuth({
                 provider: 'google',
-                options: { redirectTo: `${window.location.origin}/auth/callback?next=/dashboard` }
+                options: { redirectTo: `https://bookkraftai.com/auth/callback?next=/dashboard` }
             });
         } catch (err) {
             showToast('Google sign-in failed: ' + err.message, 'error');
