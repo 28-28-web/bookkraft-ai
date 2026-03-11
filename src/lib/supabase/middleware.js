@@ -33,7 +33,11 @@ export async function updateSession(request) {
     const protectedPaths = ['/dashboard', '/tools', '/history', '/account', '/admin', '/onboarding'];
     const isProtected = protectedPaths.some((p) => request.nextUrl.pathname.startsWith(p));
 
-    if (isProtected && !user) {
+    // Free tools bypass auth — no login required (v8.0 spec)
+    const freeSlugs = ['epub-validator', 'metadata-builder'];
+    const isFreeToolUrl = freeSlugs.some((s) => request.nextUrl.pathname === `/tools/${s}`);
+
+    if (isProtected && !isFreeToolUrl && !user) {
         const url = request.nextUrl.clone();
         url.pathname = '/login';
         return NextResponse.redirect(url);
