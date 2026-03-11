@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import FileUploader from '@/components/FileUploader';
 
 export default function PrintToDigital() {
     const [input, setInput] = useState('');
@@ -38,8 +39,12 @@ export default function PrintToDigital() {
         <div className="tool-layout">
             <div className="tool-input-card">
                 <h3>Print Text</h3>
+                <FileUploader
+                    onTextExtracted={(text) => setInput(text)}
+                    label="Upload your print manuscript (.docx or .txt)"
+                />
                 <textarea className="form-textarea" style={{ minHeight: '250px' }}
-                    placeholder="Paste your print-format text (up to 4,000 words)..."
+                    placeholder="Or paste your print-format text (up to 4,000 words)..."
                     value={input} onChange={(e) => setInput(e.target.value)} />
                 <p className="word-count">{input.split(/\s+/).filter(Boolean).length} / 4,000 words</p>
 

@@ -5,6 +5,7 @@ import { useAuth } from '@/components/AuthProvider';
 import WordCounter, { countWords, getWordLimitError } from '@/components/WordCounter';
 import CreditDisplay from '@/components/CreditDisplay';
 import LivePreview from '@/components/LivePreview';
+import FileUploader from '@/components/FileUploader';
 
 export default function ManuscriptCleanup() {
     const { profile } = useAuth();
@@ -73,8 +74,13 @@ export default function ManuscriptCleanup() {
                     isLifetime={profile?.is_lifetime}
                 />
 
+                <FileUploader
+                    onTextExtracted={(text) => setInput(text)}
+                    label="Upload your manuscript (.docx or .txt)"
+                />
+
                 <textarea className="form-textarea" style={{ minHeight: '250px' }}
-                    placeholder="Paste your chapter text (up to 3,000 words)..."
+                    placeholder="Or paste your chapter text here (up to 3,000 words)..."
                     value={input} onChange={(e) => setInput(e.target.value)} />
 
                 <WordCounter text={input} limit={sampleMode ? 500 : WORD_LIMIT} />

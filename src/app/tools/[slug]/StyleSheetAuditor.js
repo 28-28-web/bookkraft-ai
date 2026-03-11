@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import FileUploader from '@/components/FileUploader';
 
 export default function StyleSheetAuditor() {
     const [input, setInput] = useState('');
@@ -45,8 +46,12 @@ export default function StyleSheetAuditor() {
         <div className="tool-layout">
             <div className="tool-input-card">
                 <h3>Input</h3>
+                <FileUploader
+                    onTextExtracted={(text) => setInput(text)}
+                    label="Upload your manuscript (.docx or .txt)"
+                />
                 <textarea className="form-textarea" style={{ minHeight: '200px' }}
-                    placeholder="Paste your chapter(s) — up to 5,000 words..."
+                    placeholder="Or paste your chapter(s) — up to 5,000 words..."
                     value={input} onChange={(e) => setInput(e.target.value)} />
                 <p className="word-count">{input.split(/\s+/).filter(Boolean).length} / 5,000 words</p>
                 <div className="form-group" style={{ marginTop: '1rem' }}>
