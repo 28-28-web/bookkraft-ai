@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useProject } from '@/lib/ProjectContext';
 import FileUploader from '@/components/FileUploader';
+import LivePreview from '@/components/LivePreview';
 
 export default function StyleSheetAuditor() {
     const { currentProject, loadProjectText } = useProject();
@@ -141,6 +142,14 @@ export default function StyleSheetAuditor() {
                             </div>
                         )}
                     </>
+                )}
+
+                {/* LivePreview — Before/After */}
+                {result && (
+                    <LivePreview
+                        beforeHtml={`<p>${input.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>`}
+                        afterHtml={result.generated_style_sheet ? `<pre>${result.generated_style_sheet}</pre>` : ''}
+                    />
                 )}
             </div>
         </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import LivePreview from '@/components/LivePreview';
 
 export default function BackMatterGenerator() {
     const [form, setForm] = useState({
@@ -95,6 +96,14 @@ export default function BackMatterGenerator() {
                             </div>
                         ))}
                     </div>
+                )}
+
+                {/* LivePreview — formatted back matter */}
+                {result && sections.length > 0 && (
+                    <LivePreview
+                        beforeHtml=""
+                        afterHtml={sections.map(s => `<h3>${s.title}</h3><p>${s.content.replace(/\n/g, '<br>')}</p>`).join('')}
+                    />
                 )}
             </div>
         </div>

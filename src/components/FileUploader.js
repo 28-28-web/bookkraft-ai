@@ -4,14 +4,29 @@ import { useState, useCallback } from 'react';
 
 /**
  * FileUploader — Drag-and-drop .docx/.txt upload component.
- * Extracts plain text from .docx using mammoth, or reads .txt directly.
- * Calls onTextExtracted(text) when done.
+ * Uses mammoth.convertToHtml with styleMap to preserve bold/italic/headings.
+ * Calls onTextExtracted(plainText, html) when done.
  */
 export default function FileUploader({ onTextExtracted, accept = '.docx,.txt', label = 'Upload a file' }) {
     const [fileName, setFileName] = useState('');
     const [dragOver, setDragOver] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+
+    // Strip HTML tags to get plain text for tool textareas
+    const htmlToPlainText = (html) => {
+        return html
+            .replace(/<br\s*\/?>/gi, '\n')
+            .replace(/<\/p>/gi, '\n\n')
+            .replace(/<[^>]*>/g, '')
+            .replace(/&nbsp;/g, ' ')
+            .replace(/&amp;/g, '&')
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&quot;/g, '"')
+            .replace(/&#39;/g, "'")
+            .trim();
+    };
 
     const processFile = useCallback(async (file) => {
         if (!file) return;
@@ -23,11 +38,22 @@ export default function FileUploader({ onTextExtracted, accept = '.docx,.txt', l
             if (file.name.endsWith('.docx')) {
                 const mammoth = (await import('mammoth')).default;
                 const arrayBuffer = await file.arrayBuffer();
-                const result = await mammoth.extractRawText({ arrayBuffer });
-                onTextExtracted(result.value);
+
+                // v8.0 Part F1: ALWAYS use convertToHtml with styleMap
+                const { value: html } = await mammoth.convertToHtml({ arrayBuffer }, {
+                    styleMap: [
+                        'b => b', 'i => i', 'u => u', 'strike => s',
+                        "p[style-name='Heading 1'] => h1:fresh",
+                        "p[style-name='Heading 2'] => h2:fresh",
+                        "p[style-name='Heading 3'] => h3:fresh",
+                    ]
+                });
+
+                const plainText = htmlToPlainText(html);
+                onTextExtracted(plainText, html);
             } else if (file.name.endsWith('.txt') || file.type === 'text/plain') {
                 const text = await file.text();
-                onTextExtracted(text);
+                onTextExtracted(text, null);
             } else {
                 setError('Please upload a .docx or .txt file.');
             }
@@ -59,7 +85,7 @@ export default function FileUploader({ onTextExtracted, accept = '.docx,.txt', l
                 ) : fileName ? (
                     <div style={{ textAlign: 'center' }}>
                         <p style={{ fontWeight: 600, color: 'var(--sage)', fontSize: 'var(--text-sm)' }}>
-                            Uploaded: {fileName}
+                            ✓ {fileName}
                         </p>
                         <p style={{ fontSize: '12px', color: 'var(--mid)', marginTop: '4px' }}>
                             Click or drop another file to replace
@@ -80,3 +106,4 @@ export default function FileUploader({ onTextExtracted, accept = '.docx,.txt', l
         </div>
     );
 }
+

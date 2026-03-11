@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import DevicePreview from '@/components/DevicePreview';
 
 const SNIPPETS = {
     'drop-cap': {
@@ -130,6 +131,9 @@ export default function CssSnippetGenerator() {
                     </div>
                     <pre className="snippet-code">{current.html}</pre>
                 </div>
+
+                {/* DevicePreview — most useful here per spec */}
+                <DevicePreview content={`<style>${current.css}</style>${current.html}`} format="html" />
             </div>
         </div>
     );

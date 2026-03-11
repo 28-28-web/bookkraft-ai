@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import DevicePreview from '@/components/DevicePreview';
 
 // Encoding artifacts lookup map
 const ENCODING_MAP = {
@@ -165,6 +166,7 @@ export default function KindleFormatFixer() {
                             <button className="btn btn-primary btn-sm" onClick={handleCopy}>📋 Copy</button>
                             <button className="btn btn-outline btn-sm" onClick={handleDownload}>⬇ Download .txt</button>
                         </div>
+                        <DevicePreview content={`<p>${output.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>`} format="html" />
                     </>
                 ) : (
                     <div className="output-placeholder">Paste text on the left to see formatted output here in real time.</div>

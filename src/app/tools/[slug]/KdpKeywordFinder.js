@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import LivePreview from '@/components/LivePreview';
 
 export default function KdpKeywordFinder() {
     const [form, setForm] = useState({ title: '', genre: 'Romance', reader: '', comps: '', themes: '' });
@@ -111,6 +112,20 @@ export default function KdpKeywordFinder() {
                             }}>📋 Copy All Keywords</button>
                         </div>
                     </>
+                )}
+
+                {/* LivePreview — formatted keywords */}
+                {result && (
+                    <LivePreview
+                        beforeHtml=""
+                        afterHtml={
+                            `<h3>KDP Keywords</h3><ol>` +
+                            (result.keywords?.map(k => `<li><strong>${k.phrase}</strong> — ${k.rationale}</li>`).join('') || '') +
+                            `</ol><h3>Categories</h3><ul>` +
+                            (result.primary_categories?.map(c => `<li>${c.path}</li>`).join('') || '') +
+                            `</ul>`
+                        }
+                    />
                 )}
             </div>
         </div>

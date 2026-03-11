@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useProject } from '@/lib/ProjectContext';
 import FileUploader from '@/components/FileUploader';
+import LivePreview from '@/components/LivePreview';
 
 export default function PrintToDigital() {
     const { currentProject, loadProjectText } = useProject();
@@ -115,6 +116,14 @@ export default function PrintToDigital() {
                             <button className="btn btn-primary btn-sm" onClick={() => navigator.clipboard.writeText(result.adapted_text)}>📋 Copy</button>
                         </div>
                     </>
+                )}
+
+                {/* LivePreview — Before/After */}
+                {result && (
+                    <LivePreview
+                        beforeHtml={`<p>${input.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>`}
+                        afterHtml={result.adapted_text ? `<p>${result.adapted_text.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>` : ''}
+                    />
                 )}
             </div>
         </div>

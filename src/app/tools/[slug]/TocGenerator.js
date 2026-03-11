@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import DevicePreview from '@/components/DevicePreview';
 
 export default function TocGenerator() {
     const [input, setInput] = useState('');
@@ -124,6 +125,7 @@ ${checked.map((h, i) => `    <navPoint id="navpoint-${i + 1}" playOrder="${i + 1
                                 📋 Copy
                             </button>
                         </div>
+                        <DevicePreview content={kindleHtml} format="html" />
                     </>
                 ) : (
                     <div className="output-placeholder">Paste text on the left — headings will be detected automatically.</div>
