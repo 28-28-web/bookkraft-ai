@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/components/AuthProvider';
+import { useProject } from '@/lib/ProjectContext';
 import WordCounter, { countWords, getWordLimitError } from '@/components/WordCounter';
 import CreditDisplay from '@/components/CreditDisplay';
 import LivePreview from '@/components/LivePreview';
@@ -9,6 +10,7 @@ import FileUploader from '@/components/FileUploader';
 
 export default function ManuscriptCleanup() {
     const { profile } = useAuth();
+    const { currentProject, loadProjectText, updateLastTool } = useProject();
     const [input, setInput] = useState('');
     const [mode, setMode] = useState('deep');
     const [genre, setGenre] = useState('fiction');
@@ -18,6 +20,15 @@ export default function ManuscriptCleanup() {
     const [activeTab, setActiveTab] = useState(0);
     const [sampleMode, setSampleMode] = useState(false);
     const WORD_LIMIT = 3000;
+
+    // Pre-fill from active project
+    useEffect(() => {
+        if (currentProject?.id && !input) {
+            loadProjectText(currentProject.id).then(text => {
+                if (text) setInput(text);
+            });
+        }
+    }, [currentProject?.id]);
 
     const handleSubmit = async () => {
         if (!input.trim()) return;

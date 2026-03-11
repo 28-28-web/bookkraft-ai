@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
 import { TOOLS } from '@/lib/tools';
+import ProjectSelector from '@/components/ProjectSelector';
 
 const SIDEBAR_SECTIONS = [
     { label: 'Formatting', slugs: ['kindle-format-fixer', 'epub-formatter', 'manuscript-cleanup', 'print-to-digital'] },
@@ -61,6 +62,9 @@ export default function Sidebar() {
                     Lifetime Access
                 </div>
             )}
+
+            {/* Book project selector */}
+            {user && <ProjectSelector />}
 
             {SIDEBAR_SECTIONS.map((section) => (
                 <div className="sidebar-section" key={section.label}>

@@ -1,15 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useProject } from '@/lib/ProjectContext';
 import FileUploader from '@/components/FileUploader';
 
 export default function StyleSheetAuditor() {
+    const { currentProject, loadProjectText } = useProject();
     const [input, setInput] = useState('');
     const [styleSheet, setStyleSheet] = useState('');
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState(null);
     const [error, setError] = useState('');
     const [filter, setFilter] = useState('all');
+
+    // Pre-fill from active project
+    useEffect(() => {
+        if (currentProject?.id && !input) {
+            loadProjectText(currentProject.id).then(text => {
+                if (text) setInput(text);
+            });
+        }
+    }, [currentProject?.id]);
 
     const handleSubmit = async () => {
         if (!input.trim()) return;

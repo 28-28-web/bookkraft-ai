@@ -1,8 +1,10 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useProject } from '@/lib/ProjectContext';
 
 export default function EpubFormatter() {
+    const { currentProject, loadProjectText } = useProject();
     const [form, setForm] = useState({ title: 'My Book', author: 'Author Name', language: 'English', isbn: '', headingDetection: 'auto' });
     const [manuscript, setManuscript] = useState('');
     const [coverFile, setCoverFile] = useState(null);
@@ -10,6 +12,18 @@ export default function EpubFormatter() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const fileRef = useRef(null);
+
+    // Pre-fill from active project
+    useEffect(() => {
+        if (currentProject?.id && !manuscript) {
+            loadProjectText(currentProject.id).then(text => {
+                if (text) setManuscript(text);
+            });
+            // Also set title/author from project
+            if (currentProject.title) setForm(f => ({ ...f, title: currentProject.title }));
+            if (currentProject.author) setForm(f => ({ ...f, author: currentProject.author }));
+        }
+    }, [currentProject?.id]);
 
     const updateField = (key, value) => setForm((f) => ({ ...f, [key]: value }));
 

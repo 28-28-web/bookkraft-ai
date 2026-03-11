@@ -1,6 +1,7 @@
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import { AuthProvider } from '@/components/AuthProvider';
+import { ProjectProvider } from '@/lib/ProjectContext';
 import { ToastProvider } from '@/components/Toast';
 import ChatAssistant from '@/components/ChatAssistant';
 import NewsletterPopup from '@/components/NewsletterPopup';
@@ -20,14 +21,17 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <AuthProvider>
-          <ToastProvider>
-            <Navbar />
-            {children}
-            <ChatAssistant />
-            <NewsletterPopup />
-          </ToastProvider>
+          <ProjectProvider>
+            <ToastProvider>
+              <Navbar />
+              {children}
+              <ChatAssistant />
+              <NewsletterPopup />
+            </ToastProvider>
+          </ProjectProvider>
         </AuthProvider>
       </body>
     </html>
   );
 }
+
