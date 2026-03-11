@@ -69,8 +69,7 @@ export default function AccountPage() {
 
     const handleSignOut = async () => {
         await signOut();
-        showToast('Signed out successfully.');
-        router.push('/');
+        window.location.href = '/';
     };
 
     if (loading || !user) return (
