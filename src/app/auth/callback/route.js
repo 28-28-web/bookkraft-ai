@@ -3,7 +3,8 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 export async function GET(request) {
-    const { searchParams, origin } = new URL(request.url);
+   const { searchParams } = new URL(request.url);
+const origin = 'https://bookkraftai.com';
     const code = searchParams.get('code');
     const next = searchParams.get('next') ?? '/dashboard';
 
