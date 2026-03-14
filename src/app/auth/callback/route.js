@@ -32,11 +32,10 @@ const origin = 'https://bookkraftai.com';
         );
 
         const { error } = await supabase.auth.exchangeCodeForSession(code);
-        if (!error) {
-            return NextResponse.redirect(`${origin}${next}`);
-        }
-    }
-
-    // If code exchange fails, redirect to login with error
-    return NextResponse.redirect(`${origin}/login?error=auth_failed`);
+if (!error) {
+    return NextResponse.redirect(`${origin}${next}`);
+}
+// Log the actual error
+console.error('Auth error:', error);
+return NextResponse.redirect(`${origin}/login?error=${error.message}`);
 }
