@@ -3,8 +3,8 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 export async function GET(request) {
-   const { searchParams } = new URL(request.url);
-const origin = 'https://bookkraftai.com';
+    const { searchParams } = new URL(request.url);
+    const origin = 'https://bookkraftai.com';
     const code = searchParams.get('code');
     const next = searchParams.get('next') ?? '/dashboard';
 
@@ -32,10 +32,12 @@ const origin = 'https://bookkraftai.com';
         );
 
         const { error } = await supabase.auth.exchangeCodeForSession(code);
-if (!error) {
-    return NextResponse.redirect(`${origin}${next}`);
-}
-// Log the actual error
-console.error('Auth error:', error);
-return NextResponse.redirect(`${origin}/login?error=${error.message}`);
+        if (!error) {
+            return NextResponse.redirect(`${origin}${next}`);
+        }
+        console.error('Auth error:', error);
+        return NextResponse.redirect(`${origin}/login?error=${error.message}`);
+    }
+
+    return NextResponse.redirect(`${origin}/login?error=auth_failed`);
 }
