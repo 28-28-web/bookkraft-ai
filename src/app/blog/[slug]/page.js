@@ -1,26 +1,20 @@
-import { getPostBySlug, getAllPosts } from '@/lib/posts';
-import { MDXRemote } from 'next-mdx-remote/rsc';
-
-export async function generateStaticParams() {
-  const posts = getAllPosts();
-  return posts.map((post) => ({ slug: post.slug }));
-}
-
 export async function generateMetadata({ params }) {
-  const post = getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
   return {
     title: `${post.title} | BookKraft AI`,
     description: post.description,
     openGraph: {
       title: post.title,
       description: post.description,
-      url: `https://bookkraftai.com/blog/${params.slug}`,
+      url: `https://bookkraftai.com/blog/${slug}`,
     },
   };
 }
 
-export default function PostPage({ params }) {
-  const post = getPostBySlug(params.slug);
+export default async function PostPage({ params }) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
   return (
     <article style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem' }}>
       <h1>{post.title}</h1>
