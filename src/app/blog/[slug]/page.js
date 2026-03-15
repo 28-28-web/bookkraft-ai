@@ -1,3 +1,4 @@
+import { getPostBySlug, getAllPosts } from '@/lib/posts';
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
