@@ -13,7 +13,23 @@ import { createClient } from '@/lib/supabase/server';
  */
 export async function POST(request) {
     try {
-        const body = await request.json();
+        const rawBody = await request.text();
+        const signature = request.headers.get('paddle-signature');
+        const secret = process.env.PADDLE_WEBHOOK_SECRET;
+
+        // ── Signature verification ──
+        if (secret && signature) {
+            const { Paddle } = await import('@paddle/paddle-node-sdk');
+            const paddle = new Paddle(process.env.PADDLE_API_KEY);
+            try {
+                paddle.webhooks.unmarshal(rawBody, secret, signature);
+            } catch (e) {
+                console.error('Invalid Paddle signature');
+                return NextResponse.json({ error: 'invalid_signature' }, { status: 401 });
+            }
+        }
+
+        const body = JSON.parse(rawBody);
         const eventType = body.event_type;
 
         if (eventType !== 'transaction.completed') {

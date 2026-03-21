@@ -3,6 +3,57 @@
 import Link from 'next/link';
 import { PRICING, TOOL_CREDIT_COSTS, FAQS } from '@/lib/constants';
 import { useState } from 'react';
+import { usePaddle } from '@/app/hooks/usePaddle';
+import { createClient } from '@/lib/supabase/client';
+
+const PRICE_IDS = {
+    essentials:      'pri_01km8xdbmr77kqwr88bmvs7nz1',
+    credits_starter: 'pri_01km8xxbsb8wdt7tnj0bypka9s',
+    credits_pro:     'pri_01km8y324atecypjrc2nzm6qnq',
+    full:            'pri_01km8y8h8e3b5tm3yvbqkdx6d3',
+    lifetime:        'pri_01km8ymm2eyk4tyjgm3p5x6bar',
+};
+
+function CheckoutButton({ purchaseType, className, children }) {
+    const paddle = usePaddle();
+    const [loading, setLoading] = useState(false);
+
+    const handleClick = async () => {
+        setLoading(true);
+        try {
+            const supabase = createClient();
+            const { data: { user } } = await supabase.auth.getUser();
+
+            if (!user) {
+                window.location.href = '/signup?plan=' + purchaseType;
+                return;
+            }
+
+            paddle.Checkout.open({
+                items: [{ priceId: PRICE_IDS[purchaseType], quantity: 1 }],
+                customData: {
+                    userId: user.id,
+                    purchaseType: purchaseType,
+                },
+            });
+        } catch (err) {
+            console.error('Checkout error:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <button
+            onClick={handleClick}
+            disabled={loading || !paddle}
+            className={className}
+            style={{ cursor: loading ? 'wait' : 'pointer', width: '100%' }}
+        >
+            {loading ? 'Loading...' : children}
+        </button>
+    );
+}
 
 export default function PricingPage() {
     return (
@@ -42,7 +93,9 @@ export default function PricingPage() {
                                 <ul className="price-features">
                                     {PRICING.essentials.features.map((f, i) => <li key={i}>{f}</li>)}
                                 </ul>
-                                <Link href="/signup?plan=essentials" className="btn btn-gold btn-full" style={{ textDecoration: 'none' }}>Get Essentials Bundle</Link>
+                                <CheckoutButton purchaseType="essentials" className="btn btn-gold btn-full">
+                                    Get Essentials Bundle
+                                </CheckoutButton>
                             </div>
                         </div>
                     </div>
@@ -63,7 +116,9 @@ export default function PricingPage() {
                                 <ul className="price-features">
                                     {PRICING.starterCredits.features.map((f, i) => <li key={i}>{f}</li>)}
                                 </ul>
-                                <Link href="/signup?plan=credits_starter" className="btn btn-outline btn-full" style={{ textDecoration: 'none' }}>Buy Starter Pack</Link>
+                                <CheckoutButton purchaseType="credits_starter" className="btn btn-outline btn-full">
+                                    Buy Starter Pack
+                                </CheckoutButton>
                             </div>
                             <div className="price-card featured">
                                 <p className="price-plan">{PRICING.authorPro.name}</p>
@@ -72,7 +127,9 @@ export default function PricingPage() {
                                 <ul className="price-features">
                                     {PRICING.authorPro.features.map((f, i) => <li key={i}>{f}</li>)}
                                 </ul>
-                                <Link href="/signup?plan=credits_pro" className="btn btn-gold btn-full" style={{ textDecoration: 'none' }}>Buy Pro Pack</Link>
+                                <CheckoutButton purchaseType="credits_pro" className="btn btn-gold btn-full">
+                                    Buy Pro Pack
+                                </CheckoutButton>
                             </div>
                         </div>
 
@@ -115,7 +172,9 @@ export default function PricingPage() {
                                 <ul className="price-features">
                                     {PRICING.full.features.map((f, i) => <li key={i}>{f}</li>)}
                                 </ul>
-                                <Link href="/signup?plan=full" className="btn btn-gold btn-full" style={{ textDecoration: 'none' }}>Get Full Access</Link>
+                                <CheckoutButton purchaseType="full" className="btn btn-gold btn-full">
+                                    Get Full Access
+                                </CheckoutButton>
                             </div>
                             <div className="price-card lifetime-card">
                                 <p className="price-plan">{PRICING.lifetime.name}</p>
@@ -124,7 +183,9 @@ export default function PricingPage() {
                                 <ul className="price-features">
                                     {PRICING.lifetime.features.map((f, i) => <li key={i}>{f}</li>)}
                                 </ul>
-                                <Link href="/signup?plan=lifetime" className="btn btn-gold btn-full" style={{ textDecoration: 'none' }}>Get Lifetime Deal</Link>
+                                <CheckoutButton purchaseType="lifetime" className="btn btn-gold btn-full">
+                                    Get Lifetime Deal
+                                </CheckoutButton>
                             </div>
                         </div>
                     </div>
@@ -139,7 +200,6 @@ export default function PricingPage() {
 
 function PricingFAQ() {
     const [openIndex, setOpenIndex] = useState(null);
-    // Filter FAQs relevant to pricing
     const pricingFaqs = FAQS.filter(f =>
         f.q.toLowerCase().includes('credit') || f.q.toLowerCase().includes('pay') ||
         f.q.toLowerCase().includes('refund') || f.q.toLowerCase().includes('worth') ||
