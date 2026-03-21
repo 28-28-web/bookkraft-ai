@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 import { PRICING } from '@/lib/constants';
 import Footer from '@/components/Footer';
+import { usePaddle } from '@/app/hooks/usePaddle';
 
 export default function CheckoutPage() {
     return (
@@ -18,36 +19,66 @@ export default function CheckoutPage() {
 function CheckoutContent() {
     const searchParams = useSearchParams();
     const { user } = useAuth();
+    const paddle = usePaddle();
     const plan = searchParams.get('plan') || 'full';
 
-    // Map plan param to pricing config
+    // Map plan param to pricing config — with real Paddle priceIds
     const planMap = {
-        essentials: { ...PRICING.essentials, purchaseType: 'essentials', creditsToAdd: 0 },
-        credits_starter: { ...PRICING.starterCredits, purchaseType: 'credits_starter', creditsToAdd: 15 },
-        credits_pro: { ...PRICING.authorPro, purchaseType: 'credits_pro', creditsToAdd: 40 },
-        full: { ...PRICING.full, purchaseType: 'full', creditsToAdd: 30 },
-        lifetime: { ...PRICING.lifetime, purchaseType: 'lifetime', creditsToAdd: 0 },
+        essentials: {
+            ...PRICING.essentials,
+            purchaseType: 'essentials',
+            creditsToAdd: 0,
+            paddlePriceId: 'pri_01km8xdbmr77kqwr88bmvs7nz1',
+        },
+        credits_starter: {
+            ...PRICING.starterCredits,
+            purchaseType: 'credits_starter',
+            creditsToAdd: 15,
+            paddlePriceId: 'pri_01km8xxbsb8wdt7tnj0bypka9s',
+        },
+        credits_pro: {
+            ...PRICING.authorPro,
+            purchaseType: 'credits_pro',
+            creditsToAdd: 40,
+            paddlePriceId: 'pri_01km8y324atecypjrc2nzm6qnq',
+        },
+        full: {
+            ...PRICING.full,
+            purchaseType: 'full',
+            creditsToAdd: 30,
+            paddlePriceId: 'pri_01km8y8h8e3b5tm3yvbqkdx6d3',
+        },
+        lifetime: {
+            ...PRICING.lifetime,
+            purchaseType: 'lifetime',
+            creditsToAdd: 0,
+            paddlePriceId: 'pri_01km8ymm2eyk4tyjgm3p5x6bar',
+        },
     };
 
     const selected = planMap[plan] || planMap.full;
 
     const handleCheckout = () => {
-        // Paddle checkout integration
-        // In production, this opens the Paddle overlay
-        if (typeof window !== 'undefined' && window.Paddle) {
-            window.Paddle.Checkout.open({
-                settings: { displayMode: 'overlay', theme: 'light', locale: 'en' },
-                items: [{ priceId: selected.paddlePriceId || 'pri_xxx', quantity: 1 }],
-                customData: {
-                    userId: user?.id || '',
-                    purchaseType: selected.purchaseType,
-                    creditsToAdd: selected.creditsToAdd,
-                },
-                customer: user ? { email: user.email } : undefined,
-            });
-        } else {
-            alert(`Paddle checkout would open for: ${selected.purchaseType}\nPrice: ${selected.label}\nConfigure PADDLE_SECRET_KEY and price IDs to enable.`);
+        if (!paddle) {
+            console.error('Paddle not loaded yet');
+            return;
         }
+
+        if (!user) {
+            window.location.href = '/login?redirect=/checkout?plan=' + plan;
+            return;
+        }
+
+        paddle.Checkout.open({
+            settings: { displayMode: 'overlay', theme: 'light', locale: 'en' },
+            items: [{ priceId: selected.paddlePriceId, quantity: 1 }],
+            customData: {
+                userId: user.id,
+                purchaseType: selected.purchaseType,
+                creditsToAdd: selected.creditsToAdd,
+            },
+            customer: { email: user.email },
+        });
     };
 
     return (
@@ -85,8 +116,13 @@ function CheckoutContent() {
                 </div>
 
                 {/* CTA */}
-                <button className="btn btn-gold btn-full" style={{ fontSize: '16px', padding: '14px' }} onClick={handleCheckout}>
-                    Pay {selected.label} — Unlock {selected.name}
+                <button
+                    className="btn btn-gold btn-full"
+                    style={{ fontSize: '16px', padding: '14px', opacity: paddle ? 1 : 0.6 }}
+                    onClick={handleCheckout}
+                    disabled={!paddle}
+                >
+                    {paddle ? `Pay ${selected.label} — Unlock ${selected.name}` : 'Loading...'}
                 </button>
 
                 {/* Trust signals */}
@@ -94,7 +130,7 @@ function CheckoutContent() {
                     marginTop: 'var(--space-6)', display: 'grid', gap: 'var(--space-3)',
                     textAlign: 'center', fontSize: 'var(--text-sm)', color: 'var(--mid)',
                 }}>
-                    <p>7-day money-back guarantee. No questions asked.</p>
+                    <p>14-day money-back guarantee. No questions asked.</p>
                     <p>One-time payment. Credits never expire.</p>
                     <p style={{ fontSize: '12px' }}>Tax included where applicable. Payments by Paddle.</p>
                 </div>
