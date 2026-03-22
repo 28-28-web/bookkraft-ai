@@ -1,12 +1,11 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 import { PRICING } from '@/lib/constants';
 import Footer from '@/components/Footer';
-import { usePaddle } from '@/app/hooks/usePaddle';
 
 export default function CheckoutPage() {
     return (
@@ -19,12 +18,40 @@ export default function CheckoutPage() {
 function CheckoutContent() {
     const searchParams = useSearchParams();
     const { user } = useAuth();
-    const paddle = usePaddle();
-console.log('token:', process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN);
-    console.log('env:', process.env.NEXT_PUBLIC_PADDLE_ENVIRONMENT);
+    const [paddle, setPaddle] = useState(null);
+    const [debugInfo, setDebugInfo] = useState('');
     const plan = searchParams.get('plan') || 'full';
 
-    // Map plan param to pricing config — with real Paddle priceIds
+    useEffect(() => {
+        const token = process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN;
+        const env = process.env.NEXT_PUBLIC_PADDLE_ENVIRONMENT;
+
+        setDebugInfo(`Token: ${token || 'MISSING'} | Env: ${env || 'MISSING'}`);
+        console.log('PADDLE TOKEN:', token);
+        console.log('PADDLE ENV:', env);
+
+        if (!token) {
+            console.error('Paddle token is missing!');
+            return;
+        }
+
+        import('@paddle/paddle-js').then(({ initializePaddle }) => {
+            initializePaddle({
+                environment: env || 'production',
+                token: token,
+            }).then((instance) => {
+                if (instance) {
+                    console.log('Paddle initialized successfully!');
+                    setPaddle(instance);
+                } else {
+                    console.error('Paddle returned null instance');
+                }
+            }).catch((err) => {
+                console.error('Paddle init error:', err);
+            });
+        });
+    }, []);
+
     const planMap = {
         essentials: {
             ...PRICING.essentials,
@@ -61,8 +88,12 @@ console.log('token:', process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN);
     const selected = planMap[plan] || planMap.full;
 
     const handleCheckout = () => {
+        console.log('Checkout clicked, paddle:', paddle);
+        console.log('User:', user);
+        console.log('Selected plan:', selected);
+
         if (!paddle) {
-            console.error('Paddle not loaded yet');
+            alert('Paddle not loaded. Check console for errors.');
             return;
         }
 
@@ -93,6 +124,17 @@ console.log('token:', process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN);
                     One-time payment. No subscriptions. No surprises.
                 </p>
 
+                {/* Debug info - remove after fixing */}
+                <div style={{
+                    background: '#f0f0f0', padding: '8px 12px', borderRadius: '6px',
+                    fontSize: '11px', marginBottom: '16px', wordBreak: 'break-all',
+                    fontFamily: 'monospace'
+                }}>
+                    {debugInfo || 'Loading debug info...'}
+                    <br />
+                    Paddle loaded: {paddle ? '✅ YES' : '❌ NO'}
+                </div>
+
                 {/* Selected plan card */}
                 <div style={{
                     background: 'var(--white)', border: '2px solid var(--gold)',
@@ -122,9 +164,8 @@ console.log('token:', process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN);
                     className="btn btn-gold btn-full"
                     style={{ fontSize: '16px', padding: '14px', opacity: paddle ? 1 : 0.6 }}
                     onClick={handleCheckout}
-                    disabled={!paddle}
                 >
-                    {paddle ? `Pay ${selected.label} — Unlock ${selected.name}` : 'Loading...'}
+                    {paddle ? `Pay ${selected.label} — Unlock ${selected.name}` : 'Loading Paddle...'}
                 </button>
 
                 {/* Trust signals */}
