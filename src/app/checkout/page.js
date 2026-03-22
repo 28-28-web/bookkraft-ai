@@ -20,6 +20,8 @@ function CheckoutContent() {
     const searchParams = useSearchParams();
     const { user } = useAuth();
     const paddle = usePaddle();
+console.log('token:', process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN);
+    console.log('env:', process.env.NEXT_PUBLIC_PADDLE_ENVIRONMENT);
     const plan = searchParams.get('plan') || 'full';
 
     // Map plan param to pricing config — with real Paddle priceIds
