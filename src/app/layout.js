@@ -17,8 +17,11 @@ export const metadata = {
     apple: '/favicon.png',
   },
   openGraph: {
+    title: 'BookKraft AI — Format Your eBook Like a Pro',
+    description: '12 eBook formatting tools. EPUB validation, Kindle formatting, metadata builder, style auditor, and more. 2 free tools — no signup needed.',
     siteName: 'BookKraft AI',
     type: 'website',
+    url: 'https://bookkraftai.com',
     images: [
       {
         url: '/og-image.png',
@@ -30,9 +33,10 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    title: 'BookKraft AI — Format Your eBook Like a Pro',
+    description: '12 eBook formatting tools. EPUB validation, Kindle formatting, metadata builder, style auditor, and more. 2 free tools — no signup needed.',
   },
 };
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
