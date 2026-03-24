@@ -1,4 +1,3 @@
-
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import { AuthProvider } from '@/components/AuthProvider';
@@ -23,8 +22,6 @@ export const metadata = {
     type: 'website',
     url: 'https://bookkraftai.com',
     images: [{ url: 'https://bookkraftai.com/og-image.jpg', width: 1200, height: 630, alt: 'BookKraft AI – eBook Formatting Toolkit' }],
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -32,6 +29,7 @@ export const metadata = {
     description: '12 eBook formatting tools. EPUB validation, Kindle formatting, metadata builder, style auditor, and more. 2 free tools — no signup needed.',
   },
 };
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -50,4 +48,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-

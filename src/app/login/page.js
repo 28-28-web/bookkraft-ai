@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import { useToast } from '@/components/Toast';
@@ -13,8 +13,12 @@ export default function LoginPage() {
     const [loading, setLoading] = useState(false);
     const [magicLinkSent, setMagicLinkSent] = useState(false);
     const router = useRouter();
+    const searchParams = useSearchParams();
     const { showToast } = useToast();
     const supabase = createClient();
+
+    const redirectTo = searchParams.get('redirect') || '/dashboard';
+    const reason = searchParams.get('reason');
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -25,7 +29,7 @@ export default function LoginPage() {
         try {
             const { data, error: loginError } = await supabase.auth.signInWithPassword({ email, password });
             if (loginError) throw loginError;
-            router.push('/dashboard');
+            router.push(redirectTo);
         } catch (err) {
             setError(err.message || 'Login failed. Please check your credentials.');
         } finally {
@@ -37,7 +41,7 @@ export default function LoginPage() {
         try {
             await supabase.auth.signInWithOAuth({
                 provider: 'google',
-                options: { redirectTo: `https://bookkraftai.com/auth/callback?next=/dashboard` }
+                options: { redirectTo: `https://bookkraftai.com/auth/callback?next=${encodeURIComponent(redirectTo)}` }
             });
         } catch (err) {
             showToast('Google sign-in failed: ' + err.message, 'error');
@@ -51,7 +55,7 @@ export default function LoginPage() {
         try {
             const { error: otpError } = await supabase.auth.signInWithOtp({
                 email,
-                options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=/dashboard` }
+                options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(redirectTo)}` }
             });
             if (otpError) throw otpError;
             setMagicLinkSent(true);
@@ -65,13 +69,14 @@ export default function LoginPage() {
     if (magicLinkSent) {
         return (
             <div className="auth-wrap">
-                <div className="auth-card" style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: '48px', marginBottom: 'var(--space-4)' }}>&#9993;</div>
+                <div className="auth-card">
+                    <p style={{ fontSize: '48px', textAlign: 'center' }}>✉</p>
                     <h2>Check your email</h2>
-                    <p style={{ color: 'var(--mid)', margin: 'var(--space-4) 0' }}>
-                        We sent a magic link to <strong>{email}</strong>.<br />Click the link in the email to sign in.
+                    <p>
+                        We sent a magic link to <strong>{email}</strong>.<br />
+                        Click the link in the email to sign in.
                     </p>
-                    <button className="btn btn-outline btn-sm" onClick={() => setMagicLinkSent(false)}>
+                    <button className="btn btn-outline btn-full" onClick={() => setMagicLinkSent(false)}>
                         Try another method
                     </button>
                 </div>
@@ -84,7 +89,15 @@ export default function LoginPage() {
             <div className="auth-card">
                 <h2>Welcome back</h2>
                 <p>Sign in to continue formatting your book.</p>
-                {error && <div className="auth-error">{error}</div>}
+
+                {reason === 'auth-required' && (
+                    <div className="auth-notice" role="alert">
+                        Sign in to access this tool. You'll be redirected back automatically.
+                    </div>
+                )}
+
+                {error && <p className="form-error">{error}</p>}
+
                 <form onSubmit={handleLogin}>
                     <div className="form-group">
                         <label className="form-label">Email address</label>
@@ -100,13 +113,16 @@ export default function LoginPage() {
                         {loading ? 'Signing in...' : 'Sign In'}
                     </button>
                 </form>
+
                 <div className="auth-divider"><span>or</span></div>
+
                 <button className="btn btn-google btn-full" onClick={handleGoogleAuth}>
                     <img src="https://www.google.com/favicon.ico" width="16" height="16" alt="Google" /> Continue with Google
                 </button>
                 <button className="btn btn-outline btn-full" style={{ marginTop: 'var(--space-3)' }} onClick={handleMagicLink}>
                     Send Magic Link
                 </button>
+
                 <p className="auth-switch">No account yet? <Link href="/signup">Sign up free</Link></p>
                 <p className="auth-switch" style={{ marginTop: '.5rem' }}>
                     <Link href="/forgot-password">Forgot password?</Link>
