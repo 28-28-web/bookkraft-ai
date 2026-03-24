@@ -1,4 +1,4 @@
-import PricingPage from './PricingPage';
+import PricingPage from './pricingpage';
 
 export const metadata = {
   title: 'Pricing — BookKraft AI',
