@@ -1,3 +1,5 @@
+import FreeToolsPage from './FreeToolsPage';
+
 export const metadata = {
   title: 'Free eBook Tools — EPUB Validator & Metadata Builder | BookKraft AI',
   description:
@@ -6,3 +8,7 @@ export const metadata = {
     canonical: 'https://bookkraftai.com/free-tools',
   },
 };
+
+export default function Page() {
+  return <FreeToolsPage />;
+}
