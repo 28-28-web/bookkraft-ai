@@ -1,4 +1,4 @@
-import LandingPage from './LandingPage';
+import LandingPage from './landingpage';
 
 export const metadata = {
   title: 'BookKraft AI — EPUB Validator & Kindle Formatter for Indie Authors',
