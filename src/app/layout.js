@@ -22,12 +22,7 @@ export const metadata = {
     siteName: 'BookKraft AI',
     type: 'website',
     url: 'https://bookkraftai.com',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'BookKraft AI — eBook Formatting Toolkit',
+    images: [{ url: 'https://bookkraftai.com/og-image.jpg', width: 1200, height: 630, alt: 'BookKraft AI – eBook Formatting Toolkit' }],
       },
     ],
   },
