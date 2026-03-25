@@ -26,9 +26,6 @@ export default function Navbar() {
                 <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <Image src="/logo.svg" alt="BookKraftAI logo" width={40} height={40} />
 
-                        style={{ borderRadius: '6px' }}
-                        priority
-                    />
                     <div className="nav-logo">
                         <div className="nav-logo-text">BookKraft <span>AI</span></div>
                         <div className="nav-logo-tagline">eBook Formatting Toolkit</div>
