@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 export const metadata = {
     title: 'Terms of Service — BookKraft AI',
     description: 'BookKraft AI terms of service — please read before using our eBook formatting tools.',
+alternates: { canonical: 'https://bookkraftai.com/terms' }
 };
 
 export default function TermsPage() {

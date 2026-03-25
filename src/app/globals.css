@@ -1298,9 +1298,10 @@ pre {
     transition: transform .2s;
 }
 
-.faq-item.open .faq-chevron {
-    transform: rotate(180deg);
+details.faq-item[open] 
+.faq-chevron { transform: rotate(180deg); 
 }
+
 
 .faq-a {
     max-height: 0;
@@ -1308,9 +1309,8 @@ pre {
     transition: max-height .3s ease;
 }
 
-.faq-item.open .faq-a {
-    max-height: 300px;
-}
+details.faq-item[open] 
+.faq-a { max-height: 200px; padding-bottom: 1.25rem; }
 
 .faq-a p {
     padding: 0 0 var(--space-4);
@@ -1318,6 +1318,9 @@ pre {
     font-size: var(--text-sm);
     line-height: 1.7;
 }
+summary.faq-q { list-style: none; }
+summary.faq-q::-webkit-details-marker { display: none; }
+
 
 /* ── FOOTER ── */
 .footer {

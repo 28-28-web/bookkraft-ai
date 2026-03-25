@@ -10,82 +10,93 @@ export default function LandingPage() {
   return (
     <>
       {/* ── HERO (dark) ── */}
-      <div className="hero">
-        <div className="hero-inner">
+      <section className="relative bg-gray-950 text-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 py-24 lg:py-32 grid lg:grid-cols-2 gap-16 items-center">
           <div>
-            <div className="hero-badge"><span className="hero-badge-dot" /> eBook formatting toolkit</div>
-            <h1><em>Format</em> Your eBook<br /><strong>Like a Pro.</strong></h1>
-            <p className="hero-sub">12 tools for indie authors. Fix Kindle errors, build valid EPUBs, generate TOCs. Start free — no credit card needed.</p>
-            <div className="hero-cta">
-              <Link href="/tools/epub-validator" className="btn btn-gold">Try 2 Free Tools</Link>
-              <Link href="/pricing" className="btn btn-secondary">Get Full Access — $9.99</Link>
+            <p className="text-sm uppercase tracking-widest text-amber-400 mb-4">⚡ eBook formatting toolkit</p>
+            <h1 className="text-5xl lg:text-6xl font-extrabold leading-tight">
+              Format Your eBook<br />Like a Pro.
+            </h1>
+            <p className="mt-6 text-lg text-gray-300 max-w-xl">
+              12 tools for indie authors. Fix Kindle errors, build valid EPUBs, generate TOCs. Start free — no credit card needed.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link href="/tools/epub-validator" className="px-6 py-3 bg-amber-500 text-gray-950 font-semibold rounded-lg hover:bg-amber-400 transition">Try 2 Free Tools</Link>
+              <Link href="/pricing" className="px-6 py-3 border border-white/20 rounded-lg hover:bg-white/10 transition">Get Full Access — $9.99</Link>
             </div>
-            <p className="hero-proof">✦ Trusted by 3,000+ indie authors formatting for Kindle &amp; EPUB</p>
+            <p className="mt-6 text-sm text-gray-400">✦ Trusted by 3,000+ indie authors formatting for Kindle & EPUB</p>
           </div>
-          <div className="hero-decoration">
-            <div className="hero-preview">
-              <h4>Kindle Format Fixer</h4>
-              <code>✓ 47 double spaces fixed<br />✓ 12 smart quotes converted<br />✓ 3 tab indents removed</code>
+
+          <div className="space-y-4">
+            <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+              <p className="font-bold text-lg text-white mb-2">Kindle Format Fixer</p>
+              <p className="text-sm text-green-400 whitespace-pre-line">✓ 47 double spaces fixed
+✓ 12 smart quotes converted
+✓ 3 tab indents removed</p>
             </div>
-            <div className="hero-preview">
-              <h4>EPUB Validator</h4>
-              <code className="val-fail-mini">✕ Missing nav.xhtml<br /></code>
-              <code>✓ Valid container.xml<br />✓ Mimetype correct</code>
+            <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+              <p className="font-bold text-lg text-white mb-2">EPUB Validator</p>
+              <p className="text-sm text-red-400">✕ Missing nav.xhtml</p>
+              <p className="text-sm text-green-400 whitespace-pre-line">✓ Valid container.xml
+✓ Mimetype correct</p>
             </div>
-            <div className="hero-preview">
-              <h4>TOC Generator</h4>
-              <code>1. Chapter One — The Beginning<br />2. Chapter Two — Rising Action<br />3. Chapter Three — Climax</code>
+            <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+              <p className="font-bold text-lg text-white mb-2">TOC Generator</p>
+              <p className="text-sm text-gray-300 whitespace-pre-line">1. Chapter One — The Beginning
+2. Chapter Two — Rising Action
+3. Chapter Three — Climax</p>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* ── FREE TOOLS CALLOUT ── */}
-      <section className="free-tools-callout">
-        <div className="free-tools-inner">
-          <p className="eyebrow">START FREE</p>
-          <h2 className="section-heading center">No Account Needed</h2>
-          <p className="section-sub center">Two tools work immediately. No signup, no credit card. Just open and use.</p>
-          <div className="free-tools-grid">
-            <Link href="/tools/epub-validator" className="free-tool-card" style={{ textDecoration: 'none' }}>
-              <h3>EPUB Validator</h3>
-              <p>Check your EPUB for errors before uploading. No Java, no signup.</p>
-              <span className="btn btn-outline btn-sm">Open Free Tool</span>
-            </Link>
-            <Link href="/tools/metadata-builder" className="free-tool-card" style={{ textDecoration: 'none' }}>
-              <h3>Metadata Builder</h3>
-              <p>Create master metadata for KDP, IngramSpark, Draft2Digital, and EPUB OPF.</p>
-              <span className="btn btn-outline btn-sm">Open Free Tool</span>
-            </Link>
+      <section className="bg-white py-20">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <p className="text-sm uppercase tracking-widest text-amber-600 font-semibold">START FREE</p>
+          <h2 className="text-3xl font-bold mt-2">No Account Needed</h2>
+          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">Two tools work immediately. No signup, no credit card. Just open and use.</p>
+          <div className="mt-10 grid sm:grid-cols-2 gap-8 text-left">
+            <div className="border rounded-xl p-6">
+              <h3 className="text-xl font-semibold">EPUB Validator</h3>
+              <p className="mt-2 text-gray-600">Check your EPUB for errors before uploading. No Java, no signup.</p>
+              <Link href="/tools/epub-validator" className="mt-4 inline-block text-amber-600 font-medium hover:underline">Open Free Tool</Link>
+            </div>
+            <div className="border rounded-xl p-6">
+              <h3 className="text-xl font-semibold">Metadata Builder</h3>
+              <p className="mt-2 text-gray-600">Create master metadata for KDP, IngramSpark, Draft2Digital, and EPUB OPF.</p>
+              <Link href="/tools/metadata-builder" className="mt-4 inline-block text-amber-600 font-medium hover:underline">Open Free Tool</Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── TOOL GRID ── */}
-      <section id="tools-section" className="tools-section">
-        <div className="container">
-          <p className="eyebrow">THE TOOLKIT</p>
-          <h2 className="section-heading">12 Tools. One Workflow.</h2>
-          <p className="section-sub">5 instant logic tools + 5 AI-powered tools + 2 free tools. Buy the bundle or pay per AI run.</p>
-          <div className="tools-grid" style={{ marginTop: 'var(--space-8)' }}>
+      <section className="bg-gray-50 py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-sm uppercase tracking-widest text-amber-600 font-semibold text-center">THE TOOLKIT</p>
+          <h2 className="text-3xl font-bold text-center mt-2">12 Tools. One Workflow.</h2>
+          <p className="text-center text-gray-600 mt-4 max-w-2xl mx-auto">5 instant logic tools + 5 AI-powered tools + 2 free tools. Buy the bundle or pay per AI run.</p>
+          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {TOOLS.map((t) => (
-              <Link href={t.free ? `/tools/${t.slug}` : '/signup'} key={t.slug} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <div className="tool-card">
-                  <div className="tool-card-top">
+              <Link key={t.slug} href={`/tools/${t.slug}`} className="group">
+                <div className="bg-white border rounded-xl p-6 h-full flex flex-col hover:shadow-lg transition">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-2xl">{t.icon}</span>
                     {t.free
-                      ? <span className="badge badge-free">FREE</span>
+                      ? <span className="text-xs font-semibold bg-green-100 text-green-700 px-2 py-1 rounded-full">FREE</span>
                       : t.accessType === 'ai'
-                        ? <span className="badge badge-ai">AI · {t.creditCost} credit{t.creditCost !== 1 ? 's' : ''}</span>
-                        : <span className="badge badge-logic">Instant</span>
+                        ? <span className="text-xs font-semibold bg-purple-100 text-purple-700 px-2 py-1 rounded-full">AI · {t.creditCost} credit{t.creditCost !== 1 ? 's' : ''}</span>
+                        : <span className="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Instant</span>
                     }
                   </div>
-                  <h3>{t.name}</h3>
-                  <p>{t.desc}</p>
-                  <div className="tool-card-bottom">
-                    <span className={`tool-card-price ${t.free ? 'free' : ''}`}>
+                  <h3 className="text-lg font-semibold">{t.name}</h3>
+                  <p className="mt-2 text-sm text-gray-600 flex-1">{t.desc}</p>
+                  <div className="mt-4 flex items-center justify-between text-sm">
+                    <span className="text-gray-400">
                       {t.free ? 'Free' : t.accessType === 'ai' ? `${t.creditCost} credit${t.creditCost !== 1 ? 's' : ''}` : 'Bundle'}
                     </span>
-                    <span className="tool-card-cta">Open →</span>
+                    <span className="text-amber-600 font-medium group-hover:translate-x-1 transition-transform">Open →</span>
                   </div>
                 </div>
               </Link>
@@ -95,23 +106,20 @@ export default function LandingPage() {
       </section>
 
       {/* ── COMPETITOR FRAMING ── */}
-      <section style={{ padding: 'var(--space-16) 0', background: 'var(--white)' }}>
-        <div className="container">
-          <p className="eyebrow" style={{ textAlign: 'center' }}>WHY BOOKKRAFT</p>
-          <h2 className="section-heading center">What Indie Authors Actually Need</h2>
-          <p className="section-sub center" style={{ marginBottom: 'var(--space-8)' }}>Vellum costs $249.99 and only runs on Mac. Atticus charges $147. BookKraft gives you the formatting tools you need for a fraction of the price — on any device.</p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--space-6)', maxWidth: 960, margin: '0 auto' }}>
+      <section className="bg-white py-20">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <p className="text-sm uppercase tracking-widest text-amber-600 font-semibold">WHY BOOKKRAFT</p>
+          <h2 className="text-3xl font-bold mt-2">What Indie Authors Actually Need</h2>
+          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">Vellum costs $249.99 and only runs on Mac. Atticus charges $147. BookKraft gives you the formatting tools you need for a fraction of the price — on any device.</p>
+          <div className="mt-12 grid sm:grid-cols-3 gap-8 text-left">
             {[
               { title: 'Run on Any Device', desc: 'Web-based. Works on Mac, Windows, Chromebook, phone. No downloads.' },
               { title: 'Pay Once, Own Forever', desc: 'No subscriptions. Buy the Essentials Bundle or credits — they never expire.' },
               { title: 'AI Where It Matters', desc: '5 instant logic tools + 5 AI tools. AI handles the creative work, logic handles the formatting.' },
             ].map((item, i) => (
-              <div key={i} style={{
-                padding: 'var(--space-8)', background: 'var(--cream)',
-                borderRadius: 'var(--radius)', border: '1px solid var(--border)',
-              }}>
-                <h4 style={{ marginBottom: 'var(--space-3)' }}>{item.title}</h4>
-                <p style={{ color: 'var(--mid)', fontSize: 'var(--text-sm)', lineHeight: '1.6' }}>{item.desc}</p>
+              <div key={i} className="border rounded-xl p-6">
+                <h3 className="text-lg font-semibold">{item.title}</h3>
+                <p className="mt-2 text-gray-600 text-sm">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -119,11 +127,11 @@ export default function LandingPage() {
       </section>
 
       {/* ── WORKFLOW (dark) ── */}
-      <section className="workflow-section">
-        <div className="container">
-          <p className="eyebrow" style={{ textAlign: 'center' }}>THE WORKFLOW</p>
-          <h2 className="section-heading center" style={{ color: 'var(--cream)' }}>The eBook Formatting Workflow</h2>
-          <div className="workflow-grid">
+      <section className="bg-gray-950 text-white py-20">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <p className="text-sm uppercase tracking-widest text-amber-400 font-semibold">THE WORKFLOW</p>
+          <h2 className="text-3xl font-bold mt-2">The eBook Formatting Workflow</h2>
+          <div className="mt-12 space-y-8 text-left max-w-2xl mx-auto">
             {[
               { n: '01', t: 'Clean Your Manuscript', d: 'Manuscript Cleanup Tool' },
               { n: '02', t: 'Format for Kindle or EPUB', d: 'Kindle Format Fixer / EPUB Formatter' },
@@ -131,10 +139,12 @@ export default function LandingPage() {
               { n: '04', t: 'Add Front & Back Matter', d: 'Front Matter + Back Matter Generator' },
               { n: '05', t: 'Validate & Publish', d: 'EPUB Validator + KDP Keyword Finder' },
             ].map((s, i) => (
-              <div className="workflow-step" key={i}>
-                <div className="workflow-num">{s.n}</div>
-                <h4>{s.t}</h4>
-                <p>{s.d}</p>
+              <div key={i} className="flex gap-6 items-start">
+                <span className="text-3xl font-extrabold text-amber-500">{s.n}</span>
+                <div>
+                  <h3 className="text-lg font-semibold">{s.t}</h3>
+                  <p className="text-gray-400 text-sm">{s.d}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -142,50 +152,32 @@ export default function LandingPage() {
       </section>
 
       {/* ── PLATFORM COMPATIBILITY ── */}
-      <section style={{
-        padding: 'var(--space-16) 0', background: 'var(--cream)',
-        borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)',
-      }}>
-        <div className="container">
-          <p style={{
-            textAlign: 'center', fontWeight: 700, fontSize: '18px',
-            color: 'var(--ink)', marginBottom: 'var(--space-10)',
-          }}>
+      <section className="bg-gray-50 py-16">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <h2 className="text-2xl font-bold">
             Your formatted eBook works on every platform
-          </p>
-          <div style={{
-            display: 'flex', flexWrap: 'wrap', justifyContent: 'center',
-            gap: 'var(--space-8)', maxWidth: 900, margin: '0 auto', padding: '0 var(--space-6)',
-          }}>
+          </h2>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
             {['Amazon KDP', 'Apple Books', 'Barnes & Noble', 'Kobo', 'Draft2Digital',
               'Smashwords', 'OverDrive', 'Tolino', 'Scribd'].map((p) => (
-              <span key={p} style={{
-                color: 'var(--mid)', fontWeight: 600, fontSize: 'var(--text-base)',
-                letterSpacing: '0.02em',
-              }}>{p}</span>
+              <span key={p} className="px-4 py-2 bg-white border rounded-full text-sm font-medium">{p}</span>
             ))}
           </div>
-          <p style={{
-            textAlign: 'center', color: 'var(--mid)', fontSize: 'var(--text-sm)',
-            marginTop: 'var(--space-8)', letterSpacing: '0.15em', textTransform: 'uppercase',
-          }}>
+          <p className="mt-4 text-gray-400 text-sm">
             And more...
           </p>
         </div>
       </section>
 
       {/* ── REVIEWS / TESTIMONIALS ── */}
-      <section style={{ padding: 'var(--space-20) 0', background: 'var(--white)' }}>
-        <div className="container">
-          <p className="eyebrow" style={{ textAlign: 'center' }}>REVIEWS</p>
-          <h2 className="section-heading center">What Authors Are Saying</h2>
-          <p className="section-sub center" style={{ marginBottom: 'var(--space-10)' }}>
+      <section className="bg-white py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-sm uppercase tracking-widest text-amber-600 font-semibold text-center">REVIEWS</p>
+          <h2 className="text-3xl font-bold text-center mt-2">What Authors Are Saying</h2>
+          <p className="text-center text-gray-500 mt-3 max-w-xl mx-auto">
             Real feedback from indie authors who use BookKraft to format their eBooks.
           </p>
-          <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: 'var(--space-6)', maxWidth: 1000, margin: '0 auto',
-          }}>
+          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
                 name: 'Sarah Mitchell',
@@ -224,28 +216,21 @@ export default function LandingPage() {
                 text: 'I publish on KDP, Apple, Kobo, and Draft2Digital. The Metadata Builder saves me 30 minutes per book — one form, four platform outputs. The Print-to-Digital adapter is a game-changer for my backlist.',
               },
             ].map((review, i) => (
-              <div key={i} style={{
-                padding: 'var(--space-6)', background: 'var(--cream)',
-                border: '1px solid var(--border)', borderRadius: 'var(--radius)',
-                display: 'flex', flexDirection: 'column', gap: 'var(--space-3)',
-              }}>
+              <div key={i} className="border rounded-xl p-6">
                 {/* Stars */}
-                <div style={{ color: 'var(--gold)', fontSize: '16px', letterSpacing: '2px' }}>
+                <div className="text-amber-500 text-lg mb-3">
                   {'★'.repeat(review.stars)}{'☆'.repeat(5 - review.stars)}
                 </div>
                 {/* Quote */}
-                <p style={{
-                  color: 'var(--ink)', fontSize: 'var(--text-sm)', lineHeight: 1.7,
-                  fontStyle: 'italic', flex: 1,
-                }}>
+                <blockquote className="text-gray-700 text-sm leading-relaxed">
                   &ldquo;{review.text}&rdquo;
-                </p>
+                </blockquote>
                 {/* Author */}
-                <div style={{ borderTop: '1px solid var(--border)', paddingTop: 'var(--space-3)' }}>
-                  <p style={{ fontWeight: 600, fontSize: 'var(--text-sm)', color: 'var(--ink)', marginBottom: '2px' }}>
+                <div className="mt-4 border-t pt-4">
+                  <p className="font-semibold text-sm">
                     {review.name}
                   </p>
-                  <p style={{ fontSize: '12px', color: 'var(--mid)' }}>{review.role}</p>
+                  <p className="text-xs text-gray-500">{review.role}</p>
                 </div>
               </div>
             ))}
@@ -254,94 +239,94 @@ export default function LandingPage() {
       </section>
 
       {/* ── PRICING (v8.0 credit model) ── */}
-      <section id="pricing" style={{ padding: 'var(--space-24) 0' }}>
-        <div className="container">
-          <p className="eyebrow" style={{ textAlign: 'center' }}>PRICING</p>
-          <h2 className="section-heading center">Simple Pricing. No Subscriptions.</h2>
-          <p className="section-sub center">Buy once, own forever. Credits never expire. No monthly fees.</p>
-          <div className="pricing-grid">
+      <section className="bg-gray-50 py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-sm uppercase tracking-widest text-amber-600 font-semibold text-center">PRICING</p>
+          <h2 className="text-3xl font-bold text-center mt-2">Simple Pricing. No Subscriptions.</h2>
+          <p className="text-center text-gray-600 mt-4">Buy once, own forever. Credits never expire. No monthly fees.</p>
+          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Free */}
-            <div className="price-card">
-              <p className="price-plan">Free</p>
-              <div className="price-amount">$0</div>
-              <p className="price-desc">2 tools, no signup, no limits.</p>
-              <ul className="price-features">
-                <li>EPUB Validator</li>
-                <li>Metadata Builder</li>
-                <li>No account needed</li>
-                <li>Unlimited use</li>
+            <div className="bg-white border rounded-xl p-6 flex flex-col">
+              <h3 className="text-xl font-bold">Free</h3>
+              <p className="text-3xl font-extrabold mt-2">$0</p>
+              <p className="text-sm text-gray-600 mt-2">2 tools, no signup, no limits.</p>
+              <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
+                <li>✓ EPUB Validator</li>
+                <li>✓ Metadata Builder</li>
+                <li>✓ No account needed</li>
+                <li>✓ Unlimited use</li>
               </ul>
-              <Link href="/tools/epub-validator" className="btn btn-outline btn-full" style={{ textDecoration: 'none' }}>Start Free</Link>
+              <Link href="/tools/epub-validator" className="mt-6 block text-center py-2 border rounded-lg hover:bg-gray-50 transition font-medium">Start Free</Link>
             </div>
 
             {/* Essentials Bundle */}
-            <div className="price-card" id="essentials">
-              <p className="price-plan">{PRICING.essentials.name}</p>
-              <div className="price-amount">{PRICING.essentials.label}<span> one-time</span></div>
-              <p className="price-desc">{PRICING.essentials.desc}</p>
-              <ul className="price-features">
-                {PRICING.essentials.features.map((f, i) => <li key={i}>{f}</li>)}
+            <div className="bg-white border rounded-xl p-6 flex flex-col">
+              <h3 className="text-xl font-bold">{PRICING.essentials.name}</h3>
+              <p className="text-3xl font-extrabold mt-2">{PRICING.essentials.label} <span className="text-sm font-normal text-gray-500">one-time</span></p>
+              <p className="text-sm text-gray-600 mt-2">{PRICING.essentials.desc}</p>
+              <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
+                {PRICING.essentials.features.map((f, i) => <li key={i}>✓ {f}</li>)}
               </ul>
-              <Link href="/signup" className="btn btn-outline btn-full" style={{ textDecoration: 'none' }}>Get Essentials</Link>
+              <Link href="/pricing" className="mt-6 block text-center py-2 border rounded-lg hover:bg-gray-50 transition font-medium">Get Essentials</Link>
             </div>
 
             {/* Full Access (featured) */}
-            <div className="price-card featured">
-              <p className="price-plan">{PRICING.full.name}</p>
-              <div className="price-amount">{PRICING.full.label}<span> one-time</span></div>
-              <p className="price-desc">{PRICING.full.desc}</p>
-              <ul className="price-features">
-                {PRICING.full.features.map((f, i) => <li key={i}>{f}</li>)}
+            <div className="bg-gray-950 text-white border-2 border-amber-500 rounded-xl p-6 flex flex-col relative">
+              <h3 className="text-xl font-bold">{PRICING.full.name}</h3>
+              <p className="text-3xl font-extrabold mt-2">{PRICING.full.label} <span className="text-sm font-normal text-gray-400">one-time</span></p>
+              <p className="text-sm text-gray-300 mt-2">{PRICING.full.desc}</p>
+              <ul className="mt-4 space-y-2 text-sm text-gray-200 flex-1">
+                {PRICING.full.features.map((f, i) => <li key={i}>✓ {f}</li>)}
               </ul>
-              <Link href="/signup" className="btn btn-gold btn-full" style={{ textDecoration: 'none' }}>Get Full Access</Link>
+              <Link href="/pricing" className="mt-6 block text-center py-2 bg-amber-500 text-gray-950 rounded-lg hover:bg-amber-400 transition font-semibold">Get Full Access</Link>
             </div>
 
             {/* Lifetime */}
-            <div className="price-card lifetime-card">
-              <p className="price-plan">{PRICING.lifetime.name}</p>
-              <div className="price-amount">{PRICING.lifetime.label}<span> one-time</span></div>
-              <p className="price-desc">{PRICING.lifetime.desc}</p>
-              <ul className="price-features">
-                {PRICING.lifetime.features.map((f, i) => <li key={i}>{f}</li>)}
+            <div className="bg-white border rounded-xl p-6 flex flex-col">
+              <h3 className="text-xl font-bold">{PRICING.lifetime.name}</h3>
+              <p className="text-3xl font-extrabold mt-2">{PRICING.lifetime.label} <span className="text-sm font-normal text-gray-500">one-time</span></p>
+              <p className="text-sm text-gray-600 mt-2">{PRICING.lifetime.desc}</p>
+              <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
+                {PRICING.lifetime.features.map((f, i) => <li key={i}>✓ {f}</li>)}
               </ul>
-              <Link href="/signup" className="btn btn-gold btn-full" style={{ textDecoration: 'none' }}>Get Lifetime Deal</Link>
+              <Link href="/pricing" className="mt-6 block text-center py-2 border rounded-lg hover:bg-gray-50 transition font-medium">Get Lifetime Deal</Link>
             </div>
           </div>
 
           {/* Credit packs under pricing */}
-          <div id="credits" style={{ marginTop: 'var(--space-12)', textAlign: 'center' }}>
-            <h3 style={{ marginBottom: 'var(--space-6)' }}>AI Credit Packs</h3>
-            <p className="section-sub center" style={{ marginBottom: 'var(--space-8)' }}>Credits power AI tools. Buy once, use whenever — they never expire.</p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 'var(--space-6)', maxWidth: 600, margin: '0 auto' }}>
-              <div className="price-card" style={{ textAlign: 'left' }}>
-                <p className="price-plan">{PRICING.starterCredits.name}</p>
-                <div className="price-amount">{PRICING.starterCredits.label}</div>
-                <p className="price-desc">{PRICING.starterCredits.desc}</p>
-                <ul className="price-features">
-                  {PRICING.starterCredits.features.map((f, i) => <li key={i}>{f}</li>)}
+          <div className="mt-16 text-center">
+            <h3 className="text-2xl font-bold">AI Credit Packs</h3>
+            <p className="text-gray-600 mt-2">Credits power AI tools. Buy once, use whenever — they never expire.</p>
+            <div className="mt-8 grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+              <div className="bg-white border rounded-xl p-6 text-left">
+                <p className="text-lg font-bold">{PRICING.starterCredits.name}</p>
+                <p className="text-2xl font-extrabold mt-1">{PRICING.starterCredits.label}</p>
+                <p className="text-sm text-gray-600 mt-1">{PRICING.starterCredits.desc}</p>
+                <ul className="mt-3 space-y-1 text-sm text-gray-700">
+                  {PRICING.starterCredits.features.map((f, i) => <li key={i}>✓ {f}</li>)}
                 </ul>
-                <Link href="/signup" className="btn btn-outline btn-full" style={{ textDecoration: 'none' }}>Buy Credits</Link>
+                <Link href="/pricing" className="mt-4 inline-block text-amber-600 font-medium hover:underline">Buy Credits</Link>
               </div>
-              <div className="price-card" style={{ textAlign: 'left' }}>
-                <p className="price-plan">{PRICING.authorPro.name}</p>
-                <div className="price-amount">{PRICING.authorPro.label}</div>
-                <p className="price-desc">{PRICING.authorPro.desc}</p>
-                <ul className="price-features">
-                  {PRICING.authorPro.features.map((f, i) => <li key={i}>{f}</li>)}
+              <div className="bg-white border rounded-xl p-6 text-left">
+                <p className="text-lg font-bold">{PRICING.authorPro.name}</p>
+                <p className="text-2xl font-extrabold mt-1">{PRICING.authorPro.label}</p>
+                <p className="text-sm text-gray-600 mt-1">{PRICING.authorPro.desc}</p>
+                <ul className="mt-3 space-y-1 text-sm text-gray-700">
+                  {PRICING.authorPro.features.map((f, i) => <li key={i}>✓ {f}</li>)}
                 </ul>
-                <Link href="/signup" className="btn btn-outline btn-full" style={{ textDecoration: 'none' }}>Buy Credits</Link>
+                <Link href="/pricing" className="mt-4 inline-block text-amber-600 font-medium hover:underline">Buy Credits</Link>
               </div>
             </div>
           </div>
 
           {/* Credit cost table */}
-          <div style={{ marginTop: 'var(--space-12)', maxWidth: 480, margin: 'var(--space-12) auto 0' }}>
-            <h4 style={{ textAlign: 'center', marginBottom: 'var(--space-4)' }}>AI Tool Credit Costs</h4>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 'var(--text-sm)' }}>
-              <thead>
-                <tr style={{ borderBottom: '2px solid var(--border)' }}>
-                  <th style={{ textAlign: 'left', padding: '8px 0' }}>Tool</th>
-                  <th style={{ textAlign: 'right', padding: '8px 0' }}>Credits</th>
+          <div className="mt-12 max-w-md mx-auto">
+            <h3 className="text-xl font-bold text-center mb-4">AI Tool Credit Costs</h3>
+            <table className="w-full text-sm border rounded-lg overflow-hidden">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="text-left px-4 py-2">Tool</th>
+                  <th className="text-right px-4 py-2">Credits</th>
                 </tr>
               </thead>
               <tbody>
@@ -352,9 +337,9 @@ export default function LandingPage() {
                   ['Print-to-Digital Adapter', '3'],
                   ['Style Sheet Auditor', '3'],
                 ].map(([name, cost], i) => (
-                  <tr key={i} style={{ borderBottom: '1px solid var(--border)' }}>
-                    <td style={{ padding: '8px 0' }}>{name}</td>
-                    <td style={{ textAlign: 'right', padding: '8px 0', color: 'var(--gold)', fontWeight: 600 }}>{cost}</td>
+                  <tr key={i} className="border-t">
+                    <td className="px-4 py-2">{name}</td>
+                    <td className="px-4 py-2 text-right">{cost}</td>
                   </tr>
                 ))}
               </tbody>
@@ -365,7 +350,6 @@ export default function LandingPage() {
 
       {/* ── FAQ ── */}
       <FAQSection />
-
       {/* ── Footer ── */}
       <Footer />
     </>
@@ -375,18 +359,18 @@ export default function LandingPage() {
 function FAQSection() {
   const [openIndex, setOpenIndex] = useState(null);
   return (
-    <section className="faq-section">
-      <div className="container">
-        <p className="eyebrow" style={{ textAlign: 'center' }}>FAQ</p>
-        <h2 className="section-heading center">Questions We Get a Lot</h2>
-        <div className="faq-list">
+    <section className="bg-white py-20">
+      <div className="max-w-3xl mx-auto px-6">
+        <p className="text-sm uppercase tracking-widest text-amber-600 font-semibold text-center">FAQ</p>
+        <h2 className="text-3xl font-bold text-center mt-2">Questions We Get a Lot</h2>
+        <div className="mt-10 space-y-4">
           {FAQS.map((f, i) => (
-            <div className={`faq-item ${openIndex === i ? 'open' : ''}`} key={i}>
-              <div className="faq-q" onClick={() => setOpenIndex(openIndex === i ? null : i)}>
+            <div key={i} className="border rounded-lg">
+              <button className="w-full flex justify-between items-center px-5 py-4 text-left font-medium" onClick={() => setOpenIndex(openIndex === i ? null : i)}>
                 {f.q}
-                <span className="faq-chevron">▼</span>
-              </div>
-              <div className="faq-a"><p>{f.a}</p></div>
+                <span className={`transition-transform ${openIndex === i ? 'rotate-180' : ''}`}>▼</span>
+              </button>
+              <p className={`px-5 pb-4 text-gray-600 text-sm ${openIndex === i ? '' : 'hidden'}`}>{f.a}</p>
             </div>
           ))}
         </div>

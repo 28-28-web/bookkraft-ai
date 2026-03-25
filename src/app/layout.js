@@ -6,6 +6,11 @@ import { ToastProvider } from '@/components/Toast';
 import ChatAssistant from '@/components/ChatAssistant';
 import NewsletterPopup from '@/components/NewsletterPopup';
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export const metadata = {
   metadataBase: new URL('https://bookkraftai.com'),
   title: 'BookKraft AI — Format Your eBook Like a Pro',
@@ -34,6 +39,41 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": "https://bookkraftai.com/#organization",
+                  "name": "BookKraft AI",
+                  "url": "https://bookkraftai.com",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://bookkraftai.com/favicon.png"
+                  },
+                  "sameAs": [
+                    "https://x.com/bookkraftai",
+                    "https://www.facebook.com/bookkraftai",
+                    "https://www.linkedin.com/company/bookkraftai",
+                    "https://www.reddit.com/r/bookkraftai",
+                    "https://www.quora.com/profile/BookKraft-AI"
+                  ],
+                  "description": "Professional eBook formatting tools for indie authors. Format once, publish everywhere."
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://bookkraftai.com/#website",
+                  "url": "https://bookkraftai.com",
+                  "name": "BookKraft AI",
+                  "publisher": { "@id": "https://bookkraftai.com/#organization" }
+                }
+              ]
+            })
+          }}
+        />
         <AuthProvider>
           <ProjectProvider>
             <ToastProvider>

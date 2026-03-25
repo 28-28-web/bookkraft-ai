@@ -62,7 +62,6 @@ export default function ToolPage({ params }) {
     // Free tools: no auth needed
     const isFree = tool.free;
     const hasAccess = isFree || checkToolAccess(slug);
-
     // If loading, show loading state
     if (loading) {
         return (

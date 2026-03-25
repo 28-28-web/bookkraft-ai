@@ -24,11 +24,8 @@ export default function Navbar() {
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="navbar-inner">
                 <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <Image
-                        src="/favicon.png"
-                        alt=""
-                        width={32}
-                        height={32}
+                    <Image src="/logo.svg" alt="BookKraftAI logo" width={40} height={40} />
+
                         style={{ borderRadius: '6px' }}
                         priority
                     />

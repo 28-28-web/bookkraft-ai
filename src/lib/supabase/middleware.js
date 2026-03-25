@@ -38,10 +38,12 @@ export async function updateSession(request) {
     const isFreeToolUrl = freeSlugs.some((s) => request.nextUrl.pathname === `/tools/${s}`);
 
     if (isProtected && !isFreeToolUrl && !user) {
-        const url = request.nextUrl.clone();
-        url.pathname = '/login';
-        return NextResponse.redirect(url);
-    }
+    const url = request.nextUrl.clone();
+    url.pathname = '/login';
+    url.searchParams.set('redirect', request.nextUrl.pathname);
+    url.searchParams.set('reason', 'auth-required');
+    return NextResponse.redirect(url);
+}
 
     // If user is logged in and tries to visit login/signup, redirect to dashboard
     if (user && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/signup')) {

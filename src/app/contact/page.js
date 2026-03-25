@@ -24,7 +24,6 @@ export default function ContactPage() {
         window.location.href = `mailto:hello@bookkraftai.com?subject=${subject}&body=${body}`;
         setStatus('success');
     }
-
     return (
         <>
             <div style={{
