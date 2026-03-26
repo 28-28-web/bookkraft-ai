@@ -39,7 +39,7 @@ export default function Navbar() {
                 </Link>
 
                 {!isDashboard && (
-                    <div className="nav-links">
+                    <div className="nav-links flex items-center gap-8">
                         <Link href="#tools-section" className="nav-link">Tools</Link>
                         <Link href="/pricing" className="nav-link">Pricing</Link>
                         <Link href="/free-tools" className="nav-link">Free Tools</Link>
@@ -47,7 +47,7 @@ export default function Navbar() {
                     </div>
                 )}
 
-                <div className="nav-actions">
+                <div className="nav-actions flex items-center gap-4">
                     {user ? (
                         <>
                             {/* Credit chip — v8.0 */}
