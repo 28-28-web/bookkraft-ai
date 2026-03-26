@@ -38,7 +38,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body style={{ background: '#0F0E0C', margin: 0 }}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
