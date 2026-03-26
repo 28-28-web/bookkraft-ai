@@ -21,10 +21,11 @@ export default function Navbar() {
 
     const navStyle = {
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        background: scrolled ? 'rgba(15,14,12,0.97)' : 'rgba(15,14,12,0.85)',
-        backdropFilter: 'blur(12px)',
-        borderBottom: scrolled ? '1px solid rgba(247,243,236,0.08)' : '1px solid transparent',
-        transition: 'all 0.2s ease', borderTop: '4px solid transparent', borderImage: 'linear-gradient(90deg, #b07d2a, #C9933A, #f0c96a, #C9933A, #b07d2a) 1',
+        background: '#ffffff',
+        borderTop: '4px solid #C9933A',
+        borderBottom: '1px solid rgba(0,0,0,0.1)',
+        boxShadow: scrolled ? '0 2px 12px rgba(0,0,0,0.08)' : 'none',
+        transition: 'box-shadow 0.2s ease',
     };
 
     const innerStyle = {
@@ -34,20 +35,20 @@ export default function Navbar() {
     };
 
     const linkStyle = {
-        fontSize: '14px', color: 'rgba(247,243,236,0.7)',
-        textDecoration: 'none', transition: 'color 0.15s',
+        fontSize: '14px', color: 'rgba(0,0,0,0.65)',
+        textDecoration: 'none', fontWeight: 500,
     };
 
     return (
         <nav style={navStyle}>
             <div style={innerStyle}>
                 <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <img src="/logo.png" width={36} height={36} alt="BookKraft AI Logo" style={{ borderRadius: '6px', display: 'block', background: '#C9933A', padding: '3px' }} />
+                    <img src="/logo.png" width={36} height={36} alt="BookKraft AI Logo" style={{ borderRadius: '6px', display: 'block' }} />
                     <div>
-                        <div style={{ fontFamily: 'Georgia, serif', fontSize: '16px', fontWeight: 700, color: '#F7F3EC', lineHeight: 1.2 }}>
+                        <div style={{ fontFamily: 'Georgia, serif', fontSize: '16px', fontWeight: 700, color: '#0F0E0C', lineHeight: 1.2 }}>
                             BookKraft <span style={{ color: '#C9933A' }}>AI</span>
                         </div>
-                        <div style={{ fontSize: '10px', color: 'rgba(247,243,236,0.45)', letterSpacing: '0.05em' }}>
+                        <div style={{ fontSize: '10px', color: 'rgba(0,0,0,0.4)', letterSpacing: '0.05em' }}>
                             eBook Formatting Toolkit
                         </div>
                     </div>
@@ -69,9 +70,9 @@ export default function Navbar() {
                                 <Link href="/pricing#credits" style={{
                                     display: 'inline-flex', alignItems: 'center', gap: '6px',
                                     padding: '4px 12px', borderRadius: '100px', fontSize: '12px',
-                                    fontWeight: 600, background: 'rgba(201,147,58,0.12)',
+                                    fontWeight: 600, background: 'rgba(201,147,58,0.1)',
                                     color: '#C9933A', textDecoration: 'none',
-                                    border: '1px solid rgba(201,147,58,0.2)',
+                                    border: '1px solid rgba(201,147,58,0.3)',
                                 }}>
                                     <span style={{
                                         width: '7px', height: '7px', borderRadius: '50%',
@@ -83,14 +84,14 @@ export default function Navbar() {
                             {profile?.is_lifetime && (
                                 <span style={{
                                     padding: '4px 10px', borderRadius: '100px', fontSize: '11px',
-                                    fontWeight: 600, background: '#C9933A', color: '#0F0E0C',
+                                    fontWeight: 600, background: '#C9933A', color: '#fff',
                                 }}>Lifetime</span>
                             )}
                             <Link href="/dashboard" style={linkStyle}>Dashboard</Link>
                             <Link href="/account" style={{ textDecoration: 'none' }}>
                                 <div style={{
                                     width: '32px', height: '32px', borderRadius: '50%',
-                                    background: '#C9933A', color: '#0F0E0C',
+                                    background: '#C9933A', color: '#fff',
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                                     fontSize: '13px', fontWeight: 700, cursor: 'pointer',
                                 }}>
@@ -103,7 +104,7 @@ export default function Navbar() {
                             <Link href="/login" style={linkStyle}>Sign In</Link>
                             <Link href="/signup" style={{
                                 padding: '8px 18px', borderRadius: '8px',
-                                background: '#C9933A', color: '#0F0E0C',
+                                background: '#C9933A', color: '#fff',
                                 fontWeight: 600, fontSize: '13px', textDecoration: 'none',
                             }}>Get Started Free</Link>
                         </>
