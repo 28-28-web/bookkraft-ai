@@ -24,7 +24,7 @@ export default function Navbar() {
         background: scrolled ? 'rgba(15,14,12,0.97)' : 'rgba(15,14,12,0.85)',
         backdropFilter: 'blur(12px)',
         borderBottom: scrolled ? '1px solid rgba(247,243,236,0.08)' : '1px solid transparent',
-        transition: 'all 0.2s ease', borderTop: '3px solid #C9933A',
+        transition: 'all 0.2s ease', borderTop: '4px solid transparent', borderImage: 'linear-gradient(90deg, #b07d2a, #C9933A, #f0c96a, #C9933A, #b07d2a) 1',
     };
 
     const innerStyle = {
