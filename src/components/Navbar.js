@@ -43,7 +43,7 @@ export default function Navbar() {
         <nav style={navStyle}>
             <div style={innerStyle}>
                 <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <img src="/logo.png" width={36} height={36} alt="BookKraft AI Logo" style={{ borderRadius: '6px', display: 'block' }} />
+                    <img src="/logo.png" width={36} height={36} alt="BookKraft AI Logo" style={{ borderRadius: '6px', display: 'block', background: '#0F0E0C', padding: '4px' }} />
                     <div>
                         <div style={{ fontFamily: 'Georgia, serif', fontSize: '16px', fontWeight: 700, color: '#0F0E0C', lineHeight: 1.2 }}>
                             BookKraft <span style={{ color: '#C9933A' }}>AI</span>
