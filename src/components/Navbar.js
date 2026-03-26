@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
 
@@ -43,7 +42,7 @@ export default function Navbar() {
         <nav style={navStyle}>
             <div style={innerStyle}>
                 <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <Image src="/logo.png" width={36} height={36} alt="BookKraft AI Logo" style={{ borderRadius: '6px' }} priority />
+                    <img src="/logo.png" width={36} height={36} alt="BookKraft AI Logo" style={{ borderRadius: '6px', display: 'block', background: '#fff', padding: '2px' }} />
                     <div>
                         <div style={{ fontFamily: 'Georgia, serif', fontSize: '16px', fontWeight: 700, color: '#F7F3EC', lineHeight: 1.2 }}>
                             BookKraft <span style={{ color: '#C9933A' }}>AI</span>
