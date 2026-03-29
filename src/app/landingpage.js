@@ -119,7 +119,7 @@ function HeroSection() {
       style={{
         background: 'var(--ink)', minHeight: '100vh',
         display: 'flex', alignItems: 'center',
-        padding: 'clamp(96px,10vh,128px) clamp(20px,4vw,48px) clamp(64px,8vh,96px)',
+        padding: 'clamp(60px,6vh,80px) clamp(20px,4vw,48px) clamp(48px,6vh,72px)',
         position: 'relative', overflow: 'hidden',
       }}
       aria-label="Hero"
