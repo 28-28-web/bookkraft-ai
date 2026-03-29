@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { TOOLS } from '../lib/tools';
 import { FAQS, PRICING } from '../lib/constants';
-import AnimatedSection from '../components/AnimatedSection';
-import SocialProofTicker from '../components/SocialProofTicker';
+import AnimatedSection from '@/components/AnimatedSection';
+import SocialProofTicker from '@/components/SocialProofTicker';
 
 // ─── DATA ────────────────────────────────────────────────────────────
 
