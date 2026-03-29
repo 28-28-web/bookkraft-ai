@@ -1,380 +1,705 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { TOOLS } from '@/lib/tools';
-import { FAQS, PRICING } from '@/lib/constants';
-import Footer from '@/components/Footer';
+import { TOOLS } from '../lib/tools';
+import { FAQS, PRICING } from '../lib/constants';
+import AnimatedSection from '../components/AnimatedSection';
+import SocialProofTicker from '../components/SocialProofTicker';
+
+// ─── DATA ────────────────────────────────────────────────────────────
+
+// Matches index.html exactly: "Format like a pro. Price like a newcomer."
+const HEADLINE_WORDS = [
+  { text: 'Format',    gold: false },
+  { text: 'like',      gold: false },
+  { text: 'a',         gold: false },
+  { text: 'pro.',      gold: true  },
+  { text: 'Price',     gold: false },
+  { text: 'like',      gold: false },
+  { text: 'a',         gold: false },
+  { text: 'newcomer.', gold: true  },
+];
+
+const TICKER_ITEMS = [
+  '<strong>@sarah_writes</strong> cleaned 90k words in 3 mins',
+  '<strong>@marcusthrillers</strong> ranked #1 with our keywords',
+  '<strong>@jkromance</strong> published her 3rd book this month',
+  '<strong>@indieauthor_pro</strong> saved $245 vs Vellum',
+  '<strong>@bookcraft_fan</strong> formatted 5 EPUBs in one afternoon',
+  '<strong>@writerdave</strong> found 12 KDP keywords in 30 seconds',
+  '<strong>@publisherella</strong> passed Amazon review first try',
+];
+
+const REVIEWS = [
+  { name: 'Sarah R.',    role: 'Fantasy author · 8 titles on KDP',      stars: 5, text: 'BookKraft cleaned up 4 years of inconsistent formatting in my 90,000-word novel in under 3 minutes. Absolutely jaw-dropping.' },
+  { name: 'Marcus T.',   role: 'Self-published thriller writer',         stars: 5, text: "I was going to buy Vellum. Then I found BookKraft. $4.99 vs $250 — and the AI keyword finder paid for the full bundle in week one." },
+  { name: 'Jennifer K.', role: 'Romance author · 3-book series',        stars: 5, text: 'The style sheet auditor caught 47 inconsistencies I never would have spotted. My editor was impressed for the first time ever.' },
+  { name: 'David P.',    role: 'Thriller author · 8 KDP titles',        stars: 5, text: 'The KDP Keyword Finder is incredible. My last book went from page 4 to page 1 in its sub-category within a week of updating my keywords.' },
+  { name: 'Emma R.',     role: "Children's book author",                 stars: 4, text: 'I love that I can try the EPUB Validator and Metadata Builder for free without creating an account. That trust made me comfortable buying the full bundle.' },
+  { name: 'Michael T.',  role: 'Wide-distribution author · 20+ titles', stars: 5, text: 'The Metadata Builder saves me 30 minutes per book — one form, four platform outputs. The Print-to-Digital adapter is a game-changer.' },
+];
+
+const PLATFORMS = [
+  'Amazon KDP','Apple Books','Barnes & Noble','Kobo',
+  'Draft2Digital','Smashwords','OverDrive','Tolino','Scribd',
+];
+
+const WORKFLOW = [
+  { n: '1', t: 'Upload manuscript',  d: 'DOCX, TXT, or paste directly'  },
+  { n: '2', t: 'Choose a tool',      d: 'Cleanup, formatting, keywords' },
+  { n: '3', t: 'AI processes it',    d: 'Claude AI works in seconds'    },
+  { n: '4', t: 'Preview output',     d: 'Phone, tablet, e-ink preview'  },
+  { n: '5', t: 'Download & publish', d: 'KDP-ready EPUB, PDF, DOCX'     },
+];
+
+// ─── HELPERS ─────────────────────────────────────────────────────────
+
+function Badge({ tool }) {
+  if (tool.free)
+    return <span className="badge-v2 badge-v2-free">Free</span>;
+  if (tool.accessType === 'ai')
+    return <span className="badge-v2 badge-v2-ai">✦ AI · {tool.creditCost}cr</span>;
+  if (tool.accessType === 'logic')
+    return <span className="badge-v2 badge-v2-logic">Logic</span>;
+  return <span className="badge-v2 badge-v2-locked">Locked</span>;
+}
+
+function typeLabel(tool) {
+  if (tool.free) return 'instant · free';
+  if (tool.accessType === 'ai') return 'ai-powered';
+  return 'instant logic';
+}
+
+// ─── ROOT ────────────────────────────────────────────────────────────
 
 export default function LandingPage() {
   return (
     <>
-      {/* ── HERO (dark) ── */}
-      <section className="relative bg-gray-950 text-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 py-24 lg:py-32 grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <p className="text-sm uppercase tracking-widest text-amber-400 mb-4">⚡ eBook formatting toolkit</p>
-            <h1 className="text-5xl lg:text-6xl font-extrabold leading-tight">
-              Format Your eBook<br />Like a Pro.
-            </h1>
-            <p className="mt-6 text-lg text-gray-300 max-w-xl">
-              12 tools for indie authors. Fix Kindle errors, build valid EPUBs, generate TOCs. Start free — no credit card needed.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link href="/tools/epub-validator" className="px-6 py-3 bg-amber-500 text-gray-950 font-semibold rounded-lg hover:bg-amber-400 transition">Try 2 Free Tools</Link>
-              <Link href="/pricing" className="px-6 py-3 border border-white/20 rounded-lg hover:bg-white/10 transition">Get Full Access — $9.99</Link>
-            </div>
-            <p className="mt-6 text-sm text-gray-400">✦ Trusted by 3,000+ indie authors formatting for Kindle & EPUB</p>
-          </div>
+      {/* Keyframes needed for hero animations */}
+      <style>{`
+        @keyframes bkWordUp {
+          to { opacity:1; transform:translateY(0); }
+        }
+        @keyframes bkGoldLine {
+          to { transform:scaleX(1); }
+        }
+        @keyframes bkFadeUp {
+          from { opacity:0; transform:translateY(14px); }
+          to   { opacity:1; transform:translateY(0); }
+        }
+        @keyframes bkTicker {
+          from { transform:translateX(0); }
+          to   { transform:translateX(-50%); }
+        }
+      `}</style>
 
-          <div className="space-y-4">
-            <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-              <p className="font-bold text-lg text-white mb-2">Kindle Format Fixer</p>
-              <p className="text-sm text-green-400 whitespace-pre-line">✓ 47 double spaces fixed
-✓ 12 smart quotes converted
-✓ 3 tab indents removed</p>
-            </div>
-            <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-              <p className="font-bold text-lg text-white mb-2">EPUB Validator</p>
-              <p className="text-sm text-red-400">✕ Missing nav.xhtml</p>
-              <p className="text-sm text-green-400 whitespace-pre-line">✓ Valid container.xml
-✓ Mimetype correct</p>
-            </div>
-            <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-              <p className="font-bold text-lg text-white mb-2">TOC Generator</p>
-              <p className="text-sm text-gray-300 whitespace-pre-line">1. Chapter One — The Beginning
-2. Chapter Two — Rising Action
-3. Chapter Three — Climax</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── FREE TOOLS CALLOUT ── */}
-      <section className="bg-white py-20">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <p className="text-sm uppercase tracking-widest text-amber-600 font-semibold">START FREE</p>
-          <h2 className="text-3xl font-bold mt-2">No Account Needed</h2>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">Two tools work immediately. No signup, no credit card. Just open and use.</p>
-          <div className="mt-10 grid sm:grid-cols-2 gap-8 text-left">
-            <div className="border rounded-xl p-6">
-              <h3 className="text-xl font-semibold">EPUB Validator</h3>
-              <p className="mt-2 text-gray-600">Check your EPUB for errors before uploading. No Java, no signup.</p>
-              <Link href="/tools/epub-validator" className="mt-4 inline-block text-amber-600 font-medium hover:underline">Open Free Tool</Link>
-            </div>
-            <div className="border rounded-xl p-6">
-              <h3 className="text-xl font-semibold">Metadata Builder</h3>
-              <p className="mt-2 text-gray-600">Create master metadata for KDP, IngramSpark, Draft2Digital, and EPUB OPF.</p>
-              <Link href="/tools/metadata-builder" className="mt-4 inline-block text-amber-600 font-medium hover:underline">Open Free Tool</Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── TOOL GRID ── */}
-      <section className="bg-gray-50 py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="text-sm uppercase tracking-widest text-amber-600 font-semibold text-center">THE TOOLKIT</p>
-          <h2 className="text-3xl font-bold text-center mt-2">12 Tools. One Workflow.</h2>
-          <p className="text-center text-gray-600 mt-4 max-w-2xl mx-auto">5 instant logic tools + 5 AI-powered tools + 2 free tools. Buy the bundle or pay per AI run.</p>
-          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {TOOLS.map((t) => (
-              <Link key={t.slug} href={`/tools/${t.slug}`} className="group">
-                <div className="bg-white border rounded-xl p-6 h-full flex flex-col hover:shadow-lg transition">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-2xl">{t.icon}</span>
-                    {t.free
-                      ? <span className="text-xs font-semibold bg-green-100 text-green-700 px-2 py-1 rounded-full">FREE</span>
-                      : t.accessType === 'ai'
-                        ? <span className="text-xs font-semibold bg-purple-100 text-purple-700 px-2 py-1 rounded-full">AI · {t.creditCost} credit{t.creditCost !== 1 ? 's' : ''}</span>
-                        : <span className="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Instant</span>
-                    }
-                  </div>
-                  <h3 className="text-lg font-semibold">{t.name}</h3>
-                  <p className="mt-2 text-sm text-gray-600 flex-1">{t.desc}</p>
-                  <div className="mt-4 flex items-center justify-between text-sm">
-                    <span className="text-gray-400">
-                      {t.free ? 'Free' : t.accessType === 'ai' ? `${t.creditCost} credit${t.creditCost !== 1 ? 's' : ''}` : 'Bundle'}
-                    </span>
-                    <span className="text-amber-600 font-medium group-hover:translate-x-1 transition-transform">Open →</span>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── COMPETITOR FRAMING ── */}
-      <section className="bg-white py-20">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <p className="text-sm uppercase tracking-widest text-amber-600 font-semibold">WHY BOOKKRAFT</p>
-          <h2 className="text-3xl font-bold mt-2">What Indie Authors Actually Need</h2>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">Vellum costs $249.99 and only runs on Mac. Atticus charges $147. BookKraft gives you the formatting tools you need for a fraction of the price — on any device.</p>
-          <div className="mt-12 grid sm:grid-cols-3 gap-8 text-left">
-            {[
-              { title: 'Run on Any Device', desc: 'Web-based. Works on Mac, Windows, Chromebook, phone. No downloads.' },
-              { title: 'Pay Once, Own Forever', desc: 'No subscriptions. Buy the Essentials Bundle or credits — they never expire.' },
-              { title: 'AI Where It Matters', desc: '5 instant logic tools + 5 AI tools. AI handles the creative work, logic handles the formatting.' },
-            ].map((item, i) => (
-              <div key={i} className="border rounded-xl p-6">
-                <h3 className="text-lg font-semibold">{item.title}</h3>
-                <p className="mt-2 text-gray-600 text-sm">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── WORKFLOW (dark) ── */}
-      <section className="bg-gray-950 text-white py-20">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <p className="text-sm uppercase tracking-widest text-amber-400 font-semibold">THE WORKFLOW</p>
-          <h2 className="text-3xl font-bold mt-2">The eBook Formatting Workflow</h2>
-          <div className="mt-12 space-y-8 text-left max-w-2xl mx-auto">
-            {[
-              { n: '01', t: 'Clean Your Manuscript', d: 'Manuscript Cleanup Tool' },
-              { n: '02', t: 'Format for Kindle or EPUB', d: 'Kindle Format Fixer / EPUB Formatter' },
-              { n: '03', t: 'Build Navigation', d: 'TOC Generator' },
-              { n: '04', t: 'Add Front & Back Matter', d: 'Front Matter + Back Matter Generator' },
-              { n: '05', t: 'Validate & Publish', d: 'EPUB Validator + KDP Keyword Finder' },
-            ].map((s, i) => (
-              <div key={i} className="flex gap-6 items-start">
-                <span className="text-3xl font-extrabold text-amber-500">{s.n}</span>
-                <div>
-                  <h3 className="text-lg font-semibold">{s.t}</h3>
-                  <p className="text-gray-400 text-sm">{s.d}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── PLATFORM COMPATIBILITY ── */}
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <h2 className="text-2xl font-bold">
-            Your formatted eBook works on every platform
-          </h2>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            {['Amazon KDP', 'Apple Books', 'Barnes & Noble', 'Kobo', 'Draft2Digital',
-              'Smashwords', 'OverDrive', 'Tolino', 'Scribd'].map((p) => (
-              <span key={p} className="px-4 py-2 bg-white border rounded-full text-sm font-medium">{p}</span>
-            ))}
-          </div>
-          <p className="mt-4 text-gray-400 text-sm">
-            And more...
-          </p>
-        </div>
-      </section>
-
-      {/* ── REVIEWS / TESTIMONIALS ── */}
-      <section className="bg-white py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="text-sm uppercase tracking-widest text-amber-600 font-semibold text-center">REVIEWS</p>
-          <h2 className="text-3xl font-bold text-center mt-2">What Authors Are Saying</h2>
-          <p className="text-center text-gray-500 mt-3 max-w-xl mx-auto">
-            Real feedback from indie authors who use BookKraft to format their eBooks.
-          </p>
-          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                name: 'Sarah Mitchell',
-                role: 'Romance Author, 12 titles on KDP',
-                stars: 5,
-                text: 'I switched from Vellum because I needed something that works on my Windows laptop. BookKraft fixed 200+ formatting errors in my manuscript in under 30 seconds. The EPUB Validator alone saved me hours.',
-              },
-              {
-                name: 'James Calder',
-                role: 'Sci-Fi Author & Self-Publishing Coach',
-                stars: 5,
-                text: 'The Manuscript Cleanup tool caught 47 repeated words and 3 clichés I completely missed. The AI suggestions were actually useful, not generic. Best $7 I ever spent on a formatting tool.',
-              },
-              {
-                name: 'Priya Sharma',
-                role: 'Non-fiction Author, 3 titles',
-                stars: 5,
-                text: 'I was spending $300 on formatting for each book. Now I do it myself with BookKraft. The TOC Generator and Front Matter tools make it feel like I have a professional formatter on staff.',
-              },
-              {
-                name: 'David Park',
-                role: 'Thriller Author, 8 titles on KDP',
-                stars: 5,
-                text: 'The KDP Keyword Finder is incredible. My last book went from page 4 to page 1 in its sub-category within a week of updating my keywords. The category suggestions were spot-on.',
-              },
-              {
-                name: 'Emma Rodriguez',
-                role: 'Children\'s Book Author',
-                stars: 4,
-                text: 'I love that I can try the EPUB Validator and Metadata Builder for free without creating an account. That trust made me comfortable buying the full bundle. Clean, professional tool.',
-              },
-              {
-                name: 'Michael Torres',
-                role: 'Wide-Distribution Author, 20+ titles',
-                stars: 5,
-                text: 'I publish on KDP, Apple, Kobo, and Draft2Digital. The Metadata Builder saves me 30 minutes per book — one form, four platform outputs. The Print-to-Digital adapter is a game-changer for my backlist.',
-              },
-            ].map((review, i) => (
-              <div key={i} className="border rounded-xl p-6">
-                {/* Stars */}
-                <div className="text-amber-500 text-lg mb-3">
-                  {'★'.repeat(review.stars)}{'☆'.repeat(5 - review.stars)}
-                </div>
-                {/* Quote */}
-                <blockquote className="text-gray-700 text-sm leading-relaxed">
-                  &ldquo;{review.text}&rdquo;
-                </blockquote>
-                {/* Author */}
-                <div className="mt-4 border-t pt-4">
-                  <p className="font-semibold text-sm">
-                    {review.name}
-                  </p>
-                  <p className="text-xs text-gray-500">{review.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── PRICING (v8.0 credit model) ── */}
-      <section className="bg-gray-50 py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="text-sm uppercase tracking-widest text-amber-600 font-semibold text-center">PRICING</p>
-          <h2 className="text-3xl font-bold text-center mt-2">Simple Pricing. No Subscriptions.</h2>
-          <p className="text-center text-gray-600 mt-4">Buy once, own forever. Credits never expire. No monthly fees.</p>
-          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Free */}
-            <div className="bg-white border rounded-xl p-6 flex flex-col">
-              <h3 className="text-xl font-bold">Free</h3>
-              <p className="text-3xl font-extrabold mt-2">$0</p>
-              <p className="text-sm text-gray-600 mt-2">2 tools, no signup, no limits.</p>
-              <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
-                <li>✓ EPUB Validator</li>
-                <li>✓ Metadata Builder</li>
-                <li>✓ No account needed</li>
-                <li>✓ Unlimited use</li>
-              </ul>
-              <Link href="/tools/epub-validator" className="mt-6 block text-center py-2 border rounded-lg hover:bg-gray-50 transition font-medium">Start Free</Link>
-            </div>
-
-            {/* Essentials Bundle */}
-            <div className="bg-white border rounded-xl p-6 flex flex-col">
-              <h3 className="text-xl font-bold">{PRICING.essentials.name}</h3>
-              <p className="text-3xl font-extrabold mt-2">{PRICING.essentials.label} <span className="text-sm font-normal text-gray-500">one-time</span></p>
-              <p className="text-sm text-gray-600 mt-2">{PRICING.essentials.desc}</p>
-              <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
-                {PRICING.essentials.features.map((f, i) => <li key={i}>✓ {f}</li>)}
-              </ul>
-              <Link href="/pricing" className="mt-6 block text-center py-2 border rounded-lg hover:bg-gray-50 transition font-medium">Get Essentials</Link>
-            </div>
-
-            {/* Full Access (featured) */}
-            <div className="bg-gray-950 text-white border-2 border-amber-500 rounded-xl p-6 flex flex-col relative">
-              <h3 className="text-xl font-bold">{PRICING.full.name}</h3>
-              <p className="text-3xl font-extrabold mt-2">{PRICING.full.label} <span className="text-sm font-normal text-gray-400">one-time</span></p>
-              <p className="text-sm text-gray-300 mt-2">{PRICING.full.desc}</p>
-              <ul className="mt-4 space-y-2 text-sm text-gray-200 flex-1">
-                {PRICING.full.features.map((f, i) => <li key={i}>✓ {f}</li>)}
-              </ul>
-              <Link href="/pricing" className="mt-6 block text-center py-2 bg-amber-500 text-gray-950 rounded-lg hover:bg-amber-400 transition font-semibold">Get Full Access</Link>
-            </div>
-
-            {/* Lifetime */}
-            <div className="bg-white border rounded-xl p-6 flex flex-col">
-              <h3 className="text-xl font-bold">{PRICING.lifetime.name}</h3>
-              <p className="text-3xl font-extrabold mt-2">{PRICING.lifetime.label} <span className="text-sm font-normal text-gray-500">one-time</span></p>
-              <p className="text-sm text-gray-600 mt-2">{PRICING.lifetime.desc}</p>
-              <ul className="mt-4 space-y-2 text-sm text-gray-700 flex-1">
-                {PRICING.lifetime.features.map((f, i) => <li key={i}>✓ {f}</li>)}
-              </ul>
-              <Link href="/pricing" className="mt-6 block text-center py-2 border rounded-lg hover:bg-gray-50 transition font-medium">Get Lifetime Deal</Link>
-            </div>
-          </div>
-
-          {/* Credit packs under pricing */}
-          <div className="mt-16 text-center">
-            <h3 className="text-2xl font-bold">AI Credit Packs</h3>
-            <p className="text-gray-600 mt-2">Credits power AI tools. Buy once, use whenever — they never expire.</p>
-            <div className="mt-8 grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
-              <div className="bg-white border rounded-xl p-6 text-left">
-                <p className="text-lg font-bold">{PRICING.starterCredits.name}</p>
-                <p className="text-2xl font-extrabold mt-1">{PRICING.starterCredits.label}</p>
-                <p className="text-sm text-gray-600 mt-1">{PRICING.starterCredits.desc}</p>
-                <ul className="mt-3 space-y-1 text-sm text-gray-700">
-                  {PRICING.starterCredits.features.map((f, i) => <li key={i}>✓ {f}</li>)}
-                </ul>
-                <Link href="/pricing" className="mt-4 inline-block text-amber-600 font-medium hover:underline">Buy Credits</Link>
-              </div>
-              <div className="bg-white border rounded-xl p-6 text-left">
-                <p className="text-lg font-bold">{PRICING.authorPro.name}</p>
-                <p className="text-2xl font-extrabold mt-1">{PRICING.authorPro.label}</p>
-                <p className="text-sm text-gray-600 mt-1">{PRICING.authorPro.desc}</p>
-                <ul className="mt-3 space-y-1 text-sm text-gray-700">
-                  {PRICING.authorPro.features.map((f, i) => <li key={i}>✓ {f}</li>)}
-                </ul>
-                <Link href="/pricing" className="mt-4 inline-block text-amber-600 font-medium hover:underline">Buy Credits</Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Credit cost table */}
-          <div className="mt-12 max-w-md mx-auto">
-            <h3 className="text-xl font-bold text-center mb-4">AI Tool Credit Costs</h3>
-            <table className="w-full text-sm border rounded-lg overflow-hidden">
-              <thead className="bg-gray-100">
-                <tr>
-                  <th className="text-left px-4 py-2">Tool</th>
-                  <th className="text-right px-4 py-2">Credits</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  ['KDP Keyword Finder', '1'],
-                  ['Back Matter Generator', '2'],
-                  ['Manuscript Cleanup', '3'],
-                  ['Print-to-Digital Adapter', '3'],
-                  ['Style Sheet Auditor', '3'],
-                ].map(([name, cost], i) => (
-                  <tr key={i} className="border-t">
-                    <td className="px-4 py-2">{name}</td>
-                    <td className="px-4 py-2 text-right">{cost}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* ── FAQ ── */}
+      <HeroSection />
+      <TickerSection />
+      <FreeToolsSection />
+      <ToolGridSection />
+      <CompetitorSection />
+      <WorkflowSection />
+      <TestimonialsSection />
+      <PlatformsSection />
+      <PricingSection />
       <FAQSection />
-      {/* ── Footer ── */}
-      <Footer />
+      <FooterSection />
     </>
   );
 }
 
-function FAQSection() {
-  const [openIndex, setOpenIndex] = useState(null);
+// ─── 1. HERO ─────────────────────────────────────────────────────────
+
+function HeroSection() {
+  const [animate, setAnimate] = useState(false);
+  useEffect(() => { const t = setTimeout(() => setAnimate(true), 260); return () => clearTimeout(t); }, []);
+
   return (
-    <section className="bg-white py-20">
-      <div className="max-w-3xl mx-auto px-6">
-        <p className="text-sm uppercase tracking-widest text-amber-600 font-semibold text-center">FAQ</p>
-        <h2 className="text-3xl font-bold text-center mt-2">Questions We Get a Lot</h2>
-        <div className="mt-10 space-y-4">
-          {FAQS.map((f, i) => (
-            <div key={i} className="border rounded-lg">
-              <button className="w-full flex justify-between items-center px-5 py-4 text-left font-medium" onClick={() => setOpenIndex(openIndex === i ? null : i)}>
-                {f.q}
-                <span className={`transition-transform ${openIndex === i ? 'rotate-180' : ''}`}>▼</span>
-              </button>
-              <p className={`px-5 pb-4 text-gray-600 text-sm ${openIndex === i ? '' : 'hidden'}`}>{f.a}</p>
+    <section
+      style={{
+        background: 'var(--ink)', minHeight: '100vh',
+        display: 'flex', alignItems: 'center',
+        padding: 'clamp(96px,10vh,128px) clamp(20px,4vw,48px) clamp(64px,8vh,96px)',
+        position: 'relative', overflow: 'hidden',
+      }}
+      aria-label="Hero"
+    >
+      {/* Grain */}
+      <div aria-hidden="true" style={{
+        position:'absolute',inset:0,pointerEvents:'none',opacity:0.045,
+        backgroundImage:`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")`,
+        backgroundSize:'220px',
+      }} />
+
+      <div style={{ maxWidth:1160, margin:'0 auto', width:'100%', position:'relative', zIndex:1 }}>
+
+        {/* Eyebrow */}
+        <p style={{
+          fontFamily:"'JetBrains Mono',monospace", fontSize:11,
+          color:'var(--gold)', letterSpacing:'2.5px', textTransform:'uppercase',
+          marginBottom:20, opacity:0,
+          animation:'bkFadeUp 0.4s ease 0.5s forwards',
+        }}>
+          ✦ Professional eBook Formatting
+        </p>
+
+        {/* H1 — "Format like a pro. Price like a newcomer." */}
+        <h1
+          aria-label="Format like a pro. Price like a newcomer."
+          style={{
+            fontFamily:"'Playfair Display',serif",
+            fontSize:'clamp(48px,7vw,96px)',
+            fontWeight:700, fontStyle:'italic',
+            lineHeight:1.05, letterSpacing:'-1px',
+            color:'var(--cream)', marginBottom:24,
+          }}
+        >
+          {HEADLINE_WORDS.map((w, i) => (
+            <span
+              key={i}
+              style={{
+                display:'inline-block',
+                // margin-right creates word gaps — inline-block eats whitespace
+                marginRight: i < HEADLINE_WORDS.length - 1 ? '0.22em' : 0,
+                opacity:0, transform:'translateY(28px)',
+                animation: animate
+                  ? `bkWordUp 0.5s cubic-bezier(0.22,1,0.36,1) ${i * 0.1}s forwards`
+                  : 'none',
+                ...(w.gold ? { color:'var(--gold)', position:'relative' } : {}),
+              }}
+            >
+              {w.text}
+              {/* Gold underline */}
+              {w.gold && (
+                <span aria-hidden="true" style={{
+                  display:'block', height:3,
+                  background:'var(--gold)', marginTop:2,
+                  transform:'scaleX(0)', transformOrigin:'left',
+                  animation:'bkGoldLine 0.5s ease 1.2s forwards',
+                }} />
+              )}
+            </span>
+          ))}
+        </h1>
+
+        {/* Sub */}
+        <p style={{
+          fontSize:17, color:'rgba(247,243,236,0.58)',
+          lineHeight:1.65, maxWidth:460, marginBottom:36,
+          opacity:0, animation:'bkFadeUp 0.5s ease 1.1s forwards',
+        }}>
+          Stop paying $250 for formatting software. BookKraft AI gives indie authors
+          12 professional-grade tools — starting at $4.99 with no subscriptions.
+        </p>
+
+        {/* CTAs */}
+        <div style={{
+          display:'flex', gap:14, flexWrap:'wrap', alignItems:'center',
+          marginBottom:20, opacity:0,
+          animation:'bkFadeUp 0.5s ease 1.3s forwards',
+        }}>
+          <Link href="/tools/epub-validator" className="btn-hero-primary">
+            Try 2 Free Tools →
+          </Link>
+          <Link href="/pricing" className="btn-hero-secondary">
+            Get Full Access — $9.99
+          </Link>
+        </div>
+
+        {/* Social proof */}
+        <div style={{
+          display:'flex', alignItems:'center', gap:10,
+          fontSize:13, color:'rgba(247,243,236,0.45)',
+          opacity:0, animation:'bkFadeUp 0.5s ease 1.5s forwards',
+        }}>
+          <span style={{ color:'var(--gold)', letterSpacing:1 }} aria-label="5 stars">★★★★★</span>
+          Trusted by 3,000+ indie authors worldwide
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+// ─── 2. TICKER ───────────────────────────────────────────────────────
+
+function TickerSection() {
+  const doubled = [...TICKER_ITEMS, ...TICKER_ITEMS];
+  return (
+    <div
+      style={{ background:'var(--white)', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)', padding:'14px 0', overflow:'hidden' }}
+      aria-label="Author wins" role="marquee"
+    >
+      <div style={{ display:'flex', whiteSpace:'nowrap', animation:'bkTicker 32s linear infinite' }}>
+        {doubled.map((item, i) => (
+          <div key={i} style={{
+            display:'inline-flex', alignItems:'center', gap:10,
+            padding:'0 36px', fontSize:13, color:'var(--mid)',
+            borderRight:'1px solid var(--border)', flexShrink:0,
+          }}>
+            <span style={{ color:'var(--gold)', fontSize:10 }} aria-hidden="true">✦</span>
+            <span dangerouslySetInnerHTML={{ __html: item }} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── 3. FREE TOOLS ───────────────────────────────────────────────────
+// Exactly 2: EPUB Validator + Metadata Builder
+
+function FreeToolsSection() {
+  return (
+    <section
+      style={{ background:'var(--sage-bg)', borderTop:'1px solid rgba(46,94,40,0.14)', borderBottom:'1px solid rgba(46,94,40,0.14)' }}
+      aria-labelledby="freeTitle"
+    >
+      <AnimatedSection>
+        <div style={{ maxWidth:1160, margin:'0 auto', padding:'52px clamp(20px,4vw,48px)' }}>
+          <div style={{ display:'grid', gridTemplateColumns:'1fr auto', gap:48, alignItems:'center' }}
+            className="animate-on-scroll">
+            {/* Left text */}
+            <div>
+              <div style={{
+                display:'inline-block', background:'var(--sage)', color:'#fff',
+                fontSize:10, fontWeight:700, padding:'4px 10px',
+                borderRadius:2, letterSpacing:'1.5px', textTransform:'uppercase', marginBottom:14,
+              }}>
+                Free — No Login Required
+              </div>
+              <h2 id="freeTitle" style={{ fontFamily:"'Playfair Display',serif", fontSize:26, fontWeight:700, marginBottom:6 }}>
+                Start for free, right now
+              </h2>
+              <p style={{ fontSize:14, color:'var(--sage)', margin:0 }}>
+                2 full-featured tools available with no account needed.
+              </p>
             </div>
+
+            {/* Right — exactly 2 chips */}
+            <div style={{ display:'flex', gap:12, flexShrink:0 }}>
+              {[
+                { href:'/tools/epub-validator',   label:'EPUB Validator'  },
+                { href:'/tools/metadata-builder', label:'Metadata Builder'},
+              ].map(chip => (
+                <Link key={chip.href} href={chip.href} style={{
+                  background:'#fff', border:'1px solid rgba(46,94,40,0.22)',
+                  padding:'12px 22px', borderRadius:'var(--radius)',
+                  fontSize:14, fontWeight:500, color:'var(--ink)',
+                  display:'flex', alignItems:'center', gap:8,
+                  textDecoration:'none', whiteSpace:'nowrap',
+                  transition:'border-color 0.2s, transform 0.15s, box-shadow 0.15s',
+                }}
+                  onMouseEnter={e=>{e.currentTarget.style.borderColor='var(--sage)';e.currentTarget.style.transform='translateY(-2px)';e.currentTarget.style.boxShadow='0 1px 3px rgba(15,14,12,0.08)';}}
+                  onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(46,94,40,0.22)';e.currentTarget.style.transform='none';e.currentTarget.style.boxShadow='none';}}
+                >
+                  <span style={{
+                    width:20, height:20, borderRadius:'50%',
+                    background:'var(--sage-bg)', border:'1px solid rgba(46,94,40,0.25)',
+                    display:'flex', alignItems:'center', justifyContent:'center',
+                    fontSize:11, color:'var(--sage)', flexShrink:0,
+                  }} aria-hidden="true">✓</span>
+                  {chip.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </AnimatedSection>
+    </section>
+  );
+}
+
+// ─── 4. TOOL GRID ────────────────────────────────────────────────────
+
+function ToolGridSection() {
+  return (
+    <section className="tools-section-v2" id="tools-section" aria-labelledby="toolsHeading">
+      <div className="section-inner-v2">
+        <AnimatedSection>
+          <div className="animate-on-scroll" style={{ textAlign:'center' }}>
+            <p className="section-eyebrow-v2">12 Professional Tools</p>
+            <h2 className="section-title-v2" id="toolsHeading">Everything an indie author needs</h2>
+            <p className="section-sub-v2" style={{ maxWidth:500, margin:'0 auto' }}>
+              From raw manuscript to polished EPUB — every step covered in one place.
+            </p>
+          </div>
+        </AnimatedSection>
+
+        <div className="tool-grid-v2" role="list">
+          {TOOLS.map((tool, i) => (
+            <AnimatedSection key={tool.slug}>
+              <Link
+                href={`/tools/${tool.slug}`}
+                className={`tool-card-v2 animate-on-scroll stagger-${Math.min((i%3)+1,6)}`}
+                role="listitem"
+              >
+                <span className="tool-card-v2-num" aria-hidden="true">
+                  {String(i+1).padStart(2,'0')}
+                </span>
+                <div className="tool-card-v2-header">
+                  <span style={{ fontSize:22 }} aria-hidden="true">{tool.icon}</span>
+                  <Badge tool={tool} />
+                </div>
+                <h3>{tool.name}</h3>
+                <p>{tool.desc}</p>
+                <div className="tool-card-v2-footer">
+                  <span className="tool-type-label">{typeLabel(tool)}</span>
+                  <span style={{ fontSize:16, color:'var(--gold)' }} aria-hidden="true">→</span>
+                </div>
+              </Link>
+            </AnimatedSection>
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+// ─── 5. COMPETITOR ───────────────────────────────────────────────────
+
+function CompetitorSection() {
+  const cols = [
+    { name:'Atticus',     price:'$147', note:'One-time · No AI · No cloud', featured:false },
+    { name:'BookKraft AI',price:'$4.99',note:'All 12 tools · AI-powered',   featured:true  },
+    { name:'Vellum',      price:'$250', note:'Mac only · No AI · No cleanup',featured:false },
+  ];
+  return (
+    <section style={{ background:'var(--ink)', padding:'72px clamp(20px,4vw,48px)' }} aria-label="Price comparison">
+      <div style={{ maxWidth:860, margin:'0 auto', textAlign:'center' }}>
+        <AnimatedSection>
+          <p className="section-eyebrow-v2 animate-on-scroll" style={{ color:'rgba(201,168,76,0.65)' }}>
+            Why BookKraft AI wins on value
+          </p>
+          <div style={{ display:'grid', gridTemplateColumns:'1fr 2px 1fr 2px 1fr', alignItems:'center', marginTop:44 }}
+            className="animate-on-scroll stagger-1">
+            {cols.map((col, i) => (
+              <>
+                <div key={col.name} style={{
+                  padding:'28px 24px', textAlign:'center',
+                  ...(col.featured ? { borderTop:'2px solid var(--gold)', background:'rgba(201,168,76,0.04)' } : {}),
+                }}>
+                  <p style={{ fontSize:12, textTransform:'uppercase', letterSpacing:'1.5px', marginBottom:8,
+                    color: col.featured ? 'rgba(201,168,76,0.7)' : 'rgba(247,243,236,0.42)' }}>
+                    {col.name}
+                  </p>
+                  <p style={{
+                    fontFamily:"'Playfair Display',serif",
+                    fontSize:'clamp(48px,6vw,64px)', fontStyle:'italic', lineHeight:1,
+                    color: col.featured ? 'var(--gold)' : 'rgba(247,243,236,0.25)',
+                  }}>
+                    {col.price}
+                  </p>
+                  <p style={{ fontSize:12, marginTop:8,
+                    color: col.featured ? 'rgba(201,168,76,0.55)' : 'rgba(247,243,236,0.3)' }}>
+                    {col.note}
+                  </p>
+                </div>
+                {/* Divider between columns */}
+                {i < cols.length - 1 && (
+                  <div key={`div-${i}`} aria-hidden="true" style={{
+                    height:100,
+                    background:'linear-gradient(to bottom,transparent,rgba(201,168,76,0.25),transparent)',
+                  }} />
+                )}
+              </>
+            ))}
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+}
+
+// ─── 6. WORKFLOW ─────────────────────────────────────────────────────
+
+function WorkflowSection() {
+  return (
+    <section style={{ background:'var(--cream)', padding:'88px clamp(20px,4vw,48px)' }} aria-labelledby="workflowHeading">
+      <div style={{ maxWidth:1160, margin:'0 auto' }}>
+        <AnimatedSection>
+          <p className="section-eyebrow-v2 animate-on-scroll">How it works</p>
+          <h2 className="section-title-v2 animate-on-scroll stagger-1" id="workflowHeading">
+            From draft to published in 5 steps
+          </h2>
+        </AnimatedSection>
+
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(5,1fr)', gap:8, position:'relative', marginTop:52 }}>
+          {/* Connecting line */}
+          <div aria-hidden="true" style={{
+            position:'absolute', top:26, left:'calc(10% + 20px)', right:'calc(10% + 20px)',
+            height:1, background:'var(--border)', zIndex:0,
+          }} />
+          {WORKFLOW.map((step, i) => (
+            <AnimatedSection key={i}>
+              <div className={`animate-on-scroll stagger-${i+1}`}
+                style={{ textAlign:'center', padding:'0 10px', position:'relative', zIndex:1 }}>
+                <div style={{
+                  width:52, height:52, borderRadius:'50%',
+                  background:'#fff', border:'1.5px solid var(--border)',
+                  display:'flex', alignItems:'center', justifyContent:'center',
+                  margin:'0 auto 14px',
+                  fontFamily:"'Playfair Display',serif",
+                  fontSize:18, fontWeight:700, fontStyle:'italic',
+                }} aria-hidden="true">{step.n}</div>
+                <p style={{ fontSize:13, fontWeight:700, marginBottom:5 }}>{step.t}</p>
+                <p style={{ fontSize:11.5, color:'var(--mid)', lineHeight:1.5 }}>{step.d}</p>
+              </div>
+            </AnimatedSection>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── 7. TESTIMONIALS ─────────────────────────────────────────────────
+
+function TestimonialsSection() {
+  return (
+    <section style={{ background:'#fff', padding:'88px clamp(20px,4vw,48px)' }} aria-labelledby="reviewsHeading">
+      <div style={{ maxWidth:1160, margin:'0 auto' }}>
+        <AnimatedSection>
+          <p className="section-eyebrow-v2 animate-on-scroll">Author wins</p>
+          <h2 className="section-title-v2 animate-on-scroll stagger-1" id="reviewsHeading">
+            What indie authors are saying
+          </h2>
+        </AnimatedSection>
+
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:20, marginTop:48 }}>
+          {REVIEWS.map((r, i) => (
+            <AnimatedSection key={i}>
+              <article
+                className={`animate-on-scroll stagger-${Math.min(i+1,6)}`}
+                style={{
+                  background:'var(--cream)', border:'1px solid var(--border)',
+                  borderRadius:'var(--radius)', padding:26,
+                  transition:'transform 0.2s, box-shadow 0.2s',
+                }}
+                itemScope itemType="https://schema.org/Review"
+                onMouseEnter={e=>{e.currentTarget.style.transform='translateY(-3px)';e.currentTarget.style.boxShadow='0 4px 12px rgba(15,14,12,0.12)';}}
+                onMouseLeave={e=>{e.currentTarget.style.transform='none';e.currentTarget.style.boxShadow='none';}}
+              >
+                <p style={{
+                  fontFamily:"'Playfair Display',serif", fontSize:14.5,
+                  fontStyle:'italic', lineHeight:1.72, color:'var(--ink)', marginBottom:18,
+                }} itemProp="reviewBody">
+                  <span style={{ color:'var(--gold)', fontSize:26, lineHeight:0, verticalAlign:'-9px', marginRight:3 }} aria-hidden="true">&ldquo;</span>
+                  {r.text}
+                </p>
+                <div style={{ display:'flex', alignItems:'center', gap:10, paddingTop:14, borderTop:'1px solid var(--border)' }}>
+                  <div style={{
+                    width:38, height:38, borderRadius:'50%', background:'var(--border)',
+                    display:'flex', alignItems:'center', justifyContent:'center',
+                    fontSize:13, fontWeight:700, color:'var(--mid)', flexShrink:0,
+                  }} aria-hidden="true">
+                    {r.name.split(' ').map(n=>n[0]).join('')}
+                  </div>
+                  <div>
+                    <p style={{ fontSize:13, fontWeight:700 }} itemProp="author">{r.name}</p>
+                    <p style={{ fontSize:11, color:'var(--mid)' }}>{r.role}</p>
+                  </div>
+                </div>
+              </article>
+            </AnimatedSection>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── 8. PLATFORMS ────────────────────────────────────────────────────
+
+function PlatformsSection() {
+  return (
+    <section style={{ background:'var(--cream)', padding:'56px clamp(20px,4vw,48px)' }} aria-labelledby="platformsHeading">
+      <div style={{ maxWidth:1160, margin:'0 auto', textAlign:'center' }}>
+        <AnimatedSection>
+          <h2 id="platformsHeading" className="animate-on-scroll"
+            style={{ fontFamily:"'Playfair Display',serif", fontSize:24, fontWeight:700, marginBottom:24 }}>
+            Your formatted eBook works on every platform
+          </h2>
+          <div className="animate-on-scroll stagger-1"
+            style={{ display:'flex', flexWrap:'wrap', justifyContent:'center', gap:10 }}>
+            {PLATFORMS.map(p => <span key={p} className="platform-badge">{p}</span>)}
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+}
+
+// ─── 9. PRICING ──────────────────────────────────────────────────────
+
+function PricingSection() {
+  const plans = [
+    {
+      key:'free', name:'Free', price:'$0', period:'forever',
+      desc:'2 tools, no signup, no limits.',
+      features:['EPUB Validator','Metadata Builder','No account needed','Unlimited use'],
+      cta:'Start Free', href:'/tools/epub-validator', featured:false,
+    },
+    {
+      key:'essentials',
+      name: PRICING.essentials?.name || 'Essentials Bundle',
+      price: PRICING.essentials?.label || '$4.99', period:'one-time',
+      desc: PRICING.essentials?.desc || '5 instant logic tools.',
+      features: PRICING.essentials?.features || [],
+      cta:'Get Essentials', href:'/pricing', featured:false,
+    },
+    {
+      key:'full',
+      name: PRICING.full?.name || 'Full Access',
+      price: PRICING.full?.label || '$9.99', period:'one-time',
+      desc: PRICING.full?.desc || 'All tools + AI credits.',
+      retail:'Retail value: $35+',
+      features: PRICING.full?.features || [],
+      cta:'Get Full Access', href:'/pricing', featured:true,
+    },
+    {
+      key:'lifetime',
+      name: PRICING.lifetime?.name || 'Lifetime Access',
+      price: PRICING.lifetime?.label || '$149', period:'one-time',
+      desc: PRICING.lifetime?.desc || 'Unlimited everything, forever.',
+      features: PRICING.lifetime?.features || [],
+      cta:'Get Lifetime', href:'/pricing', featured:false,
+    },
+  ];
+
+  return (
+    <section style={{ background:'#fff', padding:'88px clamp(20px,4vw,48px)' }} id="pricing" aria-labelledby="pricingHeading">
+      <div style={{ maxWidth:1160, margin:'0 auto' }}>
+        <AnimatedSection>
+          <div className="animate-on-scroll" style={{ textAlign:'center', marginBottom:48 }}>
+            <p className="section-eyebrow-v2">Simple, honest pricing</p>
+            <h2 className="section-title-v2" id="pricingHeading">No subscriptions. Ever.</h2>
+            <p className="section-sub-v2">Pay once, own forever. Credits never expire. No monthly fees.</p>
+          </div>
+        </AnimatedSection>
+
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:14 }} role="list">
+          {plans.map((plan, i) => (
+            <AnimatedSection key={plan.key}>
+              <div
+                className={`pricing-card-v2 animate-on-scroll stagger-${i+1}${plan.featured?' featured':''}`}
+                role="listitem" style={{ position:'relative' }}
+              >
+                {plan.featured && <span className="pricing-best-badge">Best Value</span>}
+                <h3>{plan.name}</h3>
+                <div className="pricing-price">{plan.price}<span> / {plan.period}</span></div>
+                {plan.retail && <p className="pricing-retail">{plan.retail}</p>}
+                <p className="pricing-desc">{plan.desc}</p>
+                <ul className="pricing-features-v2">
+                  {plan.features.slice(0,6).map((f,j)=><li key={j}>{f}</li>)}
+                </ul>
+                <Link href={plan.href}
+                  className={plan.featured ? 'btn btn-gold btn-full' : 'btn btn-outline btn-full'}>
+                  {plan.cta}
+                </Link>
+                <p className="pricing-tax">Tax included where applicable</p>
+              </div>
+            </AnimatedSection>
+          ))}
+        </div>
+
+        <div className="pricing-trust">
+          <div className="pricing-trust-item"><span className="pricing-trust-icon" aria-hidden="true">🔒</span>Secure Checkout via Paddle</div>
+          <div className="pricing-trust-item"><span className="pricing-trust-icon" aria-hidden="true">⭐</span>4.8/5 from 3,000+ authors</div>
+          <div className="pricing-trust-item"><span className="pricing-trust-icon" aria-hidden="true">♾️</span>Credits never expire</div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── 10. FAQ ─────────────────────────────────────────────────────────
+
+function FAQSection() {
+  const [open, setOpen] = useState(null);
+  const toggle = i => setOpen(open === i ? null : i);
+
+  return (
+    <section style={{ background:'var(--cream)', padding:'88px clamp(20px,4vw,48px)' }} aria-labelledby="faqHeading">
+      <div style={{ maxWidth:680, margin:'0 auto' }}>
+        <AnimatedSection>
+          <p className="section-eyebrow-v2 animate-on-scroll">Common questions</p>
+          <h2 className="section-title-v2 animate-on-scroll stagger-1" id="faqHeading">
+            Everything you need to know
+          </h2>
+        </AnimatedSection>
+
+        <div style={{ marginTop:40 }} role="list">
+          {FAQS.map((faq, i) => {
+            const isOpen = open === i;
+            return (
+              <div key={i}
+                className={`faq-item animate-on-scroll stagger-${Math.min(i+1,6)}${isOpen?' open':''}`}
+                role="listitem">
+                <button id={`faq-btn-${i}`} className="faq-question"
+                  onClick={()=>toggle(i)} aria-expanded={isOpen} aria-controls={`faq-ans-${i}`}>
+                  {faq.q}
+                  <span className="faq-chevron" aria-hidden="true">▾</span>
+                </button>
+                <div id={`faq-ans-${i}`} className="faq-answer" role="region" aria-labelledby={`faq-btn-${i}`}>
+                  {faq.a}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── 11. FOOTER ──────────────────────────────────────────────────────
+
+function FooterSection() {
+  return (
+    <footer className="footer-v2" aria-label="Site footer">
+      <div className="footer-v2-inner">
+        <div className="footer-v2-grid">
+          <div>
+            <div className="footer-logo-v2">BookKraft <span>AI</span></div>
+            <p className="footer-tagline">
+              Professional eBook formatting for indie authors. 12 tools that make
+              your manuscript publishable on any platform.
+            </p>
+            <div style={{ display:'flex', gap:16, flexWrap:'wrap' }}>
+              <a href="https://x.com/bookkraftai" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>X / Twitter</a>
+              <a href="mailto:hello@bookkraftai.com" className="footer-link" style={{ marginBottom:0 }}>Email</a>
+            </div>
+          </div>
+          <div>
+            <p className="footer-col-title">Tools</p>
+            <Link href="/tools/epub-validator"     className="footer-link">EPUB Validator</Link>
+            <Link href="/tools/metadata-builder"   className="footer-link">Metadata Builder</Link>
+            <Link href="/tools/toc-generator"      className="footer-link">TOC Generator</Link>
+            <Link href="/tools/manuscript-cleanup" className="footer-link">Manuscript Cleanup</Link>
+            <Link href="/free-tools"               className="footer-link">All Free Tools</Link>
+          </div>
+          <div>
+            <p className="footer-col-title">Company</p>
+            <Link href="/pricing" className="footer-link">Pricing</Link>
+            <Link href="/contact" className="footer-link">Contact</Link>
+            <a href="https://blog.bookkraftai.com" className="footer-link" target="_blank" rel="noopener noreferrer">Blog</a>
+          </div>
+          <div>
+            <p className="footer-col-title">Legal</p>
+            <Link href="/privacy" className="footer-link">Privacy Policy</Link>
+            <Link href="/terms"   className="footer-link">Terms of Service</Link>
+          </div>
+        </div>
+        <div className="footer-v2-bottom">
+          <p className="footer-copy">© {new Date().getFullYear()} BookKraft AI. All rights reserved.</p>
+          <div className="footer-legal">
+            <Link href="/privacy">Privacy</Link>
+            <Link href="/terms">Terms</Link>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 }
