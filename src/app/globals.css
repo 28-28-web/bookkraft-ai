@@ -4830,3 +4830,8 @@ summary.faq-q::-webkit-details-marker { display: none; }
 .footer-copy { font-size: 12px !important; color: rgba(247,243,236,0.3) !important; }
 .footer-legal { display: flex !important; gap: 24px !important; }
 .footer-legal a { font-size: 12px !important; color: rgba(247,243,236,0.3) !important; }
+
+/* Fix navbar top spacing */
+body { margin: 0; padding: 0; }
+.navbar { top: 0 !important; margin-top: 0 !important; }
+html { margin: 0; padding: 0; }
