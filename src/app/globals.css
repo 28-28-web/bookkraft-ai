@@ -4835,3 +4835,9 @@ summary.faq-q::-webkit-details-marker { display: none; }
 body { margin: 0; padding: 0; }
 .navbar { top: 0 !important; margin-top: 0 !important; }
 html { margin: 0; padding: 0; }
+
+/* ── SPACING FIX ── */
+* { margin: 0; padding: 0; }
+html, body { margin: 0 !important; padding: 0 !important; }
+.navbar { margin-top: 0 !important; top: 0 !important; }
+#__next { margin: 0; padding: 0; }
