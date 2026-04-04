@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { TOOLS } from '../lib/tools';
 import { FAQS, PRICING } from '../lib/constants';
-
+import AnimatedSection from '../components/AnimatedSection';
+import SocialProofTicker from '../components/SocialProofTicker';
 
 // ─── DATA ────────────────────────────────────────────────────────────
 
@@ -117,9 +118,9 @@ function HeroSection() {
   return (
     <section
       style={{
-        background: 'var(--ink)',
+        background: 'var(--ink)', minHeight: '100vh',
         display: 'flex', alignItems: 'center',
-        padding: '80px clamp(20px,4vw,48px) 60px',
+        padding: 'clamp(96px,10vh,128px) clamp(20px,4vw,48px) clamp(64px,8vh,96px)',
         position: 'relative', overflow: 'hidden',
       }}
       aria-label="Hero"
@@ -255,7 +256,7 @@ function FreeToolsSection() {
       style={{ background:'var(--sage-bg)', borderTop:'1px solid rgba(46,94,40,0.14)', borderBottom:'1px solid rgba(46,94,40,0.14)' }}
       aria-labelledby="freeTitle"
     >
-      <div>
+      <AnimatedSection>
         <div style={{ maxWidth:1160, margin:'0 auto', padding:'52px clamp(20px,4vw,48px)' }}>
           <div style={{ display:'grid', gridTemplateColumns:'1fr auto', gap:48, alignItems:'center' }}
             className="animate-on-scroll">
@@ -305,7 +306,7 @@ function FreeToolsSection() {
             </div>
           </div>
         </div>
-      </div>
+      </AnimatedSection>
     </section>
   );
 }
@@ -316,7 +317,7 @@ function ToolGridSection() {
   return (
     <section className="tools-section-v2" id="tools-section" aria-labelledby="toolsHeading">
       <div className="section-inner-v2">
-        <div>
+        <AnimatedSection>
           <div className="animate-on-scroll" style={{ textAlign:'center' }}>
             <p className="section-eyebrow-v2">12 Professional Tools</p>
             <h2 className="section-title-v2" id="toolsHeading">Everything an indie author needs</h2>
@@ -324,11 +325,11 @@ function ToolGridSection() {
               From raw manuscript to polished EPUB — every step covered in one place.
             </p>
           </div>
-        </div>
+        </AnimatedSection>
 
         <div className="tool-grid-v2" role="list">
           {TOOLS.map((tool, i) => (
-            <div>
+            <AnimatedSection key={tool.slug}>
               <Link
                 href={`/tools/${tool.slug}`}
                 className={`tool-card-v2 animate-on-scroll stagger-${Math.min((i%3)+1,6)}`}
@@ -348,7 +349,7 @@ function ToolGridSection() {
                   <span style={{ fontSize:16, color:'var(--gold)' }} aria-hidden="true">→</span>
                 </div>
               </Link>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
       </div>
@@ -367,7 +368,7 @@ function CompetitorSection() {
   return (
     <section style={{ background:'var(--ink)', padding:'72px clamp(20px,4vw,48px)' }} aria-label="Price comparison">
       <div style={{ maxWidth:860, margin:'0 auto', textAlign:'center' }}>
-        <div>
+        <AnimatedSection>
           <p className="section-eyebrow-v2 animate-on-scroll" style={{ color:'rgba(201,168,76,0.65)' }}>
             Why BookKraft AI wins on value
           </p>
@@ -405,7 +406,7 @@ function CompetitorSection() {
               </>
             ))}
           </div>
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );
@@ -417,12 +418,12 @@ function WorkflowSection() {
   return (
     <section style={{ background:'var(--cream)', padding:'88px clamp(20px,4vw,48px)' }} aria-labelledby="workflowHeading">
       <div style={{ maxWidth:1160, margin:'0 auto' }}>
-        <div>
+        <AnimatedSection>
           <p className="section-eyebrow-v2 animate-on-scroll">How it works</p>
           <h2 className="section-title-v2 animate-on-scroll stagger-1" id="workflowHeading">
             From draft to published in 5 steps
           </h2>
-        </div>
+        </AnimatedSection>
 
         <div style={{ display:'grid', gridTemplateColumns:'repeat(5,1fr)', gap:8, position:'relative', marginTop:52 }}>
           {/* Connecting line */}
@@ -431,7 +432,7 @@ function WorkflowSection() {
             height:1, background:'var(--border)', zIndex:0,
           }} />
           {WORKFLOW.map((step, i) => (
-            <div>
+            <AnimatedSection key={i}>
               <div className={`animate-on-scroll stagger-${i+1}`}
                 style={{ textAlign:'center', padding:'0 10px', position:'relative', zIndex:1 }}>
                 <div style={{
@@ -445,7 +446,7 @@ function WorkflowSection() {
                 <p style={{ fontSize:13, fontWeight:700, marginBottom:5 }}>{step.t}</p>
                 <p style={{ fontSize:11.5, color:'var(--mid)', lineHeight:1.5 }}>{step.d}</p>
               </div>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
       </div>
@@ -459,16 +460,16 @@ function TestimonialsSection() {
   return (
     <section style={{ background:'#fff', padding:'88px clamp(20px,4vw,48px)' }} aria-labelledby="reviewsHeading">
       <div style={{ maxWidth:1160, margin:'0 auto' }}>
-        <div>
+        <AnimatedSection>
           <p className="section-eyebrow-v2 animate-on-scroll">Author wins</p>
           <h2 className="section-title-v2 animate-on-scroll stagger-1" id="reviewsHeading">
             What indie authors are saying
           </h2>
-        </div>
+        </AnimatedSection>
 
         <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:20, marginTop:48 }}>
           {REVIEWS.map((r, i) => (
-            <div>
+            <AnimatedSection key={i}>
               <article
                 className={`animate-on-scroll stagger-${Math.min(i+1,6)}`}
                 style={{
@@ -501,7 +502,7 @@ function TestimonialsSection() {
                   </div>
                 </div>
               </article>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
       </div>
@@ -515,7 +516,7 @@ function PlatformsSection() {
   return (
     <section style={{ background:'var(--cream)', padding:'56px clamp(20px,4vw,48px)' }} aria-labelledby="platformsHeading">
       <div style={{ maxWidth:1160, margin:'0 auto', textAlign:'center' }}>
-        <div>
+        <AnimatedSection>
           <h2 id="platformsHeading" className="animate-on-scroll"
             style={{ fontFamily:"'Playfair Display',serif", fontSize:24, fontWeight:700, marginBottom:24 }}>
             Your formatted eBook works on every platform
@@ -524,7 +525,7 @@ function PlatformsSection() {
             style={{ display:'flex', flexWrap:'wrap', justifyContent:'center', gap:10 }}>
             {PLATFORMS.map(p => <span key={p} className="platform-badge">{p}</span>)}
           </div>
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );
@@ -570,17 +571,17 @@ function PricingSection() {
   return (
     <section style={{ background:'#fff', padding:'88px clamp(20px,4vw,48px)' }} id="pricing" aria-labelledby="pricingHeading">
       <div style={{ maxWidth:1160, margin:'0 auto' }}>
-        <div>
+        <AnimatedSection>
           <div className="animate-on-scroll" style={{ textAlign:'center', marginBottom:48 }}>
             <p className="section-eyebrow-v2">Simple, honest pricing</p>
             <h2 className="section-title-v2" id="pricingHeading">No subscriptions. Ever.</h2>
             <p className="section-sub-v2">Pay once, own forever. Credits never expire. No monthly fees.</p>
           </div>
-        </div>
+        </AnimatedSection>
 
         <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:14 }} role="list">
           {plans.map((plan, i) => (
-            <div>
+            <AnimatedSection key={plan.key}>
               <div
                 className={`pricing-card-v2 animate-on-scroll stagger-${i+1}${plan.featured?' featured':''}`}
                 role="listitem" style={{ position:'relative' }}
@@ -599,7 +600,7 @@ function PricingSection() {
                 </Link>
                 <p className="pricing-tax">Tax included where applicable</p>
               </div>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
 
@@ -622,12 +623,12 @@ function FAQSection() {
   return (
     <section style={{ background:'var(--cream)', padding:'88px clamp(20px,4vw,48px)' }} aria-labelledby="faqHeading">
       <div style={{ maxWidth:680, margin:'0 auto' }}>
-        <div>
+        <AnimatedSection>
           <p className="section-eyebrow-v2 animate-on-scroll">Common questions</p>
           <h2 className="section-title-v2 animate-on-scroll stagger-1" id="faqHeading">
             Everything you need to know
           </h2>
-        </div>
+        </AnimatedSection>
 
         <div style={{ marginTop:40 }} role="list">
           {FAQS.map((faq, i) => {
@@ -668,7 +669,11 @@ function FooterSection() {
             </p>
             <div style={{ display:'flex', gap:16, flexWrap:'wrap' }}>
               <a href="https://x.com/bookkraftai" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>X / Twitter</a>
-              <a href="mailto:hello@bookkraftai.com" className="footer-link" style={{ marginBottom:0 }}>Email</a>
+<a href="https://linkedin.com/company/bookkraftai" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>LinkedIn</a>
+<a href="https://facebook.com/bookkraftai" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Facebook</a>
+<a href="https://reddit.com/r/bookkraftai" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Reddit</a>
+<a href="https://quora.com/topic/bookkraftai" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Quora</a>
+<a href="mailto:hello@bookkraftai.com" className="footer-link" style={{ marginBottom:0 }}>Email</a>
             </div>
           </div>
           <div>

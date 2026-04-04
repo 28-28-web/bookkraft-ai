@@ -1,10 +1,10 @@
 import './globals.css';
-import Navbar from '@/components/Navbar';
-import { AuthProvider } from '@/components/AuthProvider';
-import { ProjectProvider } from '@/lib/ProjectContext';
-import { ToastProvider } from '@/components/Toast';
-import ChatAssistant from '@/components/ChatAssistant';
-import NewsletterPopup from '@/components/NewsletterPopup';
+import Navbar from '../components/Navbar';
+import { AuthProvider } from '../components/AuthProvider';
+import { ProjectProvider } from '../lib/ProjectContext';
+import { ToastProvider } from '../components/Toast';
+import ChatAssistant from '../components/ChatAssistant';
+import NewsletterPopup from '../components/NewsletterPopup';
 
 export const viewport = {
   width: 'device-width',
@@ -38,7 +38,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body style={{ background: '#0F0E0C', margin: 0 }}>
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

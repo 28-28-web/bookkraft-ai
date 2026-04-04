@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /dashboard
+Disallow: /account
+Disallow: /admin
+Disallow: /api/
 
 Sitemap: https://bookkraftai.com/sitemap.xml

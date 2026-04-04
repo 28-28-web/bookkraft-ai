@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BookKraft AI – Free eBook Formatting Toolkit</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0c;
+    --paper: #faf8f4;
+    --cream: #f2ede4;
+    --gold: #c9a84c;
+    --gold-light: #e8d5a3;
+    --rust: #b85c38;
+    --sage: #4a6741;
+    --muted: #7a7060;
+    --border: #ddd8cc;
+    --white: #ffffff;
+    --shadow: rgba(15,14,12,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── NAVBAR ── */
+  .navbar {
+    background: var(--ink);
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid var(--gold);
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+  }
+  .logo-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+  }
+  .logo-main span { color: var(--gold); }
+  .logo-badge {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-left: 0.5rem;
+    padding: 2px 6px;
+    border: 1px solid var(--gold);
+    border-radius: 2px;
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--ink) !important;
+    padding: 6px 16px !important;
+    border-radius: 4px;
+    font-weight: 600 !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; color: var(--ink) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 40px,
+      rgba(201,168,76,0.04) 40px, rgba(201,168,76,0.04) 41px
+    ),
+    repeating-linear-gradient(
+      90deg, transparent, transparent 40px,
+      rgba(201,168,76,0.04) 40px, rgba(201,168,76,0.04) 41px
+    );
+  }
+  .hero-inner { position: relative; max-width: 760px; margin: 0 auto; }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero p {
+    color: rgba(255,255,255,0.6);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 2rem;
+    margin-top: 1rem;
+  }
+  .hero-stat span:first-child {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .hero-stat span:last-child {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .btn-explore {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--ink);
+    padding: 14px 32px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-bottom: 1rem;
+  }
+  .btn-explore:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* ── SECTION ── */
+  .section { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .section-label span {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .section-sub {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── TOOLS GRID ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+  .tool-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.75rem;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .tool-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.22s ease;
+    transform-origin: left;
+  }
+  .tool-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 8px 32px var(--shadow);
+    transform: translateY(-2px);
+  }
+  .tool-card:hover::before { transform: scaleX(1); }
+  .tool-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .tool-tag {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(201,168,76,0.1);
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-bottom: 0.75rem;
+  }
+  .tool-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .tool-card p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+  .btn-tool {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: transparent;
+    border: 1.5px solid var(--ink);
+    color: var(--ink);
+    padding: 8px 18px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.18s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-tool:hover {
+    background: var(--ink);
+    color: var(--white);
+  }
+
+  /* ── AI BADGE ── */
+  .ai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rust);
+    background: rgba(184,92,56,0.08);
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-bottom: 0.75rem;
+  }
+  .ai-dot {
+    width: 5px; height: 5px;
+    background: var(--rust);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; } 50% { opacity:0.3; }
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15,14,12,0.75);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.active { display: flex; }
+  .modal-box {
+    background: var(--white);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 720px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.3);
+  }
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 1.75rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    z-index: 1;
+  }
+  .modal-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  .modal-close {
+    background: none;
+    border: 1px solid var(--border);
+    width: 32px; height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .modal-close:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
+  .modal-body { padding: 1.75rem; }
+
+  /* ── TOOL UI ELEMENTS ── */
+  .tool-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.03em;
+  }
+  .tool-input, .tool-textarea, .tool-select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--ink);
+    background: var(--paper);
+    transition: border-color 0.15s;
+    margin-bottom: 1rem;
+  }
+  .tool-input:focus, .tool-textarea:focus, .tool-select:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: var(--white);
+  }
+  .tool-textarea { resize: vertical; min-height: 140px; line-height: 1.6; }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--white);
+    border: none;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+    letter-spacing: 0.03em;
+  }
+  .btn-primary:hover { background: var(--gold); color: var(--ink); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid var(--border);
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+    margin-left: 0.75rem;
+  }
+  .btn-secondary:hover { border-color: var(--ink); }
+  .result-box {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    font-size: 0.875rem;
+    line-height: 1.8;
+    color: var(--ink);
+    white-space: pre-wrap;
+    display: none;
+  }
+  .result-box.active { display: block; }
+  .result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .result-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .btn-copy {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gold);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 10px;
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-copy:hover { background: var(--gold); color: var(--ink); }
+  .loading {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 1rem;
+  }
+  .loading.active { display: flex; }
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid var(--border);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .row { display: flex; gap: 1rem; }
+  .row > * { flex: 1; }
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .option-btn {
+    padding: 8px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+    color: var(--ink);
+  }
+  .option-btn.selected {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.1);
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .option-btn:hover { border-color: var(--gold); }
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 1.25rem 0;
+  }
+  .info-box {
+    background: rgba(74,103,65,0.07);
+    border: 1px solid rgba(74,103,65,0.2);
+    border-radius: 6px;
+    padding: 0.875rem 1rem;
+    font-size: 0.82rem;
+    color: var(--sage);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .prompt-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .prompt-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  .prompt-platform {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rust);
+  }
+  .prompt-text {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  /* ── LIVE TOOLS (no API) ── */
+  .word-stat {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  .word-stat-item {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.875rem;
+    text-align: center;
+  }
+  .word-stat-item strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--ink);
+  }
+  .word-stat-item span {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .format-output {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-top: 1rem;
+    font-family: Georgia, serif;
+    font-size: 0.95rem;
+    line-height: 1.9;
+    display: none;
+  }
+  .format-output.active { display: block; }
+
+  /* ── ABOUT / FOOTER ── */
+  .about-strip {
+    background: var(--ink);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .about-strip h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+  .about-strip p {
+    color: rgba(255,255,255,0.55);
+    max-width: 560px;
+    margin: 0 auto 2rem;
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+  .strip-stats {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+  }
+  .strip-stat strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--gold);
+  }
+  .strip-stat span {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  footer {
+    background: var(--cream);
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .hero-stats { gap: 1.5rem; }
+    .word-stat { grid-template-columns: repeat(2, 1fr); }
+    .row { flex-direction: column; }
+    .strip-stats { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="nav-inner">
+    <div class="logo">
+      <span class="logo-main">Book<span>Kraft</span> AI</span>
+      <span class="logo-badge">Free Toolkit</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#tools">Tools</a>
+      <a href="#about">About</a>
+      <a href="https://bookkraftai.com" target="_blank" class="nav-cta">Main Site →</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">✦ Free for all authors</div>
+    <h1>The Free eBook<br><em>Formatting Toolkit</em></h1>
+    <p>10 tools built for authors who want perfectly formatted eBooks — for Kindle, EPUB, and beyond. No account. No upload. Just results.</p>
+    <a href="#tools" class="btn-explore">Open the Toolkit ↓</a>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span>10</span>
+        <span>Free Tools</span>
+      </div>
+      <div class="hero-stat">
+        <span>0</span>
+        <span>Server Uploads</span>
+      </div>
+      <div class="hero-stat">
+        <span>AI</span>
+        <span>Powered</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<div class="section" id="tools">
+  <div class="section-label"><span>The Toolkit</span></div>
+  <h2>10 Tools for eBook Authors</h2>
+  <p class="section-sub">Click any tool to launch it instantly in your browser.</p>
+
+  <div class="tools-grid">
+
+    <!-- 1. Cover Image Prompt Generator (AI) -->
+    <div class="tool-card">
+      <span class="tool-icon">🎨</span>
+      <div class="ai-badge"><span class="ai-dot"></span>AI Powered</div>
+      <h3>Cover Image Prompt Generator</h3>
+      <p>Generate professional Midjourney & DALL-E prompts for your eBook cover in seconds.</p>
+      <button class="btn-tool" onclick="openTool('cover-prompt')">Launch Tool →</button>
+    </div>
+
+    <!-- 2. Kindle Formatter (AI) -->
+    <div class="tool-card">
+      <span class="tool-icon">📱</span>
+      <div class="ai-badge"><span class="ai-dot"></span>AI Powered</div>
+      <h3>Kindle Format Fixer</h3>
+      <p>Paste your chapter text and get it cleaned and formatted for KDP publishing instantly.</p>
+      <button class="btn-tool" onclick="openTool('kindle-formatter')">Launch Tool →</button>
+    </div>
+
+    <!-- 3. Chapter Title Generator (AI) -->
+    <div class="tool-card">
+      <span class="tool-icon">📖</span>
+      <div class="ai-badge"><span class="ai-dot"></span>AI Powered</div>
+      <h3>Chapter Title Generator</h3>
+      <p>Generate compelling chapter titles that hook readers and improve your eBook's flow.</p>
+      <button class="btn-tool" onclick="openTool('chapter-titles')">Launch Tool →</button>
+    </div>
+
+    <!-- 4. Book Description Writer (AI) -->
+    <div class="tool-card">
+      <span class="tool-icon">✍️</span>
+      <div class="ai-badge"><span class="ai-dot"></span>AI Powered</div>
+      <h3>eBook Description Writer</h3>
+      <p>Write a sales-optimized book description for Amazon KDP that converts browsers into buyers.</p>
+      <button class="btn-tool" onclick="openTool('book-desc')">Launch Tool →</button>
+    </div>
+
+    <!-- 5. Format Checker (AI) -->
+    <div class="tool-card">
+      <span class="tool-icon">🔍</span>
+      <div class="ai-badge"><span class="ai-dot"></span>AI Powered</div>
+      <h3>eBook Format Checker</h3>
+      <p>Paste your text and get a full formatting audit — spacing, headings, structure errors.</p>
+      <button class="btn-tool" onclick="openTool('format-checker')">Launch Tool →</button>
+    </div>
+
+    <!-- 6. EPUB vs Kindle Guide (AI) -->
+    <div class="tool-card">
+      <span class="tool-icon">⚡</span>
+      <div class="ai-badge"><span class="ai-dot"></span>AI Powered</div>
+      <h3>EPUB vs Kindle Advisor</h3>
+      <p>Tell us about your book and we'll tell you exactly which format to use and why.</p>
+      <button class="btn-tool" onclick="openTool('format-advisor')">Launch Tool →</button>
+    </div>
+
+    <!-- 7. Word Counter (Frontend) -->
+    <div class="tool-card">
+      <span class="tool-icon">📊</span>
+      <div class="tool-tag">Instant</div>
+      <h3>eBook Word Counter</h3>
+      <p>Count words, chapters, pages, and estimated reading time for your eBook manuscript.</p>
+      <button class="btn-tool" onclick="openTool('word-counter')">Launch Tool →</button>
+    </div>
+
+    <!-- 8. Heading Formatter (Frontend) -->
+    <div class="tool-card">
+      <span class="tool-icon">🔤</span>
+      <div class="tool-tag">Instant</div>
+      <h3>Heading Style Formatter</h3>
+      <p>Instantly convert your headings to Title Case, Sentence case, or UPPERCASE for KDP standards.</p>
+      <button class="btn-tool" onclick="openTool('heading-formatter')">Launch Tool →</button>
+    </div>
+
+    <!-- 9. Reading Level Checker (Frontend) -->
+    <div class="tool-card">
+      <span class="tool-icon">📚</span>
+      <div class="tool-tag">Instant</div>
+      <h3>Reading Level Checker</h3>
+      <p>Check if your eBook's reading level matches your target audience using Flesch-Kincaid scoring.</p>
+      <button class="btn-tool" onclick="openTool('reading-level')">Launch Tool →</button>
+    </div>
+
+    <!-- 10. eBook Pricing Calculator (Frontend) -->
+    <div class="tool-card">
+      <span class="tool-icon">💰</span>
+      <div class="tool-tag">Instant</div>
+      <h3>KDP Royalty Calculator</h3>
+      <p>Calculate your Amazon KDP royalties at 35% and 70% rates before you publish.</p>
+      <button class="btn-tool" onclick="openTool('royalty-calc')">Launch Tool →</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="about-strip" id="about">
+  <h2>Built for eBook Authors</h2>
+  <p>Every tool runs in your browser. Nothing is stored on a server. Your writing stays private — always. Powered by Claude AI for the AI tools.</p>
+  <div class="strip-stats">
+    <div class="strip-stat"><strong>10</strong><span>Tools</span></div>
+    <div class="strip-stat"><strong>Free</strong><span>Forever</span></div>
+    <div class="strip-stat"><strong>0</strong><span>Accounts Needed</span></div>
+  </div>
+</div>
+
+<footer>
+  <p>Free toolkit by <a href="https://bookkraftai.com" target="_blank">BookKraft AI</a> — Format your eBook like a pro. © 2025</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalTitle">Tool</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const API_KEY = 'YOUR_CLAUDE_API_KEY'; // Replace with your key
+
+// ── MODAL ──
+function openTool(id) {
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  renderTool(id);
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.getElementById('modalOverlay').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+// ── CLAUDE API ──
+async function callClaude(prompt, btnEl, loadingEl, resultEl, formatter) {
+  btnEl.disabled = true;
+  loadingEl.classList.add('active');
+  resultEl.classList.remove('active');
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content?.map(b => b.text || '').join('') || 'No response received.';
+    formatter ? formatter(text, resultEl) : (resultEl.textContent = text);
+    resultEl.classList.add('active');
+  } catch(e) {
+    resultEl.textContent = 'Error: ' + e.message;
+    resultEl.classList.add('active');
+  }
+  btnEl.disabled = false;
+  loadingEl.classList.remove('active');
+}
+
+// ── COPY ──
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copied';
+    setTimeout(() => btn.textContent = orig, 1800);
+  });
+}
+
+// ── TOOL RENDERER ──
+function renderTool(id) {
+  const titles = {
+    'cover-prompt': '🎨 Cover Image Prompt Generator',
+    'kindle-formatter': '📱 Kindle Format Fixer',
+    'chapter-titles': '📖 Chapter Title Generator',
+    'book-desc': '✍️ eBook Description Writer',
+    'format-checker': '🔍 eBook Format Checker',
+    'format-advisor': '⚡ EPUB vs Kindle Advisor',
+    'word-counter': '📊 eBook Word Counter',
+    'heading-formatter': '🔤 Heading Style Formatter',
+    'reading-level': '📚 Reading Level Checker',
+    'royalty-calc': '💰 KDP Royalty Calculator'
+  };
+  document.getElementById('modalTitle').textContent = titles[id] || 'Tool';
+  const body = document.getElementById('modalBody');
+  body.innerHTML = '';
+
+  if (id === 'cover-prompt') {
+    body.innerHTML = `
+      <div class="info-box">Enter your book details and get ready-to-use prompts for Midjourney, DALL-E, and Stable Diffusion.</div>
+      <label class="tool-label">Book Title</label>
+      <input class="tool-input" id="cp-title" placeholder="e.g. The Last Signal">
+      <div class="row">
+        <div>
+          <label class="tool-label">Genre</label>
+          <select class="tool-select" id="cp-genre">
+            <option>Thriller</option><option>Romance</option><option>Fantasy</option>
+            <option>Self-Help</option><option>Science Fiction</option><option>Mystery</option>
+            <option>Business</option><option>Historical Fiction</option><option>Horror</option>
+          </select>
+        </div>
+        <div>
+          <label class="tool-label">Mood</label>
+          <select class="tool-select" id="cp-mood">
+            <option>Dark & Dramatic</option><option>Warm & Hopeful</option>
+            <option>Minimalist & Clean</option><option>Mysterious</option>
+            <option>Epic & Grand</option><option>Cosy & Inviting</option>
+          </select>
+        </div>
+      </div>
+      <label class="tool-label">Main Visual Element (optional)</label>
+      <input class="tool-input" id="cp-element" placeholder="e.g. a lone lighthouse, a woman in red, ancient ruins">
+      <button class="btn-primary" id="cp-btn" onclick="runCoverPrompt()">Generate Cover Prompts</button>
+      <div class="loading" id="cp-load"><div class="spinner"></div> Generating prompts...</div>
+      <div class="result-box" id="cp-result"></div>`;
+
+  } else if (id === 'kindle-formatter') {
+    body.innerHTML = `
+      <div class="info-box">Paste raw chapter text. The AI will clean spacing, fix paragraph breaks, and format it to KDP standards.</div>
+      <label class="tool-label">Paste Your Chapter Text</label>
+      <textarea class="tool-textarea" id="kf-text" style="min-height:180px" placeholder="Paste your chapter content here..."></textarea>
+      <label class="tool-label">Format Type</label>
+      <div class="option-grid">
+        <button class="option-btn selected" onclick="selectOption(this,'kf-type','kindle')">Kindle (KDP)</button>
+        <button class="option-btn" onclick="selectOption(this,'kf-type','epub')">EPUB</button>
+        <button class="option-btn" onclick="selectOption(this,'kf-type','both')">Both</button>
+      </div>
+      <input type="hidden" id="kf-type" value="kindle">
+      <button class="btn-primary" id="kf-btn" onclick="runKindleFormatter()">Fix My Formatting</button>
+      <div class="loading" id="kf-load"><div class="spinner"></div> Formatting your text...</div>
+      <div class="result-box" id="kf-result"></div>`;
+
+  } else if (id === 'chapter-titles') {
+    body.innerHTML = `
+      <div class="info-box">Describe what happens in your chapter and get 10 title options — from subtle to bold.</div>
+      <label class="tool-label">What Happens in This Chapter?</label>
+      <textarea class="tool-textarea" id="ct-summary" placeholder="e.g. The hero discovers his mentor has been lying to him all along and must choose between loyalty and truth..."></textarea>
+      <div class="row">
+        <div>
+          <label class="tool-label">eBook Genre</label>
+          <select class="tool-select" id="ct-genre">
+            <option>Fiction</option><option>Thriller</option><option>Romance</option>
+            <option>Fantasy</option><option>Self-Help</option><option>Business</option>
+            <option>Science Fiction</option>
+          </select>
+        </div>
+        <div>
+          <label class="tool-label">Tone</label>
+          <select class="tool-select" id="ct-tone">
+            <option>Dramatic</option><option>Mysterious</option><option>Inspiring</option>
+            <option>Humorous</option><option>Suspenseful</option><option>Emotional</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-primary" id="ct-btn" onclick="runChapterTitles()">Generate 10 Titles</button>
+      <div class="loading" id="ct-load"><div class="spinner"></div> Generating titles...</div>
+      <div class="result-box" id="ct-result"></div>`;
+
+  } else if (id === 'book-desc') {
+    body.innerHTML = `
+      <div class="info-box">Write an Amazon-optimized eBook description that sells. Paste in your book summary and we'll do the rest.</div>
+      <label class="tool-label">Book Title & Author</label>
+      <input class="tool-input" id="bd-title" placeholder="e.g. The Last Signal by James Cole">
+      <label class="tool-label">Brief Summary (what's the book about?)</label>
+      <textarea class="tool-textarea" id="bd-summary" placeholder="Give us the core premise, main character, and what's at stake..."></textarea>
+      <div class="row">
+        <div>
+          <label class="tool-label">Genre</label>
+          <select class="tool-select" id="bd-genre">
+            <option>Thriller</option><option>Romance</option><option>Fantasy</option>
+            <option>Self-Help</option><option>Business</option><option>Science Fiction</option>
+            <option>Mystery</option><option>Historical Fiction</option>
+          </select>
+        </div>
+        <div>
+          <label class="tool-label">Target Reader</label>
+          <input class="tool-input" id="bd-reader" placeholder="e.g. women 30-50, entrepreneurs">
+        </div>
+      </div>
+      <button class="btn-primary" id="bd-btn" onclick="runBookDesc()">Write My Description</button>
+      <div class="loading" id="bd-load"><div class="spinner"></div> Writing your description...</div>
+      <div class="result-box" id="bd-result"></div>`;
+
+  } else if (id === 'format-checker') {
+    body.innerHTML = `
+      <div class="info-box">Paste a section of your eBook. The AI will audit it for common formatting errors that cause KDP rejections.</div>
+      <label class="tool-label">Paste Your eBook Text</label>
+      <textarea class="tool-textarea" id="fc-text" style="min-height:200px" placeholder="Paste 1-3 pages of your eBook content here..."></textarea>
+      <button class="btn-primary" id="fc-btn" onclick="runFormatChecker()">Check My Formatting</button>
+      <div class="loading" id="fc-load"><div class="spinner"></div> Auditing your text...</div>
+      <div class="result-box" id="fc-result"></div>`;
+
+  } else if (id === 'format-advisor') {
+    body.innerHTML = `
+      <div class="info-box">Not sure whether to publish as Kindle or EPUB? Answer a few questions and get a clear recommendation.</div>
+      <label class="tool-label">Where do you want to sell?</label>
+      <div class="option-grid">
+        <button class="option-btn selected" onclick="selectOption(this,'fa-platform','amazon-only')">Amazon Only</button>
+        <button class="option-btn" onclick="selectOption(this,'fa-platform','everywhere')">Everywhere</button>
+        <button class="option-btn" onclick="selectOption(this,'fa-platform','apple-kobo')">Apple/Kobo</button>
+        <button class="option-btn" onclick="selectOption(this,'fa-platform','not-sure')">Not Sure Yet</button>
+      </div>
+      <input type="hidden" id="fa-platform" value="amazon-only">
+      <label class="tool-label">Book type</label>
+      <div class="option-grid">
+        <button class="option-btn selected" onclick="selectOption(this,'fa-type','novel')">Novel / Story</button>
+        <button class="option-btn" onclick="selectOption(this,'fa-type','nonfiction')">Non-Fiction</button>
+        <button class="option-btn" onclick="selectOption(this,'fa-type','illustrated')">Illustrated</button>
+        <button class="option-btn" onclick="selectOption(this,'fa-type','textbook')">Textbook</button>
+      </div>
+      <input type="hidden" id="fa-type" value="novel">
+      <label class="tool-label">Any extra context? (optional)</label>
+      <input class="tool-input" id="fa-notes" placeholder="e.g. heavy use of tables, lots of images, fixed layout needed...">
+      <button class="btn-primary" id="fa-btn" onclick="runFormatAdvisor()">Get My Recommendation</button>
+      <div class="loading" id="fa-load"><div class="spinner"></div> Analysing your needs...</div>
+      <div class="result-box" id="fa-result"></div>`;
+
+  } else if (id === 'word-counter') {
+    body.innerHTML = `
+      <label class="tool-label">Paste Your Manuscript or Chapter</label>
+      <textarea class="tool-textarea" id="wc-text" style="min-height:200px" placeholder="Paste your eBook content here..." oninput="updateWordCount()"></textarea>
+      <div class="word-stat">
+        <div class="word-stat-item"><strong id="wc-words">0</strong><span>Words</span></div>
+        <div class="word-stat-item"><strong id="wc-chars">0</strong><span>Characters</span></div>
+        <div class="word-stat-item"><strong id="wc-pages">0</strong><span>Pages (~250 wpp)</span></div>
+        <div class="word-stat-item"><strong id="wc-read">0 min</strong><span>Reading Time</span></div>
+      </div>`;
+
+  } else if (id === 'heading-formatter') {
+    body.innerHTML = `
+      <label class="tool-label">Paste Your Headings (one per line)</label>
+      <textarea class="tool-textarea" id="hf-text" placeholder="chapter one: the beginning&#10;PART TWO - THE DESCENT&#10;epilogue: what remains"></textarea>
+      <label class="tool-label">Convert To</label>
+      <div class="option-grid">
+        <button class="option-btn selected" onclick="selectOption(this,'hf-style','title')">Title Case</button>
+        <button class="option-btn" onclick="selectOption(this,'hf-style','sentence')">Sentence case</button>
+        <button class="option-btn" onclick="selectOption(this,'hf-style','upper')">UPPERCASE</button>
+        <button class="option-btn" onclick="selectOption(this,'hf-style','lower')">lowercase</button>
+      </div>
+      <input type="hidden" id="hf-style" value="title">
+      <button class="btn-primary" onclick="runHeadingFormatter()">Format Headings</button>
+      <div class="format-output" id="hf-result"></div>`;
+
+  } else if (id === 'reading-level') {
+    body.innerHTML = `
+      <div class="info-box">Uses the Flesch-Kincaid formula to estimate reading level. Paste at least 100 words for accurate results.</div>
+      <label class="tool-label">Paste a Sample of Your eBook</label>
+      <textarea class="tool-textarea" id="rl-text" style="min-height:200px" placeholder="Paste 200-500 words from your eBook..."></textarea>
+      <button class="btn-primary" onclick="runReadingLevel()">Check Reading Level</button>
+      <div class="result-box" id="rl-result" style="font-family:inherit"></div>`;
+
+  } else if (id === 'royalty-calc') {
+    body.innerHTML = `
+      <label class="tool-label">Your eBook Price (USD)</label>
+      <input class="tool-input" id="rc-price" type="number" min="0.99" max="200" step="0.01" placeholder="e.g. 9.99" oninput="updateRoyalty()">
+      <label class="tool-label">File Size (MB)</label>
+      <input class="tool-input" id="rc-size" type="number" min="0.1" max="650" step="0.1" placeholder="e.g. 2.5" oninput="updateRoyalty()">
+      <div class="result-box active" id="rc-result" style="font-family:inherit">
+        <div class="result-header"><span class="result-label">Royalty Estimate</span></div>
+        <div id="rc-output">Enter your price above to see royalties.</div>
+      </div>`;
+  }
+}
+
+// ── OPTION SELECTOR ──
+function selectOption(el, hiddenId, value) {
+  el.closest('.option-grid').querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById(hiddenId).value = value;
+}
+
+// ── AI TOOLS ──
+async function runCoverPrompt() {
+  const title = document.getElementById('cp-title').value.trim();
+  const genre = document.getElementById('cp-genre').value;
+  const mood = document.getElementById('cp-mood').value;
+  const element = document.getElementById('cp-element').value.trim();
+  if (!title) return alert('Please enter a book title.');
+  const prompt = `Generate 3 professional eBook cover image prompts for the following book:
+Title: "${title}"
+Genre: ${genre}
+Mood: ${mood}
+${element ? `Main Visual Element: ${element}` : ''}
+
+Create one prompt each for: Midjourney, DALL-E 3, and Stable Diffusion.
+Each prompt should be detailed, specific, and produce a compelling book cover.
+Format clearly with platform labels. Make each prompt unique but cohesive.`;
+  const btn = document.getElementById('cp-btn');
+  const load = document.getElementById('cp-load');
+  const result = document.getElementById('cp-result');
+  await callClaude(prompt, btn, load, result, (text, el) => {
+    el.innerHTML = `<div class="result-header"><span class="result-label">Your Cover Prompts</span><button class="btn-copy" onclick="copyText(this.closest('.result-box').querySelector('.prompts-content').innerText, this)">Copy All</button></div><div class="prompts-content" style="white-space:pre-wrap;font-size:0.875rem;line-height:1.8">${text}</div>`;
+  });
+}
+
+async function runKindleFormatter() {
+  const text = document.getElementById('kf-text').value.trim();
+  const type = document.getElementById('kf-type').value;
+  if (!text) return alert('Please paste some text first.');
+  const prompt = `You are an expert eBook formatter. Clean and format the following text for ${type === 'both' ? 'both Kindle KDP and EPUB' : type === 'epub' ? 'EPUB format' : 'Kindle KDP'} publishing.
+
+Fix: paragraph spacing, double spaces, inconsistent line breaks, smart quotes, em dashes, chapter heading formatting.
+Keep all original content. Only fix formatting issues.
+Return the clean formatted text.
+
+TEXT TO FORMAT:
+${text}`;
+  await callClaude(prompt, document.getElementById('kf-btn'), document.getElementById('kf-load'), document.getElementById('kf-result'), (text, el) => {
+    el.innerHTML = `<div class="result-header"><span class="result-label">Formatted Text</span><button class="btn-copy" onclick="copyText(document.getElementById('kf-clean').innerText, this)">Copy</button></div><div id="kf-clean" style="white-space:pre-wrap;font-size:0.875rem;line-height:1.8">${text}</div>`;
+  });
+}
+
+async function runChapterTitles() {
+  const summary = document.getElementById('ct-summary').value.trim();
+  const genre = document.getElementById('ct-genre').value;
+  const tone = document.getElementById('ct-tone').value;
+  if (!summary) return alert('Please describe what happens in your chapter.');
+  const prompt = `Generate exactly 10 chapter title options for an eBook chapter with these details:
+Genre: ${genre}
+Tone: ${tone}
+What happens: ${summary}
+
+Give a mix from subtle/literary to bold/dramatic. Number them 1-10. No explanations — just the titles.`;
+  await callClaude(prompt, document.getElementById('ct-btn'), document.getElementById('ct-load'), document.getElementById('ct-result'), (text, el) => {
+    el.innerHTML = `<div class="result-header"><span class="result-label">10 Chapter Titles</span><button class="btn-copy" onclick="copyText(this.closest('.result-box').querySelector('.titles-list').innerText, this)">Copy All</button></div><div class="titles-list" style="white-space:pre-wrap;font-size:0.9rem;line-height:2">${text}</div>`;
+  });
+}
+
+async function runBookDesc() {
+  const title = document.getElementById('bd-title').value.trim();
+  const summary = document.getElementById('bd-summary').value.trim();
+  const genre = document.getElementById('bd-genre').value;
+  const reader = document.getElementById('bd-reader').value.trim();
+  if (!summary) return alert('Please enter a summary.');
+  const prompt = `Write a compelling Amazon KDP eBook description for:
+Title: ${title}
+Genre: ${genre}
+Target Reader: ${reader || 'general readers'}
+Summary: ${summary}
+
+Requirements: Hook in first line, 150-200 words, use short punchy paragraphs, end with a call-to-action. No spoilers. Optimised for Amazon search.`;
+  await callClaude(prompt, document.getElementById('bd-btn'), document.getElementById('bd-load'), document.getElementById('bd-result'), (text, el) => {
+    el.innerHTML = `<div class="result-header"><span class="result-label">Your Book Description</span><button class="btn-copy" onclick="copyText(this.closest('.result-box').querySelector('.desc-text').innerText, this)">Copy</button></div><div class="desc-text" style="white-space:pre-wrap;font-size:0.9rem;line-height:1.8">${text}</div>`;
+  });
+}
+
+async function runFormatChecker() {
+  const text = document.getElementById('fc-text').value.trim();
+  if (!text) return alert('Please paste some text first.');
+  const prompt = `You are a professional eBook formatter. Audit the following text for formatting issues that would cause problems on Kindle KDP or EPUB platforms.
+
+Check for: inconsistent spacing, wrong quote marks, missing paragraph breaks, heading formatting issues, em dash usage, widow/orphan lines, tab indentation vs paragraph indent, and any other formatting problems.
+
+Return a clear audit report with: 
+1. Issues found (numbered list)
+2. Severity (High/Medium/Low) for each
+3. How to fix each issue
+4. Overall formatting score out of 10
+
+TEXT TO AUDIT:
+${text}`;
+  await callClaude(prompt, document.getElementById('fc-btn'), document.getElementById('fc-load'), document.getElementById('fc-result'), (text, el) => {
+    el.innerHTML = `<div class="result-header"><span class="result-label">Format Audit Report</span><button class="btn-copy" onclick="copyText(this.closest('.result-box').querySelector('.audit-text').innerText, this)">Copy</button></div><div class="audit-text" style="white-space:pre-wrap;font-size:0.875rem;line-height:1.8">${text}</div>`;
+  });
+}
+
+async function runFormatAdvisor() {
+  const platform = document.getElementById('fa-platform').value;
+  const type = document.getElementById('fa-type').value;
+  const notes = document.getElementById('fa-notes').value.trim();
+  const prompt = `An author needs advice on whether to use Kindle (MOBI/KFX) or EPUB format for their eBook.
+Selling on: ${platform}
+Book type: ${type}
+Extra notes: ${notes || 'none'}
+
+Give a clear recommendation: which format to use and why. Include:
+1. Your recommendation (Kindle / EPUB / Both)
+2. Why this format suits their situation
+3. Any tools they should use to create it
+4. Any warnings or things to watch out for
+Keep it practical and direct.`;
+  await callClaude(prompt, document.getElementById('fa-btn'), document.getElementById('fa-load'), document.getElementById('fa-result'), (text, el) => {
+    el.innerHTML = `<div class="result-header"><span class="result-label">Your Format Recommendation</span></div><div style="white-space:pre-wrap;font-size:0.875rem;line-height:1.8">${text}</div>`;
+  });
+}
+
+// ── FRONTEND TOOLS ──
+function updateWordCount() {
+  const text = document.getElementById('wc-text').value;
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  const chars = text.length;
+  const pages = Math.ceil(words / 250);
+  const readMin = Math.ceil(words / 238);
+  document.getElementById('wc-words').textContent = words.toLocaleString();
+  document.getElementById('wc-chars').textContent = chars.toLocaleString();
+  document.getElementById('wc-pages').textContent = pages;
+  document.getElementById('wc-read').textContent = readMin + ' min';
+}
+
+function runHeadingFormatter() {
+  const text = document.getElementById('hf-text').value.trim();
+  const style = document.getElementById('hf-style').value;
+  if (!text) return alert('Paste some headings first.');
+  const lines = text.split('\n').map(line => {
+    if (!line.trim()) return '';
+    switch(style) {
+      case 'title': return line.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+        .replace(/\b(A|An|The|And|But|Or|For|Nor|On|At|To|By|In|Of|Up|As)\b/gi, m => m.toLowerCase())
+        .replace(/^\w/, c => c.toUpperCase());
+      case 'sentence': return line.charAt(0).toUpperCase() + line.slice(1).toLowerCase();
+      case 'upper': return line.toUpperCase();
+      case 'lower': return line.toLowerCase();
+    }
+  });
+  const result = document.getElementById('hf-result');
+  result.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border)"><span style="font-size:0.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)">Formatted Headings</span><button class="btn-copy" onclick="copyText(document.getElementById('hf-lines').innerText, this)">Copy</button></div><div id="hf-lines" style="white-space:pre-wrap;font-size:0.9rem;line-height:2">${lines.join('\n')}</div>`;
+  result.classList.add('active');
+}
+
+function runReadingLevel() {
+  const text = document.getElementById('rl-text').value.trim();
+  if (!text) return alert('Please paste some text.');
+  const words = text.split(/\s+/).filter(Boolean);
+  const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+  const syllables = words.reduce((sum, word) => sum + countSyllables(word), 0);
+  const wc = words.length;
+  const sc = sentences.length;
+  if (wc < 30) return alert('Please paste at least 100 words for accuracy.');
+  const fk = 0.39 * (wc / sc) + 11.8 * (syllables / wc) - 15.59;
+  const grade = Math.max(1, Math.min(16, Math.round(fk)));
+  const gradeLabels = {1:'Grade 1 (Age 6-7)',2:'Grade 2 (Age 7-8)',3:'Grade 3 (Age 8-9)',4:'Grade 4 (Age 9-10)',5:'Grade 5 (Age 10-11)',6:'Grade 6 (Age 11-12)',7:'Grade 7 (Age 12-13)',8:'Grade 8 (Age 13-14)',9:'Grade 9 (Age 14-15)',10:'Grade 10 (Age 15-16)',11:'Grade 11 (Age 16-17)',12:'Grade 12 (Age 17-18)',13:'College Freshman',14:'College Sophomore',15:'College Junior',16:'Post-Graduate'};
+  const ideal = grade >= 6 && grade <= 9;
+  const result = document.getElementById('rl-result');
+  result.innerHTML = `<div class="result-header"><span class="result-label">Reading Level Results</span></div>
+    <div style="font-size:2.5rem;font-family:'Playfair Display',serif;color:${ideal?'var(--sage)':'var(--rust)'};margin-bottom:0.25rem">Grade ${grade}</div>
+    <div style="font-size:0.9rem;margin-bottom:1rem;color:var(--muted)">${gradeLabels[grade] || 'Advanced'}</div>
+    <div style="font-size:0.82rem;line-height:1.7;color:var(--ink)">
+      ${ideal ? '✅ Great reading level for most eBook audiences (Grade 6-9 is ideal).' : grade < 6 ? '⚠️ Very simple — may feel too basic for adult readers.' : '⚠️ Complex — consider simplifying for broader reach.'}
+      <br><br>Words: ${wc} · Sentences: ${sc} · Avg words/sentence: ${(wc/sc).toFixed(1)}
+    </div>`;
+  result.classList.add('active');
+}
+
+function countSyllables(word) {
+  word = word.toLowerCase().replace(/[^a-z]/g,'');
+  if (!word) return 0;
+  if (word.length <= 3) return 1;
+  word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '').replace(/^y/, '');
+  const m = word.match(/[aeiouy]{1,2}/g);
+  return m ? m.length : 1;
+}
+
+function updateRoyalty() {
+  const price = parseFloat(document.getElementById('rc-price').value);
+  const size = parseFloat(document.getElementById('rc-size').value) || 0;
+  const out = document.getElementById('rc-output');
+  if (!price || price < 0.99) { out.innerHTML = 'Enter a valid price (minimum $0.99).'; return; }
+  const deliveryCost = size * 0.15;
+  let r70 = 0, r35 = 0, eligible70 = price >= 2.99 && price <= 9.99;
+  if (eligible70) r70 = (price * 0.70) - deliveryCost;
+  r35 = price * 0.35;
+  out.innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+      <div style="background:${eligible70?'rgba(74,103,65,0.08)':'var(--cream)'};border:1px solid var(--border);border-radius:8px;padding:1rem;text-align:center">
+        <div style="font-size:0.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">70% Royalty</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.8rem;color:${eligible70?'var(--sage)':'var(--muted)'}">${eligible70?'$'+r70.toFixed(2):'N/A'}</div>
+        <div style="font-size:0.75rem;color:var(--muted);margin-top:0.25rem">${eligible70?'per sale':'Requires $2.99–$9.99'}</div>
+      </div>
+      <div style="background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:1rem;text-align:center">
+        <div style="font-size:0.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">35% Royalty</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--ink)">$${r35.toFixed(2)}</div>
+        <div style="font-size:0.75rem;color:var(--muted);margin-top:0.25rem">per sale</div>
+      </div>
+    </div>
+    ${eligible70 && size > 0 ? `<div style="font-size:0.8rem;color:var(--muted)">Delivery cost deducted: $${deliveryCost.toFixed(2)} (${size}MB × $0.15)</div>` : ''}
+    <div style="font-size:0.8rem;color:var(--muted);margin-top:0.5rem">To earn $1,000/month at this price: <strong>${Math.ceil(1000/(eligible70?r70:r35))} sales</strong> needed.</div>`;
+}
+</script>
+</body>
+</html>
