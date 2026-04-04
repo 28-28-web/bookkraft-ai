@@ -11,7 +11,7 @@ export const metadata = {
 export default function PrivacyPage() {
     return (
         <>
-            <div className="legal-wrap">
+            <div style={{ maxWidth: '760px', margin: '0 auto', padding: '64px 24px', lineHeight: '1.8' }}>
                 <h1>Privacy Policy</h1>
                 <p className="legal-date">Last updated: March 2026</p>
 
