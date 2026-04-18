@@ -41,8 +41,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-761HQ6CWTZ"></script>
-      <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date()); gtag("config", "G-761HQ6CWTZ");` }} />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-VWKGZ0SB8X"></script>
+      <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date()); gtag("config", "G-VWKGZ0SB8X");` }} />
       <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -88,7 +88,7 @@ export default function RootLayout({ children }) {
             </ToastProvider>
           </ProjectProvider>
         </AuthProvider>
-            <GoogleAnalytics gaId="G-761HQ6CWTZ" />
+            <GoogleAnalytics gaId="G-VWKGZ0SB8X" />
       </body>
     </html>
   );
