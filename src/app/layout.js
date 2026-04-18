@@ -1,5 +1,4 @@
 import './globals.css';
-import Script from 'next/script';
 import Navbar from '../components/Navbar';
 import { AuthProvider } from '../components/AuthProvider';
 import { ProjectProvider } from '../lib/ProjectContext';
@@ -13,6 +12,7 @@ export const viewport = {
 };
 
 export const metadata = {
+  other: { "google-site-verification": "" },
   metadataBase: new URL('https://bookkraftai.com'),
   title: 'BookKraft AI — Format Your eBook Like a Pro',
   description: '12 eBook formatting tools. EPUB validation, Kindle formatting, metadata builder, style auditor, and more. 2 free tools — no signup needed.',
@@ -40,16 +40,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-      <Script src="https://www.googletagmanager.com/gtag/js?id=G-761HQ6CWTZ" strategy="afterInteractive" />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag("js", new Date());
-          gtag("config", "G-761HQ6CWTZ");
-        `}
-      </Script>
-        <script
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-761HQ6CWTZ"></script>
+      <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date()); gtag("config", "G-761HQ6CWTZ");` }} />
+      <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
