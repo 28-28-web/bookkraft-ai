@@ -1,4 +1,5 @@
 import './globals.css';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import Navbar from '../components/Navbar';
 import { AuthProvider } from '../components/AuthProvider';
 import { ProjectProvider } from '../lib/ProjectContext';
@@ -87,6 +88,7 @@ export default function RootLayout({ children }) {
             </ToastProvider>
           </ProjectProvider>
         </AuthProvider>
+            <GoogleAnalytics gaId="G-761HQ6CWTZ" />
       </body>
     </html>
   );
