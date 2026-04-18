@@ -64,6 +64,12 @@ export default function Navbar() {
               >
                 Pricing
               </Link>
+               <Link
+                href="/tools/publishing-score"
+                className={`nav-link nav-link-interactive ${pathname === '/tools/publishing-score' ? 'active' : ''}`}
+              >
+                ✦ Book Score
+              </Link>
               <Link
                 href="/free-tools"
                 className={`nav-link nav-link-interactive ${pathname === '/free-tools' ? 'active' : ''}`}
@@ -140,6 +146,7 @@ export default function Navbar() {
         <div className={`mobile-nav ${mobileOpen ? 'open' : ''}`} aria-hidden={!mobileOpen}>
           <Link href="/#tools-section" className="nav-link">Tools</Link>
           <Link href="/pricing" className="nav-link">Pricing</Link>
+          <Link href="/tools/publishing-score" className="nav-link">✦ Book Score</Link>
           <Link href="/free-tools" className="nav-link">Free Tools</Link>
           <a href="https://blog.bookkraftai.com" className="nav-link" target="_blank" rel="noopener noreferrer">Blog</a>
           {!user && (
