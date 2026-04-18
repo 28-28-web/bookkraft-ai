@@ -1,4 +1,5 @@
 import './globals.css';
+import Script from 'next/script';
 import Navbar from '../components/Navbar';
 import { AuthProvider } from '../components/AuthProvider';
 import { ProjectProvider } from '../lib/ProjectContext';
@@ -39,6 +40,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-1DD0TS1SC2" strategy="afterInteractive" />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag("js", new Date());
+          gtag("config", "G-1DD0TS1SC2");
+        `}
+      </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
