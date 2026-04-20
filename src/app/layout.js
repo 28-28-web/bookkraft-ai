@@ -41,9 +41,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-VWKGZ0SB8X"></script>
-      <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date()); gtag("config", "G-VWKGZ0SB8X");` }} />
-      <script
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
@@ -61,11 +59,9 @@ export default function RootLayout({ children }) {
                   "sameAs": [
                     "https://x.com/bookkraftai",
                     "https://www.facebook.com/bookkraftai",
-                    "https://www.linkedin.com/company/bookkraftai",
-                    "https://www.reddit.com/r/bookkraftai",
-                    "https://www.quora.com/profile/BookKraft-AI"
+                    "https://www.linkedin.com/company/bookkraftai"
                   ],
-                  "description": "Professional eBook formatting tools for indie authors. Format once, publish everywhere."
+                  "description": "Professional eBook formatting tools for indie authors."
                 },
                 {
                   "@type": "WebSite",
@@ -78,6 +74,7 @@ export default function RootLayout({ children }) {
             })
           }}
         />
+
         <AuthProvider>
           <ProjectProvider>
             <ToastProvider>
@@ -88,7 +85,9 @@ export default function RootLayout({ children }) {
             </ToastProvider>
           </ProjectProvider>
         </AuthProvider>
-            <GoogleAnalytics gaId="G-VWKGZ0SB8X" />
+
+        {/* Google Analytics — single source, bottom of body */}
+        <GoogleAnalytics gaId="G-VWKGZ0SB8X" />
       </body>
     </html>
   );
