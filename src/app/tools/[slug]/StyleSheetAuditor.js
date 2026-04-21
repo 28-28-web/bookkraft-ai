@@ -55,6 +55,7 @@ export default function StyleSheetAuditor() {
     const noteCount = violations.filter((v) => v.severity === 'notice').length;
 
     return (
+        <>
         <div className="tool-layout">
             <div className="tool-input-card">
                 <h3>Input</h3>
@@ -173,5 +174,6 @@ export default function StyleSheetAuditor() {
             <h2>The Problem With Manual Style Checks</h2>
             <p>Most editors and authors do style checks manually using ctrl+F and a running list of decisions. It works — but it's slow, and it's easy to miss things. An automated audit covers the entire manuscript in seconds and catches patterns a manual search wouldn't think to look for.</p>
         </div>
+        </>
     );
 }

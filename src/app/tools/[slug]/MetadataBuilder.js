@@ -80,10 +80,10 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
     }, [form, keywords, langCode]);
 
     return (
+        <>
         <div className="tool-layout">
             <div className="tool-input-card" style={{ maxHeight: '600px', overflowY: 'auto' }}>
                 <h3>Book Metadata</h3>
-                {/* Text fields */}
                 {[
                     ['title', 'Book title'], ['subtitle', 'Subtitle (optional)'], ['authors', 'Author name(s)'],
                     ['series', 'Series name (optional)'], ['seriesVolume', 'Volume # (opt.)'],
@@ -138,7 +138,8 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
                     </button>
                 </div>
             </div>
-</div>
+        </div>
+
         {/* SEO Content */}
         <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
             <h2>Book Metadata Builder for Self-Publishing Platforms</h2>
@@ -159,5 +160,6 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
             <h2>Why Metadata Gets Overlooked</h2>
             <p>Most authors rush through metadata because they're excited to finally hit publish. But metadata is what tells platforms — and readers — what your book is about, who it's for, and where it belongs. Strong metadata means better category placement, better search visibility, and more readers finding your book organically.</p>
         </div>
+        </>
     );
 }

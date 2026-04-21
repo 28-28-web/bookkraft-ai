@@ -49,6 +49,7 @@ export default function BackMatterGenerator() {
     ].filter(Boolean) : [];
 
     return (
+        <>
         <div className="tool-layout">
             <div className="tool-input-card">
                 <h3>Details</h3>
@@ -106,7 +107,7 @@ export default function BackMatterGenerator() {
                     />
                 )}
             </div>
-</div>
+        </div>
 
         {/* SEO Content */}
         <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
@@ -128,6 +129,6 @@ export default function BackMatterGenerator() {
             <h2>Why Back Matter Matters</h2>
             <p>Readers who finish your book are your most engaged audience. A well-written author bio encourages them to follow you. An also-by page drives sales of your other titles. A reader list CTA grows your mailing list. Back matter isn't just filler — it's the last thing a reader sees before they close your book.</p>
         </div>
-
+        </>
     );
 }

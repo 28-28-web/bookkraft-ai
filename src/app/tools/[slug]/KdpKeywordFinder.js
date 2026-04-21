@@ -34,6 +34,7 @@ export default function KdpKeywordFinder() {
     };
 
     return (
+        <>
         <div className="tool-layout">
             <div className="tool-input-card">
                 <h3>Book Details</h3>
@@ -128,7 +129,7 @@ export default function KdpKeywordFinder() {
                     />
                 )}
             </div>
-</div>
+        </div>
 
         {/* SEO Content */}
         <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
@@ -150,6 +151,6 @@ export default function KdpKeywordFinder() {
             <h2>What Makes This Different</h2>
             <p>Most keyword tools are built for general SEO or ecommerce. They aren't designed with book publishing in mind. This tool focuses specifically on Amazon KDP — so the suggestions are relevant to how readers actually search for books, not products.</p>
         </div>
-
+        </>
     );
 }

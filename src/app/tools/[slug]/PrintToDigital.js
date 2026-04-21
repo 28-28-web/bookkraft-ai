@@ -13,7 +13,6 @@ export default function PrintToDigital() {
     const [result, setResult] = useState(null);
     const [error, setError] = useState('');
 
-    // Pre-fill from active project
     useEffect(() => {
         if (currentProject?.id && !input) {
             loadProjectText(currentProject.id).then(text => {
@@ -48,6 +47,7 @@ export default function PrintToDigital() {
     };
 
     return (
+        <>
         <div className="tool-layout">
             <div className="tool-input-card">
                 <h3>Print Text</h3>
@@ -85,7 +85,6 @@ export default function PrintToDigital() {
                     <>
                         <textarea className="form-textarea" style={{ minHeight: '250px' }} value={result.adapted_text || ''} readOnly />
 
-                        {/* Conversion summary */}
                         {result.conversions?.length > 0 && (
                             <div className="conversion-summary">
                                 <h4>Conversions Applied</h4>
@@ -99,7 +98,6 @@ export default function PrintToDigital() {
                             </div>
                         )}
 
-                        {/* Needs review */}
                         {result.needs_review?.length > 0 && (
                             <div className="needs-review">
                                 <h4>⚠️ Needs Manual Review</h4>
@@ -118,7 +116,6 @@ export default function PrintToDigital() {
                     </>
                 )}
 
-                {/* LivePreview — Before/After */}
                 {result && (
                     <LivePreview
                         beforeHtml={`<p>${input.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>`}
@@ -126,7 +123,8 @@ export default function PrintToDigital() {
                     />
                 )}
             </div>
-</div>
+        </div>
+
         {/* SEO Content */}
         <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
             <h2>Print to Digital Book Converter for Authors</h2>
@@ -147,5 +145,6 @@ export default function PrintToDigital() {
             <h2>Why Conversion Goes Wrong Without the Right Tool</h2>
             <p>Print layouts are designed for fixed pages. Digital formats are designed for flexible screens. When you try to force one into the other manually, things break — chapter headings shift, images misalign, and text spacing becomes inconsistent. A proper conversion tool understands both formats and gets it right from the start.</p>
         </div>
+        </>
     );
 }

@@ -87,6 +87,7 @@ ${checked.map((h, i) => `    <navPoint id="navpoint-${i + 1}" playOrder="${i + 1
     const outputs = [kindleHtml, epub3Nav, ncxXml, plainText];
 
     return (
+        <>
         <div className="tool-layout">
             <div className="tool-input-card">
                 <h3>Input</h3>
@@ -152,5 +153,6 @@ ${checked.map((h, i) => `    <navPoint id="navpoint-${i + 1}" playOrder="${i + 1
             <h2>Why TOC Errors Are So Common</h2>
             <p>Most authors build their table of contents last — when they're tired and the deadline is close. So they copy chapter titles into a list, add page numbers manually, and move on. Then the ebook gets rejected because the TOC isn't navigable. A generated TOC eliminates that risk entirely.</p>
         </div>
+        </>
     );
 }

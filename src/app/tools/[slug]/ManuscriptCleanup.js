@@ -21,7 +21,6 @@ export default function ManuscriptCleanup() {
     const [sampleMode, setSampleMode] = useState(false);
     const WORD_LIMIT = 3000;
 
-    // Pre-fill from active project
     useEffect(() => {
         if (currentProject?.id && !input) {
             loadProjectText(currentProject.id).then(text => {
@@ -33,7 +32,6 @@ export default function ManuscriptCleanup() {
     const handleSubmit = async () => {
         if (!input.trim()) return;
 
-        // Frontend word limit check
         if (!sampleMode) {
             const wordError = getWordLimitError(input, WORD_LIMIT);
             if (wordError) { setError(wordError); return; }
@@ -74,11 +72,11 @@ export default function ManuscriptCleanup() {
     const hasCredits = profile?.is_lifetime || (profile?.credits_balance || 0) >= 3;
 
     return (
+        <>
         <div className="tool-layout">
             <div className="tool-input-card">
                 <h3>Input</h3>
 
-                {/* Credit display for AI tool */}
                 <CreditDisplay
                     toolSlug="manuscript-cleanup"
                     balance={profile?.credits_balance || 0}
@@ -96,7 +94,6 @@ export default function ManuscriptCleanup() {
 
                 <WordCounter text={input} limit={sampleMode ? 500 : WORD_LIMIT} />
 
-                {/* Free Sample / Full Chapter toggle */}
                 <div style={{
                     display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)',
                     padding: '12px', background: 'var(--cream)', border: '1px solid var(--border)',
@@ -204,7 +201,6 @@ export default function ManuscriptCleanup() {
                             </div>
                         )}
 
-                        {/* LivePreview */}
                         <LivePreview
                             beforeHtml={`<p>${input.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>`}
                             afterHtml={result.cleaned_text ? `<p>${result.cleaned_text.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>` : ''}
@@ -212,7 +208,8 @@ export default function ManuscriptCleanup() {
                     </>
                 )}
             </div>
-</div>
+        </div>
+
         {/* SEO Content */}
         <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
             <h2>Manuscript Cleanup Tool for Authors and Editors</h2>
@@ -233,5 +230,6 @@ export default function ManuscriptCleanup() {
             <h2>Why This Step Matters</h2>
             <p>Formatting errors frustrate readers. Grammar mistakes hurt your credibility. And both can lead to negative reviews that follow your book long after you've fixed the file. A cleanup pass costs you 10 minutes. Skipping it can cost you readers.</p>
         </div>
+        </>
     );
 }
