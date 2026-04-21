@@ -152,6 +152,26 @@ export default function StyleSheetAuditor() {
                     />
                 )}
             </div>
+</div>
+        {/* SEO Content */}
+        <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
+            <h2>Style Sheet Auditor for Authors and Editors</h2>
+            <p>Inconsistency is one of the hardest things to catch in your own manuscript. You hyphenate a word one way in chapter three and a different way in chapter eleven. You capitalize a term early on and forget to later. By the time a reader notices, the damage is done. This tool catches those inconsistencies before your book goes out.</p>
+
+            <h2>What This Tool Does</h2>
+            <p>The Style Sheet Auditor works on two levels. On the writing style side, it checks for consistency across punctuation choices, capitalization patterns, hyphenation decisions, spelling variations, and terminology usage. On the document formatting side, it audits fonts, spacing, paragraph styles, indentation, and heading structure throughout your file.</p>
+
+            <h2>What It Audits</h2>
+            <p>Writing style checks include hyphenation consistency, capitalization of proper nouns and titles, punctuation patterns like Oxford comma and em dash usage, spelling variants between American and British English, and terminology consistency for character names and invented terms. Formatting checks cover font consistency, paragraph spacing, heading hierarchy, line spacing, and list formatting.</p>
+
+            <h2>Who This Is For</h2>
+            <p>Authors finishing a manuscript and wanting one final consistency check before sending to an editor or formatter. Freelance editors who maintain style sheets for client projects and need a reliable way to verify consistency across a full manuscript before delivery. Both groups benefit from having an objective tool check what the human eye naturally skips after reading the same document too many times.</p>
+
+            <h2>How It Works</h2>
+            <p>Upload your manuscript in any supported file format. The tool scans for writing style and formatting inconsistencies. Review a clear report of every flagged issue with its location in the document. Then make corrections directly or export the report to share with a client. The audit report tells you exactly where each inconsistency appears — not just that one exists.</p>
+
+            <h2>The Problem With Manual Style Checks</h2>
+            <p>Most editors and authors do style checks manually using ctrl+F and a running list of decisions. It works — but it's slow, and it's easy to miss things. An automated audit covers the entire manuscript in seconds and catches patterns a manual search wouldn't think to look for.</p>
         </div>
     );
 }

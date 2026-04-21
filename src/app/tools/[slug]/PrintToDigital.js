@@ -126,6 +126,26 @@ export default function PrintToDigital() {
                     />
                 )}
             </div>
+</div>
+        {/* SEO Content */}
+        <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
+            <h2>Print to Digital Book Converter for Authors</h2>
+            <p>You wrote the book for print. Now you need a digital version. But converting a print manuscript to ebook formats isn't as simple as saving a new file. Layouts break, fonts don't carry over, and formatting that looked perfect on a printed page falls apart on a screen. This tool handles the conversion properly.</p>
+
+            <h2>What This Tool Does</h2>
+            <p>Print to Digital converts your print manuscript into clean, properly formatted digital files ready for publishing on major ebook platforms. It accepts multiple input formats — print-ready PDFs, Word DOCX files, and others — so you don't need to prepare your manuscript in a specific way before you start.</p>
+
+            <h2>Input and Output Formats</h2>
+            <p>Upload from print-ready PDF, Microsoft Word DOCX, Rich Text Format, plain text, or InDesign exports. Output formats include EPUB for most ebook platforms, MOBI for Kindle and Amazon KDP, and PDF for digital distribution and review copies. Each output file is formatted to meet platform specifications.</p>
+
+            <h2>Who This Is For</h2>
+            <p>Authors with existing print books who want to expand into digital without starting their formatting from scratch. Self-publishers releasing in both print and digital simultaneously. Freelance editors and formatters who handle conversion as part of their client services and need a reliable, repeatable process.</p>
+
+            <h2>How It Works</h2>
+            <p>Upload your print manuscript in any supported format. Choose your output formats — EPUB, MOBI, PDF, or all three. The tool converts and formats your manuscript for digital publishing. Then download your finished digital files ready to upload to your platforms. The conversion takes minutes.</p>
+
+            <h2>Why Conversion Goes Wrong Without the Right Tool</h2>
+            <p>Print layouts are designed for fixed pages. Digital formats are designed for flexible screens. When you try to force one into the other manually, things break — chapter headings shift, images misalign, and text spacing becomes inconsistent. A proper conversion tool understands both formats and gets it right from the start.</p>
         </div>
     );
 }

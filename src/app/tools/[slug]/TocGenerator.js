@@ -131,6 +131,26 @@ ${checked.map((h, i) => `    <navPoint id="navpoint-${i + 1}" playOrder="${i + 1
                     <div className="output-placeholder">Paste text on the left — headings will be detected automatically.</div>
                 )}
             </div>
+</div>
+        {/* SEO Content */}
+        <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
+            <h2>Table of Contents Generator for Print and Ebook</h2>
+            <p>A table of contents sounds simple. But get it wrong and your ebook fails platform validation, your print layout looks unprofessional, and readers can't navigate your book properly. Getting it right means different requirements for print and digital — and this tool handles both.</p>
+
+            <h2>What This Tool Does</h2>
+            <p>The TOC Generator scans your manuscript and auto-generates a table of contents based on your heading structure. Every chapter, section, and subsection gets picked up automatically. Then it gives you full control to review and edit before you export — rename entries, reorder sections, remove items, or add anything the auto-scan missed.</p>
+
+            <h2>Works for Both Print and Ebook</h2>
+            <p>For print books, the TOC generates with accurate page numbers, consistent formatting, proper dot leaders, and page number alignment. For ebooks, it generates a properly linked digital TOC with clickable navigation that meets EPUB and MOBI platform requirements. One tool handles both formats without manual rebuilding between versions.</p>
+
+            <h2>Who This Is For</h2>
+            <p>Self-publishing authors who want a clean, professional TOC without spending an hour formatting one manually. Authors publishing in both print and digital who need two properly formatted versions without building each one from scratch. Freelance editors and formatters who deliver complete, publish-ready manuscripts and need a fast, reliable TOC process for every project.</p>
+
+            <h2>How It Works</h2>
+            <p>Upload your manuscript in any supported file format. The tool auto-generates your TOC from your heading structure. Review and edit entries — rename, reorder, add, or remove. Choose your output format — print, ebook, or both. Then export your finished TOC ready to drop into your manuscript. The whole process takes under 5 minutes for most manuscripts.</p>
+
+            <h2>Why TOC Errors Are So Common</h2>
+            <p>Most authors build their table of contents last — when they're tired and the deadline is close. So they copy chapter titles into a list, add page numbers manually, and move on. Then the ebook gets rejected because the TOC isn't navigable. A generated TOC eliminates that risk entirely.</p>
         </div>
     );
 }

@@ -128,6 +128,28 @@ export default function KdpKeywordFinder() {
                     />
                 )}
             </div>
+</div>
+
+        {/* SEO Content */}
+        <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
+            <h2>KDP Keyword Finder for Self-Publishing Authors</h2>
+            <p>Most self-published books don't fail because of bad writing. They fail because nobody finds them. On Amazon KDP, the right keywords are the difference between consistent sales and sitting invisible on page 12. This tool helps you find keywords that actually work.</p>
+
+            <h2>What This Tool Does</h2>
+            <p>The KDP Keyword Finder does two things well. First, it suggests relevant keywords based on your book's title, genre, and description. These are terms real readers use when searching for books like yours on Amazon. Second, it analyzes each keyword for competition and search volume. So you can see which terms are worth targeting and which ones are too crowded to compete in.</p>
+
+            <h2>Why KDP Keywords Matter</h2>
+            <p>Amazon gives you 7 keyword slots when you publish a book. Most authors fill them in quickly without much research. That's a mistake. Those 7 slots directly affect how Amazon categorizes your book and who sees it in search results. A well-researched keyword strategy puts your book in front of readers who are already looking for what you wrote.</p>
+
+            <h2>Who This Is For</h2>
+            <p>New authors publishing their first book and trying to get visibility without a big marketing budget. Experienced authors who want to optimize existing listings and improve discoverability across their catalog. Freelance editors and publishing consultants helping clients set up their KDP listings properly from the start. If you publish on Amazon, keyword research isn't optional. It's foundational.</p>
+
+            <h2>How It Works</h2>
+            <p>Enter your book title, genre, and a short description. The tool generates keyword suggestions tailored to your book. Then review competition and search volume for each keyword and choose the best 7 to add directly to your KDP listing. The whole process takes under 10 minutes.</p>
+
+            <h2>What Makes This Different</h2>
+            <p>Most keyword tools are built for general SEO or ecommerce. They aren't designed with book publishing in mind. This tool focuses specifically on Amazon KDP — so the suggestions are relevant to how readers actually search for books, not products.</p>
         </div>
+
     );
 }

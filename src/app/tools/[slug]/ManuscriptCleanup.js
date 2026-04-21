@@ -212,6 +212,26 @@ export default function ManuscriptCleanup() {
                     </>
                 )}
             </div>
+</div>
+        {/* SEO Content */}
+        <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
+            <h2>Manuscript Cleanup Tool for Authors and Editors</h2>
+            <p>Every manuscript has problems hiding in it. Extra spaces, inconsistent fonts, rogue line breaks, grammar slips that survived every reread. By the time you're ready to publish, you're too close to the work to catch them all. This tool catches what you missed.</p>
+
+            <h2>What This Tool Does</h2>
+            <p>Manuscript Cleanup works on two levels. On the formatting side, it finds and fixes messy technical issues that accumulate during writing — double spaces, inconsistent paragraph spacing, broken indents, mixed fonts, and stray line breaks. On the language side, it checks for grammar and spelling errors throughout your full manuscript.</p>
+
+            <h2>What It Fixes</h2>
+            <p>Formatting issues include double and triple spaces, inconsistent paragraph indentation, mixed fonts and font sizes, extra blank lines, and broken page breaks. Grammar and spelling fixes cover typos, punctuation mistakes, inconsistent capitalization, and common grammar slip-ups.</p>
+
+            <h2>Works With Any File Type</h2>
+            <p>Upload your manuscript in whatever format you're working in. DOCX, PDF, TXT, EPUB — the tool handles them all. So you don't need to convert anything before you start. Just upload and run the cleanup.</p>
+
+            <h2>Who This Is For</h2>
+            <p>Authors who want one final check before submitting to a formatter or uploading to KDP. Freelance editors who deliver polished, submission-ready files to clients. First-time self-publishers who need their manuscript looking professional before it goes live.</p>
+
+            <h2>Why This Step Matters</h2>
+            <p>Formatting errors frustrate readers. Grammar mistakes hurt your credibility. And both can lead to negative reviews that follow your book long after you've fixed the file. A cleanup pass costs you 10 minutes. Skipping it can cost you readers.</p>
         </div>
     );
 }

@@ -138,6 +138,26 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
                     </button>
                 </div>
             </div>
+</div>
+        {/* SEO Content */}
+        <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
+            <h2>Book Metadata Builder for Self-Publishing Platforms</h2>
+            <p>Bad metadata is one of the most common reasons self-published books underperform. Wrong categories, weak descriptions, missing BISAC codes — small errors that quietly hurt your discoverability across every platform you publish on. This tool makes sure you get it right the first time.</p>
+
+            <h2>What This Tool Does</h2>
+            <p>The Metadata Builder guides you through every metadata field step by step — title, subtitle, description, categories, BISAC codes, keywords, and more. And where it can, it auto-generates metadata based on your book's content. So instead of staring at a blank description field, you start with a solid draft to refine in minutes.</p>
+
+            <h2>Works Across Multiple Platforms</h2>
+            <p>Publishing on more than one platform means managing slightly different metadata requirements for each one. The Metadata Builder accounts for platform-specific differences. So whether you're publishing wide or going Amazon-exclusive, your metadata is formatted correctly. Supported platforms include Amazon KDP, IngramSpark, Draft2Digital, Smashwords, and Barnes and Noble Press.</p>
+
+            <h2>Who This Is For</h2>
+            <p>First-time authors who don't know what BISAC codes are or why they matter. Experienced authors publishing across multiple platforms who want consistent, accurate metadata without filling in the same fields five different times. Freelance editors and publishing consultants who set up client listings and need a reliable, repeatable process.</p>
+
+            <h2>How It Works</h2>
+            <p>Enter your book details and upload or paste your description. The tool auto-generates metadata fields where possible. Then review and refine each field with guided prompts and export your completed metadata formatted for your chosen platforms. The whole process takes under 15 minutes for a new title.</p>
+
+            <h2>Why Metadata Gets Overlooked</h2>
+            <p>Most authors rush through metadata because they're excited to finally hit publish. But metadata is what tells platforms — and readers — what your book is about, who it's for, and where it belongs. Strong metadata means better category placement, better search visibility, and more readers finding your book organically.</p>
         </div>
     );
 }

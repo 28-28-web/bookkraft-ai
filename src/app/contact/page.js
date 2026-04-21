@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import Footer from '@/components/Footer';
 
 export default function ContactPage() {
@@ -24,6 +25,7 @@ export default function ContactPage() {
         window.location.href = `mailto:hello@bookkraftai.com?subject=${subject}&body=${body}`;
         setStatus('success');
     }
+
     return (
         <>
             <div style={{
@@ -223,6 +225,47 @@ export default function ContactPage() {
                     </a>
                 </div>
             </div>
+
+            {/* SEO Content */}
+            <section style={{
+                maxWidth: 560,
+                margin: '0 auto',
+                padding: '0 24px 80px',
+            }}>
+                <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#1a1a1a', marginBottom: 12 }}>
+                    Contact Book Kraft AI
+                </h2>
+                <p style={{ color: '#666', lineHeight: 1.7, marginBottom: 20 }}>
+                    Have a question about our tools? Found a bug? Want to suggest a feature? We read every message and respond personally — no automated replies.
+                </p>
+
+                <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#1a1a1a', marginBottom: 12 }}>
+                    What You Can Reach Us About
+                </h2>
+                <p style={{ color: '#666', lineHeight: 1.7, marginBottom: 20 }}>
+                    Tool issues or unexpected errors. Feature requests or suggestions. Questions about pricing or your account. General feedback about Book Kraft AI. We're a small team building tools for authors and editors — so your feedback actually shapes what we build next.
+                </p>
+
+                <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#1a1a1a', marginBottom: 12 }}>
+                    What to Expect
+                </h2>
+                <p style={{ color: '#666', lineHeight: 1.7, marginBottom: 20 }}>
+                    We typically respond within 1-2 business days. If your question is urgent, mention it in the subject line and we'll prioritize it.
+                </p>
+
+                <p style={{ color: '#666', lineHeight: 1.7 }}>
+                    Not ready to reach out yet? Browse our{' '}
+                    <Link href="/free-tools" style={{ color: '#b8860b', fontWeight: 500, textDecoration: 'none' }}>
+                        free tools
+                    </Link>
+                    {' '}or check the{' '}
+                    <Link href="/blog" style={{ color: '#b8860b', fontWeight: 500, textDecoration: 'none' }}>
+                        blog
+                    </Link>
+                    {' '}for answers to common questions.
+                </p>
+            </section>
+
             <Footer />
         </>
     );

@@ -120,6 +120,30 @@ export default function FreeToolsPage() {
                         </p>
                         <Link href="/pricing" className="btn btn-gold" style={{ textDecoration: 'none' }}>View Pricing</Link>
                     </div>
+
+                </div>
+            </section>
+
+            {/* SEO Content */}
+            <section style={{ padding: 'var(--space-16) 0', borderTop: '1px solid var(--border)' }}>
+                <div className="container" style={{ maxWidth: '800px', margin: '0 auto', padding: '0 1rem' }}>
+                    <h2>Free Tools for Authors and Editors</h2>
+                    <p>Publishing a book takes more than just writing. The formatting, metadata, keywords, structure — it all adds up. These free tools handle the technical side so you can focus on the work that actually matters.</p>
+
+                    <h2>EPUB Validator</h2>
+                    <p>Before you upload your ebook to KDP, Apple Books, or Kobo, it needs to pass structural validation. The EPUB Validator checks your file for mimetype errors, container issues, OPF problems, spine errors, broken image references, CSS conflicts, and accessibility gaps. It runs entirely in your browser — no Java, no account, no upload limit. Fix errors before they cause rejections.</p>
+
+                    <h2>Metadata Builder</h2>
+                    <p>Good metadata helps readers find your book. Fill in one form and get perfectly formatted metadata output for Amazon KDP, IngramSpark, Draft2Digital, and EPUB OPF — all at once. Includes 7 keyword slots, BISAC category support, and a downloadable text file. No account needed. Unlimited use.</p>
+
+                    <h2>Who These Tools Are For</h2>
+                    <p>If you're a self-publishing author, these tools save you hours of manual formatting work. If you're a freelance editor, they help you deliver cleaner, faster results to your clients. Both tools work immediately — no email, no credit card, no account required.</p>
+
+                    <h2>Why We Built These</h2>
+                    <p>Most publishing tools are either too expensive or too complicated. We built these to be straightforward — tools that do exactly what they say, nothing more. And because every author deserves access to basic publishing tools without a subscription, these two will always be free.</p>
+
+                    <h2>Need More Tools?</h2>
+                    <p>The free tools cover EPUB validation and metadata. For manuscript cleanup, KDP keyword research, back matter generation, print to digital conversion, TOC generation, and more — explore the full Book Kraft AI toolkit. Available as a one-time purchase, no monthly fees.</p>
                 </div>
             </section>
         </>
