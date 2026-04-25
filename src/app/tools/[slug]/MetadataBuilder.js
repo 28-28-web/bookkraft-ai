@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import UpsellBanner from '@/components/UpsellBanner';
 
 export default function MetadataBuilder() {
     const [form, setForm] = useState({
@@ -79,6 +80,8 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
         return [kdp, ingram, d2d, opf];
     }, [form, keywords, langCode]);
 
+    const hasOutput = form.title || form.authors;
+
     return (
         <>
         <div className="tool-layout">
@@ -137,6 +140,9 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
                         📋 Copy {tabs[activeTab]}
                     </button>
                 </div>
+
+                {/* Upsell banner shown once user starts filling in data */}
+                {hasOutput && <UpsellBanner toolName="Metadata Builder" />}
             </div>
         </div>
 

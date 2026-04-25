@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import UpsellBanner from '@/components/UpsellBanner';
 
 export default function EpubValidator() {
     const [file, setFile] = useState(null);
@@ -182,30 +183,33 @@ export default function EpubValidator() {
 
             {/* Results */}
             {results && !loading && (
-                <div className="validation-results">
-                    <div className="val-summary">
-                        <div className="val-score">
-                            <span className="val-score-num">{results.passCount}</span>
-                            <span className="val-score-denom">/{results.total}</span>
-                        </div>
-                        <p className="val-score-label">
-                            {results.passCount === results.total ? 'All checks passed! ✨' :
-                                results.passCount >= results.total - 2 ? 'Looking good, minor issues.' : 'Some issues found — review below.'}
-                        </p>
-                    </div>
-
-                    <div className="val-checks">
-                        {results.checks.map((c, i) => (
-                            <div key={i} className={`val-check ${statusClass(c.status)}`}>
-                                <span className="val-check-icon">{statusIcon(c.status)}</span>
-                                <div>
-                                    <strong>{c.name}</strong>
-                                    <p>{c.detail}</p>
-                                </div>
+                <>
+                    <div className="validation-results">
+                        <div className="val-summary">
+                            <div className="val-score">
+                                <span className="val-score-num">{results.passCount}</span>
+                                <span className="val-score-denom">/{results.total}</span>
                             </div>
-                        ))}
+                            <p className="val-score-label">
+                                {results.passCount === results.total ? 'All checks passed! ✨' :
+                                    results.passCount >= results.total - 2 ? 'Looking good, minor issues.' : 'Some issues found — review below.'}
+                            </p>
+                        </div>
+
+                        <div className="val-checks">
+                            {results.checks.map((c, i) => (
+                                <div key={i} className={`val-check ${statusClass(c.status)}`}>
+                                    <span className="val-check-icon">{statusIcon(c.status)}</span>
+                                    <div>
+                                        <strong>{c.name}</strong>
+                                        <p>{c.detail}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                    <UpsellBanner toolName="EPUB Validator" />
+                </>
             )}
         </div>
     );
