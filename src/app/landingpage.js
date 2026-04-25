@@ -1,11 +1,11 @@
 'use client';
-
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { TOOLS } from '../lib/tools';
 import { FAQS, PRICING } from '../lib/constants';
 import AnimatedSection from '../components/AnimatedSection';
 import SocialProofTicker from '../components/SocialProofTicker';
+import SenjaReviews from '@/components/SenjaReviews';
 
 // ─── DATA ────────────────────────────────────────────────────────────
 
@@ -31,14 +31,6 @@ const TICKER_ITEMS = [
   '<strong>@publisherella</strong> passed Amazon review first try',
 ];
 
-const REVIEWS = [
-  { name: 'Sarah R.',    role: 'Fantasy author · 8 titles on KDP',      stars: 5, text: 'BookKraft cleaned up 4 years of inconsistent formatting in my 90,000-word novel in under 3 minutes. Absolutely jaw-dropping.' },
-  { name: 'Marcus T.',   role: 'Self-published thriller writer',         stars: 5, text: "I was going to buy Vellum. Then I found BookKraft. $4.99 vs $250 — and the AI keyword finder paid for the full bundle in week one." },
-  { name: 'Jennifer K.', role: 'Romance author · 3-book series',        stars: 5, text: 'The style sheet auditor caught 47 inconsistencies I never would have spotted. My editor was impressed for the first time ever.' },
-  { name: 'David P.',    role: 'Thriller author · 8 KDP titles',        stars: 5, text: 'The KDP Keyword Finder is incredible. My last book went from page 4 to page 1 in its sub-category within a week of updating my keywords.' },
-  { name: 'Emma R.',     role: "Children's book author",                 stars: 4, text: 'I love that I can try the EPUB Validator and Metadata Builder for free without creating an account. That trust made me comfortable buying the full bundle.' },
-  { name: 'Michael T.',  role: 'Wide-distribution author · 20+ titles', stars: 5, text: 'The Metadata Builder saves me 30 minutes per book — one form, four platform outputs. The Print-to-Digital adapter is a game-changer.' },
-];
 
 const PLATFORMS = [
   'Amazon KDP','Apple Books','Barnes & Noble','Kobo',
@@ -375,8 +367,8 @@ function CompetitorSection() {
           <div style={{ display:'grid', gridTemplateColumns:'1fr 2px 1fr 2px 1fr', alignItems:'center', marginTop:44 }}
             className="animate-on-scroll stagger-1">
             {cols.map((col, i) => (
-              <>
-                <div key={col.name} style={{
+              <React.Fragment key={col.name}>
+                <div style={{
                   padding:'28px 24px', textAlign:'center',
                   ...(col.featured ? { borderTop:'2px solid var(--gold)', background:'rgba(201,168,76,0.04)' } : {}),
                 }}>
@@ -396,14 +388,13 @@ function CompetitorSection() {
                     {col.note}
                   </p>
                 </div>
-                {/* Divider between columns */}
                 {i < cols.length - 1 && (
-                  <div key={`div-${i}`} aria-hidden="true" style={{
+                  <div aria-hidden="true" style={{
                     height:100,
                     background:'linear-gradient(to bottom,transparent,rgba(201,168,76,0.25),transparent)',
                   }} />
                 )}
-              </>
+              </React.Fragment>
             ))}
           </div>
         </AnimatedSection>
@@ -466,49 +457,14 @@ function TestimonialsSection() {
             What indie authors are saying
           </h2>
         </AnimatedSection>
-
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:20, marginTop:48 }}>
-          {REVIEWS.map((r, i) => (
-            <AnimatedSection key={i}>
-              <article
-                className={`animate-on-scroll stagger-${Math.min(i+1,6)}`}
-                style={{
-                  background:'var(--cream)', border:'1px solid var(--border)',
-                  borderRadius:'var(--radius)', padding:26,
-                  transition:'transform 0.2s, box-shadow 0.2s',
-                }}
-                itemScope itemType="https://schema.org/Review"
-                onMouseEnter={e=>{e.currentTarget.style.transform='translateY(-3px)';e.currentTarget.style.boxShadow='0 4px 12px rgba(15,14,12,0.12)';}}
-                onMouseLeave={e=>{e.currentTarget.style.transform='none';e.currentTarget.style.boxShadow='none';}}
-              >
-                <p style={{
-                  fontFamily:"'Playfair Display',serif", fontSize:14.5,
-                  fontStyle:'italic', lineHeight:1.72, color:'var(--ink)', marginBottom:18,
-                }} itemProp="reviewBody">
-                  <span style={{ color:'var(--gold)', fontSize:26, lineHeight:0, verticalAlign:'-9px', marginRight:3 }} aria-hidden="true">&ldquo;</span>
-                  {r.text}
-                </p>
-                <div style={{ display:'flex', alignItems:'center', gap:10, paddingTop:14, borderTop:'1px solid var(--border)' }}>
-                  <div style={{
-                    width:38, height:38, borderRadius:'50%', background:'var(--border)',
-                    display:'flex', alignItems:'center', justifyContent:'center',
-                    fontSize:13, fontWeight:700, color:'var(--mid)', flexShrink:0,
-                  }} aria-hidden="true">
-                    {r.name.split(' ').map(n=>n[0]).join('')}
-                  </div>
-                  <div>
-                    <p style={{ fontSize:13, fontWeight:700 }} itemProp="author">{r.name}</p>
-                    <p style={{ fontSize:11, color:'var(--mid)' }}>{r.role}</p>
-                  </div>
-                </div>
-              </article>
-            </AnimatedSection>
-          ))}
+        <div style={{ marginTop:48 }}>
+          <SenjaReviews />
         </div>
       </div>
     </section>
   );
 }
+
 
 // ─── 8. PLATFORMS ────────────────────────────────────────────────────
 

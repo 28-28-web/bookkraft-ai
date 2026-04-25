@@ -1,11 +1,12 @@
 import './globals.css';
-import { GoogleAnalytics } from '@next/third-parties/google';
+import Script from 'next/script';
 import Navbar from '../components/Navbar';
 import { AuthProvider } from '../components/AuthProvider';
 import { ProjectProvider } from '../lib/ProjectContext';
 import { ToastProvider } from '../components/Toast';
 import ChatAssistant from '../components/ChatAssistant';
 import NewsletterPopup from '../components/NewsletterPopup';
+import CookieBanner from '../components/CookieBanner';
 
 export const viewport = {
   width: 'device-width',
@@ -40,7 +41,41 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        {/* ── GA4 Consent Mode v2 — must fire BEFORE GA4 loads ── */}
+        <Script id="consent-defaults" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              analytics_storage: 'denied',
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+              wait_for_update: 500
+            });
+          `}
+        </Script>
+
+        {/* ── GA4 — correct Measurement ID: G-761HQ6CWTZ ── */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-761HQ6CWTZ"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-761HQ6CWTZ', {
+              page_path: window.location.pathname
+            });
+          `}
+        </Script>
+      </head>
+
       <body>
+        {/* Schema.org structured data — unchanged */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -82,12 +117,11 @@ export default function RootLayout({ children }) {
               {children}
               <ChatAssistant />
               <NewsletterPopup />
+              {/* Cookie consent banner — activates GA4 consent signal */}
+              <CookieBanner />
             </ToastProvider>
           </ProjectProvider>
         </AuthProvider>
-
-        {/* Google Analytics — single source, bottom of body */}
-        <GoogleAnalytics gaId="G-VWKGZ0SB8X" />
       </body>
     </html>
   );
