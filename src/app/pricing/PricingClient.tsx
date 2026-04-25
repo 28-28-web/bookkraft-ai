@@ -1,5 +1,6 @@
 'use client';
 
+import GuaranteeBadge from '@/components/GuaranteeBadge';
 import { PRICING, TOOL_CREDIT_COSTS, FAQS } from '@/lib/constants';
 import { useState } from 'react';
 import { usePaddle } from '@/app/hooks/usePaddle';
@@ -98,6 +99,7 @@ export default function PricingPage() {
                                 <CheckoutButton purchaseType="essentials" className="btn btn-gold btn-full">
                                     Get Essentials Bundle
                                 </CheckoutButton>
+                                <GuaranteeBadge />
                             </div>
                         </div>
                     </div>
@@ -120,6 +122,7 @@ export default function PricingPage() {
                                 <CheckoutButton purchaseType="credits_starter" className="btn btn-outline btn-full">
                                     Buy Starter Pack
                                 </CheckoutButton>
+                                <GuaranteeBadge />
                             </div>
                             <div className="price-card featured">
                                 <p className="price-plan">{PRICING.authorPro.name}</p>
@@ -131,6 +134,7 @@ export default function PricingPage() {
                                 <CheckoutButton purchaseType="credits_pro" className="btn btn-gold btn-full">
                                     Buy Pro Pack
                                 </CheckoutButton>
+                                <GuaranteeBadge />
                             </div>
                         </div>
 
@@ -175,6 +179,7 @@ export default function PricingPage() {
                                 <CheckoutButton purchaseType="full" className="btn btn-gold btn-full">
                                     Get Full Access
                                 </CheckoutButton>
+                                <GuaranteeBadge />
                             </div>
                             <div className="price-card lifetime-card">
                                 <p className="price-plan">{PRICING.lifetime.name}</p>
@@ -186,6 +191,7 @@ export default function PricingPage() {
                                 <CheckoutButton purchaseType="lifetime" className="btn btn-gold btn-full">
                                     Get Lifetime Deal
                                 </CheckoutButton>
+                                <GuaranteeBadge />
                             </div>
                         </div>
                     </div>

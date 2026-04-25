@@ -628,7 +628,7 @@ function FooterSection() {
 <a href="https://www.linkedin.com/in/book-kraft-ai-b49a34401/" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>LinkedIn</a>
 <a href="https://www.facebook.com/profile.php?id=61570875517722" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Facebook</a>
 <a href="https://reddit.com/r/bookkraftai" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Reddit</a>
-<a href="https://quora.com/topic/bookkraftai" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Quora</a>
+<a href="https://www.quora.com/profile/Book-Kraft" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Quora</a>
 <a href="mailto:hello@bookkraftai.com" className="footer-link" style={{ marginBottom:0 }}>Email</a>
             </div>
           </div>

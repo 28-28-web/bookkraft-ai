@@ -7,7 +7,7 @@ import { ToastProvider } from '../components/Toast';
 import ChatAssistant from '../components/ChatAssistant';
 import NewsletterPopup from '../components/NewsletterPopup';
 import CookieBanner from '../components/CookieBanner';
-
+import ExitIntentWrapper from '../components/ExitIntentWrapper';
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -122,6 +122,7 @@ export default function RootLayout({ children }) {
             </ToastProvider>
           </ProjectProvider>
         </AuthProvider>
+       <ExitIntentWrapper />
       </body>
     </html>
   );
