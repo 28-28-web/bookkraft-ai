@@ -18,7 +18,7 @@ export async function POST(request) {
             },
             body: JSON.stringify({
                 email: email,
-                listIds: [2], // Your Brevo list ID — change if needed
+                listIds: [10], // Your Brevo list ID — change if needed
                 updateEnabled: true,
                 attributes: {
                     SOURCE: 'exit_intent_popup',
