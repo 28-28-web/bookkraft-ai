@@ -58,17 +58,17 @@ export default function Page() {
   };
 
   const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: FAQS.map((f) => ({
-      '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: f.a,
-      },
-    })),
-  };
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: f.a,
+    },
+  })),
+};
 
   const orgSchema = {
     '@context': 'https://schema.org',

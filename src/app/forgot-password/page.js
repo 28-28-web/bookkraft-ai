@@ -1,3 +1,5 @@
+export const metadata = { robots: "noindex, nofollow" };
+
 'use client';
 
 import { useState } from 'react';
