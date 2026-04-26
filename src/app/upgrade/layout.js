@@ -5,4 +5,3 @@ export const metadata = {
 export default function UpgradeLayout({ children }) {
   return children;
 }
-export const metadata = { robots: "noindex, nofollow" };

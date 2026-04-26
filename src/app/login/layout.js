@@ -7,4 +7,3 @@ export const metadata = {
 export default function LoginLayout({ children }) {
   return children;
 }
-export const metadata = { robots: "noindex, nofollow" };
