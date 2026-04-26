@@ -1,4 +1,3 @@
-export const metadata = { robots: "noindex, nofollow" };
 
 'use client';
 

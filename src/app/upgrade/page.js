@@ -1,4 +1,3 @@
-export const metadata = { robots: "noindex, nofollow" };
 
 'use client';
 
@@ -34,8 +33,6 @@ export default function UpgradePage() {
             <div className="main-content">
                 <h1 style={{ fontSize: '1.75rem', marginBottom: '.25rem' }}>Upgrade</h1>
                 <p style={{ color: 'var(--muted)', marginBottom: '1.75rem', fontSize: '.9rem' }}>Unlock more tools. Pay once, own forever.</p>
-
-
                 <div className="pricing-grid" style={{ gap: '1rem' }}>
                     <div className="price-card">
                         <p className="price-plan">Single Tool</p>

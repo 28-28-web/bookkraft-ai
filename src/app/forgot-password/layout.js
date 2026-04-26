@@ -7,3 +7,4 @@ export const metadata = {
 export default function ForgotPasswordLayout({ children }) {
   return children;
 }
+export const metadata = { robots: "noindex, nofollow" };
