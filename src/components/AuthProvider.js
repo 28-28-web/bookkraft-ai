@@ -1,16 +1,22 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { TOOL_CREDIT_COSTS } from '@/lib/constants';
 
 const AuthContext = createContext({});
 
+export function useAuth() {
+    return useContext(AuthContext);
+}
+
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
-    const supabase = createClient();
+    
+    // ✅ Singleton — never recreated across renders
+    const supabase = useMemo(() => createClient(), []);
 
     async function loadProfile(userId) {
         try {
@@ -43,14 +49,12 @@ export function AuthProvider({ children }) {
         if (user) await loadProfile(user.id);
     }
 
-    // v8.0: Check if user can access a tool
     function checkToolAccess(toolSlug) {
         const freeTools = ['epub-validator', 'metadata-builder'];
         if (freeTools.includes(toolSlug)) return true;
         if (!profile) return false;
         if (profile.has_full_access || profile.is_lifetime) return true;
 
-        // Logic tools: require Essentials Bundle
         const logicTools = [
             'kindle-format-fixer', 'epub-formatter', 'toc-generator',
             'front-matter-generator', 'css-snippet-generator',
@@ -59,25 +63,21 @@ export function AuthProvider({ children }) {
             return profile.has_logic_bundle === true;
         }
 
-        // AI tools: require sufficient credits
         const cost = TOOL_CREDIT_COSTS[toolSlug];
         if (cost) {
             return (profile.credits_balance || 0) >= cost;
         }
-
         return false;
     }
 
-    // v8.0: Check if user has enough credits for a specific tool
     function hasCredits(toolSlug) {
         if (!profile) return false;
         if (profile.is_lifetime) return true;
         const cost = TOOL_CREDIT_COSTS[toolSlug];
-        if (!cost) return true; // logic/free tools don't need credits
+        if (!cost) return true;
         return (profile.credits_balance || 0) >= cost;
     }
 
-    // v8.0: Get access state for tool card badge
     function getToolAccessState(toolSlug) {
         const freeTools = ['epub-validator', 'metadata-builder'];
         if (freeTools.includes(toolSlug)) return 'free';
@@ -96,7 +96,6 @@ export function AuthProvider({ children }) {
         if (cost) {
             return (profile.credits_balance || 0) >= cost ? 'ai_enough' : 'ai_short';
         }
-
         return 'locked';
     }
 
@@ -108,21 +107,22 @@ export function AuthProvider({ children }) {
             });
         }, 5000);
 
-        const getSession = async () => {
+        const init = async () => {
             try {
-                const { data: { session } } = await supabase.auth.getSession();
-                if (session?.user) {
-                    setUser(session.user);
-                    await loadProfile(session.user.id);
+                // ✅ getUser() verifies token server-side, more reliable than getSession()
+                const { data: { user }, error } = await supabase.auth.getUser();
+                if (user && !error) {
+                    setUser(user);
+                    await loadProfile(user.id);
                 }
             } catch (err) {
-                console.error('Session error:', err);
+                console.error('Auth init error:', err);
             } finally {
                 clearTimeout(timeout);
                 setLoading(false);
             }
         };
-        getSession();
+        init();
 
         const { data: { subscription } } = supabase.auth.onAuthStateChange(
             async (event, session) => {
@@ -141,7 +141,6 @@ export function AuthProvider({ children }) {
             clearTimeout(timeout);
             subscription.unsubscribe();
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const signOut = async () => {
@@ -159,8 +158,4 @@ export function AuthProvider({ children }) {
             {children}
         </AuthContext.Provider>
     );
-}
-
-export function useAuth() {
-    return useContext(AuthContext);
 }
