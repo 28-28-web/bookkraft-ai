@@ -1,14 +1,13 @@
-export const metadata = {
-  title: 'Contact — BookKraft AI',
-  description: 'Have a question or need help? Get in touch with the BookKraft AI team. We usually respond within 24 hours.',
-  robots: 'index, follow',
-};
 'use client';
 
 import { useState } from 'react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
-
+export const metadata = {
+  title: 'Contact — BookKraft AI',
+  description: 'Have a question or need help? Get in touch with the BookKraft AI team. We usually respond within 24 hours.',
+  robots: 'index, follow',
+};
 export default function ContactPage() {
     const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
     const [status, setStatus] = useState(null);
