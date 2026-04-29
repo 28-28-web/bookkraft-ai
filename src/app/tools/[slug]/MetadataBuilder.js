@@ -82,6 +82,7 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
     }, [form, keywords, langCode]);
 
     const hasOutput = form.title || form.authors;
+    const hasCoreFields = form.title && form.authors && form.bisacCategory1;
 
     return (
         <>
@@ -141,6 +142,34 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
                         📋 Copy {tabs[activeTab]}
                     </button>
                 </div>
+
+                {/* NEW: Next Step CTA when user has filled core fields */}
+                {hasCoreFields && (
+                    <div style={{
+                        background: '#faf9f7', border: '2px solid #C9933A', borderRadius: '12px',
+                        padding: '20px', marginTop: '20px'
+                    }}>
+                        <h4 style={{fontSize: '1rem', fontWeight: 700, color: '#1a1a1a', marginBottom: '8px'}}>
+                            ✅ Metadata looks good
+                        </h4>
+                        <p style={{fontSize: '0.9rem', color: '#666', marginBottom: '16px'}}>
+                            Next step: build your table of contents. KDP requires a TOC for every ebook.
+                        </p>
+                        <a href="/tools/toc-generator" style={{
+                            display: 'inline-block', background: '#C9933A', color: '#fff',
+                            padding: '10px 20px', borderRadius: '8px', textDecoration: 'none',
+                            fontWeight: 600, marginRight: '12px'
+                        }}>
+                            Generate Table of Contents →
+                        </a>
+                        <a href="/signup?plan=pro" style={{
+                            display: 'inline-block', color: '#b8860b', fontWeight: 600,
+                            textDecoration: 'none', fontSize: '0.9rem'
+                        }}>
+                            or get all tools in one →
+                        </a>
+                    </div>
+                )}
 
                 {/* Upsell banner shown once user starts filling in data */}
                 {hasOutput && <UpsellBanner toolName="Metadata Builder" />}

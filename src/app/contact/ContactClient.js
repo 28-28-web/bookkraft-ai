@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 
-export default function ContactPage() {
+export default function ContactClient() {
     const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
     const [status, setStatus] = useState(null);
 
@@ -243,14 +243,14 @@ export default function ContactPage() {
                     What You Can Reach Us About
                 </h2>
                 <p style={{ color: '#666', lineHeight: 1.7, marginBottom: 20 }}>
-                    Tool issues or unexpected errors. Feature requests or suggestions. Questions about pricing or your account. General feedback about Book Kraft AI. We're a small team building tools for authors and editors — so your feedback actually shapes what we build next.
+                    Tool issues or unexpected errors. Feature requests or suggestions. Questions about pricing or your account. General feedback about Book Kraft AI. We&apos;re a small team building tools for authors and editors — so your feedback actually shapes what we build next.
                 </p>
 
                 <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#1a1a1a', marginBottom: 12 }}>
                     What to Expect
                 </h2>
                 <p style={{ color: '#666', lineHeight: 1.7, marginBottom: 20 }}>
-                    We typically respond within 1-2 business days. If your question is urgent, mention it in the subject line and we'll prioritize it.
+                    We typically respond within 1-2 business days. If your question is urgent, mention it in the subject line and we&apos;ll prioritize it.
                 </p>
 
                 <p style={{ color: '#666', lineHeight: 1.7 }}>
