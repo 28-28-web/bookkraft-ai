@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+// Note: Adjust these paths if your components moved
 import UpsellBanner from '@/components/UpsellBanner';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 
