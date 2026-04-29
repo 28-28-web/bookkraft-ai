@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-// Note: Adjust these paths if your components moved
 import UpsellBanner from '@/components/UpsellBanner';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 
@@ -144,7 +143,6 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
                     </button>
                 </div>
 
-                {/* NEW: Next Step CTA when user has filled core fields */}
                 {hasCoreFields && (
                     <div style={{
                         background: '#faf9f7', border: '2px solid #C9933A', borderRadius: '12px',
@@ -172,12 +170,10 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
                     </div>
                 )}
 
-                {/* Upsell banner shown once user starts filling in data */}
                 {hasOutput && <UpsellBanner toolName="Metadata Builder" />}
             </div>
         </div>
 
-        {/* SEO Content */}
         <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
             <h2>Book Metadata Builder for Self-Publishing Platforms</h2>
             <p>Bad metadata is one of the most common reasons self-published books underperform. Wrong categories, weak descriptions, missing BISAC codes — small errors that quietly hurt your discoverability across every platform you publish on. This tool makes sure you get it right the first time.</p>

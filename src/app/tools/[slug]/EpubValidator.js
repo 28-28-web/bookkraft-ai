@@ -22,7 +22,6 @@ export default function EpubValidator() {
             const checks = [];
             let passCount = 0;
 
-            // 1. Mimetype file
             const mimetype = zip.file('mimetype');
             if (mimetype) {
                 const content = await mimetype.async('string');
@@ -36,7 +35,6 @@ export default function EpubValidator() {
                 checks.push({ name: 'Mimetype', status: 'fail', detail: 'Missing mimetype file — KDP cannot read your file type. This happens when exporting from Word or using incorrect settings.', fixLink: '/tools/kindle-format-fixer' });
             }
 
-            // 2. META-INF/container.xml
             const container = zip.file('META-INF/container.xml');
             let opfPath = 'OEBPS/content.opf';
             if (container) {
@@ -49,7 +47,6 @@ export default function EpubValidator() {
                 checks.push({ name: 'Container', status: 'fail', detail: 'Missing internal structure file. Your EPUB is missing its container.xml — usually caused by a bad export.', fixLink: '/tools/kindle-format-fixer' });
             }
 
-            // 3. OPF file
             const opf = zip.file(opfPath);
             let opfContent = '';
             if (opf) {
@@ -60,7 +57,6 @@ export default function EpubValidator() {
                 checks.push({ name: 'OPF Package', status: 'fail', detail: 'Your book\'s table of contents and metadata are missing. KDP requires these to process your upload.', fixLink: '/tools/metadata-builder' });
             }
 
-            // 4. Required metadata
             if (opfContent) {
                 const hasTitle = /<dc:title/i.test(opfContent);
                 const hasLang = /<dc:language/i.test(opfContent);
@@ -79,7 +75,6 @@ export default function EpubValidator() {
                 checks.push({ name: 'Required Metadata', status: 'skip', detail: 'Skipped — OPF not found' });
             }
 
-            // 5. Spine items
             if (opfContent) {
                 const spineMatch = opfContent.match(/<spine[^>]*>([\s\S]*?)<\/spine>/);
                 if (spineMatch) {
@@ -95,7 +90,6 @@ export default function EpubValidator() {
                 }
             }
 
-            // 6. Manifest references
             if (opfContent) {
                 const hrefMatches = [...opfContent.matchAll(/href="([^"#]+)"/g)].map((m) => m[1]);
                 const opfDir = opfPath.includes('/') ? opfPath.substring(0, opfPath.lastIndexOf('/') + 1) : '';
@@ -112,7 +106,6 @@ export default function EpubValidator() {
                 }
             }
 
-            // 7. Nav document
             if (opfContent) {
                 const hasNav = /properties="[^"]*nav[^"]*"/.test(opfContent);
                 const hasNcx = /media-type="application\/x-dtbncx\+xml"/.test(opfContent);
@@ -124,7 +117,6 @@ export default function EpubValidator() {
                 }
             }
 
-            // 8. Cover image
             if (opfContent) {
                 const hasCover = /properties="[^"]*cover-image[^"]*"/.test(opfContent) || /name="cover"/.test(opfContent);
                 if (hasCover) {
@@ -135,7 +127,6 @@ export default function EpubValidator() {
                 }
             }
 
-            // 9. File size
             const sizeMB = (epubFile.size / 1024 / 1024).toFixed(1);
             if (epubFile.size < 650 * 1024 * 1024) {
                 checks.push({ name: 'File Size', status: 'pass', detail: `${sizeMB} MB (KDP limit: 650 MB)` });
@@ -158,15 +149,12 @@ export default function EpubValidator() {
 
     const handleFile = (f) => {
         if (!f) return;
-        
-        // File type validation
         if (!f.name.toLowerCase().endsWith('.epub')) {
             setFileError(`"${f.name}" is not an EPUB file. Please upload a .epub file, or use our Word-to-EPUB converter first.`);
             setFile(null);
             setResults(null);
             return;
         }
-        
         setFileError(null);
         setFile(f);
         validate(f);
@@ -180,35 +168,22 @@ export default function EpubValidator() {
 
     return (
         <div>
-            {/* Drop zone */}
-            <div
-                className={`drop-zone ${dragOver ? 'drop-zone-active' : ''}`}
-                onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
-                onDragLeave={() => setDragOver(false)}
-                onDrop={(e) => { e.preventDefault(); setDragOver(false); handleFile(e.dataTransfer.files[0]); }}
-                onClick={() => document.getElementById('epub-file-input').click()}
-            >
+            <div className={`drop-zone ${dragOver ? 'drop-zone-active' : ''}`} onDragOver={(e) => { e.preventDefault(); setDragOver(true); }} onDragLeave={() => setDragOver(false)} onDrop={(e) => { e.preventDefault(); setDragOver(false); handleFile(e.dataTransfer.files[0]); }} onClick={() => document.getElementById('epub-file-input').click()}>
                 <input id="epub-file-input" type="file" accept=".epub" hidden onChange={(e) => handleFile(e.target.files[0])} />
                 <div className="drop-zone-icon">📥</div>
                 <p className="drop-zone-text">Drop your .epub file here or click to browse</p>
                 {file && <p className="drop-zone-file">{file.name} ({(file.size / 1024).toFixed(0)} KB)</p>}
             </div>
 
-            {/* File type error */}
             {fileError && (
-                <div style={{
-                    background: '#fff3f3', border: '1px solid #fca5a5', borderRadius: '8px',
-                    padding: '16px', marginTop: '20px', color: '#c53030'
-                }}>
+                <div style={{ background: '#fff3f3', border: '1px solid #fca5a5', borderRadius: '8px', padding: '16px', marginTop: '20px', color: '#c53030' }}>
                     <strong>Wrong file type</strong>
                     <p style={{margin: '4px 0 0 0', fontSize: '0.9rem'}}>{fileError}</p>
                 </div>
             )}
 
-            {/* Loading */}
             {loading && <div className="loading-state"><div className="spinner" /> Validating...</div>}
 
-            {/* Results */}
             {results && !loading && (
                 <>
                     <div className="validation-results">
@@ -218,64 +193,26 @@ export default function EpubValidator() {
                                 <span className="val-score-denom">/{results.total}</span>
                             </div>
                             <p className="val-score-label">
-                                {results.passCount === results.total ? 'All checks passed! ✨' :
-                                    results.passCount >= results.total - 2 ? 'Looking good, minor issues.' : 'Some issues found — review below.'}
+                                {results.passCount === results.total ? 'All checks passed! ✨' : results.passCount >= results.total - 2 ? 'Looking good, minor issues.' : 'Some issues found — review below.'}
                             </p>
                         </div>
 
-                        {/* NEW: Fix All Issues CTA (when errors exist) */}
                         {hasFails && (
-                            <div style={{
-                                background: '#1a1a1a', color: '#fff', borderRadius: '12px',
-                                padding: '24px', marginBottom: '24px', textAlign: 'center'
-                            }}>
-                                <h3 style={{fontSize: '1.1rem', fontWeight: 700, marginBottom: '8px'}}>
-                                    Your EPUB will be rejected by KDP
-                                </h3>
-                                <p style={{fontSize: '0.95rem', color: '#ccc', marginBottom: '20px'}}>
-                                    {failCount} critical {failCount === 1 ? 'issue' : 'issues'} found. 
-                                    BookKraft Pro auto-fixes all of them in under 2 minutes.
-                                </p>
-                                <a href="/signup?plan=pro" style={{
-                                    display: 'inline-block', background: '#C9933A', color: '#fff',
-                                    padding: '12px 28px', borderRadius: '8px', textDecoration: 'none',
-                                    fontWeight: 600, fontSize: '1rem'
-                                }}>
-                                    🔧 Auto-Fix My EPUB — Start Free Trial
-                                </a>
-                                <p style={{fontSize: '0.8rem', color: '#999', marginTop: '12px'}}>
-                                    No credit card required. Cancel anytime.
-                                </p>
+                            <div style={{ background: '#1a1a1a', color: '#fff', borderRadius: '12px', padding: '24px', marginBottom: '24px', textAlign: 'center' }}>
+                                <h3 style={{fontSize: '1.1rem', fontWeight: 700, marginBottom: '8px'}}>Your EPUB will be rejected by KDP</h3>
+                                <p style={{fontSize: '0.95rem', color: '#ccc', marginBottom: '20px'}}>{failCount} critical {failCount === 1 ? 'issue' : 'issues'} found. BookKraft Pro auto-fixes all of them in under 2 minutes.</p>
+                                <a href="/signup?plan=pro" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '12px 28px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '1rem' }}>🔧 Auto-Fix My EPUB — Start Free Trial</a>
+                                <p style={{fontSize: '0.8rem', color: '#999', marginTop: '12px'}}>No credit card required. Cancel anytime.</p>
                             </div>
                         )}
 
-                        {/* NEW: All Passed CTA (when no errors) */}
                         {!hasFails && results.passCount === results.total && (
-                            <div style={{
-                                background: '#f0fdf4', border: '1px solid #86efac', borderRadius: '12px',
-                                padding: '24px', marginBottom: '24px', textAlign: 'center'
-                            }}>
-                                <h3 style={{fontSize: '1.1rem', fontWeight: 700, color: '#166534', marginBottom: '8px'}}>
-                                    ✅ Your EPUB is KDP-ready
-                                </h3>
-                                <p style={{fontSize: '0.95rem', color: '#166534', marginBottom: '20px'}}>
-                                    Great job. Want to make sure your metadata and TOC are perfect too?
-                                </p>
+                            <div style={{ background: '#f0fdf4', border: '1px solid #86efac', borderRadius: '12px', padding: '24px', marginBottom: '24px', textAlign: 'center' }}>
+                                <h3 style={{fontSize: '1.1rem', fontWeight: 700, color: '#166534', marginBottom: '8px'}}>✅ Your EPUB is KDP-ready</h3>
+                                <p style={{fontSize: '0.95rem', color: '#166534', marginBottom: '20px'}}>Great job. Want to make sure your metadata and TOC are perfect too?</p>
                                 <div style={{display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap'}}>
-                                    <a href="/tools/metadata-builder" style={{
-                                        display: 'inline-block', background: '#fff', color: '#166534',
-                                        border: '1px solid #166534', padding: '10px 20px', borderRadius: '8px',
-                                        textDecoration: 'none', fontWeight: 600
-                                    }}>
-                                        Check Metadata →
-                                    </a>
-                                    <a href="/signup?plan=pro" style={{
-                                        display: 'inline-block', background: '#C9933A', color: '#fff',
-                                        padding: '10px 20px', borderRadius: '8px', textDecoration: 'none',
-                                        fontWeight: 600
-                                    }}>
-                                        Get All 12 Tools — $9.99
-                                    </a>
+                                    <a href="/tools/metadata-builder" style={{ display: 'inline-block', background: '#fff', color: '#166534', border: '1px solid #166534', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Check Metadata →</a>
+                                    <a href="/signup?plan=pro" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Get All 12 Tools — $9.99</a>
                                 </div>
                             </div>
                         )}
@@ -287,13 +224,8 @@ export default function EpubValidator() {
                                     <div style={{flex: 1}}>
                                         <strong>{c.name}</strong>
                                         <p>{c.detail}</p>
-                                        {/* NEW: Individual fix links */}
                                         {c.fixLink && (
-                                            <a href={c.fixLink} style={{
-                                                display: 'inline-block', marginTop: '8px',
-                                                color: '#b8860b', fontSize: '0.85rem', fontWeight: 600,
-                                                textDecoration: 'none'
-                                            }}>
+                                            <a href={c.fixLink} style={{ display: 'inline-block', marginTop: '8px', color: '#b8860b', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none' }}>
                                                 → Fix this with {c.fixLink.includes('metadata') ? 'Metadata Builder' : c.fixLink.includes('toc') ? 'TOC Generator' : 'Kindle Format Fixer'}
                                             </a>
                                         )}
