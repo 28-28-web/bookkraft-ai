@@ -50,7 +50,8 @@ ${form.priceGBP ? `List Price (GBP): £${form.priceGBP}` : ''}
 ${form.priceEUR ? `List Price (EUR): €${form.priceEUR}` : ''}
 ${form.priceAUD ? `List Price (AUD): A$${form.priceAUD}` : ''}
 Edition: ${form.edition}
-${form.series ? `Series: ${form.series}\nVolume: ${form.seriesVolume || '1'}` : ''}`;
+${form.series ? `Series: ${form.series}
+Volume: ${form.seriesVolume || '1'}` : ''}`;
 
         const d2d = `Title: ${form.title}
 ${form.subtitle ? `Subtitle: ${form.subtitle}` : ''}
@@ -74,7 +75,8 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
     <dc:description>${(form.shortDesc || '').replace(/&/g, '&amp;').replace(/</g, '&lt;')}</dc:description>
     ${form.bisacCategory1 ? `<dc:subject>${form.bisacCategory1}</dc:subject>` : ''}
     ${form.bisacCategory2 ? `<dc:subject>${form.bisacCategory2}</dc:subject>` : ''}
-    ${form.series ? `<meta property="belongs-to-collection">${form.series}</meta>\n    <meta property="group-position">${form.seriesVolume || '1'}</meta>` : ''}
+    ${form.series ? `<meta property="belongs-to-collection">${form.series}</meta>
+    <meta property="group-position">${form.seriesVolume || '1'}</meta>` : ''}
   </metadata>
 </package>`;
 

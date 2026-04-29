@@ -29,10 +29,10 @@ export default function EpubValidator() {
                     checks.push({ name: 'Mimetype', status: 'pass', detail: 'Valid mimetype present.' });
                     passCount++;
                 } else {
-                    checks.push({ name: 'Mimetype', status: 'fail', detail: 'Invalid mimetype — your EPUB is corrupted or was exported with wrong settings.', fixLink: '/tools/kindle-format-fixer' });
+                    checks.push({ name: 'Mimetype', status: 'fail', detail: 'Invalid mimetype - your EPUB is corrupted or was exported with wrong settings.', fixLink: '/tools/kindle-format-fixer' });
                 }
             } else {
-                checks.push({ name: 'Mimetype', status: 'fail', detail: 'Missing mimetype file — KDP cannot read your file type. This happens when exporting from Word or using incorrect settings.', fixLink: '/tools/kindle-format-fixer' });
+                checks.push({ name: 'Mimetype', status: 'fail', detail: 'Missing mimetype file - KDP cannot read your file type. This happens when exporting from Word or using incorrect settings.', fixLink: '/tools/kindle-format-fixer' });
             }
 
             const container = zip.file('META-INF/container.xml');
@@ -44,7 +44,7 @@ export default function EpubValidator() {
                 checks.push({ name: 'Container', status: 'pass', detail: `container.xml found, rootfile: ${opfPath}` });
                 passCount++;
             } else {
-                checks.push({ name: 'Container', status: 'fail', detail: 'Missing internal structure file. Your EPUB is missing its container.xml — usually caused by a bad export.', fixLink: '/tools/kindle-format-fixer' });
+                checks.push({ name: 'Container', status: 'fail', detail: 'Missing internal structure file. Your EPUB is missing its container.xml - usually caused by a bad export.', fixLink: '/tools/kindle-format-fixer' });
             }
 
             const opf = zip.file(opfPath);
@@ -54,7 +54,7 @@ export default function EpubValidator() {
                 checks.push({ name: 'OPF Package', status: 'pass', detail: `Found at ${opfPath}` });
                 passCount++;
             } else {
-                checks.push({ name: 'OPF Package', status: 'fail', detail: 'Your book\'s table of contents and metadata are missing. KDP requires these to process your upload.', fixLink: '/tools/metadata-builder' });
+                checks.push({ name: 'OPF Package', status: 'fail', detail: "Your book's table of contents and metadata are missing. KDP requires these to process your upload.", fixLink: '/tools/metadata-builder' });
             }
 
             if (opfContent) {
@@ -69,10 +69,10 @@ export default function EpubValidator() {
                     if (!hasTitle) missing.push('title');
                     if (!hasLang) missing.push('language');
                     if (!hasId) missing.push('identifier');
-                    checks.push({ name: 'Required Metadata', status: 'fail', detail: `Missing ${missing.join(', ')} — KDP will reject uploads without complete metadata.`, fixLink: '/tools/metadata-builder' });
+                    checks.push({ name: 'Required Metadata', status: 'fail', detail: `Missing ${missing.join(', ')} - KDP will reject uploads without complete metadata.`, fixLink: '/tools/metadata-builder' });
                 }
             } else {
-                checks.push({ name: 'Required Metadata', status: 'skip', detail: 'Skipped — OPF not found' });
+                checks.push({ name: 'Required Metadata', status: 'skip', detail: 'Skipped - OPF not found' });
             }
 
             if (opfContent) {
@@ -83,7 +83,7 @@ export default function EpubValidator() {
                         checks.push({ name: 'Spine', status: 'pass', detail: `${idrefMatches.length} items in spine.` });
                         passCount++;
                     } else {
-                        checks.push({ name: 'Spine', status: 'fail', detail: 'No reading order defined — readers won\'t know which chapter comes first.', fixLink: '/tools/toc-generator' });
+                        checks.push({ name: 'Spine', status: 'fail', detail: "No reading order defined - readers won't know which chapter comes first.", fixLink: '/tools/toc-generator' });
                     }
                 } else {
                     checks.push({ name: 'Spine', status: 'fail', detail: 'No reading order found in your EPUB. KDP requires a defined chapter sequence.', fixLink: '/tools/toc-generator' });
@@ -113,7 +113,7 @@ export default function EpubValidator() {
                     checks.push({ name: 'Navigation', status: 'pass', detail: `${hasNav ? 'EPUB3 nav' : ''}${hasNav && hasNcx ? ' + ' : ''}${hasNcx ? 'NCX' : ''} found.` });
                     passCount++;
                 } else {
-                    checks.push({ name: 'Navigation', status: 'warn', detail: 'No table of contents found — readers can\'t jump between chapters on Kindle.', fixLink: '/tools/toc-generator' });
+                    checks.push({ name: 'Navigation', status: 'warn', detail: "No table of contents found - readers can't jump between chapters on Kindle.", fixLink: '/tools/toc-generator' });
                 }
             }
 
@@ -123,7 +123,7 @@ export default function EpubValidator() {
                     checks.push({ name: 'Cover Image', status: 'pass', detail: 'Cover image referenced in metadata.' });
                     passCount++;
                 } else {
-                    checks.push({ name: 'Cover Image', status: 'warn', detail: 'No cover image detected — some stores require this for listing.' });
+                    checks.push({ name: 'Cover Image', status: 'warn', detail: 'No cover image detected - some stores require this for listing.' });
                 }
             }
 
@@ -193,7 +193,7 @@ export default function EpubValidator() {
                                 <span className="val-score-denom">/{results.total}</span>
                             </div>
                             <p className="val-score-label">
-                                {results.passCount === results.total ? 'All checks passed! ✨' : results.passCount >= results.total - 2 ? 'Looking good, minor issues.' : 'Some issues found — review below.'}
+                                {results.passCount === results.total ? 'All checks passed! ✨' : results.passCount >= results.total - 2 ? 'Looking good, minor issues.' : 'Some issues found - review below.'}
                             </p>
                         </div>
 
@@ -201,7 +201,7 @@ export default function EpubValidator() {
                             <div style={{ background: '#1a1a1a', color: '#fff', borderRadius: '12px', padding: '24px', marginBottom: '24px', textAlign: 'center' }}>
                                 <h3 style={{fontSize: '1.1rem', fontWeight: 700, marginBottom: '8px'}}>Your EPUB will be rejected by KDP</h3>
                                 <p style={{fontSize: '0.95rem', color: '#ccc', marginBottom: '20px'}}>{failCount} critical {failCount === 1 ? 'issue' : 'issues'} found. BookKraft Pro auto-fixes all of them in under 2 minutes.</p>
-                                <a href="/signup?plan=pro" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '12px 28px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '1rem' }}>🔧 Auto-Fix My EPUB — Start Free Trial</a>
+                                <a href="/signup?plan=pro" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '12px 28px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '1rem' }}>🔧 Auto-Fix My EPUB - Start Free Trial</a>
                                 <p style={{fontSize: '0.8rem', color: '#999', marginTop: '12px'}}>No credit card required. Cancel anytime.</p>
                             </div>
                         )}
@@ -212,7 +212,7 @@ export default function EpubValidator() {
                                 <p style={{fontSize: '0.95rem', color: '#166534', marginBottom: '20px'}}>Great job. Want to make sure your metadata and TOC are perfect too?</p>
                                 <div style={{display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap'}}>
                                     <a href="/tools/metadata-builder" style={{ display: 'inline-block', background: '#fff', color: '#166534', border: '1px solid #166534', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Check Metadata →</a>
-                                    <a href="/signup?plan=pro" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Get All 12 Tools — $9.99</a>
+                                    <a href="/signup?plan=pro" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Get All 12 Tools - $9.99</a>
                                 </div>
                             </div>
                         )}
