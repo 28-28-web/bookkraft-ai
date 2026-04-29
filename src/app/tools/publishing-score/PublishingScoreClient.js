@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import ScoreCard from './ScoreCard';
+import UpsellBanner from '@/components/UpsellBanner';
 
 export default function PublishingScoreClient() {
   const [text, setText] = useState('');
@@ -85,6 +86,7 @@ export default function PublishingScoreClient() {
       </div>
 
       {result && <ScoreCard data={result} />}
+      {result && <UpsellBanner toolName="Publishing Score" />}
     </main>
   );
 }
