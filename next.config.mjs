@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  trailingSlash: false, // Enforce no trailing slash (matches your canonical)
+
   async redirects() {
     return [
       // Redirect HTTP to HTTPS
@@ -13,18 +15,25 @@ const nextConfig = {
           },
         ],
         destination: 'https://bookkraftai.com/:path*',
-        permanent: true, // 301 redirect
+        permanent: true,
       },
-      // Redirect www to non-www (or flip it — just pick one)
+      // Redirect www to non-www
       {
         source: '/:path*',
         has: [
           {
             type: 'host',
+            key: 'host',
             value: 'www.bookkraftai.com',
           },
         ],
         destination: 'https://bookkraftai.com/:path*',
+        permanent: true,
+      },
+      // Redirect trailing slash to no trailing slash
+      {
+        source: '/:path+/',
+        destination: '/:path+',
         permanent: true,
       },
     ];
