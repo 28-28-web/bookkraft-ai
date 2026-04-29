@@ -625,11 +625,11 @@ function FooterSection() {
             </p>
             <div style={{ display:'flex', gap:16, flexWrap:'wrap' }}>
               <a href="https://x.com/bookkraftai" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>X / Twitter</a>
-<a href="https://www.linkedin.com/in/book-kraft-ai-b49a34401/" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>LinkedIn</a>
-<a href="https://www.facebook.com/profile.php?id=61570875517722" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Facebook</a>
-<a href="https://reddit.com/r/bookkraftai" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Reddit</a>
-<a href="https://www.quora.com/profile/Book-Kraft" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Quora</a>
-<a href="mailto:hello@bookkraftai.com" className="footer-link" style={{ marginBottom:0 }}>Email</a>
+              <a href="https://www.linkedin.com/in/book-kraft-ai-b49a34401/" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>LinkedIn</a>
+              <a href="https://www.facebook.com/profile.php?id=61570875517722" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Facebook</a>
+              <a href="https://reddit.com/r/bookkraftai" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Reddit</a>
+              <a href="https://www.quora.com/profile/Book-Kraft" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Quora</a>
+              <a href="mailto:hello@bookkraftai.com" className="footer-link" style={{ marginBottom:0 }}>Email</a>
             </div>
           </div>
           <div>
@@ -654,6 +654,13 @@ function FooterSection() {
         </div>
         <div className="footer-v2-bottom">
           <p className="footer-copy">© {new Date().getFullYear()} BookKraft AI. All rights reserved.</p>
+          <a href="https://sellwithboost.com" target="_blank" rel="noopener noreferrer">
+            <img
+              src="https://sellwithboost.com/badge/listing.svg"
+              alt="Listed on SellWithBoost"
+              style={{ height: '36px', width: 'auto', opacity: 0.75 }}
+            />
+          </a>
           <div className="footer-legal">
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>
