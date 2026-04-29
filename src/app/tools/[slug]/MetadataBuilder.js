@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import UpsellBanner from '@/components/UpsellBanner';
+import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 
 export default function MetadataBuilder() {
     const [form, setForm] = useState({
@@ -165,7 +166,8 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
 
             <h2>Why Metadata Gets Overlooked</h2>
             <p>Most authors rush through metadata because they're excited to finally hit publish. But metadata is what tells platforms — and readers — what your book is about, who it's for, and where it belongs. Strong metadata means better category placement, better search visibility, and more readers finding your book organically.</p>
-        </div>
+            <StickyUpgradeBanner />
+           </div>
         </>
     );
 }

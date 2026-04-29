@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import UpsellBanner from '@/components/UpsellBanner';
+import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 
 export default function EpubValidator() {
     const [file, setFile] = useState(null);
@@ -211,6 +212,7 @@ export default function EpubValidator() {
                     <UpsellBanner toolName="EPUB Validator" />
                 </>
             )}
+           <StickyUpgradeBanner />
         </div>
     );
 }

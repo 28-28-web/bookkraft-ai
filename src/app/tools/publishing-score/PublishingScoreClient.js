@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import ScoreCard from './ScoreCard';
 import UpsellBanner from '@/components/UpsellBanner';
+import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 
 export default function PublishingScoreClient() {
   const [text, setText] = useState('');
@@ -87,6 +88,7 @@ export default function PublishingScoreClient() {
 
       {result && <ScoreCard data={result} />}
       {result && <UpsellBanner toolName="Publishing Score" />}
+      <StickyUpgradeBanner />
     </main>
   );
 }
