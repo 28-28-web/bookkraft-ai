@@ -1,8 +1,0 @@
-// ✅ Module-level, created once
-const supabase = createClient();
-
-export default function MyComponent() {
-  useEffect(() => {
-    supabase.auth.getUser();
-  }, []);
-}
