@@ -18,7 +18,7 @@ export default function PublishingScoreClient() {
   const [emailError, setEmailError] = useState('');
   const [emailSent, setEmailSent] = useState(false);
 
-  const handleFileUpload = async (e) => {
+ const handleFileUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -28,16 +28,43 @@ export default function PublishingScoreClient() {
             const zip = await JSZip.loadAsync(file);
             let extractedText = '';
 
-            // Extract text from all HTML/XHTML files in the EPUB
-            const textFiles = Object.keys(zip.files).filter(name =>
-                name.endsWith('.html') || name.endsWith('.xhtml') || name.endsWith('.htm')
+            const allFiles = Object.keys(zip.files);
+
+            // Try html/xhtml first, then any xml file
+            const textFiles = allFiles.filter(name =>
+                name.match(/\.(html|xhtml|htm|xml)$/i) &&
+                !name.includes('META-INF') &&
+                !name.includes('.opf') &&
+                !name.includes('.ncx')
             );
 
             for (const filename of textFiles) {
-                const content = await zip.files[filename].async('string');
-                const stripped = content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
-                extractedText += stripped + ' ';
+                try {
+                    const content = await zip.files[filename].async('string');
+                    // Strip all tags and decode entities
+                    const stripped = content
+                        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+                        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+                        .replace(/<[^>]+>/g, ' ')
+                        .replace(/&nbsp;/g, ' ')
+                        .replace(/&amp;/g, '&')
+                        .replace(/&lt;/g, '<')
+                        .replace(/&gt;/g, '>')
+                        .replace(/\s+/g, ' ')
+                        .trim();
+
+                    if (stripped.length > 100) {
+                        extractedText += stripped + ' ';
+                    }
+                } catch (e) {
+                    // skip unreadable files
+                }
                 if (extractedText.length > 6000) break;
+            }
+
+            if (extractedText.trim().length < 100) {
+                setError('Could not extract readable text from this EPUB. Try pasting your text directly.');
+                return;
             }
 
             setText(extractedText.slice(0, 6000));
