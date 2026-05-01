@@ -151,6 +151,14 @@ export default function EpubValidator() {
                 hasErrors: passCount < checks.length,
             };
 
+            // GA4: email gate shown
+            if (typeof window !== 'undefined' && window.gtag) {
+                window.gtag('event', 'email_gate_shown', {
+                    tool_name: 'epub_validator',
+                    issue_count: checks.length - passCount,
+                });
+            }
+
             setPendingResults(validationData);
             setStep('email');
 
@@ -194,6 +202,13 @@ export default function EpubValidator() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, name, results: pendingResults }),
         });
+
+        // GA4: email gate completed
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'email_gate_completed', {
+                tool_name: 'epub_validator',
+            });
+        }
 
         setEmailSent(true);
         setResults(pendingResults);
