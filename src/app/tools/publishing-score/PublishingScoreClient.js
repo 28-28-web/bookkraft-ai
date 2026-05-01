@@ -21,10 +21,35 @@ export default function PublishingScoreClient() {
   const handleFileUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const fileText = await file.text();
-    const stripped = fileText.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
-    setText(stripped.slice(0, 6000));
-  };
+
+    if (file.name.toLowerCase().endsWith('.epub')) {
+        try {
+            const JSZip = (await import('jszip')).default;
+            const zip = await JSZip.loadAsync(file);
+            let extractedText = '';
+
+            // Extract text from all HTML/XHTML files in the EPUB
+            const textFiles = Object.keys(zip.files).filter(name =>
+                name.endsWith('.html') || name.endsWith('.xhtml') || name.endsWith('.htm')
+            );
+
+            for (const filename of textFiles) {
+                const content = await zip.files[filename].async('string');
+                const stripped = content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+                extractedText += stripped + ' ';
+                if (extractedText.length > 6000) break;
+            }
+
+            setText(extractedText.slice(0, 6000));
+        } catch (err) {
+            setError('Could not read EPUB file. Try pasting your text directly.');
+        }
+    } else {
+        const fileText = await file.text();
+        const stripped = fileText.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+        setText(stripped.slice(0, 6000));
+    }
+};
 
   const analyze = async () => {
     if (!text.trim()) return;
