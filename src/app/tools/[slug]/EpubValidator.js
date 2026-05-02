@@ -11,12 +11,10 @@ export default function EpubValidator() {
     const [dragOver, setDragOver] = useState(false);
     const [fileError, setFileError] = useState(null);
 
-    const [step, setStep] = useState('upload');
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [emailError, setEmailError] = useState('');
     const [emailSent, setEmailSent] = useState(false);
-    const [pendingResults, setPendingResults] = useState(null);
 
     const validate = useCallback(async (epubFile) => {
         setLoading(true);
@@ -142,35 +140,18 @@ export default function EpubValidator() {
                 checks.push({ name: 'File Size', status: 'fail', detail: `${sizeMB} MB exceeds KDP 650 MB limit. Compress images or split into volumes.` });
             }
 
-            const validationData = {
-                checks,
-                passCount,
-                total: checks.length,
-                filename: epubFile.name,
-                sizeMB,
-                hasErrors: passCount < checks.length,
-            };
-
-            // GA4: email gate shown
+            // GA4
             if (typeof window !== 'undefined' && window.gtag) {
-                window.gtag('event', 'email_gate_shown', {
-                    tool_name: 'epub_validator',
-                    issue_count: checks.length - passCount,
-                });
+                window.gtag('event', 'epub_validated', { issue_count: checks.length - passCount });
             }
 
-            setPendingResults(validationData);
-            setStep('email');
+            setResults({ checks, passCount, total: checks.length, filename: epubFile.name, sizeMB, hasErrors: passCount < checks.length });
 
         } catch (err) {
-            setPendingResults({
+            setResults({
                 checks: [{ name: 'File Parse', status: 'fail', detail: `Could not read EPUB: ${err.message}. Is this a valid .epub file?` }],
-                passCount: 0,
-                total: 1,
-                filename: epubFile.name,
-                hasErrors: true,
+                passCount: 0, total: 1, filename: epubFile.name, hasErrors: true,
             });
-            setStep('email');
         }
 
         setLoading(false);
@@ -200,19 +181,14 @@ export default function EpubValidator() {
         await fetch('/api/send-epub-report', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, name, results: pendingResults }),
+            body: JSON.stringify({ email, name, results }),
         });
 
-        // GA4: email gate completed
         if (typeof window !== 'undefined' && window.gtag) {
-            window.gtag('event', 'email_gate_completed', {
-                tool_name: 'epub_validator',
-            });
+            window.gtag('event', 'email_captured', { tool_name: 'epub_validator' });
         }
 
         setEmailSent(true);
-        setResults(pendingResults);
-        setStep('report');
     };
 
     const statusIcon = (s) => ({ pass: '✅', fail: '❌', warn: '⚠️', skip: '⏭️' }[s] || '❓');
@@ -234,7 +210,8 @@ export default function EpubValidator() {
 
     return (
         <div>
-            {step === 'upload' && (
+            {/* Upload */}
+            {!results && (
                 <>
                     <div
                         className={`drop-zone ${dragOver ? 'drop-zone-active' : ''}`}
@@ -260,54 +237,9 @@ export default function EpubValidator() {
                 </>
             )}
 
-            {step === 'email' && pendingResults && !loading && (
-                <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '32px', maxWidth: '480px', margin: '0 auto', textAlign: 'center' }}>
-                    <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>
-                        {pendingResults.checks.some(c => c.status === 'fail') ? '⚠️' : '✅'}
-                    </div>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>
-                        Your EPUB has {pendingResults.total - pendingResults.passCount} issue{pendingResults.total - pendingResults.passCount !== 1 ? 's' : ''} out of {pendingResults.total} checks
-                    </h2>
-                    <p style={{ color: '#6b7280', fontSize: '0.95rem', marginBottom: '24px' }}>
-                        Enter your email to see the full report — and we'll send you a copy so you can fix issues at your own pace.
-                    </p>
-
-                    <form onSubmit={handleEmailSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                        <input
-                            type="text"
-                            placeholder="Your first name (optional)"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            style={{ padding: '12px 16px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '0.95rem', outline: 'none' }}
-                        />
-                        <input
-                            type="email"
-                            placeholder="Your email address"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            style={{ padding: '12px 16px', border: `1px solid ${emailError ? '#fca5a5' : '#d1d5db'}`, borderRadius: '8px', fontSize: '0.95rem', outline: 'none' }}
-                        />
-                        {emailError && <p style={{ color: '#c53030', fontSize: '0.85rem', margin: 0 }}>{emailError}</p>}
-                        <button
-                            type="submit"
-                            style={{ background: '#1a1a1a', color: '#fff', padding: '13px', borderRadius: '8px', fontWeight: 600, fontSize: '1rem', border: 'none', cursor: 'pointer' }}
-                        >
-                            See My Full Report →
-                        </button>
-                        <p style={{ color: '#9ca3af', fontSize: '0.8rem', margin: 0 }}>No spam. One email with your report.</p>
-                    </form>
-                </div>
-            )}
-
-            {step === 'report' && results && (
+            {/* Full Report — no gate */}
+            {results && (
                 <>
-                    {emailSent && (
-                        <div style={{ background: '#f0fdf4', border: '1px solid #86efac', borderRadius: '8px', padding: '12px 16px', marginBottom: '20px', fontSize: '0.9rem', color: '#166534' }}>
-                            📬 Report sent to <strong>{email}</strong> — check your inbox.
-                        </div>
-                    )}
-
                     <div className="validation-results">
                         <div className="val-summary">
                             <div className="val-score">
@@ -335,10 +267,7 @@ export default function EpubValidator() {
                                     {' '}found. BookKraft Pro auto-fixes all of them in under 2 minutes.
                                 </p>
 
-                                <a
-                                    href="/signup?plan=pro"
-                                    style={{ display: 'block', background: '#C9933A', color: '#fff', padding: '13px', borderRadius: '8px', textDecoration: 'none', fontWeight: 700, fontSize: '1rem', textAlign: 'center', marginBottom: '16px' }}
-                                >
+                                <a href="/signup?plan=pro" style={{ display: 'block', background: '#C9933A', color: '#fff', padding: '13px', borderRadius: '8px', textDecoration: 'none', fontWeight: 700, fontSize: '1rem', textAlign: 'center', marginBottom: '16px' }}>
                                     🔧 Auto-Fix All — Start Free Trial
                                 </a>
 
@@ -347,11 +276,7 @@ export default function EpubValidator() {
                                         <p style={{ fontSize: '0.82rem', color: '#9ca3af', marginBottom: '10px' }}>Or fix step by step:</p>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                             {fixChain.map((item, i) => (
-                                                <a
-                                                    key={i}
-                                                    href={item.fixLink}
-                                                    style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.07)', borderRadius: '7px', padding: '10px 14px', textDecoration: 'none', color: '#fff', fontSize: '0.88rem', fontWeight: 500 }}
-                                                >
+                                                <a key={i} href={item.fixLink} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.07)', borderRadius: '7px', padding: '10px 14px', textDecoration: 'none', color: '#fff', fontSize: '0.88rem', fontWeight: 500 }}>
                                                     <span style={{ background: '#C9933A', borderRadius: '50%', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700, flexShrink: 0 }}>{i + 1}</span>
                                                     {item.name} issue → <span style={{ color: '#C9933A', marginLeft: 'auto' }}>Open {item.fixTool} →</span>
                                                 </a>
@@ -385,10 +310,7 @@ export default function EpubValidator() {
                                         <strong>{c.name}</strong>
                                         <p>{c.detail}</p>
                                         {c.fixLink && (
-                                            <a
-                                                href={c.fixLink}
-                                                style={{ display: 'inline-block', marginTop: '8px', color: '#b8860b', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none' }}
-                                            >
+                                            <a href={c.fixLink} style={{ display: 'inline-block', marginTop: '8px', color: '#b8860b', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none' }}>
                                                 → Fix this with {c.fixTool}
                                             </a>
                                         )}
@@ -397,13 +319,46 @@ export default function EpubValidator() {
                             ))}
                         </div>
 
-                        <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '10px', padding: '20px', marginTop: '20px', textAlign: 'center' }}>
+                        {/* Soft email capture — optional, after report */}
+                        <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '24px', marginTop: '24px' }}>
+                            {!emailSent ? (
+                                <>
+                                    <p style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '4px' }}>📬 Want a copy of this report?</p>
+                                    <p style={{ color: '#6b7280', fontSize: '0.88rem', marginBottom: '16px' }}>We'll email it to you so you can fix issues at your own pace. No spam.</p>
+                                    <form onSubmit={handleEmailSubmit} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                                        <input
+                                            type="text"
+                                            placeholder="First name (optional)"
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                            style={{ padding: '10px 14px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '0.9rem', outline: 'none', flex: '1', minWidth: '140px' }}
+                                        />
+                                        <input
+                                            type="email"
+                                            placeholder="Your email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            required
+                                            style={{ padding: '10px 14px', border: `1px solid ${emailError ? '#fca5a5' : '#d1d5db'}`, borderRadius: '8px', fontSize: '0.9rem', outline: 'none', flex: '2', minWidth: '180px' }}
+                                        />
+                                        <button type="submit" style={{ background: '#1a1a1a', color: '#fff', padding: '10px 20px', borderRadius: '8px', fontWeight: 600, fontSize: '0.9rem', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                                            Send Report
+                                        </button>
+                                    </form>
+                                    {emailError && <p style={{ color: '#c53030', fontSize: '0.85rem', marginTop: '6px' }}>{emailError}</p>}
+                                </>
+                            ) : (
+                                <p style={{ color: '#166534', fontWeight: 600, fontSize: '0.95rem', textAlign: 'center' }}>
+                                    📬 Report sent to <strong>{email}</strong> — check your inbox.
+                                </p>
+                            )}
+                        </div>
+
+                        {/* Upsell */}
+                        <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '10px', padding: '20px', marginTop: '16px', textAlign: 'center' }}>
                             <p style={{ fontWeight: 600, marginBottom: '4px', fontSize: '0.95rem' }}>Liked this tool?</p>
                             <p style={{ color: '#6b7280', fontSize: '0.88rem', marginBottom: '14px' }}>Get all 12 BookKraft tools + auto-fix for everything.</p>
-                            <a
-                                href="/signup?plan=pro"
-                                style={{ display: 'inline-block', background: '#1a1a1a', color: '#fff', padding: '11px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.95rem' }}
-                            >
+                            <a href="/signup?plan=pro" style={{ display: 'inline-block', background: '#1a1a1a', color: '#fff', padding: '11px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.95rem' }}>
                                 Upgrade to Pro — $9.99
                             </a>
                         </div>

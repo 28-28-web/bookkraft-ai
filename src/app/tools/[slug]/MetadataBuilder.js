@@ -15,8 +15,7 @@ export default function MetadataBuilder() {
     const [activeTab, setActiveTab] = useState(0);
     const tabs = ['KDP', 'IngramSpark', 'Draft2Digital', 'EPUB OPF'];
 
-    // step: 'upload' | 'form' | 'email' | 'report'
-    const [step, setStep] = useState('upload');
+    const [showReport, setShowReport] = useState(false);
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [emailError, setEmailError] = useState('');
@@ -30,7 +29,6 @@ export default function MetadataBuilder() {
     const keywords = [form.kw1, form.kw2, form.kw3, form.kw4, form.kw5, form.kw6, form.kw7].filter(Boolean);
     const langCode = { English: 'en', Spanish: 'es', French: 'fr', German: 'de', Portuguese: 'pt', Italian: 'it', Dutch: 'nl' }[form.language] || 'en';
 
-    // Extract metadata from EPUB
     const extractFromEpub = async (file) => {
         setExtracting(true);
         setExtractError(null);
@@ -38,8 +36,6 @@ export default function MetadataBuilder() {
         try {
             const JSZip = (await import('jszip')).default;
             const zip = await JSZip.loadAsync(file);
-
-            // Find OPF path
             let opfPath = 'OEBPS/content.opf';
             const container = zip.file('META-INF/container.xml');
             if (container) {
@@ -47,49 +43,33 @@ export default function MetadataBuilder() {
                 const match = containerXml.match(/full-path="([^"]+)"/);
                 if (match) opfPath = match[1];
             }
-
             const opfFile = zip.file(opfPath);
             if (!opfFile) throw new Error('Could not find OPF file in EPUB.');
-
             const opfContent = await opfFile.async('string');
-
-            // Extract fields
             const get = (tag) => {
                 const match = opfContent.match(new RegExp(`<dc:${tag}[^>]*>([^<]+)<\/dc:${tag}>`, 'i'));
                 return match ? match[1].trim() : '';
             };
-
-            const titleRaw = get('title');
-            const authorRaw = get('creator');
-            const langRaw = get('language');
-            const isbnRaw = get('identifier');
-            const dateRaw = get('date');
-            const descRaw = get('description');
-
-            // subjects → bisac
             const subjects = [...opfContent.matchAll(/<dc:subject[^>]*>([^<]+)<\/dc:subject>/gi)].map(m => m[1].trim());
-
-            // series
             const seriesMatch = opfContent.match(/belongs-to-collection[^>]*>([^<]+)</i);
             const seriesVolumeMatch = opfContent.match(/group-position[^>]*>([^<]+)</i);
-
+            const langRaw = get('language');
             const langMap = { en: 'English', es: 'Spanish', fr: 'French', de: 'German', pt: 'Portuguese', it: 'Italian', nl: 'Dutch' };
-
+            const isbnRaw = get('identifier');
+            const descRaw = get('description');
             setForm(f => ({
                 ...f,
-                title: titleRaw || f.title,
-                authors: authorRaw || f.authors,
+                title: get('title') || f.title,
+                authors: get('creator') || f.authors,
                 language: langMap[langRaw] || f.language,
                 isbn: isbnRaw && !isbnRaw.startsWith('urn:uuid') ? isbnRaw : f.isbn,
-                pubDate: dateRaw ? dateRaw.substring(0, 10) : f.pubDate,
+                pubDate: get('date') ? get('date').substring(0, 10) : f.pubDate,
                 shortDesc: descRaw ? descRaw.replace(/&amp;/g, '&').replace(/&lt;/g, '<').substring(0, 500) : f.shortDesc,
                 bisacCategory1: subjects[0] || f.bisacCategory1,
                 bisacCategory2: subjects[1] || f.bisacCategory2,
                 series: seriesMatch ? seriesMatch[1].trim() : f.series,
                 seriesVolume: seriesVolumeMatch ? seriesVolumeMatch[1].trim() : f.seriesVolume,
             }));
-
-            setStep('form');
         } catch (err) {
             setExtractError(`Could not read EPUB: ${err.message}`);
         }
@@ -126,70 +106,20 @@ export default function MetadataBuilder() {
     const hasStarted = form.title || form.authors;
 
     const outputs = useMemo(() => {
-        const kdp = `TITLE: ${form.title}
-${form.subtitle ? `SUBTITLE: ${form.subtitle}` : ''}
-AUTHOR: ${form.authors}
-${form.series ? `SERIES: ${form.series} #${form.seriesVolume || '1'}` : ''}
-KEYWORDS: ${keywords.join(' | ')}
-CATEGORY 1: ${form.bisacCategory1}
-${form.bisacCategory2 ? `CATEGORY 2: ${form.bisacCategory2}` : ''}
-DESCRIPTION (SHORT): ${form.shortDesc}
-DESCRIPTION (LONG): ${form.longDesc}
-${form.isbn ? `ISBN: ${form.isbn}` : ''}
-${form.asin ? `ASIN: ${form.asin}` : ''}
-LANGUAGE: ${form.language}
-PRICE: $${form.priceUSD || '0.00'}
-PUB DATE: ${form.pubDate || 'TBD'}`;
-
-        const ingram = `Title: ${form.title}
-${form.subtitle ? `Subtitle: ${form.subtitle}` : ''}
-Contributor 1 - Author: ${form.authors}
-BISAC Category 1: ${form.bisacCategory1}
-${form.bisacCategory2 ? `BISAC Category 2: ${form.bisacCategory2}` : ''}
-Description: ${form.longDesc}
-${form.isbn ? `ISBN-13: ${form.isbn}` : ''}
-Language: ${langCode}
-Publication Date: ${form.pubDate || 'TBD'}
-List Price (USD): $${form.priceUSD || '0.00'}
-${form.priceGBP ? `List Price (GBP): £${form.priceGBP}` : ''}
-${form.priceEUR ? `List Price (EUR): €${form.priceEUR}` : ''}
-${form.priceAUD ? `List Price (AUD): A$${form.priceAUD}` : ''}
-Edition: ${form.edition}
-${form.series ? `Series: ${form.series}\nVolume: ${form.seriesVolume || '1'}` : ''}`;
-
-        const d2d = `Title: ${form.title}
-${form.subtitle ? `Subtitle: ${form.subtitle}` : ''}
-Author: ${form.authors}
-Description: ${form.longDesc || form.shortDesc}
-Categories: ${form.bisacCategory1}${form.bisacCategory2 ? ', ' + form.bisacCategory2 : ''}
-Keywords: ${keywords.join(', ')}
-${form.isbn ? `ISBN: ${form.isbn}` : ''}
-Language: ${form.language}
-Price: $${form.priceUSD || '0.00'}
-${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
-
-        const opf = `<?xml version="1.0" encoding="UTF-8"?>
-<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="bookid" version="3.0">
-  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
-    <dc:title>${form.title}${form.subtitle ? ': ' + form.subtitle : ''}</dc:title>
-    <dc:creator>${form.authors}</dc:creator>
-    <dc:language>${langCode}</dc:language>
-    ${form.isbn ? `<dc:identifier id="bookid">${form.isbn}</dc:identifier>` : '<dc:identifier id="bookid">urn:uuid:YOUR-UUID-HERE</dc:identifier>'}
-    ${form.pubDate ? `<dc:date>${form.pubDate}</dc:date>` : ''}
-    <dc:description>${(form.shortDesc || '').replace(/&/g, '&amp;').replace(/</g, '&lt;')}</dc:description>
-    ${form.bisacCategory1 ? `<dc:subject>${form.bisacCategory1}</dc:subject>` : ''}
-    ${form.bisacCategory2 ? `<dc:subject>${form.bisacCategory2}</dc:subject>` : ''}
-    ${form.series ? `<meta property="belongs-to-collection">${form.series}</meta>\n    <meta property="group-position">${form.seriesVolume || '1'}</meta>` : ''}
-  </metadata>
-</package>`;
-
+        const kdp = `TITLE: ${form.title}\n${form.subtitle ? `SUBTITLE: ${form.subtitle}\n` : ''}AUTHOR: ${form.authors}\n${form.series ? `SERIES: ${form.series} #${form.seriesVolume || '1'}\n` : ''}KEYWORDS: ${keywords.join(' | ')}\nCATEGORY 1: ${form.bisacCategory1}\n${form.bisacCategory2 ? `CATEGORY 2: ${form.bisacCategory2}\n` : ''}DESCRIPTION (SHORT): ${form.shortDesc}\nDESCRIPTION (LONG): ${form.longDesc}\n${form.isbn ? `ISBN: ${form.isbn}\n` : ''}${form.asin ? `ASIN: ${form.asin}\n` : ''}LANGUAGE: ${form.language}\nPRICE: $${form.priceUSD || '0.00'}\nPUB DATE: ${form.pubDate || 'TBD'}`;
+        const ingram = `Title: ${form.title}\n${form.subtitle ? `Subtitle: ${form.subtitle}\n` : ''}Contributor 1 - Author: ${form.authors}\nBISAC Category 1: ${form.bisacCategory1}\n${form.bisacCategory2 ? `BISAC Category 2: ${form.bisacCategory2}\n` : ''}Description: ${form.longDesc}\n${form.isbn ? `ISBN-13: ${form.isbn}\n` : ''}Language: ${langCode}\nPublication Date: ${form.pubDate || 'TBD'}\nList Price (USD): $${form.priceUSD || '0.00'}\n${form.priceGBP ? `List Price (GBP): £${form.priceGBP}\n` : ''}${form.priceEUR ? `List Price (EUR): €${form.priceEUR}\n` : ''}${form.priceAUD ? `List Price (AUD): A$${form.priceAUD}\n` : ''}Edition: ${form.edition}\n${form.series ? `Series: ${form.series}\nVolume: ${form.seriesVolume || '1'}` : ''}`;
+        const d2d = `Title: ${form.title}\n${form.subtitle ? `Subtitle: ${form.subtitle}\n` : ''}Author: ${form.authors}\nDescription: ${form.longDesc || form.shortDesc}\nCategories: ${form.bisacCategory1}${form.bisacCategory2 ? ', ' + form.bisacCategory2 : ''}\nKeywords: ${keywords.join(', ')}\n${form.isbn ? `ISBN: ${form.isbn}\n` : ''}Language: ${form.language}\nPrice: $${form.priceUSD || '0.00'}\n${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
+        const opf = `<?xml version="1.0" encoding="UTF-8"?>\n<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="bookid" version="3.0">\n  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">\n    <dc:title>${form.title}${form.subtitle ? ': ' + form.subtitle : ''}</dc:title>\n    <dc:creator>${form.authors}</dc:creator>\n    <dc:language>${langCode}</dc:language>\n    ${form.isbn ? `<dc:identifier id="bookid">${form.isbn}</dc:identifier>` : '<dc:identifier id="bookid">urn:uuid:YOUR-UUID-HERE</dc:identifier>'}\n    ${form.pubDate ? `<dc:date>${form.pubDate}</dc:date>` : ''}\n    <dc:description>${(form.shortDesc || '').replace(/&/g, '&amp;').replace(/</g, '&lt;')}</dc:description>\n    ${form.bisacCategory1 ? `<dc:subject>${form.bisacCategory1}</dc:subject>` : ''}\n    ${form.bisacCategory2 ? `<dc:subject>${form.bisacCategory2}</dc:subject>` : ''}\n    ${form.series ? `<meta property="belongs-to-collection">${form.series}</meta>\n    <meta property="group-position">${form.seriesVolume || '1'}</meta>` : ''}\n  </metadata>\n</package>`;
         return [kdp, ingram, d2d, opf];
     }, [form, keywords, langCode]);
 
     const handleGenerate = (e) => {
         e.preventDefault();
         if (!form.title && !form.authors) return;
-        setStep('email');
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'metadata_checked', { issue_count: failCount + warnCount });
+        }
+        setShowReport(true);
     };
 
     const handleEmailSubmit = async (e) => {
@@ -204,8 +134,10 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, name, form, checks, passCount, failCount }),
         });
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'email_captured', { tool_name: 'metadata_builder' });
+        }
         setEmailSent(true);
-        setStep('report');
     };
 
     const statusIcon = (s) => ({ pass: '✅', fail: '❌', warn: '⚠️' }[s] || '❓');
@@ -213,60 +145,36 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
 
     return (
         <>
-        {/* ── STEP 1: Upload ── */}
-        {step === 'upload' && (
-            <div>
-                <div
-                    className={`drop-zone ${dragOver ? 'drop-zone-active' : ''}`}
-                    onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
-                    onDragLeave={() => setDragOver(false)}
-                    onDrop={(e) => { e.preventDefault(); setDragOver(false); handleFile(e.dataTransfer.files[0]); }}
-                    onClick={() => document.getElementById('epub-meta-input').click()}
-                >
-                    <input id="epub-meta-input" type="file" accept=".epub" hidden onChange={(e) => handleFile(e.target.files[0])} />
-                    <div className="drop-zone-icon">📖</div>
-                    <p className="drop-zone-text">Drop your .epub file here to auto-detect metadata</p>
-                    <p style={{ fontSize: '0.85rem', color: '#9ca3af', margin: '4px 0 0 0' }}>or click to browse</p>
-                </div>
-
-                {extracting && (
-                    <div className="loading-state"><div className="spinner" /> Reading your EPUB metadata...</div>
-                )}
-
-                {extractError && (
-                    <div style={{ background: '#fff3f3', border: '1px solid #fca5a5', borderRadius: '8px', padding: '16px', marginTop: '16px', color: '#c53030' }}>
-                        <strong>Could not read file</strong>
-                        <p style={{ margin: '4px 0 0 0', fontSize: '0.9rem' }}>{extractError}</p>
-                    </div>
-                )}
-
-                <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                    <button
-                        onClick={() => setStep('form')}
-                        style={{ background: 'transparent', border: 'none', color: '#9ca3af', fontSize: '0.88rem', cursor: 'pointer', textDecoration: 'underline' }}
-                    >
-                        Skip — fill in manually instead
-                    </button>
-                </div>
-            </div>
-        )}
-
-        {/* ── STEP 2: Form (pre-filled or manual) ── */}
-        {step === 'form' && (
+        {!showReport && (
             <form onSubmit={handleGenerate}>
             <div className="tool-layout">
                 <div className="tool-input-card" style={{ maxHeight: '600px', overflowY: 'auto' }}>
-                    {epubFilename && (
-                        <div style={{ background: '#f0fdf4', border: '1px solid #86efac', borderRadius: '8px', padding: '10px 14px', marginBottom: '16px', fontSize: '0.88rem', color: '#166534' }}>
-                            ✅ Metadata extracted from <strong>{epubFilename}</strong> — review and fill in any gaps below.
+                    {/* EPUB upload */}
+                    <div style={{ marginBottom: '20px' }}>
+                        <div
+                            className={`drop-zone ${dragOver ? 'drop-zone-active' : ''}`}
+                            style={{ padding: '16px', marginBottom: '8px' }}
+                            onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                            onDragLeave={() => setDragOver(false)}
+                            onDrop={(e) => { e.preventDefault(); setDragOver(false); handleFile(e.dataTransfer.files[0]); }}
+                            onClick={() => document.getElementById('epub-meta-input').click()}
+                        >
+                            <input id="epub-meta-input" type="file" accept=".epub" hidden onChange={(e) => handleFile(e.target.files[0])} />
+                            <p style={{ margin: 0, fontSize: '0.88rem', color: '#6b7280', textAlign: 'center' }}>
+                                📖 Drop your EPUB to auto-fill metadata, or fill in manually below
+                            </p>
                         </div>
-                    )}
+                        {extracting && <p style={{ fontSize: '0.85rem', color: '#6b7280' }}>Reading EPUB...</p>}
+                        {epubFilename && !extracting && (
+                            <div style={{ background: '#f0fdf4', border: '1px solid #86efac', borderRadius: '6px', padding: '8px 12px', fontSize: '0.85rem', color: '#166534' }}>
+                                ✅ Extracted from <strong>{epubFilename}</strong> — review and fill gaps below.
+                            </div>
+                        )}
+                        {extractError && <p style={{ fontSize: '0.85rem', color: '#c53030' }}>{extractError}</p>}
+                    </div>
+
                     <h3>Book Metadata</h3>
-                    {[
-                        ['title', 'Book title'], ['subtitle', 'Subtitle (optional)'], ['authors', 'Author name(s)'],
-                        ['series', 'Series name (optional)'], ['seriesVolume', 'Volume # (opt.)'],
-                        ['bisacCategory1', 'BISAC Category 1'], ['bisacCategory2', 'BISAC Category 2 (opt.)'],
-                    ].map(([k, l]) => (
+                    {[['title', 'Book title'], ['subtitle', 'Subtitle (optional)'], ['authors', 'Author name(s)'], ['series', 'Series name (optional)'], ['seriesVolume', 'Volume # (opt.)'], ['bisacCategory1', 'BISAC Category 1'], ['bisacCategory2', 'BISAC Category 2 (opt.)']].map(([k, l]) => (
                         <div className="form-group" key={k}>
                             <label className="form-label">{l}</label>
                             <input className="form-input" value={form[k]} onChange={(e) => updateField(k, e.target.value)} />
@@ -276,35 +184,31 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
                     <div className="form-group">
                         <label className="form-label">Keywords (7 max)</label>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '.5rem' }}>
-                            {[1, 2, 3, 4, 5, 6, 7].map((n) => (
+                            {[1,2,3,4,5,6,7].map((n) => (
                                 <input key={n} className="form-input" placeholder={`Keyword ${n}`} value={form[`kw${n}`]} onChange={(e) => updateField(`kw${n}`, e.target.value)} />
                             ))}
                         </div>
                     </div>
 
-                    <div className="form-group"><label className="form-label">Short description (150 words)</label><textarea className="form-textarea" style={{ minHeight: '80px' }} value={form.shortDesc} onChange={(e) => updateField('shortDesc', e.target.value)} /></div>
-                    <div className="form-group"><label className="form-label">Long description (400 words / 4000 chars)</label><textarea className="form-textarea" style={{ minHeight: '120px' }} value={form.longDesc} onChange={(e) => updateField('longDesc', e.target.value)} /></div>
+                    <div className="form-group"><label className="form-label">Short description</label><textarea className="form-textarea" style={{ minHeight: '80px' }} value={form.shortDesc} onChange={(e) => updateField('shortDesc', e.target.value)} /></div>
+                    <div className="form-group"><label className="form-label">Long description</label><textarea className="form-textarea" style={{ minHeight: '120px' }} value={form.longDesc} onChange={(e) => updateField('longDesc', e.target.value)} /></div>
 
-                    {[['isbn', 'ISBN'], ['asin', 'ASIN'], ['pubDate', 'Publication date (YYYY-MM-DD)'], ['priceUSD', 'Price (USD)'], ['priceGBP', 'Price (GBP)'], ['priceEUR', 'Price (EUR)'], ['priceAUD', 'Price (AUD)']].map(([k, l]) => (
+                    {[['isbn','ISBN'],['asin','ASIN'],['pubDate','Publication date (YYYY-MM-DD)'],['priceUSD','Price (USD)'],['priceGBP','Price (GBP)'],['priceEUR','Price (EUR)'],['priceAUD','Price (AUD)']].map(([k,l]) => (
                         <div className="form-group" key={k}><label className="form-label">{l}</label><input className="form-input" value={form[k]} onChange={(e) => updateField(k, e.target.value)} /></div>
                     ))}
 
                     <div className="form-group"><label className="form-label">Edition</label>
                         <select className="form-select" value={form.edition} onChange={(e) => updateField('edition', e.target.value)}>
-                            {['First', 'Second', 'Third', 'Revised', 'Updated'].map((o) => <option key={o}>{o}</option>)}
+                            {['First','Second','Third','Revised','Updated'].map((o) => <option key={o}>{o}</option>)}
                         </select>
                     </div>
                     <div className="form-group"><label className="form-label">Language</label>
                         <select className="form-select" value={form.language} onChange={(e) => updateField('language', e.target.value)}>
-                            {['English', 'Spanish', 'French', 'German', 'Portuguese', 'Italian', 'Dutch'].map((o) => <option key={o}>{o}</option>)}
+                            {['English','Spanish','French','German','Portuguese','Italian','Dutch'].map((o) => <option key={o}>{o}</option>)}
                         </select>
                     </div>
 
-                    <button
-                        type="submit"
-                        disabled={!form.title && !form.authors}
-                        style={{ width: '100%', marginTop: '16px', background: '#1a1a1a', color: '#fff', padding: '13px', borderRadius: '8px', fontWeight: 600, fontSize: '1rem', border: 'none', cursor: form.title || form.authors ? 'pointer' : 'not-allowed', opacity: form.title || form.authors ? 1 : 0.5 }}
-                    >
+                    <button type="submit" disabled={!form.title && !form.authors} style={{ width: '100%', marginTop: '16px', background: '#1a1a1a', color: '#fff', padding: '13px', borderRadius: '8px', fontWeight: 600, fontSize: '1rem', border: 'none', cursor: form.title || form.authors ? 'pointer' : 'not-allowed', opacity: form.title || form.authors ? 1 : 0.5 }}>
                         Check My Metadata →
                     </button>
                 </div>
@@ -319,17 +223,12 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
                         </div>
                     ) : (
                         <>
-                            <p style={{ color: '#6b7280', fontSize: '0.9rem', marginBottom: '16px' }}>
-                                {passCount}/{checks.length} checks passing — click "Check My Metadata" for the full report.
-                            </p>
+                            <p style={{ color: '#6b7280', fontSize: '0.9rem', marginBottom: '16px' }}>{passCount}/{checks.length} checks passing</p>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                 {checks.map((c, i) => (
                                     <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', padding: '10px', background: '#f9fafb', borderRadius: '8px', fontSize: '0.88rem' }}>
                                         <span>{statusIcon(c.status)}</span>
-                                        <div>
-                                            <strong>{c.name}</strong>
-                                            <p style={{ margin: '2px 0 0 0', color: '#6b7280' }}>{c.detail}</p>
-                                        </div>
+                                        <div><strong>{c.name}</strong><p style={{ margin: '2px 0 0 0', color: '#6b7280' }}>{c.detail}</p></div>
                                     </div>
                                 ))}
                             </div>
@@ -340,37 +239,8 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
             </form>
         )}
 
-        {/* ── STEP 3: Email Gate ── */}
-        {step === 'email' && (
-            <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '32px', maxWidth: '480px', margin: '0 auto', textAlign: 'center' }}>
-                <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>{hasFails ? '⚠️' : '✅'}</div>
-                <h2 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>
-                    Your metadata has {failCount + warnCount} issue{failCount + warnCount !== 1 ? 's' : ''} out of {checks.length} checks
-                </h2>
-                <p style={{ color: '#6b7280', fontSize: '0.95rem', marginBottom: '24px' }}>
-                    Enter your email to see the full report — and we'll send you a copy with your formatted metadata output.
-                </p>
-                <form onSubmit={handleEmailSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    <input type="text" placeholder="Your first name (optional)" value={name} onChange={(e) => setName(e.target.value)} style={{ padding: '12px 16px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '0.95rem', outline: 'none' }} />
-                    <input type="email" placeholder="Your email address" value={email} onChange={(e) => setEmail(e.target.value)} required style={{ padding: '12px 16px', border: `1px solid ${emailError ? '#fca5a5' : '#d1d5db'}`, borderRadius: '8px', fontSize: '0.95rem', outline: 'none' }} />
-                    {emailError && <p style={{ color: '#c53030', fontSize: '0.85rem', margin: 0 }}>{emailError}</p>}
-                    <button type="submit" style={{ background: '#1a1a1a', color: '#fff', padding: '13px', borderRadius: '8px', fontWeight: 600, fontSize: '1rem', border: 'none', cursor: 'pointer' }}>
-                        See My Full Report →
-                    </button>
-                    <p style={{ color: '#9ca3af', fontSize: '0.8rem', margin: 0 }}>No spam. One email with your report and formatted output.</p>
-                </form>
-            </div>
-        )}
-
-        {/* ── STEP 4: Full Report ── */}
-        {step === 'report' && (
+        {showReport && (
             <>
-                {emailSent && (
-                    <div style={{ background: '#f0fdf4', border: '1px solid #86efac', borderRadius: '8px', padding: '12px 16px', marginBottom: '20px', fontSize: '0.9rem', color: '#166534' }}>
-                        📬 Report sent to <strong>{email}</strong> — check your inbox.
-                    </div>
-                )}
-
                 <div className="validation-results">
                     <div className="val-summary">
                         <div className="val-score">
@@ -401,23 +271,17 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
                                 {checks.filter(c => c.status === 'fail' || c.status === 'warn').map((item, i) => (
                                     <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', background: 'rgba(255,255,255,0.07)', borderRadius: '7px', padding: '10px 14px', fontSize: '0.88rem' }}>
                                         <span style={{ background: '#C9933A', borderRadius: '50%', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700, flexShrink: 0 }}>{i + 1}</span>
-                                        <div>
-                                            <strong style={{ color: '#fff' }}>{item.name}</strong>
-                                            <p style={{ margin: '2px 0 0 0', color: '#9ca3af', fontSize: '0.82rem' }}>{item.fixHint}</p>
-                                        </div>
+                                        <div><strong style={{ color: '#fff' }}>{item.name}</strong><p style={{ margin: '2px 0 0 0', color: '#9ca3af', fontSize: '0.82rem' }}>{item.fixHint}</p></div>
                                     </div>
                                 ))}
                             </div>
-                            <p style={{ fontSize: '0.78rem', color: '#6b7280', marginTop: '14px', textAlign: 'center' }}>
-                                <a href="/blog/book-metadata-guide" style={{ color: '#9ca3af' }}>Why does metadata matter for KDP? Read the guide →</a>
-                            </p>
                         </div>
                     )}
 
                     {!hasIssues && passCount === checks.length && (
                         <div style={{ background: '#f0fdf4', border: '1px solid #86efac', borderRadius: '12px', padding: '24px', marginBottom: '20px', textAlign: 'center' }}>
                             <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#166534', marginBottom: '8px' }}>✅ Your metadata looks great</h3>
-                            <p style={{ fontSize: '0.95rem', color: '#166534', marginBottom: '20px' }}>Next step: build your table of contents. KDP requires a TOC for every ebook.</p>
+                            <p style={{ fontSize: '0.95rem', color: '#166534', marginBottom: '20px' }}>Next step: build your table of contents.</p>
                             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
                                 <a href="/tools/toc-generator" style={{ display: 'inline-block', background: '#166534', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Generate Table of Contents →</a>
                                 <a href="/signup?plan=pro" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Get All 12 Tools — $9.99</a>
@@ -462,20 +326,39 @@ ${form.series ? `Series: ${form.series} #${form.seriesVolume || '1'}` : ''}`;
                         </div>
                     )}
 
+                    {/* Soft email capture */}
+                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '24px', marginBottom: '16px' }}>
+                        {!emailSent ? (
+                            <>
+                                <p style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '4px' }}>📬 Want a copy of this report?</p>
+                                <p style={{ color: '#6b7280', fontSize: '0.88rem', marginBottom: '16px' }}>We'll email your metadata report and formatted output. No spam.</p>
+                                <form onSubmit={handleEmailSubmit} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                                    <input type="text" placeholder="First name (optional)" value={name} onChange={(e) => setName(e.target.value)} style={{ padding: '10px 14px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '0.9rem', outline: 'none', flex: '1', minWidth: '140px' }} />
+                                    <input type="email" placeholder="Your email" value={email} onChange={(e) => setEmail(e.target.value)} required style={{ padding: '10px 14px', border: `1px solid ${emailError ? '#fca5a5' : '#d1d5db'}`, borderRadius: '8px', fontSize: '0.9rem', outline: 'none', flex: '2', minWidth: '180px' }} />
+                                    <button type="submit" style={{ background: '#1a1a1a', color: '#fff', padding: '10px 20px', borderRadius: '8px', fontWeight: 600, fontSize: '0.9rem', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap' }}>Send Report</button>
+                                </form>
+                                {emailError && <p style={{ color: '#c53030', fontSize: '0.85rem', marginTop: '6px' }}>{emailError}</p>}
+                            </>
+                        ) : (
+                            <p style={{ color: '#166534', fontWeight: 600, fontSize: '0.95rem', textAlign: 'center' }}>
+                                📬 Report sent to <strong>{email}</strong> — check your inbox.
+                            </p>
+                        )}
+                    </div>
+
                     <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '10px', padding: '20px', textAlign: 'center' }}>
                         <p style={{ fontWeight: 600, marginBottom: '4px', fontSize: '0.95rem' }}>Liked this tool?</p>
                         <p style={{ color: '#6b7280', fontSize: '0.88rem', marginBottom: '14px' }}>Get all 12 BookKraft tools + auto-fix for everything.</p>
                         <a href="/signup?plan=pro" style={{ display: 'inline-block', background: '#1a1a1a', color: '#fff', padding: '11px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.95rem' }}>Upgrade to Pro — $9.99</a>
                     </div>
                 </div>
-
                 <UpsellBanner toolName="Metadata Builder" />
             </>
         )}
 
         <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
             <h2>Book Metadata Builder for Self-Publishing Platforms</h2>
-            <p>Upload your EPUB and we'll auto-detect your existing metadata — title, author, language, description, categories and more. Then review, fill in any gaps, and export formatted for KDP, IngramSpark, Draft2Digital, and more.</p>
+            <p>Upload your EPUB and we'll auto-detect your existing metadata. Then review, fill in any gaps, and export formatted for KDP, IngramSpark, Draft2Digital, and more.</p>
             <h2>Who This Is For</h2>
             <p>First-time authors who don't know what BISAC codes are or why they matter. Experienced authors publishing across multiple platforms who want consistent, accurate metadata without filling in the same fields five different times.</p>
         </div>
