@@ -654,13 +654,12 @@ function FooterSection() {
         </div>
         <div className="footer-v2-bottom">
           <p className="footer-copy">© {new Date().getFullYear()} BookKraft AI. All rights reserved.</p>
-          <a href="https://sellwithboost.com" target="_blank" rel="noopener noreferrer">
-            <img
-              src="https://sellwithboost.com/badge/listing.svg"
-              alt="Listed on SellWithBoost"
-              style={{ height: '36px', width: 'auto', opacity: 0.75 }}
-            />
-          </a>
+         <a href="https://sellwithboost.com" target="_blank" rel="noopener noreferrer">
+         <img src="https://sellwithboost.com/badge/listing.svg" alt="Listed on SellWithBoost" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
+           </a>
+           <a href="https://codetrendy.com" target="_blank" rel="noopener noreferrer">
+           <img src="https://codetrendy.com/api/badge?style=classic" alt="Listed on codetrendy.com" height="36" />
+            </a>
           <div className="footer-legal">
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>
