@@ -59,11 +59,10 @@ export default function Footer() {
                 <div style={{ borderTop: '1px solid rgba(247,243,236,0.08)', paddingTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
                     <span style={{ fontSize: '12px', color: '#7a7068' }}>&copy; {new Date().getFullYear()} BookKraft AI &middot; bookkraftai.com</span>
                     <a href="https://sellwithboost.com" target="_blank" rel="noopener noreferrer">
-                        <img
-                            src="https://sellwithboost.com/badge/listing.svg"
-                            alt="Listed on SellWithBoost"
-                            style={{ height: '40px', width: 'auto', opacity: 0.8 }}
-                        />
+                        <img src="https://sellwithboost.com/badge/listing.svg" alt="Listed on SellWithBoost" style={{ height: '40px', width: 'auto', opacity: 0.8 }} />
+                    </a>
+                    <a href="https://codetrendy.com" target="_blank" rel="noopener noreferrer">
+                        <img src="https://codetrendy.com/api/badge?style=classic" alt="Listed on codetrendy.com" height="54" />
                     </a>
                     <span style={{ fontSize: '11px', color: '#7a7068' }}>Payments by Paddle</span>
                 </div>
