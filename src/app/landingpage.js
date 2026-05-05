@@ -624,7 +624,7 @@ function FooterSection() {
               your manuscript publishable on any platform.
             </p>
             <div style={{ display:'flex', gap:16, flexWrap:'wrap' }}>
-              <a href="https://x.com/bookkraftai" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>X / Twitter</a>
+              <a href="https://x.com/BookkraftTools" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>X / Twitter</a>
               <a href="https://www.linkedin.com/in/book-kraft-ai-b49a34401/" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>LinkedIn</a>
               <a href="https://www.facebook.com/profile.php?id=61570875517722" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Facebook</a>
               <a href="https://reddit.com/r/bookkraftai" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Reddit</a>
