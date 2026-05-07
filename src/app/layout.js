@@ -8,6 +8,7 @@ import ChatAssistant from '../components/ChatAssistant';
 import NewsletterPopup from '../components/NewsletterPopup';
 import CookieBanner from '../components/CookieBanner';
 import ExitIntentWrapper from '../components/ExitIntentWrapper';
+
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -42,6 +43,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+
         {/* ── GA4 Consent Mode v2 — must fire BEFORE GA4 loads ── */}
         <Script id="consent-defaults" strategy="beforeInteractive">
           {`
@@ -57,7 +59,7 @@ export default function RootLayout({ children }) {
           `}
         </Script>
 
-        {/* ── GA4 — correct Measurement ID: G-761HQ6CWTZ ── */}
+        {/* ── GA4 ── */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-761HQ6CWTZ"
           strategy="afterInteractive"
@@ -71,17 +73,24 @@ export default function RootLayout({ children }) {
               page_path: window.location.pathname
             });
           `}
-        <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "wfa9btfpsh");
-</script>
+        </Script>
+
+        {/* ── Microsoft Clarity ── */}
+        <Script id="microsoft-clarity" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "wfa9btfpsh");
+          `}
+        </Script>
+
       </head>
 
       <body>
-        {/* Schema.org structured data — unchanged */}
+
+        {/* ── Schema.org structured data ── */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -123,12 +132,12 @@ export default function RootLayout({ children }) {
               {children}
               <ChatAssistant />
               <NewsletterPopup />
-              {/* Cookie consent banner — activates GA4 consent signal */}
               <CookieBanner />
             </ToastProvider>
           </ProjectProvider>
         </AuthProvider>
-       <ExitIntentWrapper />
+        <ExitIntentWrapper />
+
       </body>
     </html>
   );
