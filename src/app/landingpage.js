@@ -10,9 +10,9 @@ const SenjaReviews = dynamic(() => import('@/components/SenjaReviews'), {
   ssr: false,
   loading: () => <div style={{ height: '200px' }} />,
 });
+
 // ─── DATA ────────────────────────────────────────────────────────────
 
-// Matches index.html exactly: "Format like a pro. Price like a newcomer."
 const HEADLINE_WORDS = [
   { text: 'Format',    gold: false },
   { text: 'like',      gold: false },
@@ -33,7 +33,6 @@ const TICKER_ITEMS = [
   '<strong>@writerdave</strong> found 12 KDP keywords in 30 seconds',
   '<strong>@publisherella</strong> passed Amazon review first try',
 ];
-
 
 const PLATFORMS = [
   'Amazon KDP','Apple Books','Barnes & Noble','Kobo',
@@ -71,7 +70,6 @@ function typeLabel(tool) {
 export default function LandingPage() {
   return (
     <>
-      {/* Keyframes needed for hero animations */}
       <style>{`
         @keyframes bkWordUp {
           to { opacity:1; transform:translateY(0); }
@@ -108,7 +106,10 @@ export default function LandingPage() {
 
 function HeroSection() {
   const [animate, setAnimate] = useState(false);
-  useEffect(() => { const t = setTimeout(() => setAnimate(true), 260); return () => clearTimeout(t); }, []);
+  useEffect(() => {
+    const t = setTimeout(() => setAnimate(true), 260);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <section
@@ -139,7 +140,7 @@ function HeroSection() {
           ✦ Professional eBook Formatting
         </p>
 
-        {/* H1 — "Format like a pro. Price like a newcomer." */}
+        {/* H1 — visible immediately for LCP, animates after JS loads */}
         <h1
           aria-label="Format like a pro. Price like a newcomer."
           style={{
@@ -155,9 +156,11 @@ function HeroSection() {
               key={i}
               style={{
                 display:'inline-block',
-                // margin-right creates word gaps — inline-block eats whitespace
                 marginRight: i < HEADLINE_WORDS.length - 1 ? '0.22em' : 0,
-                opacity:0, transform:'translateY(28px)',
+                // FIX: start visible (opacity:1) so LCP element is immediately painted
+                // animation takes over once JS hydrates
+                opacity: animate ? 0 : 1,
+                transform: animate ? 'translateY(28px)' : 'none',
                 animation: animate
                   ? `bkWordUp 0.5s cubic-bezier(0.22,1,0.36,1) ${i * 0.1}s forwards`
                   : 'none',
@@ -243,7 +246,6 @@ function TickerSection() {
 }
 
 // ─── 3. FREE TOOLS ───────────────────────────────────────────────────
-// Exactly 2: EPUB Validator + Metadata Builder
 
 function FreeToolsSection() {
   return (
@@ -255,7 +257,6 @@ function FreeToolsSection() {
         <div style={{ maxWidth:1160, margin:'0 auto', padding:'52px clamp(20px,4vw,48px)' }}>
           <div style={{ display:'grid', gridTemplateColumns:'1fr auto', gap:48, alignItems:'center' }}
             className="animate-on-scroll">
-            {/* Left text */}
             <div>
               <div style={{
                 display:'inline-block', background:'var(--sage)', color:'#fff',
@@ -272,7 +273,6 @@ function FreeToolsSection() {
               </p>
             </div>
 
-            {/* Right — exactly 2 chips */}
             <div style={{ display:'flex', gap:12, flexShrink:0 }}>
               {[
                 { href:'/tools/epub-validator',   label:'EPUB Validator'  },
@@ -420,7 +420,6 @@ function WorkflowSection() {
         </AnimatedSection>
 
         <div style={{ display:'grid', gridTemplateColumns:'repeat(5,1fr)', gap:8, position:'relative', marginTop:52 }}>
-          {/* Connecting line */}
           <div aria-hidden="true" style={{
             position:'absolute', top:26, left:'calc(10% + 20px)', right:'calc(10% + 20px)',
             height:1, background:'var(--border)', zIndex:0,
@@ -656,12 +655,12 @@ function FooterSection() {
         </div>
         <div className="footer-v2-bottom">
           <p className="footer-copy">© {new Date().getFullYear()} BookKraft AI. All rights reserved.</p>
-         <a href="https://sellwithboost.com" target="_blank" rel="noopener noreferrer">
-         <img src="https://sellwithboost.com/badge/listing.svg" alt="Listed on SellWithBoost" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
-           </a>
-           <a href="https://codetrendy.com" target="_blank" rel="noopener noreferrer">
-           <img src="https://codetrendy.com/api/badge?style=classic" alt="Listed on codetrendy.com" height="36" />
-            </a>
+          <a href="https://sellwithboost.com" target="_blank" rel="noopener noreferrer">
+            <img src="https://sellwithboost.com/badge/listing.svg" alt="Listed on SellWithBoost" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
+          </a>
+          <a href="https://codetrendy.com" target="_blank" rel="noopener noreferrer">
+            <img src="https://codetrendy.com/api/badge?style=classic" alt="Listed on codetrendy.com" height="36" />
+          </a>
           <div className="footer-legal">
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>
