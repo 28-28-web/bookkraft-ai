@@ -5,8 +5,11 @@ import { TOOLS } from '../lib/tools';
 import { FAQS, PRICING } from '../lib/constants';
 import AnimatedSection from '../components/AnimatedSection';
 import SocialProofTicker from '../components/SocialProofTicker';
-import SenjaReviews from '@/components/SenjaReviews';
-
+import dynamic from 'next/dynamic';
+const SenjaReviews = dynamic(() => import('@/components/SenjaReviews'), {
+  ssr: false,
+  loading: () => <div style={{ height: '200px' }} />,
+});
 // ─── DATA ────────────────────────────────────────────────────────────
 
 // Matches index.html exactly: "Format like a pro. Price like a newcomer."
@@ -464,7 +467,6 @@ function TestimonialsSection() {
     </section>
   );
 }
-
 
 // ─── 8. PLATFORMS ────────────────────────────────────────────────────
 
