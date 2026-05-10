@@ -659,7 +659,7 @@ function FooterSection() {
             <img src="https://sellwithboost.com/badge/listing.svg" alt="Listed on SellWithBoost" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
           </a>
           <a href="https://codetrendy.com" target="_blank" rel="noopener noreferrer">
-            <img src="https://codetrendy.com/api/badge?style=classic" alt="Listed on codetrendy.com" height="36" />
+            <img src="https://codetrendy.com/api/badge?style=classic" alt="Listed on codetrendy.com" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
           </a>
           <a href="https://www.uneed.best/tool/bookkraft-ai" target="_blank" rel="noopener noreferrer">
            <img src="https://www.uneed.best/EMBED3.png" alt="Launching on Uneed" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
