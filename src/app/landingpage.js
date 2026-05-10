@@ -662,9 +662,10 @@ function FooterSection() {
             <img src="https://codetrendy.com/api/badge?style=classic" alt="Listed on codetrendy.com" height="36" />
           </a>
           <a href="https://www.uneed.best/tool/bookkraft-ai" target="_blank" rel="noopener noreferrer">
-            <img src="https://www.uneed.best/EMBED3.png" alt="Launching on Uneed" height="36" style={{ opacity: 0.75 }} />
+           <img src="https://www.uneed.best/EMBED3.png" alt="Launching on Uneed" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
           </a>
-          <div className="footer-legal">
+           </a>
+           <div className="footer-legal">
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>
           </div>
