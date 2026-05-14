@@ -41,7 +41,7 @@ export const TOOLS = [
         slug: 'epub-formatter',
         name: 'EPUB Formatter',
         category: 'formatting',
-        desc: 'Generate a valid EPUB 3.0 file directly from your manuscript. Handles chapter breaks, metadata, and cover image automatically. No software or coding needed.',
+       desc: 'Validate your EPUB before uploading to KDP or Apple Books. Catches hidden OPF manifest errors, ghost spacing, and structure issues instantly. Free, no signup needed.',
         type: 'logic',
         accessType: 'logic',
         creditCost: 0,
