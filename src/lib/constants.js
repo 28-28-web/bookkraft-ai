@@ -10,6 +10,7 @@ export const LOGIC_TOOLS = [
 export const AI_TOOLS = [
     'manuscript-cleanup', 'back-matter-generator',
     'style-sheet-auditor', 'print-to-digital', 'kdp-keyword-finder',
+    'epub-validator-premium',
 ];
 
 export const TOOL_CATEGORIES = [
@@ -20,10 +21,10 @@ export const TOOL_CATEGORIES = [
     { id: 'publishing', label: 'Publishing' },
 ];
 
-// Credit costs per AI tool run
 export const TOOL_CREDIT_COSTS = {
     'kdp-keyword-finder': 1,
     'back-matter-generator': 2,
+    'epub-validator-premium': 2,
     'manuscript-cleanup': 3,
     'print-to-digital': 3,
     'style-sheet-auditor': 3,

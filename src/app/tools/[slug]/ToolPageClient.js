@@ -6,13 +6,13 @@ import { useAuth } from '@/components/AuthProvider';
 import Sidebar from '@/components/Sidebar';
 import Link from 'next/link';
 
-// Tool components (lazy-loaded concept, but inline for simplicity)
 import KindleFormatFixer from './KindleFormatFixer';
 import EpubFormatter from './EpubFormatter';
 import TocGenerator from './TocGenerator';
 import FrontMatterGenerator from './FrontMatterGenerator';
 import CssSnippetGenerator from './CssSnippetGenerator';
 import EpubValidator from './EpubValidator';
+import EpubValidatorPremium from './EpubValidatorPremium';
 import MetadataBuilder from './MetadataBuilder';
 import ManuscriptCleanup from './ManuscriptCleanup';
 import BackMatterGenerator from './BackMatterGenerator';
@@ -27,6 +27,7 @@ const TOOL_COMPONENTS = {
     'front-matter-generator': FrontMatterGenerator,
     'css-snippet-generator': CssSnippetGenerator,
     'epub-validator': EpubValidator,
+    'epub-validator-premium': EpubValidatorPremium,
     'metadata-builder': MetadataBuilder,
     'manuscript-cleanup': ManuscriptCleanup,
     'back-matter-generator': BackMatterGenerator,
@@ -59,10 +60,9 @@ export default function ToolPage({ params }) {
         );
     }
 
-    // Free tools: no auth needed
     const isFree = tool.free;
     const hasAccess = isFree || checkToolAccess(slug);
-    // If loading, show loading state
+
     if (loading) {
         return (
             <div className="app-layout">
@@ -74,7 +74,6 @@ export default function ToolPage({ params }) {
         );
     }
 
-    // If not free and no access, show purchase prompt
     if (!isFree && !hasAccess) {
         return (
             <div className="app-layout">
@@ -105,7 +104,6 @@ export default function ToolPage({ params }) {
         );
     }
 
-    // Render tool component
     const ToolComponent = TOOL_COMPONENTS[slug];
     if (!ToolComponent) {
         return (
