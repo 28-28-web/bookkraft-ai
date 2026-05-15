@@ -450,23 +450,64 @@ function WorkflowSection() {
 // ─── 7. TESTIMONIALS ─────────────────────────────────────────────────
 
 function TestimonialsSection() {
+  const REVIEWS = [
+    {
+      name: 'Alex Rivera',
+      source: 'CodeTrendy',
+      rating: 5,
+      text: 'I\'ve been using this for a bit and really appreciate how well it\'s put together. The interface is clean and it does exactly what it promises. Nice work by the team.',
+    },
+    {
+      name: 'Januine Developer',
+      source: 'CodeTrendy',
+      rating: 5,
+      text: 'If you\'ve ever spent 2 hours fixing smart quotes or wanted to throw your laptop because Word broke your formatting again... read this. Cleans up Word export mess in minutes. Makes a real EPUB 3.0 that KDP accepts. Two free tools – no signup. Best formatting money I\'ve spent. And I\'m cheap.',
+    },
+  ];
+
   return (
-    <section style={{ background:'#fff', padding:'88px clamp(20px,4vw,48px)' }} aria-labelledby="reviewsHeading">
-      <div style={{ maxWidth:1160, margin:'0 auto' }}>
+    <section style={{ background: '#fff', padding: '88px clamp(20px,4vw,48px)' }} aria-labelledby="reviewsHeading">
+      <div style={{ maxWidth: 1160, margin: '0 auto' }}>
         <AnimatedSection>
           <p className="section-eyebrow-v2 animate-on-scroll">Author wins</p>
           <h2 className="section-title-v2 animate-on-scroll stagger-1" id="reviewsHeading">
             What indie authors are saying
           </h2>
         </AnimatedSection>
-        <div style={{ marginTop:48 }}>
+
+        {/* CodeTrendy Reviews */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24, marginTop: 48, marginBottom: 48 }}>
+          {REVIEWS.map((review, i) => (
+            <AnimatedSection key={i}>
+              <div className={`animate-on-scroll stagger-${i + 1}`} style={{
+                background: 'var(--cream)', border: '1px solid var(--border)',
+                borderRadius: 'var(--radius)', padding: '28px 28px 24px',
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 14 }}>
+                  <div>
+                    <p style={{ fontWeight: 700, fontSize: 15, marginBottom: 2 }}>{review.name}</p>
+                    <p style={{ fontSize: 12, color: 'var(--mid)' }}>via {review.source}</p>
+                  </div>
+                  <span style={{ color: 'var(--gold)', fontSize: 14, letterSpacing: 1 }} aria-label={`${review.rating} stars`}>
+                    {'★'.repeat(review.rating)}
+                  </span>
+                </div>
+                <p style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--ink)', fontStyle: 'italic' }}>
+                  "{review.text}"
+                </p>
+              </div>
+            </AnimatedSection>
+          ))}
+        </div>
+
+        {/* Senja widget */}
+        <div style={{ marginTop: 16 }}>
           <SenjaReviews />
         </div>
       </div>
     </section>
   );
 }
-
 // ─── 8. PLATFORMS ────────────────────────────────────────────────────
 
 function PlatformsSection() {
