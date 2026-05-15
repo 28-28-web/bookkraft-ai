@@ -210,9 +210,22 @@ export default function EpubValidator() {
 
     return (
         <div>
-            {/* Upload */}
+            {/* Upload section */}
             {!results && (
                 <>
+                    {/* Pro hint — visible before upload */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
+                        <p style={{ fontSize: '0.85rem', color: '#6b7280', margin: 0 }}>
+                            Free scan checks 9 core issues.
+                        </p>
+                        <a
+                            href="/tools/epub-validator-premium"
+                            style={{ fontSize: '0.85rem', color: '#C9933A', fontWeight: 600, textDecoration: 'none' }}
+                        >
+                            Need ghost spacing + duplicate ID + store report? → Pro Scan
+                        </a>
+                    </div>
+
                     <div
                         className={`drop-zone ${dragOver ? 'drop-zone-active' : ''}`}
                         onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
@@ -237,7 +250,7 @@ export default function EpubValidator() {
                 </>
             )}
 
-            {/* Full Report — no gate */}
+            {/* Full Report */}
             {results && (
                 <>
                     <div className="validation-results">
@@ -255,6 +268,7 @@ export default function EpubValidator() {
                             </p>
                         </div>
 
+                        {/* Issues block */}
                         {hasIssues && (
                             <div style={{ background: '#1a1a1a', color: '#fff', borderRadius: '12px', padding: '24px', marginBottom: '20px' }}>
                                 <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
@@ -291,6 +305,7 @@ export default function EpubValidator() {
                             </div>
                         )}
 
+                        {/* All passed block */}
                         {!hasIssues && results.passCount === results.total && (
                             <div style={{ background: '#f0fdf4', border: '1px solid #86efac', borderRadius: '12px', padding: '24px', marginBottom: '20px', textAlign: 'center' }}>
                                 <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#166534', marginBottom: '8px' }}>✅ Your EPUB is KDP-ready</h3>
@@ -302,6 +317,7 @@ export default function EpubValidator() {
                             </div>
                         )}
 
+                        {/* Check list */}
                         <div className="val-checks">
                             {results.checks.map((c, i) => (
                                 <div key={i} className={`val-check ${statusClass(c.status)}`}>
@@ -319,7 +335,7 @@ export default function EpubValidator() {
                             ))}
                         </div>
 
-                        {/* Soft email capture — optional, after report */}
+                        {/* Email capture */}
                         <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '24px', marginTop: '24px' }}>
                             {!emailSent ? (
                                 <>
@@ -353,14 +369,31 @@ export default function EpubValidator() {
                                 </p>
                             )}
                         </div>
+                    </div>
 
-                        {/* Upsell */}
-                        <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '10px', padding: '20px', marginTop: '16px', textAlign: 'center' }}>
-                            <p style={{ fontWeight: 600, marginBottom: '4px', fontSize: '0.95rem' }}>Liked this tool?</p>
-                            <p style={{ color: '#6b7280', fontSize: '0.88rem', marginBottom: '14px' }}>Get all 12 BookKraft tools + auto-fix for everything.</p>
-                            <a href="/signup?plan=pro" style={{ display: 'inline-block', background: '#1a1a1a', color: '#fff', padding: '11px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.95rem' }}>
-                                Upgrade to Pro — $9.99
-                            </a>
+                    {/* Pro Scan upsell — single, clean block */}
+                    <div style={{ background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2410 100%)', borderRadius: '12px', padding: '24px', marginTop: '16px', marginBottom: '16px' }}>
+                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
+                            <div style={{ fontSize: '2rem', flexShrink: 0 }}>🔬</div>
+                            <div style={{ flex: 1 }}>
+                                <h3 style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
+                                    Want a deeper scan?
+                                </h3>
+                                <p style={{ color: '#d1d5db', fontSize: '0.88rem', marginBottom: '8px', lineHeight: 1.5 }}>
+                                    Pro scan checks ghost spacing, duplicate IDs, OPF manifest cross-check, and cover dimensions — plus a store-specific report for KDP, Apple Books, and Google Play.
+                                </p>
+                                <p style={{ color: '#9ca3af', fontSize: '0.82rem', marginBottom: '16px' }}>
+                                    Costs 2 credits. Results download as a full HTML report.
+                                </p>
+                                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                                    <a href="/tools/epub-validator-premium" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>
+                                        Run Pro Scan — 2 Credits →
+                                    </a>
+                                    <a href="/pricing" style={{ display: 'inline-block', background: 'transparent', color: '#C9933A', border: '1px solid #C9933A', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>
+                                        Buy Credits
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
