@@ -25,13 +25,11 @@ const HEADLINE_WORDS = [
 ];
 
 const TICKER_ITEMS = [
-  '<strong>@sarah_writes</strong> cleaned 90k words in 3 mins',
-  '<strong>@marcusthrillers</strong> ranked #1 with our keywords',
-  '<strong>@jkromance</strong> published her 3rd book this month',
-  '<strong>@indieauthor_pro</strong> saved $245 vs Vellum',
-  '<strong>@bookcraft_fan</strong> formatted 5 EPUBs in one afternoon',
-  '<strong>@writerdave</strong> found 12 KDP keywords in 30 seconds',
-  '<strong>@publisherella</strong> passed Amazon review first try',
+  '<strong>@alex_rivera</strong> via CodeTrendy — "The interface is clean and does exactly what it promises"',
+  '<strong>@januine_dev</strong> via CodeTrendy — "Cleans up Word export mess in minutes"',
+  '<strong>@januine_dev</strong> via CodeTrendy — "Makes a real EPUB 3.0 that KDP accepts"',
+  '<strong>@januine_dev</strong> via CodeTrendy — "Two free tools, no signup. Best formatting money I\'ve spent"',
+  '<strong>@alex_rivera</strong> via CodeTrendy — "Really appreciate how well it\'s put together. Nice work by the team"',
 ];
 
 const PLATFORMS = [
@@ -140,7 +138,7 @@ function HeroSection() {
           ✦ Professional eBook Formatting
         </p>
 
-        {/* H1 — visible immediately for LCP, animates after JS loads */}
+        {/* H1 */}
         <h1
           aria-label="Format like a pro. Price like a newcomer."
           style={{
@@ -157,8 +155,6 @@ function HeroSection() {
               style={{
                 display:'inline-block',
                 marginRight: i < HEADLINE_WORDS.length - 1 ? '0.22em' : 0,
-                // FIX: start visible (opacity:1) so LCP element is immediately painted
-                // animation takes over once JS hydrates
                 opacity: animate ? 0 : 1,
                 transform: animate ? 'translateY(28px)' : 'none',
                 animation: animate
@@ -168,7 +164,6 @@ function HeroSection() {
               }}
             >
               {w.text}
-              {/* Gold underline */}
               {w.gold && (
                 <span aria-hidden="true" style={{
                   display:'block', height:3,
@@ -212,7 +207,7 @@ function HeroSection() {
           opacity:0, animation:'bkFadeUp 0.5s ease 1.5s forwards',
         }}>
           <span style={{ color:'var(--gold)', letterSpacing:1 }} aria-label="5 stars">★★★★★</span>
-          Trusted by 3,000+ indie authors worldwide
+          Rated 5/5 by verified authors on CodeTrendy
         </div>
 
       </div>
@@ -508,6 +503,7 @@ function TestimonialsSection() {
     </section>
   );
 }
+
 // ─── 8. PLATFORMS ────────────────────────────────────────────────────
 
 function PlatformsSection() {
@@ -604,7 +600,7 @@ function PricingSection() {
 
         <div className="pricing-trust">
           <div className="pricing-trust-item"><span className="pricing-trust-icon" aria-hidden="true">🔒</span>Secure Checkout via Paddle</div>
-          <div className="pricing-trust-item"><span className="pricing-trust-icon" aria-hidden="true">⭐</span>4.8/5 from 3,000+ authors</div>
+          <div className="pricing-trust-item"><span className="pricing-trust-icon" aria-hidden="true">⭐</span>5/5 on CodeTrendy · Real author reviews</div>
           <div className="pricing-trust-item"><span className="pricing-trust-icon" aria-hidden="true">♾️</span>Credits never expire</div>
         </div>
       </div>
