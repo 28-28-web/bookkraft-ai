@@ -30,19 +30,21 @@ export default function OnboardingPage() {
         setAnswers(newAnswers);
 
         if (isLastFormStep) {
-            // Save formatting_goal to profile
             try {
-                await supabase.from('users').update({ formatting_goal: newAnswers.formatting_goal }).eq('id', user.id);
+                await supabase
+                    .from('users')
+                    .update({ formatting_goal: newAnswers.formatting_goal })
+                    .eq('id', user.id);
             } catch (err) {
                 console.error('Failed to save onboarding:', err);
+            } finally {
+                setStep(step + 1);
             }
-            setStep(step + 1); // Show recommendations
         } else {
             setStep(step + 1);
         }
     };
 
-    // Get recommendations
     const goal = answers.formatting_goal || 'unsure';
     const stage = answers.writing_stage || 'starting';
     const recommendedSlugs = TOOL_RECOMMENDATIONS[goal]?.[stage] || TOOL_RECOMMENDATIONS.unsure.starting;
@@ -53,15 +55,24 @@ export default function OnboardingPage() {
             <div className="onboard-wrap">
                 <div className="onboard-card" style={{ maxWidth: '640px' }}>
                     <div className="onboard-step-dots">
-                        {ONBOARD_STEPS.map((_, i) => <div key={i} className="onboard-dot done" />)}
+                        {ONBOARD_STEPS.map((_, i) => (
+                            <div key={i} className="onboard-dot done" />
+                        ))}
                         <div className="onboard-dot active" />
                     </div>
                     <h2>Here&apos;s where to start</h2>
-                    <p style={{ color: 'var(--muted)', marginBottom: '1.5rem' }}>Based on your answers, we recommend these tools:</p>
+                    <p style={{ color: 'var(--muted)', marginBottom: '1.5rem' }}>
+                        Based on your answers, we recommend these tools:
+                    </p>
 
                     <div className="recommended-tools">
                         {recommendedTools.map((tool) => (
-                            <Link key={tool.slug} href={`/tools/${tool.slug}`} className="recommended-tool" style={{ textDecoration: 'none' }}>
+                            <Link
+                                key={tool.slug}
+                                href={`/tools/${tool.slug}`}
+                                className="recommended-tool"
+                                style={{ textDecoration: 'none' }}
+                            >
                                 <span className="recommended-icon">{tool.icon}</span>
                                 <div>
                                     <h4>{tool.name}</h4>
@@ -75,7 +86,11 @@ export default function OnboardingPage() {
                     </div>
 
                     <div style={{ display: 'flex', gap: '.75rem', marginTop: '1.5rem' }}>
-                        <Link href="/dashboard" className="btn btn-primary btn-full" style={{ textDecoration: 'none' }}>
+                        <Link
+                            href="/dashboard"
+                            className="btn btn-primary btn-full"
+                            style={{ textDecoration: 'none' }}
+                        >
                             Go to Dashboard →
                         </Link>
                     </div>
@@ -89,7 +104,10 @@ export default function OnboardingPage() {
             <div className="onboard-card">
                 <div className="onboard-step-dots">
                     {ONBOARD_STEPS.map((_, i) => (
-                        <div key={i} className={`onboard-dot ${i < step ? 'done' : i === step ? 'active' : ''}`} />
+                        <div
+                            key={i}
+                            className={`onboard-dot ${i < step ? 'done' : i === step ? 'active' : ''}`}
+                        />
                     ))}
                     <div className="onboard-dot" />
                 </div>
@@ -97,9 +115,14 @@ export default function OnboardingPage() {
                 <p style={{ color: 'var(--muted)' }}>{currentStep.subtitle}</p>
                 <div className="onboard-options">
                     {currentStep.options.map((opt) => (
-                        <div key={opt.value} className={`onboard-option ${answers[currentStep.key] === opt.value ? 'selected' : ''}`}
-                            onClick={() => handleSelect(opt.value)}>
-                            <div className="onboard-option-icon">{opt.icon}</div>
+                        <div
+                            key={opt.value}
+                            className={`onboard-option ${answers[currentStep.key] === opt.value ? 'selected' : ''}`}
+                            onClick={() => handleSelect(opt.value)}
+                        >
+                            {opt.icon && (
+                                <div className="onboard-option-icon">{opt.icon}</div>
+                            )}
                             <div className="onboard-option-label">{opt.label}</div>
                         </div>
                     ))}
