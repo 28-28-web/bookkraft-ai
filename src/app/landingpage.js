@@ -495,10 +495,7 @@ function TestimonialsSection() {
           ))}
         </div>
 
-        {/* Senja widget */}
-        <div style={{ marginTop: 16 }}>
-          <SenjaReviews />
-        </div>
+       {/* Senja widget - disabled until real reviews collected */}
       </div>
     </section>
   );
