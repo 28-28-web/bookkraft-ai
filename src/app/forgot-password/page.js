@@ -1,3 +1,10 @@
+export const metadata = {
+  title: "Reset Password — BookKraft AI",
+  description: "Reset your BookKraft AI account password.",
+  robots: "index, follow",
+  alternates: { canonical: "https://bookkraftai.com/forgot-password" },
+};
+
 
 'use client';
 
