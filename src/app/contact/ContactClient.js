@@ -259,9 +259,9 @@ export default function ContactClient() {
                         free tools
                     </Link>
                     {' '}or check the{' '}
-                    <Link href="/blog" style={{ color: '#b8860b', fontWeight: 500, textDecoration: 'none' }}>
-                        blog
-                    </Link>
+                   <a href="https://blog.bookkraftai.com" style={{ color: '#b8860b', fontWeight: 500, textDecoration: 'none' }}>
+                     blog
+                   </a>
                     {' '}for answers to common questions.
                 </p>
             </section>
