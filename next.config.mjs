@@ -20,5 +20,19 @@ const nextConfig = {
       },
     ];
   },
+  async headers() {
+    return [
+      {
+        source: '/',
+        has: [{ type: 'query', key: 'ref' }],
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+      },
+      {
+        source: '/login',
+        has: [{ type: 'query', key: 'redirect' }],
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+      },
+    ];
+  },
 };
 export default nextConfig;
