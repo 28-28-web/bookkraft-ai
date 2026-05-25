@@ -69,8 +69,7 @@ export default function AccountPage() {
     };
 
     const handleSignOut = async () => {
-        await signOut();
-        window.location.href = '/';
+    await signOut();
     };
 
     if (loading || !user) return (
