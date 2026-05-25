@@ -98,6 +98,11 @@ export default function ToolPage({ params }) {
                                 </Link>
                             </div>
                         </div>
+                        {tool.seoContent && (
+                            <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}
+                                dangerouslySetInnerHTML={{ __html: tool.seoContent }}
+                            />
+                        )}
                     </div>
                 </main>
             </div>
