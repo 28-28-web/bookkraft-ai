@@ -56,6 +56,7 @@ export default function FrontMatterGenerator() {
     const allContent = sections.map((s) => copyHtml ? s.html : s.text).join('\n\n---PAGE BREAK---\n\n');
 
     return (
+        <>
         <div className="tool-layout">
             <div className="tool-input-card">
                 <h3>Book Details</h3>
@@ -113,24 +114,20 @@ export default function FrontMatterGenerator() {
                     <div className="output-placeholder">Fill in the form to see your front matter preview.</div>
                 )}
             </div>
-</div>
+        </div>
 
-        {/* SEO Content */}
         <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
             <h2>Front Matter Generator for Books</h2>
             <p>Front matter is the first thing a reader sees when they open your book. Done wrong, it looks unprofessional. Done right, it signals that you take your work seriously. This tool generates every front matter section in the correct format for KDP and other platforms.</p>
-
             <h2>What This Tool Generates</h2>
             <p>Title page with your book title, subtitle, and author name formatted correctly. Copyright page with the right legal language, your ISBN, publisher name, and edition. Dedication page ready to personalize. Disclaimer page for fiction, health, finance, or general nonfiction books. Each section follows standard publishing conventions.</p>
-
             <h2>Why Front Matter Formatting Matters</h2>
             <p>KDP has specific requirements for how front matter should be structured. A title page that looks off or a copyright page missing key details can make your book look self-published in the wrong way. Readers notice these things even when they don't realize it.</p>
-
             <h2>Who This Is For</h2>
             <p>First-time authors who don't know what goes in a copyright page. Experienced authors who want to stop writing the same boilerplate for every book. Editors who want to deliver complete manuscripts to clients without spending extra time on formatting.</p>
-
             <h2>How to Use It</h2>
             <p>Enter your book details, select which sections you need, and the tool generates everything instantly. Copy as plain text to paste into Word or Scrivener, or copy as HTML to drop directly into your EPUB file.</p>
         </div>
+        </>
     );
 }
