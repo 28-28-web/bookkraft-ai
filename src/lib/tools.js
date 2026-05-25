@@ -11,6 +11,7 @@ export const TOOLS = [
         accessType: 'logic',
         creditCost: 0,
         free: false,
+        seoContent: `<h2>Kindle Format Fixer for KDP Authors</h2><p>When you copy text from Word or Google Docs into KDP, you get broken quotes, weird dashes, and encoding errors that make your book look unprofessional. This tool fixes all of it in seconds.</p><h2>What It Fixes</h2><p>Smart quotes converted to straight quotes or proper curly quotes. Em dashes fixed from double hyphens. Double spaces removed. Tab indents converted to paragraph indents. Line breaks normalized. Encoding artifacts like â€™ converted back to readable characters. HTML tags stripped from Word paste.</p><h2>Who This Is For</h2><p>Authors moving manuscripts from Word or Google Docs to KDP. Anyone who has uploaded a book and seen strange characters appear in the Kindle preview. Formatters who want to clean client manuscripts before delivery.</p><h2>How to Use It</h2><p>Paste your manuscript text, select your target format (Kindle, EPUB, or both), choose which fixes to apply, and get clean text back instantly. No software to install, no file uploads needed.</p>`,
         upsell: { text: 'Text cleaned. Build your TOC →', tool: 'toc-generator' },
         fields: [
             { id: 'text', label: 'Paste your manuscript text here', type: 'textarea', placeholder: 'Paste your text...' },
@@ -46,6 +47,7 @@ export const TOOLS = [
         accessType: 'logic',
         creditCost: 0,
         free: false,
+        seoContent: `<h2>EPUB Formatter for Indie Authors</h2><p>Creating a valid EPUB file from scratch requires coding knowledge most authors don't have. This tool takes your manuscript and generates a properly structured EPUB 3.0 file automatically.</p><h2>What It Does</h2><p>Takes your manuscript text and converts it into a valid EPUB 3.0 file. Handles chapter detection, metadata, cover image embedding, and file structure automatically. No Sigil, no Calibre, no coding required.</p><h2>Who This Is For</h2><p>Authors publishing to Apple Books, Kobo, or Google Play where EPUB is the required format. Anyone who finds Calibre too complicated. Formatters who want to deliver EPUB files quickly without manual coding.</p><h2>How to Use It</h2><p>Paste your manuscript, enter your book title and author name, upload a cover image if you have one, and download your EPUB file. The tool handles chapter breaks based on your heading style.</p>`,
         upsell: { text: 'Download complete. Validate before uploading →', tool: 'epub-validator' },
         fields: [
             { id: 'manuscript', label: 'Paste your manuscript (use # for chapter headings)', type: 'textarea', placeholder: 'Chapter 1: The Beginning\n\nYour text here...' },
@@ -76,6 +78,7 @@ export const TOOLS = [
         accessType: 'logic',
         creditCost: 0,
         free: false,
+        seoContent: `<h2>Table of Contents Generator for Kindle and EPUB</h2><p>KDP requires a specific TOC format for Kindle books. Get it wrong and your book fails quality review. This tool generates the correct code for Kindle HTML, EPUB3 nav.xhtml, and NCX formats.</p><h2>What It Generates</h2><p>Clickable TOC in Kindle HTML format ready to paste into your manuscript. EPUB3 nav.xhtml for Apple Books and Kobo. NCX XML for older EPUB readers. Plain text TOC for print editions. Supports H1, H2, and H3 heading levels.</p><h2>Who This Is For</h2><p>Authors formatting their own books for KDP without hiring a formatter. Anyone who has had a book rejected for TOC errors. Formatters who want to generate clean TOC code without hand-coding it.</p><h2>How to Use It</h2><p>Paste your manuscript or just your chapter headings, select which heading levels to include, choose your output format, and copy the generated TOC code directly into your file.</p>`,
         upsell: { text: 'TOC ready. Now generate your front matter pages →', tool: 'front-matter-generator' },
         fields: [
             { id: 'text', label: 'Paste your manuscript or chapter headings (one per line)', type: 'textarea', placeholder: 'Chapter 1: Beginning\nChapter 2: The Journey\n...' },
@@ -111,6 +114,7 @@ export const TOOLS = [
         creditCost: 3,
         free: false,
         hasSample: true,
+        seoContent: `<h2>AI Manuscript Cleanup for Authors</h2><p>Spell checkers miss the errors that actually matter — repeated words, dialogue punctuation mistakes, and clichés that weaken your prose. This tool catches what basic tools don't.</p><h2>What It Catches</h2><p>Repeated words used too close together. Clichés that weaken your writing. Dialogue punctuation errors like missing commas before dialogue tags. Paragraph spacing issues. Works for both fiction and non-fiction manuscripts.</p><h2>Who This Is For</h2><p>Authors who want a clean manuscript before sending to a human editor. Writers self-editing their first draft. Anyone who has had an editor return a manuscript full of the same repeated corrections.</p><h2>How to Use It</h2><p>Paste up to 3,000 words, choose light or deep cleanup mode, select your genre, and get a marked-up version showing every issue found with suggested fixes.</p>`,
         upsell: { text: 'Manuscript cleaned. Now check style consistency →', tool: 'style-sheet-auditor' },
         fields: [
             { id: 'text', label: 'Paste your chapter (up to 3,000 words)', type: 'textarea', placeholder: 'Paste your chapter text here...' },
@@ -149,6 +153,7 @@ export const TOOLS = [
         accessType: 'ai',
         creditCost: 3,
         free: false,
+        seoContent: `<h2>Print to Digital Converter for Authors</h2><p>Print books contain elements that break in eBook format — page references, footnotes, running headers, and fixed-width tables. Converting them manually takes hours. This tool handles it automatically.</p><h2>What It Converts</h2><p>Page references like "see page 42" converted to chapter references. Footnotes moved to endnotes or inline parentheticals. Running headers removed. Fixed-width table descriptions rewritten for reflowable text. Figure references updated for digital format.</p><h2>Who This Is For</h2><p>Authors converting an existing print book to eBook format. Publishers bringing backlist titles to digital. Formatters converting academic or non-fiction titles with heavy footnote usage.</p><h2>How to Use It</h2><p>Paste up to 4,000 words of print-formatted text, select which elements to convert, choose your footnote format, and get eBook-ready text back instantly.</p>`,
         upsell: { text: 'Conversion complete. Validate your EPUB after formatting →', tool: 'epub-validator' },
         fields: [
             { id: 'text', label: 'Paste your print-format text (up to 4,000 words)', type: 'textarea', placeholder: 'Paste your print text here...' },
@@ -184,6 +189,7 @@ export const TOOLS = [
         accessType: 'logic',
         creditCost: 0,
         free: false,
+        seoContent: `<h2>Front Matter Generator for Books</h2><p>Front matter is the first thing a reader sees when they open your book. Done wrong, it looks unprofessional. Done right, it signals that you take your work seriously. This tool generates every front matter section in the correct format for KDP and other platforms.</p><h2>What This Tool Generates</h2><p>Title page with your book title, subtitle, and author name formatted correctly. Copyright page with the right legal language, your ISBN, publisher name, and edition. Dedication page ready to personalize. Disclaimer page for fiction, health, finance, or general nonfiction books. Each section follows standard publishing conventions.</p><h2>Why Front Matter Formatting Matters</h2><p>KDP has specific requirements for how front matter should be structured. A title page that looks off or a copyright page missing key details can make your book look self-published in the wrong way. Readers notice these things even when they don't realize it.</p><h2>Who This Is For</h2><p>First-time authors who don't know what goes in a copyright page. Experienced authors who want to stop writing the same boilerplate for every book. Editors who want to deliver complete manuscripts to clients without spending extra time on formatting.</p>`,
         upsell: { text: 'Front matter done. Write back matter →', tool: 'back-matter-generator' },
         fields: [
             { id: 'title', label: 'Book title', type: 'text', placeholder: 'My Amazing Book' },
@@ -228,6 +234,7 @@ export const TOOLS = [
         accessType: 'ai',
         creditCost: 2,
         free: false,
+        seoContent: `<h2>Back Matter Generator for Books</h2><p>Most authors spend hours on back matter. Writing the acknowledgments, formatting the author bio, setting up the also-by page — it's tedious work that comes right at the end when you're already exhausted. This tool handles all of it.</p><h2>What Gets Generated</h2><p>Author bio written professionally in the tone you choose. Also By section listing your other titles cleanly. Reader list call-to-action to grow your mailing list. A note from the author for a personal touch. Acknowledgements section. Connect page with your social handles. Each section follows standard publishing conventions.</p><h2>Who This Is For</h2><p>Self-publishing authors who want professional back matter without hiring a formatter. Freelance editors who deliver complete manuscripts to clients. Anyone publishing more than one book a year who wants to stop rewriting the same sections from scratch.</p><h2>How to Use It</h2><p>Enter your author details, book title, and choose which sections you need. Select your tone and the tool generates everything instantly. Copy and paste directly into your manuscript.</p>`,
         upsell: { text: 'Back matter done. Format your full manuscript for Kindle →', tool: 'kindle-format-fixer' },
         fields: [
             { id: 'author', label: 'Author name', type: 'text', placeholder: 'Jane Doe' },
@@ -272,6 +279,7 @@ export const TOOLS = [
         accessType: 'logic',
         creditCost: 0,
         free: false,
+        seoContent: `<h2>CSS Snippet Generator for EPUB and Kindle</h2><p>Styling an EPUB file by hand means hunting for CSS that actually works across Kindle, Apple Books, and Kobo. Most generic CSS breaks on at least one platform. This tool generates tested snippets optimized for each.</p><h2>What It Generates</h2><p>Drop cap CSS for chapter openers. Scene break styles. Blockquote and pull quote formatting. First-line indent styles. No-indent after heading rules. Centered text. Poetry and verse formatting. Sidebar boxes. Letter and dialogue styles. Each snippet includes a live preview so you see exactly what it looks like before copying.</p><h2>Who This Is For</h2><p>Authors hand-coding their own EPUB files. Formatters who want reliable CSS without testing on every device. Anyone who has had drop caps break on Kindle after looking fine in Sigil.</p><h2>How to Use It</h2><p>Select the element you need, choose your platform target (Kindle, EPUB, or both), and copy the generated CSS directly into your stylesheet.</p>`,
         upsell: { text: 'CSS ready. Validate your EPUB structure before uploading →', tool: 'epub-validator' },
         fields: [
             {
@@ -331,6 +339,7 @@ export const TOOLS = [
         accessType: 'ai',
         creditCost: 2,
         free: false,
+        seoContent: `<h2>EPUB Validator Pro for KDP and Apple Books</h2><p>The free EPUB validator catches basic structure errors. This tool goes deeper — ghost spacing, duplicate IDs, OPF manifest issues, and cover dimension problems that cause rejections on KDP, Apple Books, and Google Play.</p><h2>What It Checks</h2><p>Ghost spacing that breaks reflowable text. Duplicate ID errors that cause navigation failures. OPF manifest completeness. Cover image dimensions against store requirements. Store-specific pass/fail report for KDP, Apple Books, and Google Play so you know exactly where your file will be accepted.</p><h2>Who This Is For</h2><p>Authors who have had an EPUB rejected by a store without a clear reason. Formatters delivering files to clients who publish across multiple platforms. Anyone uploading to Apple Books or Google Play where validation requirements are stricter than KDP.</p><h2>How to Use It</h2><p>Upload your EPUB file and get a detailed report with pass/fail status for each store and specific fixes for every issue found.</p>`,
         upsell: { text: 'Validation complete. Fix your EPUB structure →', tool: 'epub-formatter' },
         fields: [
             { id: 'file', label: 'Drop your .epub file here or click to browse', type: 'file', accept: '.epub' },
@@ -346,6 +355,7 @@ export const TOOLS = [
         creditCost: 3,
         free: false,
         hasSample: true,
+        seoContent: `<h2>Style Sheet Auditor for Manuscripts</h2><p>Human editors charge hundreds of dollars to catch style inconsistencies across a full manuscript. This tool scans your text and finds them in seconds — character name variations, capitalization changes, hyphenation inconsistencies, and dialogue punctuation style drift.</p><h2>What It Catches</h2><p>Character names spelled differently across chapters. Capitalization rules applied inconsistently. Hyphenation used in some places but not others for the same word. Dialogue punctuation style changing mid-manuscript. Number formatting inconsistencies. POV drift within scenes.</p><h2>Who This Is For</h2><p>Authors self-editing before sending to a professional editor. Editors building a style sheet for a new client manuscript. Anyone who has been told by a reader that character names seemed to change.</p><h2>How to Use It</h2><p>Paste up to 5,000 words, add your existing style sheet rules if you have them, select which categories to check, and get a detailed inconsistency report with locations and suggested fixes.</p>`,
         upsell: { text: 'Style audit complete. Ready to format for Kindle? →', tool: 'kindle-format-fixer' },
         fields: [
             { id: 'text', label: 'Paste your chapter(s) — up to 5,000 words', type: 'textarea', placeholder: 'Paste your text...' },
@@ -419,6 +429,7 @@ export const TOOLS = [
         accessType: 'ai',
         creditCost: 1,
         free: false,
+        seoContent: `<h2>KDP Keyword and Category Finder for Amazon Authors</h2><p>Most authors pick keywords by guessing. The ones who sell pick keywords based on what readers actually search for. This tool uses AI to generate long-tail keywords and full Amazon category paths matched to your specific book.</p><h2>What It Generates</h2><p>Long-tail keyword phrases that match real Amazon search behavior. Full Amazon category paths so you know exactly where to list your book. Keywords matched to your genre, themes, and target reader — not generic suggestions that apply to every book.</p><h2>Who This Is For</h2><p>Authors publishing on KDP who want better discoverability without paying for keyword research tools. Anyone whose book isn't getting found despite good reviews. Writers launching a new title who want to start with the right categories from day one.</p><h2>How to Use It</h2><p>Enter your book title, genre, target reader description, comparable titles, and key themes. The tool generates keyword phrases and category paths ready to paste directly into your KDP dashboard.</p>`,
         upsell: null,
         fields: [
             { id: 'title', label: 'Book title', type: 'text', placeholder: 'My Book' },
