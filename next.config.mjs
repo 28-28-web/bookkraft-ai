@@ -29,8 +29,8 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.paddle.com",
-              "connect-src 'self' https://api.paddle.com https://sandbox-api.paddle.com https://cdn.paddle.com",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.paddle.com https://www.googletagmanager.com https://static.cloudflareinsights.com https://www.clarity.ms",
+              "connect-src 'self' https://api.paddle.com https://sandbox-api.paddle.com https://cdn.paddle.com https://*.supabase.co https://www.googletagmanager.com https://static.cloudflareinsights.com https://www.clarity.ms",
               "frame-src 'self' https://paddle.com https://*.paddle.com",
               "img-src 'self' data: https:",
               "style-src 'self' 'unsafe-inline'",
