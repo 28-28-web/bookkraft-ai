@@ -23,6 +23,22 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.paddle.com",
+              "connect-src 'self' https://api.paddle.com https://sandbox-api.paddle.com https://cdn.paddle.com",
+              "frame-src 'self' https://paddle.com https://*.paddle.com",
+              "img-src 'self' data: https:",
+              "style-src 'self' 'unsafe-inline'",
+            ].join('; '),
+          },
+        ],
+      },
+      {
         source: '/',
         has: [{ type: 'query', key: 'ref' }],
         headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
