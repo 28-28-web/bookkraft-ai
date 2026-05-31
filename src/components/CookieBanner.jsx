@@ -1,18 +1,16 @@
 'use client'
 import { useState, useEffect } from 'react'
-
 export default function CookieBanner() {
   const [show, setShow] = useState(false)
-
   useEffect(() => {
     const consent = localStorage.getItem('bk_cookie_consent')
     if (!consent) {
       setShow(true)
     } else if (consent === 'granted') {
       updateConsent('granted')
+      if (window.clarity) window.clarity('consent')
     }
   }, [])
-
   const updateConsent = (value) => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('consent', 'update', {
@@ -23,15 +21,13 @@ export default function CookieBanner() {
       })
     }
   }
-
   const handle = (value) => {
     localStorage.setItem('bk_cookie_consent', value)
     updateConsent(value)
+    if (value === 'granted' && window.clarity) window.clarity('consent')
     setShow(false)
   }
-
   if (!show) return null
-
   return (
     <div style={{
       position: 'fixed',
@@ -62,7 +58,6 @@ export default function CookieBanner() {
           Learn more
         </a>
       </span>
-
       <button
         onClick={() => handle('granted')}
         style={{
@@ -79,7 +74,6 @@ export default function CookieBanner() {
       >
         Accept
       </button>
-
       <button
         onClick={() => handle('denied')}
         style={{
