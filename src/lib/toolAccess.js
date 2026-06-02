@@ -75,7 +75,7 @@ export async function checkToolAccess(toolSlug) {
     }
 
     // Full Access or Lifetime — always allowed
-    if (profile.has_full_access || profile.is_lifetime) {
+    if (profile.has_full_access || profile.is_lifetime || profile.is_admin) {
         return { allowed: true, user, profile };
     }
 
