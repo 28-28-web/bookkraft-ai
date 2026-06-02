@@ -4,7 +4,7 @@ import { checkToolAccess, checkWordLimit, callClaude, deductCredits, saveHistory
 export async function POST(request) {
     try {
         // Auth + credit check
-        const access = await checkToolAccess('manuscript-cleanup');
+        const access = await checkToolAccess('manuscript-mode');
         if (!access.allowed) return access.response;
 
         const { text, mode, genre, checks } = await request.json();

@@ -6,7 +6,7 @@ import { NextResponse } from 'next/server';
 const FREE_TOOLS = ['epub-validator', 'metadata-builder'];
 const LOGIC_TOOLS = [
     'kindle-format-fixer', 'epub-formatter', 'toc-generator',
-    'front-matter-generator', 'css-snippet-generator',
+    'front-matter-generator', 'css-snippet-generator', 'manuscript-mode',
 ];
 
 // ── Word counting ──

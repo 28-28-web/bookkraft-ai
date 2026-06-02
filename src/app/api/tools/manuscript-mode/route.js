@@ -3,7 +3,7 @@ import { checkToolAccess } from '@/lib/toolAccess';
 
 export async function POST(request) {
     try {
-        const access = await checkToolAccess('epub-formatter');
+        const access = await checkToolAccess('manuscript-mode');
         if (!access.allowed) return access.response;
 
         const formData = await request.formData();
