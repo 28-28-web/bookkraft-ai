@@ -6,7 +6,7 @@ import { NextResponse } from 'next/server';
 const FREE_TOOLS = ['epub-validator', 'metadata-builder'];
 const LOGIC_TOOLS = [
     'kindle-format-fixer', 'epub-formatter', 'toc-generator',
-    'front-matter-generator', 'css-snippet-generator', 'manuscript-mode',
+    'front-matter-generator', 'css-snippet-generator',
 ];
 
 // ── Word counting ──
@@ -21,6 +21,7 @@ export const TOOL_CREDIT_COSTS = {
     'manuscript-cleanup': 3,
     'print-to-digital': 3,
     'style-sheet-auditor': 3,
+    'manuscript-mode': 2,
 };
 
 // ── Word limits per tool ──
@@ -30,6 +31,7 @@ export const TOOL_WORD_LIMITS = {
     'print-to-digital': 4000,
     'kdp-keyword-finder': 500,
     'back-matter-generator': 500,
+    'manuscript-mode': 5000,
 };
 
 // ── Max tokens per tool for Claude ──
@@ -39,6 +41,7 @@ const TOOL_MAX_TOKENS = {
     'style-sheet-auditor': 3000,
     'print-to-digital': 4000,
     'kdp-keyword-finder': 1500,
+    'manuscript-mode': 3000,
 };
 
 /**
@@ -75,7 +78,7 @@ export async function checkToolAccess(toolSlug) {
     }
 
     // Full Access or Lifetime — always allowed
-    if (profile.has_full_access || profile.is_lifetime || profile.is_admin) {
+    if (profile.has_full_access || profile.is_lifetime) {
         return { allowed: true, user, profile };
     }
 
