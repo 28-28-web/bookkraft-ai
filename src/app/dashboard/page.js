@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -11,7 +10,7 @@ import { TOOL_CATEGORIES, TOOL_CREDIT_COSTS } from '@/lib/constants';
 import Sidebar from '@/components/Sidebar';
 
 export default function DashboardPage() {
-    const { user, profile, loading } = useAuth();
+    const { user, profile, loading, refreshProfile } = useAuth();
     const { projects, currentProject, setCurrentProject, createProject, uploadToProject, deleteProject } = useProject();
     const [activeCategory, setActiveCategory] = useState('all');
     const [showNewBook, setShowNewBook] = useState(false);
@@ -25,6 +24,10 @@ export default function DashboardPage() {
     useEffect(() => {
         if (!loading && !user) router.replace('/login');
     }, [loading, user, router]);
+
+    useEffect(() => {
+        refreshProfile();
+    }, []);
 
     if (loading) {
         return (
@@ -265,4 +268,3 @@ export default function DashboardPage() {
         </div>
     );
 }
-
