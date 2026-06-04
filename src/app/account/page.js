@@ -70,7 +70,7 @@ export default function AccountPage() {
 
     const handleSignOut = async () => {
         await signOut();
-        router.push("/");
+        setTimeout(() => router.push("/"), 300);
     };
 
     if (loading || !user) return (
