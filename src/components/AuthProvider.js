@@ -110,7 +110,8 @@ export function AuthProvider({ children }) {
         const init = async () => {
             try {
                 // ✅ getUser() verifies token server-side, more reliable than getSession()
-                const { data: { user }, error } = await supabase.auth.getSession();
+                const { data: { session }, error } = await supabase.auth.getSession();
+                const user = session?.user;
                 if (user && !error) {
                     setUser(user);
                     await loadProfile(user.id);
