@@ -1,7 +1,11 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useAuth } from '@/components/AuthProvider';
+import { useRouter } from 'next/navigation';
 
 export default function ManuscriptModeClient() {
+    const { user, loading } = useAuth();
+    const router = useRouter();
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
@@ -12,16 +16,24 @@ export default function ManuscriptModeClient() {
         fixEncoding: true,
         removeDoubleSpaces: true,
     });
-    const [status, setStatus] = useState('idle'); // idle | processing | done | error
+    const [status, setStatus] = useState('idle');
     const [errorMsg, setErrorMsg] = useState('');
     const [result, setResult] = useState(null);
     const fileInputRef = useRef(null);
+
+    useEffect(() => {
+        if (!loading && !user) {
+            router.push('/login?redirect=/tools/manuscript-mode');
+        }
+    }, [user, loading, router]);
+
+    if (loading) return <div style={{ padding: 40, textAlign: 'center', color: '#888' }}>Loading...</div>;
+    if (!user) return null;
 
     const handleFileChange = (e) => {
         const f = e.target.files[0];
         if (!f) return;
         setFile(f);
-        // Auto-fill title from filename
         if (!title) {
             const name = f.name.replace(/\.(docx|txt)$/i, '').replace(/[-_]/g, ' ');
             setTitle(name);
@@ -109,7 +121,6 @@ export default function ManuscriptModeClient() {
     return (
         <div style={{ maxWidth: 680, margin: '0 auto', padding: '32px 20px', fontFamily: 'inherit' }}>
 
-            {/* Header */}
             <div style={{ marginBottom: 32 }}>
                 <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8, color: '#111' }}>
                     Full Manuscript Mode
@@ -120,7 +131,6 @@ export default function ManuscriptModeClient() {
             </div>
 
             {status === 'done' && result ? (
-                /* ── Success State ── */
                 <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 12, padding: 28 }}>
                     <div style={{ fontSize: 20, fontWeight: 700, color: '#15803d', marginBottom: 8 }}>
                         ✓ Your EPUB is ready
@@ -155,10 +165,8 @@ export default function ManuscriptModeClient() {
                     </div>
                 </div>
             ) : (
-                /* ── Form State ── */
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-                    {/* File Upload */}
                     <div>
                         <label style={{ display: 'block', fontWeight: 600, marginBottom: 8, fontSize: 14 }}>
                             Manuscript file
@@ -206,7 +214,6 @@ export default function ManuscriptModeClient() {
                         </div>
                     </div>
 
-                    {/* Book Details */}
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                         <div>
                             <label style={{ display: 'block', fontWeight: 600, marginBottom: 6, fontSize: 14 }}>
@@ -240,7 +247,6 @@ export default function ManuscriptModeClient() {
                         </div>
                     </div>
 
-                    {/* Language */}
                     <div>
                         <label style={{ display: 'block', fontWeight: 600, marginBottom: 6, fontSize: 14 }}>
                             Language
@@ -259,7 +265,6 @@ export default function ManuscriptModeClient() {
                         </select>
                     </div>
 
-                    {/* Fixes */}
                     <div>
                         <label style={{ display: 'block', fontWeight: 600, marginBottom: 10, fontSize: 14 }}>
                             Formatting fixes to apply
@@ -268,7 +273,7 @@ export default function ManuscriptModeClient() {
                             {[
                                 { key: 'fixSmartQuotes', label: 'Fix smart quotes' },
                                 { key: 'fixEmDashes', label: 'Fix em dashes (-- → —)' },
-                                { key: 'fixEncoding', label: 'Fix encoding artifacts (â€™ → \')' },
+                                { key: 'fixEncoding', label: "Fix encoding artifacts (â€™ → ')" },
                                 { key: 'removeDoubleSpaces', label: 'Remove double spaces' },
                             ].map(({ key, label }) => (
                                 <label key={key} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', fontSize: 14 }}>
@@ -284,14 +289,12 @@ export default function ManuscriptModeClient() {
                         </div>
                     </div>
 
-                    {/* Error */}
                     {errorMsg && (
                         <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 8, padding: '12px 16px', color: '#dc2626', fontSize: 14 }}>
                             {errorMsg}
                         </div>
                     )}
 
-                    {/* Submit */}
                     <button
                         onClick={handleSubmit}
                         disabled={status === 'processing'}
