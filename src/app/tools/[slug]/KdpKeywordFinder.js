@@ -26,6 +26,7 @@ export default function KdpKeywordFinder() {
             const data = await res.json();
             if (!res.ok) { setError(data.error || 'Something went wrong'); return; }
             setResult(data.data);
+            await refreshProfile();
         } catch {
             setError('Network error. Try again.');
         } finally {

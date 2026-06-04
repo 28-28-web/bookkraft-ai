@@ -39,6 +39,7 @@ export default function PrintToDigital() {
             const data = await res.json();
             if (!res.ok) { setError(data.error || 'Something went wrong'); return; }
             setResult(data.data);
+            await refreshProfile();
         } catch {
             setError('Network error. Try again.');
         } finally {

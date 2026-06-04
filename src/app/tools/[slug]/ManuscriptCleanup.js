@@ -9,7 +9,7 @@ import LivePreview from '@/components/LivePreview';
 import FileUploader from '@/components/FileUploader';
 
 export default function ManuscriptCleanup() {
-    const { profile } = useAuth();
+    const { profile, refreshProfile } = useAuth();
     const { currentProject, loadProjectText, updateLastTool } = useProject();
     const [input, setInput] = useState('');
     const [mode, setMode] = useState('deep');
@@ -60,6 +60,7 @@ export default function ManuscriptCleanup() {
                 return;
             }
             setResult({ ...data.data, isSample: data.isSample, wordsProcessed: data.wordsProcessed });
+            if (!sampleMode) await refreshProfile();
         } catch {
             setError('Network error. Try again.');
         } finally {
