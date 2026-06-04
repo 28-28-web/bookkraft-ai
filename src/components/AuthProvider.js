@@ -144,7 +144,7 @@ export function AuthProvider({ children }) {
     }, []);
 
     const signOut = async () => {
-        await supabase.auth.signOut({ scope: 'global' });
+        await supabase.auth.signOut({ scope: 'local' });
         setUser(null);
         setProfile(null);
     };
