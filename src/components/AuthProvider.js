@@ -102,10 +102,10 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         const timeout = setTimeout(() => {
             setLoading((prev) => {
-                if (prev) console.warn('Auth loading timed out after 5s');
+                if (prev) console.warn('Auth loading timed out after 15s');
                 return false;
             });
-        }, 5000);
+        }, 15000);
 
         const init = async () => {
             try {
