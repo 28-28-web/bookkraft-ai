@@ -14,8 +14,7 @@ export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
-    
-    // ✅ Singleton — never recreated across renders
+
     const supabase = useMemo(() => createClient(), []);
 
     async function loadProfile(userId) {
@@ -100,31 +99,6 @@ export function AuthProvider({ children }) {
     }
 
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            setLoading((prev) => {
-                if (prev) console.warn('Auth loading timed out after 15s');
-                return false;
-            });
-        }, 15000);
-
-        const init = async () => {
-            try {
-                // ✅ getUser() verifies token server-side, more reliable than getSession()
-                const { data: { session }, error } = await supabase.auth.getSession();
-                const user = session?.user;
-                if (user && !error) {
-                    setUser(user);
-                    await loadProfile(user.id);
-                }
-            } catch (err) {
-                console.error('Auth init error:', err);
-            } finally {
-                clearTimeout(timeout);
-                setLoading(false);
-            }
-        };
-        init();
-
         const { data: { subscription } } = supabase.auth.onAuthStateChange(
             async (event, session) => {
                 if (session?.user) {
@@ -139,7 +113,6 @@ export function AuthProvider({ children }) {
         );
 
         return () => {
-            clearTimeout(timeout);
             subscription.unsubscribe();
         };
     }, []);
