@@ -66,7 +66,7 @@ export async function checkToolAccess(toolSlug) {
 
     const { data: profile } = await supabase
         .from('users')
-        .select('credits_balance, has_logic_bundle, has_full_access, is_lifetime, is_admin')
+        .select('plan, is_admin, runs_this_month')
         .eq('id', user.id)
         .single();
 
