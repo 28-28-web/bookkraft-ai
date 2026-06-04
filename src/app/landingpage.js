@@ -243,6 +243,50 @@ function TickerSection() {
 
 // ─── 3. FREE TOOLS ───────────────────────────────────────────────────
 
+
+function ManuscriptBanner() {
+  return (
+    <section style={{
+      background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2410 100%)',
+      padding: '48px 24px',
+      textAlign: 'center',
+    }}>
+      <div style={{ maxWidth: 680, margin: '0 auto' }}>
+        <div style={{
+          display: 'inline-block',
+          background: '#B8962E',
+          color: '#fff',
+          fontSize: 12,
+          fontWeight: 700,
+          letterSpacing: '0.1em',
+          padding: '4px 12px',
+          borderRadius: 20,
+          marginBottom: 16,
+          textTransform: 'uppercase',
+        }}>
+          New Feature
+        </div>
+        <h2 style={{
+          color: '#fff',
+          fontSize: 32,
+          fontWeight: 800,
+          marginBottom: 12,
+          lineHeight: 1.2,
+        }}>
+          Turn your full manuscript into a publish-ready EPUB — free
+        </h2>
+        <p style={{ color: '#aaa', fontSize: 16, marginBottom: 28, lineHeight: 1.6 }}>
+          Upload your .docx or .txt file. We detect chapters, clean formatting errors, and generate a valid EPUB 3.0 file in one step.
+        </p>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Link href="/tools/manuscript-mode" style={{ background: '#B8962E', color: '#fff', padding: '14px 32px', borderRadius: 8, fontWeight: 700, fontSize: 16, textDecoration: 'none', display: 'inline-block' }}>
+            Try Full Manuscript Mode →
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
 function FreeToolsSection() {
   return (
     <section
