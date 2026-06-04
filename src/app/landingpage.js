@@ -87,6 +87,7 @@ export default function LandingPage() {
 
       <HeroSection />
       <TickerSection />
+      <ManuscriptBanner />
       <FreeToolsSection />
       <ToolGridSection />
       <CompetitorSection />
