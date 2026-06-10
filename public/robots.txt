@@ -4,5 +4,9 @@ Disallow: /dashboard
 Disallow: /account
 Disallow: /admin
 Disallow: /api/
-
+Disallow: /checkout
+Disallow: /history
+Disallow: /onboarding
+Disallow: /upgrade
+Disallow: /forgot-password
 Sitemap: https://bookkraftai.com/sitemap.xml
