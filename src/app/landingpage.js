@@ -243,7 +243,6 @@ function TickerSection() {
 
 // ─── 3. FREE TOOLS ───────────────────────────────────────────────────
 
-
 function ManuscriptBanner() {
   return (
     <section style={{
@@ -272,21 +271,59 @@ function ManuscriptBanner() {
           fontWeight: 800,
           marginBottom: 12,
           lineHeight: 1.2,
+          fontFamily: "'Playfair Display', serif",
         }}>
           Turn your full manuscript into a publish-ready EPUB — free
         </h2>
-        <p style={{ color: '#aaa', fontSize: 16, marginBottom: 28, lineHeight: 1.6 }}>
-          Upload your .docx or .txt file. We detect chapters, clean formatting errors, and generate a valid EPUB 3.0 file in one step.
+        <p style={{
+          color: '#aaa',
+          fontSize: 16,
+          marginBottom: 28,
+          lineHeight: 1.6,
+        }}>
+          Upload your .docx or .txt file. We detect chapters, clean formatting errors, and generate a valid EPUB 3.0 file in one step. No Calibre. No Sigil. No coding.
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link href="/tools/manuscript-mode" style={{ background: '#B8962E', color: '#fff', padding: '14px 32px', borderRadius: 8, fontWeight: 700, fontSize: 16, textDecoration: 'none', display: 'inline-block' }}>
+          <Link
+            href="/tools/manuscript-mode"
+            style={{
+              background: '#B8962E',
+              color: '#fff',
+              padding: '14px 32px',
+              borderRadius: 8,
+              fontWeight: 700,
+              fontSize: 16,
+              textDecoration: 'none',
+              display: 'inline-block',
+            }}
+          >
             Try Full Manuscript Mode →
           </Link>
+          <Link
+            href="/tools/epub-validator"
+            style={{
+              background: 'transparent',
+              color: '#B8962E',
+              padding: '14px 32px',
+              borderRadius: 8,
+              fontWeight: 600,
+              fontSize: 16,
+              textDecoration: 'none',
+              border: '1px solid #B8962E',
+              display: 'inline-block',
+            }}
+          >
+            Validate EPUB Free
+          </Link>
+        </div>
+        <div style={{ marginTop: 20, color: '#666', fontSize: 13 }}>
+          Works with .docx and .txt · Chapter detection included · EPUB 3.0 output
         </div>
       </div>
     </section>
   );
 }
+
 function FreeToolsSection() {
   return (
     <section
@@ -312,9 +349,9 @@ function FreeToolsSection() {
                 2 full-featured tools available with no account needed.
               </p>
             </div>
-
             <div style={{ display:'flex', gap:12, flexShrink:0 }}>
               {[
+                { href:'/tools/manuscript-mode', label:'Full Manuscript Mode' },
                 { href:'/tools/epub-validator',   label:'EPUB Validator'  },
                 { href:'/tools/metadata-builder', label:'Metadata Builder'},
               ].map(chip => (

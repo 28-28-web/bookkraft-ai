@@ -3,7 +3,7 @@ import { checkToolAccess } from '@/lib/toolAccess';
 
 export async function POST(request) {
     try {
-        const access = await checkToolAccess('manuscript-mode');
+        const access = await checkToolAccess('manuscript-mode', request);
         if (!access.allowed) return access.response;
 
         const formData = await request.formData();
