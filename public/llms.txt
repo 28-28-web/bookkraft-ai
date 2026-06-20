@@ -1,5 +1,7 @@
 # BookKraft AI
 
+_Last updated: 2026-06-21_
+
 > BookKraft AI is a one-time-purchase eBook formatting toolkit for indie authors. It provides 12 tools that take a manuscript from raw draft to a publish-ready EPUB or Kindle file, covering formatting cleanup, EPUB generation, table of contents creation, front/back matter generation, EPUB validation, metadata building, and AI-powered manuscript editing. No subscriptions. Credits never expire. Two tools are free forever with no signup required.
 
 BookKraft AI exists to replace expensive one-time desktop software (Vellum, $250, Mac-only; Atticus, $147) with a cheaper, AI-assisted, browser-based alternative starting at $4.99 one-time. Output is compatible with Amazon KDP, Apple Books, Barnes & Noble, Kobo, Draft2Digital, Smashwords, OverDrive, Tolino, and Scribd.
@@ -45,6 +47,7 @@ BookKraft AI exists to replace expensive one-time desktop software (Vellum, $250
 - [Pricing](https://bookkraftai.com/pricing): full pricing breakdown for Free, Essentials Bundle, Full Access, and Lifetime tiers
 - [Free Tools](https://bookkraftai.com/free-tools): EPUB Validator and Metadata Builder, no signup required
 - [Book Score / Publishing Readiness Score](https://bookkraftai.com/tools/publishing-score): free tool that scores manuscript publishing readiness
+- [EPUB Validator tool](https://bookkraftai.com/tools/epub-validator): free EPUB structure and metadata validator
 - [Blog](https://blog.bookkraftai.com): articles on eBook formatting, KDP publishing, and self-publishing topics
 - [Contact](https://bookkraftai.com/contact)
 
