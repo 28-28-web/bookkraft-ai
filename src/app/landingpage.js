@@ -354,6 +354,7 @@ function FreeToolsSection() {
                 { href:'/tools/manuscript-mode', label:'Full Manuscript Mode' },
                 { href:'/tools/epub-validator',   label:'EPUB Validator'  },
                 { href:'/tools/metadata-builder', label:'Metadata Builder'},
+                { href:'/tools/cover-checker', label:'Cover Checker'},
               ].map(chip => (
                 <Link key={chip.href} href={chip.href} style={{
                   background:'#fff', border:'1px solid rgba(46,94,40,0.22)',
