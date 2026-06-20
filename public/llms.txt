@@ -1,0 +1,54 @@
+# BookKraft AI
+
+> BookKraft AI is a one-time-purchase eBook formatting toolkit for indie authors. It provides 12 tools that take a manuscript from raw draft to a publish-ready EPUB or Kindle file, covering formatting cleanup, EPUB generation, table of contents creation, front/back matter generation, EPUB validation, metadata building, and AI-powered manuscript editing. No subscriptions. Credits never expire. Two tools are free forever with no signup required.
+
+BookKraft AI exists to replace expensive one-time desktop software (Vellum, $250, Mac-only; Atticus, $147) with a cheaper, AI-assisted, browser-based alternative starting at $4.99 one-time. Output is compatible with Amazon KDP, Apple Books, Barnes & Noble, Kobo, Draft2Digital, Smashwords, OverDrive, Tolino, and Scribd.
+
+## Core facts
+
+- Pricing model: one-time purchase, no subscriptions. AI tools use credits that never expire.
+- Free tier: EPUB Validator and Metadata Builder, no account or signup required, unlimited use.
+- Essentials Bundle: $4.99, includes 5 logic tools (no AI, no credits used).
+- Full Access: $9.99, includes the 5 logic tools plus 30 AI credits.
+- Lifetime Access: $149, all 12 tools, unlimited AI runs (rate limited), all future tools included.
+- AI tools run on Claude Haiku by Anthropic.
+- Refund policy: 7-day money-back guarantee on any purchase.
+- Checkout is handled via Paddle.
+
+## Tools
+
+- Kindle Format Fixer — fixes smart quotes, em dashes, double spaces, and encoding errors from Word/Google Docs exports; logic tool, no credits.
+- EPUB Formatter — generates a valid EPUB 3.0 file from a manuscript, handling chapter breaks, metadata, and cover embedding; logic tool, no credits.
+- TOC Generator — builds a clickable Table of Contents for Kindle, EPUB3, and NCX formats; logic tool, no credits.
+- Manuscript Cleanup — AI tool that catches dialogue punctuation errors, repeated words, and clichés; up to 3,000 words; costs 3 credits; free 500-word sample available.
+- Print-to-Digital Adapter — AI tool converting print-specific elements (page references, footnotes, running headers) into eBook-ready format; up to 4,000 words; costs 3 credits.
+- Front Matter Generator — generates title page, copyright page, dedication, and disclaimer; logic tool, no credits.
+- Back Matter Generator — AI tool that writes author bio, mailing list CTA, Also By section, and closing note; costs 2 credits.
+- CSS Snippet Generator — generates copy-paste CSS for drop caps, scene breaks, blockquotes, and pull quotes for Kindle KFX and EPUB; logic tool, no credits.
+- EPUB Validator — checks an EPUB file for structure errors, missing metadata, and content issues before uploading to KDP or IngramSpark; free, no signup needed.
+- EPUB Validator Pro — AI-powered deep validation including ghost spacing detection, duplicate ID scan, OPF manifest check, and store-specific pass/fail reports for KDP, Apple Books, and Google Play; costs 2 credits.
+- Style Sheet Auditor — AI tool scanning for style inconsistencies (character names, capitalization, hyphenation, dialogue punctuation) across up to 5,000 words; costs 3 credits.
+- Metadata Builder — builds complete book metadata for KDP, IngramSpark, Draft2Digital, and EPUB OPF files, including keywords, BISAC categories, and pricing fields; free, no account required.
+- KDP Keyword & Category Finder — AI tool that generates long-tail KDP keywords and full Amazon category paths; costs 1 credit.
+- Full Manuscript Mode — uploads a .docx or .txt manuscript, detects chapters, cleans formatting, and outputs a complete EPUB 3.0 file in one step; free, no login required.
+
+## Frequently asked
+
+- BookKraft AI has no monthly fees; every purchase is one-time and credits never expire.
+- EPUB works on Apple Books, Kobo, and Barnes & Noble; Kindle/MOBI/KFX works only on Amazon devices. BookKraft AI tools support both formats.
+- The free tools (EPUB Validator, Metadata Builder) require no account, email, or credit card.
+- AI tools use Claude Haiku by Anthropic for formatting and analysis tasks.
+
+## Pages
+
+- [Homepage](https://bookkraftai.com): overview of all 12 tools, pricing, and FAQ
+- [Pricing](https://bookkraftai.com/pricing): full pricing breakdown for Free, Essentials Bundle, Full Access, and Lifetime tiers
+- [Free Tools](https://bookkraftai.com/free-tools): EPUB Validator and Metadata Builder, no signup required
+- [Book Score / Publishing Readiness Score](https://bookkraftai.com/tools/publishing-score): free tool that scores manuscript publishing readiness
+- [Blog](https://blog.bookkraftai.com): articles on eBook formatting, KDP publishing, and self-publishing topics
+- [Contact](https://bookkraftai.com/contact)
+
+## Optional
+
+- [Privacy Policy](https://bookkraftai.com/privacy)
+- [Terms of Service](https://bookkraftai.com/terms)
