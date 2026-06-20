@@ -36,6 +36,29 @@ const TOOL_COMPONENTS = {
     'kdp-keyword-finder': KdpKeywordFinder,
 };
 
+// Shared SEO content block, rendered identically in every branch
+function SeoContentBlock({ tool }) {
+    if (!tool.seoContent) return null;
+    return (
+        <div
+            className="seo-content"
+            style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}
+            dangerouslySetInnerHTML={{ __html: tool.seoContent }}
+        />
+    );
+}
+
+// Shared header block, rendered identically in every branch
+function ToolHeader({ tool }) {
+    return (
+        <div className="tool-page-header">
+            <Link href="/dashboard" className="back-btn">← Back to Dashboard</Link>
+            <h1>{tool.icon} {tool.name}</h1>
+            <p>{tool.desc}</p>
+        </div>
+    );
+}
+
 export default function ToolPage({ params }) {
     const resolvedParams = use(params);
     const slug = resolvedParams.slug;
@@ -63,12 +86,19 @@ export default function ToolPage({ params }) {
     const isFree = tool.free;
     const hasAccess = isFree || checkToolAccess(slug);
 
+    // While auth resolves, show real content (header + SEO) instead of a blank spinner.
+    // This is what crawlers and AI search bots will see if they hit the page
+    // before JS finishes mounting, so it must never be empty.
     if (loading) {
         return (
             <div className="app-layout">
                 <Sidebar />
                 <main className="main-content">
-                    <div className="loading-state"><div className="spinner" /> Loading...</div>
+                    <div className="tool-page-wrap">
+                        <ToolHeader tool={tool} />
+                        <div className="loading-state"><div className="spinner" /> Loading tool...</div>
+                        <SeoContentBlock tool={tool} />
+                    </div>
                 </main>
             </div>
         );
@@ -80,11 +110,7 @@ export default function ToolPage({ params }) {
                 <Sidebar />
                 <main className="main-content">
                     <div className="tool-page-wrap">
-                        <div className="tool-page-header">
-                            <Link href="/dashboard" className="back-btn">← Back to Dashboard</Link>
-                            <h1>{tool.icon} {tool.name}</h1>
-                            <p>{tool.desc}</p>
-                        </div>
+                        <ToolHeader tool={tool} />
                         <div className="tool-locked-card">
                             <div className="tool-locked-icon">🔒</div>
                             <h3>This tool requires purchase</h3>
@@ -98,11 +124,7 @@ export default function ToolPage({ params }) {
                                 </Link>
                             </div>
                         </div>
-                        {tool.seoContent && (
-                            <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}
-                                dangerouslySetInnerHTML={{ __html: tool.seoContent }}
-                            />
-                        )}
+                        <SeoContentBlock tool={tool} />
                     </div>
                 </main>
             </div>
@@ -129,12 +151,9 @@ export default function ToolPage({ params }) {
             {!isFree && <Sidebar />}
             <main className={isFree ? 'main-content main-content-full' : 'main-content'}>
                 <div className="tool-page-wrap">
-                    <div className="tool-page-header">
-                        <Link href="/dashboard" className="back-btn">← Back to Dashboard</Link>
-                        <h1>{tool.icon} {tool.name}</h1>
-                        <p>{tool.desc}</p>
-                    </div>
+                    <ToolHeader tool={tool} />
                     <ToolComponent tool={tool} />
+                    <SeoContentBlock tool={tool} />
                 </div>
             </main>
         </div>
