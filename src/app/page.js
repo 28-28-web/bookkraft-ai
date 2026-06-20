@@ -76,7 +76,11 @@ export default function Page() {
     name: 'BookKraft AI',
     url: 'https://bookkraftai.com',
     logo: 'https://bookkraftai.com/favicon.png',
-    sameAs: [],
+    sameAs: [
+      'https://x.com/BookkraftTools',
+      'https://www.facebook.com/bookkraftai',
+      'https://linkedin.com/in/book-kraft-ai-b49a34401',
+    ],
   };
 
   return (
