@@ -32,13 +32,14 @@ const faqSchema = {
   })),
 };
 
-const KDP_MIN_LONG_SIDE = 1000;
+const KDP_MIN_SHORT_SIDE = 500;
+const KDP_MAX_FILE_SIZE_MB = 5;
 const KDP_RECOMMENDED_LONG_SIDE = 2500;
 const KDP_RATIO = 1.6;
 const KDP_RATIO_TOLERANCE = 0.08;
 const APPLE_MIN_SHORT_SIDE = 1400;
 
-function checkKDP(width, height, fileType) {
+function checkKDP(width, height, fileType, fileSizeMB) {
   const longSide = Math.max(width, height);
   const shortSide = Math.min(width, height);
   const ratio = longSide / shortSide;
@@ -62,8 +63,8 @@ function checkKDP(width, height, fileType) {
 
   checks.push({
     label: 'Minimum size',
-    pass: longSide >= KDP_MIN_LONG_SIDE,
-    detail: `${longSide}px longest side — minimum is ${KDP_MIN_LONG_SIDE}px`,
+    pass: shortSide >= KDP_MIN_SHORT_SIDE,
+    detail: `${shortSide}px shortest side — minimum is ${KDP_MIN_SHORT_SIDE}px (covers below this won't display on Amazon)`,
   });
 
   checks.push({
@@ -72,14 +73,21 @@ function checkKDP(width, height, fileType) {
     detail: longSide >= KDP_RECOMMENDED_LONG_SIDE
       ? `${longSide}px — meets the ${KDP_RECOMMENDED_LONG_SIDE}px recommendation`
       : `${longSide}px — below the ${KDP_RECOMMENDED_LONG_SIDE}px recommendation, may look soft on high-res screens`,
-    warning: longSide < KDP_RECOMMENDED_LONG_SIDE && longSide >= KDP_MIN_LONG_SIDE,
+    warning: longSide < KDP_RECOMMENDED_LONG_SIDE && shortSide >= KDP_MIN_SHORT_SIDE,
   });
-
   checks.push({
     label: 'Aspect ratio',
     pass: Math.abs(ratio - KDP_RATIO) <= KDP_RATIO_TOLERANCE,
     detail: `${ratio.toFixed(2)}:1 — ideal is ${KDP_RATIO}:1`,
   });
+
+  if (fileSizeMB !== undefined) {
+    checks.push({
+      label: 'File size',
+      pass: fileSizeMB <= KDP_MAX_FILE_SIZE_MB,
+      detail: `${fileSizeMB.toFixed(2)}MB — KDP limit is ${KDP_MAX_FILE_SIZE_MB}MB`,
+    });
+  }
 
   const hardFails = checks.filter(c => !c.pass && !c.warning).length;
   return { checks, status: hardFails === 0 ? 'pass' : 'fail' };
@@ -140,6 +148,7 @@ export default function CoverCheckerPage() {
   const [dims, setDims] = useState(null);
   const [fileType, setFileType] = useState(null);
   const [fileName, setFileName] = useState('');
+  const [fileSizeMB, setFileSizeMB] = useState(null);
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState('');
   const inputRef = useRef(null);
@@ -151,8 +160,13 @@ export default function CoverCheckerPage() {
       return;
     }
     setError('');
+    if (file.size > 20 * 1024 * 1024) {
+      setError('File too large to check — try an image under 20MB.');
+      return;
+    }
     setFileType(file.type);
     setFileName(file.name);
+    setFileSizeMB(file.size / (1024 * 1024));
     const url = URL.createObjectURL(file);
     const img = new window.Image();
     img.onload = () => {
@@ -168,10 +182,11 @@ export default function CoverCheckerPage() {
     setDims(null);
     setFileType(null);
     setFileName('');
+    setFileSizeMB(null);
     setError('');
   };
 
-  const kdpResult = dims ? checkKDP(dims.width, dims.height, fileType) : null;
+  const kdpResult = dims ? checkKDP(dims.width, dims.height, fileType, fileSizeMB) : null;
   const appleResult = dims ? checkApple(dims.width, dims.height) : null;
 
   return (
