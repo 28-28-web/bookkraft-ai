@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import UpsellBanner from '@/components/UpsellBanner';
+import ValidationBadge from './ValidationBadge';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 
 export default function EpubValidator() {
@@ -310,6 +311,7 @@ export default function EpubValidator() {
                             <div style={{ background: '#f0fdf4', border: '1px solid #86efac', borderRadius: '12px', padding: '24px', marginBottom: '20px', textAlign: 'center' }}>
                                 <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#166534', marginBottom: '8px' }}>✅ Your EPUB is KDP-ready</h3>
                                 <p style={{ fontSize: '0.95rem', color: '#166534', marginBottom: '20px' }}>Great job. Want to make sure your metadata and TOC are perfect too?</p>
+                                <ValidationBadge filename={results.filename} />
                                 <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
                                     <a href="/tools/metadata-builder" style={{ display: 'inline-block', background: '#fff', color: '#166534', border: '1px solid #166534', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Check Metadata →</a>
                                     <a href="/signup?plan=pro" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Get All 12 Tools — $9.99</a>

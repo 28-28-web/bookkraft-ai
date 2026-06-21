@@ -346,7 +346,7 @@ function FreeToolsSection() {
                 Start for free, right now
               </h2>
               <p style={{ fontSize:14, color:'var(--sage)', margin:0 }}>
-                2 full-featured tools available with no account needed.
+                4 free tools available with no account needed.
               </p>
             </div>
             <div style={{ display:'flex', gap:12, flexShrink:0 }}>
