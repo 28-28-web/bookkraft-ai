@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import { getToolBySlug } from '@/lib/tools';
 import ToolPageClient from './ToolPageClient';
 
@@ -15,13 +16,16 @@ export async function generateMetadata({ params }) {
 
 export default function Page({ params }) {
   const tool = getToolBySlug(params.slug);
+
+  if (!tool) {
+    notFound();
+  }
+
   return (
     <>
-      {tool && (
-        <h1 style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0 }}>
-          {tool.name}
-        </h1>
-      )}
+      <h1 style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0 }}>
+        {tool.name}
+      </h1>
       <ToolPageClient params={params} />
     </>
   );
