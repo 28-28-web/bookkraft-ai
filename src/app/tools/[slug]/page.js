@@ -3,19 +3,21 @@ import { getToolBySlug } from '@/lib/tools';
 import ToolPageClient from './ToolPageClient';
 
 export async function generateMetadata({ params }) {
-  const tool = getToolBySlug(params.slug);
+  const { slug } = await params;
+  const tool = getToolBySlug(slug);
   if (!tool) return { title: 'Tool Not Found | BookKraft AI' };
   return {
     title: `${tool.name} | BookKraft AI`,
     description: tool.desc,
     alternates: {
-      canonical: `https://bookkraftai.com/tools/${params.slug}`,
+      canonical: `https://bookkraftai.com/tools/${slug}`,
     },
   };
 }
 
-export default function Page({ params }) {
-  const tool = getToolBySlug(params.slug);
+export default async function Page({ params }) {
+  const { slug } = await params;
+  const tool = getToolBySlug(slug);
 
   if (!tool) {
     notFound();
