@@ -105,6 +105,11 @@ export default function ToolPage({ params }) {
     }
 
     if (!isFree && !hasAccess) {
+        const isLogicTool = tool.accessType === 'logic';
+        const bundleName = isLogicTool ? 'Essentials Bundle' : 'Full Access';
+        const bundlePrice = isLogicTool ? '4.99' : '9.99';
+        const checkoutPlan = isLogicTool ? 'essentials' : 'full';
+
         return (
             <div className="app-layout">
                 <Sidebar />
@@ -113,15 +118,17 @@ export default function ToolPage({ params }) {
                         <ToolHeader tool={tool} />
                         <div className="tool-locked-card">
                             <div className="tool-locked-icon">🔒</div>
-                            <h3>This tool requires purchase</h3>
-                            <p>Unlock {tool.name} for just ${tool.price} — use it forever, no limits.</p>
+                            <h3>This tool requires the {bundleName}</h3>
+                            <p>Unlock {tool.name} with the {bundleName} for ${bundlePrice} — one-time payment, use it forever.</p>
                             <div className="tool-locked-actions">
-                                <Link href={`/checkout?tool=${slug}`} className="btn btn-gold" style={{ textDecoration: 'none' }}>
-                                    Unlock for ${tool.price} →
+                                <Link href={`/checkout?plan=${checkoutPlan}`} className="btn btn-gold" style={{ textDecoration: 'none' }}>
+                                    Get {bundleName} — ${bundlePrice} →
                                 </Link>
-                                <Link href="/checkout?plan=full" className="btn btn-outline" style={{ textDecoration: 'none' }}>
-                                    Get All Tools — $9.99
-                                </Link>
+                                {isLogicTool && (
+                                    <Link href="/checkout?plan=full" className="btn btn-outline" style={{ textDecoration: 'none' }}>
+                                        Get All Tools — $9.99
+                                    </Link>
+                                )}
                             </div>
                         </div>
                         <SeoContentBlock tool={tool} />
