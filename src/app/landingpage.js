@@ -151,29 +151,31 @@ function HeroSection() {
           }}
         >
           {HEADLINE_WORDS.map((w, i) => (
-            <span
-              key={i}
-              style={{
-                display:'inline-block',
-                marginRight: i < HEADLINE_WORDS.length - 1 ? '0.22em' : 0,
-                opacity: animate ? 0 : 1,
-                transform: animate ? 'translateY(28px)' : 'none',
-                animation: animate
-                  ? `bkWordUp 0.5s cubic-bezier(0.22,1,0.36,1) ${i * 0.1}s forwards`
-                  : 'none',
-                ...(w.gold ? { color:'var(--gold)', position:'relative' } : {}),
-              }}
-            >
-              {w.text}
-              {w.gold && (
-                <span aria-hidden="true" style={{
-                  display:'block', height:3,
-                  background:'var(--gold)', marginTop:2,
-                  transform:'scaleX(0)', transformOrigin:'left',
-                  animation:'bkGoldLine 0.5s ease 1.2s forwards',
-                }} />
-              )}
-            </span>
+            <React.Fragment key={i}>
+              <span
+                style={{
+                  display:'inline-block',
+                  marginRight: i < HEADLINE_WORDS.length - 1 ? '0.22em' : 0,
+                  opacity: animate ? 0 : 1,
+                  transform: animate ? 'translateY(28px)' : 'none',
+                  animation: animate
+                    ? `bkWordUp 0.5s cubic-bezier(0.22,1,0.36,1) ${i * 0.1}s forwards`
+                    : 'none',
+                  ...(w.gold ? { color:'var(--gold)', position:'relative' } : {}),
+                }}
+              >
+                {w.text}
+                {w.gold && (
+                  <span aria-hidden="true" style={{
+                    display:'block', height:3,
+                    background:'var(--gold)', marginTop:2,
+                    transform:'scaleX(0)', transformOrigin:'left',
+                    animation:'bkGoldLine 0.5s ease 1.2s forwards',
+                  }} />
+                )}
+              </span>
+              {i < HEADLINE_WORDS.length - 1 ? ' ' : ''}
+            </React.Fragment>
           ))}
         </h1>
 
