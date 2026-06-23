@@ -177,6 +177,15 @@ function HeroSection() {
               {i < HEADLINE_WORDS.length - 1 ? ' ' : ''}
             </React.Fragment>
           ))}
+          {' '}
+          <span style={{
+            display: 'block', fontFamily: "'JetBrains Mono', monospace",
+            fontStyle: 'normal', fontWeight: 400, fontSize: '0.22em',
+            letterSpacing: '1px', color: 'rgba(247,243,236,0.4)',
+            textTransform: 'uppercase', marginTop: 12,
+          }}>
+            EPUB &amp; Kindle Formatting Tools
+          </span>
         </h1>
 
         {/* Keyword H2 */}
