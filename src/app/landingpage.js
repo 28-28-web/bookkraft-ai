@@ -177,6 +177,15 @@ function HeroSection() {
           ))}
         </h1>
 
+        {/* Keyword H2 */}
+        <h2 style={{
+          fontSize: 14, fontWeight: 600, letterSpacing: '0.5px',
+          color: 'rgba(247,243,236,.55)', marginBottom: 16,
+          textTransform: 'uppercase',
+        }}>
+          EPUB Validation, Kindle Formatting &amp; 12 More Tools
+        </h2>
+
         {/* Sub */}
         <p style={{
           fontSize:17, color:'rgba(247,243,236,0.58)',
