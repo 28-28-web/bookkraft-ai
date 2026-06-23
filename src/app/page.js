@@ -2,8 +2,8 @@ import LandingPage from './landingpage';
 import { FAQS, PRICING } from '../lib/constants';
 
 export const metadata = {
-  title: 'BookKraft AI — EPUB Validator & Kindle Formatter for Indie Authors',
-  description: '12 tools for indie authors. Fix Kindle errors, build valid EPUBs, generate TOCs. Start free — no credit card needed.',
+  title: 'BookKraft AI — EPUB & Kindle Formatting Tools',
+  description: '12 tools for indie authors. Fix Kindle errors, validate EPUBs, build metadata, generate keywords. One-time price, no subscription. Start free.',
   alternates: {
     canonical: 'https://bookkraftai.com/',
   },
