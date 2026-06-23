@@ -773,13 +773,13 @@ function FooterSection() {
         <div className="footer-v2-bottom">
           <p className="footer-copy">© {new Date().getFullYear()} BookKraft AI. All rights reserved.</p>
           <a href="https://sellwithboost.com" target="_blank" rel="noopener noreferrer">
-            <img src="https://sellwithboost.com/badge/listing.svg" alt="Listed on SellWithBoost" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
+            <img src="https://sellwithboost.com/badge/listing.svg" alt="Listed on SellWithBoost" width="108" height="36" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
           </a>
           <a href="https://codetrendy.com" target="_blank" rel="noopener noreferrer">
-            <img src="https://codetrendy.com/api/badge?style=classic" alt="Listed on codetrendy.com" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
+            <img src="https://codetrendy.com/api/badge?style=classic" alt="Listed on codetrendy.com" width="108" height="36" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
           </a>
           <a href="https://www.uneed.best/tool/bookkraft-ai" target="_blank" rel="noopener noreferrer">
-           <img src="https://www.uneed.best/EMBED3.png" alt="Launching on Uneed" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
+           <img src="https://www.uneed.best/EMBED3.png" alt="Launching on Uneed" width="108" height="36" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
           </a>
            <div className="footer-legal">
             <Link href="/privacy">Privacy</Link>
