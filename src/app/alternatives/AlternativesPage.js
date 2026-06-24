@@ -42,7 +42,7 @@ const cards = [
       'No built-in EPUB validation before upload',
     ],
   },
-  {
+    {
     name: 'Calibre',
     href: '/calibre-alternative',
     tagline: 'For authors who find Calibre too complex for simple formatting tasks',
@@ -52,6 +52,18 @@ const cards = [
       'Built for library management, not KDP formatting',
       'Steep learning curve, 200MB+ download',
       'No KDP-specific guidance or AI tools',
+    ],
+  },
+  {
+    name: 'Atticus',
+    href: '/atticus-alternative',
+    tagline: 'For authors who want formatting alone, without switching writing apps',
+    price: '$147',
+    priceLabel: 'one-time, lifetime',
+    points: [
+      'Bundles writing and formatting into one app',
+      'No AI manuscript cleanup',
+      'No free tier to try before buying',
     ],
   },
 ];
