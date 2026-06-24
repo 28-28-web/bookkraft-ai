@@ -59,6 +59,12 @@ export default function Navbar() {
                 Tools
               </Link>
               <Link
+                href="/alternatives"
+                className={`nav-link nav-link-interactive ${pathname === '/alternatives' ? 'active' : ''}`}
+              >
+                Alternatives
+              </Link>
+              <Link
                 href="/pricing"
                 className={`nav-link nav-link-interactive ${pathname === '/pricing' ? 'active' : ''}`}
               >
@@ -145,6 +151,7 @@ export default function Navbar() {
       {!isDashboard && (
         <div className={`mobile-nav ${mobileOpen ? 'open' : ''}`} aria-hidden={!mobileOpen}>
           <Link href="/#tools-section" className="nav-link">Tools</Link>
+          <Link href="/alternatives" className="nav-link">Alternatives</Link>
           <Link href="/pricing" className="nav-link">Pricing</Link>
           <Link href="/tools/publishing-score" className="nav-link">✦ Book Score</Link>
           <Link href="/free-tools" className="nav-link">Free Tools</Link>
