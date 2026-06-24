@@ -39,8 +39,8 @@ export default function StampCounter() {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: 12,
-                padding: '32px 24px',
+                gap: 14,
+                padding: '48px 24px',
                 userSelect: 'none',
             }}
         >
@@ -56,36 +56,56 @@ export default function StampCounter() {
                 }}
             >
                 <svg
-                    width="72"
-                    height="72"
-                    viewBox="0 0 72 72"
+                    width="140"
+                    height="140"
+                    viewBox="0 0 140 140"
                     style={{
-                        transform: stamping ? 'scale(0.86) rotate(-6deg)' : 'scale(1) rotate(0deg)',
+                        transform: stamping ? 'scale(0.9) rotate(-4deg)' : 'scale(1) rotate(0deg)',
                         transition: 'transform 180ms cubic-bezier(.34,1.56,.64,1)',
                     }}
                 >
-                    {/* Book body */}
-                    <rect x="14" y="20" width="44" height="34" rx="3" fill="#c9a84c" />
-                    <rect x="14" y="20" width="44" height="34" rx="3" fill="none" stroke="#1a1a1a" strokeWidth="1.5" opacity="0.15" />
-                    <line x1="36" y1="20" x2="36" y2="54" stroke="#1a1a1a" strokeWidth="1.5" opacity="0.2" />
+                    {/* Shadow under the book */}
+                    <ellipse cx="70" cy="118" rx="42" ry="6" fill="#1a1a1a" opacity="0.08" />
+
+                    {/* Back cover edge (gives it thickness) */}
+                    <rect x="22" y="34" width="92" height="68" rx="3" fill="#9c7f35" />
+
+                    {/* Pages stack, visible at the right edge */}
+                    <rect x="100" y="36" width="10" height="64" fill="#f5f0e6" />
+                    <line x1="103" y1="38" x2="103" y2="98" stroke="#d8cdb0" strokeWidth="1" />
+                    <line x1="106" y1="38" x2="106" y2="98" stroke="#d8cdb0" strokeWidth="1" />
+
+                    {/* Front cover */}
+                    <rect x="18" y="30" width="86" height="68" rx="3" fill="#c9a84c" />
+                    <rect x="18" y="30" width="86" height="68" rx="3" fill="none" stroke="#1a1a1a" strokeOpacity="0.12" strokeWidth="1.5" />
+
+                    {/* Spine accent line */}
+                    <rect x="18" y="30" width="8" height="68" rx="2" fill="#1a1a1a" opacity="0.12" />
+
+                    {/* Title lines on the cover */}
+                    <rect x="38" y="48" width="48" height="4" rx="2" fill="#1a1a1a" opacity="0.25" />
+                    <rect x="38" y="58" width="34" height="3" rx="1.5" fill="#1a1a1a" opacity="0.18" />
+
+                    {/* Bookmark ribbon */}
+                    <path d="M70 30 v22 l-6 -6 -6 6 v-22 z" fill="#8b1e1e" opacity="0.85" />
 
                     {/* Wax seal stamp, scales/fades in on click */}
                     <circle
-                        cx="36"
-                        cy="37"
-                        r="13"
+                        cx="78"
+                        cy="78"
+                        r="22"
                         fill="#8b1e1e"
                         style={{
-                            transformOrigin: '36px 37px',
+                            transformOrigin: '78px 78px',
                             transform: stamping ? 'scale(1)' : 'scale(0)',
                             opacity: stamping ? 1 : 0,
                             transition: 'transform 220ms cubic-bezier(.34,1.56,.64,1), opacity 150ms ease-out',
                         }}
                     />
                     <path
-                        d="M30 37l4 4 8-9"
+                        d="M67 78l7 7 14 -16"
                         stroke="#f5f0e6"
-                        strokeWidth="2.4"
+                        strokeWidth="3.4"
                         fill="none"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -98,10 +118,10 @@ export default function StampCounter() {
             </button>
 
             <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'Playfair Display',serif" }}>
+                <div style={{ fontSize: 34, fontWeight: 700, fontFamily: "'Playfair Display',serif" }}>
                     {count === null ? '—' : count.toLocaleString()}
                 </div>
-                <div style={{ fontSize: 13, opacity: 0.65, marginTop: 2 }}>
+                <div style={{ fontSize: 14, opacity: 0.65, marginTop: 4 }}>
                     books formatted by indie authors — tap to celebrate one
                 </div>
             </div>
