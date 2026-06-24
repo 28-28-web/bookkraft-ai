@@ -93,7 +93,7 @@ export default function StampCounter() {
                     <circle
                         cx="78"
                         cy="78"
-                        r="22"
+                        r="24"
                         fill="#8b1e1e"
                         style={{
                             transformOrigin: '78px 78px',
@@ -102,18 +102,47 @@ export default function StampCounter() {
                             transition: 'transform 220ms cubic-bezier(.34,1.56,.64,1), opacity 150ms ease-out',
                         }}
                     />
-                    <path
-                        d="M67 78l7 7 14 -16"
-                        stroke="#f5f0e6"
-                        strokeWidth="3.4"
+                    <circle
+                        cx="78"
+                        cy="78"
+                        r="19"
                         fill="none"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                        stroke="#f5f0e6"
+                        strokeWidth="1.2"
+                        opacity={stamping ? 0.6 : 0}
+                        style={{ transition: 'opacity 200ms ease-out 100ms' }}
+                    />
+                    <text
+                        x="78"
+                        y="74"
+                        textAnchor="middle"
+                        fontFamily="'Playfair Display',serif"
+                        fontWeight="700"
+                        fontSize="9.5"
+                        fill="#f5f0e6"
                         style={{
                             opacity: stamping ? 1 : 0,
-                            transition: 'opacity 200ms ease-out 80ms',
+                            transition: 'opacity 200ms ease-out 90ms',
                         }}
-                    />
+                    >
+                        BOOKKRAFT
+                    </text>
+                    <text
+                        x="78"
+                        y="86"
+                        textAnchor="middle"
+                        fontFamily="'Playfair Display',serif"
+                        fontWeight="600"
+                        fontSize="7.5"
+                        letterSpacing="1.5"
+                        fill="#f5f0e6"
+                        style={{
+                            opacity: stamping ? 1 : 0,
+                            transition: 'opacity 200ms ease-out 110ms',
+                        }}
+                    >
+                        AI
+                    </text>
                 </svg>
             </button>
 
