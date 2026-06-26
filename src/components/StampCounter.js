@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 
 function FallingBook({ delay, left, rotateEnd, size }) {
     return (
@@ -29,7 +29,9 @@ export default function StampCounter() {
     const [count, setCount] = useState(null);
     const [stamping, setStamping] = useState(false);
     const [bouncing, setBouncing] = useState(false);
-    const [showFallers, setShowFallers] = useState(true);
+    const [showFallers, setShowFallers] = useState(false);
+    const [hasFallen, setHasFallen] = useState(false);
+    const containerRef = useRef(null);
 
     const fallers = useMemo(
         () =>
@@ -48,10 +50,26 @@ export default function StampCounter() {
             .then((r) => r.json())
             .then((d) => setCount(d.count))
             .catch(() => setCount(0));
-
-        const t = setTimeout(() => setShowFallers(false), 2200);
-        return () => clearTimeout(t);
     }, []);
+
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el || hasFallen) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setShowFallers(true);
+                    setHasFallen(true);
+                    setTimeout(() => setShowFallers(false), 2800);
+                }
+            },
+            { threshold: 0.3 }
+        );
+
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, [hasFallen]);
 
     async function handleStamp() {
         if (bouncing) return;
@@ -74,6 +92,7 @@ export default function StampCounter() {
 
     return (
         <div
+            ref={containerRef}
             style={{
                 position: 'relative',
                 display: 'flex',
