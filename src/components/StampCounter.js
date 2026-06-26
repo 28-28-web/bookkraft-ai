@@ -1,50 +1,11 @@
 'use client';
 
-import { useEffect, useState, useMemo, useRef } from 'react';
-
-function FallingBook({ delay, left, rotateEnd, size }) {
-    return (
-        <div
-            style={{
-                position: 'absolute',
-                left: `${left}%`,
-                top: -40,
-                width: size,
-                height: size,
-                animation: `bkFall 1.1s cubic-bezier(.34,.6,.64,1) ${delay}ms forwards`,
-                opacity: 0,
-                '--rotateEnd': `${rotateEnd}deg`,
-            }}
-        >
-            <svg viewBox="0 0 40 40" width={size} height={size}>
-                <rect x="6" y="8" width="28" height="24" rx="2.5" fill="#c9a84c" />
-                <rect x="6" y="8" width="28" height="24" rx="2.5" fill="none" stroke="#1a1a1a" strokeOpacity="0.15" strokeWidth="1" />
-                <rect x="6" y="8" width="5" height="24" rx="1.5" fill="#1a1a1a" opacity="0.15" />
-                <rect x="16" y="16" width="14" height="2" rx="1" fill="#1a1a1a" opacity="0.25" />
-            </svg>
-        </div>
-    );
-}
+import { useEffect, useState } from 'react';
 
 export default function StampCounter() {
     const [count, setCount] = useState(null);
     const [stamping, setStamping] = useState(false);
     const [bouncing, setBouncing] = useState(false);
-    const [showFallers, setShowFallers] = useState(false);
-    const [hasFallen, setHasFallen] = useState(false);
-    const containerRef = useRef(null);
-
-    const fallers = useMemo(
-        () =>
-            Array.from({ length: 7 }).map((_, i) => ({
-                id: i,
-                delay: i * 90 + Math.random() * 100,
-                left: 8 + i * 12 + (Math.random() * 6 - 3),
-                rotateEnd: Math.random() * 60 - 30,
-                size: 26 + Math.random() * 14,
-            })),
-        []
-    );
 
     useEffect(() => {
         fetch('/api/stamp-counter')
@@ -52,25 +13,6 @@ export default function StampCounter() {
             .then((d) => setCount(d.count))
             .catch(() => setCount(0));
     }, []);
-
-    useEffect(() => {
-        const el = containerRef.current;
-        if (!el || hasFallen) return;
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setShowFallers(true);
-                    setHasFallen(true);
-                    setTimeout(() => setShowFallers(false), 2800);
-                }
-            },
-            { threshold: 0.3 }
-        );
-
-        observer.observe(el);
-        return () => observer.disconnect();
-    }, [hasFallen]);
 
     async function handleStamp() {
         if (bouncing) return;
@@ -93,7 +35,6 @@ export default function StampCounter() {
 
     return (
         <div
-            ref={containerRef}
             style={{
                 position: 'relative',
                 display: 'flex',
@@ -106,13 +47,6 @@ export default function StampCounter() {
             }}
         >
             <style>{`
-                @keyframes bkFall {
-                    0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
-                    15%  { opacity: 1; }
-                    70%  { transform: translateY(160px) rotate(calc(var(--rotateEnd, 15deg) * 0.8)); }
-                    85%  { transform: translateY(145px) rotate(var(--rotateEnd, 15deg)); }
-                    100% { opacity: 0.9; transform: translateY(150px) rotate(var(--rotateEnd, 15deg)); }
-                }
                 @keyframes bkBounce {
                     0%   { transform: translateY(0) scale(1); }
                     30%  { transform: translateY(-22px) scale(1.04); }
@@ -121,14 +55,6 @@ export default function StampCounter() {
                     100% { transform: translateY(0) scale(1); }
                 }
             `}</style>
-
-            {showFallers && (
-                <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
-                    {fallers.map((f) => (
-                        <FallingBook key={f.id} {...f} />
-                    ))}
-                </div>
-            )}
 
             <button
                 onClick={handleStamp}
