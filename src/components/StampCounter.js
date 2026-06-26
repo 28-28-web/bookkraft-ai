@@ -13,9 +13,10 @@ function FallingBook({ delay, left, rotateEnd, size }) {
                 height: size,
                 animation: `bkFall 1.1s cubic-bezier(.34,.6,.64,1) ${delay}ms forwards`,
                 opacity: 0,
+                '--rotateEnd': `${rotateEnd}deg`,
             }}
         >
-            <svg viewBox="0 0 40 40" width={size} height={size} style={{ '--rotateEnd': `${rotateEnd}deg` }}>
+            <svg viewBox="0 0 40 40" width={size} height={size}>
                 <rect x="6" y="8" width="28" height="24" rx="2.5" fill="#c9a84c" />
                 <rect x="6" y="8" width="28" height="24" rx="2.5" fill="none" stroke="#1a1a1a" strokeOpacity="0.15" strokeWidth="1" />
                 <rect x="6" y="8" width="5" height="24" rx="1.5" fill="#1a1a1a" opacity="0.15" />
@@ -108,9 +109,9 @@ export default function StampCounter() {
                 @keyframes bkFall {
                     0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
                     15%  { opacity: 1; }
-                    70%  { transform: translateY(160px) rotate(calc(var(--rotateEnd) * 0.8)); }
-                    85%  { transform: translateY(145px) rotate(var(--rotateEnd)); }
-                    100% { opacity: 0.9; transform: translateY(150px) rotate(var(--rotateEnd)); }
+                    70%  { transform: translateY(160px) rotate(calc(var(--rotateEnd, 15deg) * 0.8)); }
+                    85%  { transform: translateY(145px) rotate(var(--rotateEnd, 15deg)); }
+                    100% { opacity: 0.9; transform: translateY(150px) rotate(var(--rotateEnd, 15deg)); }
                 }
                 @keyframes bkBounce {
                     0%   { transform: translateY(0) scale(1); }
