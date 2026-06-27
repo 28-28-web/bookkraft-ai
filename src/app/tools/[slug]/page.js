@@ -23,12 +23,5 @@ export default async function Page({ params }) {
     notFound();
   }
 
-  return (
-    <>
-      <h1 style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0 }}>
-        {tool.name}
-      </h1>
-      <ToolPageClient params={params} />
-    </>
-  );
+  return <ToolPageClient params={params} />;
 }
