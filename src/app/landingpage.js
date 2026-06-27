@@ -5,7 +5,7 @@ import { TOOLS } from '../lib/tools';
 import { FAQS, PRICING } from '../lib/constants';
 import AnimatedSection from '../components/AnimatedSection';
 import SocialProofTicker from '../components/SocialProofTicker';
-import StampCounter from '../components/StampCounter';
+import BookKraftBanner from '../components/BookKraftBanner';
 import dynamic from 'next/dynamic';
 const SenjaReviews = dynamic(() => import('@/components/SenjaReviews'), {
   ssr: false,
@@ -94,7 +94,7 @@ export default function LandingPage() {
       <CompetitorSection />
       <WorkflowSection />
       <TestimonialsSection />
-      <StampCounter />
+      <BookKraftBanner />
       <PlatformsSection />
       <PricingSection />
       <FAQSection />
