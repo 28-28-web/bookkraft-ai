@@ -313,8 +313,7 @@ export const TOOLS = [
         slug: 'epub-validator',
         name: 'EPUB Validator',
         category: 'quality',
-        desc: 'Check your EPUB file for errors before uploading to KDP or IngramSpark. No Java required. Catches structure errors, missing metadata, and content issues instantly. Free, no signup needed.',
-        type: 'logic',
+        desc: 'Free EPUB validator for indie authors. Check your file for KDP errors, missing metadata, and structure issues before uploading. No signup needed.'
         accessType: 'free',
         creditCost: 0,
         free: true,
