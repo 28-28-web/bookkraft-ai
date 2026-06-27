@@ -313,7 +313,7 @@ export const TOOLS = [
         slug: 'epub-validator',
         name: 'EPUB Validator',
         category: 'quality',
-        desc: 'Free EPUB validator for indie authors. Check your file for KDP errors, missing metadata, and structure issues before uploading. No signup needed.'
+        desc: 'Free EPUB validator for indie authors. Check your file for KDP errors, missing metadata, and structure issues before uploading. No signup needed.',
         accessType: 'free',
         creditCost: 0,
         free: true,
