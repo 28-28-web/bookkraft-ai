@@ -133,25 +133,84 @@ export default function KdpKeywordFinder() {
         </div>
 
         {/* SEO Content */}
-        <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
-            <h2>KDP Keyword Finder for Self-Publishing Authors</h2>
-            <p>Most self-published books don't fail because of bad writing. They fail because nobody finds them. On Amazon KDP, the right keywords are the difference between consistent sales and sitting invisible on page 12. This tool helps you find keywords that actually work.</p>
+      <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
+    <h2>KDP Keyword & Category Finder for Self-Publishing Authors</h2>
+    <p>Most self-published books don't fail because of bad writing. They fail because nobody finds them. On Amazon KDP, the right keywords and categories are the difference between consistent sales and sitting invisible on page 12. This tool helps you find both.</p>
 
-            <h2>What This Tool Does</h2>
-            <p>The KDP Keyword Finder does two things well. First, it suggests relevant keywords based on your book's title, genre, and description. These are terms real readers use when searching for books like yours on Amazon. Second, it analyzes each keyword for competition and search volume. So you can see which terms are worth targeting and which ones are too crowded to compete in.</p>
+    <h2>Amazon's 7 Keyword Slots — What Most Authors Get Wrong</h2>
+    <p>Amazon gives you exactly 7 keyword slots when you publish. Each slot holds up to 50 characters. Most authors fill them in fast, without research. That's a costly mistake.</p>
+    <p>Those 7 slots directly affect how Amazon categorizes your book and who sees it in search. A few rules worth knowing before you publish:</p>
+    <ul>
+        <li>No superlatives — "best," "greatest," or "top" are prohibited and get flagged</li>
+        <li>No "on sale" or price references of any kind</li>
+        <li>No words already in your title or subtitle — Amazon ignores duplicates</li>
+        <li>No category names as keywords — adding "romance novel" won't help your category placement</li>
+        <li>Phrases beat single words — "small town romance with pets" outperforms just "romance"</li>
+    </ul>
 
-            <h2>Why KDP Keywords Matter</h2>
-            <p>Amazon gives you 7 keyword slots when you publish a book. Most authors fill them in quickly without much research. That's a mistake. Those 7 slots directly affect how Amazon categorizes your book and who sees it in search results. A well-researched keyword strategy puts your book in front of readers who are already looking for what you wrote.</p>
+    <h2>KDP Categories: Ghost Categories and Tick Categories Explained</h2>
+    <p>Amazon has over 9,000 browse categories. You only pick 2 during upload — but you can request up to 10 total by contacting KDP support after publishing. Most authors never do this.</p>
+    <p>Two category types matter most for discoverability:</p>
+    <p><strong>Ghost categories</strong> are real Amazon categories that don't appear in the standard KDP category picker. They exist in Amazon's browse tree but are only accessible by emailing KDP support with the exact category path. Getting into a ghost category with low competition can put your book on a bestseller list almost immediately.</p>
+    <p><strong>Tick categories</strong> (also called sidebar subcategories) are the narrow subcategories that appear in the left sidebar of Amazon search results. These are highly specific — things like "Cozy Animal Mystery" or "Time Travel Romance." Books in tick categories face far less competition than broad parent categories. Readers who browse these are usually ready to buy.</p>
 
-            <h2>Who This Is For</h2>
-            <p>New authors publishing their first book and trying to get visibility without a big marketing budget. Experienced authors who want to optimize existing listings and improve discoverability across their catalog. Freelance editors and publishing consultants helping clients set up their KDP listings properly from the start. If you publish on Amazon, keyword research isn't optional. It's foundational.</p>
+    <h2>What This Tool Does</h2>
+    <p>The KDP Keyword & Category Finder does two things. First, it suggests keyword phrases based on your book's title, genre, and themes — terms real readers type into Amazon when searching for books like yours. Second, it recommends specific category paths, including narrower subcategories where competition is lower and bestseller rank is easier to reach.</p>
+    <p>Every keyword suggestion includes a character count so you stay within KDP's 50-character limit per slot.</p>
 
-            <h2>How It Works</h2>
-            <p>Enter your book title, genre, and a short description. The tool generates keyword suggestions tailored to your book. Then review competition and search volume for each keyword and choose the best 7 to add directly to your KDP listing. The whole process takes under 10 minutes.</p>
+    <h2>Who This Is For</h2>
+    <p>New authors publishing their first book and trying to get visibility without a big marketing budget. Experienced authors who want to re-optimize existing listings that aren't converting. Formatters and publishing consultants setting up KDP listings for clients. If you publish on Amazon, keyword and category research isn't optional — it's foundational.</p>
 
-            <h2>What Makes This Different</h2>
-            <p>Most keyword tools are built for general SEO or ecommerce. They aren't designed with book publishing in mind. This tool focuses specifically on Amazon KDP — so the suggestions are relevant to how readers actually search for books, not products.</p>
-        </div>
-        </>
-    );
-}
+    <h2>How to Use It</h2>
+    <p>Enter your book title, genre, target reader, and key themes. The tool generates 7 keyword phrases and recommended category paths tailored to your book. Review the suggestions, pick the best fit for your listing, and add them directly to your KDP dashboard. The whole process takes under 10 minutes.</p>
+
+    <h2>What Makes This Different</h2>
+    <p>Most keyword tools are built for general SEO or ecommerce. They aren't designed with book publishing in mind. This tool focuses specifically on Amazon KDP — so the suggestions reflect how readers actually search for books, not products. Category recommendations include both standard and harder-to-find paths worth requesting from KDP support.</p>
+
+    <script type="application/ld+json">{JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How many keyword slots does Amazon KDP give you?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Amazon KDP gives you 7 keyword slots, each up to 50 characters. Use keyword phrases rather than single words to get the most out of each slot."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What are ghost categories on Amazon KDP?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Ghost categories are real Amazon browse categories that don't appear in the standard KDP category picker during upload. You can request placement in them by contacting KDP support with the exact category path after publishing."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What are tick categories on Amazon?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Tick categories are narrow subcategories visible in the Amazon search sidebar. They have lower competition than broad parent categories, making it easier to rank and reach the bestseller list within a specific niche."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I add more than 2 categories to my KDP book?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. You select 2 categories during upload, but you can request up to 10 total by emailing KDP support after publishing with your book's ASIN and the exact category paths you want added."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What keywords are banned on Amazon KDP?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Amazon prohibits superlatives like 'best' or 'top,' price or sale references, words already in your title or subtitle, and category names used as keywords. Using prohibited terms can result in your keywords being ignored or your listing being flagged."
+                }
+            }
+        ]
+    })}</script>
+</div>
