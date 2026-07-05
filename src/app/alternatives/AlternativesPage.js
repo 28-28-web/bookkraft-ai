@@ -6,6 +6,14 @@ const faqs = [
     a: 'BookKraft AI is browser-based, so it works on Windows, Mac, Linux, and Chromebook, unlike Vellum which is Mac-only. It starts at $4.99 one-time for formatting tools, with Full Access at $9.99 for all 12 tools including AI-powered manuscript cleanup.',
   },
   {
+    q: 'Is BookKraft AI a good Vellum alternative?',
+    a: 'Yes. BookKraft AI is one of the best Vellum alternatives for indie authors, especially on Windows, Linux, and Chromebook, since Vellum is Mac-only. It costs $4.99–$9.99 one-time versus $250 for Vellum.',
+  },
+  {
+    q: 'Is BookKraft AI better than Atticus?',
+    a: 'BookKraft AI and Atticus solve different problems. Atticus bundles writing and formatting; BookKraft AI focuses on formatting, EPUB validation, and AI-powered manuscript cleanup at a lower one-time price ($4.99–$9.99 vs $147).',
+  },
+  {
     q: 'What is the best Calibre alternative for KDP authors?',
     a: 'BookKraft AI focuses specifically on the formatting and validation steps indie authors need before publishing to KDP, Apple Books, or Kobo. It runs in the browser with no install, unlike Calibre which requires a desktop download and is built for library management rather than KDP-specific formatting.',
   },
@@ -42,7 +50,7 @@ const cards = [
       'No built-in EPUB validation before upload',
     ],
   },
-    {
+  {
     name: 'Calibre',
     href: '/calibre-alternative',
     tagline: 'For authors who find Calibre too complex for simple formatting tasks',
@@ -77,7 +85,7 @@ export default function AlternativesPage() {
       />
       <main style={{ maxWidth: 880, margin: '0 auto', padding: '64px 20px', color: 'var(--ink, #1a1a1a)' }}>
         <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(36px,5vw,56px)', fontWeight: 700, lineHeight: 1.1, marginBottom: 24 }}>
-          BookKraft AI Alternatives Comparison
+          Best Vellum Alternative: BookKraft AI Comparison
         </h1>
 
         <p style={{ fontSize: 19, lineHeight: 1.6, marginBottom: 48, opacity: 0.9 }}>
