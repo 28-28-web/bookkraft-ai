@@ -1,6 +1,26 @@
 @import "tailwindcss";
 @source "../../src/**/*.{js,jsx,ts,tsx,mdx}";
 
+/* rest of your css stays exactly the same, just change these three blocks: */
+
+body {
+  font-family: var(--font-dm-sans), sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-playfair), serif;
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+code, pre {
+  font-family: var(--font-jetbrains), monospace;
+}
 
 
 /* ══════════════════════════════════════════════
@@ -3450,8 +3470,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   letter-spacing: 0.15em;
   color: var(--gold);
   margin-bottom: var(--space-md);
-  opacity: 0;
-  animation: fadeIn 0.5s ease 0.1s forwards;
+  opacity: 1;
 }
 
 .hero-eyebrow-dot {
@@ -3472,8 +3491,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 
 .hero-word {
   display: inline-block;
-  opacity: 0;
-  animation: wordSlideUp 0.5s ease forwards;
+  opacity: 1;
   white-space: pre;
 }
 
@@ -3507,8 +3525,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   max-width: 480px;
   line-height: 1.65;
   margin-bottom: var(--space-xl);
-  opacity: 0;
-  animation: fadeInUp 0.5s ease 0.7s forwards;
+  opacity: 1;
 }
 
 .hero-cta-v2 {
@@ -3516,8 +3533,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   gap: var(--space-md);
   flex-wrap: wrap;
   margin-bottom: var(--space-lg);
-  opacity: 0;
-  animation: fadeInUp 0.5s ease 0.9s forwards;
+  opacity: 1;
 }
 
 .btn-hero-primary {
@@ -3574,8 +3590,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   font-family: var(--font-dm-sans), sans-serif;
   font-size: 13px;
   color: rgba(247,243,236,0.45);
-  opacity: 0;
-  animation: fadeIn 0.5s ease 1.2s forwards;
+  opacity: 1;
 }
 
 .hero-stars {
@@ -3590,8 +3605,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  animation: fadeInUp 0.6s ease 0.5s forwards;
+  opacity: 1;
 }
 
 .device-frame {
