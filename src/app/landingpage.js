@@ -108,7 +108,7 @@ export default function LandingPage() {
 function HeroSection() {
   const [animate, setAnimate] = useState(false);
   useEffect(() => {
-    const t = setTimeout(() => setAnimate(true), 260);
+    const t = setTimeout(() => setAnimate(true), 0);
     return () => clearTimeout(t);
   }, []);
 
@@ -136,7 +136,7 @@ function HeroSection() {
           fontFamily:"'JetBrains Mono',monospace", fontSize:11,
           color:'var(--gold)', letterSpacing:'2.5px', textTransform:'uppercase',
           marginBottom:20, opacity:0,
-          animation:'bkFadeUp 0.4s ease 0.5s forwards',
+          animation:'bkFadeUp 0.4s ease 0s forwards',
         }}>
           ✦ Professional eBook Formatting
         </p>
@@ -158,7 +158,7 @@ function HeroSection() {
                 style={{
                   display:'inline-block',
                   marginRight: i < HEADLINE_WORDS.length - 1 ? '0.22em' : 0,
-                  opacity: animate ? 0 : 1,
+                  opacity: animate ? 1 : 1,
                   transform: animate ? 'translateY(28px)' : 'none',
                   animation: animate
                     ? `bkWordUp 0.5s cubic-bezier(0.22,1,0.36,1) ${i * 0.1}s forwards`
@@ -172,7 +172,7 @@ function HeroSection() {
                     display:'block', height:3,
                     background:'var(--gold)', marginTop:2,
                     transform:'scaleX(0)', transformOrigin:'left',
-                    animation:'bkGoldLine 0.5s ease 1.2s forwards',
+                    animation:'bkGoldLine 0.5s ease 0s forwards',
                   }} />
                 )}
               </span>
@@ -203,7 +203,7 @@ function HeroSection() {
         <p style={{
           fontSize:17, color:'rgba(247,243,236,0.58)',
           lineHeight:1.65, maxWidth:460, marginBottom:36,
-          opacity:0, animation:'bkFadeUp 0.5s ease 1.1s forwards',
+          opacity:1, animation:'bkFadeUp 0.5s ease 0s forwards',
         }}>
           Stop paying $250 for formatting software. BookKraft AI gives indie authors
           12 professional-grade tools — starting at $4.99 with no subscriptions.
@@ -213,7 +213,7 @@ function HeroSection() {
         <div style={{
           display:'flex', gap:14, flexWrap:'wrap', alignItems:'center',
           marginBottom:20, opacity:0,
-          animation:'bkFadeUp 0.5s ease 1.3s forwards',
+          animation:'bkFadeUp 0.5s ease 0s forwards',
         }}>
           <Link href="/tools/epub-validator" className="btn-hero-primary">
             Try 2 Free Tools →
@@ -227,7 +227,7 @@ function HeroSection() {
         <div style={{
           display:'flex', alignItems:'center', gap:10,
           fontSize:13, color:'rgba(247,243,236,0.45)',
-          opacity:0, animation:'bkFadeUp 0.5s ease 1.5s forwards',
+          opacity:1, animation:'bkFadeUp 0.5s ease 0s forwards',
         }}>
           <span style={{ color:'var(--gold)', letterSpacing:1 }} aria-label="5 stars">★★★★★</span>
           Rated 5/5 by verified authors on CodeTrendy
