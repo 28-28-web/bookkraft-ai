@@ -1,4 +1,110 @@
-'use client';
+import HeroSection from '../components/HeroSection';
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { TOOLS } from '../lib/tools';
+import { FAQS, PRICING } from '../lib/constants';
+import AnimatedSection from '../components/AnimatedSection';
+import SocialProofTicker from '../components/SocialProofTicker';
+import BookKraftBanner from '../components/BookKraftBanner';
+import dynamic from 'next/dynamic';
+const SenjaReviews = dynamic(() => import('@/components/SenjaReviews'), {
+  ssr: false,
+  loading: () => <div style={{ height: '200px' }} />,
+});
+
+// ─── DATA ────────────────────────────────────────────────────────────
+
+const HEADLINE_WORDS = [
+  { text: 'Format',    gold: false },
+  { text: 'like',      gold: false },
+  { text: 'a',         gold: false },
+  { text: 'pro.',      gold: true  },
+  { text: 'Price',     gold: false },
+  { text: 'like',      gold: false },
+  { text: 'a',         gold: false },
+  { text: 'newcomer.', gold: true  },
+];
+
+const TICKER_ITEMS = [
+  '<strong>@alex_rivera</strong> via CodeTrendy — "The interface is clean and does exactly what it promises"',
+  '<strong>@januine_dev</strong> via CodeTrendy — "Cleans up Word export mess in minutes"',
+  '<strong>@januine_dev</strong> via CodeTrendy — "Makes a real EPUB 3.0 that KDP accepts"',
+  '<strong>@januine_dev</strong> via CodeTrendy — "Two free tools, no signup. Best formatting money I\'ve spent"',
+  '<strong>@alex_rivera</strong> via CodeTrendy — "Really appreciate how well it\'s put together. Nice work by the team"',
+];
+
+const PLATFORMS = [
+  'Amazon KDP','Apple Books','Barnes & Noble','Kobo',
+  'Draft2Digital','Smashwords','OverDrive','Tolino','Scribd',
+];
+
+const WORKFLOW = [
+  { n: '1', t: 'Upload manuscript',  d: 'DOCX, TXT, or paste directly'  },
+  { n: '2', t: 'Choose a tool',      d: 'Cleanup, formatting, keywords' },
+  { n: '3', t: 'AI processes it',    d: 'Claude AI works in seconds'    },
+  { n: '4', t: 'Preview output',     d: 'Phone, tablet, e-ink preview'  },
+  { n: '5', t: 'Download & publish', d: 'KDP-ready EPUB, PDF, DOCX'     },
+];
+
+// ─── HELPERS ─────────────────────────────────────────────────────────
+
+function Badge({ tool }) {
+  if (tool.free)
+    return <span className="badge-v2 badge-v2-free">Free</span>;
+  if (tool.accessType === 'ai')
+    return <span className="badge-v2 badge-v2-ai">✦ AI · {tool.creditCost}cr</span>;
+  if (tool.accessType === 'logic')
+    return <span className="badge-v2 badge-v2-logic">Logic</span>;
+  return <span className="badge-v2 badge-v2-locked">Locked</span>;
+}
+
+function typeLabel(tool) {
+  if (tool.free) return 'instant · free';
+  if (tool.accessType === 'ai') return 'ai-powered';
+  return 'instant logic';
+}
+
+// ─── ROOT ────────────────────────────────────────────────────────────
+
+export default function LandingPage() {
+  return (
+    <>
+      <style>{`
+        @keyframes bkWordUp {
+          to { opacity:1; transform:translateY(0); }
+        }
+        @keyframes bkGoldLine {
+          to { transform:scaleX(1); }
+        }
+        @keyframes bkFadeUp {
+          from { opacity:0; transform:translateY(14px); }
+          to   { opacity:1; transform:translateY(0); }
+        }
+        @keyframes bkTicker {
+          from { transform:translateX(0); }
+          to   { transform:translateX(-50%); }
+        }
+      `}</style>
+
+      <HeroSection />
+      <TickerSection />
+      <ManuscriptBanner />
+      <FreeToolsSection />
+      <ToolGridSection />
+      <CompetitorSection />
+      <WorkflowSection />
+      <TestimonialsSection />
+      <BookKraftBanner />
+      <PlatformsSection />
+      <PricingSection />
+      <FAQSection />
+      <FooterSection />
+    </>
+  );
+}
+
+// ─── 1. HERO ─────────────────────────────────────────────────────────
+
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { TOOLS } from '../lib/tools';
