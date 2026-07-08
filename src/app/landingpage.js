@@ -115,9 +115,9 @@ function HeroSection() {
         padding: 'clamp(96px,10vh,128px) clamp(20px,4vw,48px) clamp(64px,8vh,96px)',
         position: 'relative', overflow: 'hidden',
       }}
-      aria-label=Hero
+      aria-label="Hero"
     >
-      <div aria-hidden=true style={{
+      <div aria-hidden="true" style={{
         position:'absolute',inset:0,pointerEvents:'none',opacity:0.045,
         backgroundImage:'url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")',
         backgroundSize:'220px',
