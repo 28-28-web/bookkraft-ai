@@ -5,6 +5,11 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['react', 'react-dom'],
   },
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200],
+    minimumCacheTTL: 31536000,
+  },
   async redirects() {
     return [
       {
@@ -35,6 +40,24 @@ const nextConfig = {
               "img-src 'self' data: https: blob:",
               "style-src 'self' 'unsafe-inline' https://cdn.paddle.com",
             ].join('; '),
+          },
+        ],
+      },
+      {
+        source: '/_next/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/images/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },
