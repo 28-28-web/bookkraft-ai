@@ -1,5 +1,6 @@
 import './globals.css';
 import Script from 'next/script';
+import { Playfair_Display, DM_Sans, JetBrains_Mono } from 'next/font/google';
 import Navbar from '../components/Navbar';
 import { AuthProvider } from '../components/AuthProvider';
 import { ProjectProvider } from '../lib/ProjectContext';
@@ -8,6 +9,31 @@ import ChatAssistant from '../components/ChatAssistant';
 import NewsletterPopup from '../components/NewsletterPopup';
 import CookieBanner from '../components/CookieBanner';
 import ExitIntentWrapper from '../components/ExitIntentWrapper';
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-playfair',
+  display: 'swap',
+  preload: true,
+});
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-dm-sans',
+  display: 'swap',
+  preload: true,
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-jetbrains',
+  display: 'swap',
+  preload: false,
+});
 
 export const viewport = {
   width: 'device-width',
@@ -41,7 +67,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}>
       <head>
 
         {/* ── GA4 Consent Mode v2 — must fire BEFORE GA4 loads ── */}
