@@ -1,110 +1,4 @@
-import HeroSection from '../components/HeroSection';
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { TOOLS } from '../lib/tools';
-import { FAQS, PRICING } from '../lib/constants';
-import AnimatedSection from '../components/AnimatedSection';
-import SocialProofTicker from '../components/SocialProofTicker';
-import BookKraftBanner from '../components/BookKraftBanner';
-import dynamic from 'next/dynamic';
-const SenjaReviews = dynamic(() => import('@/components/SenjaReviews'), {
-  ssr: false,
-  loading: () => <div style={{ height: '200px' }} />,
-});
-
-// ─── DATA ────────────────────────────────────────────────────────────
-
-const HEADLINE_WORDS = [
-  { text: 'Format',    gold: false },
-  { text: 'like',      gold: false },
-  { text: 'a',         gold: false },
-  { text: 'pro.',      gold: true  },
-  { text: 'Price',     gold: false },
-  { text: 'like',      gold: false },
-  { text: 'a',         gold: false },
-  { text: 'newcomer.', gold: true  },
-];
-
-const TICKER_ITEMS = [
-  '<strong>@alex_rivera</strong> via CodeTrendy — "The interface is clean and does exactly what it promises"',
-  '<strong>@januine_dev</strong> via CodeTrendy — "Cleans up Word export mess in minutes"',
-  '<strong>@januine_dev</strong> via CodeTrendy — "Makes a real EPUB 3.0 that KDP accepts"',
-  '<strong>@januine_dev</strong> via CodeTrendy — "Two free tools, no signup. Best formatting money I\'ve spent"',
-  '<strong>@alex_rivera</strong> via CodeTrendy — "Really appreciate how well it\'s put together. Nice work by the team"',
-];
-
-const PLATFORMS = [
-  'Amazon KDP','Apple Books','Barnes & Noble','Kobo',
-  'Draft2Digital','Smashwords','OverDrive','Tolino','Scribd',
-];
-
-const WORKFLOW = [
-  { n: '1', t: 'Upload manuscript',  d: 'DOCX, TXT, or paste directly'  },
-  { n: '2', t: 'Choose a tool',      d: 'Cleanup, formatting, keywords' },
-  { n: '3', t: 'AI processes it',    d: 'Claude AI works in seconds'    },
-  { n: '4', t: 'Preview output',     d: 'Phone, tablet, e-ink preview'  },
-  { n: '5', t: 'Download & publish', d: 'KDP-ready EPUB, PDF, DOCX'     },
-];
-
-// ─── HELPERS ─────────────────────────────────────────────────────────
-
-function Badge({ tool }) {
-  if (tool.free)
-    return <span className="badge-v2 badge-v2-free">Free</span>;
-  if (tool.accessType === 'ai')
-    return <span className="badge-v2 badge-v2-ai">✦ AI · {tool.creditCost}cr</span>;
-  if (tool.accessType === 'logic')
-    return <span className="badge-v2 badge-v2-logic">Logic</span>;
-  return <span className="badge-v2 badge-v2-locked">Locked</span>;
-}
-
-function typeLabel(tool) {
-  if (tool.free) return 'instant · free';
-  if (tool.accessType === 'ai') return 'ai-powered';
-  return 'instant logic';
-}
-
-// ─── ROOT ────────────────────────────────────────────────────────────
-
-export default function LandingPage() {
-  return (
-    <>
-      <style>{`
-        @keyframes bkWordUp {
-          to { opacity:1; transform:translateY(0); }
-        }
-        @keyframes bkGoldLine {
-          to { transform:scaleX(1); }
-        }
-        @keyframes bkFadeUp {
-          from { opacity:0; transform:translateY(14px); }
-          to   { opacity:1; transform:translateY(0); }
-        }
-        @keyframes bkTicker {
-          from { transform:translateX(0); }
-          to   { transform:translateX(-50%); }
-        }
-      `}</style>
-
-      <HeroSection />
-      <TickerSection />
-      <ManuscriptBanner />
-      <FreeToolsSection />
-      <ToolGridSection />
-      <CompetitorSection />
-      <WorkflowSection />
-      <TestimonialsSection />
-      <BookKraftBanner />
-      <PlatformsSection />
-      <PricingSection />
-      <FAQSection />
-      <FooterSection />
-    </>
-  );
-}
-
-// ─── 1. HERO ─────────────────────────────────────────────────────────
-
+'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { TOOLS } from '../lib/tools';
@@ -212,7 +106,7 @@ export default function LandingPage() {
 // ─── 1. HERO ─────────────────────────────────────────────────────────
 
 function HeroSection() {
-  // Simplified hero - renders immediately
+  const [animate] = useState(false);
   return (
     <section
       style={{
@@ -226,44 +120,29 @@ function HeroSection() {
       }}
       aria-label="Hero"
     >
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          pointerEvents: 'none',
-          opacity: 0.045,
-          backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(255,215,0,0.1) 0%, transparent 70%)',
-          backgroundSize: '100% 100%',
-        }}
-      />
+      <div aria-hidden="true" style={{
+        position:'absolute',inset:0,pointerEvents:'none',opacity:0.045,
+        backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(255,215,0,0.1) 0%, transparent 70%)',
+        backgroundSize: '100% 100%',
+      }} />
 
-      <div style={{ maxWidth: 1160, margin: '0 auto', width: '100%', position: 'relative', zIndex: 1 }}>
-        <p
-          style={{
-            fontFamily: 'var(--font-jetbrains), monospace',
-            fontSize: 11,
-            color: 'var(--gold)',
-            letterSpacing: '2.5px',
-            textTransform: 'uppercase',
-            marginBottom: 20,
-            opacity: 1,
-          }}
-        >
+      <div style={{ maxWidth:1160, margin:'0 auto', width:'100%', position:'relative', zIndex:1 }}>
+        <p style={{
+          fontFamily:"'JetBrains Mono',monospace", fontSize:11,
+          color:'var(--gold)', letterSpacing:'2.5px', textTransform:'uppercase',
+          marginBottom:20, opacity:1,
+        }}>
           ✦ Professional eBook Formatting
         </p>
 
         <h1
           aria-label="Format like a pro. Price like a newcomer."
           style={{
-            fontFamily: 'var(--font-playfair), serif',
-            fontSize: 'clamp(48px,7vw,96px)',
-            fontWeight: 700,
-            fontStyle: 'italic',
-            lineHeight: 1.05,
-            letterSpacing: '-1px',
-            color: 'var(--cream)',
-            marginBottom: 24,
+            fontFamily:"'Playfair Display',serif",
+            fontSize:'clamp(48px,7vw,96px)',
+            fontWeight:700, fontStyle:'italic',
+            lineHeight:1.05, letterSpacing:'-1px',
+            color:'var(--cream)', marginBottom:24,
           }}
         >
           {HEADLINE_WORDS.map((w, i) => (
@@ -283,34 +162,23 @@ function HeroSection() {
           ))}
         </h1>
 
-        <p
-          style={{
-            fontFamily: 'var(--font-dm-sans), sans-serif',
-            fontSize: 'clamp(16px,1.3vw,22px)',
-            color: 'rgba(255,248,235,0.75)',
-            maxWidth: 560,
-            marginBottom: 32,
-            lineHeight: 1.6,
-            opacity: 1,
-          }}
-        >
+        <p style={{
+          fontFamily:"'DM Sans',sans-serif", fontSize:'clamp(16px,1.3vw,22px)',
+          color:'rgba(255,248,235,0.75)', maxWidth:560, marginBottom:32,
+          lineHeight:1.6, opacity:1,
+        }}>
           Upload your manuscript. Pick a tool. Download KDP-ready EPUB, PDF, or DOCX in seconds.
           Start with two free tools — no account needed.
         </p>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, opacity: 1 }}>
+        <div style={{ display:'flex', flexWrap:'wrap', gap:14, opacity:1 }}>
           <a
             href="/free-tools"
             style={{
-              display: 'inline-block',
-              padding: '14px 36px',
-              background: 'var(--gold)',
-              color: 'var(--ink)',
-              fontFamily: 'var(--font-dm-sans), sans-serif',
-              fontWeight: 600,
-              borderRadius: 6,
-              fontSize: 16,
-              textDecoration: 'none',
+              display:'inline-block', padding:'14px 36px',
+              background:'var(--gold)', color:'var(--ink)',
+              fontFamily:"'DM Sans',sans-serif", fontWeight:600,
+              borderRadius:6, fontSize:16, textDecoration:'none',
             }}
           >
             Start for Free →
@@ -318,14 +186,11 @@ function HeroSection() {
           <a
             href="/pricing"
             style={{
-              display: 'inline-block',
-              padding: '14px 28px',
-              border: '1.5px solid rgba(255,248,235,0.25)',
-              color: 'var(--cream)',
-              borderRadius: 6,
-              fontFamily: 'var(--font-dm-sans), sans-serif',
-              fontSize: 16,
-              textDecoration: 'none',
+              display:'inline-block', padding:'14px 28px',
+              border:'1.5px solid rgba(255,248,235,0.25)',
+              color:'var(--cream)', borderRadius:6,
+              fontFamily:"'DM Sans',sans-serif", fontSize:16,
+              textDecoration:'none',
             }}
           >
             See Pricing
