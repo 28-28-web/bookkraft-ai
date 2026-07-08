@@ -212,6 +212,7 @@ export default function LandingPage() {
 // ─── 1. HERO ─────────────────────────────────────────────────────────
 
 function HeroSection() {
+  // Simplified hero - renders immediately
   return (
     <section
       style={{
