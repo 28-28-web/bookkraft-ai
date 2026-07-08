@@ -106,12 +106,7 @@ export default function LandingPage() {
 // ─── 1. HERO ─────────────────────────────────────────────────────────
 
 function HeroSection() {
-  const [animate, setAnimate] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setAnimate(true), 0);
-    return () => clearTimeout(t);
-  }, []);
-
+  // Simplified hero - renders immediately without JS
   return (
     <section
       style={{
@@ -120,32 +115,27 @@ function HeroSection() {
         padding: 'clamp(96px,10vh,128px) clamp(20px,4vw,48px) clamp(64px,8vh,96px)',
         position: 'relative', overflow: 'hidden',
       }}
-      aria-label="Hero"
+      aria-label=Hero
     >
-      {/* Grain */}
-      <div aria-hidden="true" style={{
+      <div aria-hidden=true style={{
         position:'absolute',inset:0,pointerEvents:'none',opacity:0.045,
-        backgroundImage:`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")`,
+        backgroundImage:'url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")',
         backgroundSize:'220px',
       }} />
 
       <div style={{ maxWidth:1160, margin:'0 auto', width:'100%', position:'relative', zIndex:1 }}>
-
-        {/* Eyebrow */}
         <p style={{
-          fontFamily:"'JetBrains Mono',monospace", fontSize:11,
+          fontFamily:'var(--font-jetbrains), monospace', fontSize:11,
           color:'var(--gold)', letterSpacing:'2.5px', textTransform:'uppercase',
-          marginBottom:20, opacity:0,
-          animation:'bkFadeUp 0.4s ease 0s forwards',
+          marginBottom:20, opacity:1,
         }}>
           ✦ Professional eBook Formatting
         </p>
 
-        {/* H1 */}
         <h1
           aria-label="Format like a pro. Price like a newcomer."
           style={{
-            fontFamily:"'Playfair Display',serif",
+            fontFamily:'var(--font-playfair), serif',
             fontSize:'clamp(48px,7vw,96px)',
             fontWeight:700, fontStyle:'italic',
             lineHeight:1.05, letterSpacing:'-1px',
@@ -156,91 +146,57 @@ function HeroSection() {
             <React.Fragment key={i}>
               <span
                 style={{
-                  display:'inline-block',
-                  marginRight: i < HEADLINE_WORDS.length - 1 ? '0.22em' : 0,
-                  opacity: animate ? 1 : 1,
-                  transform: animate ? 'translateY(28px)' : 'none',
-                  animation: animate
-                    ? `bkWordUp 0.5s cubic-bezier(0.22,1,0.36,1) ${i * 0.1}s forwards`
-                    : 'none',
-                  ...(w.gold ? { color:'var(--gold)', position:'relative' } : {}),
+                  color: w.gold ? 'var(--gold)' : 'var(--cream)',
+                  display: 'inline-block',
+                  opacity: 1,
+                  transform: 'translateY(0)',
                 }}
               >
                 {w.text}
-                {w.gold && (
-                  <span aria-hidden="true" style={{
-                    display:'block', height:3,
-                    background:'var(--gold)', marginTop:2,
-                    transform:'scaleX(0)', transformOrigin:'left',
-                    animation:'bkGoldLine 0.5s ease 0s forwards',
-                  }} />
-                )}
               </span>
-              {i < HEADLINE_WORDS.length - 1 ? ' ' : ''}
+              {i < HEADLINE_WORDS.length - 1 && ' '}
             </React.Fragment>
           ))}
-          {' '}
-          <span style={{
-            display: 'block', fontFamily: "'JetBrains Mono', monospace",
-            fontStyle: 'normal', fontWeight: 400, fontSize: '0.22em',
-            letterSpacing: '1px', color: 'rgba(247,243,236,0.4)',
-            textTransform: 'uppercase', marginTop: 12,
-          }}>
-            EPUB &amp; Kindle Formatting Tools
-          </span>
         </h1>
 
-        {/* Keyword H2 */}
-        <h2 style={{
-          fontSize: 14, fontWeight: 600, letterSpacing: '0.5px',
-          color: 'rgba(247,243,236,.55)', marginBottom: 16,
-          textTransform: 'uppercase',
-        }}>
-          EPUB Validation, Kindle Formatting &amp; 12 More Tools
-        </h2>
-
-        {/* Sub */}
         <p style={{
-          fontSize:17, color:'rgba(247,243,236,0.58)',
-          lineHeight:1.65, maxWidth:460, marginBottom:36,
-          opacity:1, animation:'bkFadeUp 0.5s ease 0s forwards',
+          fontFamily:'var(--font-dm-sans), sans-serif', fontSize:'clamp(16px,1.3vw,22px)',
+          color:'rgba(255,248,235,0.75)', maxWidth:560, marginBottom:32,
+          lineHeight:1.6, opacity:1,
         }}>
-          Stop paying $250 for formatting software. BookKraft AI gives indie authors
-          12 professional-grade tools — starting at $4.99 with no subscriptions.
+          Upload your manuscript. Pick a tool. Download KDP-ready EPUB, PDF, or DOCX in seconds.
+          Start with two free tools — no account needed.
         </p>
 
-        {/* CTAs */}
-        <div style={{
-          display:'flex', gap:14, flexWrap:'wrap', alignItems:'center',
-          marginBottom:20, opacity:0,
-          animation:'bkFadeUp 0.5s ease 0s forwards',
-        }}>
-          <Link href="/tools/epub-validator" className="btn-hero-primary">
-            Try 2 Free Tools →
-          </Link>
-          <Link href="/pricing" className="btn-hero-secondary">
-            Get Full Access — $9.99
-          </Link>
+        <div style={{ display:'flex', flexWrap:'wrap', gap:14, opacity:1 }}>
+          <a
+            href="/free-tools"
+            style={{
+              display:'inline-block', padding:'14px 36px',
+              background:'var(--gold)', color:'var(--ink)',
+              fontFamily:'var(--font-dm-sans), sans-serif', fontWeight:600,
+              borderRadius:6, fontSize:16, textDecoration:'none',
+            }}
+          >
+            Start for Free →
+          </a>
+          <a
+            href="/pricing"
+            style={{
+              display:'inline-block', padding:'14px 28px',
+              border:'1.5px solid rgba(255,248,235,0.25)',
+              color:'var(--cream)', borderRadius:6,
+              fontFamily:'var(--font-dm-sans), sans-serif', fontSize:16,
+              textDecoration:'none',
+            }}
+          >
+            See Pricing
+          </a>
         </div>
-
-        {/* Social proof */}
-        <div style={{
-          display:'flex', alignItems:'center', gap:10,
-          fontSize:13, color:'rgba(247,243,236,0.45)',
-          opacity:1, animation:'bkFadeUp 0.5s ease 0s forwards',
-        }}>
-          <span style={{ color:'var(--gold)', letterSpacing:1 }} aria-label="5 stars">★★★★★</span>
-          Rated 5/5 by verified authors on CodeTrendy
-        </div>
-
       </div>
     </section>
   );
-}
-
-// ─── 2. TICKER ───────────────────────────────────────────────────────
-
-function TickerSection() {
+}function TickerSection() {
   const doubled = [...TICKER_ITEMS, ...TICKER_ITEMS];
   return (
     <div
