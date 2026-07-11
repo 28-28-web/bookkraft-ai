@@ -110,7 +110,10 @@ function HeroSection() {
   return (
     <section
       style={{
-        background: 'var(--ink)',
+        backgroundImage: "url('/hero-bg.png')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
@@ -126,7 +129,7 @@ function HeroSection() {
         backgroundSize: '100% 100%',
       }} />
 
-      <div style={{ maxWidth:1160, margin:'0 auto', width:'100%', position:'relative', zIndex:1 }}>
+      <div style={{ maxWidth:620, margin:'0 auto', width:'100%', position:'relative', zIndex:1 }}>
         <p style={{
           fontFamily:"'JetBrains Mono',monospace", fontSize:11,
           color:'var(--gold)', letterSpacing:'2.5px', textTransform:'uppercase',
@@ -139,17 +142,17 @@ function HeroSection() {
           aria-label="Format like a pro. Price like a newcomer."
           style={{
             fontFamily:"'Playfair Display',serif",
-            fontSize:'clamp(48px,7vw,96px)',
+            fontSize:'clamp(40px,5vw,76px)',
             fontWeight:700, fontStyle:'italic',
             lineHeight:1.05, letterSpacing:'-1px',
-            color:'var(--cream)', marginBottom:24,
+            color:'#ffffff', marginBottom:24, letterSpacing:'1px',
           }}
         >
           {HEADLINE_WORDS.map((w, i) => (
             <React.Fragment key={i}>
               <span
                 style={{
-                  color: w.gold ? 'var(--gold)' : 'var(--cream)',
+                  color: '#ffffff',
                   display: 'inline-block',
                   opacity: 1,
                   transform: 'translateY(0)',

@@ -1,26 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 @source "../../src/**/*.{js,jsx,ts,tsx,mdx}";
 
-/* rest of your css stays exactly the same, just change these three blocks: */
-
-body {
-  font-family: var(--font-dm-sans), sans-serif;
-  background: var(--cream);
-  color: var(--ink);
-  font-size: var(--text-base);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-h1, h2, h3, h4 {
-  font-family: var(--font-playfair), serif;
-  line-height: 1.15;
-  font-weight: 700;
-}
-
-code, pre {
-  font-family: var(--font-jetbrains), monospace;
-}
 
 
 /* ══════════════════════════════════════════════
@@ -80,7 +61,7 @@ html {
 }
 
 body {
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   background: var(--cream);
   color: var(--ink);
   font-size: var(--text-base);
@@ -92,7 +73,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-playfair), serif;
+  font-family: 'Playfair Display', serif;
   line-height: 1.15;
   font-weight: 700;
 }
@@ -130,7 +111,7 @@ img {
 
 code,
 pre {
-  font-family: var(--font-jetbrains), monospace;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 /* ── LAYOUT ── */
@@ -158,7 +139,7 @@ pre {
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-weight: 500;
   border: none;
   cursor: pointer;
@@ -327,7 +308,7 @@ pre {
 .form-textarea {
   width: 100%;
   padding: 12px 16px;
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: var(--text-base);
   color: var(--ink);
   background: var(--cream);
@@ -358,7 +339,7 @@ pre {
 
 /* ── EYEBROW / SECTION LABELS ── */
 .eyebrow {
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
@@ -368,7 +349,7 @@ pre {
 }
 
 .section-heading {
-  font-family: var(--font-playfair), serif;
+  font-family: 'Playfair Display', serif;
   font-size: var(--text-4xl);
   margin-bottom: var(--space-3);
   position: relative;
@@ -515,7 +496,7 @@ pre {
 }
 
 .nav-logo-text {
-    font-family: var(--font-playfair), serif;
+    font-family: 'Playfair Display', serif;
     font-size: 20px;
     font-weight: 700;
     color: var(--ink);
@@ -718,7 +699,7 @@ pre {
 .sidebar-upgrade h4 {
     font-size: 14px;
     margin-bottom: var(--space-1);
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 600;
 }
 
@@ -854,7 +835,7 @@ pre {
 
 .hero-preview h4 {
     font-size: 13px;
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 600;
     margin-bottom: var(--space-2);
 }
@@ -937,7 +918,7 @@ pre {
     cursor: pointer;
     border: none;
     background: transparent;
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
     color: var(--ink);
     transition: all .15s;
 }
@@ -993,7 +974,7 @@ pre {
 }
 
 .tool-card h3 {
-    font-family: var(--font-playfair), serif;
+    font-family: 'Playfair Display', serif;
     font-size: 20px;
     font-weight: 700;
     margin-top: var(--space-3);
@@ -1112,7 +1093,7 @@ pre {
 }
 
 .workflow-num {
-    font-family: var(--font-playfair), serif;
+    font-family: 'Playfair Display', serif;
     font-size: var(--text-5xl);
     color: var(--gold);
     line-height: 1;
@@ -1122,7 +1103,7 @@ pre {
 .workflow-step h4 {
     color: var(--cream);
     font-size: 18px;
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 500;
     margin-bottom: var(--space-2);
 }
@@ -1248,7 +1229,7 @@ pre {
 }
 
 .price-amount {
-    font-family: var(--font-playfair), serif;
+    font-family: 'Playfair Display', serif;
     font-size: var(--text-5xl);
     font-weight: 700;
     margin-bottom: var(--space-1);
@@ -1257,7 +1238,7 @@ pre {
 
 .price-amount span {
     font-size: var(--text-sm);
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 400;
     color: var(--mid);
 }
@@ -1366,7 +1347,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 
 .footer h4 {
     color: var(--cream);
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 14px;
     font-weight: 600;
     margin-bottom: var(--space-4);
@@ -1398,7 +1379,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .footer-logo {
-    font-family: var(--font-playfair), serif;
+    font-family: 'Playfair Display', serif;
     font-size: 20px;
     font-weight: 700;
     color: var(--cream);
@@ -1521,7 +1502,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 
 .tool-input-card h3,
 .tool-output-card h3 {
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: .12em;
@@ -1659,7 +1640,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
     cursor: pointer;
     border: none;
     background: transparent;
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
     color: var(--mid);
     transition: all .12s;
 }
@@ -1689,7 +1670,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .code-output {
-    font-family: var(--font-jetbrains), monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 14px;
     line-height: 1.5;
     background: var(--cream);
@@ -1705,7 +1686,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 .heading-checklist h4 {
     font-size: var(--text-sm);
     margin-bottom: var(--space-3);
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .front-matter-section {
@@ -1721,7 +1702,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 
 .front-matter-section-header h4 {
     font-size: var(--text-sm);
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .front-matter-preview {
@@ -1754,7 +1735,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
     background: transparent;
     cursor: pointer;
     font-size: var(--text-sm);
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
     transition: all .12s;
     color: var(--mid);
 }
@@ -1808,7 +1789,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
     background: #1a1916;
     color: #e8e0d0;
     border-radius: 0 0 var(--radius) var(--radius);
-    font-family: var(--font-jetbrains), monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
     line-height: 1.6;
     overflow-x: auto;
@@ -1840,7 +1821,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .drop-zone-text {
-    font-family: var(--font-playfair), serif;
+    font-family: 'Playfair Display', serif;
     font-size: 22px;
     margin-bottom: var(--space-1);
 }
@@ -1865,7 +1846,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .val-score {
-    font-family: var(--font-playfair), serif;
+    font-family: 'Playfair Display', serif;
 }
 
 .val-score-num {
@@ -2112,7 +2093,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 .needs-review h4 {
     font-size: var(--text-sm);
     margin-bottom: var(--space-2);
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .conversion-item {
@@ -2253,7 +2234,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 .keyword-tips h4 {
     font-size: var(--text-sm);
     margin-bottom: var(--space-2);
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .keyword-tips ul {
@@ -2288,7 +2269,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 
 .back-matter-card-header h4 {
     font-size: var(--text-sm);
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .back-matter-content {
@@ -2304,7 +2285,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 .detected-rules h4 {
     font-size: var(--text-sm);
     margin-bottom: var(--space-2);
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .detected-rule {
@@ -2442,7 +2423,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
     font-size: 12px;
     color: rgba(247, 243, 236, .5);
     cursor: pointer;
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .chat-start-over:hover {
@@ -2520,7 +2501,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
     font-weight: 500;
     cursor: pointer;
     background: var(--white);
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
     transition: all .15s;
     display: inline-flex;
     align-items: center;
@@ -2606,7 +2587,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .newsletter-popup h3 {
-    font-family: var(--font-playfair), serif;
+    font-family: 'Playfair Display', serif;
     font-size: 28px;
     color: var(--cream);
     margin-bottom: var(--space-2);
@@ -2701,7 +2682,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .checkout-price {
-    font-family: var(--font-playfair), serif;
+    font-family: 'Playfair Display', serif;
     font-size: var(--text-2xl);
     font-weight: 700;
     margin-left: auto;
@@ -2753,7 +2734,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
     background: transparent;
     cursor: pointer;
     font-size: var(--text-sm);
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
     transition: all .12s;
     text-align: left;
 }
@@ -2902,7 +2883,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 .recommended-tool h4 {
     font-size: var(--text-sm);
     margin-bottom: 2px;
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .recommended-tool p {
@@ -2959,7 +2940,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .account-section h3 {
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: var(--text-lg);
     font-weight: 600;
     margin-bottom: var(--space-4);
@@ -3029,7 +3010,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .admin-stat-card h3 {
-    font-family: var(--font-playfair), serif;
+    font-family: 'Playfair Display', serif;
     font-size: var(--text-3xl);
     margin-bottom: var(--space-1);
 }
@@ -3463,14 +3444,15 @@ summary.faq-q::-webkit-details-marker { display: none; }
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: var(--gold);
   margin-bottom: var(--space-md);
-  opacity: 1;
+  opacity: 0;
+  animation: fadeIn 0.5s ease 0.1s forwards;
 }
 
 .hero-eyebrow-dot {
@@ -3481,7 +3463,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .hero-headline {
-  font-family: var(--font-playfair), serif;
+  font-family: 'Playfair Display', serif;
   font-size: clamp(56px, 7vw, 104px);
   font-weight: 700;
   line-height: 1.05;
@@ -3491,7 +3473,8 @@ summary.faq-q::-webkit-details-marker { display: none; }
 
 .hero-word {
   display: inline-block;
-  opacity: 1;
+  opacity: 0;
+  animation: wordSlideUp 0.5s ease forwards;
   white-space: pre;
 }
 
@@ -3519,13 +3502,14 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .hero-sub-v2 {
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 18px;
   color: rgba(247,243,236,0.65);
   max-width: 480px;
   line-height: 1.65;
   margin-bottom: var(--space-xl);
-  opacity: 1;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease 0.7s forwards;
 }
 
 .hero-cta-v2 {
@@ -3533,7 +3517,8 @@ summary.faq-q::-webkit-details-marker { display: none; }
   gap: var(--space-md);
   flex-wrap: wrap;
   margin-bottom: var(--space-lg);
-  opacity: 1;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease 0.9s forwards;
 }
 
 .btn-hero-primary {
@@ -3543,7 +3528,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   padding: 16px 32px;
   background: var(--gold);
   color: var(--ink);
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-weight: 700;
   font-size: 16px;
   border-radius: var(--radius);
@@ -3567,7 +3552,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   padding: 16px 32px;
   background: transparent;
   color: var(--cream);
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-weight: 500;
   font-size: 16px;
   border-radius: var(--radius);
@@ -3587,10 +3572,11 @@ summary.faq-q::-webkit-details-marker { display: none; }
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: rgba(247,243,236,0.45);
-  opacity: 1;
+  opacity: 0;
+  animation: fadeIn 0.5s ease 1.2s forwards;
 }
 
 .hero-stars {
@@ -3605,7 +3591,8 @@ summary.faq-q::-webkit-details-marker { display: none; }
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 1;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease 0.5s forwards;
 }
 
 .device-frame {
@@ -3644,7 +3631,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .device-screen-title {
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 10px;
   font-weight: 600;
   color: var(--cream);
@@ -3677,7 +3664,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   gap: 8px;
   padding: 6px 0;
   border-bottom: 1px solid var(--border);
-  font-family: var(--font-jetbrains), monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   line-height: 1.5;
 }
@@ -3745,7 +3732,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   align-items: center;
   gap: 10px;
   padding: 0 40px;
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   color: var(--mid);
   white-space: nowrap;
@@ -3785,7 +3772,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   background: var(--white);
   border: 1.5px solid var(--sage);
   border-radius: 100px;
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 12px;
   font-weight: 600;
   color: var(--sage);
@@ -3822,7 +3809,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .free-card-v2 h3 {
-  font-family: var(--font-playfair), serif;
+  font-family: 'Playfair Display', serif;
   font-size: 22px;
   margin-bottom: 8px;
 }
@@ -3835,7 +3822,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .free-card-link {
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   font-weight: 600;
   color: var(--sage);
@@ -3889,7 +3876,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   position: absolute;
   top: 12px;
   right: 14px;
-  font-family: var(--font-playfair), serif;
+  font-family: 'Playfair Display', serif;
   font-size: 42px;
   font-weight: 700;
   font-style: italic;
@@ -3908,7 +3895,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .tool-card-v2 h3 {
-  font-family: var(--font-playfair), serif;
+  font-family: 'Playfair Display', serif;
   font-size: 18px;
   font-weight: 700;
   margin-bottom: 6px;
@@ -3936,7 +3923,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .tool-type-label {
-  font-family: var(--font-jetbrains), monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
   font-weight: 500;
   color: var(--mid);
@@ -3951,7 +3938,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   gap: 4px;
   padding: 3px 9px;
   border-radius: 100px;
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -4022,7 +4009,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .competitor-price {
-  font-family: var(--font-playfair), serif;
+  font-family: 'Playfair Display', serif;
   font-size: clamp(48px, 6vw, 72px);
   font-style: italic;
   color: var(--cream);
@@ -4035,7 +4022,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .competitor-name {
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
@@ -4047,7 +4034,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 .competitor-desc {
   font-size: 12px;
   color: rgba(247,243,236,0.35);
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .competitor-col.featured .competitor-desc {
@@ -4096,7 +4083,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-playfair), serif;
+  font-family: 'Playfair Display', serif;
   font-size: 20px;
   font-weight: 700;
   font-style: italic;
@@ -4105,7 +4092,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .workflow-step-title {
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   font-weight: 600;
   color: var(--ink);
@@ -4113,7 +4100,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .workflow-step-tool {
-  font-family: var(--font-jetbrains), monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   color: var(--mid);
 }
@@ -4146,7 +4133,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .testimonial-quote-mark {
-  font-family: var(--font-playfair), serif;
+  font-family: 'Playfair Display', serif;
   font-size: 72px;
   line-height: 0.7;
   color: var(--gold);
@@ -4164,7 +4151,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .testimonial-text {
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   color: var(--ink);
   line-height: 1.7;
@@ -4178,7 +4165,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .testimonial-name {
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   font-weight: 600;
   color: var(--ink);
@@ -4231,7 +4218,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 
 .pricing-best-badge {
   display: inline-block;
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
@@ -4244,13 +4231,13 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .pricing-card-v2 h3 {
-  font-family: var(--font-playfair), serif;
+  font-family: 'Playfair Display', serif;
   font-size: 22px;
   margin-bottom: var(--space-sm);
 }
 
 .pricing-price {
-  font-family: var(--font-playfair), serif;
+  font-family: 'Playfair Display', serif;
   font-size: 40px;
   font-weight: 700;
   color: var(--ink);
@@ -4259,7 +4246,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .pricing-price span {
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   font-weight: 400;
   color: var(--mid);
@@ -4336,7 +4323,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   gap: 8px;
   font-size: 13px;
   color: var(--mid);
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .pricing-trust-icon {
@@ -4375,7 +4362,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   border: none;
   cursor: pointer;
   text-align: left;
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 15px;
   font-weight: 500;
   color: var(--ink);
@@ -4441,7 +4428,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .footer-logo-v2 {
-  font-family: var(--font-playfair), serif;
+  font-family: 'Playfair Display', serif;
   font-size: 22px;
   font-weight: 700;
   color: var(--cream);
@@ -4459,7 +4446,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .footer-col-title {
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
@@ -4528,7 +4515,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   font-weight: 500;
   color: var(--ink);
@@ -4549,7 +4536,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   color: var(--cream);
   padding: 14px 20px;
   border-radius: var(--radius);
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   z-index: 500;
   box-shadow: var(--shadow-lg);
@@ -4571,7 +4558,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   background: rgba(201,168,76,0.1);
   border: 1px solid rgba(201,168,76,0.3);
   border-radius: 100px;
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 12px;
   font-weight: 600;
   color: var(--gold);
@@ -4597,7 +4584,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   background: var(--ink);
   color: var(--cream);
   padding: 14px var(--space-lg);
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   text-align: center;
   border-bottom: 3px solid var(--gold);
@@ -4622,7 +4609,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .section-eyebrow-v2 {
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
@@ -4632,7 +4619,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
 }
 
 .section-title-v2 {
-  font-family: var(--font-playfair), serif;
+  font-family: 'Playfair Display', serif;
   font-size: clamp(32px, 4vw, 48px);
   font-weight: 700;
   color: var(--ink);
@@ -4740,7 +4727,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   padding-bottom: 48px !important;
 }
 .footer-logo-v2 {
-  font-family: var(--font-playfair), serif !important;
+  font-family: 'Playfair Display', serif !important;
   font-size: 22px !important;
   font-weight: 700 !important;
   color: var(--cream) !important;
@@ -4805,7 +4792,7 @@ summary.faq-q::-webkit-details-marker { display: none; }
   border-bottom: 1px solid rgba(247,243,236,0.1) !important;
 }
 .footer-logo-v2 {
-  font-family: var(--font-playfair), serif !important;
+  font-family: 'Playfair Display', serif !important;
   font-size: 22px !important;
   font-weight: 700 !important;
   color: var(--cream) !important;

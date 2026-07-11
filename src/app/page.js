@@ -1,4 +1,5 @@
-import LandingPage from './landingpage';
+import dynamic from 'next/dynamic';
+const LandingPage = dynamic(() => import('./landingpage'), { ssr: true, loading: () => <div style={{ minHeight: '100vh', background: 'var(--ink)' }} /> });
 import { FAQS, PRICING } from '../lib/constants';
 
 export const metadata = {
