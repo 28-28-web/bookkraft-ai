@@ -41,7 +41,6 @@ export const viewport = {
 };
 
 export const metadata = {
-  other: { "google-site-verification": "" },
   metadataBase: new URL('https://bookkraftai.com'),
   title: 'BookKraft AI — Format Your eBook Like a Pro',
   description: '12 eBook formatting tools. EPUB validation, Kindle formatting, metadata builder, style auditor, and more. 2 free tools — no signup needed.',
@@ -133,9 +132,9 @@ export default function RootLayout({ children }) {
                     "url": "https://bookkraftai.com/favicon.png"
                   },
                   "sameAs": [
-                    "https://x.com/bookkraftai",
+                    "https://x.com/BookkraftTools",
                     "https://www.facebook.com/bookkraftai",
-                    "https://www.linkedin.com/company/bookkraftai"
+                    "https://www.linkedin.com/in/book-kraft-ai-b49a34401"
                   ],
                   "description": "Professional eBook formatting tools for indie authors."
                 },

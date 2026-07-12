@@ -1,5 +1,13 @@
 import Link from 'next/link';
 
+export const metadata = {
+  title: 'Atticus Alternative for Indie Authors — BookKraft AI',
+  description: 'Looking for an Atticus alternative? BookKraft AI runs in any browser, starts at $4.99 one-time, and includes AI-powered manuscript cleanup. Free EPUB Validator included.',
+  alternates: {
+    canonical: 'https://bookkraftai.com/atticus-alternative',
+  },
+};
+
 const faqs = [
   {
     q: 'Is BookKraft AI cheaper than Atticus?',

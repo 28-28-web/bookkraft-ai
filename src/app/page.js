@@ -71,19 +71,6 @@ export default function Page() {
   })),
 };
 
-  const orgSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'BookKraft AI',
-    url: 'https://bookkraftai.com',
-    logo: 'https://bookkraftai.com/favicon.png',
-    sameAs: [
-      'https://x.com/BookkraftTools',
-      'https://www.facebook.com/bookkraftai',
-      'https://linkedin.com/in/book-kraft-ai-b49a34401',
-    ],
-  };
-
   return (
     <>
       <script
@@ -93,10 +80,6 @@ export default function Page() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
       />
       <LandingPage />
     </>
