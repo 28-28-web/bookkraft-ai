@@ -132,8 +132,7 @@ function HeroSection() {
         <p style={{
           fontFamily:"'JetBrains Mono',monospace", fontSize:11,
           color:'var(--gold)', letterSpacing:'2.5px', textTransform:'uppercase',
-          marginBottom:20,
-          animationName:'bkFadeUp', animationDuration:'0.35s', animationTimingFunction:'ease', animationFillMode:'both',
+          marginBottom:20, opacity:1,
         }}>
           ✦ Professional eBook Formatting
         </p>
@@ -145,17 +144,15 @@ function HeroSection() {
             fontSize:'clamp(40px,5vw,76px)',
             fontWeight:700, fontStyle:'italic',
             lineHeight:1.05, letterSpacing:'-1px',
-            color:'#ffffff', marginBottom:24,
+            color:'var(--gold)', marginBottom:24,
           }}
         >
           {HEADLINE_WORDS.map((w, i) => (
             <React.Fragment key={i}>
               <span
                 style={{
-                  color: w.gold ? 'var(--gold)' : '#ffffff',
+                  color: 'var(--gold)',
                   display: 'inline-block',
-                  opacity: 1,
-                  transform: 'translateY(0)',
                 }}
               >
                 {w.text}
@@ -168,14 +165,13 @@ function HeroSection() {
         <p style={{
           fontFamily:"'DM Sans',sans-serif", fontSize:'clamp(16px,1.3vw,22px)',
           color:'rgba(255,248,235,0.75)', maxWidth:560, marginBottom:32,
-          lineHeight:1.6,
-          animationName:'bkFadeUp', animationDuration:'0.35s', animationTimingFunction:'ease', animationFillMode:'both', animationDelay:'80ms',
+          lineHeight:1.6, opacity:1,
         }}>
           Upload your manuscript. Pick a tool. Download KDP-ready EPUB, PDF, or DOCX in seconds.
           Start with two free tools — no account needed.
         </p>
 
-        <div style={{ display:'flex', flexWrap:'wrap', gap:14, animationName:'bkFadeUp', animationDuration:'0.35s', animationTimingFunction:'ease', animationFillMode:'both', animationDelay:'160ms' }}>
+        <div style={{ display:'flex', flexWrap:'wrap', gap:14, opacity:1 }}>
           <a
             href="/free-tools"
             style={{
