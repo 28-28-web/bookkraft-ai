@@ -48,13 +48,30 @@ function SeoContentBlock({ tool }) {
     );
 }
 
+// Shared "related tools" block — only renders if tool.related is set
+function RelatedToolsBlock({ tool }) {
+    if (!tool.related || tool.related.length === 0) return null;
+    return (
+        <div className="related-tools" style={{ maxWidth: '800px', margin: '2rem auto 3rem', padding: '0 1rem' }}>
+            <h2 style={{ fontSize: '1.1rem', marginBottom: '0.75rem' }}>Related tools</h2>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                {tool.related.map((r) => (
+                    <li key={r.slug}>
+                        <Link href={`/tools/${r.slug}`}>{r.label}</Link>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
 // Shared header block, rendered identically in every branch
 function ToolHeader({ tool }) {
     return (
         <div className="tool-page-header">
             <Link href="/dashboard" className="back-btn">← Back to Dashboard</Link>
-            <h1>{tool.icon} {tool.name}</h1>
-            <p>{tool.desc}</p>
+            <h1>{tool.icon} {tool.h1 || tool.name}</h1>
+            <p>{tool.intro || tool.desc}</p>
         </div>
     );
 }
@@ -161,6 +178,7 @@ export default function ToolPage({ params }) {
                     <ToolHeader tool={tool} />
                     <ToolComponent tool={tool} />
                     <SeoContentBlock tool={tool} />
+                    <RelatedToolsBlock tool={tool} />
                 </div>
             </main>
         </div>

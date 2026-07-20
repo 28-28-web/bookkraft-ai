@@ -317,6 +317,7 @@ export const TOOLS = [
         accessType: 'free',
         creditCost: 0,
         free: true,
+        related: [{ slug: 'kdp-keyword-finder', label: 'KDP Keyword Finder tool' }],
         upsell: null,
         seoContent: `<h2>EPUB Validator for KDP and IngramSpark</h2><p>An EPUB file can look fine on your computer and still fail upload to KDP or get rejected by Apple Books. This tool checks the file structure before you submit it anywhere.</p><h2>What It Checks</h2><p>Structure errors that break navigation. Missing required metadata fields. Content issues that cause store rejections. No Java installation or desktop software required, runs entirely in the browser.</p><h2>Who This Is For</h2><p>Authors about to upload an EPUB to KDP, IngramSpark, Apple Books, or Kobo. Anyone who has had a file rejected without a clear reason. Formatters validating client files before delivery.</p><h2>How to Use It</h2><p>Upload your .epub file, choose Quick Check for structure only or Full Check for structure plus content, and get results in seconds.</p><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the EPUB Validator free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free with no signup, account, or credit card required."}},{"@type":"Question","name":"Do I need Java or desktop software?","acceptedAnswer":{"@type":"Answer","text":"No. The validator runs entirely in your browser. No installation needed."}},{"@type":"Question","name":"What is the difference between Quick Check and Full Check?","acceptedAnswer":{"@type":"Answer","text":"Quick Check reviews file structure only. Full Check reviews structure plus content issues for a more thorough validation."}}]}</script>`,
         fields: [
@@ -385,6 +386,7 @@ export const TOOLS = [
         accessType: 'free',
         creditCost: 0,
         free: true,
+        related: [{ slug: 'kdp-keyword-finder', label: 'KDP Keyword Finder tool' }],
         upsell: { text: 'Metadata ready. Find the best KDP keywords →', tool: 'kdp-keyword-finder' },
         seoContent: `<h2>Metadata Builder for KDP and IngramSpark</h2><p>Book metadata is scattered across different formats depending on where you publish. KDP wants one format, IngramSpark another, EPUB OPF files yet another. This tool builds all of it at once from a single form.</p><h2>What It Generates</h2><p>Complete metadata for KDP, IngramSpark, Draft2Digital, and EPUB OPF files. Includes title, subtitle, series info, BISAC categories, keywords, short and long descriptions, ISBN/ASIN, publication date, edition, language, and pricing in USD, GBP, EUR, and AUD.</p><h2>Who This Is For</h2><p>Authors publishing the same book across multiple platforms who don't want to re-enter metadata each time. First-time authors unsure what BISAC categories or keywords to use. Anyone preparing a new release for KDP and IngramSpark at the same time.</p><h2>How to Use It</h2><p>Fill in your book details, categories, keywords, and pricing once. The tool formats everything correctly for each platform, ready to copy and paste.</p><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the Metadata Builder free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is free with no account or signup required."}},{"@type":"Question","name":"Which platforms does it support?","acceptedAnswer":{"@type":"Answer","text":"KDP, IngramSpark, Draft2Digital, and EPUB OPF files."}},{"@type":"Question","name":"Does it help with BISAC categories and keywords?","acceptedAnswer":{"@type":"Answer","text":"Yes. The form includes dedicated fields for BISAC categories and up to seven keywords formatted correctly for each platform."}}]}</script>`,
         fields: [
@@ -425,7 +427,10 @@ export const TOOLS = [
         slug: 'kdp-keyword-finder',
         name: 'KDP Keyword & Category Finder',
         category: 'publishing',
-        desc: 'Generate long-tail KDP keywords and full Amazon category paths for your book using AI. Improve your discoverability and reach more readers on Amazon. Results ready in seconds.',
+        desc: 'Find high-ranking KDP keywords and Amazon category paths for your book with AI. Boost discoverability and reach more readers in seconds.',
+        seoTitle: 'KDP Keyword Finder: Amazon Keywords & Categories',
+        h1: 'KDP Keyword Finder — Amazon Keywords & Category Paths',
+        intro: "Our KDP Keyword Finder scans your book's genre, themes, and comps to generate long-tail Amazon keywords and full category paths — so readers can actually find your book on KDP.",
         type: 'ai',
         accessType: 'ai',
         creditCost: 1,

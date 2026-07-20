@@ -379,6 +379,13 @@ export default function CoverCheckerPage() {
             ))}
           </div>
 
+          <div style={{ marginTop: 40, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+            <h2 style={{ fontSize: 16, color: '#fff', fontWeight: 600, marginBottom: 10 }}>Related tools</h2>
+            <Link href="/tools/kdp-keyword-finder" style={{ color: '#C9933A', fontSize: 14, textDecoration: 'underline' }}>
+              KDP Keyword Finder tool
+            </Link>
+          </div>
+
         </div>
       </main>
     </>

@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${tool.name} — BookKraft AI`,
+    title: tool.seoTitle || `${tool.name} — BookKraft AI`,
     description: tool.desc,
     alternates: {
       canonical: `https://bookkraftai.com/tools/${slug}`,
