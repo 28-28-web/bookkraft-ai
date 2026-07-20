@@ -90,6 +90,12 @@ export default async function sitemap() {
       priority: 0.3,
     },
     ...toolPages,
+    {
+      url: 'https://bookkraftai.com/tools/cover-checker',
+      lastModified: new Date('2026-07-21'),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
     ...blogPages,
   ]
 }
