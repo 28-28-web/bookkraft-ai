@@ -6,6 +6,7 @@ import { FAQS, PRICING } from '../lib/constants';
 import AnimatedSection from '../components/AnimatedSection';
 import SocialProofTicker from '../components/SocialProofTicker';
 import BookKraftBanner from '../components/BookKraftBanner';
+import Footer from '../components/Footer';
 import dynamic from 'next/dynamic';
 const SenjaReviews = dynamic(() => import('@/components/SenjaReviews'), {
   ssr: false,
@@ -13,17 +14,6 @@ const SenjaReviews = dynamic(() => import('@/components/SenjaReviews'), {
 });
 
 // ─── DATA ────────────────────────────────────────────────────────────
-
-const HEADLINE_WORDS = [
-  { text: 'Format',    gold: false },
-  { text: 'like',      gold: false },
-  { text: 'a',         gold: false },
-  { text: 'pro.',      gold: true  },
-  { text: 'Price',     gold: false },
-  { text: 'like',      gold: false },
-  { text: 'a',         gold: false },
-  { text: 'newcomer.', gold: true  },
-];
 
 const TICKER_ITEMS = [
   '<strong>@alex_rivera</strong> via CodeTrendy — "The interface is clean and does exactly what it promises"',
@@ -98,7 +88,7 @@ export default function LandingPage() {
       <PlatformsSection />
       <PricingSection />
       <FAQSection />
-      <FooterSection />
+      <Footer />
     </>
   );
 }
@@ -107,97 +97,81 @@ export default function LandingPage() {
 
 function HeroSection() {
   return (
-    <section
-      style={{
-        backgroundImage: "url('/hero-bg.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        padding: 'clamp(96px,10vh,128px) clamp(20px,4vw,48px) clamp(64px,8vh,96px)',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-      aria-label="Hero"
-    >
+    <section className="hero-section-v3" aria-label="Hero">
       <div aria-hidden="true" style={{
         position:'absolute',inset:0,pointerEvents:'none',opacity:0.045,
         backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(255,215,0,0.1) 0%, transparent 70%)',
         backgroundSize: '100% 100%',
       }} />
 
-      <div style={{ maxWidth:620, margin:'0 auto', width:'100%', position:'relative', zIndex:1 }}>
-        <p style={{
-          fontFamily:"'JetBrains Mono',monospace", fontSize:11,
-          color:'var(--gold)', letterSpacing:'2.5px', textTransform:'uppercase',
-          marginBottom:20, opacity:1,
-        }}>
-          ✦ Professional eBook Formatting
-        </p>
+      <div className="hero-grid">
+        <div className="hero-copy">
+          <p className="hero-eyebrow">✦ Professional eBook Formatting</p>
+          <h1 className="hero-headline">Format like a pro.</h1>
+          <p className="hero-sub">
+            Upload your manuscript, pick a tool, and download a KDP-ready EPUB, PDF, or DOCX — in seconds. Start with two free tools, no account needed.
+          </p>
+          <div className="hero-ctas">
+            <a href="/free-tools" className="hero-cta-primary">Start for Free →</a>
+            <a href="/pricing" className="hero-cta-secondary">See Pricing</a>
+          </div>
+        </div>
 
-        <h1
-          aria-label="Format like a pro. Price like a newcomer."
-          style={{
-            fontFamily:"'Playfair Display',serif",
-            fontSize:'clamp(40px,5vw,76px)',
-            fontWeight:700, fontStyle:'italic',
-            lineHeight:1.05, letterSpacing:'-1px',
-            color:'var(--gold)', marginBottom:24,
-          }}
-        >
-          {HEADLINE_WORDS.map((w, i) => (
-            <React.Fragment key={i}>
-              <span
-                style={{
-                  color: 'var(--gold)',
-                  display: 'inline-block',
-                }}
-              >
-                {w.text}
-              </span>
-              {i < HEADLINE_WORDS.length - 1 && ' '}
-            </React.Fragment>
-          ))}
-        </h1>
-
-        <p style={{
-          fontFamily:"'DM Sans',sans-serif", fontSize:'clamp(16px,1.3vw,22px)',
-          color:'rgba(255,248,235,0.75)', maxWidth:560, marginBottom:32,
-          lineHeight:1.6, opacity:1,
-        }}>
-          Upload your manuscript. Pick a tool. Download KDP-ready EPUB, PDF, or DOCX in seconds.
-          Start with two free tools — no account needed.
-        </p>
-
-        <div style={{ display:'flex', flexWrap:'wrap', gap:14, opacity:1 }}>
-          <a
-            href="/free-tools"
-            style={{
-              display:'inline-block', padding:'14px 36px',
-              background:'var(--gold)', color:'var(--ink)',
-              fontFamily:"'DM Sans',sans-serif", fontWeight:600,
-              borderRadius:6, fontSize:16, textDecoration:'none',
-            }}
-          >
-            Start for Free →
-          </a>
-          <a
-            href="/pricing"
-            style={{
-              display:'inline-block', padding:'14px 28px',
-              border:'1.5px solid rgba(255,248,235,0.25)',
-              color:'var(--cream)', borderRadius:6,
-              fontFamily:"'DM Sans',sans-serif", fontSize:16,
-              textDecoration:'none',
-            }}
-          >
-            See Pricing
-          </a>
+        <div className="hero-visual-wrap">
+          <div className="hero-visual">
+            <HeroMockupSVG />
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function HeroMockupSVG() {
+  return (
+    <svg viewBox="0 0 420 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A rough manuscript page transforming into a polished, KDP-ready eBook file">
+      {/* soft glow backdrop */}
+      <circle cx="210" cy="150" r="150" fill="url(#heroGlow)" />
+
+      {/* left: raw manuscript page */}
+      <g>
+        <path d="M40 40h130v190a10 10 0 0 1-10 10H50a10 10 0 0 1-10-10V40z" fill="var(--white)" stroke="var(--border)" strokeWidth="2"/>
+        <path d="M140 40l30 30h-30V40z" fill="var(--cream)" stroke="var(--border)" strokeWidth="1.5"/>
+        <rect x="58" y="90" width="94" height="6" rx="3" fill="var(--border)"/>
+        <rect x="58" y="108" width="74" height="6" rx="3" fill="var(--border)"/>
+        <rect x="58" y="126" width="86" height="6" rx="3" fill="var(--border)"/>
+        <rect x="58" y="144" width="60" height="6" rx="3" fill="var(--border)"/>
+        <rect x="58" y="162" width="80" height="6" rx="3" fill="var(--border)"/>
+        <rect x="40" y="212" width="52" height="20" rx="4" fill="var(--mid)" opacity="0.12"/>
+        <text x="66" y="226" textAnchor="middle" fontSize="10" fontFamily="'DM Sans',sans-serif" fontWeight="700" fill="var(--mid)">DOCX</text>
+      </g>
+
+      {/* center: transformation arrow */}
+      <g stroke="var(--gold)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M196 150h26"/>
+        <path d="M212 138l14 12-14 12"/>
+      </g>
+
+      {/* right: finished ebook file */}
+      <g>
+        <rect x="250" y="55" width="130" height="170" rx="8" fill="var(--ink)"/>
+        <rect x="250" y="55" width="14" height="170" rx="4" fill="var(--gold)" opacity="0.35"/>
+        <rect x="278" y="80" width="86" height="6" rx="3" fill="rgba(247,243,236,0.5)"/>
+        <rect x="278" y="98" width="66" height="6" rx="3" fill="rgba(247,243,236,0.3)"/>
+        <rect x="278" y="116" width="76" height="6" rx="3" fill="rgba(247,243,236,0.3)"/>
+        <circle cx="345" cy="195" r="18" fill="var(--gold)"/>
+        <path d="M337 195l6 6 12-13" stroke="var(--ink)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+        <rect x="278" y="150" width="56" height="20" rx="10" fill="var(--gold)"/>
+        <text x="306" y="164" textAnchor="middle" fontSize="10" fontFamily="'DM Sans',sans-serif" fontWeight="700" fill="var(--ink)">EPUB</text>
+      </g>
+
+      <defs>
+        <radialGradient id="heroGlow" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stopColor="var(--gold)" stopOpacity="0.12"/>
+          <stop offset="100%" stopColor="var(--gold)" stopOpacity="0"/>
+        </radialGradient>
+      </defs>
+    </svg>
   );
 }function TickerSection() {
   const doubled = [...TICKER_ITEMS, ...TICKER_ITEMS];
@@ -234,7 +208,7 @@ function ManuscriptBanner() {
       <div style={{ maxWidth: 680, margin: '0 auto' }}>
         <div style={{
           display: 'inline-block',
-          background: '#B8962E',
+          background: 'var(--gold)',
           color: '#fff',
           fontSize: 12,
           fontWeight: 700,
@@ -257,7 +231,7 @@ function ManuscriptBanner() {
           Turn your full manuscript into a publish-ready EPUB — free
         </h2>
         <p style={{
-          color: '#aaa',
+          color: 'rgba(247,243,236,0.55)',
           fontSize: 16,
           marginBottom: 28,
           lineHeight: 1.6,
@@ -268,8 +242,8 @@ function ManuscriptBanner() {
           <Link
             href="/tools/manuscript-mode"
             style={{
-              background: '#B8962E',
-              color: '#fff',
+              background: 'var(--gold)',
+              color: 'var(--ink)',
               padding: '14px 32px',
               borderRadius: 8,
               fontWeight: 700,
@@ -284,20 +258,20 @@ function ManuscriptBanner() {
             href="/tools/epub-validator"
             style={{
               background: 'transparent',
-              color: '#B8962E',
+              color: 'var(--gold)',
               padding: '14px 32px',
               borderRadius: 8,
               fontWeight: 600,
               fontSize: 16,
               textDecoration: 'none',
-              border: '1px solid #B8962E',
+              border: '1px solid var(--gold)',
               display: 'inline-block',
             }}
           >
             Validate EPUB Free
           </Link>
         </div>
-        <div style={{ marginTop: 20, color: '#666', fontSize: 13 }}>
+        <div style={{ marginTop: 20, color: 'rgba(247,243,236,0.35)', fontSize: 13 }}>
           Works with .docx and .txt · Chapter detection included · EPUB 3.0 output
         </div>
       </div>
@@ -367,7 +341,25 @@ function FreeToolsSection() {
 
 // ─── 4. TOOL GRID ────────────────────────────────────────────────────
 
+const TOOL_FILTERS = [
+  { key: 'all',   label: 'All' },
+  { key: 'free',  label: 'Free' },
+  { key: 'ai',    label: 'AI-Powered' },
+  { key: 'logic', label: 'Instant Logic' },
+];
+
+function matchesToolFilter(tool, filter) {
+  if (filter === 'all') return true;
+  if (filter === 'free') return !!tool.free;
+  if (filter === 'ai') return tool.accessType === 'ai';
+  if (filter === 'logic') return tool.accessType === 'logic';
+  return true;
+}
+
 function ToolGridSection() {
+  const [filter, setFilter] = useState('all');
+  const filteredTools = TOOLS.filter((t) => matchesToolFilter(t, filter));
+
   return (
     <section className="tools-section-v2" id="tools-section" aria-labelledby="toolsHeading">
       <div className="section-inner-v2">
@@ -381,29 +373,43 @@ function ToolGridSection() {
           </div>
         </AnimatedSection>
 
-        <div className="tool-grid-v2" role="list">
-          {TOOLS.map((tool, i) => (
-            <AnimatedSection key={tool.slug}>
-              <Link
-                href={`/tools/${tool.slug}`}
-                className={`tool-card-v2 animate-on-scroll stagger-${Math.min((i%3)+1,6)}`}
-                role="listitem"
-              >
-                <span className="tool-card-v2-num" aria-hidden="true">
-                  {String(i+1).padStart(2,'0')}
-                </span>
-                <div className="tool-card-v2-header">
-                  <span style={{ fontSize:22 }} aria-hidden="true">{tool.icon}</span>
-                  <Badge tool={tool} />
-                </div>
-                <h3>{tool.name}</h3>
-                <p>{tool.desc}</p>
-                <div className="tool-card-v2-footer">
-                  <span className="tool-type-label">{typeLabel(tool)}</span>
-                  <span style={{ fontSize:16, color:'var(--gold)' }} aria-hidden="true">→</span>
-                </div>
-              </Link>
-            </AnimatedSection>
+        <div className="tool-filter-tabs" role="tablist" aria-label="Filter tools">
+          {TOOL_FILTERS.map((f) => (
+            <button
+              key={f.key}
+              type="button"
+              role="tab"
+              aria-selected={filter === f.key}
+              className={`tool-filter-tab${filter === f.key ? ' active' : ''}`}
+              onClick={() => setFilter(f.key)}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="tool-grid-v2" role="list" key={filter}>
+          {filteredTools.map((tool, i) => (
+            <Link
+              key={tool.slug}
+              href={`/tools/${tool.slug}`}
+              className={`tool-card-v2 tool-card-fade-in stagger-${Math.min((i%3)+1,6)}`}
+              role="listitem"
+            >
+              <span className="tool-card-v2-num" aria-hidden="true">
+                {String(i+1).padStart(2,'0')}
+              </span>
+              <div className="tool-card-v2-header">
+                <span style={{ fontSize:22 }} aria-hidden="true">{tool.icon}</span>
+                <Badge tool={tool} />
+              </div>
+              <h3>{tool.name}</h3>
+              <p>{tool.desc}</p>
+              <div className="tool-card-v2-footer">
+                <span className="tool-type-label">{typeLabel(tool)}</span>
+                <span style={{ fontSize:16, color:'var(--gold)' }} aria-hidden="true">→</span>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -415,48 +421,30 @@ function ToolGridSection() {
 
 function CompetitorSection() {
   const cols = [
-    { name:'Atticus',     price:'$147', note:'One-time · No AI · No cloud', featured:false },
-    { name:'BookKraft AI',price:'$4.99',note:'All 12 tools · AI-powered',   featured:true  },
-    { name:'Vellum',      price:'$250', note:'Mac only · No AI · No cleanup',featured:false },
+    { name:'Atticus',     price:147,  label:'$147',  note:'One-time · No AI · No cloud',  featured:false },
+    { name:'BookKraft AI',price:4.99, label:'$4.99', note:'All 12 tools · AI-powered',    featured:true  },
+    { name:'Vellum',      price:250,  label:'$250',  note:'Mac only · No AI · No cleanup',featured:false },
   ];
+  const maxPrice = Math.max(...cols.map(c => c.price));
   return (
     <section style={{ background:'var(--ink)', padding:'72px clamp(20px,4vw,48px)' }} aria-label="Price comparison">
-      <div style={{ maxWidth:860, margin:'0 auto', textAlign:'center' }}>
+      <div style={{ maxWidth:640, margin:'0 auto' }}>
         <AnimatedSection>
-          <p className="section-eyebrow-v2 animate-on-scroll" style={{ color:'rgba(201,168,76,0.65)' }}>
+          <p className="section-eyebrow-v2 animate-on-scroll" style={{ color:'rgba(201,168,76,0.65)', textAlign:'center' }}>
             Why BookKraft AI wins on value
           </p>
-          <div style={{ display:'grid', gridTemplateColumns:'1fr 2px 1fr 2px 1fr', alignItems:'center', marginTop:44 }}
-            className="animate-on-scroll stagger-1">
-            {cols.map((col, i) => (
-              <React.Fragment key={col.name}>
-                <div style={{
-                  padding:'28px 24px', textAlign:'center',
-                  ...(col.featured ? { borderTop:'2px solid var(--gold)', background:'rgba(201,168,76,0.04)' } : {}),
-                }}>
-                  <p style={{ fontSize:12, textTransform:'uppercase', letterSpacing:'1.5px', marginBottom:8,
-                    color: col.featured ? 'rgba(201,168,76,0.7)' : 'rgba(247,243,236,0.42)' }}>
-                    {col.name}
-                  </p>
-                  <p style={{
-                    fontFamily:"'Playfair Display',serif",
-                    fontSize:'clamp(48px,6vw,64px)', fontStyle:'italic', lineHeight:1,
-                    color: col.featured ? 'var(--gold)' : 'rgba(247,243,236,0.25)',
-                  }}>
-                    {col.price}
-                  </p>
-                  <p style={{ fontSize:12, marginTop:8,
-                    color: col.featured ? 'rgba(201,168,76,0.55)' : 'rgba(247,243,236,0.3)' }}>
-                    {col.note}
-                  </p>
+          <div className="competitor-bars animate-on-scroll stagger-1">
+            {cols.map((col) => (
+              <div key={col.name} className={`competitor-bar-row${col.featured ? ' featured' : ''}`}>
+                <div className="competitor-bar-label">
+                  <span className="competitor-bar-name">{col.name}</span>
+                  <span className="competitor-bar-note">{col.note}</span>
                 </div>
-                {i < cols.length - 1 && (
-                  <div aria-hidden="true" style={{
-                    height:100,
-                    background:'linear-gradient(to bottom,transparent,rgba(201,168,76,0.25),transparent)',
-                  }} />
-                )}
-              </React.Fragment>
+                <div className="competitor-bar-track">
+                  <div className="competitor-bar-fill" style={{ width: `${(col.price / maxPrice) * 100}%` }} />
+                </div>
+                <span className="competitor-bar-price">{col.label}</span>
+              </div>
             ))}
           </div>
         </AnimatedSection>
@@ -508,6 +496,10 @@ function WorkflowSection() {
 
 // ─── 7. TESTIMONIALS ─────────────────────────────────────────────────
 
+function initials(name) {
+  return name.split(' ').filter(Boolean).map(w => w[0]).join('').slice(0, 2).toUpperCase();
+}
+
 function TestimonialsSection() {
   const REVIEWS = [
     {
@@ -538,16 +530,16 @@ function TestimonialsSection() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24, marginTop: 48, marginBottom: 48 }}>
           {REVIEWS.map((review, i) => (
             <AnimatedSection key={i}>
-              <div className={`animate-on-scroll stagger-${i + 1}`} style={{
-                background: 'var(--cream)', border: '1px solid var(--border)',
-                borderRadius: 'var(--radius)', padding: '28px 28px 24px',
-              }}>
+              <div className={`testimonial-card-v2 animate-on-scroll stagger-${i + 1}`}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 14 }}>
-                  <div>
-                    <p style={{ fontWeight: 700, fontSize: 15, marginBottom: 2 }}>{review.name}</p>
-                    <p style={{ fontSize: 12, color: 'var(--mid)' }}>via {review.source}</p>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <div className="testimonial-avatar" aria-hidden="true">{initials(review.name)}</div>
+                    <div>
+                      <p style={{ fontWeight: 700, fontSize: 15, marginBottom: 2 }}>{review.name}</p>
+                      <p style={{ fontSize: 12, color: 'var(--mid)' }}>via {review.source}</p>
+                    </div>
                   </div>
-                  <span style={{ color: 'var(--gold)', fontSize: 14, letterSpacing: 1 }} aria-label={`${review.rating} stars`}>
+                  <span className="testimonial-stars-v2" aria-label={`${review.rating} stars`}>
                     {'★'.repeat(review.rating)}
                   </span>
                 </div>
@@ -634,7 +626,7 @@ function PricingSection() {
           </div>
         </AnimatedSection>
 
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:14 }} role="list">
+        <div className="pricing-grid-v2" role="list">
           {plans.map((plan, i) => (
             <AnimatedSection key={plan.key}>
               <div
@@ -711,63 +703,3 @@ function FAQSection() {
 
 // ─── 11. FOOTER ──────────────────────────────────────────────────────
 
-function FooterSection() {
-  return (
-    <footer className="footer-v2" aria-label="Site footer">
-      <div className="footer-v2-inner">
-        <div className="footer-v2-grid">
-          <div>
-            <div className="footer-logo-v2">BookKraft <span>AI</span></div>
-            <p className="footer-tagline">
-              Professional eBook formatting for indie authors. 12 tools that make
-              your manuscript publishable on any platform.
-            </p>
-            <div style={{ display:'flex', gap:16, flexWrap:'wrap' }}>
-              <a href="https://x.com/BookkraftTools" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>X / Twitter</a>
-              <a href="https://www.linkedin.com/in/book-kraft-ai-b49a34401/" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>LinkedIn</a>
-              <a href="https://www.facebook.com/profile.php?id=61570875517722" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Facebook</a>
-              <a href="https://reddit.com/r/bookkraftai" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Reddit</a>
-              <a href="https://www.quora.com/profile/Book-Kraft" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ marginBottom:0 }}>Quora</a>
-              <a href="mailto:hello@bookkraftai.com" className="footer-link" style={{ marginBottom:0 }}>Email</a>
-            </div>
-          </div>
-          <div>
-            <p className="footer-col-title">Tools</p>
-            <Link href="/tools/epub-validator"     className="footer-link">EPUB Validator</Link>
-            <Link href="/tools/metadata-builder"   className="footer-link">Metadata Builder</Link>
-            <Link href="/tools/toc-generator"      className="footer-link">TOC Generator</Link>
-            <Link href="/tools/manuscript-cleanup" className="footer-link">Manuscript Cleanup</Link>
-            <Link href="/free-tools"               className="footer-link">All Free Tools</Link>
-          </div>
-          <div>
-            <p className="footer-col-title">Company</p>
-            <Link href="/pricing" className="footer-link">Pricing</Link>
-            <Link href="/contact" className="footer-link">Contact</Link>
-            <a href="https://blog.bookkraftai.com" className="footer-link" target="_blank" rel="noopener noreferrer">Blog</a>
-          </div>
-          <div>
-            <p className="footer-col-title">Legal</p>
-            <Link href="/privacy" className="footer-link">Privacy Policy</Link>
-            <Link href="/terms"   className="footer-link">Terms of Service</Link>
-          </div>
-        </div>
-        <div className="footer-v2-bottom">
-          <p className="footer-copy">© {new Date().getFullYear()} BookKraft AI. All rights reserved.</p>
-          <a href="https://sellwithboost.com" target="_blank" rel="noopener noreferrer">
-            <img src="https://sellwithboost.com/badge/listing.svg" alt="Listed on SellWithBoost" width="108" height="36" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
-          </a>
-          <a href="https://codetrendy.com" target="_blank" rel="noopener noreferrer">
-            <img src="https://codetrendy.com/api/badge?style=classic" alt="Listed on codetrendy.com" width="108" height="36" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
-          </a>
-          <a href="https://www.uneed.best/tool/bookkraft-ai" target="_blank" rel="noopener noreferrer">
-           <img src="https://www.uneed.best/EMBED3.png" alt="Launching on Uneed" width="108" height="36" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
-          </a>
-           <div className="footer-legal">
-            <Link href="/privacy">Privacy</Link>
-            <Link href="/terms">Terms</Link>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
