@@ -3230,6 +3230,24 @@ pre {
   position: relative;
   overflow: hidden;
 }
+.hero-ambient { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+}
+.hero-blob-1 { width: 420px; height: 420px; top: -120px; left: -80px; background: var(--gold); opacity: 0.18; }
+.hero-blob-2 { width: 360px; height: 360px; bottom: -140px; right: 10%; background: #E8A94A; opacity: 0.15; }
+.hero-blob-3 { width: 300px; height: 300px; top: 30%; right: -100px; background: var(--gold); opacity: 0.12; filter: blur(100px); }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-blob-1 { animation: heroBlobDrift 18s ease-in-out infinite alternate; }
+  .hero-blob-2 { animation: heroBlobDrift 22s ease-in-out infinite alternate-reverse; }
+}
+@keyframes heroBlobDrift {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(24px, 16px); }
+}
+
 .hero-grid {
   max-width: 1160px;
   margin: 0 auto;
@@ -3246,6 +3264,16 @@ pre {
   font-family: 'JetBrains Mono', monospace; font-size: 11px;
   color: var(--gold); letter-spacing: 2.5px; text-transform: uppercase;
   margin-bottom: 20px;
+  display: inline-block;
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.06);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .hero-eyebrow { background: rgba(30,26,18,0.55); }
 }
 .hero-headline {
   font-family: 'Playfair Display', serif;
@@ -3276,14 +3304,51 @@ pre {
   font-family: 'DM Sans', sans-serif; font-size: 16px;
   text-decoration: none;
   transition: background 0.15s ease, border-color 0.15s ease;
+  background: rgba(255,255,255,0.05);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 .hero-cta-secondary:hover { background: rgba(247,243,236,0.08); border-color: rgba(247,243,236,0.6); }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .hero-cta-secondary { background: rgba(255,255,255,0.03); }
+}
 
 .hero-visual-wrap { display: flex; justify-content: center; }
 .hero-visual {
   width: 100%; max-width: 440px;
   opacity: 0;
   animation: fadeInUp 0.8s ease 0.15s forwards;
+}
+
+.hero-mockup { display: flex; align-items: center; gap: 8px; }
+.hero-mockup-card {
+  flex: 1 1 0;
+  min-width: 100px;
+  border-radius: 16px;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: var(--shadow-md);
+  padding: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-mockup-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.16), rgba(255,255,255,0) 45%);
+  pointer-events: none;
+}
+.hero-mockup-card-docx { background: rgba(255,255,255,0.10); }
+.hero-mockup-card-epub { background: rgba(201,147,58,0.18); }
+.hero-mockup-card svg { width: 100%; height: auto; display: block; }
+.hero-mockup-arrow { flex-shrink: 0; width: 32px; }
+.hero-mockup-arrow svg { width: 100%; height: auto; display: block; }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .hero-mockup-card-docx { background: rgba(40,36,28,0.9); }
+  .hero-mockup-card-epub { background: rgba(60,45,20,0.9); }
 }
 
 @media (max-width: 860px) {
@@ -3512,28 +3577,6 @@ pre {
   align-items: center;
   position: relative;
   z-index: 1;
-}
-
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--gold);
-  margin-bottom: var(--space-md);
-  opacity: 0;
-  animation: fadeIn 0.5s ease 0.1s forwards;
-}
-
-.hero-eyebrow-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--gold);
 }
 
 .hero-headline {

@@ -98,11 +98,11 @@ export default function LandingPage() {
 function HeroSection() {
   return (
     <section className="hero-section-v3" aria-label="Hero">
-      <div aria-hidden="true" style={{
-        position:'absolute',inset:0,pointerEvents:'none',opacity:0.045,
-        backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(255,215,0,0.1) 0%, transparent 70%)',
-        backgroundSize: '100% 100%',
-      }} />
+      <div className="hero-ambient" aria-hidden="true">
+        <span className="hero-blob hero-blob-1" />
+        <span className="hero-blob hero-blob-2" />
+        <span className="hero-blob hero-blob-3" />
+      </div>
 
       <div className="hero-grid">
         <div className="hero-copy">
@@ -119,7 +119,7 @@ function HeroSection() {
 
         <div className="hero-visual-wrap">
           <div className="hero-visual">
-            <HeroMockupSVG />
+            <HeroMockup />
           </div>
         </div>
       </div>
@@ -127,51 +127,50 @@ function HeroSection() {
   );
 }
 
-function HeroMockupSVG() {
+function HeroMockup() {
   return (
-    <svg viewBox="0 0 420 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A rough manuscript page transforming into a polished, KDP-ready eBook file">
-      {/* soft glow backdrop */}
-      <circle cx="210" cy="150" r="150" fill="url(#heroGlow)" />
+    <div className="hero-mockup" role="img" aria-label="A rough manuscript page transforming into a polished, KDP-ready eBook file">
+      <div className="hero-mockup-card hero-mockup-card-docx">
+        <svg viewBox="0 0 150 212" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g transform="translate(-30,-30)">
+            <path d="M40 40h130v190a10 10 0 0 1-10 10H50a10 10 0 0 1-10-10V40z" fill="var(--white)" stroke="var(--border)" strokeWidth="2"/>
+            <path d="M140 40l30 30h-30V40z" fill="var(--cream)" stroke="var(--border)" strokeWidth="1.5"/>
+            <rect x="58" y="90" width="94" height="6" rx="3" fill="var(--border)"/>
+            <rect x="58" y="108" width="74" height="6" rx="3" fill="var(--border)"/>
+            <rect x="58" y="126" width="86" height="6" rx="3" fill="var(--border)"/>
+            <rect x="58" y="144" width="60" height="6" rx="3" fill="var(--border)"/>
+            <rect x="58" y="162" width="80" height="6" rx="3" fill="var(--border)"/>
+            <rect x="40" y="212" width="52" height="20" rx="4" fill="var(--mid)" opacity="0.12"/>
+            <text x="66" y="226" textAnchor="middle" fontSize="10" fontFamily="'DM Sans',sans-serif" fontWeight="700" fill="var(--mid)">DOCX</text>
+          </g>
+        </svg>
+      </div>
 
-      {/* left: raw manuscript page */}
-      <g>
-        <path d="M40 40h130v190a10 10 0 0 1-10 10H50a10 10 0 0 1-10-10V40z" fill="var(--white)" stroke="var(--border)" strokeWidth="2"/>
-        <path d="M140 40l30 30h-30V40z" fill="var(--cream)" stroke="var(--border)" strokeWidth="1.5"/>
-        <rect x="58" y="90" width="94" height="6" rx="3" fill="var(--border)"/>
-        <rect x="58" y="108" width="74" height="6" rx="3" fill="var(--border)"/>
-        <rect x="58" y="126" width="86" height="6" rx="3" fill="var(--border)"/>
-        <rect x="58" y="144" width="60" height="6" rx="3" fill="var(--border)"/>
-        <rect x="58" y="162" width="80" height="6" rx="3" fill="var(--border)"/>
-        <rect x="40" y="212" width="52" height="20" rx="4" fill="var(--mid)" opacity="0.12"/>
-        <text x="66" y="226" textAnchor="middle" fontSize="10" fontFamily="'DM Sans',sans-serif" fontWeight="700" fill="var(--mid)">DOCX</text>
-      </g>
+      <div className="hero-mockup-arrow" aria-hidden="true">
+        <svg viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="var(--gold)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M2 12h26"/>
+            <path d="M18 0l14 12-14 12"/>
+          </g>
+        </svg>
+      </div>
 
-      {/* center: transformation arrow */}
-      <g stroke="var(--gold)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M196 150h26"/>
-        <path d="M212 138l14 12-14 12"/>
-      </g>
-
-      {/* right: finished ebook file */}
-      <g>
-        <rect x="250" y="55" width="130" height="170" rx="8" fill="var(--ink)"/>
-        <rect x="250" y="55" width="14" height="170" rx="4" fill="var(--gold)" opacity="0.35"/>
-        <rect x="278" y="80" width="86" height="6" rx="3" fill="rgba(247,243,236,0.5)"/>
-        <rect x="278" y="98" width="66" height="6" rx="3" fill="rgba(247,243,236,0.3)"/>
-        <rect x="278" y="116" width="76" height="6" rx="3" fill="rgba(247,243,236,0.3)"/>
-        <circle cx="345" cy="195" r="18" fill="var(--gold)"/>
-        <path d="M337 195l6 6 12-13" stroke="var(--ink)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-        <rect x="278" y="150" width="56" height="20" rx="10" fill="var(--gold)"/>
-        <text x="306" y="164" textAnchor="middle" fontSize="10" fontFamily="'DM Sans',sans-serif" fontWeight="700" fill="var(--ink)">EPUB</text>
-      </g>
-
-      <defs>
-        <radialGradient id="heroGlow" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%" stopColor="var(--gold)" stopOpacity="0.12"/>
-          <stop offset="100%" stopColor="var(--gold)" stopOpacity="0"/>
-        </radialGradient>
-      </defs>
-    </svg>
+      <div className="hero-mockup-card hero-mockup-card-epub">
+        <svg viewBox="0 0 150 212" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g transform="translate(-240,-34)">
+            <rect x="250" y="55" width="130" height="170" rx="8" fill="var(--ink)"/>
+            <rect x="250" y="55" width="14" height="170" rx="4" fill="var(--gold)" opacity="0.35"/>
+            <rect x="278" y="80" width="86" height="6" rx="3" fill="rgba(247,243,236,0.5)"/>
+            <rect x="278" y="98" width="66" height="6" rx="3" fill="rgba(247,243,236,0.3)"/>
+            <rect x="278" y="116" width="76" height="6" rx="3" fill="rgba(247,243,236,0.3)"/>
+            <circle cx="345" cy="195" r="18" fill="var(--gold)"/>
+            <path d="M337 195l6 6 12-13" stroke="var(--ink)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+            <rect x="278" y="150" width="56" height="20" rx="10" fill="var(--gold)"/>
+            <text x="306" y="164" textAnchor="middle" fontSize="10" fontFamily="'DM Sans',sans-serif" fontWeight="700" fill="var(--ink)">EPUB</text>
+          </g>
+        </svg>
+      </div>
+    </div>
   );
 }function TickerSection() {
   const doubled = [...TICKER_ITEMS, ...TICKER_ITEMS];
