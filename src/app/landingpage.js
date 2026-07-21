@@ -107,7 +107,7 @@ function HeroSection() {
       <div className="hero-grid">
         <div className="hero-copy">
           <p className="hero-eyebrow">✦ Professional eBook Formatting</p>
-          <h1 className="hero-headline">Format like a pro.</h1>
+          <h1 className="hero-headline">Format Your EPUB & Kindle Books Like a Pro.</h1>
           <p className="hero-sub">
             Upload your manuscript, pick a tool, and download a KDP-ready EPUB, PDF, or DOCX — in seconds. Start with two free tools, no account needed.
           </p>

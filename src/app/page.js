@@ -3,7 +3,7 @@ const LandingPage = dynamic(() => import('./landingpage'), { ssr: true, loading:
 import { FAQS, PRICING } from '../lib/constants';
 
 export const metadata = {
-  title: 'BookKraft AI — EPUB & Kindle Formatting Tools',
+  title: 'BookKraft AI — EPUB & Kindle Tools for Indie Authors',
   description: '12 tools for indie authors. Fix Kindle errors, validate EPUBs, build metadata, generate keywords. One-time price, no subscription. Start free.',
   alternates: {
     canonical: 'https://bookkraftai.com/',

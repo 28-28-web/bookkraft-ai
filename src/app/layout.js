@@ -42,7 +42,7 @@ export const viewport = {
 
 export const metadata = {
   metadataBase: new URL('https://bookkraftai.com'),
-  title: 'BookKraft AI — Format Your eBook Like a Pro',
+  title: 'BookKraft AI — EPUB & Kindle Tools for Indie Authors',
   description: '12 eBook formatting tools. EPUB validation, Kindle formatting, metadata builder, style auditor, and more. 2 free tools — no signup needed.',
   keywords: 'ebook formatting, epub validator, kindle format, metadata builder, book publishing tools, kdp tools',
   icons: {
@@ -50,7 +50,7 @@ export const metadata = {
     apple: '/favicon.png',
   },
   openGraph: {
-    title: 'BookKraft AI — Format Your eBook Like a Pro',
+    title: 'BookKraft AI — EPUB & Kindle Tools for Indie Authors',
     description: '12 eBook formatting tools. EPUB validation, Kindle formatting, metadata builder, style auditor, and more. 2 free tools — no signup needed.',
     siteName: 'BookKraft AI',
     type: 'website',
@@ -59,7 +59,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BookKraft AI — Format Your eBook Like a Pro',
+    title: 'BookKraft AI — EPUB & Kindle Tools for Indie Authors',
     description: '12 eBook formatting tools. EPUB validation, Kindle formatting, metadata builder, style auditor, and more. 2 free tools — no signup needed.',
   },
 };
