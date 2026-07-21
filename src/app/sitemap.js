@@ -39,17 +39,20 @@ export default async function sitemap() {
   }))
 
   const posts = await getGhostPosts()
-  const blogPages = posts.map((post) => ({
-    url: `https://blog.bookkraftai.com/${post.slug}/`,
-    lastModified: new Date(post.updated_at || post.published_at),
-    changeFrequency: 'monthly',
-    priority: 0.7,
-  }))
+  const EXCLUDED_SLUGS = ['how-to-format-an-ebook-for-free-in-2025-2']
+  const blogPages = posts
+    .filter((post) => !EXCLUDED_SLUGS.includes(post.slug))
+    .map((post) => ({
+      url: `https://blog.bookkraftai.com/${post.slug}/`,
+      lastModified: new Date(post.updated_at || post.published_at),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    }))
 
   return [
     {
       url: 'https://bookkraftai.com',
-      lastModified: new Date('2026-05-05'),
+      lastModified: new Date('2026-07-21'),
       changeFrequency: 'weekly',
       priority: 1.0,
     },
