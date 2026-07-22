@@ -181,7 +181,7 @@ function HeroMockup() {
     >
       <div style={{ display:'flex', whiteSpace:'nowrap', animation:'bkTicker 32s linear infinite' }}>
         {doubled.map((item, i) => (
-          <div key={i} style={{
+          <div key={i} aria-hidden={i >= TICKER_ITEMS.length ? 'true' : undefined} style={{
             display:'inline-flex', alignItems:'center', gap:10,
             padding:'0 36px', fontSize:13, color:'var(--mid)',
             borderRight:'1px solid var(--border)', flexShrink:0,
@@ -227,7 +227,7 @@ function ManuscriptBanner() {
           lineHeight: 1.2,
           fontFamily: "'Playfair Display', serif",
         }}>
-          Turn your full manuscript into a publish-ready EPUB — free
+          Convert Word DOCX to EPUB 3.0 — One Step, No Calibre
         </h2>
         <p style={{
           color: 'rgba(247,243,236,0.55)',
@@ -267,7 +267,7 @@ function ManuscriptBanner() {
               display: 'inline-block',
             }}
           >
-            Validate EPUB Free
+            Validate EPUB 3.0 Files
           </Link>
         </div>
         <div style={{ marginTop: 20, color: 'rgba(247,243,236,0.35)', fontSize: 13 }}>
@@ -297,10 +297,10 @@ function FreeToolsSection() {
                 Free — No Login Required
               </div>
               <h2 id="freeTitle" style={{ fontFamily:"'Playfair Display',serif", fontSize:26, fontWeight:700, marginBottom:6 }}>
-                Start for free, right now
+                Validate EPUB Files for KDP — No Signup Required
               </h2>
               <p style={{ fontSize:14, color:'var(--sage)', margin:0 }}>
-                4 free tools available with no account needed.
+                4 tools, no account needed — EPUB, metadata, cover & more.
               </p>
             </div>
             <div style={{ display:'flex', gap:12, flexShrink:0 }}>
@@ -365,7 +365,7 @@ function ToolGridSection() {
         <AnimatedSection>
           <div className="animate-on-scroll" style={{ textAlign:'center' }}>
             <p className="section-eyebrow-v2">12 Professional Tools</p>
-            <h2 className="section-title-v2" id="toolsHeading">Everything an indie author needs</h2>
+            <h2 className="section-title-v2" id="toolsHeading">EPUB 3.0 Validator, Kindle Manuscript Formatter & More</h2>
             <p className="section-sub-v2" style={{ maxWidth:500, margin:'0 auto' }}>
               From raw manuscript to polished EPUB — every step covered in one place.
             </p>
@@ -672,7 +672,7 @@ function FAQSection() {
         <AnimatedSection>
           <p className="section-eyebrow-v2 animate-on-scroll">Common questions</p>
           <h2 className="section-title-v2 animate-on-scroll stagger-1" id="faqHeading">
-            Everything you need to know
+            EPUB & Kindle Formatting — Common Questions
           </h2>
         </AnimatedSection>
 
