@@ -10,23 +10,19 @@ export default function NewsletterPopup({ triggerType = 'default' }) {
 
     useEffect(() => {
         if (localStorage.getItem('bk_newsletter_done')) return;
+        const dismissedAt = localStorage.getItem('bk_newsletter_dismissed_at');
+        if (dismissedAt && Date.now() - Number(dismissedAt) < 14 * 24 * 60 * 60 * 1000) return;
         if (triggerType === 'manual') return;
-        const timer = setTimeout(() => {
-            if (!localStorage.getItem('bk_newsletter_done')) {
-                if (sessionStorage.getItem('bk_newsletter_shown')) return;
-                setShow(true);
-                sessionStorage.setItem('bk_newsletter_shown', 'true');
-            }
-        }, 20000);
+        let shown = false;
+        const show = () => {
+            if (shown) return;
+            shown = true;
+            setShow(true);
+        };
+        const timer = setTimeout(show, 45000);
         function handleScroll() {
             const scrollPct = (window.scrollY + window.innerHeight) / document.body.scrollHeight;
-            if (scrollPct > 0.6) {
-                if (!sessionStorage.getItem('bk_newsletter_shown') && !localStorage.getItem('bk_newsletter_done')) {
-                    setShow(true);
-                    sessionStorage.setItem('bk_newsletter_shown', 'true');
-                }
-                window.removeEventListener('scroll', handleScroll);
-            }
+            if (scrollPct > 0.75) { show(); window.removeEventListener('scroll', handleScroll); }
         }
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => { clearTimeout(timer); window.removeEventListener('scroll', handleScroll); };
@@ -39,6 +35,7 @@ export default function NewsletterPopup({ triggerType = 'default' }) {
         window.addEventListener('bk-newsletter-trigger', handleTrigger);
         return () => window.removeEventListener('bk-newsletter-trigger', handleTrigger);
     }, []);
+
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -68,7 +65,7 @@ export default function NewsletterPopup({ triggerType = 'default' }) {
 
     function handleDismiss() {
         setShow(false);
-        sessionStorage.setItem('bk_newsletter_shown', 'true');
+        localStorage.setItem('bk_newsletter_dismissed_at', String(Date.now()));
     }
 
     if (!show) return null;

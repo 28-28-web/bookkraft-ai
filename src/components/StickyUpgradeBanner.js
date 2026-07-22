@@ -6,33 +6,46 @@ import Link from 'next/link';
 export default function StickyUpgradeBanner() {
     const [visible, setVisible] = useState(false);
     const [dismissed, setDismissed] = useState(false);
+    const [cookieResolved, setCookieResolved] = useState(false);
 
     useEffect(() => {
-        // Check if already dismissed in this session
-        const isDismissed = sessionStorage.getItem('sticky-banner-dismissed');
-        if (isDismissed) return;
+        // Don't show if dismissed within last 7 days
+        const dismissedAt = localStorage.getItem('sticky-banner-dismissed-at');
+        if (dismissedAt && Date.now() - Number(dismissedAt) < 7 * 24 * 60 * 60 * 1000) return;
 
-        // Show after 8 seconds or when user scrolls 40% down
-        const timer = setTimeout(() => setVisible(true), 8000);
+        // Don't show until cookie consent has been resolved (accepted or declined)
+        const consent = localStorage.getItem('bk_cookie_consent');
+        if (consent) setCookieResolved(true);
+
+        // Poll briefly for cookie resolution (in case user accepts mid-session)
+        const cookieCheck = setInterval(() => {
+            if (localStorage.getItem('bk_cookie_consent')) {
+                setCookieResolved(true);
+                clearInterval(cookieCheck);
+            }
+        }, 500);
+
+        const timer = setTimeout(() => setVisible(true), 20000);
 
         const handleScroll = () => {
             const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-            if (scrolled > 0.4) setVisible(true);
+            if (scrolled > 0.55) setVisible(true);
         };
 
         window.addEventListener('scroll', handleScroll);
         return () => {
             clearTimeout(timer);
+            clearInterval(cookieCheck);
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
 
     const handleDismiss = () => {
         setDismissed(true);
-        sessionStorage.setItem('sticky-banner-dismissed', 'true');
+        localStorage.setItem('sticky-banner-dismissed-at', String(Date.now()));
     };
 
-    if (dismissed || !visible) return null;
+    if (dismissed || !visible || !cookieResolved) return null;
 
     return (
         <div style={{
@@ -59,7 +72,6 @@ export default function StickyUpgradeBanner() {
                 }
             `}</style>
 
-            {/* Dismiss button */}
             <button
                 onClick={handleDismiss}
                 aria-label="Dismiss"
@@ -77,7 +89,6 @@ export default function StickyUpgradeBanner() {
                 }}
             >✕</button>
 
-            {/* Message */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <span style={{ color: '#C9933A', fontSize: '18px' }}>✦</span>
                 <p style={{
@@ -94,7 +105,6 @@ export default function StickyUpgradeBanner() {
                 </p>
             </div>
 
-            {/* CTA */}
             <Link
                 href="/pricing"
                 style={{
