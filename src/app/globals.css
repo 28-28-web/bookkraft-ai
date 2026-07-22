@@ -4337,6 +4337,11 @@ pre {
   opacity: 1;
 }
 
+/* ── Utility ── */
+.content-wrap { max-width: 1160px; margin: 0 auto; }
+.section-cream { background: var(--cream); padding: 88px clamp(20px,4vw,48px); }
+.section-white { background: #fff; padding: 88px clamp(20px,4vw,48px); }
+
 /* ── Footer Enhancements ── */
 .footer-v2 { background: var(--ink); padding: 64px clamp(20px,4vw,48px) 32px; }
 .footer-v2-inner { max-width: 1160px; margin: 0 auto; }

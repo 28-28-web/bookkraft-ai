@@ -31,6 +31,10 @@ const nextConfig = {
         source: '/(.*)',
         headers: [
           {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+          {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",

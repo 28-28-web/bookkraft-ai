@@ -456,8 +456,8 @@ function CompetitorSection() {
 
 function WorkflowSection() {
   return (
-    <section style={{ background:'var(--cream)', padding:'88px clamp(20px,4vw,48px)' }} aria-labelledby="workflowHeading">
-      <div style={{ maxWidth:1160, margin:'0 auto' }}>
+    <section className="section-cream" aria-labelledby="workflowHeading">
+      <div className="content-wrap">
         <AnimatedSection>
           <p className="section-eyebrow-v2 animate-on-scroll">How it works</p>
           <h2 className="section-title-v2 animate-on-scroll stagger-1" id="workflowHeading">
@@ -516,8 +516,8 @@ function TestimonialsSection() {
   ];
 
   return (
-    <section style={{ background: '#fff', padding: '88px clamp(20px,4vw,48px)' }} aria-labelledby="reviewsHeading">
-      <div style={{ maxWidth: 1160, margin: '0 auto' }}>
+    <section className="section-white" aria-labelledby="reviewsHeading">
+      <div className="content-wrap">
         <AnimatedSection>
           <p className="section-eyebrow-v2 animate-on-scroll">Author wins</p>
           <h2 className="section-title-v2 animate-on-scroll stagger-1" id="reviewsHeading">
@@ -561,7 +561,7 @@ function TestimonialsSection() {
 function PlatformsSection() {
   return (
     <section style={{ background:'var(--cream)', padding:'56px clamp(20px,4vw,48px)' }} aria-labelledby="platformsHeading">
-      <div style={{ maxWidth:1160, margin:'0 auto', textAlign:'center' }}>
+      <div className="content-wrap" style={{ textAlign:'center' }}>
         <AnimatedSection>
           <h2 id="platformsHeading" className="animate-on-scroll"
             style={{ fontFamily:"'Playfair Display',serif", fontSize:24, fontWeight:700, marginBottom:24 }}>
@@ -615,8 +615,8 @@ function PricingSection() {
   ];
 
   return (
-    <section style={{ background:'#fff', padding:'88px clamp(20px,4vw,48px)' }} id="pricing" aria-labelledby="pricingHeading">
-      <div style={{ maxWidth:1160, margin:'0 auto' }}>
+    <section className="section-white" id="pricing" aria-labelledby="pricingHeading">
+      <div className="content-wrap">
         <AnimatedSection>
           <div className="animate-on-scroll" style={{ textAlign:'center', marginBottom:48 }}>
             <p className="section-eyebrow-v2">Simple, honest pricing</p>
@@ -667,7 +667,7 @@ function FAQSection() {
   const toggle = i => setOpen(open === i ? null : i);
 
   return (
-    <section style={{ background:'var(--cream)', padding:'88px clamp(20px,4vw,48px)' }} aria-labelledby="faqHeading">
+    <section className="section-cream" aria-labelledby="faqHeading">
       <div style={{ maxWidth:680, margin:'0 auto' }}>
         <AnimatedSection>
           <p className="section-eyebrow-v2 animate-on-scroll">Common questions</p>
