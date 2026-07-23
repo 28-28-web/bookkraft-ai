@@ -99,6 +99,13 @@ export default function RootLayout({ children }) {
           `}
         </Script>
 
+        {/* ── Google AdSense ── */}
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6218384833741504"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
+
         {/* ── Microsoft Clarity ── */}
         <Script id="microsoft-clarity" strategy="afterInteractive">
           {`
