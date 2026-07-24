@@ -15,10 +15,10 @@ export default function FreeToolsPage() {
                         <span className="hero-badge-dot" /> No account needed
                     </div>
                     <h1 style={{ color: 'var(--cream)', fontSize: 'var(--text-5xl)', marginBottom: 'var(--space-4)' }}>
-                        Three Free Tools.<br /><em style={{ color: 'var(--gold)', fontWeight: 400 }}>No Signup.</em>
+                        Five Free Tools.<br /><em style={{ color: 'var(--gold)', fontWeight: 400 }}>No Signup.</em>
                     </h1>
                     <p style={{ color: 'rgba(247,243,236,.65)', fontSize: '18px', maxWidth: 520, margin: '0 auto' }}>
-                        EPUB Validator, Metadata Builder, and the Word Manuscript Cleanup Checker work immediately.
+                        EPUB Validator, Metadata Builder, Cover Checker, Word Manuscript Cleanup Checker, and Full Manuscript Mode all work immediately.
                         No email, no credit card, no account. Just open and use.
                     </p>
                 </div>
@@ -101,6 +101,54 @@ export default function FreeToolsPage() {
                                 Open Word Cleanup Checker
                             </Link>
                         </div>
+
+                        {/* Cover Checker */}
+                        <div style={{
+                            background: 'var(--white)', border: '1px solid var(--border)',
+                            borderRadius: 'var(--radius)', padding: 'var(--space-8)',
+                        }}>
+                            <span className="badge badge-free" style={{ marginBottom: 'var(--space-4)', display: 'inline-flex' }}>FREE</span>
+                            <h2 style={{ marginBottom: 'var(--space-3)' }}>Cover Checker</h2>
+                            <p style={{ color: 'var(--mid)', lineHeight: 1.6, marginBottom: 'var(--space-6)' }}>
+                                Upload your cover and instantly check it against Amazon KDP and Apple Books pixel,
+                                ratio, and format requirements before you upload it anywhere.
+                            </p>
+                            <ul style={{
+                                listStyle: 'none', padding: 0, marginBottom: 'var(--space-6)',
+                                display: 'grid', gap: 'var(--space-2)',
+                            }}>
+                                {['No signup required', 'Runs entirely in-browser', 'KDP + Apple Books checks', 'Measured locally — never uploaded', 'Unlimited use'].map((item, i) => (
+                                    <li key={i} style={{ fontSize: 'var(--text-sm)', color: 'var(--ink)' }}>✓ {item}</li>
+                                ))}
+                            </ul>
+                            <Link href="/tools/cover-checker" className="btn btn-gold btn-full" style={{ textDecoration: 'none' }}>
+                                Open Cover Checker
+                            </Link>
+                        </div>
+
+                        {/* Full Manuscript Mode */}
+                        <div style={{
+                            background: 'var(--white)', border: '1px solid var(--border)',
+                            borderRadius: 'var(--radius)', padding: 'var(--space-8)',
+                        }}>
+                            <span className="badge badge-free" style={{ marginBottom: 'var(--space-4)', display: 'inline-flex' }}>FREE</span>
+                            <h2 style={{ marginBottom: 'var(--space-3)' }}>Full Manuscript Mode</h2>
+                            <p style={{ color: 'var(--mid)', lineHeight: 1.6, marginBottom: 'var(--space-6)' }}>
+                                Upload your .docx or .txt manuscript and get a valid EPUB 3.0 file back in one step —
+                                chapter detection, smart quotes, em dashes, and encoding fixes included.
+                            </p>
+                            <ul style={{
+                                listStyle: 'none', padding: 0, marginBottom: 'var(--space-6)',
+                                display: 'grid', gap: 'var(--space-2)',
+                            }}>
+                                {['No signup required', 'Auto chapter detection', 'No Calibre or Sigil needed', 'Valid EPUB 3.0 output', 'Unlimited use'].map((item, i) => (
+                                    <li key={i} style={{ fontSize: 'var(--text-sm)', color: 'var(--ink)' }}>✓ {item}</li>
+                                ))}
+                            </ul>
+                            <Link href="/tools/manuscript-mode" className="btn btn-gold btn-full" style={{ textDecoration: 'none' }}>
+                                Open Full Manuscript Mode
+                            </Link>
+                        </div>
                     </div>
 
                     {/* Platform compatibility */}
@@ -140,7 +188,7 @@ export default function FreeToolsPage() {
                     }}>
                         <h3 style={{ color: 'var(--cream)', marginBottom: 'var(--space-3)' }}>Need more tools?</h3>
                         <p style={{ color: 'rgba(247,243,236,.65)', maxWidth: 440, margin: '0 auto var(--space-6)', fontSize: 'var(--text-sm)' }}>
-                            Get all 5 logic tools for $4.99, or the Full Access bundle with 30 AI credits for $9.99. One-time. Forever.
+                            Starter gets you all 5 logic tools + 40 AI credits for $19. Pro steps up to 200 credits for $49. One-time. Forever.
                         </p>
                         <Link href="/pricing" className="btn btn-gold" style={{ textDecoration: 'none' }}>View Pricing</Link>
                     </div>

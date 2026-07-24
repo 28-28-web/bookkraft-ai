@@ -1,8 +1,9 @@
 import PageClient from './PageClient';
+import { FREE_TOOLS } from '@/lib/constants';
 
 export const metadata = {
   title: 'Sign Up -- BookKraft AI',
-  description: 'Create your BookKraft AI account. Get 3 free tools instantly - no credit card needed.',
+  description: `Create your BookKraft AI account. Get ${FREE_TOOLS.length} free tools instantly - no credit card needed.`,
   robots: 'index, follow',
   alternates: { canonical: 'https://bookkraftai.com/signup' },
 };

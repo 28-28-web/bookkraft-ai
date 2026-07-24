@@ -1,10 +1,11 @@
 import dynamic from 'next/dynamic';
 const LandingPage = dynamic(() => import('./landingpage'), { ssr: true, loading: () => <div style={{ minHeight: '100vh', background: 'var(--ink)' }} /> });
-import { FAQS, PRICING } from '../lib/constants';
+import { FAQS, PRICING, FREE_TOOLS } from '../lib/constants';
+import { TOOLS } from '../lib/tools';
 
 export const metadata = {
   title: 'BookKraft AI — EPUB & Kindle Tools for Indie Authors',
-  description: '14 tools for indie authors. Fix Kindle errors, validate EPUBs, build metadata, generate keywords. One-time price, no subscription. Start free.',
+  description: `${TOOLS.length} tools for indie authors. Fix Kindle errors, validate EPUBs, build metadata, generate keywords. One-time price, no subscription. Start free.`,
   alternates: {
     canonical: 'https://bookkraftai.com/',
   },
@@ -18,28 +19,28 @@ export default function Page() {
     url: 'https://bookkraftai.com',
     applicationCategory: 'UtilitiesApplication',
     operatingSystem: 'Web',
-    description: '14 eBook formatting tools for indie authors. EPUB validation, Kindle formatting, metadata builder, and more.',
+    description: `${TOOLS.length} eBook formatting tools for indie authors. EPUB validation, Kindle formatting, metadata builder, and more.`,
     offers: [
       {
         '@type': 'Offer',
         price: '0',
         priceCurrency: 'USD',
         name: 'Free',
-        description: '3 free tools — EPUB Validator, Metadata Builder & Word Cleanup Checker',
+        description: `${FREE_TOOLS.length} free tools — EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker & Manuscript Mode`,
       },
       {
         '@type': 'Offer',
-        price: PRICING.essentials.label.replace(/[^0-9.]/g, ''),
+        price: PRICING.starter.label.replace(/[^0-9.]/g, ''),
         priceCurrency: 'USD',
-        name: PRICING.essentials.name,
-        description: PRICING.essentials.desc,
+        name: PRICING.starter.name,
+        description: PRICING.starter.desc,
       },
       {
         '@type': 'Offer',
-        price: PRICING.full.label.replace(/[^0-9.]/g, ''),
+        price: PRICING.pro.label.replace(/[^0-9.]/g, ''),
         priceCurrency: 'USD',
-        name: PRICING.full.name,
-        description: PRICING.full.desc,
+        name: PRICING.pro.name,
+        description: PRICING.pro.desc,
       },
       {
         '@type': 'Offer',

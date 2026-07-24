@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { TOOLS } from '@/lib/tools';
 
 export default function Footer() {
     return (
@@ -8,7 +9,7 @@ export default function Footer() {
                     <div>
                         <div className="footer-logo-v2">BookKraft <span>AI</span></div>
                         <p className="footer-tagline">
-                            Professional eBook formatting for indie authors. 14 tools that make
+                            Professional eBook formatting for indie authors. {TOOLS.length} tools that make
                             your manuscript publishable on any platform.
                         </p>
                         <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
@@ -28,6 +29,8 @@ export default function Footer() {
                         <Link href="/tools/toc-generator" className="footer-link">TOC Generator</Link>
                         <Link href="/tools/manuscript-cleanup" className="footer-link">Manuscript Cleanup</Link>
                         <Link href="/tools/word-cleanup" className="footer-link">Word Cleanup Checker</Link>
+                        <Link href="/tools/cover-checker" className="footer-link">Cover Checker</Link>
+                        <Link href="/tools/manuscript-mode" className="footer-link">Full Manuscript Mode</Link>
                         <Link href="/free-tools" className="footer-link">All Free Tools</Link>
                     </div>
                     <div>

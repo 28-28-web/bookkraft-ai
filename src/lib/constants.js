@@ -1,17 +1,13 @@
 // BookKraft AI v8.0 — Constants
 
-export const FREE_TOOLS = ['epub-validator', 'metadata-builder'];
+import { TOOLS } from './tools';
 
-export const LOGIC_TOOLS = [
-    'kindle-format-fixer', 'epub-formatter', 'toc-generator',
-    'front-matter-generator', 'css-snippet-generator',
-];
-
-export const AI_TOOLS = [
-    'manuscript-cleanup', 'back-matter-generator',
-    'style-sheet-auditor', 'print-to-digital', 'kdp-keyword-finder',
-    'epub-validator-premium',
-];
+// Derived from TOOLS (single source of truth) instead of separately
+// maintained slug lists — the tool count has drifted out of sync with copy
+// three times because it used to be typed in multiple places.
+export const FREE_TOOLS = TOOLS.filter((t) => t.free).map((t) => t.slug);
+export const LOGIC_TOOLS = TOOLS.filter((t) => t.accessType === 'logic').map((t) => t.slug);
+export const AI_TOOLS = TOOLS.filter((t) => t.accessType === 'ai').map((t) => t.slug);
 
 export const TOOL_CATEGORIES = [
     { id: 'all', label: 'All Tools' },
@@ -21,20 +17,16 @@ export const TOOL_CATEGORIES = [
     { id: 'publishing', label: 'Publishing' },
 ];
 
-export const TOOL_CREDIT_COSTS = {
-    'kdp-keyword-finder': 1,
-    'back-matter-generator': 2,
-    'epub-validator-premium': 2,
-    'manuscript-cleanup': 3,
-    'print-to-digital': 3,
-    'style-sheet-auditor': 3,
-};
+// Base credit cost per AI tool, derived from TOOLS. For the three chunked
+// tools (manuscript-cleanup, print-to-digital, style-sheet-auditor) this is
+// the PER-10K-WORDS rate, not a flat run cost — see calculateCreditCost.
+export const TOOL_CREDIT_COSTS = Object.fromEntries(
+    TOOLS.filter((t) => t.accessType === 'ai').map((t) => [t.slug, t.creditCost])
+);
 
-// Word limits per tool
+// Word limits per tool — manuscript-cleanup, style-sheet-auditor, and
+// print-to-digital are chunked jobs with no hard cap (see lib/ai/chunker.ts).
 export const TOOL_WORD_LIMITS = {
-    'manuscript-cleanup': 3000,
-    'style-sheet-auditor': 5000,
-    'print-to-digital': 4000,
     'kdp-keyword-finder': 500,
     'back-matter-generator': 500,
 };
@@ -44,69 +36,48 @@ export const FREE_SAMPLE_TOOLS = ['manuscript-cleanup', 'style-sheet-auditor'];
 export const FREE_SAMPLE_WORD_LIMIT = 500;
 export const FREE_SAMPLE_RATE_LIMIT = 5; // per hour
 
-// v8.0 Pricing — credit-based
+// Paddle price IDs. Starter and Pro are new — real IDs not created yet.
+// checked at boot (src/instrumentation.js) and logs a loud warning if either
+// is still a placeholder, so this can't accidentally ship wired to nothing.
+export const PADDLE_PRICE_IDS = {
+    starter: 'TODO_PADDLE_PRICE_ID_STARTER',
+    pro: 'TODO_PADDLE_PRICE_ID_PRO',
+    lifetime: 'pri_01km8ymm2eyk4tyjgm3p5x6bar', // unchanged — do not touch
+};
+
+// Phase 3 pricing — Free tier expanded, paid tiers collapsed to Starter/Pro/Lifetime.
 export const PRICING = {
-    essentials: {
-        id: 'essentials',
-        name: 'Essentials Bundle',
-        price: 4.99,
-        label: '$4.99',
-        desc: 'All 5 logic tools — own forever',
+    starter: {
+        id: 'starter',
+        name: 'Starter',
+        price: 19,
+        label: '$19',
+        desc: '5 formatting tools, unlocked forever + 40 AI credits to use on the 6 AI tools',
         bestFor: 'First-time formatters',
-        features: [
-            'Kindle Format Fixer',
-            'EPUB Formatter',
-            'TOC Generator',
-            'Front Matter Generator',
-            'CSS Snippet Generator',
-            'One-time payment',
-            'Unlimited use forever',
-        ],
-    },
-    starterCredits: {
-        id: 'credits_starter',
-        name: 'Starter Credits',
-        price: 7.00,
-        label: '$7.00',
-        desc: '15 AI credits (never expire)',
-        bestFor: 'Authors testing AI tools',
-        credits: 15,
-        features: [
-            '15 AI credits',
-            'Credits never expire',
-            'Use on any AI tool',
-            '$0.47 per credit',
-        ],
-    },
-    authorPro: {
-        id: 'credits_pro',
-        name: 'Author Pro Credits',
-        price: 15.00,
-        label: '$15.00',
-        desc: '40 AI credits — $0.38/credit',
-        bestFor: 'Regular publishers',
         credits: 40,
         features: [
-            '40 AI credits',
+            '5 formatting tools — unlocked forever',
+            '40 AI credits to use on the 6 AI tools',
+            '~5 full-length novel passes per AI tool (80k words)',
             'Credits never expire',
-            'Best per-credit value',
-            '$0.38 per credit',
+            'One-time payment',
         ],
     },
-    full: {
-        id: 'full',
-        name: 'Full Access',
-        price: 9.99,
-        label: '$9.99',
-        desc: 'All 5 logic tools + 30 AI credits',
-        bestFor: 'Primary conversion goal',
-        credits: 30,
+    pro: {
+        id: 'pro',
+        name: 'Pro',
+        price: 49,
+        label: '$49',
+        desc: '5 formatting tools, unlocked forever + 200 AI credits to use on the 6 AI tools',
+        bestFor: 'Regular publishers, editors',
+        credits: 200,
         featured: true,
         features: [
-            'All 5 logic tools — forever',
-            '30 AI starter credits',
+            '5 formatting tools — unlocked forever',
+            '200 AI credits to use on the 6 AI tools',
+            '~25 full-length novel passes per AI tool (80k words)',
             'Credits never expire',
-            'Best overall value',
+            'Best per-credit value',
             'One-time payment',
         ],
     },
@@ -118,7 +89,7 @@ export const PRICING = {
         desc: 'Unlimited AI + all future tools',
         bestFor: 'Power users, coaches',
         features: [
-            'All 14 tools unlocked',
+            `All ${TOOLS.length} tools unlocked`,
             'Unlimited AI runs (rate limited)',
             'All future tools included',
             'Priority support',
@@ -129,7 +100,7 @@ export const PRICING = {
 export const FAQS = [
     {
         q: 'Do I need to pay monthly?',
-        a: 'No. Every purchase is one-time. Buy credits once, they never expire. Buy the Essentials Bundle once, own it forever. No subscriptions, no recurring charges.',
+        a: 'No. Every purchase is one-time. Buy Starter or Pro once, own the logic tools forever, and your AI credits never expire. No subscriptions, no recurring charges.',
     },
     {
         q: "What's the difference between EPUB and Kindle format?",
@@ -137,11 +108,11 @@ export const FAQS = [
     },
     {
         q: 'Do the free tools actually work without signing up?',
-        a: 'Yes. The EPUB Validator and Metadata Builder work immediately — no account, no email, no credit card. Just open and use.',
+        a: 'Yes. EPUB Validator, Metadata Builder, Cover Checker, Word Manuscript Cleanup Checker, and Full Manuscript Mode all work immediately — no account, no email, no credit card. Just open and use.',
     },
     {
         q: 'How do credits work?',
-        a: 'Credits are used for AI-powered tools only. Each AI tool costs 1–3 credits per run. Buy a credit pack, use them whenever you want — they never expire. Logic tools (formatting, TOC, etc.) don\'t use credits at all.',
+        a: 'Credits are used for AI-powered tools only. Short-form AI tools cost 1–2 credits per run; Manuscript Cleanup, Style Sheet Auditor, and Print-to-Digital scale with your manuscript\'s length (about 1 credit per 10,000 words) — the exact cost is shown before you confirm. Buy a credit pack, use them whenever you want — they never expire. Logic tools (formatting, TOC, etc.) don\'t use credits at all.',
     },
     {
         q: 'Can I try the AI tools before buying credits?',
@@ -156,16 +127,16 @@ export const FAQS = [
         a: 'Yes — 7-day money-back guarantee on any purchase. Email us and we\'ll sort it.',
     },
     {
-        q: 'What happens after I buy the Essentials Bundle?',
-        a: 'You own all 5 logic tools forever. Use them as many times as you want, no limits, no expiry. Future updates to those tools are included.',
+        q: 'What happens after I buy Starter or Pro?',
+        a: 'You own all 5 logic tools forever — no limits, no expiry, future updates included — plus a pack of AI credits (40 with Starter, 200 with Pro) that never expire.',
     },
     {
-        q: 'Is Full Access worth it?',
-        a: 'Full Access ($9.99) gives you all 5 logic tools plus 30 AI credits. That\'s the Essentials Bundle ($4.99) + more than a Starter Credit Pack ($7.00) — for less than buying them separately.',
+        q: 'What\'s the difference between Starter and Pro?',
+        a: 'Both unlock all 5 logic tools forever. Starter ($19) includes 40 AI credits; Pro ($49) includes 200 AI credits — better value per credit for authors and editors running AI tools regularly.',
     },
     {
         q: 'Do I need an account for the paid tools?',
-        a: 'You need an account to use paid tools so we can track your credits and tool access. But the two free tools (EPUB Validator and Metadata Builder) never require an account.',
+        a: `You need an account to use paid tools so we can track your credits and tool access. But the ${FREE_TOOLS.length} free tools (EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, Full Manuscript Mode) never require an account.`,
     },
 ];
 

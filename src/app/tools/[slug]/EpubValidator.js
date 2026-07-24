@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import UpsellBanner from '@/components/UpsellBanner';
 import ValidationBadge from './ValidationBadge';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
+import { TOOLS } from '@/lib/tools';
 
 export default function EpubValidator() {
     const [file, setFile] = useState(null);
@@ -185,6 +186,12 @@ export default function EpubValidator() {
             body: JSON.stringify({ email, name, results }),
         });
 
+        fetch('/api/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, source_tool: 'epub-validator', issue_count: failCount + warnCount }),
+        }).catch(() => {});
+
         if (typeof window !== 'undefined' && window.gtag) {
             window.gtag('event', 'email_captured', { tool_name: 'epub_validator' });
         }
@@ -313,7 +320,7 @@ export default function EpubValidator() {
                                 <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#166534', marginBottom: '8px' }}>✅ Your EPUB is KDP-ready</h3>
                                 <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
                                     <a href="/tools/metadata-builder" style={{ display: 'inline-block', background: '#fff', color: '#166534', border: '1px solid #166534', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Check Metadata →</a>
-                                    <a href="/signup?plan=pro" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Get All 14 Tools — $9.99</a>
+                                    <a href="/signup?plan=starter" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Get All {TOOLS.length} Tools — $19</a>
                                 </div>
                             </div>
                         )}

@@ -23,7 +23,7 @@ export default function ScoreCard({ data }) {
       <div style={{background:'#f9f7f4',padding:'24px',textAlign:'center'}}>
         <p style={{fontSize:'14px',color:'#666',marginBottom:'12px'}}>Fix every issue above and get your book to 100 — KDP-ready.</p>
         <a href='/pricing' style={{display:'inline-block',background:'#2D6A4F',color:'#fff',fontWeight:'700',padding:'12px 28px',borderRadius:'8px',textDecoration:'none',fontSize:'14px'}}>
-          Get Full Access - $9.99
+          Get Starter - $19
         </a>
       </div>
     </div>

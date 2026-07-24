@@ -63,7 +63,7 @@ export default function DashboardPage() {
             case 'free': return <span className="badge badge-free">FREE</span>;
             case 'full_access': return <span className="badge" style={{ background: 'var(--gold)', color: 'var(--ink)', fontSize: '10px', padding: '2px 8px', borderRadius: '100px' }}>Unlocked</span>;
             case 'logic_owned': return <span className="badge" style={{ background: 'var(--gold-light)', color: 'var(--gold)', fontSize: '10px', padding: '2px 8px', borderRadius: '100px' }}>Owned</span>;
-            case 'logic_locked': return <span className="badge" style={{ background: 'var(--border)', color: 'var(--mid)', fontSize: '10px', padding: '2px 8px', borderRadius: '100px' }}>$4.99 Bundle</span>;
+            case 'logic_locked': return <span className="badge" style={{ background: 'var(--border)', color: 'var(--mid)', fontSize: '10px', padding: '2px 8px', borderRadius: '100px' }}>$19 Starter</span>;
             case 'ai_enough': return <span className="badge badge-ai">{cost} credit{cost !== 1 ? 's' : ''}</span>;
             case 'ai_short': return <span className="badge" style={{ background: '#FEF2F2', color: 'var(--rust)', fontSize: '10px', padding: '2px 8px', borderRadius: '100px' }}>Top Up</span>;
             default: return null;

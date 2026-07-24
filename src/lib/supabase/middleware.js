@@ -34,7 +34,7 @@ export async function updateSession(request) {
     const isProtected = protectedPaths.some((p) => request.nextUrl.pathname.startsWith(p));
 
     // Free tools bypass auth — no login required (v8.0 spec)
-    const freeSlugs = ['epub-validator', 'metadata-builder', 'word-cleanup'];
+    const freeSlugs = ['epub-validator', 'metadata-builder', 'word-cleanup', 'cover-checker', 'manuscript-mode'];
     const isFreeToolUrl = freeSlugs.some((s) => request.nextUrl.pathname === `/tools/${s}`);
 
     if (isProtected && !isFreeToolUrl && !user) {

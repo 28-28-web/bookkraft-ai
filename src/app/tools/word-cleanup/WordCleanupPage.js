@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import Link from 'next/link';
 import JSZip from 'jszip';
+import ToolResultsCTA from '@/components/ToolResultsCTA';
 
 const faqs = [
   {
@@ -300,9 +300,15 @@ export default function WordCleanupPage() {
             </div>
 
             <p style={{ marginTop: 20, fontSize: 13, color: '#888' }}>
-              This scan reports issues only — it does not modify your file. Want automatic fixes? See our{' '}
-              <Link href="/tools/manuscript-cleanup">AI Manuscript Cleanup tool</Link>.
+              This scan reports issues only — it does not modify your file.
             </p>
+
+            <ToolResultsCTA
+              toolSlug="word-cleanup"
+              subjectNoun="manuscript"
+              issueCount={result.checks.filter((c) => c.status !== 'pass').length}
+              fixTool={{ slug: 'manuscript-cleanup', label: 'AI Manuscript Cleanup' }}
+            />
           </div>
         )}
       </div>

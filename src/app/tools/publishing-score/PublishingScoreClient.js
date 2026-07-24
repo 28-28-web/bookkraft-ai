@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ScoreCard from './ScoreCard';
 import UpsellBanner from '@/components/UpsellBanner';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
+import { TOOLS } from '@/lib/tools';
 
 export default function PublishingScoreClient() {
   const [text, setText] = useState('');
@@ -174,9 +175,9 @@ export default function PublishingScoreClient() {
 
           <div style={{background:'#faf9f7',border:'2px solid #C9933A',borderRadius:'12px',padding:'20px',margin:'20px 0',textAlign:'center'}}>
             <p style={{fontWeight:600,marginBottom:'4px',fontSize:'0.95rem'}}>Want to fix these issues automatically?</p>
-            <p style={{color:'#6b7280',fontSize:'0.88rem',marginBottom:'14px'}}>BookKraft Pro includes all 14 tools + auto-fix for formatting, metadata, TOC and more.</p>
-            <a href="/signup?plan=pro" style={{display:'inline-block',background:'#C9933A',color:'#fff',padding:'11px 24px',borderRadius:'8px',textDecoration:'none',fontWeight:600,fontSize:'0.95rem'}}>
-              Upgrade to Pro — $9.99
+            <p style={{color:'#6b7280',fontSize:'0.88rem',marginBottom:'14px'}}>Starter unlocks all {TOOLS.length} tools + auto-fix for formatting, metadata, TOC and more.</p>
+            <a href="/signup?plan=starter" style={{display:'inline-block',background:'#C9933A',color:'#fff',padding:'11px 24px',borderRadius:'8px',textDecoration:'none',fontWeight:600,fontSize:'0.95rem'}}>
+              Get Starter — $19
             </a>
           </div>
 

@@ -88,22 +88,22 @@ export default function Sidebar() {
 
             {/* Upgrade card: show if no bundle and not full access */}
             {user && !hasFullAccess && !profile?.has_logic_bundle && (
-                <Link href="/checkout?plan=full" className="sidebar-upgrade" style={{ textDecoration: 'none' }}>
-                    <h4>Get Full Access</h4>
-                    <p>All logic tools + 30 AI credits.</p>
-                    <span className="btn btn-gold btn-sm btn-full">$9.99 one-time &#8594;</span>
+                <Link href="/checkout?plan=starter" className="sidebar-upgrade" style={{ textDecoration: 'none' }}>
+                    <h4>Get Starter</h4>
+                    <p>All logic tools + 40 AI credits.</p>
+                    <span className="btn btn-gold btn-sm btn-full">$19 one-time &#8594;</span>
                 </Link>
             )}
 
             {/* Low credit card */}
             {user && !profile?.is_lifetime && balance < 3 && balance >= 0 && (
-                <Link href="/pricing#credits" className="sidebar-upgrade" style={{
+                <Link href="/pricing" className="sidebar-upgrade" style={{
                     textDecoration: 'none', borderColor: '#B45309',
                 }}>
                     <h4 style={{ fontSize: '13px' }}>Low on credits</h4>
                     <p style={{ fontSize: '12px' }}>Top up to use AI tools.</p>
                     <span className="btn btn-outline btn-sm btn-full" style={{ borderColor: 'var(--gold)', color: 'var(--gold)' }}>
-                        From $7.00 &#8594;
+                        From $19 &#8594;
                     </span>
                 </Link>
             )}

@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { TOOLS } from '@/lib/tools';
+import { FREE_TOOLS } from '@/lib/constants';
 
 const faqs = [
   {
@@ -7,7 +9,7 @@ const faqs = [
   },
   {
     q: 'How much does BookKraft AI cost compared to Calibre?',
-    a: 'Calibre is free but requires installation and has a steep learning curve. BookKraft AI starts at $4.99 one-time for 5 tools, or $9.99 for AI-powered tools. Two tools — EPUB Validator and Metadata Builder — are completely free with no signup.',
+    a: `Calibre is free but requires installation and has a steep learning curve. BookKraft AI starts at $19 one-time for all 5 logic tools plus AI credits. ${FREE_TOOLS.length} tools — EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, and Full Manuscript Mode — are completely free with no signup.`,
   },
   {
     q: 'Can BookKraft AI convert ebook formats like Calibre?',
@@ -61,7 +63,7 @@ export default function CalibreAlternativePage() {
             <tbody>
               {[
                 ['Platform', 'Windows, Mac, Linux (desktop install)', 'Any browser — no install needed'],
-                ['Price', 'Free', '$4.99 one-time, or free for 2 tools'],
+                ['Price', 'Free', `$19 one-time, or free for ${FREE_TOOLS.length} tools`],
                 ['Setup time', '200MB+ download, steep learning curve', 'Open browser and start — no setup'],
                 ['Built for', 'Managing large ebook libraries', 'Formatting single books for KDP/EPUB'],
                 ['EPUB validation', 'Basic built-in check', 'Free dedicated validator — no signup'],
@@ -93,7 +95,7 @@ export default function CalibreAlternativePage() {
           What BookKraft AI includes
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
-          14 tools covering the full ebook formatting workflow: Kindle Format Fixer, EPUB Formatter, TOC Generator, Front Matter Generator, Back Matter Generator, CSS Snippet Generator, EPUB Validator, EPUB Validator Pro, Style Sheet Auditor, Print-to-Digital Adapter, Metadata Builder, KDP Keyword Finder, AI-powered Manuscript Cleanup, and the Word Manuscript Cleanup Checker. Three tools — EPUB Validator, Metadata Builder, and Word Manuscript Cleanup Checker — are free with no signup required.
+          {TOOLS.length} tools covering the full ebook formatting workflow: Kindle Format Fixer, EPUB Formatter, TOC Generator, Front Matter Generator, Back Matter Generator, CSS Snippet Generator, EPUB Validator, EPUB Validator Pro, Style Sheet Auditor, Print-to-Digital Adapter, Metadata Builder, KDP Keyword Finder, AI-powered Manuscript Cleanup, Word Manuscript Cleanup Checker, Cover Checker, and Full Manuscript Mode. {FREE_TOOLS.length} tools — EPUB Validator, Metadata Builder, Cover Checker, Word Manuscript Cleanup Checker, and Full Manuscript Mode — are free with no signup required.
         </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>

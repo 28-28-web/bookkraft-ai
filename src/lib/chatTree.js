@@ -1,5 +1,7 @@
 // BookKraft AI — Chat Assistant Decision Tree
 
+import { TOOLS } from './tools';
+
 export const CHAT_TREE = {
     root: {
         message: "Hi! I'll help you find the right tool in under a minute. What do you need?",
@@ -56,7 +58,7 @@ export const CHAT_TREE = {
     format_both: {
         message: "For both formats, start with Manuscript Cleanup to fix your text, then use Kindle Format Fixer for KDP and EPUB Formatter for EPUB.",
         options: [
-            { label: "Get Full Access — all 11 tools ($9.99)", next: null, toolLink: "/checkout?plan=full", toolPrice: "$9.99" },
+            { label: "Get Starter — 5 logic tools + 40 credits ($19)", next: null, toolLink: "/checkout?plan=starter", toolPrice: "$19" },
             { label: "Show me individual tools", next: "all_tools" },
         ],
     },
@@ -106,14 +108,14 @@ export const CHAT_TREE = {
         options: [
             { label: "Kindle Format Fixer ($1)", next: null, toolLink: "/tools/kindle-format-fixer", toolPrice: "$1" },
             { label: "Style Sheet Auditor ($1)", next: null, toolLink: "/tools/style-sheet-auditor", toolPrice: "$1" },
-            { label: "Get Full Access ($9.99)", next: null, toolLink: "/checkout?plan=full", toolPrice: "$9.99" },
+            { label: "Get Starter ($19)", next: null, toolLink: "/checkout?plan=starter", toolPrice: "$19" },
         ],
     },
     check_all: {
         message: "Start with the free EPUB Validator for structure. Then use Style Sheet Auditor for content consistency.",
         options: [
             { label: "Open Free EPUB Validator first", next: null, toolLink: "/tools/epub-validator" },
-            { label: "Get Full Access — all tools ($9.99)", next: null, toolLink: "/checkout?plan=full", toolPrice: "$9.99" },
+            { label: "Get Starter — 5 logic tools + 40 credits ($19)", next: null, toolLink: "/checkout?plan=starter", toolPrice: "$19" },
         ],
     },
 
@@ -193,7 +195,7 @@ export const CHAT_TREE = {
     unsure_finished: {
         message: "Great. Here's the recommended workflow:\n1. Manuscript Cleanup\n2. Kindle Format Fixer (or EPUB Formatter)\n3. TOC Generator\n4. Front Matter Generator\n5. EPUB Validator (free)",
         options: [
-            { label: "Get Full Access — all 11 tools ($9.99)", next: null, toolLink: "/checkout?plan=full", toolPrice: "$9.99" },
+            { label: "Get Starter — 5 logic tools + 40 credits ($19)", next: null, toolLink: "/checkout?plan=starter", toolPrice: "$19" },
             { label: "Start with Manuscript Cleanup ($1)", next: null, toolLink: "/tools/manuscript-cleanup", toolPrice: "$1" },
             { label: "Show me all tools", next: "all_tools" },
         ],
@@ -208,9 +210,9 @@ export const CHAT_TREE = {
 
     // ── ALL TOOLS ──
     all_tools: {
-        message: "Here are all 14 tools. The best value is Full Access — all 11 paid tools for $9.99 one-time.",
+        message: `Here are all ${TOOLS.length} tools. Starter unlocks the 5 logic tools plus 40 AI credits for $19 one-time — best place to start.`,
         options: [
-            { label: "Get Full Access ($9.99)", next: null, toolLink: "/checkout?plan=full", toolPrice: "$9.99" },
+            { label: "Get Starter ($19)", next: null, toolLink: "/checkout?plan=starter", toolPrice: "$19" },
             { label: "Show me individual tool prices", next: null, toolLink: "/dashboard" },
             { label: "Start over", next: "root" },
         ],

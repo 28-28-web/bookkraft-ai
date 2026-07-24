@@ -2,14 +2,18 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 
 /**
- * Paddle Webhook — v8.0 Credit System
+ * Paddle Webhook — Phase 3 pricing
  *
- * Handles 5 purchase types:
- * - essentials: grants has_logic_bundle
- * - credits_starter: adds 15 credits
- * - credits_pro: adds 40 credits
- * - full: grants has_logic_bundle + has_full_access + 30 credits
- * - lifetime: grants everything + is_lifetime
+ * Current tiers:
+ * - starter: grants has_logic_bundle + 40 credits (real, enforced balance)
+ * - pro: grants has_logic_bundle + 200 credits (real, enforced balance)
+ * - lifetime: grants everything + is_lifetime + has_full_access (unlimited, unchanged)
+ *
+ * Retired tiers (essentials / credits_starter / credits_pro / full) are kept
+ * below in case a stale checkout link is still in flight somewhere — no new
+ * button on the site sends these purchaseTypes anymore. Existing accounts
+ * that already have has_full_access=true from the old "full" tier are never
+ * touched by this file; that flag is grandfathered and stays exactly as-is.
  */
 export async function POST(request) {
     try {
@@ -97,6 +101,38 @@ export async function POST(request) {
             await supabase.from('purchases').insert({
                 user_id: userId, purchase_type: 'full',
                 paddle_order_id: paddleOrderId, amount_paid: amountPaid, credits_added: 30,
+            });
+        }
+
+        // ── Starter — logic tools + 40 credits (real, enforced balance) ──
+        if (purchaseType === 'starter') {
+            await supabase.from('users')
+                .update({ has_logic_bundle: true })
+                .eq('id', userId);
+
+            await supabase.rpc('add_credits', {
+                p_user_id: userId, p_amount: 40, p_paddle_order_id: paddleOrderId,
+            });
+
+            await supabase.from('purchases').insert({
+                user_id: userId, purchase_type: 'starter',
+                paddle_order_id: paddleOrderId, amount_paid: amountPaid, credits_added: 40,
+            });
+        }
+
+        // ── Pro — logic tools + 200 credits (real, enforced balance) ──
+        if (purchaseType === 'pro') {
+            await supabase.from('users')
+                .update({ has_logic_bundle: true })
+                .eq('id', userId);
+
+            await supabase.rpc('add_credits', {
+                p_user_id: userId, p_amount: 200, p_paddle_order_id: paddleOrderId,
+            });
+
+            await supabase.from('purchases').insert({
+                user_id: userId, purchase_type: 'pro',
+                paddle_order_id: paddleOrderId, amount_paid: amountPaid, credits_added: 200,
             });
         }
 

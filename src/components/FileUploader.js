@@ -1,11 +1,17 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import { CHAPTER_BOUNDARY_MARKER } from '@/lib/ai/chunker';
 
 /**
  * FileUploader — Drag-and-drop .docx/.txt upload component.
  * Uses mammoth.convertToHtml with styleMap to preserve bold/italic/headings.
  * Calls onTextExtracted(plainText, html) when done.
+ *
+ * Heading 1 blocks get an invisible chapter-boundary marker inlined into the
+ * extracted plain text (see lib/ai/chunker.ts) so long-manuscript tools can
+ * chunk on real chapter breaks instead of only paragraph count. Pasted text
+ * never has this marker and chunks on paragraphs alone, same as before.
  */
 export default function FileUploader({ onTextExtracted, accept = '.docx,.txt', label = 'Upload a file' }) {
     const [fileName, setFileName] = useState('');
@@ -16,6 +22,7 @@ export default function FileUploader({ onTextExtracted, accept = '.docx,.txt', l
     // Strip HTML tags to get plain text for tool textareas
     const htmlToPlainText = (html) => {
         return html
+            .replace(/<h1[^>]*>/gi, `\n\n${CHAPTER_BOUNDARY_MARKER}`)
             .replace(/<br\s*\/?>/gi, '\n')
             .replace(/<\/p>/gi, '\n\n')
             .replace(/<[^>]*>/g, '')

@@ -79,7 +79,7 @@ export default function ManuscriptModeClient() {
                 if (err.error === 'unauthorized') {
                     setErrorMsg('Please sign in to use this tool.');
                 } else if (err.error === 'bundle_required') {
-                    setErrorMsg('This tool requires an Essentials Bundle or Full Access.');
+                    setErrorMsg('This tool requires Starter, Pro, or Lifetime.');
                 } else {
                     setErrorMsg(err.message || 'Something went wrong. Please try again.');
                 }

@@ -4,12 +4,11 @@
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 import Sidebar from '@/components/Sidebar';
-import { TOOLS } from '@/lib/tools';
+import { PRICING } from '@/lib/constants';
 
 export default function UpgradePage() {
     const { profile } = useAuth();
-    const paidTools = TOOLS.filter((t) => !t.free);
-    const hasFullAccess = profile?.has_full_access || false;
+    const hasFullAccess = profile?.has_full_access || profile?.is_lifetime || false;
 
     if (hasFullAccess) {
         return (
@@ -35,47 +34,29 @@ export default function UpgradePage() {
                 <p style={{ color: 'var(--muted)', marginBottom: '1.75rem', fontSize: '.9rem' }}>Unlock more tools. Pay once, own forever.</p>
                 <div className="pricing-grid" style={{ gap: '1rem' }}>
                     <div className="price-card">
-                        <p className="price-plan">Single Tool</p>
-                        <div className="price-amount">$1<span> each</span></div>
-                        <p className="price-desc">Buy one tool at a time.</p>
+                        <p className="price-plan">{PRICING.starter.name}</p>
+                        <div className="price-amount">{PRICING.starter.label}<span> once</span></div>
+                        <p className="price-desc">{PRICING.starter.desc}</p>
                         <ul className="price-features">
-                            <li>Any single paid tool</li>
-                            <li>One-time, forever</li>
-                            <li>Unlimited use</li>
+                            {PRICING.starter.features.map((f, i) => <li key={i}>{f}</li>)}
                         </ul>
-                        <Link href="/dashboard" className="btn btn-outline btn-full" style={{ textDecoration: 'none' }}>Browse Tools</Link>
-                    </div>
-                    <div className="price-card">
-                        <p className="price-plan">Pick 5</p>
-                        <div className="price-amount">$3<span> bundle</span></div>
-                        <p className="price-desc">Choose any 5 paid tools.</p>
-                        <ul className="price-features">
-                            <li>Any 5 paid tools</li>
-                            <li>Save 40%</li>
-                            <li>Unlimited use</li>
-                        </ul>
-                        <Link href="/checkout?plan=bundle" className="btn btn-outline btn-full" style={{ textDecoration: 'none' }}>Pick 5 Tools</Link>
+                        <Link href="/checkout?plan=starter" className="btn btn-outline btn-full" style={{ textDecoration: 'none' }}>Get Starter</Link>
                     </div>
                     <div className="price-card featured">
-                        <p className="price-plan">Full Access</p>
-                        <div className="price-amount">$9.99<span> once</span></div>
-                        <p className="price-desc">All {paidTools.length} paid tools.</p>
+                        <p className="price-plan">{PRICING.pro.name}</p>
+                        <div className="price-amount">{PRICING.pro.label}<span> once</span></div>
+                        <p className="price-desc">{PRICING.pro.desc}</p>
                         <ul className="price-features">
-                            <li>All tools unlocked</li>
-                            <li>Best value</li>
-                            <li>Future updates</li>
-                            <li>Priority support</li>
+                            {PRICING.pro.features.map((f, i) => <li key={i}>{f}</li>)}
                         </ul>
-                        <Link href="/checkout?plan=full" className="btn btn-gold btn-full" style={{ textDecoration: 'none' }}>Get Full Access</Link>
+                        <Link href="/checkout?plan=pro" className="btn btn-gold btn-full" style={{ textDecoration: 'none' }}>Get Pro</Link>
                     </div>
                     <div className="price-card lifetime-card">
-                        <p className="price-plan">Lifetime</p>
-                        <div className="price-amount">$149<span> once</span></div>
-                        <p className="price-desc">All current + future tools.</p>
+                        <p className="price-plan">{PRICING.lifetime.name}</p>
+                        <div className="price-amount">{PRICING.lifetime.label}<span> once</span></div>
+                        <p className="price-desc">{PRICING.lifetime.desc}</p>
                         <ul className="price-features">
-                            <li>Everything forever</li>
-                            <li>Future tools included</li>
-                            <li>Early access</li>
+                            {PRICING.lifetime.features.map((f, i) => <li key={i}>{f}</li>)}
                         </ul>
                         <Link href="/checkout?plan=lifetime" className="btn btn-gold btn-full" style={{ textDecoration: 'none' }}>Get Lifetime</Link>
                     </div>

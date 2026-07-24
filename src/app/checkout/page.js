@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
-import { PRICING } from '@/lib/constants';
+import { PRICING, PADDLE_PRICE_IDS } from '@/lib/constants';
 import Footer from '@/components/Footer';
 import { usePaddle } from '@/app/hooks/usePaddle';
 
@@ -21,45 +21,34 @@ function CheckoutContent() {
     const searchParams = useSearchParams();
     const { user } = useAuth();
     const paddle = usePaddle();
-    const plan = searchParams.get('plan') || 'full';
+    const plan = searchParams.get('plan') || 'pro';
 
     const planMap = {
-        essentials: {
-            ...PRICING.essentials,
-            purchaseType: 'essentials',
-            creditsToAdd: 0,
-            paddlePriceId: 'pri_01km8xdbmr77kqwr88bmvs7nz1',
+        starter: {
+            ...PRICING.starter,
+            purchaseType: 'starter',
+            creditsToAdd: PRICING.starter.credits,
+            paddlePriceId: PADDLE_PRICE_IDS.starter,
         },
-        credits_starter: {
-            ...PRICING.starterCredits,
-            purchaseType: 'credits_starter',
-            creditsToAdd: 15,
-            paddlePriceId: 'pri_01km8xxbsb8wdt7tnj0bypka9s',
-        },
-        credits_pro: {
-            ...PRICING.authorPro,
-            purchaseType: 'credits_pro',
-            creditsToAdd: 40,
-            paddlePriceId: 'pri_01km8y324atecypjrc2nzm6qnq',
-        },
-        full: {
-            ...PRICING.full,
-            purchaseType: 'full',
-            creditsToAdd: 30,
-            paddlePriceId: 'pri_01km8y8h8e3b5tm3yvbqkdx6d3',
+        pro: {
+            ...PRICING.pro,
+            purchaseType: 'pro',
+            creditsToAdd: PRICING.pro.credits,
+            paddlePriceId: PADDLE_PRICE_IDS.pro,
         },
         lifetime: {
             ...PRICING.lifetime,
             purchaseType: 'lifetime',
             creditsToAdd: 0,
-            paddlePriceId: 'pri_01km8ymm2eyk4tyjgm3p5x6bar',
+            paddlePriceId: PADDLE_PRICE_IDS.lifetime,
         },
     };
 
-    const selected = planMap[plan] || planMap.full;
+    const selected = planMap[plan] || planMap.pro;
+    const priceNotReady = !selected.paddlePriceId || selected.paddlePriceId.startsWith('TODO_');
 
     const handleCheckout = () => {
-        if (!paddle) return;
+        if (!paddle || priceNotReady) return;
 
         if (!user) {
             window.location.href = '/login?redirect=/checkout?plan=' + plan;
@@ -115,11 +104,11 @@ function CheckoutContent() {
                 {/* CTA */}
                 <button
                     className="btn btn-gold btn-full"
-                    style={{ fontSize: '16px', padding: '14px', opacity: paddle ? 1 : 0.6 }}
+                    style={{ fontSize: '16px', padding: '14px', opacity: paddle && !priceNotReady ? 1 : 0.6 }}
                     onClick={handleCheckout}
-                    disabled={!paddle}
+                    disabled={!paddle || priceNotReady}
                 >
-                    {paddle ? `Pay ${selected.label} — Unlock ${selected.name}` : 'Loading...'}
+                    {priceNotReady ? 'Not available yet' : paddle ? `Pay ${selected.label} — Unlock ${selected.name}` : 'Loading...'}
                 </button>
 
                 {/* Trust signals */}
@@ -127,7 +116,7 @@ function CheckoutContent() {
                     marginTop: 'var(--space-6)', display: 'grid', gap: 'var(--space-3)',
                     textAlign: 'center', fontSize: 'var(--text-sm)', color: 'var(--mid)',
                 }}>
-                    <p>14-day money-back guarantee. No questions asked.</p>
+                    <p>7-day money-back guarantee. No questions asked.</p>
                     <p>One-time payment. Credits never expire.</p>
                     <p style={{ fontSize: '12px' }}>Tax included where applicable. Payments by Paddle.</p>
                 </div>
@@ -140,29 +129,19 @@ function CheckoutContent() {
                 }}>
                     <p style={{ fontSize: 'var(--text-sm)', fontWeight: 600, marginBottom: 'var(--space-4)' }}>Other options:</p>
                     <div style={{ display: 'grid', gap: 'var(--space-2)' }}>
-                        {plan !== 'essentials' && (
-                            <Link href="/checkout?plan=essentials" style={{ fontSize: 'var(--text-sm)', color: 'var(--gold)' }}>
-                                Essentials Bundle — $4.99
+                        {plan !== 'starter' && (
+                            <Link href="/checkout?plan=starter" style={{ fontSize: 'var(--text-sm)', color: 'var(--gold)' }}>
+                                Starter — {PRICING.starter.label} (all logic tools + 40 credits)
                             </Link>
                         )}
-                        {plan !== 'full' && (
-                            <Link href="/checkout?plan=full" style={{ fontSize: 'var(--text-sm)', color: 'var(--gold)' }}>
-                                Full Access — $9.99 (Best Value)
-                            </Link>
-                        )}
-                        {plan !== 'credits_starter' && (
-                            <Link href="/checkout?plan=credits_starter" style={{ fontSize: 'var(--text-sm)', color: 'var(--gold)' }}>
-                                Starter Credits — $7.00 (15 credits)
-                            </Link>
-                        )}
-                        {plan !== 'credits_pro' && (
-                            <Link href="/checkout?plan=credits_pro" style={{ fontSize: 'var(--text-sm)', color: 'var(--gold)' }}>
-                                Author Pro Credits — $15.00 (40 credits)
+                        {plan !== 'pro' && (
+                            <Link href="/checkout?plan=pro" style={{ fontSize: 'var(--text-sm)', color: 'var(--gold)' }}>
+                                Pro — {PRICING.pro.label} (all logic tools + 200 credits)
                             </Link>
                         )}
                         {plan !== 'lifetime' && (
                             <Link href="/checkout?plan=lifetime" style={{ fontSize: 'var(--text-sm)', color: 'var(--gold)' }}>
-                                Lifetime — $149 (Unlimited)
+                                Lifetime — {PRICING.lifetime.label} (Unlimited)
                             </Link>
                         )}
                     </div>

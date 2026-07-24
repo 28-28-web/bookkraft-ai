@@ -5,7 +5,7 @@ const TICKER_ITEMS = [
   { text: '200+ formatting errors fixed instantly', author: 'James C., Sci-Fi' },
   { text: 'KDP rejection gone after cleanup', author: 'Priya S., Non-fiction' },
   { text: 'TOC generated for 24-chapter novel', author: 'David P., Thriller' },
-  { text: 'Switched from Vellum — works on Windows', author: 'Emma R., Childrens' },
+  { text: 'Cleaned up before Vellum import — saved an hour', author: 'Emma R., Childrens' },
   { text: 'Metadata ready for 4 platforms in 2 min', author: 'Michael T., Wide' },
   { text: 'Style sheet audited, 11 issues found', author: 'Laura K., Literary' },
   { text: 'Print-to-digital adapted a 380-page book', author: 'Chris W., History' },

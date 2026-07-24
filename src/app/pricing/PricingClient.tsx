@@ -1,18 +1,10 @@
 'use client';
 
 import GuaranteeBadge from '@/components/GuaranteeBadge';
-import { PRICING, TOOL_CREDIT_COSTS, FAQS } from '@/lib/constants';
+import { PRICING, PADDLE_PRICE_IDS, TOOL_CREDIT_COSTS, FAQS, FREE_TOOLS } from '@/lib/constants';
 import { useState } from 'react';
 import { usePaddle } from '@/app/hooks/usePaddle';
 import { createClient } from '@/lib/supabase/client';
-
-const PRICE_IDS = {
-    essentials:      'pri_01km8xdbmr77kqwr88bmvs7nz1',
-    credits_starter: 'pri_01km8xxbsb8wdt7tnj0bypka9s',
-    credits_pro:     'pri_01km8y324atecypjrc2nzm6qnq',
-    full:            'pri_01km8y8h8e3b5tm3yvbqkdx6d3',
-    lifetime:        'pri_01km8ymm2eyk4tyjgm3p5x6bar',
-};
 
 function CheckoutButton({ purchaseType, className, children }) {
     const paddle = usePaddle();
@@ -23,6 +15,13 @@ function CheckoutButton({ purchaseType, className, children }) {
             console.error('Paddle not loaded');
             return;
         }
+
+        const priceId = PADDLE_PRICE_IDS[purchaseType];
+        if (!priceId || priceId.startsWith('TODO_')) {
+            console.error(`No Paddle price ID configured for "${purchaseType}" yet.`);
+            return;
+        }
+
         setLoading(true);
         try {
             const supabase = createClient();
@@ -34,7 +33,7 @@ function CheckoutButton({ purchaseType, className, children }) {
             }
 
             paddle.Checkout.open({
-                items: [{ priceId: PRICE_IDS[purchaseType], quantity: 1 }],
+                items: [{ priceId, quantity: 1 }],
                 customData: {
                     userId: user.id,
                     purchaseType: purchaseType,
@@ -77,62 +76,73 @@ export default function PricingPage() {
                 </div>
             </section>
 
+            {/* Free tier */}
+            <section style={{ padding: 'var(--space-16) 0 0' }}>
+                <div className="container">
+                    <p className="eyebrow" style={{ textAlign: 'center' }}>ALWAYS FREE</p>
+                    <h2 className="section-heading center">No Account Needed</h2>
+                    <p className="section-sub center" style={{ marginBottom: 'var(--space-8)' }}>
+                        {FREE_TOOLS.length} tools work instantly, no signup required.
+                    </p>
+                    <div style={{
+                        display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'var(--space-4)',
+                        maxWidth: 700, margin: '0 auto',
+                    }}>
+                        {['EPUB Validator', 'Metadata Builder', 'Cover Checker', 'Word Cleanup Checker', 'Full Manuscript Mode'].map((name) => (
+                            <span key={name} style={{
+                                padding: '10px 18px', border: '1px solid var(--border)', borderRadius: 'var(--radius)',
+                                fontSize: 'var(--text-sm)', fontWeight: 600,
+                            }}>
+                                ✓ {name}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* Main pricing grid */}
             <section style={{ padding: 'var(--space-16) 0' }}>
                 <div className="container">
-
-                    {/* Section: Logic Tools */}
-                    <div style={{ marginBottom: 'var(--space-16)' }}>
-                        <p className="eyebrow" style={{ textAlign: 'center' }}>LOGIC TOOLS</p>
-                        <h2 className="section-heading center">Essentials Bundle</h2>
-                        <p className="section-sub center" style={{ marginBottom: 'var(--space-8)' }}>
-                            5 instant-result formatting tools. No AI, no credits needed. Buy once, use forever.
+                    <div>
+                        <p className="eyebrow" style={{ textAlign: 'center' }}>PAID TIERS</p>
+                        <h2 className="section-heading center">Starter, Pro, or Lifetime</h2>
+                        <p className="section-sub center" style={{ marginBottom: 'var(--space-8) ' }}>
+                            All logic tools included in every paid tier. Credits power the AI tools.
                         </p>
-                        <div className="pricing-grid" style={{ maxWidth: 640, margin: '0 auto' }}>
-                            <div className="price-card featured" id="essentials">
-                                <p className="price-plan">{PRICING.essentials.name}</p>
-                                <div className="price-amount">{PRICING.essentials.label}<span> one-time</span></div>
-                                <p className="price-desc">{PRICING.essentials.desc}</p>
-                                <ul className="price-features">
-                                    {PRICING.essentials.features.map((f, i) => <li key={i}>{f}</li>)}
-                                </ul>
-                                <CheckoutButton purchaseType="essentials" className="btn btn-gold btn-full">
-                                    Get Essentials Bundle
-                                </CheckoutButton>
-                                <GuaranteeBadge />
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Section: AI Credits */}
-                    <div id="credits" style={{ marginBottom: 'var(--space-16)' }}>
-                        <p className="eyebrow" style={{ textAlign: 'center' }}>AI CREDITS</p>
-                        <h2 className="section-heading center">Credit Packs</h2>
-                        <p className="section-sub center" style={{ marginBottom: 'var(--space-8)' }}>
-                            Credits power AI tools. Buy a pack, use them whenever — they never expire.
-                        </p>
-                        <div className="pricing-grid" style={{ maxWidth: 700, margin: '0 auto' }}>
+                        <div className="pricing-grid" style={{ maxWidth: 960, margin: '0 auto' }}>
                             <div className="price-card">
-                                <p className="price-plan">{PRICING.starterCredits.name}</p>
-                                <div className="price-amount">{PRICING.starterCredits.label}</div>
-                                <p className="price-desc">{PRICING.starterCredits.desc}</p>
+                                <p className="price-plan">{PRICING.starter.name}</p>
+                                <div className="price-amount">{PRICING.starter.label}<span> one-time</span></div>
+                                <p className="price-desc">{PRICING.starter.desc}</p>
                                 <ul className="price-features">
-                                    {PRICING.starterCredits.features.map((f, i) => <li key={i}>{f}</li>)}
+                                    {PRICING.starter.features.map((f, i) => <li key={i}>{f}</li>)}
                                 </ul>
-                                <CheckoutButton purchaseType="credits_starter" className="btn btn-outline btn-full">
-                                    Buy Starter Pack
+                                <CheckoutButton purchaseType="starter" className="btn btn-outline btn-full">
+                                    Get Starter
                                 </CheckoutButton>
                                 <GuaranteeBadge />
                             </div>
                             <div className="price-card featured">
-                                <p className="price-plan">{PRICING.authorPro.name}</p>
-                                <div className="price-amount">{PRICING.authorPro.label}</div>
-                                <p className="price-desc">{PRICING.authorPro.desc}</p>
+                                <p className="price-plan">{PRICING.pro.name}</p>
+                                <div className="price-amount">{PRICING.pro.label}<span> one-time</span></div>
+                                <p className="price-desc">{PRICING.pro.desc}</p>
                                 <ul className="price-features">
-                                    {PRICING.authorPro.features.map((f, i) => <li key={i}>{f}</li>)}
+                                    {PRICING.pro.features.map((f, i) => <li key={i}>{f}</li>)}
                                 </ul>
-                                <CheckoutButton purchaseType="credits_pro" className="btn btn-gold btn-full">
-                                    Buy Pro Pack
+                                <CheckoutButton purchaseType="pro" className="btn btn-gold btn-full">
+                                    Get Pro
+                                </CheckoutButton>
+                                <GuaranteeBadge />
+                            </div>
+                            <div className="price-card lifetime-card">
+                                <p className="price-plan">{PRICING.lifetime.name}</p>
+                                <div className="price-amount">{PRICING.lifetime.label}<span> one-time</span></div>
+                                <p className="price-desc">{PRICING.lifetime.desc}</p>
+                                <ul className="price-features">
+                                    {PRICING.lifetime.features.map((f, i) => <li key={i}>{f}</li>)}
+                                </ul>
+                                <CheckoutButton purchaseType="lifetime" className="btn btn-gold btn-full">
+                                    Get Lifetime Deal
                                 </CheckoutButton>
                                 <GuaranteeBadge />
                             </div>
@@ -158,41 +168,9 @@ export default function PricingPage() {
                                         ))}
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-
-                    {/* Section: Full Access + Lifetime */}
-                    <div>
-                        <p className="eyebrow" style={{ textAlign: 'center' }}>BEST VALUE</p>
-                        <h2 className="section-heading center">Complete Packages</h2>
-                        <p className="section-sub center" style={{ marginBottom: 'var(--space-8)' }}>
-                            Get everything. Logic tools + AI credits in one bundle.
-                        </p>
-                        <div className="pricing-grid" style={{ maxWidth: 700, margin: '0 auto' }}>
-                            <div className="price-card featured">
-                                <p className="price-plan">{PRICING.full.name}</p>
-                                <div className="price-amount">{PRICING.full.label}<span> one-time</span></div>
-                                <p className="price-desc">{PRICING.full.desc}</p>
-                                <ul className="price-features">
-                                    {PRICING.full.features.map((f, i) => <li key={i}>{f}</li>)}
-                                </ul>
-                                <CheckoutButton purchaseType="full" className="btn btn-gold btn-full">
-                                    Get Full Access
-                                </CheckoutButton>
-                                <GuaranteeBadge />
-                            </div>
-                            <div className="price-card lifetime-card">
-                                <p className="price-plan">{PRICING.lifetime.name}</p>
-                                <div className="price-amount">{PRICING.lifetime.label}<span> one-time</span></div>
-                                <p className="price-desc">{PRICING.lifetime.desc}</p>
-                                <ul className="price-features">
-                                    {PRICING.lifetime.features.map((f, i) => <li key={i}>{f}</li>)}
-                                </ul>
-                                <CheckoutButton purchaseType="lifetime" className="btn btn-gold btn-full">
-                                    Get Lifetime Deal
-                                </CheckoutButton>
-                                <GuaranteeBadge />
-                            </div>
+                            <p style={{ fontSize: 'var(--text-xs)', color: 'var(--mid)', marginTop: 'var(--space-3)' }}>
+                                Longer manuscripts scale in cost with word count — the exact price is shown before any credits are spent.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -208,10 +186,10 @@ function PricingFAQ() {
     const [openIndex, setOpenIndex] = useState(null);
     const pricingFaqs = FAQS.filter(f =>
         f.q.toLowerCase().includes('credit') || f.q.toLowerCase().includes('pay') ||
-        f.q.toLowerCase().includes('refund') || f.q.toLowerCase().includes('worth') ||
-        f.q.toLowerCase().includes('free') || f.q.toLowerCase().includes('subscription') ||
-        f.q.toLowerCase().includes('access') || f.q.toLowerCase().includes('account') ||
-        f.q.toLowerCase().includes('monthly') || f.q.toLowerCase().includes('essentials') ||
+        f.q.toLowerCase().includes('refund') || f.q.toLowerCase().includes('starter') ||
+        f.q.toLowerCase().includes('pro') || f.q.toLowerCase().includes('free') ||
+        f.q.toLowerCase().includes('subscription') || f.q.toLowerCase().includes('access') ||
+        f.q.toLowerCase().includes('account') || f.q.toLowerCase().includes('monthly') ||
         f.q.toLowerCase().includes('buy')
     );
 

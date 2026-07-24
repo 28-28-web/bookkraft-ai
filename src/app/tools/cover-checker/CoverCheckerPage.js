@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import Link from 'next/link';
+import ToolResultsCTA from '@/components/ToolResultsCTA';
 
 const faqs = [
   {
@@ -341,6 +342,14 @@ export default function CoverCheckerPage() {
                 {appleResult.checks.map((c, i) => <CheckRow key={i} check={c} />)}
               </div>
             </div>
+          )}
+
+          {dims && (
+            <ToolResultsCTA
+              toolSlug="cover-checker"
+              subjectNoun="cover"
+              issueCount={[...kdpResult.checks, ...appleResult.checks].filter((c) => !c.pass).length}
+            />
           )}
 
           {dims && (

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { TOOLS } from '../lib/tools';
-import { FAQS, PRICING } from '../lib/constants';
+import { FAQS, PRICING, FREE_TOOLS } from '../lib/constants';
 import AnimatedSection from '../components/AnimatedSection';
 import SocialProofTicker from '../components/SocialProofTicker';
 import BookKraftBanner from '../components/BookKraftBanner';
@@ -81,7 +81,7 @@ export default function LandingPage() {
       <ManuscriptBanner />
       <FreeToolsSection />
       <ToolGridSection />
-      <CompetitorSection />
+      <PositioningSection />
       <WorkflowSection />
       <TestimonialsSection />
       <BookKraftBanner />
@@ -109,7 +109,7 @@ function HeroSection() {
           <p className="hero-eyebrow">✦ Professional eBook Formatting</p>
           <h1 className="hero-headline">Format Your EPUB & Kindle Books Like a Pro.</h1>
           <p className="hero-sub">
-            Upload your manuscript, pick a tool, and download a KDP-ready EPUB, PDF, or DOCX — in seconds. Start with three free tools, no account needed.
+            Upload your manuscript, pick a tool, and download a KDP-ready EPUB, PDF, or DOCX — in seconds. Start with {FREE_TOOLS.length} free tools, no account needed.
           </p>
           <div className="hero-ctas">
             <a href="/free-tools" className="hero-cta-primary">Start for Free →</a>
@@ -365,7 +365,7 @@ function ToolGridSection() {
       <div className="section-inner-v2">
         <AnimatedSection>
           <div className="animate-on-scroll" style={{ textAlign:'center' }}>
-            <p className="section-eyebrow-v2">14 Professional Tools</p>
+            <p className="section-eyebrow-v2">{TOOLS.length} Professional Tools</p>
             <h2 className="section-title-v2" id="toolsHeading">EPUB 3.0 Validator, Kindle Manuscript Formatter & More</h2>
             <p className="section-sub-v2" style={{ maxWidth:500, margin:'0 auto' }}>
               From raw manuscript to polished EPUB — every step covered in one place.
@@ -417,33 +417,35 @@ function ToolGridSection() {
   );
 }
 
-// ─── 5. COMPETITOR ───────────────────────────────────────────────────
+// ─── 5. POSITIONING ──────────────────────────────────────────────────
 
-function CompetitorSection() {
-  const cols = [
-    { name:'Atticus',     price:147,  label:'$147',  note:'One-time · No AI · No cloud',  featured:false },
-    { name:'BookKraft AI',price:4.99, label:'$4.99', note:'All 14 tools · AI-powered',    featured:true  },
-    { name:'Vellum',      price:250,  label:'$250',  note:'Mac only · No AI · No cleanup',featured:false },
+function PositioningSection() {
+  const steps = [
+    { n: '01', title: 'Write', tool: 'Word, Scrivener, Google Docs', desc: 'Draft wherever you already write.' },
+    { n: '02', title: 'Clean & Validate', tool: 'BookKraft AI', desc: 'Strip formatting artifacts, validate your EPUB, build metadata.', highlight: true },
+    { n: '03', title: 'Format & Design', tool: 'Vellum, Atticus, or KDP', desc: 'Hand off a clean file to whichever formatter you already use.' },
   ];
-  const maxPrice = Math.max(...cols.map(c => c.price));
   return (
-    <section style={{ background:'var(--ink)', padding:'72px clamp(20px,4vw,48px)' }} aria-label="Price comparison">
-      <div style={{ maxWidth:640, margin:'0 auto' }}>
+    <section style={{ background:'var(--ink)', padding:'72px clamp(20px,4vw,48px)' }} aria-label="How BookKraft AI fits your workflow">
+      <div style={{ maxWidth:900, margin:'0 auto' }}>
         <AnimatedSection>
           <p className="section-eyebrow-v2 animate-on-scroll" style={{ color:'rgba(201,168,76,0.65)', textAlign:'center' }}>
-            Why BookKraft AI wins on value
+            BookKraft AI runs before your formatter
           </p>
-          <div className="competitor-bars animate-on-scroll stagger-1">
-            {cols.map((col) => (
-              <div key={col.name} className={`competitor-bar-row${col.featured ? ' featured' : ''}`}>
-                <div className="competitor-bar-label">
-                  <span className="competitor-bar-name">{col.name}</span>
-                  <span className="competitor-bar-note">{col.note}</span>
-                </div>
-                <div className="competitor-bar-track">
-                  <div className="competitor-bar-fill" style={{ width: `${(col.price / maxPrice) * 100}%` }} />
-                </div>
-                <span className="competitor-bar-price">{col.label}</span>
+          <p className="animate-on-scroll" style={{ textAlign:'center', color:'rgba(247,243,236,.65)', fontSize:15, maxWidth:520, margin:'0 auto 40px' }}>
+            Vellum and Atticus are full writing and design environments — BookKraft AI is the pre-flight step that happens before either one.
+          </p>
+          <div className="animate-on-scroll stagger-1" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(220px, 1fr))', gap:16 }}>
+            {steps.map((s) => (
+              <div key={s.n} style={{
+                border: s.highlight ? '2px solid #C9933A' : '1px solid rgba(255,255,255,0.12)',
+                background: s.highlight ? 'rgba(201,147,58,0.08)' : 'transparent',
+                borderRadius:12, padding:'24px 20px',
+              }}>
+                <div style={{ fontSize:12, fontWeight:700, letterSpacing:'0.1em', color:'#C9933A', marginBottom:10 }}>STEP {s.n}</div>
+                <h3 style={{ color:'#fff', fontSize:19, fontWeight:700, marginBottom:4 }}>{s.title}</h3>
+                <p style={{ color:'rgba(247,243,236,.5)', fontSize:13, fontWeight:600, marginBottom:10 }}>{s.tool}</p>
+                <p style={{ color:'rgba(247,243,236,.65)', fontSize:14, lineHeight:1.6, margin:0 }}>{s.desc}</p>
               </div>
             ))}
           </div>
@@ -584,33 +586,32 @@ function PricingSection() {
   const plans = [
     {
       key:'free', name:'Free', price:'$0', period:'forever',
-      desc:'2 tools, no signup, no limits.',
-      features:['EPUB Validator','Metadata Builder','No account needed','Unlimited use'],
+      desc:'4 tools, no signup, no limits.',
+      features:['EPUB Validator','Metadata Builder','Cover Checker','Word Cleanup Checker','No account needed','Unlimited use'],
       cta:'Start Free', href:'/tools/epub-validator', featured:false,
     },
     {
-      key:'essentials',
-      name: PRICING.essentials?.name || 'Essentials Bundle',
-      price: PRICING.essentials?.label || '$4.99', period:'one-time',
-      desc: PRICING.essentials?.desc || '5 instant logic tools.',
-      features: PRICING.essentials?.features || [],
-      cta:'Get Essentials', href:'/pricing', featured:false,
+      key:'starter',
+      name: PRICING.starter.name,
+      price: PRICING.starter.label, period:'one-time',
+      desc: PRICING.starter.desc,
+      features: PRICING.starter.features,
+      cta:'Get Starter', href:'/pricing', featured:false,
     },
     {
-      key:'full',
-      name: PRICING.full?.name || 'Full Access',
-      price: PRICING.full?.label || '$9.99', period:'one-time',
-      desc: PRICING.full?.desc || 'All tools + AI credits.',
-      retail:'Retail value: $35+',
-      features: PRICING.full?.features || [],
-      cta:'Get Full Access', href:'/pricing', featured:true,
+      key:'pro',
+      name: PRICING.pro.name,
+      price: PRICING.pro.label, period:'one-time',
+      desc: PRICING.pro.desc,
+      features: PRICING.pro.features,
+      cta:'Get Pro', href:'/pricing', featured:true,
     },
     {
       key:'lifetime',
-      name: PRICING.lifetime?.name || 'Lifetime Access',
-      price: PRICING.lifetime?.label || '$149', period:'one-time',
-      desc: PRICING.lifetime?.desc || 'Unlimited everything, forever.',
-      features: PRICING.lifetime?.features || [],
+      name: PRICING.lifetime.name,
+      price: PRICING.lifetime.label, period:'one-time',
+      desc: PRICING.lifetime.desc,
+      features: PRICING.lifetime.features,
       cta:'Get Lifetime', href:'/pricing', featured:false,
     },
   ];

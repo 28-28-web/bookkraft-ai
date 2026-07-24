@@ -57,7 +57,7 @@ export default function UpsellBanner({ toolName = 'this tool' }) {
           textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0,
         }}
       >
-        Get Full Access — $9.99 →
+        Get Starter — $19 →
       </Link>
     </div>
   );

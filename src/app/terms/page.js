@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import Footer from '@/components/Footer';
+import { TOOLS } from '@/lib/tools';
+import { FREE_TOOLS, LOGIC_TOOLS, AI_TOOLS } from '@/lib/constants';
 
 export const metadata = {
     title: 'Terms of Service — BookKraft AI',
@@ -18,25 +20,23 @@ export default function TermsPage() {
                 <p>By creating an account on BookKraft AI or using any of our tools (including the free EPUB Validator and Metadata Builder), you agree to be bound by these Terms of Service. If you do not agree to these Terms, do not use the service.</p>
 
                 <h2>2. Description of Service</h2>
-                <p>BookKraft AI is a web-based eBook formatting toolkit that provides 14 tools for indie authors to format, validate, and prepare their manuscripts for publication. The service includes:</p>
+                <p>BookKraft AI is a web-based eBook formatting toolkit that provides {TOOLS.length} tools for indie authors to format, validate, and prepare their manuscripts for publication. The service includes:</p>
                 <ul>
-                    <li>3 free tools (EPUB Validator, Metadata Builder, Word Manuscript Cleanup Checker) — available without an account</li>
-                    <li>5 logic-based tools (Kindle Format Fixer, EPUB Formatter, TOC Generator, Front Matter Generator, CSS Snippet Generator) — available with the Essentials Bundle or Full Access purchase</li>
-                    <li>5 AI-powered tools (Manuscript Cleanup, Back Matter Generator, Style Sheet Auditor, Print-to-Digital Adapter, KDP Keyword Finder) — available via the credit system</li>
+                    <li>{FREE_TOOLS.length} free tools (EPUB Validator, Metadata Builder, Cover Checker, Word Manuscript Cleanup Checker, Full Manuscript Mode) — available without an account</li>
+                    <li>{LOGIC_TOOLS.length} logic-based tools (Kindle Format Fixer, EPUB Formatter, TOC Generator, Front Matter Generator, CSS Snippet Generator) — available with a Starter or Pro purchase</li>
+                    <li>{AI_TOOLS.length} AI-powered tools (Manuscript Cleanup, Back Matter Generator, Style Sheet Auditor, Print-to-Digital Adapter, KDP Keyword Finder, EPUB Validator Pro) — available via the credit system</li>
                 </ul>
 
                 <h2>3. Purchases and Credit System</h2>
                 <h3>3.1 One-Time Payments</h3>
                 <p>BookKraft AI does not use subscriptions. All purchases are one-time payments. Available purchase options:</p>
                 <ul>
-                    <li><strong>Essentials Bundle ($4.99):</strong> Unlocks all 5 logic tools permanently.</li>
-                    <li><strong>Starter Credits ($7.00):</strong> Adds 15 AI credits to your balance.</li>
-                    <li><strong>Author Pro Credits ($15.00):</strong> Adds 40 AI credits to your balance.</li>
-                    <li><strong>Full Access ($9.99):</strong> Unlocks all logic tools + adds 30 AI credits.</li>
-                    <li><strong>Lifetime ($149):</strong> Unlimited access to all tools (rate-limited to 20 AI runs/hour).</li>
+                    <li><strong>Starter ($19):</strong> Unlocks all 5 logic tools permanently, plus 40 AI credits.</li>
+                    <li><strong>Pro ($49):</strong> Unlocks all 5 logic tools permanently, plus 200 AI credits.</li>
+                    <li><strong>Lifetime ($149):</strong> Unlimited access to all tools, rate-limited to 3 concurrent AI runs and 500,000 words processed per rolling 24-hour period.</li>
                 </ul>
                 <h3>3.2 Credits</h3>
-                <p>AI credits never expire. Credits are deducted only after a successful AI tool run — if the AI processing fails, no credits are deducted. Credit costs per tool: KDP Keyword Finder (1 credit), Back Matter Generator (2 credits), Manuscript Cleanup (3 credits), Style Sheet Auditor (3 credits), Print-to-Digital (3 credits).</p>
+                <p>AI credits never expire. Credits are deducted only after a successful AI tool run — if the AI processing fails, no credits are deducted. Base credit cost per tool: KDP Keyword Finder (1 credit), EPUB Validator Pro (2 credits), Back Matter Generator (2 credits), Manuscript Cleanup, Style Sheet Auditor, and Print-to-Digital (1 credit per 10,000 words, minimum 1 — a full-length novel run costs more than a short sample; the exact cost is shown before you confirm).</p>
                 <h3>3.3 Taxes</h3>
                 <p>All prices are inclusive of applicable taxes. Tax is calculated and collected by our payment processor, Paddle, based on your location.</p>
 

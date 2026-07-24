@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { TOOLS } from '@/lib/tools';
 
 export default function StickyUpgradeBanner() {
     const [visible, setVisible] = useState(false);
@@ -99,7 +100,7 @@ export default function StickyUpgradeBanner() {
                 }}>
                     Enjoying this free tool?{' '}
                     <strong style={{ color: '#F7F3EC' }}>
-                        Get all 14 tools for $9.99
+                        Get all {TOOLS.length} tools from $19
                     </strong>
                     {' '}— one-time, no subscription.
                 </p>
@@ -119,7 +120,7 @@ export default function StickyUpgradeBanner() {
                     flexShrink: 0,
                 }}
             >
-                Get Full Access — $9.99 →
+                Get Starter — $19 →
             </Link>
         </div>
     );

@@ -8,6 +8,10 @@ import { ToastProvider } from '../components/Toast';
 import ChatAssistant from '../components/ChatAssistant';
 import NewsletterPopup from '../components/NewsletterPopup';
 import CookieBanner from '../components/CookieBanner';
+import { TOOLS } from '../lib/tools';
+import { FREE_TOOLS } from '../lib/constants';
+
+const TOOL_COUNT_DESC = `${TOOLS.length} eBook formatting tools. EPUB validation, Kindle formatting, metadata builder, style auditor, and more. ${FREE_TOOLS.length} free tools — no signup needed.`;
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -42,7 +46,7 @@ export const viewport = {
 export const metadata = {
   metadataBase: new URL('https://bookkraftai.com'),
   title: 'BookKraft AI — EPUB & Kindle Tools for Indie Authors',
-  description: '14 eBook formatting tools. EPUB validation, Kindle formatting, metadata builder, style auditor, and more. 3 free tools — no signup needed.',
+  description: TOOL_COUNT_DESC,
   keywords: 'ebook formatting, epub validator, kindle format, metadata builder, book publishing tools, kdp tools',
   icons: {
     icon: '/favicon.png',
@@ -50,7 +54,7 @@ export const metadata = {
   },
   openGraph: {
     title: 'BookKraft AI — EPUB & Kindle Tools for Indie Authors',
-    description: '14 eBook formatting tools. EPUB validation, Kindle formatting, metadata builder, style auditor, and more. 3 free tools — no signup needed.',
+    description: TOOL_COUNT_DESC,
     siteName: 'BookKraft AI',
     type: 'website',
     url: 'https://bookkraftai.com',
@@ -59,7 +63,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'BookKraft AI — EPUB & Kindle Tools for Indie Authors',
-    description: '14 eBook formatting tools. EPUB validation, Kindle formatting, metadata builder, style auditor, and more. 3 free tools — no signup needed.',
+    description: TOOL_COUNT_DESC,
   },
 };
 

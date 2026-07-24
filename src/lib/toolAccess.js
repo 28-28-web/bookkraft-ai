@@ -2,12 +2,11 @@
 
 import { createClient } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
+import { TOOLS } from '@/lib/tools';
 
-const FREE_TOOLS = ['epub-validator', 'metadata-builder'];
-const LOGIC_TOOLS = [
-    'kindle-format-fixer', 'epub-formatter', 'toc-generator',
-    'front-matter-generator', 'css-snippet-generator',
-];
+// Derived from TOOLS (single source of truth) — see lib/tools.js.
+const FREE_TOOLS = TOOLS.filter((t) => t.free).map((t) => t.slug);
+const LOGIC_TOOLS = TOOLS.filter((t) => t.accessType === 'logic').map((t) => t.slug);
 
 // ── Word counting ──
 export function countWords(text) {
@@ -15,24 +14,35 @@ export function countWords(text) {
 }
 
 // ── Credit costs per AI tool ──
-export const TOOL_CREDIT_COSTS = {
-    'kdp-keyword-finder': 1,
-    'back-matter-generator': 2,
-    'manuscript-cleanup': 3,
-    'print-to-digital': 3,
-    'style-sheet-auditor': 3,
-    'manuscript-mode': 2,
-};
+// Derived from TOOLS (single source of truth). For the three chunked tools
+// (manuscript-cleanup, print-to-digital, style-sheet-auditor) this is the
+// PER-10K-WORDS rate, not a flat run cost — see calculateCreditCost. A base
+// of 1 means an 80k-word novel (8 chunks) costs 8 credits, not 24. Verified
+// against Starter (40 credits = 5 full 80k-word runs) and Pro (200 credits
+// = 25 full runs) before shipping; do not raise these without rerunning
+// that math.
+export const TOOL_CREDIT_COSTS = Object.fromEntries(
+    TOOLS.filter((t) => t.accessType === 'ai').map((t) => [t.slug, t.creditCost])
+);
 
 // ── Word limits per tool ──
+// manuscript-cleanup, style-sheet-auditor, and print-to-digital no longer have
+// a hard limit — long manuscripts go through the chunked job pipeline
+// (see src/lib/ai/chunker.ts, src/lib/ai/runner.ts) instead of being rejected.
 export const TOOL_WORD_LIMITS = {
-    'manuscript-cleanup': 3000,
-    'style-sheet-auditor': 5000,
-    'print-to-digital': 4000,
     'kdp-keyword-finder': 500,
     'back-matter-generator': 500,
-    'manuscript-mode': 5000,
 };
+
+/**
+ * Credit cost for a chunked job, scaled by manuscript length.
+ * ceil(wordCount / 10000) * baseCreditsForTool, minimum 1.
+ */
+export function calculateCreditCost(toolSlug, wordCount) {
+    const base = TOOL_CREDIT_COSTS[toolSlug];
+    if (!base) return 0;
+    return Math.max(1, Math.ceil(wordCount / 10000) * base);
+}
 
 // ── Max tokens per tool for Claude ──
 const TOOL_MAX_TOKENS = {
@@ -41,80 +51,95 @@ const TOOL_MAX_TOKENS = {
     'style-sheet-auditor': 3000,
     'print-to-digital': 4000,
     'kdp-keyword-finder': 1500,
-    'manuscript-mode': 3000,
 };
+
+function denyResponse(error, status, extra = {}) {
+    return { allowed: false, response: NextResponse.json({ error, ...extra }, { status }) };
+}
 
 /**
  * Check if a user has access to a specific tool.
- * Returns { allowed: true, user, profile } or a NextResponse error.
+ * Returns { allowed: true, user, profile } or { allowed: false, response }.
+ *
+ * Fails closed: any unexpected error (auth lookup, profile fetch, unknown
+ * tool slug) denies access. Never falls through to "allowed: true" on
+ * exception or missing data.
+ *
+ * Access order, each short-circuiting before the next:
+ *   1. Free tools — no auth needed.
+ *   2. is_lifetime — unlimited, unconditional (job-level concurrency/24h
+ *      word caps are enforced separately in lib/ai/jobs.js for chunked runs).
+ *   3. has_full_access — legacy grandfathered accounts from the retired
+ *      "Full Access" tier. Unconditional, no rate limit, exactly as before.
+ *      No purchase flow sets this flag anymore; only pre-existing rows have it.
+ *   4. has_logic_bundle — unlocks logic tools only, never touches credits.
+ *   5. credits_balance — the real, enforced balance for everyone else
+ *      (Starter/Pro purchasers and legacy credit-pack-only accounts).
  */
 export async function checkToolAccess(toolSlug) {
-    // Free tools — no auth needed
-    if (FREE_TOOLS.includes(toolSlug)) {
-        return { allowed: true, user: null, profile: null };
-    }
+    try {
+        if (FREE_TOOLS.includes(toolSlug)) {
+            return { allowed: true, user: null, profile: null };
+        }
 
-    const supabase = await createClient();
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+        const supabase = await createClient();
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
 
-    if (authError || !user) {
-        return {
-            allowed: false,
-            response: NextResponse.json({ error: 'unauthorized' }, { status: 401 }),
-        };
-    }
+        if (authError || !user) {
+            return denyResponse('unauthorized', 401);
+        }
 
-    const { data: profile } = await supabase
-        .from('users')
-        .select('credits_balance, has_logic_bundle, has_full_access, is_lifetime, is_admin')
-        .eq('id', user.id)
-        .single();
+        const { data: profile, error: profileError } = await supabase
+            .from('users')
+            .select('credits_balance, has_logic_bundle, has_full_access, is_lifetime, is_admin')
+            .eq('id', user.id)
+            .single();
 
-    if (!profile) {
-        return {
-            allowed: false,
-            response: NextResponse.json({ error: 'no_profile' }, { status: 401 }),
-        };
-    }
+        if (profileError || !profile) {
+            return denyResponse('no_profile', 401);
+        }
 
-    // Full Access or Lifetime — always allowed
-    if (profile.has_full_access || profile.is_lifetime) {
-        return { allowed: true, user, profile };
-    }
-
-    // Logic tools — require Essentials Bundle (has_logic_bundle)
-    if (LOGIC_TOOLS.includes(toolSlug)) {
-        if (profile.has_logic_bundle) {
+        // Lifetime — unconditional, unlimited. Concurrency + rolling 24h word
+        // caps live in lib/ai/jobs.js createJob(), not here.
+        if (profile.is_lifetime) {
             return { allowed: true, user, profile };
         }
-        return {
-            allowed: false,
-            response: NextResponse.json(
-                { error: 'bundle_required', purchase_url: '/pricing#essentials' },
-                { status: 403 }
-            ),
-        };
-    }
 
-    // AI tools — require credits
-    const cost = TOOL_CREDIT_COSTS[toolSlug];
-    if (cost && profile.credits_balance < cost) {
-        return {
-            allowed: false,
-            response: NextResponse.json(
-                {
-                    error: 'insufficient_credits',
-                    credits_needed: cost,
-                    credits_balance: profile.credits_balance,
-                    purchase_url: '/pricing#credits',
-                    message: `This tool costs ${cost} credit(s). You have ${profile.credits_balance}.`,
-                },
-                { status: 402 }
-            ),
-        };
-    }
+        // Grandfathered legacy Full Access — unconditional, no rate limit,
+        // exactly the behavior these accounts already had. Never set by new
+        // purchases; only pre-existing rows carry this flag.
+        if (profile.has_full_access) {
+            return { allowed: true, user, profile };
+        }
 
-    return { allowed: true, user, profile };
+        // Logic tools never touch credits — has_logic_bundle alone unlocks them.
+        if (LOGIC_TOOLS.includes(toolSlug)) {
+            if (profile.has_logic_bundle) {
+                return { allowed: true, user, profile };
+            }
+            return denyResponse('bundle_required', 403, { purchase_url: '/pricing' });
+        }
+
+        // AI tools — real, enforced credit balance. An unrecognized toolSlug
+        // (no known cost) fails closed instead of silently allowing.
+        const cost = TOOL_CREDIT_COSTS[toolSlug];
+        if (!cost) {
+            return denyResponse('unknown_tool', 400);
+        }
+        if (typeof profile.credits_balance !== 'number' || profile.credits_balance < cost) {
+            return denyResponse('insufficient_credits', 402, {
+                credits_needed: cost,
+                credits_balance: profile.credits_balance ?? 0,
+                purchase_url: '/pricing',
+                message: `This tool costs ${cost} credit(s). You have ${profile.credits_balance ?? 0}.`,
+            });
+        }
+
+        return { allowed: true, user, profile };
+    } catch (err) {
+        console.error('checkToolAccess failed closed:', err);
+        return denyResponse('access_check_failed', 500);
+    }
 }
 
 /**

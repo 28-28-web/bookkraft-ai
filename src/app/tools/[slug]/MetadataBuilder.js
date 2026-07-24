@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import UpsellBanner from '@/components/UpsellBanner';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
+import { TOOLS } from '@/lib/tools';
 
 export default function MetadataBuilder() {
     const [form, setForm] = useState({
@@ -134,6 +135,13 @@ export default function MetadataBuilder() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, name, form, checks, passCount, failCount }),
         });
+
+        fetch('/api/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, source_tool: 'metadata-builder', issue_count: failCount }),
+        }).catch(() => {});
+
         if (typeof window !== 'undefined' && window.gtag) {
             window.gtag('event', 'email_captured', { tool_name: 'metadata_builder' });
         }
@@ -284,7 +292,7 @@ export default function MetadataBuilder() {
                             <p style={{ fontSize: '0.95rem', color: '#166534', marginBottom: '20px' }}>Next step: build your table of contents.</p>
                             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
                                 <a href="/tools/toc-generator" style={{ display: 'inline-block', background: '#166534', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Generate Table of Contents →</a>
-                                <a href="/signup?plan=pro" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Get All 14 Tools — $9.99</a>
+                                <a href="/signup?plan=starter" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Get All {TOOLS.length} Tools — $19</a>
                             </div>
                         </div>
                     )}
@@ -322,7 +330,7 @@ export default function MetadataBuilder() {
                             <h4 style={{ fontSize: '1rem', fontWeight: 700, color: '#1a1a1a', marginBottom: '8px' }}>✅ Metadata done. Next step:</h4>
                             <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '16px' }}>Build your table of contents. KDP requires a TOC for every ebook.</p>
                             <a href="/tools/toc-generator" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, marginRight: '12px' }}>Generate Table of Contents →</a>
-                            <a href="/signup?plan=pro" style={{ display: 'inline-block', color: '#b8860b', fontWeight: 600, textDecoration: 'none', fontSize: '0.9rem' }}>or get all 14 tools →</a>
+                            <a href="/signup?plan=pro" style={{ display: 'inline-block', color: '#b8860b', fontWeight: 600, textDecoration: 'none', fontSize: '0.9rem' }}>or upgrade to Pro for more credits →</a>
                         </div>
                     )}
 
@@ -348,8 +356,8 @@ export default function MetadataBuilder() {
 
                     <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '10px', padding: '20px', textAlign: 'center' }}>
                         <p style={{ fontWeight: 600, marginBottom: '4px', fontSize: '0.95rem' }}>Liked this tool?</p>
-                        <p style={{ color: '#6b7280', fontSize: '0.88rem', marginBottom: '14px' }}>Get all 12 BookKraft tools + auto-fix for everything.</p>
-                        <a href="/signup?plan=pro" style={{ display: 'inline-block', background: '#1a1a1a', color: '#fff', padding: '11px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.95rem' }}>Upgrade to Pro — $9.99</a>
+                        <p style={{ color: '#6b7280', fontSize: '0.88rem', marginBottom: '14px' }}>Get all {TOOLS.length} BookKraft tools + auto-fix for everything.</p>
+                        <a href="/signup?plan=starter" style={{ display: 'inline-block', background: '#1a1a1a', color: '#fff', padding: '11px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.95rem' }}>Get Starter — $19</a>
                     </div>
                 </div>
                 <UpsellBanner toolName="Metadata Builder" />

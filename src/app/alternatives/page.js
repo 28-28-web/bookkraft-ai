@@ -1,8 +1,8 @@
 import AlternativesPage from './AlternativesPage';
 
 export const metadata = {
-  title: 'BookKraft AI vs Vellum vs Calibre — eBook Formatting Alternatives',
-  description: 'Compare BookKraft AI to Vellum and Calibre. Browser-based, works on any platform, starts at $4.99 one-time. See which ebook formatting tool fits your workflow.',
+  title: 'BookKraft AI — Runs Before Your Formatter | eBook Pre-Flight Toolkit',
+  description: 'BookKraft AI cleans up, validates, and preps your manuscript before you hand it to Vellum, Atticus, or KDP directly. Browser-based, no install, starts at $19 one-time.',
   alternates: {
     canonical: 'https://bookkraftai.com/alternatives',
   },

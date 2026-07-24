@@ -7,9 +7,10 @@ import WordCounter, { countWords, getWordLimitError } from '@/components/WordCou
 import CreditDisplay from '@/components/CreditDisplay';
 import LivePreview from '@/components/LivePreview';
 import FileUploader from '@/components/FileUploader';
+import JobRunner from '@/components/JobRunner';
 
 export default function ManuscriptCleanup() {
-   const { profile, refreshProfile } = useAuth();
+    const { profile, refreshProfile } = useAuth();
     const { currentProject, loadProjectText, updateLastTool } = useProject();
     const [input, setInput] = useState('');
     const [mode, setMode] = useState('deep');
@@ -19,7 +20,7 @@ export default function ManuscriptCleanup() {
     const [error, setError] = useState('');
     const [activeTab, setActiveTab] = useState(0);
     const [sampleMode, setSampleMode] = useState(false);
-    const WORD_LIMIT = 3000;
+    const SAMPLE_LIMIT = 500;
 
     useEffect(() => {
         if (currentProject?.id && !input) {
@@ -29,24 +30,15 @@ export default function ManuscriptCleanup() {
         }
     }, [currentProject?.id]);
 
-    const handleSubmit = async () => {
+    const handleSampleSubmit = async () => {
         if (!input.trim()) return;
-
-        if (!sampleMode) {
-            const wordError = getWordLimitError(input, WORD_LIMIT);
-            if (wordError) { setError(wordError); return; }
-        }
 
         setLoading(true);
         setError('');
         setResult(null);
 
         try {
-            const endpoint = sampleMode
-                ? '/api/tools/manuscript-cleanup/sample'
-                : '/api/tools/manuscript-cleanup';
-
-            const res = await fetch(endpoint, {
+            const res = await fetch('/api/tools/manuscript-cleanup/sample', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -60,7 +52,6 @@ export default function ManuscriptCleanup() {
                 return;
             }
             setResult({ ...data.data, isSample: data.isSample, wordsProcessed: data.wordsProcessed });
-             if (!sampleMode) await refreshProfile();
         } catch {
             setError('Network error. Try again.');
         } finally {
@@ -68,9 +59,13 @@ export default function ManuscriptCleanup() {
         }
     };
 
+    const handleFullResult = async (merged, meta) => {
+        setResult({ ...merged, isSample: false, wordsProcessed: meta.wordCount, partial: meta.status === 'partial', creditsCharged: meta.creditsCharged });
+        await refreshProfile();
+    };
+
     const wc = countWords(input);
-    const isOverLimit = !sampleMode && wc > WORD_LIMIT;
-    const hasCredits = profile?.is_lifetime || (profile?.credits_balance || 0) >= 3;
+    const hasCredits = profile?.is_lifetime || (profile?.credits_balance || 0) >= 1;
 
     return (
         <>
@@ -86,14 +81,20 @@ export default function ManuscriptCleanup() {
 
                 <FileUploader
                     onTextExtracted={(text) => setInput(text)}
-                    label="Upload your manuscript (.docx or .txt)"
+                    label="Upload your manuscript (.docx or .txt) — any length"
                 />
 
                 <textarea className="form-textarea" style={{ minHeight: '250px' }}
-                    placeholder="Or paste your chapter text here (up to 3,000 words)..."
+                    placeholder="Or paste your manuscript here — a full novel works, no word cap..."
                     value={input} onChange={(e) => setInput(e.target.value)} />
 
-                <WordCounter text={input} limit={sampleMode ? 500 : WORD_LIMIT} />
+                {sampleMode ? (
+                    <WordCounter text={input} limit={SAMPLE_LIMIT} />
+                ) : (
+                    <p style={{ fontSize: 'var(--text-sm)', color: 'var(--mid)', marginTop: '4px' }}>
+                        {wc.toLocaleString()} words
+                    </p>
+                )}
 
                 <div style={{
                     display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)',
@@ -107,7 +108,7 @@ export default function ManuscriptCleanup() {
                     <label className="fix-checkbox" style={{ flex: 1, opacity: hasCredits ? 1 : 0.5 }}>
                         <input type="radio" checked={!sampleMode} onChange={() => setSampleMode(false)}
                             disabled={!hasCredits} />
-                        <span>Full Chapter — up to 3,000 words — 3 credits</span>
+                        <span>Full Manuscript — any length — cost scales with word count</span>
                     </label>
                 </div>
 
@@ -130,16 +131,28 @@ export default function ManuscriptCleanup() {
                     ))}
                 </div>
 
-                <button className="btn btn-primary generate-btn"
-                    onClick={handleSubmit}
-                    disabled={loading || !input.trim() || isOverLimit || (!sampleMode && !hasCredits)}>
-                    {loading
-                        ? <><div className="spinner" /> Cleaning...</>
-                        : sampleMode
-                            ? 'Run Free Sample'
-                            : 'Clean Manuscript — 3 credits'}
-                </button>
-                {error && <p className="auth-error" style={{ marginTop: '1rem' }}>{error}</p>}
+                {sampleMode ? (
+                    <>
+                        <button className="btn btn-primary generate-btn"
+                            onClick={handleSampleSubmit}
+                            disabled={loading || !input.trim()}>
+                            {loading ? <><div className="spinner" /> Cleaning...</> : 'Run Free Sample'}
+                        </button>
+                        {error && <p className="auth-error" style={{ marginTop: '1rem' }}>{error}</p>}
+                    </>
+                ) : (
+                    <JobRunner
+                        toolSlug="manuscript-cleanup"
+                        text={input}
+                        disabled={!hasCredits}
+                        runLabel="Get Cost Estimate"
+                        buildRequestBody={() => ({
+                            mode, genre,
+                            checks: { repeatedWords: true, cliches: true, dialoguePunct: true, paragraphSpacing: true },
+                        })}
+                        onResult={handleFullResult}
+                    />
+                )}
             </div>
 
             <div className="tool-output-card">
@@ -157,7 +170,17 @@ export default function ManuscriptCleanup() {
                             }}>
                                 Free sample — {result.wordsProcessed} words processed.
                                 {wc > 500 && ` Your full text has ${wc - 500} more words.`}
-                                {' '}Process your full chapter for just 3 credits.
+                                {' '}Run the full manuscript to process everything.
+                            </div>
+                        )}
+
+                        {result.partial && (
+                            <div style={{
+                                padding: '12px 16px', background: '#fef3c7',
+                                borderLeft: '3px solid #d97706', borderRadius: 'var(--radius)',
+                                marginBottom: 'var(--space-4)', fontSize: 'var(--text-sm)',
+                            }}>
+                                Some sections of your manuscript failed to process and were skipped — you were only charged {result.creditsCharged} credit{result.creditsCharged === 1 ? '' : 's'} for the sections that completed.
                             </div>
                         )}
 
@@ -214,7 +237,7 @@ export default function ManuscriptCleanup() {
         {/* SEO Content */}
         <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
             <h2>Manuscript Cleanup Tool for Authors and Editors</h2>
-            <p>Every manuscript has problems hiding in it. Extra spaces, inconsistent fonts, rogue line breaks, grammar slips that survived every reread. By the time you're ready to publish, you're too close to the work to catch them all. This tool catches what you missed.</p>
+            <p>Every manuscript has problems hiding in it. Extra spaces, inconsistent fonts, rogue line breaks, grammar slips that survived every reread. By the time you're ready to publish, you're too close to the work to catch them all. This tool catches what you missed — a full 90,000-word novel included, not just a sample chapter.</p>
 
             <h2>What This Tool Does</h2>
             <p>Manuscript Cleanup works on two levels. On the formatting side, it finds and fixes messy technical issues that accumulate during writing — double spaces, inconsistent paragraph spacing, broken indents, mixed fonts, and stray line breaks. On the language side, it checks for grammar and spelling errors throughout your full manuscript.</p>
@@ -222,8 +245,8 @@ export default function ManuscriptCleanup() {
             <h2>What It Fixes</h2>
             <p>Formatting issues include double and triple spaces, inconsistent paragraph indentation, mixed fonts and font sizes, extra blank lines, and broken page breaks. Grammar and spelling fixes cover typos, punctuation mistakes, inconsistent capitalization, and common grammar slip-ups.</p>
 
-            <h2>Works With Any File Type</h2>
-            <p>Upload your manuscript in whatever format you're working in. DOCX, PDF, TXT, EPUB — the tool handles them all. So you don't need to convert anything before you start. Just upload and run the cleanup.</p>
+            <h2>Works With Any File Type — and Any Length</h2>
+            <p>Upload your manuscript in whatever format you're working in. DOCX, PDF, TXT, EPUB — the tool handles them all, and there's no word cap. Longer manuscripts are automatically split by chapter and processed in the background, with live progress as each section finishes.</p>
 
             <h2>Who This Is For</h2>
             <p>Authors who want one final check before submitting to a formatter or uploading to KDP. Freelance editors who deliver polished, submission-ready files to clients. First-time self-publishers who need their manuscript looking professional before it goes live.</p>

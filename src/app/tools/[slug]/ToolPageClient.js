@@ -122,10 +122,9 @@ export default function ToolPage({ params }) {
     }
 
     if (!isFree && !hasAccess) {
-        const isLogicTool = tool.accessType === 'logic';
-        const bundleName = isLogicTool ? 'Essentials Bundle' : 'Full Access';
-        const bundlePrice = isLogicTool ? '4.99' : '9.99';
-        const checkoutPlan = isLogicTool ? 'essentials' : 'full';
+        const bundleName = 'Starter';
+        const bundlePrice = '19';
+        const checkoutPlan = 'starter';
 
         return (
             <div className="app-layout">
@@ -141,11 +140,6 @@ export default function ToolPage({ params }) {
                                 <Link href={`/checkout?plan=${checkoutPlan}`} className="btn btn-gold" style={{ textDecoration: 'none' }}>
                                     Get {bundleName} — ${bundlePrice} →
                                 </Link>
-                                {isLogicTool && (
-                                    <Link href="/checkout?plan=full" className="btn btn-outline" style={{ textDecoration: 'none' }}>
-                                        Get All Tools — $9.99
-                                    </Link>
-                                )}
                             </div>
                         </div>
                         <SeoContentBlock tool={tool} />
