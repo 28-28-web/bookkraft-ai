@@ -99,7 +99,7 @@ export default function StickyUpgradeBanner() {
                 }}>
                     Enjoying this free tool?{' '}
                     <strong style={{ color: '#F7F3EC' }}>
-                        Get all 12 tools for $9.99
+                        Get all 14 tools for $9.99
                     </strong>
                     {' '}— one-time, no subscription.
                 </p>

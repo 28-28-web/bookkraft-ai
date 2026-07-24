@@ -7,7 +7,7 @@ const faqs = [
   },
   {
     q: 'How much cheaper is BookKraft AI than Vellum?',
-    a: 'Vellum costs $250 for the ebook and print bundle. BookKraft AI starts at $4.99 one-time for 5 formatting tools, or $9.99 for AI-powered tools too. Lifetime access to all 12 tools is $149.',
+    a: 'Vellum costs $250 for the ebook and print bundle. BookKraft AI starts at $4.99 one-time for 5 formatting tools, or $9.99 for AI-powered tools too. Lifetime access to all 14 tools is $149.',
   },
   {
     q: 'Does BookKraft AI produce the same output quality as Vellum?',
@@ -61,7 +61,7 @@ export default function VellumAlternativePage() {
             <tbody>
               {[
                 ['Platform', 'Mac only', 'Any browser (Windows, Mac, Linux, Chromebook)'],
-                ['Price', '$250 (ebook + print)', '$4.99 one-time, or $149 lifetime for all 12 tools'],
+                ['Price', '$250 (ebook + print)', '$4.99 one-time, or $149 lifetime for all 14 tools'],
                 ['Pricing model', 'One-time purchase', 'One-time purchase, no subscription'],
                 ['EPUB export', 'Yes', 'Yes — EPUB 3.0, validated for KDP/Apple Books/Kobo'],
                 ['Print PDF export', 'Yes', 'Not currently supported'],
@@ -89,7 +89,7 @@ export default function VellumAlternativePage() {
           What BookKraft AI includes
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
-          12 tools covering the full ebook formatting workflow: Kindle Format Fixer, EPUB Formatter, TOC Generator, Front Matter Generator, Back Matter Generator, CSS Snippet Generator, EPUB Validator, EPUB Validator Pro, Style Sheet Auditor, Metadata Builder, KDP Keyword Finder, and AI-powered Manuscript Cleanup. Two tools — EPUB Validator and Metadata Builder — are free with no signup required.
+          14 tools covering the full ebook formatting workflow: Kindle Format Fixer, EPUB Formatter, TOC Generator, Front Matter Generator, Back Matter Generator, CSS Snippet Generator, EPUB Validator, EPUB Validator Pro, Style Sheet Auditor, Print-to-Digital Adapter, Metadata Builder, KDP Keyword Finder, AI-powered Manuscript Cleanup, and the Word Manuscript Cleanup Checker. Three tools — EPUB Validator, Metadata Builder, and Word Manuscript Cleanup Checker — are free with no signup required.
         </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>

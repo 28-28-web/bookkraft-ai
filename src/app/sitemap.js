@@ -99,6 +99,12 @@ export default async function sitemap() {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
+    {
+      url: 'https://bookkraftai.com/tools/word-cleanup',
+      lastModified: new Date('2026-07-25'),
+      changeFrequency: 'weekly',
+      priority: 1.0,
+    },
     ...blogPages,
   ]
 }

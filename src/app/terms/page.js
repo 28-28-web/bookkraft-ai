@@ -18,9 +18,9 @@ export default function TermsPage() {
                 <p>By creating an account on BookKraft AI or using any of our tools (including the free EPUB Validator and Metadata Builder), you agree to be bound by these Terms of Service. If you do not agree to these Terms, do not use the service.</p>
 
                 <h2>2. Description of Service</h2>
-                <p>BookKraft AI is a web-based eBook formatting toolkit that provides 12 tools for indie authors to format, validate, and prepare their manuscripts for publication. The service includes:</p>
+                <p>BookKraft AI is a web-based eBook formatting toolkit that provides 14 tools for indie authors to format, validate, and prepare their manuscripts for publication. The service includes:</p>
                 <ul>
-                    <li>2 free tools (EPUB Validator, Metadata Builder) — available without an account</li>
+                    <li>3 free tools (EPUB Validator, Metadata Builder, Word Manuscript Cleanup Checker) — available without an account</li>
                     <li>5 logic-based tools (Kindle Format Fixer, EPUB Formatter, TOC Generator, Front Matter Generator, CSS Snippet Generator) — available with the Essentials Bundle or Full Access purchase</li>
                     <li>5 AI-powered tools (Manuscript Cleanup, Back Matter Generator, Style Sheet Auditor, Print-to-Digital Adapter, KDP Keyword Finder) — available via the credit system</li>
                 </ul>

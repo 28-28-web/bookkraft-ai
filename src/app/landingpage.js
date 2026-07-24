@@ -109,7 +109,7 @@ function HeroSection() {
           <p className="hero-eyebrow">✦ Professional eBook Formatting</p>
           <h1 className="hero-headline">Format Your EPUB & Kindle Books Like a Pro.</h1>
           <p className="hero-sub">
-            Upload your manuscript, pick a tool, and download a KDP-ready EPUB, PDF, or DOCX — in seconds. Start with two free tools, no account needed.
+            Upload your manuscript, pick a tool, and download a KDP-ready EPUB, PDF, or DOCX — in seconds. Start with three free tools, no account needed.
           </p>
           <div className="hero-ctas">
             <a href="/free-tools" className="hero-cta-primary">Start for Free →</a>
@@ -300,15 +300,16 @@ function FreeToolsSection() {
                 Validate EPUB Files for KDP — No Signup Required
               </h2>
               <p style={{ fontSize:14, color:'var(--sage)', margin:0 }}>
-                4 tools, no account needed — EPUB, metadata, cover & more.
+                5 tools, no account needed — EPUB, metadata, cover, cleanup & more.
               </p>
             </div>
-            <div style={{ display:'flex', gap:12, flexShrink:0 }}>
+            <div style={{ display:'flex', gap:12, flexShrink:0, flexWrap:'wrap' }}>
               {[
                 { href:'/tools/manuscript-mode', label:'Full Manuscript Mode' },
                 { href:'/tools/epub-validator',   label:'EPUB Validator'  },
                 { href:'/tools/metadata-builder', label:'Metadata Builder'},
                 { href:'/tools/cover-checker', label:'Cover Checker'},
+                { href:'/tools/word-cleanup', label:'Word Cleanup'},
               ].map(chip => (
                 <Link key={chip.href} href={chip.href} style={{
                   background:'#fff', border:'1px solid rgba(46,94,40,0.22)',
@@ -364,7 +365,7 @@ function ToolGridSection() {
       <div className="section-inner-v2">
         <AnimatedSection>
           <div className="animate-on-scroll" style={{ textAlign:'center' }}>
-            <p className="section-eyebrow-v2">12 Professional Tools</p>
+            <p className="section-eyebrow-v2">14 Professional Tools</p>
             <h2 className="section-title-v2" id="toolsHeading">EPUB 3.0 Validator, Kindle Manuscript Formatter & More</h2>
             <p className="section-sub-v2" style={{ maxWidth:500, margin:'0 auto' }}>
               From raw manuscript to polished EPUB — every step covered in one place.
@@ -421,7 +422,7 @@ function ToolGridSection() {
 function CompetitorSection() {
   const cols = [
     { name:'Atticus',     price:147,  label:'$147',  note:'One-time · No AI · No cloud',  featured:false },
-    { name:'BookKraft AI',price:4.99, label:'$4.99', note:'All 12 tools · AI-powered',    featured:true  },
+    { name:'BookKraft AI',price:4.99, label:'$4.99', note:'All 14 tools · AI-powered',    featured:true  },
     { name:'Vellum',      price:250,  label:'$250',  note:'Mac only · No AI · No cleanup',featured:false },
   ];
   const maxPrice = Math.max(...cols.map(c => c.price));

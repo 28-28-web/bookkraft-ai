@@ -15,10 +15,10 @@ export default function FreeToolsPage() {
                         <span className="hero-badge-dot" /> No account needed
                     </div>
                     <h1 style={{ color: 'var(--cream)', fontSize: 'var(--text-5xl)', marginBottom: 'var(--space-4)' }}>
-                        Two Free Tools.<br /><em style={{ color: 'var(--gold)', fontWeight: 400 }}>No Signup.</em>
+                        Three Free Tools.<br /><em style={{ color: 'var(--gold)', fontWeight: 400 }}>No Signup.</em>
                     </h1>
                     <p style={{ color: 'rgba(247,243,236,.65)', fontSize: '18px', maxWidth: 520, margin: '0 auto' }}>
-                        EPUB Validator and Metadata Builder work immediately.
+                        EPUB Validator, Metadata Builder, and the Word Manuscript Cleanup Checker work immediately.
                         No email, no credit card, no account. Just open and use.
                     </p>
                 </div>
@@ -75,6 +75,30 @@ export default function FreeToolsPage() {
                             </ul>
                             <Link href="/tools/metadata-builder" className="btn btn-gold btn-full" style={{ textDecoration: 'none' }}>
                                 Open Metadata Builder
+                            </Link>
+                        </div>
+
+                        {/* Word Cleanup Checker */}
+                        <div style={{
+                            background: 'var(--white)', border: '1px solid var(--border)',
+                            borderRadius: 'var(--radius)', padding: 'var(--space-8)',
+                        }}>
+                            <span className="badge badge-free" style={{ marginBottom: 'var(--space-4)', display: 'inline-flex' }}>FREE</span>
+                            <h2 style={{ marginBottom: 'var(--space-3)' }}>Word Manuscript Cleanup Checker</h2>
+                            <p style={{ color: 'var(--mid)', lineHeight: 1.6, marginBottom: 'var(--space-6)' }}>
+                                Upload your .docx manuscript and instantly scan for double spaces, straight quotes,
+                                stacked blank paragraphs, and stray bold/italic formatting before you publish.
+                            </p>
+                            <ul style={{
+                                listStyle: 'none', padding: 0, marginBottom: 'var(--space-6)',
+                                display: 'grid', gap: 'var(--space-2)',
+                            }}>
+                                {['No signup required', 'Runs entirely in-browser', '6 formatting checks', 'Read-only — never modifies your file', 'Unlimited use'].map((item, i) => (
+                                    <li key={i} style={{ fontSize: 'var(--text-sm)', color: 'var(--ink)' }}>✓ {item}</li>
+                                ))}
+                            </ul>
+                            <Link href="/tools/word-cleanup" className="btn btn-gold btn-full" style={{ textDecoration: 'none' }}>
+                                Open Word Cleanup Checker
                             </Link>
                         </div>
                     </div>
@@ -136,6 +160,9 @@ export default function FreeToolsPage() {
                     <h2>Metadata Builder</h2>
                     <p>Good metadata helps readers find your book. Fill in one form and get perfectly formatted metadata output for Amazon KDP, IngramSpark, Draft2Digital, and EPUB OPF — all at once. Includes 7 keyword slots, BISAC category support, and a downloadable text file. No account needed. Unlimited use.</p>
 
+                    <h2>Word Manuscript Cleanup Checker</h2>
+                    <p>Before you send a manuscript to a formatter or upload it to KDP, run it through a quick technical scan. Upload your .docx file and the checker reports double spaces, straight quotes, stacked blank paragraphs, trailing spaces, double hyphens, and manually-applied bold or italic formatting. It's read-only — your file is parsed entirely in your browser and never modified or uploaded.</p>
+
                     <h2>Who These Tools Are For</h2>
                     <p>If you're a self-publishing author, these tools save you hours of manual formatting work. If you're a freelance editor, they help you deliver cleaner, faster results to your clients. Both tools work immediately — no email, no credit card, no account required.</p>
 
@@ -143,7 +170,7 @@ export default function FreeToolsPage() {
                     <p>Most publishing tools are either too expensive or too complicated. We built these to be straightforward — tools that do exactly what they say, nothing more. And because every author deserves access to basic publishing tools without a subscription, these two will always be free.</p>
 
                     <h2>Need More Tools?</h2>
-                    <p>The free tools cover EPUB validation and metadata. For manuscript cleanup, KDP keyword research, back matter generation, print to digital conversion, TOC generation, and more — explore the full Book Kraft AI toolkit. Available as a one-time purchase, no monthly fees.</p>
+                    <p>The free tools cover EPUB validation, metadata, and manuscript formatting checks. For AI-powered manuscript cleanup, KDP keyword research, back matter generation, print to digital conversion, TOC generation, and more — explore the full Book Kraft AI toolkit. Available as a one-time purchase, no monthly fees.</p>
                 </div>
             </section>
         </>

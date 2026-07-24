@@ -208,7 +208,7 @@ export const CHAT_TREE = {
 
     // ── ALL TOOLS ──
     all_tools: {
-        message: "Here are all 12 tools. The best value is Full Access — all 11 paid tools for $9.99 one-time.",
+        message: "Here are all 14 tools. The best value is Full Access — all 11 paid tools for $9.99 one-time.",
         options: [
             { label: "Get Full Access ($9.99)", next: null, toolLink: "/checkout?plan=full", toolPrice: "$9.99" },
             { label: "Show me individual tool prices", next: null, toolLink: "/dashboard" },

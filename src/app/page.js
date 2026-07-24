@@ -4,7 +4,7 @@ import { FAQS, PRICING } from '../lib/constants';
 
 export const metadata = {
   title: 'BookKraft AI — EPUB & Kindle Tools for Indie Authors',
-  description: '12 tools for indie authors. Fix Kindle errors, validate EPUBs, build metadata, generate keywords. One-time price, no subscription. Start free.',
+  description: '14 tools for indie authors. Fix Kindle errors, validate EPUBs, build metadata, generate keywords. One-time price, no subscription. Start free.',
   alternates: {
     canonical: 'https://bookkraftai.com/',
   },
@@ -18,14 +18,14 @@ export default function Page() {
     url: 'https://bookkraftai.com',
     applicationCategory: 'UtilitiesApplication',
     operatingSystem: 'Web',
-    description: '12 eBook formatting tools for indie authors. EPUB validation, Kindle formatting, metadata builder, and more.',
+    description: '14 eBook formatting tools for indie authors. EPUB validation, Kindle formatting, metadata builder, and more.',
     offers: [
       {
         '@type': 'Offer',
         price: '0',
         priceCurrency: 'USD',
         name: 'Free',
-        description: '2 free tools — EPUB Validator & Metadata Builder',
+        description: '3 free tools — EPUB Validator, Metadata Builder & Word Cleanup Checker',
       },
       {
         '@type': 'Offer',

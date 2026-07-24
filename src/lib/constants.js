@@ -118,7 +118,7 @@ export const PRICING = {
         desc: 'Unlimited AI + all future tools',
         bestFor: 'Power users, coaches',
         features: [
-            'All 12 tools unlocked',
+            'All 14 tools unlocked',
             'Unlimited AI runs (rate limited)',
             'All future tools included',
             'Priority support',

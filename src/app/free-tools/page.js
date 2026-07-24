@@ -1,9 +1,9 @@
 import FreeToolsPage from './FreeToolsPage';
 
 export const metadata = {
-  title: 'Free eBook Tools — EPUB Validator & Metadata Builder | BookKraft AI',
+  title: 'Free eBook Tools — EPUB Validator, Metadata Builder & Word Cleanup | BookKraft AI',
   description:
-    'Two free tools, no signup needed. Validate your EPUB and build platform metadata for KDP, Kobo, Apple Books instantly.',
+    'Three free tools, no signup needed. Validate your EPUB, build platform metadata, and scan your Word manuscript for formatting issues instantly.',
   alternates: {
     canonical: 'https://bookkraftai.com/free-tools',
   },

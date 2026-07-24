@@ -3,7 +3,7 @@ import Link from 'next/link';
 const faqs = [
   {
     q: 'What is the best Vellum alternative for Windows authors?',
-    a: 'BookKraft AI is browser-based, so it works on Windows, Mac, Linux, and Chromebook, unlike Vellum which is Mac-only. It starts at $4.99 one-time for formatting tools, with Full Access at $9.99 for all 12 tools including AI-powered manuscript cleanup.',
+    a: 'BookKraft AI is browser-based, so it works on Windows, Mac, Linux, and Chromebook, unlike Vellum which is Mac-only. It starts at $4.99 one-time for formatting tools, with Full Access at $9.99 for all 14 tools including AI-powered manuscript cleanup.',
   },
   {
     q: 'Is BookKraft AI a good Vellum alternative?',
@@ -138,7 +138,7 @@ export default function AlternativesPage() {
           What BookKraft AI includes
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
-          12 tools covering the full ebook formatting workflow: Kindle Format Fixer, EPUB Formatter, TOC Generator, Front Matter Generator, Back Matter Generator, CSS Snippet Generator, EPUB Validator, EPUB Validator Pro, Style Sheet Auditor, Metadata Builder, KDP Keyword Finder, and AI-powered Manuscript Cleanup. Two tools, EPUB Validator and Metadata Builder, are free with no signup required.
+          14 tools covering the full ebook formatting workflow: Kindle Format Fixer, EPUB Formatter, TOC Generator, Front Matter Generator, Back Matter Generator, CSS Snippet Generator, EPUB Validator, EPUB Validator Pro, Style Sheet Auditor, Print-to-Digital Adapter, Metadata Builder, KDP Keyword Finder, AI-powered Manuscript Cleanup, and the Word Manuscript Cleanup Checker. Three tools, EPUB Validator, Metadata Builder, and Word Manuscript Cleanup Checker, are free with no signup required.
         </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>

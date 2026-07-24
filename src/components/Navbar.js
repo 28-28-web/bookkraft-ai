@@ -43,6 +43,7 @@ export default function Navbar() {
   const isResourcesActive =
     pathname === '/kdp-formatting-guide' ||
     pathname === '/tools/publishing-score' ||
+    pathname === '/tools/word-cleanup' ||
     pathname === '/blog';
 
   const credits = profile?.credits_balance || 0;
@@ -139,6 +140,13 @@ export default function Navbar() {
                     >
                       ✦ Book Score
                     </Link>
+                    <Link
+                      href="/tools/word-cleanup"
+                      onClick={() => setResourcesOpen(false)}
+                      style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'var(--ink, #1a1a1a)', fontSize: '14px' }}
+                    >
+                      Word Cleanup Checker
+                    </Link>
                     <a
                       href="https://blog.bookkraftai.com"
                       target="_blank"
@@ -223,6 +231,7 @@ export default function Navbar() {
           <Link href="/pricing" className="nav-link">Pricing</Link>
           <Link href="/kdp-formatting-guide" className="nav-link">KDP Formatting Guide</Link>
           <Link href="/tools/publishing-score" className="nav-link">✦ Book Score</Link>
+          <Link href="/tools/word-cleanup" className="nav-link">Word Cleanup Checker</Link>
           <Link href="/free-tools" className="nav-link">Free Tools</Link>
           <a href="https://blog.bookkraftai.com" className="nav-link" target="_blank" rel="noopener noreferrer">Blog</a>
           {!user && (

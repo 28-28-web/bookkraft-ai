@@ -1,4 +1,4 @@
-// BookKraft AI v8.0 — 12 eBook Formatting Tool Definitions
+// BookKraft AI v8.0 — 14 eBook Formatting Tool Definitions
 
 export const TOOLS = [
     // ── FORMATTING CATEGORY ──────────────────────────────────────────────
@@ -374,6 +374,17 @@ export const TOOLS = [
             },
         ],
         wordLimit: 5000,
+    },
+    {
+        slug: 'word-cleanup',
+        name: 'Word Manuscript Cleanup Checker',
+        category: 'quality',
+        desc: 'Free Word manuscript scanner. Upload your .docx and instantly check for double spaces, straight quotes, stacked blank paragraphs, and stray bold/italic formatting before you publish. No signup needed.',
+        accessType: 'free',
+        creditCost: 0,
+        free: true,
+        related: [{ slug: 'epub-validator', label: 'EPUB Validator tool' }],
+        upsell: { text: 'Manuscript scanned. Now clean it up with AI →', tool: 'manuscript-cleanup' },
     },
 
     // ── PUBLISHING CATEGORY ──────────────────────────────────────────────
