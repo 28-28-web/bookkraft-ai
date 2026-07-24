@@ -1,21 +1,23 @@
 import Link from 'next/link';
+import { TOOLS } from '@/lib/tools';
+import { FREE_TOOLS } from '@/lib/constants';
 
 const faqs = [
   {
-    q: 'Is there a Vellum alternative that works on Windows?',
-    a: 'Yes. BookKraft AI runs entirely in your browser, so it works on Windows, Mac, Linux, and Chromebook. Vellum only runs on macOS.',
+    q: 'Does BookKraft AI replace Vellum?',
+    a: 'No, and it isn\'t trying to. Vellum is a full visual design tool for ebook and print formatting. BookKraft AI is a pre-flight toolkit that runs before Vellum — cleaning up your manuscript, validating your EPUB, and building metadata so the file you import into Vellum is already clean. And unlike Vellum, it works on Windows, Linux, and Chromebook, not just Mac.',
   },
   {
-    q: 'How much cheaper is BookKraft AI than Vellum?',
-    a: 'Vellum costs $250 for the ebook and print bundle. BookKraft AI starts at $4.99 one-time for 5 formatting tools, or $9.99 for AI-powered tools too. Lifetime access to all 14 tools is $149.',
+    q: 'When should I use BookKraft AI if I\'m using Vellum?',
+    a: 'Before you import into Vellum. Run your draft through BookKraft AI to catch formatting errors, smart-quote issues, and encoding artifacts left over from Word or Google Docs, validate the exported EPUB, and build your metadata — then bring the clean file into Vellum for design.',
   },
   {
     q: 'Does BookKraft AI produce the same output quality as Vellum?',
-    a: 'BookKraft AI generates valid EPUB 3.0 files and Kindle-ready formatting that pass KDP, Apple Books, and Kobo validation. It is a different workflow than Vellum\u2019s visual theme-based editor, built around discrete tools (formatter, validator, TOC generator) rather than one all-in-one app.',
+    a: 'They do different jobs. BookKraft AI generates valid EPUB 3.0 files and Kindle-ready formatting that pass KDP, Apple Books, and Kobo validation — discrete tools (formatter, validator, TOC generator) rather than one all-in-one visual editor. Vellum handles the visual theme-based design layer that BookKraft AI doesn\'t attempt.',
   },
   {
     q: 'Can I format a print book with BookKraft AI?',
-    a: 'BookKraft AI focuses on ebook formatting (EPUB, Kindle/KFX, MOBI). It does not currently generate print-ready PDFs the way Vellum does.',
+    a: 'BookKraft AI focuses on ebook formatting and pre-flight checks (EPUB, Kindle/KFX, MOBI). It does not generate print-ready PDFs — that\'s Vellum\'s job, and one more reason the two work well together rather than as competitors.',
   },
 ];
 
@@ -28,6 +30,12 @@ const faqSchema = {
     acceptedAnswer: { '@type': 'Answer', text: f.a },
   })),
 };
+
+const steps = [
+  { n: '01', title: 'Write', tool: 'Word, Scrivener, Google Docs', desc: 'Draft wherever you already write — BookKraft AI doesn’t touch this stage.' },
+  { n: '02', title: 'Clean & Validate', tool: 'BookKraft AI', desc: 'Strip formatting artifacts, validate your EPUB, build metadata, catch errors before they cause a rejection.', highlight: true },
+  { n: '03', title: 'Format & Design', tool: 'Vellum', desc: 'Import the clean file into Vellum for visual theming and print/ebook design.' },
+];
 
 export default function VellumAlternativePage() {
   return (
@@ -42,54 +50,46 @@ export default function VellumAlternativePage() {
         </h1>
 
         <p style={{ fontSize: 19, lineHeight: 1.6, marginBottom: 32, opacity: 0.9 }}>
-          Vellum only runs on macOS and costs $250 for the ebook-and-print bundle. If you write on Windows, Linux, or Chromebook, you need a different tool. BookKraft AI runs in any browser, starts at $4.99 one-time, and adds AI-powered manuscript cleanup that Vellum doesn&apos;t offer.
+          Vellum is Mac-only, which is the real reason most Windows authors land here — not because it isn't good software. BookKraft AI isn't a Vellum replacement; it's a pre-flight toolkit that runs on any platform and handles the cleanup, validation, and metadata work <em>before</em> your manuscript goes into Vellum (on a Mac) or straight to KDP.
         </p>
 
-        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
-          Vellum vs BookKraft AI
-        </h2>
-
-        <div style={{ overflowX: 'auto', marginBottom: 40 }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15 }}>
-            <thead>
-              <tr style={{ borderBottom: '2px solid rgba(245,240,230,0.2)' }}>
-                <th style={{ textAlign: 'left', padding: '12px 8px' }}></th>
-                <th style={{ textAlign: 'left', padding: '12px 8px' }}>Vellum</th>
-                <th style={{ textAlign: 'left', padding: '12px 8px', color: '#c9a84c' }}>BookKraft AI</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ['Platform', 'Mac only', 'Any browser (Windows, Mac, Linux, Chromebook)'],
-                ['Price', '$250 (ebook + print)', '$4.99 one-time, or $149 lifetime for all 14 tools'],
-                ['Pricing model', 'One-time purchase', 'One-time purchase, no subscription'],
-                ['EPUB export', 'Yes', 'Yes — EPUB 3.0, validated for KDP/Apple Books/Kobo'],
-                ['Print PDF export', 'Yes', 'Not currently supported'],
-                ['AI manuscript cleanup', 'No', 'Yes — dialogue punctuation, repeated words, clichés'],
-                ['EPUB validation before upload', 'No', 'Yes — free tool, no signup needed'],
-              ].map(([label, vellum, bk], i) => (
-                <tr key={i} style={{ borderBottom: '1px solid rgba(245,240,230,0.1)' }}>
-                  <td style={{ padding: '12px 8px', fontWeight: 600, opacity: 0.85 }}>{label}</td>
-                  <td style={{ padding: '12px 8px', opacity: 0.8 }}>{vellum}</td>
-                  <td style={{ padding: '12px 8px' }}>{bk}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        {/* 3-step flow */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 20, marginBottom: 48 }}>
+          {steps.map((s) => (
+            <div
+              key={s.n}
+              style={{
+                border: s.highlight ? '2px solid #c9a84c' : '1px solid rgba(201,168,76,0.25)',
+                borderRadius: 12,
+                padding: '28px 24px',
+                background: s.highlight ? 'rgba(201,168,76,0.06)' : 'transparent',
+              }}
+            >
+              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.1em', color: '#c9a84c', marginBottom: 10 }}>
+                STEP {s.n}
+              </div>
+              <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 4 }}>{s.title}</h2>
+              <p style={{ fontSize: 14, fontWeight: 600, opacity: 0.6, marginBottom: 12 }}>{s.tool}</p>
+              <p style={{ fontSize: 15, lineHeight: 1.6, opacity: 0.85, margin: 0 }}>{s.desc}</p>
+            </div>
+          ))}
         </div>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
-          Why Windows authors look for a Vellum alternative
+          Why Windows authors search for a Vellum alternative
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
-          Vellum has been Mac-only since launch. Windows authors are usually pointed toward renting a Mac in the cloud or running macOS in a virtual machine, both of which add cost and complexity Mac users never deal with. A browser-based tool sidesteps the platform problem entirely.
+          Vellum has been Mac-only since launch. Windows authors are usually pointed toward renting a Mac in the cloud or running macOS in a virtual machine, both of which add cost and complexity Mac users never deal with just to reach Vellum's design step.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          BookKraft AI doesn't solve that platform problem by replacing Vellum's design tools — it solves a different, earlier problem: getting your manuscript clean, validated, and metadata-complete on any platform, before design even starts. If you do have Mac access for Vellum, running BookKraft AI first still saves you a cleanup pass; if you don't, BookKraft AI plus KDP's own tools gets a properly formatted book published without ever needing a Mac.
         </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           What BookKraft AI includes
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
-          14 tools covering the full ebook formatting workflow: Kindle Format Fixer, EPUB Formatter, TOC Generator, Front Matter Generator, Back Matter Generator, CSS Snippet Generator, EPUB Validator, EPUB Validator Pro, Style Sheet Auditor, Print-to-Digital Adapter, Metadata Builder, KDP Keyword Finder, AI-powered Manuscript Cleanup, and the Word Manuscript Cleanup Checker. Three tools — EPUB Validator, Metadata Builder, and Word Manuscript Cleanup Checker — are free with no signup required.
+          {TOOLS.length} tools covering the full pre-flight workflow: Kindle Format Fixer, EPUB Formatter, TOC Generator, Front Matter Generator, Back Matter Generator, CSS Snippet Generator, EPUB Validator, EPUB Validator Pro, Style Sheet Auditor, Print-to-Digital Adapter, Metadata Builder, KDP Keyword Finder, AI-powered Manuscript Cleanup, Word Manuscript Cleanup Checker, Cover Checker, and Full Manuscript Mode. {FREE_TOOLS.length} tools are free with no signup required.
         </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
