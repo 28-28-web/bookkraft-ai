@@ -4,10 +4,13 @@ import GuaranteeBadge from '@/components/GuaranteeBadge';
 import { PRICING, PADDLE_PRICE_IDS, TOOL_CREDIT_COSTS, FAQS, FREE_TOOLS } from '@/lib/constants';
 import { useState } from 'react';
 import { usePaddle } from '@/app/hooks/usePaddle';
-import { createClient } from '@/lib/supabase/client';
+import { useAuth } from '@/components/AuthProvider';
+
+const CHECKOUT_WATCHDOG_MS = 5000;
 
 function CheckoutButton({ purchaseType, className, children }) {
     const { paddle } = usePaddle();
+    const { user } = useAuth() as { user: { id: string; email: string } | null };
     const [loading, setLoading] = useState(false);
 
     const priceId = PADDLE_PRICE_IDS[purchaseType];
@@ -18,40 +21,72 @@ function CheckoutButton({ purchaseType, className, children }) {
     // clicking falls back to the dedicated /checkout page, which does its
     // own fresh Paddle init attempt and still shows the real price either
     // way. A dead button loses the sale silently; this never does.
-    const handleClick = async () => {
+    //
+    // `user` comes from the already-loaded AuthProvider context, not a
+    // fresh supabase.auth.getUser() call here — getUser() does a network
+    // round-trip to revalidate the token, and if that stalls (blocked,
+    // dead connection, slow endpoint) it never rejects, so a try/catch
+    // around it never fires and the button is stuck on "Opening
+    // checkout..." forever with no console error. That was the bug.
+    const handleClick = () => {
         if (priceNotReady) {
             console.error(`No Paddle price ID configured for "${purchaseType}" yet.`);
             return;
         }
 
-        setLoading(true);
-        try {
-            const supabase = createClient();
-            const { data: { user } } = await supabase.auth.getUser();
-
-            if (!user) {
-                window.location.href = '/signup?plan=' + purchaseType;
-                return;
-            }
-
-            if (!paddle) {
-                window.location.href = '/checkout?plan=' + purchaseType;
-                return;
-            }
-
-            paddle.Checkout.open({
-                items: [{ priceId, quantity: 1 }],
-                customData: {
-                    userId: user.id,
-                    purchaseType: purchaseType,
-                },
-            });
-        } catch (err) {
-            console.error('Checkout error:', err);
-            window.location.href = '/checkout?plan=' + purchaseType;
-        } finally {
-            setLoading(false);
+        if (!user) {
+            window.location.href = '/signup?plan=' + purchaseType;
+            return;
         }
+
+        if (!paddle) {
+            window.location.href = '/checkout?plan=' + purchaseType;
+            return;
+        }
+
+        setLoading(true);
+
+        // Checkout.open() doesn't return a promise that resolves once the
+        // overlay is actually showing — there is nothing to await. This is
+        // the hard backstop: if it hasn't produced an overlay within 5s
+        // (blocked by an ad blocker, bad SDK state, whatever), reset the
+        // button and fall back to the dedicated checkout page instead of
+        // leaving it pending indefinitely.
+        let settled = false;
+        const watchdog = setTimeout(() => {
+            if (settled) return;
+            settled = true;
+            console.error('Paddle Checkout.open produced no overlay within 5s, falling back to /checkout');
+            setLoading(false);
+            window.location.href = '/checkout?plan=' + purchaseType;
+        }, CHECKOUT_WATCHDOG_MS);
+
+        const payload = {
+            items: [{ priceId, quantity: 1 }],
+            customData: {
+                userId: user.id,
+                purchaseType: purchaseType,
+            },
+            customer: { email: user.email },
+        };
+        console.log('Paddle Checkout.open payload:', payload);
+
+        try {
+            paddle.Checkout.open(payload);
+        } catch (err) {
+            console.error('Checkout.open threw:', err);
+            if (!settled) {
+                settled = true;
+                clearTimeout(watchdog);
+                setLoading(false);
+                window.location.href = '/checkout?plan=' + purchaseType;
+            }
+            return;
+        }
+
+        settled = true;
+        clearTimeout(watchdog);
+        setLoading(false);
     };
 
     return (
