@@ -54,6 +54,44 @@ function typeLabel(tool) {
   return 'instant logic';
 }
 
+function ToolCard({ tool, index, problem, solution, outcome, fileType, primary }) {
+  // problem/solution/outcome/fileType are optional — when a caller passes
+  // them (the free-tools promo section), the card leads with the author's
+  // problem instead of the generic one-line desc. ToolGridSection doesn't
+  // pass these, so its cards render exactly as before.
+  const isPitchCard = !!problem;
+
+  return (
+    <Link
+      href={`/tools/${tool.slug}`}
+      className={`tool-card-v2 tool-card-fade-in stagger-${Math.min((index%3)+1,6)}${primary ? ' tool-card-v2-primary' : ''}`}
+      role="listitem"
+    >
+      <span className="tool-card-v2-num" aria-hidden="true">
+        {String(index+1).padStart(2,'0')}
+      </span>
+      <div className="tool-card-v2-header">
+        <span style={{ fontSize:22 }} aria-hidden="true">{tool.icon}</span>
+        {isPitchCard ? <span className="badge-v2 badge-v2-free">No signup</span> : <Badge tool={tool} />}
+      </div>
+      <h3>{tool.name}</h3>
+      {isPitchCard ? (
+        <>
+          <p style={{ fontWeight:700, color:'var(--ink)' }}>{problem}</p>
+          <p>{solution}</p>
+          <p style={{ color:'var(--mid)' }}>{outcome}</p>
+        </>
+      ) : (
+        <p>{tool.desc}</p>
+      )}
+      <div className="tool-card-v2-footer">
+        <span className="tool-type-label">{isPitchCard ? fileType : typeLabel(tool)}</span>
+        <span style={{ fontSize:16, color:'var(--gold)' }} aria-hidden="true">→</span>
+      </div>
+    </Link>
+  );
+}
+
 // ─── ROOT ────────────────────────────────────────────────────────────
 
 export default function LandingPage() {
@@ -77,9 +115,9 @@ export default function LandingPage() {
       `}</style>
 
       <HeroSection />
+      <FreeToolsSection />
       <TickerSection />
       <ManuscriptBanner />
-      <FreeToolsSection />
       <ToolGridSection />
       <PositioningSection />
       <WorkflowSection />
@@ -278,63 +316,81 @@ function ManuscriptBanner() {
   );
 }
 
+// Ordered deliberately — first entry is the visually primary card
+// (widest pain point: a rejected upload). Copy leads with the problem in
+// the author's own words, not the tool's feature name.
+const FREE_TOOL_PITCHES = [
+  {
+    slug: 'epub-validator',
+    problem: 'KDP rejected your file?',
+    solution: 'Finds the exact errors Amazon and Apple Books flag, explained in plain English — not raw XML error codes.',
+    outcome: 'Upload your .epub, get a full error report in seconds.',
+    fileType: '.epub file',
+    primary: true,
+  },
+  {
+    slug: 'word-cleanup',
+    problem: 'Your formatting broke somewhere in Word?',
+    solution: 'Scans for double spaces, straight quotes, stacked blank paragraphs, and stray bold or italic tags.',
+    outcome: 'Upload your .docx, get a line-by-line list of what to fix before it hits KDP.',
+    fileType: '.docx file',
+  },
+  {
+    slug: 'cover-checker',
+    problem: 'Not sure your cover is the right size?',
+    solution: 'Checks pixel dimensions, aspect ratio, and file format against KDP and Apple Books requirements.',
+    outcome: 'Upload your cover, know in seconds if it would get rejected.',
+    fileType: '.png or .jpg',
+  },
+  {
+    slug: 'metadata-builder',
+    problem: 'Re-typing the same book details for every platform?',
+    solution: 'Fill in title, keywords, and categories once — it formats them for KDP, IngramSpark, and EPUB OPF.',
+    outcome: 'One form, ready-to-paste metadata for every store you publish to.',
+    fileType: 'no file — just a form',
+  },
+  {
+    slug: 'manuscript-mode',
+    problem: 'Manuscript is a DOCX and you need a real EPUB?',
+    solution: 'Detects chapters, fixes smart quotes and em dashes, and builds a valid EPUB 3.0 file — no Calibre, no Sigil.',
+    outcome: 'Upload your .docx or .txt, download a KDP-ready EPUB.',
+    fileType: '.docx or .txt file',
+  },
+];
+
 function FreeToolsSection() {
+  const pitches = FREE_TOOL_PITCHES
+    .map(pitch => ({ ...pitch, tool: TOOLS.find(t => t.slug === pitch.slug) }))
+    .filter(p => p.tool);
+
   return (
-    <section
-      style={{ background:'var(--sage-bg)', borderTop:'1px solid rgba(46,94,40,0.14)', borderBottom:'1px solid rgba(46,94,40,0.14)' }}
-      aria-labelledby="freeTitle"
-    >
-      <AnimatedSection>
-        <div style={{ maxWidth:1160, margin:'0 auto', padding:'52px clamp(20px,4vw,48px)' }}>
-          <div style={{ display:'grid', gridTemplateColumns:'1fr auto', gap:48, alignItems:'center' }}
-            className="animate-on-scroll">
-            <div>
-              <div style={{
-                display:'inline-block', background:'var(--sage)', color:'#fff',
-                fontSize:10, fontWeight:700, padding:'4px 10px',
-                borderRadius:2, letterSpacing:'1.5px', textTransform:'uppercase', marginBottom:14,
-              }}>
-                Free — No Login Required
-              </div>
-              <h2 id="freeTitle" style={{ fontFamily:"'Playfair Display',serif", fontSize:26, fontWeight:700, marginBottom:6 }}>
-                Validate EPUB Files for KDP — No Signup Required
-              </h2>
-              <p style={{ fontSize:14, color:'var(--sage)', margin:0 }}>
-                5 tools, no account needed — EPUB, metadata, cover, cleanup & more.
-              </p>
-            </div>
-            <div style={{ display:'flex', gap:12, flexShrink:0, flexWrap:'wrap' }}>
-              {[
-                { href:'/tools/manuscript-mode', label:'Full Manuscript Mode' },
-                { href:'/tools/epub-validator',   label:'EPUB Validator'  },
-                { href:'/tools/metadata-builder', label:'Metadata Builder'},
-                { href:'/tools/cover-checker', label:'Cover Checker'},
-                { href:'/tools/word-cleanup', label:'Word Cleanup'},
-              ].map(chip => (
-                <Link key={chip.href} href={chip.href} style={{
-                  background:'#fff', border:'1px solid rgba(46,94,40,0.22)',
-                  padding:'12px 22px', borderRadius:'var(--radius)',
-                  fontSize:14, fontWeight:500, color:'var(--ink)',
-                  display:'flex', alignItems:'center', gap:8,
-                  textDecoration:'none', whiteSpace:'nowrap',
-                  transition:'border-color 0.2s, transform 0.15s, box-shadow 0.15s',
-                }}
-                  onMouseEnter={e=>{e.currentTarget.style.borderColor='var(--sage)';e.currentTarget.style.transform='translateY(-2px)';e.currentTarget.style.boxShadow='0 1px 3px rgba(15,14,12,0.08)';}}
-                  onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(46,94,40,0.22)';e.currentTarget.style.transform='none';e.currentTarget.style.boxShadow='none';}}
-                >
-                  <span style={{
-                    width:20, height:20, borderRadius:'50%',
-                    background:'var(--sage-bg)', border:'1px solid rgba(46,94,40,0.25)',
-                    display:'flex', alignItems:'center', justifyContent:'center',
-                    fontSize:11, color:'var(--sage)', flexShrink:0,
-                  }} aria-hidden="true">✓</span>
-                  {chip.label}
-                </Link>
-              ))}
-            </div>
+    <section className="tools-section-v2" style={{ background:'var(--sage-bg)' }} id="free-tools-section" aria-labelledby="freeToolsHeading">
+      <div className="section-inner-v2">
+        <AnimatedSection>
+          <div className="animate-on-scroll" style={{ textAlign:'center' }}>
+            <p className="section-eyebrow-v2">Free — No Signup Required</p>
+            <h2 className="section-title-v2" id="freeToolsHeading">Five free tools. No signup, no card, no email.</h2>
+            <p className="section-sub-v2" style={{ maxWidth:640, margin:'0 auto' }}>
+              Validate an EPUB, check a cover's dimensions, scan a manuscript, build KDP metadata, or run a full manuscript check.
+            </p>
           </div>
+        </AnimatedSection>
+
+        <div className="tool-grid-v2" role="list">
+          {pitches.map((p, i) => (
+            <ToolCard
+              key={p.slug}
+              tool={p.tool}
+              index={i}
+              problem={p.problem}
+              solution={p.solution}
+              outcome={p.outcome}
+              fileType={p.fileType}
+              primary={p.primary}
+            />
+          ))}
         </div>
-      </AnimatedSection>
+      </div>
     </section>
   );
 }
@@ -390,26 +446,7 @@ function ToolGridSection() {
 
         <div className="tool-grid-v2" role="list" key={filter}>
           {filteredTools.map((tool, i) => (
-            <Link
-              key={tool.slug}
-              href={`/tools/${tool.slug}`}
-              className={`tool-card-v2 tool-card-fade-in stagger-${Math.min((i%3)+1,6)}`}
-              role="listitem"
-            >
-              <span className="tool-card-v2-num" aria-hidden="true">
-                {String(i+1).padStart(2,'0')}
-              </span>
-              <div className="tool-card-v2-header">
-                <span style={{ fontSize:22 }} aria-hidden="true">{tool.icon}</span>
-                <Badge tool={tool} />
-              </div>
-              <h3>{tool.name}</h3>
-              <p>{tool.desc}</p>
-              <div className="tool-card-v2-footer">
-                <span className="tool-type-label">{typeLabel(tool)}</span>
-                <span style={{ fontSize:16, color:'var(--gold)' }} aria-hidden="true">→</span>
-              </div>
-            </Link>
+            <ToolCard key={tool.slug} tool={tool} index={i} />
           ))}
         </div>
       </div>

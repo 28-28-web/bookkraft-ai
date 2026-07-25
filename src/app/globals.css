@@ -4057,6 +4057,19 @@ pre {
   justify-content: space-between;
 }
 
+.tool-card-v2-primary {
+  grid-column: span 2;
+}
+
+.tool-card-v2.tool-card-v2-primary {
+  border-left-color: var(--gold) !important;
+  background: var(--gold-light) !important;
+}
+
+@media (max-width: 640px) {
+  .tool-card-v2-primary { grid-column: span 1; }
+}
+
 .tool-type-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
