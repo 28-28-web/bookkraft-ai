@@ -7,16 +7,15 @@ import { useAuth } from '@/components/AuthProvider';
 import Sidebar from '@/components/Sidebar';
 
 export default function AdminPage() {
-    const { profile, supabase, loading: authLoading } = useAuth();
+    const { profile, loading: authLoading } = useAuth();
     const router = useRouter();
     const [stats, setStats] = useState({
-        totalUsers: '—', totalRevenue: '—', fullAccessUsers: '—',
-        creditsSold: '—', creditsSpent: '—',
+        totalUsers: '—', totalRevenue: '—', fullAccessUsers: '—', creditsSold: '—',
     });
     const [purchases, setPurchases] = useState([]);
-    const [creditTxns, setCreditTxns] = useState([]);
     const [users, setUsers] = useState([]);
     const [tab, setTab] = useState('overview');
+    const [loadError, setLoadError] = useState('');
 
     useEffect(() => {
         if (!authLoading) {
@@ -25,40 +24,37 @@ export default function AdminPage() {
         }
     }, [authLoading, profile]);
 
+    // The real access control is server-side in /api/admin/data (verifies
+    // is_admin before reading anything, over the direct Postgres
+    // connection — never through a Supabase RLS policy reachable by any
+    // authenticated client). The profile.is_admin redirect above is just
+    // UX to avoid flashing the page at a non-admin; it is not what makes
+    // this safe.
     const loadAdminData = async () => {
         try {
-            // Users
-            const { data: allUsers, count: userCount } = await supabase
-                .from('users').select('*', { count: 'exact' })
-                .order('created_at', { ascending: false }).limit(50);
+            const res = await fetch('/api/admin/data');
+            if (!res.ok) {
+                const body = await res.json().catch(() => ({}));
+                throw new Error(body.error || `status ${res.status}`);
+            }
+            const data = await res.json();
 
-            // Purchases
-            const { data: allPurchases } = await supabase
-                .from('purchases').select('*')
-                .order('created_at', { ascending: false }).limit(50);
-
-            // Credit transactions
-            const { data: allTxns } = await supabase
-                .from('credit_transactions').select('*')
-                .order('created_at', { ascending: false }).limit(50);
-
-            const totalRevenue = (allPurchases || []).reduce((s, p) => s + Number(p.amount_paid || 0), 0);
-            const fullAccessCount = (allUsers || []).filter(u => u.has_full_access).length;
-            const creditsSold = (allTxns || []).filter(t => t.type === 'purchase').reduce((s, t) => s + t.credits, 0);
-            const creditsSpent = (allTxns || []).filter(t => t.type === 'spend').reduce((s, t) => s + Math.abs(t.credits), 0);
+            const allUsers = data.users || [];
+            const allPurchases = data.purchases || [];
+            const totalRevenue = allPurchases.reduce((s, p) => s + Number(p.amount_paid || 0), 0);
+            const fullAccessCount = allUsers.filter(u => u.has_full_access).length;
 
             setStats({
-                totalUsers: (userCount || (allUsers || []).length).toLocaleString(),
+                totalUsers: (data.totalUserCount ?? allUsers.length).toLocaleString(),
                 totalRevenue: `$${totalRevenue.toFixed(2)}`,
                 fullAccessUsers: fullAccessCount.toString(),
-                creditsSold: creditsSold.toLocaleString(),
-                creditsSpent: creditsSpent.toLocaleString(),
+                creditsSold: (data.creditsSold ?? 0).toLocaleString(),
             });
-            setUsers((allUsers || []).slice(0, 30));
-            setPurchases((allPurchases || []).slice(0, 20));
-            setCreditTxns((allTxns || []).slice(0, 30));
+            setUsers(allUsers.slice(0, 30));
+            setPurchases(allPurchases.slice(0, 20));
         } catch (err) {
-            console.error('Admin data error:', err);
+            console.error('Admin data error:', err.message || err);
+            setLoadError(err.message || 'Failed to load admin data.');
         }
     };
 
@@ -66,7 +62,6 @@ export default function AdminPage() {
         { id: 'overview', label: 'Overview' },
         { id: 'users', label: 'Users' },
         { id: 'purchases', label: 'Purchases' },
-        { id: 'credits', label: 'Credit Transactions' },
     ];
 
     return (
@@ -75,7 +70,13 @@ export default function AdminPage() {
             <div className="main-content">
                 <h1 style={{ fontSize: '1.75rem', marginBottom: 'var(--space-6)' }}>Admin Panel</h1>
 
-                {/* 5 KPI Cards */}
+                {loadError && (
+                    <p style={{ padding: 'var(--space-4)', color: 'var(--rust)', fontSize: 'var(--text-sm)' }}>
+                        {loadError}
+                    </p>
+                )}
+
+                {/* KPI Cards */}
                 <div className="stats-grid">
                     <div className="stat-card">
                         <div className="stat-val">{stats.totalUsers}</div>
@@ -92,10 +93,6 @@ export default function AdminPage() {
                     <div className="stat-card">
                         <div className="stat-val">{stats.creditsSold}</div>
                         <div className="stat-label">Credits Sold</div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="stat-val">{stats.creditsSpent}</div>
-                        <div className="stat-label">Credits Spent</div>
                     </div>
                 </div>
 
@@ -158,35 +155,6 @@ export default function AdminPage() {
                                 </div>
                             ))}
                             {purchases.length === 0 && <p style={{ padding: 'var(--space-4)', color: 'var(--mid)' }}>No purchases yet.</p>}
-                        </div>
-                    </div>
-                )}
-
-                {/* Credit Transactions Table */}
-                {tab === 'credits' && (
-                    <div style={{ marginTop: 'var(--space-6)' }}>
-                        <h3 style={{ marginBottom: 'var(--space-4)' }}>Credit Transactions</h3>
-                        <div className="admin-table">
-                            <div className="admin-table-row header">
-                                <span>Type</span><span>Credits</span><span>Tool</span><span>Date</span>
-                            </div>
-                            {creditTxns.map((t, i) => (
-                                <div className="admin-table-row" key={i}>
-                                    <span style={{
-                                        fontSize: 'var(--text-sm)',
-                                        color: t.type === 'purchase' ? 'var(--sage)' : t.type === 'refund' ? 'var(--gold)' : 'var(--rust)',
-                                        fontWeight: 600,
-                                    }}>{t.type}</span>
-                                    <span style={{ fontWeight: 600, color: t.credits > 0 ? 'var(--sage)' : 'var(--rust)' }}>
-                                        {t.credits > 0 ? '+' : ''}{t.credits}
-                                    </span>
-                                    <span style={{ fontSize: 'var(--text-sm)', color: 'var(--mid)' }}>{t.tool_slug || '—'}</span>
-                                    <span style={{ fontSize: 'var(--text-sm)', color: 'var(--mid)' }}>
-                                        {new Date(t.created_at).toLocaleDateString()}
-                                    </span>
-                                </div>
-                            ))}
-                            {creditTxns.length === 0 && <p style={{ padding: 'var(--space-4)', color: 'var(--mid)' }}>No transactions yet.</p>}
                         </div>
                     </div>
                 )}

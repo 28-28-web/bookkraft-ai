@@ -17,7 +17,6 @@ export default function AccountPage() {
     const [newPassword, setNewPassword] = useState('');
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deleteConfirm, setDeleteConfirm] = useState('');
-    const [creditHistory, setCreditHistory] = useState([]);
     const [purchaseHistory, setPurchaseHistory] = useState([]);
 
     useEffect(() => {
@@ -31,23 +30,6 @@ export default function AccountPage() {
     }, [user, supabase]);
 
     const loadHistory = async () => {
-        // credit_transactions does not currently exist as a table — this
-        // query has been failing silently. Left in place (not fixed here:
-        // whether this should map onto `history` or needs its own table
-        // is a real decision, not one to guess at), but now wrapped so a
-        // failure can never throw unhandled or affect anything else.
-        try {
-            const { data: txns, error } = await supabase
-                .from('credit_transactions').select('*')
-                .eq('user_id', user.id)
-                .order('created_at', { ascending: false }).limit(30);
-            if (error) throw error;
-            setCreditHistory(txns || []);
-        } catch (err) {
-            console.error('Failed to load credit history:', err.message || err);
-            setCreditHistory([]);
-        }
-
         // purchases has RLS enabled with zero policies (server-only,
         // written by the Paddle webhook over the direct Postgres
         // connection) — it can never be queried from this browser client.
@@ -184,34 +166,6 @@ export default function AccountPage() {
                             {profile?.has_logic_bundle && (
                                 <p style={{ fontSize: 'var(--text-sm)', color: 'var(--mid)', marginTop: 'var(--space-3)' }}>
                                     Logic tools: Kindle Format Fixer, EPUB Formatter, TOC Generator, Front Matter Generator, CSS Snippet Generator
-                                </p>
-                            )}
-                        </div>
-
-                        {/* Credit history */}
-                        <h3 style={{ marginBottom: 'var(--space-4)' }}>Credit History</h3>
-                        <div className="admin-table">
-                            <div className="admin-table-row header">
-                                <span>Type</span><span>Credits</span><span>Tool</span><span>Date</span>
-                            </div>
-                            {creditHistory.map((t, i) => (
-                                <div className="admin-table-row" key={i}>
-                                    <span style={{
-                                        fontSize: 'var(--text-sm)', fontWeight: 600,
-                                        color: t.type === 'purchase' ? 'var(--sage)' : 'var(--rust)',
-                                    }}>{t.type}</span>
-                                    <span style={{ fontWeight: 600, color: t.credits > 0 ? 'var(--sage)' : 'var(--rust)' }}>
-                                        {t.credits > 0 ? '+' : ''}{t.credits}
-                                    </span>
-                                    <span style={{ fontSize: 'var(--text-sm)', color: 'var(--mid)' }}>{t.tool_slug || '—'}</span>
-                                    <span style={{ fontSize: 'var(--text-sm)', color: 'var(--mid)' }}>
-                                        {new Date(t.created_at).toLocaleDateString()}
-                                    </span>
-                                </div>
-                            ))}
-                            {creditHistory.length === 0 && (
-                                <p style={{ padding: 'var(--space-4)', color: 'var(--mid)', fontSize: 'var(--text-sm)' }}>
-                                    No credit transactions yet. <Link href="/pricing#credits" style={{ color: 'var(--gold)' }}>Buy credits</Link>
                                 </p>
                             )}
                         </div>
