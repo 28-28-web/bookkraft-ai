@@ -5,6 +5,13 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['react', 'react-dom'],
   },
+  // E: is a network/slow drive — native fs change events don't reliably
+  // reach the dev watcher (both webpack and Turbopack use this same key;
+  // see hot-reloader-turbopack.js and webpack-config.js). There is no
+  // separate aggregateTimeout knob in this Next version's schema.
+  watchOptions: {
+    pollIntervalMs: 1000,
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200],
