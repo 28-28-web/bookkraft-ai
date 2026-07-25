@@ -9,6 +9,7 @@ import { callClaude } from '@/lib/toolAccess';
 
 const CONCURRENCY_PER_JOB = 3;
 const MAX_ATTEMPTS = 3;
+const MAX_FINALIZE_ATTEMPTS = 5;
 
 type ToolConfig = {
     mainTextField: string;
@@ -168,13 +169,19 @@ function mergeChunkResults(config: ToolConfig, doneChunks: any[]) {
  * Drive one job to completion (or as far as it can go). Safe to call
  * repeatedly / after a restart — it only ever claims 'queued' chunks and
  * picks up wherever the job was left.
+ *
+ * Reads meta (mode/genre/checks etc.) from the job row itself rather than
+ * taking it as a parameter — the poll loop in instrumentation.js only ever
+ * calls runJob(id), so a parameter here was silently always {} and every
+ * chunk prompt fell back to defaults regardless of what the user picked.
  */
-export async function runJob(jobId: string, meta: Record<string, any> = {}) {
+export async function runJob(jobId: string) {
     const db = getPool();
 
     const { rows: jobRows } = await db.query(`select * from jobs where id = $1`, [jobId]);
     const job = jobRows[0];
     if (!job) return;
+    const meta = job.input_meta || {};
 
     const config = getToolConfig(job.tool_slug);
     if (!config) {
@@ -262,10 +269,80 @@ async function finalizeJob(jobId: string, config: ToolConfig) {
             : 0;
 
         if (chargedCredits > 0) {
+            // deduct_credits is a Supabase RPC normally called through
+            // PostgREST (which sets session context per the authenticated
+            // request). Called here over a raw pg connection, that context
+            // doesn't exist — if the function's body depends on it (e.g. an
+            // internal auth.uid() check instead of trusting p_user_id), the
+            // call can return successfully while updating zero rows. Verify
+            // the balance actually moved instead of trusting the call didn't
+            // throw; if it didn't move, throw so this transaction rolls back
+            // and the job stays 'running' — the poll loop will retry
+            // finalizeJob on the next tick rather than silently marking a
+            // free run as paid.
+            //
+            // The attempt counter is bumped via a separate auto-committed
+            // statement (db.query, not client/transaction) so it survives
+            // even when the verification below fails and rolls everything
+            // else in this transaction back — otherwise a permanently broken
+            // deduct_credits would retry forever instead of ever hitting the cap.
+            const { rows: attemptRows } = await db.query(
+                `update jobs
+                 set input_meta = jsonb_set(
+                     coalesce(input_meta, '{}'::jsonb),
+                     '{finalize_attempts}',
+                     to_jsonb(coalesce((input_meta->>'finalize_attempts')::int, 0) + 1)
+                 )
+                 where id = $1
+                 returning (input_meta->>'finalize_attempts')::int as attempts`,
+                [jobId]
+            );
+            const finalizeAttempts = attemptRows[0]?.attempts || 1;
+
+            const { rows: beforeRows } = await client.query(
+                `select credits_balance from users where id = $1 for update`,
+                [job.user_id]
+            );
+            const balanceBefore = beforeRows[0]?.credits_balance;
+
             await client.query(
                 `select deduct_credits(p_user_id => $1, p_cost => $2, p_tool_slug => $3, p_history_id => null)`,
                 [job.user_id, chargedCredits, job.tool_slug]
             );
+
+            const { rows: afterRows } = await client.query(
+                `select credits_balance from users where id = $1`,
+                [job.user_id]
+            );
+            const balanceAfter = afterRows[0]?.credits_balance;
+
+            const actualDelta = (balanceBefore ?? 0) - (balanceAfter ?? 0);
+            if (balanceBefore == null || balanceAfter == null || actualDelta !== chargedCredits) {
+                if (finalizeAttempts >= MAX_FINALIZE_ATTEMPTS) {
+                    // Stop retrying — fail loudly instead of looping forever
+                    // or handing out a free run. credits_charged stays 0:
+                    // nothing was actually taken, so nothing to refund.
+                    await client.query(
+                        `update jobs
+                         set status = 'failed',
+                             error = $2,
+                             credits_charged = 0,
+                             input_meta = input_meta || $3::jsonb
+                         where id = $1`,
+                        [
+                            jobId,
+                            `Credit deduction failed after ${finalizeAttempts} attempts (expected -${chargedCredits}, saw ${actualDelta}). Results were discarded, not charged.`,
+                            JSON.stringify({ finalize_attempts: finalizeAttempts }),
+                        ]
+                    );
+                    await client.query('commit');
+                    return;
+                }
+
+                throw new Error(
+                    `deduct_credits did not deduct as expected for job ${jobId}: expected -${chargedCredits}, saw ${actualDelta} (attempt ${finalizeAttempts})`
+                );
+            }
         }
 
         await client.query(

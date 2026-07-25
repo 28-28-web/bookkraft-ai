@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/components/AuthProvider';
 import { useProject } from '@/lib/ProjectContext';
 import WordCounter, { countWords, getWordLimitError } from '@/components/WordCounter';
-import CreditDisplay from '@/components/CreditDisplay';
 import LivePreview from '@/components/LivePreview';
 import FileUploader from '@/components/FileUploader';
 import JobRunner from '@/components/JobRunner';
@@ -72,12 +71,6 @@ export default function ManuscriptCleanup() {
         <div className="tool-layout">
             <div className="tool-input-card">
                 <h3>Input</h3>
-
-                <CreditDisplay
-                    toolSlug="manuscript-cleanup"
-                    balance={profile?.credits_balance || 0}
-                    isLifetime={profile?.is_lifetime}
-                />
 
                 <FileUploader
                     onTextExtracted={(text) => setInput(text)}

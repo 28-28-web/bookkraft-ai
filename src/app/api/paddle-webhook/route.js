@@ -1,36 +1,65 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { processPaddlePurchase } from '@/lib/db/purchases';
 
 /**
  * Paddle Webhook — Phase 3 pricing
  *
- * Current tiers:
- * - starter: grants has_logic_bundle + 40 credits (real, enforced balance)
- * - pro: grants has_logic_bundle + 200 credits (real, enforced balance)
- * - lifetime: grants everything + is_lifetime + has_full_access (unlimited, unchanged)
+ * All access-granting writes go through processPaddlePurchase() (see
+ * src/lib/db/purchases.js), atomically: insert into purchases (idempotent
+ * on paddle_order_id) + update users (logic bundle / full access /
+ * lifetime flags + credits) in one transaction, over the direct Postgres
+ * connection (DATABASE_URL) — never through Supabase's REST API. That's
+ * deliberate: this webhook has no Supabase session (Paddle POSTs directly,
+ * no cookies), and the Paddle signature check below only exists in this
+ * route — anything reachable via PostgREST with the public anon key would
+ * bypass that check entirely. Do not swap this back to a Supabase RPC
+ * grantable to anon/authenticated.
  *
- * Retired tiers (essentials / credits_starter / credits_pro / full) are kept
- * below in case a stale checkout link is still in flight somewhere — no new
- * button on the site sends these purchaseTypes anymore. Existing accounts
- * that already have has_full_access=true from the old "full" tier are never
- * touched by this file; that flag is grandfathered and stays exactly as-is.
+ * Every branch below returns non-2xx on failure so Paddle retries instead
+ * of marking delivery successful on a write that didn't happen.
+ *
+ * Current tiers: starter (logic bundle + 40 credits), pro (logic bundle +
+ * 200 credits), lifetime (everything, unlimited). Retired tiers
+ * (essentials / credits_starter / credits_pro / full) are kept in case a
+ * stale checkout link is still in flight — no button on the site sends
+ * these purchaseTypes anymore.
  */
+const PURCHASE_GRANTS = {
+    essentials:      { creditsToAdd: 0,   grantLogicBundle: true,  grantFullAccess: false, grantLifetime: false },
+    credits_starter: { creditsToAdd: 15,  grantLogicBundle: false, grantFullAccess: false, grantLifetime: false },
+    credits_pro:     { creditsToAdd: 40,  grantLogicBundle: false, grantFullAccess: false, grantLifetime: false },
+    full:            { creditsToAdd: 30,  grantLogicBundle: true,  grantFullAccess: true,  grantLifetime: false },
+    starter:         { creditsToAdd: 40,  grantLogicBundle: true,  grantFullAccess: false, grantLifetime: false },
+    pro:             { creditsToAdd: 200, grantLogicBundle: true,  grantFullAccess: false, grantLifetime: false },
+    lifetime:        { creditsToAdd: 0,   grantLogicBundle: true,  grantFullAccess: true,  grantLifetime: true },
+};
+
 export async function POST(request) {
+    const rawBody = await request.text();
+
     try {
-        const rawBody = await request.text();
         const signature = request.headers.get('paddle-signature');
         const secret = process.env.PADDLE_WEBHOOK_SECRET;
 
-        // ── Signature verification ──
-        if (secret && signature) {
-            const { Paddle } = await import('@paddle/paddle-node-sdk');
-            const paddle = new Paddle(process.env.PADDLE_API_KEY);
-            try {
-                paddle.webhooks.unmarshal(rawBody, secret, signature);
-            } catch (e) {
-                console.error('Invalid Paddle signature');
-                return NextResponse.json({ error: 'invalid_signature' }, { status: 401 });
-            }
+        // Fail closed: no secret configured means we cannot verify this
+        // request came from Paddle at all. Previously this skipped
+        // verification entirely and processed the event anyway — anyone
+        // who found this URL could grant themselves credits.
+        if (!secret) {
+            console.error('Paddle webhook: PADDLE_WEBHOOK_SECRET is not set — refusing to process.');
+            return NextResponse.json({ error: 'webhook_not_configured' }, { status: 500 });
+        }
+        if (!signature) {
+            return NextResponse.json({ error: 'missing_signature' }, { status: 401 });
+        }
+
+        const { Paddle } = await import('@paddle/paddle-node-sdk');
+        const paddle = new Paddle(process.env.PADDLE_API_KEY);
+        try {
+            paddle.webhooks.unmarshal(rawBody, secret, signature);
+        } catch (e) {
+            console.error('Invalid Paddle signature');
+            return NextResponse.json({ error: 'invalid_signature' }, { status: 401 });
         }
 
         const body = JSON.parse(rawBody);
@@ -42,113 +71,46 @@ export async function POST(request) {
 
         const customData = body.data?.custom_data || {};
         const { userId, purchaseType } = customData;
-        const paddleOrderId = body.data?.id || '';
+        const paddleOrderId = body.data?.id;
         const amountPaid = parseFloat(body.data?.details?.totals?.total || '0') / 100;
 
         if (!userId) {
             console.error('Paddle webhook: missing userId in customData');
             return NextResponse.json({ error: 'missing_user_id' }, { status: 400 });
         }
-
-        const supabase = await createClient();
-
-        // ── Essentials Bundle — Logic tools only ──
-        if (purchaseType === 'essentials') {
-            await supabase.from('users')
-                .update({ has_logic_bundle: true })
-                .eq('id', userId);
-
-            await supabase.from('purchases').insert({
-                user_id: userId, purchase_type: 'essentials',
-                paddle_order_id: paddleOrderId, amount_paid: amountPaid, credits_added: 0,
-            });
+        if (!paddleOrderId) {
+            console.error('Paddle webhook: missing transaction id');
+            return NextResponse.json({ error: 'missing_transaction_id' }, { status: 400 });
         }
 
-        // ── Starter Credits — 15 credits ──
-        if (purchaseType === 'credits_starter') {
-            await supabase.rpc('add_credits', {
-                p_user_id: userId, p_amount: 15, p_paddle_order_id: paddleOrderId,
-            });
-
-            await supabase.from('purchases').insert({
-                user_id: userId, purchase_type: 'credits_starter',
-                paddle_order_id: paddleOrderId, amount_paid: amountPaid, credits_added: 15,
-            });
+        const grant = PURCHASE_GRANTS[purchaseType];
+        if (!grant) {
+            console.error('Paddle webhook: unknown purchaseType', purchaseType);
+            return NextResponse.json({ error: 'unknown_purchase_type' }, { status: 400 });
         }
 
-        // ── Author Pro Credits — 40 credits ──
-        if (purchaseType === 'credits_pro') {
-            await supabase.rpc('add_credits', {
-                p_user_id: userId, p_amount: 40, p_paddle_order_id: paddleOrderId,
+        let result;
+        try {
+            result = await processPaddlePurchase({
+                userId,
+                purchaseType,
+                paddleOrderId,
+                amountPaid,
+                creditsToAdd: grant.creditsToAdd,
+                grantLogicBundle: grant.grantLogicBundle,
+                grantFullAccess: grant.grantFullAccess,
+                grantLifetime: grant.grantLifetime,
             });
-
-            await supabase.from('purchases').insert({
-                user_id: userId, purchase_type: 'credits_pro',
-                paddle_order_id: paddleOrderId, amount_paid: amountPaid, credits_added: 40,
-            });
+        } catch (err) {
+            console.error('processPaddlePurchase failed:', err.message);
+            return NextResponse.json({ error: 'purchase_processing_failed' }, { status: 500 });
         }
 
-        // ── Full Access — All logic tools + 30 credits ──
-        if (purchaseType === 'full') {
-            await supabase.from('users')
-                .update({ has_logic_bundle: true, has_full_access: true })
-                .eq('id', userId);
-
-            await supabase.rpc('add_credits', {
-                p_user_id: userId, p_amount: 30, p_paddle_order_id: paddleOrderId,
-            });
-
-            await supabase.from('purchases').insert({
-                user_id: userId, purchase_type: 'full',
-                paddle_order_id: paddleOrderId, amount_paid: amountPaid, credits_added: 30,
-            });
-        }
-
-        // ── Starter — logic tools + 40 credits (real, enforced balance) ──
-        if (purchaseType === 'starter') {
-            await supabase.from('users')
-                .update({ has_logic_bundle: true })
-                .eq('id', userId);
-
-            await supabase.rpc('add_credits', {
-                p_user_id: userId, p_amount: 40, p_paddle_order_id: paddleOrderId,
-            });
-
-            await supabase.from('purchases').insert({
-                user_id: userId, purchase_type: 'starter',
-                paddle_order_id: paddleOrderId, amount_paid: amountPaid, credits_added: 40,
-            });
-        }
-
-        // ── Pro — logic tools + 200 credits (real, enforced balance) ──
-        if (purchaseType === 'pro') {
-            await supabase.from('users')
-                .update({ has_logic_bundle: true })
-                .eq('id', userId);
-
-            await supabase.rpc('add_credits', {
-                p_user_id: userId, p_amount: 200, p_paddle_order_id: paddleOrderId,
-            });
-
-            await supabase.from('purchases').insert({
-                user_id: userId, purchase_type: 'pro',
-                paddle_order_id: paddleOrderId, amount_paid: amountPaid, credits_added: 200,
-            });
-        }
-
-        // ── Lifetime — Everything ──
-        if (purchaseType === 'lifetime') {
-            await supabase.from('users')
-                .update({ has_logic_bundle: true, has_full_access: true, is_lifetime: true })
-                .eq('id', userId);
-
-            await supabase.from('purchases').insert({
-                user_id: userId, purchase_type: 'lifetime',
-                paddle_order_id: paddleOrderId, amount_paid: amountPaid, credits_added: 0,
-            });
-        }
-
-        return NextResponse.json({ received: true, processed: purchaseType });
+        return NextResponse.json({
+            received: true,
+            processed: purchaseType,
+            already_processed: !!result.alreadyProcessed,
+        });
     } catch (err) {
         console.error('Paddle webhook error:', err);
         return NextResponse.json({ error: 'webhook_error' }, { status: 500 });

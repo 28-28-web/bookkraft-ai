@@ -40,8 +40,8 @@ export const FREE_SAMPLE_RATE_LIMIT = 5; // per hour
 // checked at boot (src/instrumentation.js) and logs a loud warning if either
 // is still a placeholder, so this can't accidentally ship wired to nothing.
 export const PADDLE_PRICE_IDS = {
-    starter: 'TODO_PADDLE_PRICE_ID_STARTER',
-    pro: 'TODO_PADDLE_PRICE_ID_PRO',
+    starter: 'pri_01kyczmfdrd14fzb4c78nwxr5m',
+    pro: 'pri_01kyczy2vcrjaf688cz1exwwxz',
     lifetime: 'pri_01km8ymm2eyk4tyjgm3p5x6bar', // unchanged — do not touch
 };
 
