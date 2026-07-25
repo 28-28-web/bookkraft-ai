@@ -7,17 +7,19 @@ import { usePaddle } from '@/app/hooks/usePaddle';
 import { createClient } from '@/lib/supabase/client';
 
 function CheckoutButton({ purchaseType, className, children }) {
-    const paddle = usePaddle();
+    const { paddle } = usePaddle();
     const [loading, setLoading] = useState(false);
 
-    const handleClick = async () => {
-        if (!paddle) {
-            console.error('Paddle not loaded');
-            return;
-        }
+    const priceId = PADDLE_PRICE_IDS[purchaseType];
+    const priceNotReady = !priceId || priceId.startsWith('TODO_');
 
-        const priceId = PADDLE_PRICE_IDS[purchaseType];
-        if (!priceId || priceId.startsWith('TODO_')) {
+    // The button is never permanently disabled waiting on Paddle — if the
+    // SDK never becomes ready (or errors, or times out per usePaddle),
+    // clicking falls back to the dedicated /checkout page, which does its
+    // own fresh Paddle init attempt and still shows the real price either
+    // way. A dead button loses the sale silently; this never does.
+    const handleClick = async () => {
+        if (priceNotReady) {
             console.error(`No Paddle price ID configured for "${purchaseType}" yet.`);
             return;
         }
@@ -32,6 +34,11 @@ function CheckoutButton({ purchaseType, className, children }) {
                 return;
             }
 
+            if (!paddle) {
+                window.location.href = '/checkout?plan=' + purchaseType;
+                return;
+            }
+
             paddle.Checkout.open({
                 items: [{ priceId, quantity: 1 }],
                 customData: {
@@ -41,6 +48,7 @@ function CheckoutButton({ purchaseType, className, children }) {
             });
         } catch (err) {
             console.error('Checkout error:', err);
+            window.location.href = '/checkout?plan=' + purchaseType;
         } finally {
             setLoading(false);
         }
@@ -49,11 +57,11 @@ function CheckoutButton({ purchaseType, className, children }) {
     return (
         <button
             onClick={handleClick}
-            disabled={loading || !paddle}
+            disabled={loading || priceNotReady}
             className={className}
-            style={{ cursor: loading ? 'wait' : 'pointer', width: '100%' }}
+            style={{ cursor: loading ? 'wait' : 'pointer', width: '100%', opacity: loading ? 0.7 : 1 }}
         >
-            {loading ? 'Loading...' : children}
+            {loading ? 'Opening checkout…' : children}
         </button>
     );
 }

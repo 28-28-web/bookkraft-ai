@@ -31,17 +31,36 @@ export default function AccountPage() {
     }, [user, supabase]);
 
     const loadHistory = async () => {
-        const { data: txns } = await supabase
-            .from('credit_transactions').select('*')
-            .eq('user_id', user.id)
-            .order('created_at', { ascending: false }).limit(30);
-        setCreditHistory(txns || []);
+        // credit_transactions does not currently exist as a table — this
+        // query has been failing silently. Left in place (not fixed here:
+        // whether this should map onto `history` or needs its own table
+        // is a real decision, not one to guess at), but now wrapped so a
+        // failure can never throw unhandled or affect anything else.
+        try {
+            const { data: txns, error } = await supabase
+                .from('credit_transactions').select('*')
+                .eq('user_id', user.id)
+                .order('created_at', { ascending: false }).limit(30);
+            if (error) throw error;
+            setCreditHistory(txns || []);
+        } catch (err) {
+            console.error('Failed to load credit history:', err.message || err);
+            setCreditHistory([]);
+        }
 
-        const { data: purchases } = await supabase
-            .from('purchases').select('*')
-            .eq('user_id', user.id)
-            .order('created_at', { ascending: false }).limit(20);
-        setPurchaseHistory(purchases || []);
+        // purchases has RLS enabled with zero policies (server-only,
+        // written by the Paddle webhook over the direct Postgres
+        // connection) — it can never be queried from this browser client.
+        // Fetched via a server route instead, scoped to this user only.
+        try {
+            const res = await fetch('/api/account/purchases');
+            if (!res.ok) throw new Error(`status ${res.status}`);
+            const { purchases } = await res.json();
+            setPurchaseHistory(purchases || []);
+        } catch (err) {
+            console.error('Failed to load purchase history:', err.message || err);
+            setPurchaseHistory([]);
+        }
     };
 
     const handleUpdatePassword = async () => {

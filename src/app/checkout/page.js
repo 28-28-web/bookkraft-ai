@@ -20,7 +20,7 @@ export default function CheckoutPage() {
 function CheckoutContent() {
     const searchParams = useSearchParams();
     const { user } = useAuth();
-    const paddle = usePaddle();
+    const { paddle, failed } = usePaddle();
     const plan = searchParams.get('plan') || 'pro';
 
     const planMap = {
@@ -48,10 +48,19 @@ function CheckoutContent() {
     const priceNotReady = !selected.paddlePriceId || selected.paddlePriceId.startsWith('TODO_');
 
     const handleCheckout = () => {
-        if (!paddle || priceNotReady) return;
+        if (priceNotReady) return;
 
         if (!user) {
             window.location.href = '/login?redirect=/checkout?plan=' + plan;
+            return;
+        }
+
+        if (!paddle) {
+            // This IS the fallback page — there's nowhere further to send
+            // the user. A hard reload gives Paddle's SDK a genuinely fresh
+            // attempt (module-level init state resets on full navigation),
+            // which is more likely to help than a client-side retry.
+            window.location.reload();
             return;
         }
 
@@ -101,14 +110,22 @@ function CheckoutContent() {
                     </ul>
                 </div>
 
-                {/* CTA */}
+                {/* CTA — never permanently disabled waiting on Paddle. Once
+                    usePaddle gives up (error or timeout), the button stays
+                    clickable and offers a reload instead of sitting dead. */}
                 <button
                     className="btn btn-gold btn-full"
-                    style={{ fontSize: '16px', padding: '14px', opacity: paddle && !priceNotReady ? 1 : 0.6 }}
+                    style={{ fontSize: '16px', padding: '14px', opacity: priceNotReady ? 0.6 : 1 }}
                     onClick={handleCheckout}
-                    disabled={!paddle || priceNotReady}
+                    disabled={priceNotReady}
                 >
-                    {priceNotReady ? 'Not available yet' : paddle ? `Pay ${selected.label} — Unlock ${selected.name}` : 'Loading...'}
+                    {priceNotReady
+                        ? 'Not available yet'
+                        : paddle
+                            ? `Pay ${selected.label} — Unlock ${selected.name}`
+                            : failed
+                                ? 'Payment system unavailable — tap to retry'
+                                : 'Preparing checkout…'}
                 </button>
 
                 {/* Trust signals */}
