@@ -18,18 +18,26 @@ export default function DashboardPage() {
     const [newAuthor, setNewAuthor] = useState('');
     const [creating, setCreating] = useState(false);
     const [uploading, setUploading] = useState(null); // projectId being uploaded to
+    const [loadingTimedOut, setLoadingTimedOut] = useState(false);
     const fileRef = useRef(null);
     const router = useRouter();
 
+    // Break out of the spinner if AuthProvider never resolves loading.
     useEffect(() => {
-        if (!loading && !user) router.replace('/login');
-    }, [loading, user, router]);
+        if (!loading) return;
+        const t = setTimeout(() => setLoadingTimedOut(true), 10_000);
+        return () => clearTimeout(t);
+    }, [loading]);
+
+    useEffect(() => {
+        if ((!loading || loadingTimedOut) && !user) router.replace('/login');
+    }, [loading, loadingTimedOut, user, router]);
 
     useEffect(() => {
         refreshProfile();
     }, []);
 
-    if (loading) {
+    if (loading && !loadingTimedOut) {
         return (
             <div className="app-layout">
                 <Sidebar />
