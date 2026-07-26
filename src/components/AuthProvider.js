@@ -102,15 +102,16 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         const { data: { subscription } } = supabase.auth.onAuthStateChange(
-            async (event, session) => {
+            (event, session) => {
                 if (session?.user) {
                     setUser(session.user);
-                    await loadProfile(session.user.id);
+                    setLoading(false);
+                    loadProfile(session.user.id); // fire-and-forget; profile re-renders when ready
                 } else {
                     setUser(null);
                     setProfile(null);
+                    setLoading(false);
                 }
-                setLoading(false);
             }
         );
 
