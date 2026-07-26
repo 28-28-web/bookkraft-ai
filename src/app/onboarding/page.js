@@ -9,7 +9,7 @@ import { TOOLS } from '@/lib/tools';
 import Link from 'next/link';
 
 export default function OnboardingPage() {
-    const { user, loading, supabase } = useAuth();
+    const { user, loading } = useAuth();
     const router = useRouter();
     const [step, setStep] = useState(0);
     const [answers, setAnswers] = useState({});
@@ -31,10 +31,11 @@ export default function OnboardingPage() {
 
         if (isLastFormStep) {
             try {
-                await supabase
-                    .from('users')
-                    .update({ formatting_goal: newAnswers.formatting_goal })
-                    .eq('id', user.id);
+                await fetch('/api/onboarding', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ formatting_goal: newAnswers.formatting_goal }),
+                });
             } catch (err) {
                 console.error('Failed to save onboarding:', err);
             } finally {

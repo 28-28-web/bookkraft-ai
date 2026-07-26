@@ -17,30 +17,32 @@ export function AuthProvider({ children }) {
 
     const supabase = useMemo(() => createClient(), []);
 
+    const FALLBACK_PROFILE = {
+        credits_balance: 0,
+        has_logic_bundle: false,
+        has_full_access: false,
+        is_lifetime: false,
+        is_admin: false,
+    };
+
     async function loadProfile(userId) {
+        const timeout = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('profile_timeout')), 10_000)
+        );
         try {
-            const { data, error } = await supabase
-                .from('users')
-                .select('*')
-                .eq('id', userId)
-                .single();
+            const { data, error } = await Promise.race([
+                supabase.from('users').select('*').eq('id', userId).single(),
+                timeout,
+            ]);
             if (error) console.warn('Profile load error:', error.message);
-            setProfile(data || {
-                credits_balance: 0,
-                has_logic_bundle: false,
-                has_full_access: false,
-                is_lifetime: false,
-                is_admin: false,
-            });
+            setProfile(data || FALLBACK_PROFILE);
         } catch (err) {
-            console.error('Failed to load profile:', err);
-            setProfile({
-                credits_balance: 0,
-                has_logic_bundle: false,
-                has_full_access: false,
-                is_lifetime: false,
-                is_admin: false,
-            });
+            if (err?.message === 'profile_timeout') {
+                console.warn('loadProfile: 10s timeout — using fallback');
+            } else {
+                console.error('Failed to load profile:', err);
+            }
+            setProfile(FALLBACK_PROFILE);
         }
     }
 
