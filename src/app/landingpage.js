@@ -405,7 +405,7 @@ const TOOL_FILTERS = [
 ];
 
 function matchesToolFilter(tool, filter) {
-  if (filter === 'all') return true;
+  if (filter === 'all') return !tool.free;
   if (filter === 'free') return !!tool.free;
   if (filter === 'ai') return tool.accessType === 'ai';
   if (filter === 'logic') return tool.accessType === 'logic';
