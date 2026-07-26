@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { TOOLS } from '../lib/tools';
 import { FAQS, PRICING, FREE_TOOLS } from '../lib/constants';
@@ -112,6 +112,13 @@ export default function LandingPage() {
           from { transform:translateX(0); }
           to   { transform:translateX(-50%); }
         }
+        @media (max-width: 768px) {
+          .hero-canvas-grid {
+            grid-template-columns: 1fr !important;
+            padding: 100px 20px 60px !important;
+          }
+          .hero-conv-card { display: none; }
+        }
       `}</style>
 
       <HeroSection />
@@ -133,80 +140,240 @@ export default function LandingPage() {
 
 // ─── 1. HERO ─────────────────────────────────────────────────────────
 
-function HeroSection() {
-  return (
-    <section className="hero-section-v3" aria-label="Hero">
-      <div className="hero-ambient" aria-hidden="true">
-        <span className="hero-blob hero-blob-1" />
-        <span className="hero-blob hero-blob-2" />
-        <span className="hero-blob hero-blob-3" />
-      </div>
+const HERO_WORDS = ['Chapter', 'Prologue', 'Epilogue', 'Once upon', 'In 1842', 'Her eyes', 'He said', 'Contents', 'Preface', 'The End', 'Part I', 'Foreword'];
+const BOOK_COLORS = ['#E74C3C', '#27AE60', '#2980B9', '#8E44AD', '#E67E22', '#C0392B', '#16A085'];
 
-      <div className="hero-grid">
-        <div className="hero-copy">
-          <p className="hero-eyebrow">✦ Professional eBook Formatting</p>
-          <h1 className="hero-headline">Format Your EPUB & Kindle Books Like a Pro.</h1>
-          <p className="hero-sub">
-            Upload your manuscript, pick a tool, and download a KDP-ready EPUB, PDF, or DOCX — in seconds. Start with {FREE_TOOLS.length} free tools, no account needed.
+function HeroSection() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    const wordParticles = HERO_WORDS.map((text) => ({
+      text,
+      x: Math.random() * canvas.width * 0.42,
+      y: 40 + Math.random() * (canvas.height - 80),
+      speed: 0.25 + Math.random() * 0.35,
+      opacity: 0.12 + Math.random() * 0.35,
+      size: 11 + Math.floor(Math.random() * 7),
+    }));
+
+    const books = BOOK_COLORS.map((color) => ({
+      color,
+      x: canvas.width * 0.58 + Math.random() * canvas.width * 0.38,
+      y: 30 + Math.random() * (canvas.height - 80),
+      speedX: -(0.25 + Math.random() * 0.4),
+      speedY: (Math.random() - 0.5) * 0.2,
+      rot: (Math.random() - 0.5) * 0.5,
+      rotSpd: (Math.random() - 0.5) * 0.004,
+      w: 26 + Math.random() * 14,
+      h: 38 + Math.random() * 18,
+    }));
+
+    let raf;
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      wordParticles.forEach((p) => {
+        ctx.save();
+        ctx.globalAlpha = p.opacity;
+        ctx.fillStyle = '#C9A84C';
+        ctx.font = `${p.size}px 'DM Sans',sans-serif`;
+        const tw = ctx.measureText(p.text).width;
+        ctx.fillText(p.text, p.x, p.y);
+        ctx.strokeStyle = '#C9A84C';
+        ctx.lineWidth = 0.8;
+        ctx.globalAlpha = p.opacity * 0.4;
+        ctx.beginPath();
+        ctx.moveTo(p.x + tw + 6, p.y - p.size * 0.28);
+        ctx.lineTo(p.x + tw + 52, p.y - p.size * 0.28);
+        ctx.stroke();
+        ctx.restore();
+        p.x += p.speed;
+        if (p.x > canvas.width * 0.48) {
+          p.x = -ctx.measureText(p.text).width - 10;
+          p.y = 40 + Math.random() * (canvas.height - 80);
+        }
+      });
+
+      books.forEach((b) => {
+        ctx.save();
+        ctx.translate(b.x + b.w / 2, b.y + b.h / 2);
+        ctx.rotate(b.rot);
+        ctx.fillStyle = b.color;
+        ctx.beginPath();
+        ctx.roundRect(-b.w / 2, -b.h / 2, b.w, b.h, 3);
+        ctx.fill();
+        ctx.fillStyle = 'rgba(255,255,255,0.18)';
+        ctx.fillRect(-b.w / 2, -b.h / 2, b.w * 0.14, b.h);
+        ctx.fillStyle = 'rgba(0,0,0,0.18)';
+        ctx.beginPath();
+        ctx.moveTo(b.w / 2, -b.h / 2);
+        ctx.lineTo(b.w / 2 + 5, -b.h / 2 + 5);
+        ctx.lineTo(b.w / 2 + 5, b.h / 2 + 5);
+        ctx.lineTo(b.w / 2, b.h / 2);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+        b.x += b.speedX;
+        b.y += b.speedY;
+        b.rot += b.rotSpd;
+        if (b.x < canvas.width * 0.52) {
+          b.x = canvas.width * 0.96 + Math.random() * 40;
+          b.y = 30 + Math.random() * (canvas.height - 80);
+        }
+      });
+
+      raf = requestAnimationFrame(draw);
+    };
+    draw();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', resize);
+    };
+  }, []);
+
+  return (
+    <section style={{
+      position: 'relative', background: '#0d0a06',
+      minHeight: '100vh', display: 'flex', alignItems: 'center', overflow: 'hidden',
+    }} aria-label="Hero">
+      <canvas ref={canvasRef} aria-hidden="true" style={{
+        position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.65,
+      }} />
+
+      <div className="hero-canvas-grid" style={{
+        position: 'relative', zIndex: 1, width: '100%',
+        maxWidth: 1200, margin: '0 auto', padding: '120px 32px 80px',
+        display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center',
+      }}>
+        {/* Left copy */}
+        <div>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            background: 'rgba(201,168,76,0.12)', border: '1px solid rgba(201,168,76,0.28)',
+            borderRadius: 100, padding: '6px 16px', marginBottom: 32,
+          }}>
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--gold)', display: 'inline-block' }} />
+            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--gold)', textTransform: 'uppercase' }}>
+              Professional eBook Formatting
+            </span>
+          </div>
+
+          <h1 style={{
+            fontSize: 'clamp(2.4rem,5vw,3.75rem)', fontWeight: 800,
+            color: '#fff', lineHeight: 1.1, marginBottom: 24,
+          }}>
+            Stop Fighting Word.<br />
+            <em style={{ color: 'var(--gold)', fontStyle: 'normal' }}>Start Publishing.</em>
+          </h1>
+
+          <p style={{
+            fontSize: 18, color: 'rgba(247,243,236,0.62)', lineHeight: 1.7,
+            marginBottom: 40, maxWidth: 440,
+          }}>
+            KDP rejecting your file? Formatting taking hours? Upload your manuscript — get a clean, publish-ready EPUB in seconds.
           </p>
-          <div className="hero-ctas">
-            <a href="/free-tools" className="hero-cta-primary">Start for Free →</a>
-            <a href="/pricing" className="hero-cta-secondary">See Pricing</a>
+
+          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 40 }}>
+            <a href="/free-tools" style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              background: 'var(--gold)', color: '#0d0a06', fontWeight: 700,
+              fontSize: 16, padding: '14px 28px', borderRadius: 8, textDecoration: 'none',
+            }}>Start for Free →</a>
+            <a href="/pricing" style={{
+              display: 'inline-flex', alignItems: 'center',
+              background: 'transparent', color: 'rgba(247,243,236,0.68)',
+              fontWeight: 600, fontSize: 16, padding: '14px 28px',
+              borderRadius: 8, textDecoration: 'none',
+              border: '1px solid rgba(247,243,236,0.15)',
+            }}>See Pricing</a>
+          </div>
+
+          <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+            {['KDP Ready', 'Apple Books', 'EPUB 3.0', 'No Calibre'].map((label) => (
+              <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--gold)', display: 'inline-block', flexShrink: 0 }} />
+                <span style={{ fontSize: 13, color: 'rgba(247,243,236,0.45)', fontWeight: 500 }}>{label}</span>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="hero-visual-wrap">
-          <div className="hero-visual">
-            <HeroMockup />
-          </div>
+        {/* Right: conversion card */}
+        <div className="hero-conv-card" style={{ display: 'flex', justifyContent: 'center' }}>
+          <HeroConversionCard />
         </div>
       </div>
     </section>
   );
 }
 
-function HeroMockup() {
+function HeroConversionCard() {
   return (
-    <div className="hero-mockup" role="img" aria-label="A rough manuscript page transforming into a polished, KDP-ready eBook file">
-      <div className="hero-mockup-card hero-mockup-card-docx">
-        <svg viewBox="0 0 150 212" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <g transform="translate(-30,-30)">
-            <path d="M40 40h130v190a10 10 0 0 1-10 10H50a10 10 0 0 1-10-10V40z" fill="var(--white)" stroke="var(--border)" strokeWidth="2"/>
-            <path d="M140 40l30 30h-30V40z" fill="var(--cream)" stroke="var(--border)" strokeWidth="1.5"/>
-            <rect x="58" y="90" width="94" height="6" rx="3" fill="var(--border)"/>
-            <rect x="58" y="108" width="74" height="6" rx="3" fill="var(--border)"/>
-            <rect x="58" y="126" width="86" height="6" rx="3" fill="var(--border)"/>
-            <rect x="58" y="144" width="60" height="6" rx="3" fill="var(--border)"/>
-            <rect x="58" y="162" width="80" height="6" rx="3" fill="var(--border)"/>
-            <rect x="40" y="212" width="52" height="20" rx="4" fill="var(--mid)" opacity="0.12"/>
-            <text x="66" y="226" textAnchor="middle" fontSize="10" fontFamily="'DM Sans',sans-serif" fontWeight="700" fill="var(--mid)">DOCX</text>
-          </g>
-        </svg>
+    <div style={{
+      background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)',
+      borderRadius: 16, padding: 32, width: '100%', maxWidth: 360,
+      backdropFilter: 'blur(12px)',
+    }}>
+      {/* DOCX input */}
+      <div style={{
+        background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)',
+        borderRadius: 12, padding: '16px 20px', display: 'flex', alignItems: 'center',
+        gap: 16, marginBottom: 20,
+      }}>
+        <div style={{
+          width: 44, height: 44, background: '#2563EB', borderRadius: 8,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 10, fontWeight: 800, color: '#fff', flexShrink: 0,
+        }}>DOCX</div>
+        <div>
+          <div style={{ fontSize: 10, color: 'rgba(247,243,236,0.38)', fontWeight: 600, marginBottom: 2, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Your Manuscript</div>
+          <div style={{ fontSize: 14, color: '#fff', fontWeight: 600 }}>my-novel-draft.docx</div>
+          <div style={{ fontSize: 12, color: 'rgba(247,243,236,0.42)' }}>124 pages · 87,400 words</div>
+        </div>
       </div>
 
-      <div className="hero-mockup-arrow" aria-hidden="true">
-        <svg viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g stroke="var(--gold)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M2 12h26"/>
-            <path d="M18 0l14 12-14 12"/>
-          </g>
-        </svg>
+      <div style={{ textAlign: 'center', color: 'rgba(247,243,236,0.35)', fontSize: 14, marginBottom: 20 }}>
+        ↓ processing...
       </div>
 
-      <div className="hero-mockup-card hero-mockup-card-epub">
-        <svg viewBox="0 0 150 212" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <g transform="translate(-240,-34)">
-            <rect x="250" y="55" width="130" height="170" rx="8" fill="var(--ink)"/>
-            <rect x="250" y="55" width="14" height="170" rx="4" fill="var(--gold)" opacity="0.35"/>
-            <rect x="278" y="80" width="86" height="6" rx="3" fill="rgba(247,243,236,0.5)"/>
-            <rect x="278" y="98" width="66" height="6" rx="3" fill="rgba(247,243,236,0.3)"/>
-            <rect x="278" y="116" width="76" height="6" rx="3" fill="rgba(247,243,236,0.3)"/>
-            <circle cx="345" cy="195" r="18" fill="var(--gold)"/>
-            <path d="M337 195l6 6 12-13" stroke="var(--ink)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-            <rect x="278" y="150" width="56" height="20" rx="10" fill="var(--gold)"/>
-            <text x="306" y="164" textAnchor="middle" fontSize="10" fontFamily="'DM Sans',sans-serif" fontWeight="700" fill="var(--ink)">EPUB</text>
-          </g>
-        </svg>
+      {/* EPUB output */}
+      <div style={{
+        background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(201,168,76,0.25)',
+        borderRadius: 12, padding: '16px 20px', display: 'flex', alignItems: 'center',
+        gap: 16, marginBottom: 16,
+      }}>
+        <div style={{
+          width: 44, height: 44, background: '#D97706', borderRadius: 8,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 10, fontWeight: 800, color: '#fff', flexShrink: 0,
+        }}>EPUB</div>
+        <div>
+          <div style={{ fontSize: 10, color: 'rgba(247,243,236,0.38)', fontWeight: 600, marginBottom: 2, textTransform: 'uppercase', letterSpacing: '0.08em' }}>KDP-Ready Output</div>
+          <div style={{ fontSize: 14, color: '#fff', fontWeight: 600 }}>my-novel-draft.epub</div>
+          <div style={{ fontSize: 12, color: 'rgba(247,243,236,0.42)' }}>EPUB 3.0 · valid</div>
+        </div>
+      </div>
+
+      {/* Ready badge */}
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+        background: 'rgba(34,197,94,0.12)', border: '1px solid rgba(34,197,94,0.28)',
+        borderRadius: 100, padding: '10px 20px',
+      }}>
+        <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#22C55E', display: 'inline-block' }} />
+        <span style={{ fontSize: 14, fontWeight: 600, color: '#22C55E' }}>Ready to upload</span>
       </div>
     </div>
   );
