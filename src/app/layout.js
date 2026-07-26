@@ -65,6 +65,9 @@ export const metadata = {
     title: 'BookKraft AI — EPUB & Kindle Tools for Indie Authors',
     description: TOOL_COUNT_DESC,
   },
+  verification: {
+    yandex: '654e985d96763e18',
+  },
 };
 
 export default function RootLayout({ children }) {
