@@ -50,9 +50,11 @@ export default function DashboardPage() {
 
     if (!user) return null;
 
+    const freeTools = TOOLS.filter((t) => t.free);
+    const paidTools = TOOLS.filter((t) => !t.free);
     const filteredTools = activeCategory === 'all'
-        ? TOOLS
-        : TOOLS.filter((t) => t.category === activeCategory);
+        ? paidTools
+        : paidTools.filter((t) => t.category === activeCategory);
 
     const getToolState = (tool) => {
         if (tool.free) return 'free';
@@ -230,6 +232,33 @@ export default function DashboardPage() {
                         )}
                     </div>
                 </div>
+
+                {/* Free Tools section */}
+                <div style={{ marginBottom: 'var(--space-8)' }}>
+                    <h2 style={{ fontSize: 'var(--text-lg)', fontWeight: 700, marginBottom: 'var(--space-4)' }}>Free Tools</h2>
+                    <div className="dash-tools-grid">
+                        {freeTools.map((tool) => (
+                            <Link href={`/tools/${tool.slug}`} key={tool.slug} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                <div className="tool-card">
+                                    <div className="tool-card-top" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <span className="badge badge-free">FREE</span>
+                                    </div>
+                                    <h3 style={{ fontSize: 'var(--text-base)', marginTop: 'var(--space-3)' }}>{tool.name}</h3>
+                                    <p style={{ fontSize: 'var(--text-sm)', color: 'var(--mid)', lineHeight: 1.5, marginTop: 'var(--space-2)', flex: 1 }}>
+                                        {tool.desc}
+                                    </p>
+                                    <div className="tool-card-bottom" style={{ marginTop: 'var(--space-4)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <span style={{ fontSize: 'var(--text-sm)', color: 'var(--gold)', fontWeight: 600 }}>Open</span>
+                                        <span style={{ fontSize: 'var(--text-sm)', color: 'var(--gold)' }}>&#8594;</span>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Pro Tools section */}
+                <h2 style={{ fontSize: 'var(--text-lg)', fontWeight: 700, marginBottom: 'var(--space-4)' }}>Pro Tools</h2>
 
                 {/* Category filter */}
                 <div className="cat-filter">
