@@ -142,6 +142,7 @@ export default function LandingPage() {
 
 const HERO_WORDS = ['Chapter', 'Prologue', 'Epilogue', 'Once upon', 'In 1842', 'Her eyes', 'He said', 'Contents', 'Preface', 'The End', 'Part I', 'Foreword'];
 const BOOK_COLORS = ['#E74C3C', '#27AE60', '#2980B9', '#8E44AD', '#E67E22', '#C0392B', '#16A085'];
+const BOOK_TITLES = ['1984', 'Dune', 'Hamlet', 'Jane Eyre', 'Dracula', 'Gatsby', 'Moby Dick', 'Emma', 'Ulysses', 'Beloved'];
 
 function HeroSection() {
   const canvasRef = useRef(null);
@@ -167,8 +168,9 @@ function HeroSection() {
       size: 11 + Math.floor(Math.random() * 7),
     }));
 
-    const books = BOOK_COLORS.map((color) => ({
+    const books = BOOK_COLORS.map((color, i) => ({
       color,
+      title: BOOK_TITLES[i % BOOK_TITLES.length],
       x: canvas.width * 0.58 + Math.random() * canvas.width * 0.38,
       y: 30 + Math.random() * (canvas.height - 80),
       speedX: -(0.25 + Math.random() * 0.4),
@@ -223,6 +225,19 @@ function HeroSection() {
         ctx.lineTo(b.w / 2, b.h / 2);
         ctx.closePath();
         ctx.fill();
+        // title text on face
+        const faceCx = b.w * 0.07;
+        const words = b.title.split(' ');
+        ctx.fillStyle = 'rgba(255,255,255,0.88)';
+        ctx.font = 'bold 7px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        if (words.length === 1) {
+          ctx.fillText(words[0], faceCx, 0);
+        } else {
+          ctx.fillText(words[0], faceCx, -4.5);
+          ctx.fillText(words[1], faceCx, 4.5);
+        }
         ctx.restore();
         b.x += b.speedX;
         b.y += b.speedY;
