@@ -164,8 +164,8 @@ function HeroSection() {
       x: Math.random() * canvas.width * 0.42,
       y: 40 + Math.random() * (canvas.height - 80),
       speed: 0.25 + Math.random() * 0.35,
-      opacity: 0.12 + Math.random() * 0.35,
-      size: 11 + Math.floor(Math.random() * 7),
+      opacity: 0.7 + Math.random() * 0.25,
+      size: 16 + Math.floor(Math.random() * 6),
     }));
 
     const books = BOOK_COLORS.map((color, i) => ({
@@ -177,8 +177,8 @@ function HeroSection() {
       speedY: (Math.random() - 0.5) * 0.2,
       rot: (Math.random() - 0.5) * 0.5,
       rotSpd: (Math.random() - 0.5) * 0.004,
-      w: 26 + Math.random() * 14,
-      h: 38 + Math.random() * 18,
+      w: 55 + Math.random() * 15,
+      h: 75 + Math.random() * 20,
     }));
 
     let raf;
@@ -188,11 +188,11 @@ function HeroSection() {
       wordParticles.forEach((p) => {
         ctx.save();
         ctx.globalAlpha = p.opacity;
-        ctx.fillStyle = '#C9A84C';
+        ctx.fillStyle = '#d4af37';
         ctx.font = `${p.size}px 'DM Sans',sans-serif`;
         const tw = ctx.measureText(p.text).width;
         ctx.fillText(p.text, p.x, p.y);
-        ctx.strokeStyle = '#C9A84C';
+        ctx.strokeStyle = '#d4af37';
         ctx.lineWidth = 0.8;
         ctx.globalAlpha = p.opacity * 0.4;
         ctx.beginPath();
@@ -227,16 +227,21 @@ function HeroSection() {
         ctx.fill();
         // title text on face
         const faceCx = b.w * 0.07;
-        const words = b.title.split(' ');
-        ctx.fillStyle = 'rgba(255,255,255,0.88)';
-        ctx.font = 'bold 7px sans-serif';
+        const rawWords = b.title.split(' ');
+        const lines = rawWords.length >= 2
+          ? [rawWords[0], rawWords[1]]
+          : rawWords[0].length <= 6
+            ? [rawWords[0]]
+            : [rawWords[0].slice(0, 6), rawWords[0].slice(6)];
+        ctx.fillStyle = 'rgba(255,255,255,0.9)';
+        ctx.font = 'bold 9px sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        if (words.length === 1) {
-          ctx.fillText(words[0], faceCx, 0);
+        if (lines.length === 1) {
+          ctx.fillText(lines[0], faceCx, 0);
         } else {
-          ctx.fillText(words[0], faceCx, -4.5);
-          ctx.fillText(words[1], faceCx, 4.5);
+          ctx.fillText(lines[0], faceCx, -6);
+          ctx.fillText(lines[1], faceCx, 6);
         }
         ctx.restore();
         b.x += b.speedX;
