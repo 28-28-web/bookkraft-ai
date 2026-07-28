@@ -20,13 +20,23 @@ export async function getAllPosts() {
 }
 
 export async function getPostBySlug(slug) {
-  const res = await fetch(
-    `${GHOST_URL}/ghost/api/content/posts/slug/${encodeURIComponent(slug)}/?key=${GHOST_KEY}&fields=${FIELDS}&include=tags,authors`,
-    { next: { revalidate: 3600 } }
-  );
-  if (!res.ok) return null;
-  const { posts } = await res.json();
-  return posts?.[0] ?? null;
+  const url = `${GHOST_URL}/ghost/api/content/posts/slug/${encodeURIComponent(slug)}/?key=${GHOST_KEY}&fields=${FIELDS}&include=tags,authors`;
+  let res;
+  try {
+    res = await fetch(url, { next: { revalidate: 3600 } });
+  } catch (err) {
+    console.error('[ghost] fetch error for slug', slug, err.message);
+    return null;
+  }
+  if (!res.ok) {
+    console.error('[ghost] getPostBySlug HTTP', res.status, 'for slug', slug, 'url', url);
+    return null;
+  }
+  const body = await res.json();
+  if (!body.posts?.[0]) {
+    console.error('[ghost] empty posts array for slug', slug, JSON.stringify(body).slice(0, 200));
+  }
+  return body.posts?.[0] ?? null;
 }
 
 // Strip script tags; leave all inline styles intact to preserve Ghost card formatting.
