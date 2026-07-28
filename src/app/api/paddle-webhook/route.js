@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { processPaddlePurchase } from '@/lib/db/purchases';
 
 /**
- * Paddle Webhook — Phase 3 pricing
+ * Paddle Webhook — Phase 3 pricing + cross-domain headshot credits
  *
  * All access-granting writes go through processPaddlePurchase() (see
  * src/lib/db/purchases.js), atomically: insert into purchases (idempotent
@@ -23,6 +23,10 @@ import { processPaddlePurchase } from '@/lib/db/purchases';
  * (essentials / credits_starter / credits_pro / full) are kept in case a
  * stale checkout link is still in flight — no button on the site sends
  * these purchaseTypes anymore.
+ *
+ * Cross-domain headshot tiers (purchaseType starts with "headshot-"):
+ * Initiated from artrating.art, checked out here, credits granted by
+ * calling artrating.art/api/add-credits after verifying payment.
  */
 const PURCHASE_GRANTS = {
     essentials:      { creditsToAdd: 0,   grantLogicBundle: true,  grantFullAccess: false, grantLifetime: false },
@@ -34,6 +38,12 @@ const PURCHASE_GRANTS = {
     lifetime:        { creditsToAdd: 0,   grantLogicBundle: true,  grantFullAccess: true,  grantLifetime: true },
 };
 
+const HEADSHOT_CREDITS = {
+    'headshot-10':  10,
+    'headshot-50':  50,
+    'headshot-200': 200,
+};
+
 export async function POST(request) {
     const rawBody = await request.text();
 
@@ -41,10 +51,6 @@ export async function POST(request) {
         const signature = request.headers.get('paddle-signature');
         const secret = process.env.PADDLE_WEBHOOK_SECRET;
 
-        // Fail closed: no secret configured means we cannot verify this
-        // request came from Paddle at all. Previously this skipped
-        // verification entirely and processed the event anyway — anyone
-        // who found this URL could grant themselves credits.
         if (!secret) {
             console.error('Paddle webhook: PADDLE_WEBHOOK_SECRET is not set — refusing to process.');
             return NextResponse.json({ error: 'webhook_not_configured' }, { status: 500 });
@@ -70,17 +76,70 @@ export async function POST(request) {
         }
 
         const customData = body.data?.custom_data || {};
-        const { userId, purchaseType } = customData;
+        const { userId, purchaseType, userEmail } = customData;
         const paddleOrderId = body.data?.id;
         const amountPaid = parseFloat(body.data?.details?.totals?.total || '0') / 100;
 
-        if (!userId) {
-            console.error('Paddle webhook: missing userId in customData');
-            return NextResponse.json({ error: 'missing_user_id' }, { status: 400 });
-        }
         if (!paddleOrderId) {
             console.error('Paddle webhook: missing transaction id');
             return NextResponse.json({ error: 'missing_transaction_id' }, { status: 400 });
+        }
+
+        // ── Cross-domain headshot purchase ──────────────────────────────────
+        // purchaseType is 'headshot-10', 'headshot-50', or 'headshot-200'.
+        // No bookkraftai userId — credits go to artrating.art via its
+        // /api/add-credits endpoint, authenticated with a shared secret.
+        if (purchaseType && purchaseType.startsWith('headshot-')) {
+            const creditsToAdd = HEADSHOT_CREDITS[purchaseType];
+            if (!creditsToAdd) {
+                console.error('Paddle webhook: unknown headshot purchaseType', purchaseType);
+                return NextResponse.json({ error: 'unknown_headshot_type' }, { status: 400 });
+            }
+            if (!userEmail) {
+                console.error('Paddle webhook: headshot purchase missing userEmail in customData');
+                return NextResponse.json({ error: 'missing_user_email' }, { status: 400 });
+            }
+
+            const artSecret = process.env.ARTRATING_WEBHOOK_SECRET;
+            if (!artSecret) {
+                console.error('Paddle webhook: ARTRATING_WEBHOOK_SECRET not set — cannot credit artrating user');
+                return NextResponse.json({ error: 'artrating_secret_not_configured' }, { status: 500 });
+            }
+
+            let artRes;
+            try {
+                artRes = await fetch('https://artrating.art/api/add-credits', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${artSecret}`,
+                    },
+                    body: JSON.stringify({ email: userEmail, credits: creditsToAdd, paddleOrderId }),
+                });
+            } catch (err) {
+                console.error('Paddle webhook: failed to reach artrating.art/api/add-credits:', err);
+                return NextResponse.json({ error: 'artrating_unreachable' }, { status: 502 });
+            }
+
+            if (!artRes.ok) {
+                const text = await artRes.text().catch(() => '');
+                console.error('Paddle webhook: artrating.art/api/add-credits returned', artRes.status, text);
+                // 404 = user not found — don't retry, log and move on
+                if (artRes.status === 404) {
+                    return NextResponse.json({ received: true, error: 'artrating_user_not_found' });
+                }
+                return NextResponse.json({ error: 'artrating_credit_failed' }, { status: 502 });
+            }
+
+            const artBody = await artRes.json().catch(() => ({}));
+            console.log(`Paddle webhook: headshot credits granted — ${creditsToAdd} credits → ${userEmail}`, artBody);
+            return NextResponse.json({ received: true, processed: purchaseType, creditsGranted: creditsToAdd });
+        }
+
+        // ── Standard bookkraftai purchase ───────────────────────────────────
+        if (!userId) {
+            console.error('Paddle webhook: missing userId in customData');
+            return NextResponse.json({ error: 'missing_user_id' }, { status: 400 });
         }
 
         const grant = PURCHASE_GRANTS[purchaseType];
