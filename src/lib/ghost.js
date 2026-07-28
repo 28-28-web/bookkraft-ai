@@ -23,7 +23,7 @@ export async function getPostBySlug(slug) {
   const url = `${GHOST_URL}/ghost/api/content/posts/slug/${encodeURIComponent(slug)}/?key=${GHOST_KEY}&fields=${FIELDS}&include=tags,authors`;
   let res;
   try {
-    res = await fetch(url, { next: { revalidate: 3600 } });
+    res = await fetch(url, { cache: 'no-store' });
   } catch (err) {
     console.error('[ghost] fetch error for slug', slug, err.message);
     return null;
