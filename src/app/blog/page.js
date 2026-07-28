@@ -3,12 +3,12 @@ import { getAllPosts, formatDate } from '@/lib/ghost';
 import Footer from '@/components/Footer';
 
 export const metadata = {
-  title: 'Blog — BookKraft AI',
-  description: 'Tips, guides, and tools for indie authors. EPUB formatting, KDP errors, metadata, and more.',
+  title: 'BookKraft AI Blog — EPUB & KDP Publishing Tips',
+  description: 'Expert guides on EPUB formatting, KDP errors, and self-publishing tools for indie authors.',
   alternates: { canonical: 'https://bookkraftai.com/blog' },
   openGraph: {
-    title: 'Blog — BookKraft AI',
-    description: 'Tips, guides, and tools for indie authors. EPUB formatting, KDP errors, metadata, and more.',
+    title: 'BookKraft AI Blog — EPUB & KDP Publishing Tips',
+    description: 'Expert guides on EPUB formatting, KDP errors, and self-publishing tools for indie authors.',
     url: 'https://bookkraftai.com/blog',
     siteName: 'BookKraft AI',
     type: 'website',

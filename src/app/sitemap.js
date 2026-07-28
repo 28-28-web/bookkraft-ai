@@ -1,17 +1,19 @@
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+import fs from 'fs';
+import path from 'path';
 
-async function getGhostPosts() {
+const BASE = 'https://bookkraftai.com';
+
+function getLocalPosts() {
+  const dir = path.join(process.cwd(), 'src', 'content', 'blog');
   try {
-    const res = await fetch(
-      'https://blog.bookkraftai.com/ghost/api/content/posts/?key=3c54ffdb1c6ecf1bfb4fc19f9c&fields=slug,updated_at,published_at&limit=all&filter=visibility:public',
-      { cache: 'no-store' }
-    )
-    if (!res.ok) return []
-    const data = await res.json()
-    return data.posts || []
+    return fs.readdirSync(dir)
+      .filter((f) => f.endsWith('.json'))
+      .map((f) => {
+        const raw = fs.readFileSync(path.join(dir, f), 'utf-8');
+        return JSON.parse(raw);
+      });
   } catch {
-    return []
+    return [];
   }
 }
 
@@ -29,82 +31,85 @@ export default async function sitemap() {
     { slug: 'css-snippet-generator',  priority: 0.7 },
     { slug: 'style-sheet-auditor',    priority: 0.7 },
     { slug: 'kdp-keyword-finder',     priority: 0.8 },
-  ]
+  ];
 
   const toolPages = tools.map(({ slug, priority }) => ({
-    url: `https://bookkraftai.com/tools/${slug}`,
+    url: `${BASE}/tools/${slug}`,
     lastModified: new Date('2026-03-16'),
     changeFrequency: 'weekly',
     priority,
-  }))
+  }));
 
-  const posts = await getGhostPosts()
-  const EXCLUDED_SLUGS = ['how-to-format-an-ebook-for-free-in-2025-2']
-  const blogPages = posts
-    .filter((post) => !EXCLUDED_SLUGS.includes(post.slug))
-    .map((post) => ({
-      url: `https://blog.bookkraftai.com/${post.slug}/`,
-      lastModified: new Date(post.updated_at || post.published_at),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    }))
+  const posts = getLocalPosts();
+  const blogPostPages = posts.map((post) => ({
+    url: `${BASE}/blog/${post.slug}`,
+    lastModified: new Date(post.published_at),
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
 
   return [
     {
-      url: 'https://bookkraftai.com',
+      url: BASE,
       lastModified: new Date('2026-07-21'),
       changeFrequency: 'weekly',
       priority: 1.0,
     },
     {
-      url: 'https://bookkraftai.com/free-tools',
+      url: `${BASE}/free-tools`,
       lastModified: new Date('2026-05-05'),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: 'https://bookkraftai.com/tools/publishing-score',
+      url: `${BASE}/tools/publishing-score`,
       lastModified: new Date('2026-05-05'),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: 'https://bookkraftai.com/pricing',
+      url: `${BASE}/pricing`,
       lastModified: new Date('2026-03-01'),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: 'https://bookkraftai.com/contact',
+      url: `${BASE}/contact`,
       lastModified: new Date('2026-02-19'),
       changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
-      url: 'https://bookkraftai.com/privacy',
+      url: `${BASE}/privacy`,
       lastModified: new Date('2026-02-19'),
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
-      url: 'https://bookkraftai.com/terms',
+      url: `${BASE}/terms`,
       lastModified: new Date('2026-02-19'),
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     ...toolPages,
     {
-      url: 'https://bookkraftai.com/tools/cover-checker',
+      url: `${BASE}/tools/cover-checker`,
       lastModified: new Date('2026-07-21'),
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: 'https://bookkraftai.com/tools/word-cleanup',
+      url: `${BASE}/tools/word-cleanup`,
       lastModified: new Date('2026-07-25'),
       changeFrequency: 'weekly',
       priority: 1.0,
     },
-    ...blogPages,
-  ]
+    {
+      url: `${BASE}/blog`,
+      lastModified: new Date('2026-07-28'),
+      changeFrequency: 'weekly',
+      priority: 0.5,
+    },
+    ...blogPostPages,
+  ];
 }
