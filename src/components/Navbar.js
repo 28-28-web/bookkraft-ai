@@ -147,15 +147,13 @@ export default function Navbar() {
                     >
                       Word Cleanup Checker
                     </Link>
-                    <a
-                      href="https://blog.bookkraftai.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href="/blog"
                       onClick={() => setResourcesOpen(false)}
                       style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'var(--ink, #1a1a1a)', fontSize: '14px' }}
                     >
                       Blog
-                    </a>
+                    </Link>
                   </div>
                 )}
               </div>
@@ -233,7 +231,7 @@ export default function Navbar() {
           <Link href="/tools/publishing-score" className="nav-link">✦ Book Score</Link>
           <Link href="/tools/word-cleanup" className="nav-link">Word Cleanup Checker</Link>
           <Link href="/free-tools" className="nav-link">Free Tools</Link>
-          <a href="https://blog.bookkraftai.com" className="nav-link" target="_blank" rel="noopener noreferrer">Blog</a>
+          <Link href="/blog" className="nav-link">Blog</Link>
           {!user && (
             <Link href="/signup" className="btn btn-gold" style={{ marginTop: 8 }}>
               Get Started Free
