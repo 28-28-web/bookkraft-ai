@@ -44,7 +44,8 @@ export default function Navbar() {
     pathname === '/kdp-formatting-guide' ||
     pathname === '/tools/publishing-score' ||
     pathname === '/tools/word-cleanup' ||
-    pathname === '/blog';
+    pathname === '/blog' ||
+    pathname === '/headshot';
 
   const credits = profile?.credits_balance || 0;
   const creditColor = credits > 0 ? 'var(--sage)' : 'var(--rust)';
@@ -154,6 +155,13 @@ export default function Navbar() {
                     >
                       Blog
                     </Link>
+                    <Link
+                      href="/headshot"
+                      onClick={() => setResourcesOpen(false)}
+                      style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'var(--ink, #1a1a1a)', fontSize: '14px' }}
+                    >
+                      Author Headshot
+                    </Link>
                   </div>
                 )}
               </div>
@@ -232,6 +240,7 @@ export default function Navbar() {
           <Link href="/tools/word-cleanup" className="nav-link">Word Cleanup Checker</Link>
           <Link href="/free-tools" className="nav-link">Free Tools</Link>
           <Link href="/blog" className="nav-link">Blog</Link>
+          <Link href="/headshot" className="nav-link">Author Headshot</Link>
           {!user && (
             <Link href="/signup" className="btn btn-gold" style={{ marginTop: 8 }}>
               Get Started Free
