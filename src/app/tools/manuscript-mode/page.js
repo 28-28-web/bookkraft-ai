@@ -3,7 +3,7 @@ import ManuscriptModeClient from '@/components/ManuscriptModeClient';
 
 export const metadata = {
     title: 'DOCX to EPUB Converter — Word to EPUB Free | BookKraft AI',
-    description: 'Convert .docx or .txt to EPUB 3.0 in one step. Auto chapter detection, smart quote fixes, valid KDP output. No Calibre or Sigil needed. Free BookKraft account required.',
+    description: 'Convert docx to epub in one step — preserves bold, italic, and chapters. Valid EPUB 3.0 for KDP and Apple Books. No Calibre needed. Free BookKraft account.',
     keywords: 'docx to epub, word to epub, convert docx to epub, convert word to epub, convert doc to epub, word to epub converter',
     alternates: {
         canonical: 'https://bookkraftai.com/tools/manuscript-mode',
