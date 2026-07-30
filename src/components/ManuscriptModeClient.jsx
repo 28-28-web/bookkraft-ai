@@ -1,11 +1,9 @@
 'use client';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useAuth } from '@/components/AuthProvider';
-import { useRouter } from 'next/navigation';
 
 export default function ManuscriptModeClient() {
     const { user, loading } = useAuth();
-    const router = useRouter();
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
@@ -21,14 +19,48 @@ export default function ManuscriptModeClient() {
     const [result, setResult] = useState(null);
     const fileInputRef = useRef(null);
 
-    useEffect(() => {
-        if (!loading && !user) {
-            router.push('/login?redirect=/tools/manuscript-mode');
-        }
-    }, [user, loading, router]);
-
     if (loading) return <div style={{ padding: 40, textAlign: 'center', color: '#888' }}>Loading...</div>;
-    if (!user) return null;
+
+    if (!user) {
+        return (
+            <div style={{ maxWidth: 680, margin: '0 auto', padding: '32px 20px' }}>
+                <div style={{
+                    border: '2px dashed #ddd', borderRadius: 12, padding: '48px 32px',
+                    textAlign: 'center', background: '#fafafa',
+                }}>
+                    <div style={{ fontSize: 40, marginBottom: 16 }}>📄</div>
+                    <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 8, color: '#111' }}>
+                        Sign in to convert your manuscript
+                    </h2>
+                    <p style={{ color: '#555', fontSize: 15, lineHeight: 1.6, marginBottom: 24, maxWidth: 400, margin: '0 auto 24px' }}>
+                        Full Manuscript Mode is free with a BookKraft AI account.
+                        Upload your .docx or .txt and get a valid EPUB 3.0 in one step.
+                    </p>
+                    <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+                        <a
+                            href="/login?redirect=/tools/manuscript-mode"
+                            style={{
+                                background: '#B8962E', color: '#fff', padding: '12px 28px',
+                                borderRadius: 8, fontWeight: 700, fontSize: 15, textDecoration: 'none',
+                            }}
+                        >
+                            Sign in
+                        </a>
+                        <a
+                            href="/signup?redirect=/tools/manuscript-mode"
+                            style={{
+                                background: '#fff', color: '#B8962E', padding: '12px 28px',
+                                borderRadius: 8, fontWeight: 700, fontSize: 15, textDecoration: 'none',
+                                border: '2px solid #B8962E',
+                            }}
+                        >
+                            Create free account
+                        </a>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     const handleFileChange = (e) => {
         const f = e.target.files[0];
