@@ -50,6 +50,16 @@ export default function Footer() {
                 </div>
                 <div className="footer-v2-bottom">
                     <p className="footer-copy">© {new Date().getFullYear()} BookKraft AI · bookkraftai.com</p>
+                    <p style={{ fontSize: 12, color: 'rgba(247,243,236,0.5)', width: '100%', textAlign: 'center', margin: '4px 0' }}>
+                        BookKraft AI is a product of{' '}
+                        <a href="https://thefclbd.com" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(247,243,236,0.6)', textDecoration: 'underline' }}>
+                            Fateh Consortium Ltd (FCLBD)
+                        </a>
+                        , Bangladesh.
+                    </p>
+                    <p style={{ fontSize: 12, color: 'rgba(247,243,236,0.4)', width: '100%', textAlign: 'center', margin: '0 0 8px' }}>
+                        🔒 Secure payments by Paddle &bull; 📧 hello@bookkraftai.com &bull; 🏢 Fateh Consortium Ltd, Bangladesh
+                    </p>
                     <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
                         <a href="https://sellwithboost.com" target="_blank" rel="noopener noreferrer">
                             <img src="https://sellwithboost.com/badge/listing.svg" alt="Listed on SellWithBoost" width="108" height="36" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
