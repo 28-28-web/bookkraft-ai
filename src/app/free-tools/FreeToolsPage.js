@@ -135,7 +135,7 @@ export default function FreeToolsPage() {
                             <h2 style={{ marginBottom: 'var(--space-3)' }}>Full Manuscript Mode</h2>
                             <p style={{ color: 'var(--mid)', lineHeight: 1.6, marginBottom: 'var(--space-6)' }}>
                                 Upload your .docx or .txt manuscript and get a valid EPUB 3.0 file back in one step —
-                                chapter detection, smart quotes, em dashes, and encoding fixes included.
+                                bold, italic, underline preserved, chapter detection, smart quotes, em dashes, and encoding fixes included.
                             </p>
                             <ul style={{
                                 listStyle: 'none', padding: 0, marginBottom: 'var(--space-6)',
@@ -209,7 +209,7 @@ export default function FreeToolsPage() {
                     <p>Good metadata helps readers find your book. Fill in one form and get perfectly formatted metadata output for Amazon KDP, IngramSpark, Draft2Digital, and EPUB OPF — all at once. Includes 7 keyword slots, BISAC category support, and a downloadable text file. No account needed. Unlimited use.</p>
 
                     <h2>DOCX to EPUB Converter</h2>
-                    <p>Upload your .docx or .txt manuscript and get a valid EPUB 3.0 back in one step. Chapter detection, smart quote fixes, em dash corrections, and encoding cleanup are all applied automatically. No Calibre, no Sigil, no desktop software. Free with a BookKraft account.</p>
+                    <p>Upload your .docx or .txt manuscript and get a valid EPUB 3.0 back in one step. Bold, italic, and underline are preserved. Chapter detection, smart quote fixes, em dash corrections, and encoding cleanup are all applied automatically. No Calibre, no Sigil, no desktop software. Free with a BookKraft account.</p>
 
                     <h2>Word Manuscript Cleanup Checker</h2>
                     <p>Before you send a manuscript to a formatter or upload it to KDP, run it through a quick technical scan. Upload your .docx file and the checker reports double spaces, straight quotes, stacked blank paragraphs, trailing spaces, double hyphens, and manually-applied formatting. It is read-only — your file is parsed in your browser and never modified or uploaded.</p>

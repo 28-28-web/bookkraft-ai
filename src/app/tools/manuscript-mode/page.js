@@ -51,7 +51,7 @@ export default function ManuscriptModePage() {
                 name: 'Will bold and italic formatting from my Word document be preserved?',
                 acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'No. The converter extracts plain text from your .docx file — Word character formatting (bold, italic, underline) is not carried over to the EPUB. Chapter structure is detected by text pattern (e.g. "Chapter 1", "#", "PART I"). If your book relies on rich Word formatting, you may need additional styling after conversion.',
+                    text: 'Yes. Bold, italic, and underline formatting from your .docx file are preserved in the EPUB output. Word heading styles (Heading 1, 2, 3) also carry through as chapter markers. Images, tables, footnotes, and font-size changes are not carried over — the converter handles text content only.',
                 },
             },
             {
@@ -59,7 +59,7 @@ export default function ManuscriptModePage() {
                 name: 'How are chapters detected when converting DOCX to EPUB?',
                 acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'The converter scans for lines matching common patterns: Markdown headings (# Chapter Title, ## Section), "Chapter N", "CHAPTER N", and "PART I/II/III". Each match starts a new chapter in the EPUB output.',
+                    text: 'For .docx files, Word heading styles (Heading 1, 2, 3) are detected as chapter breaks, as are paragraphs matching "Chapter N", "CHAPTER N", and "PART I/II/III". For .txt files, Markdown headings (# Title, ## Section) and the same text patterns are used.',
                 },
             },
             {
@@ -161,8 +161,8 @@ export default function ManuscriptModePage() {
                     <h2>Convert DOCX to EPUB Without Calibre</h2>
                     <p>Calibre can convert Word files to EPUB, but it requires installation, has a steep learning curve, and produces inconsistent output from .docx files. This Word to EPUB converter runs server-side through your browser, applies targeted formatting fixes before building the file, and outputs a structurally valid EPUB 3.0 — without any software to install or configure.</p>
 
-                    <h2>A Note on Word Formatting</h2>
-                    <p>The converter extracts plain text from your .docx file. This means Word character formatting — bold, italic, underline, font changes — is not carried over to the EPUB output. Chapters are detected by text pattern (e.g. &ldquo;Chapter 1&rdquo;, &ldquo;# Title&rdquo;, &ldquo;PART I&rdquo;) rather than Word heading styles. If your manuscript depends on rich character formatting that needs to appear in the final ebook, you will need to apply that styling separately after conversion.</p>
+                    <h2>Word Formatting in the EPUB Output</h2>
+                    <p>Bold, italic, and underline from your .docx file are preserved in the EPUB. Word heading styles (Heading 1, 2, 3) are detected as chapter breaks and appear as section headings. What is not carried over: images, tables, footnotes, and font-size or colour changes. The converter handles text content and inline character emphasis — not page layout.</p>
 
                     <h2>Validate After Converting</h2>
                     <p>After converting your doc to epub, run the file through the <Link href="/epub-validator" style={{ color: 'var(--gold)' }}>free EPUB Validator</Link> to confirm it passes structural checks before uploading to KDP or any other platform. The validator checks the same structural elements that publishing platforms test during submission.</p>
@@ -176,10 +176,10 @@ export default function ManuscriptModePage() {
                     <p>Yes. Full Manuscript Mode is free with a BookKraft AI account.</p>
 
                     <h3>Will bold and italic from my Word file appear in the EPUB?</h3>
-                    <p>No — the converter extracts plain text from .docx. Word character formatting (bold, italic, underline) is not preserved. Only chapter structure detected by heading pattern is reflected in the EPUB. If your book requires rich formatting, you will need to style the EPUB output separately.</p>
+                    <p>Yes. Bold, italic, and underline are preserved. Word heading styles (Heading 1, 2, 3) carry through as chapter markers. Images, tables, footnotes, and font changes are not carried over.</p>
 
                     <h3>How are chapters detected?</h3>
-                    <p>Lines matching Markdown headings (# Title, ## Section), &ldquo;Chapter N&rdquo;, &ldquo;CHAPTER N&rdquo;, and &ldquo;PART I/II/III&rdquo; each start a new chapter in the EPUB.</p>
+                    <p>For .docx files: Word heading styles (Heading 1, 2, 3) create chapter breaks, as do paragraphs matching &ldquo;Chapter N&rdquo; or &ldquo;PART I/II/III&rdquo;. For .txt files: Markdown headings (# Title, ## Section) and the same text patterns are used.</p>
 
                     <h3>Is the EPUB output compatible with Amazon KDP?</h3>
                     <p>The output is a valid EPUB 3.0 with correct structure. Run it through the <Link href="/tools/epub-validator" style={{ color: 'var(--gold)' }}>EPUB checker</Link> before submitting to any platform.</p>
