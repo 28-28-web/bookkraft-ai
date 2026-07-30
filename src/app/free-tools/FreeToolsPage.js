@@ -12,14 +12,14 @@ export default function FreeToolsPage() {
             }}>
                 <div className="container">
                     <div className="hero-badge" style={{ justifyContent: 'center', margin: '0 auto var(--space-6)' }}>
-                        <span className="hero-badge-dot" /> No account needed
+                        <span className="hero-badge-dot" /> Four need no account · One needs a free account
                     </div>
                     <h1 style={{ color: 'var(--cream)', fontSize: 'var(--text-5xl)', marginBottom: 'var(--space-4)' }}>
-                        Five Free Tools.<br /><em style={{ color: 'var(--gold)', fontWeight: 400 }}>No Signup.</em>
+                        Five Free Book Formatting Tools.<br /><em style={{ color: 'var(--gold)', fontWeight: 400 }}>No Subscription.</em>
                     </h1>
                     <p style={{ color: 'rgba(247,243,236,.65)', fontSize: '18px', maxWidth: 520, margin: '0 auto' }}>
-                        EPUB Validator, Metadata Builder, Cover Checker, Word Manuscript Cleanup Checker, and Full Manuscript Mode all work immediately.
-                        No email, no credit card, no account. Just open and use.
+                        EPUB Validator, Metadata Builder, Cover Checker, and Word Cleanup work immediately — no email, no account.
+                        Full Manuscript Mode is also free with a free BookKraft account.
                     </p>
                 </div>
             </section>
@@ -141,7 +141,7 @@ export default function FreeToolsPage() {
                                 listStyle: 'none', padding: 0, marginBottom: 'var(--space-6)',
                                 display: 'grid', gap: 'var(--space-2)',
                             }}>
-                                {['No signup required', 'Auto chapter detection', 'No Calibre or Sigil needed', 'Valid EPUB 3.0 output', 'Unlimited use'].map((item, i) => (
+                                {['Free BookKraft account required', 'Auto chapter detection', 'No Calibre or Sigil needed', 'Valid EPUB 3.0 output', 'Unlimited use'].map((item, i) => (
                                     <li key={i} style={{ fontSize: 'var(--text-sm)', color: 'var(--ink)' }}>✓ {item}</li>
                                 ))}
                             </ul>
@@ -199,8 +199,8 @@ export default function FreeToolsPage() {
             {/* SEO Content */}
             <section style={{ padding: 'var(--space-16) 0', borderTop: '1px solid var(--border)' }}>
                 <div className="container" style={{ maxWidth: '800px', margin: '0 auto', padding: '0 1rem' }}>
-                    <h2>Free Tools for Authors and Editors</h2>
-                    <p>Publishing a book takes more than just writing. The formatting, metadata, keywords, structure — it all adds up. These free tools handle the technical side so you can focus on the work that actually matters.</p>
+                    <h2>Free Book Formatting Tools for Self-Publishers</h2>
+                    <p>Publishing a book takes more than just writing. The formatting, metadata, file validation, cover specs — it all adds up. These free book formatting tools handle the technical side so you can focus on the work that actually matters.</p>
 
                     <h2>EPUB Validator</h2>
                     <p>Before you upload your ebook to KDP, Apple Books, or Kobo, it needs to pass structural validation. The EPUB Validator checks your file for mimetype errors, container issues, OPF problems, spine errors, broken image references, CSS conflicts, and accessibility gaps. It runs entirely in your browser — no Java, no account, no upload limit. Fix errors before they cause rejections.</p>
@@ -208,17 +208,37 @@ export default function FreeToolsPage() {
                     <h2>Metadata Builder</h2>
                     <p>Good metadata helps readers find your book. Fill in one form and get perfectly formatted metadata output for Amazon KDP, IngramSpark, Draft2Digital, and EPUB OPF — all at once. Includes 7 keyword slots, BISAC category support, and a downloadable text file. No account needed. Unlimited use.</p>
 
+                    <h2>DOCX to EPUB Converter</h2>
+                    <p>Upload your .docx or .txt manuscript and get a valid EPUB 3.0 back in one step. Chapter detection, smart quote fixes, em dash corrections, and encoding cleanup are all applied automatically. No Calibre, no Sigil, no desktop software. Free with a BookKraft account.</p>
+
                     <h2>Word Manuscript Cleanup Checker</h2>
-                    <p>Before you send a manuscript to a formatter or upload it to KDP, run it through a quick technical scan. Upload your .docx file and the checker reports double spaces, straight quotes, stacked blank paragraphs, trailing spaces, double hyphens, and manually-applied bold or italic formatting. It's read-only — your file is parsed entirely in your browser and never modified or uploaded.</p>
+                    <p>Before you send a manuscript to a formatter or upload it to KDP, run it through a quick technical scan. Upload your .docx file and the checker reports double spaces, straight quotes, stacked blank paragraphs, trailing spaces, double hyphens, and manually-applied formatting. It is read-only — your file is parsed in your browser and never modified or uploaded.</p>
 
                     <h2>Who These Tools Are For</h2>
-                    <p>If you're a self-publishing author, these tools save you hours of manual formatting work. If you're a freelance editor, they help you deliver cleaner, faster results to your clients. Both tools work immediately — no email, no credit card, no account required.</p>
+                    <p>Self-publishing authors who want to handle book formatting without paying a formatting service. Freelance editors who want to deliver cleaner files faster. Anyone who needs the technical side of ebook formatting handled without expensive software or a monthly subscription. All five tools work immediately in any browser — no email, no credit card required (except the EPUB converter, which needs a free BookKraft account).</p>
 
-                    <h2>Why We Built These</h2>
-                    <p>Most publishing tools are either too expensive or too complicated. We built these to be straightforward — tools that do exactly what they say, nothing more. And because every author deserves access to basic publishing tools without a subscription, these two will always be free.</p>
+                    <h2>Book Formatting Services vs. DIY</h2>
+                    <p>A professional book formatting service typically charges $100–$400+ and takes several days to turn around. BookKraft's self-serve tools handle the same technical tasks in seconds — EPUB conversion, file validation, metadata prep, cover spec checks. The tradeoff: you are doing it yourself rather than handing it off to someone else.</p>
+
+                    <h2>Frequently Asked Questions</h2>
+
+                    <h3>What is book formatting for self-publishing?</h3>
+                    <p>Book formatting prepares your manuscript for digital distribution — converting files to EPUB or PDF, fixing formatting errors, validating structure, and building metadata for each platform. For ebooks, it means producing a valid EPUB 3.0 that Amazon KDP, Apple Books, and Kobo will accept.</p>
+
+                    <h3>How do these tools compare to a paid book formatting service?</h3>
+                    <p>A book formatting service charges $100–$400+ for a human to format your manuscript. These tools are self-serve — the technical work is automated and you stay in control of your files and timeline.</p>
+
+                    <h3>What ebook format does Amazon KDP require?</h3>
+                    <p>KDP accepts EPUB and DOCX. The recommended format is EPUB 3.0 — use the <a href="/tools/manuscript-mode" style={{ color: 'var(--gold)' }}>DOCX to EPUB converter</a> to generate it and the <a href="/epub-validator" style={{ color: 'var(--gold)' }}>EPUB Validator</a> to check it before uploading.</p>
+
+                    <h3>Can I format a book for self-publishing for free?</h3>
+                    <p>Yes. All five tools on this page are free. No subscription, no credit card. The EPUB Converter requires a free BookKraft account; the other four need no account at all.</p>
+
+                    <h3>Do I need Calibre or Sigil to format an ebook?</h3>
+                    <p>No. These tools run in your browser — no desktop software to install. Upload your .docx or .epub file and get results immediately.</p>
 
                     <h2>Need More Tools?</h2>
-                    <p>The free tools cover EPUB validation, metadata, and manuscript formatting checks. For AI-powered manuscript cleanup, KDP keyword research, back matter generation, print to digital conversion, TOC generation, and more — explore the full Book Kraft AI toolkit. Available as a one-time purchase, no monthly fees.</p>
+                    <p>The free tools cover core ebook formatting tasks. For AI-powered manuscript cleanup, KDP keyword research, back matter generation, print-to-digital conversion, and more — explore the full <a href="/pricing" style={{ color: 'var(--gold)' }}>BookKraft AI toolkit</a>. One-time purchase, no monthly fees.</p>
                 </div>
             </section>
         </>
