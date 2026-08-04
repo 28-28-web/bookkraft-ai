@@ -740,6 +740,12 @@ function TestimonialsSection() {
       rating: 5,
       text: 'If you\'ve ever spent 2 hours fixing smart quotes or wanted to throw your laptop because Word broke your formatting again... read this. Cleans up Word export mess in minutes. Makes a real EPUB 3.0 that KDP accepts. Two free tools – no signup. Best formatting money I\'ve spent. And I\'m cheap.',
     },
+    {
+      name: 'Jamie Park',
+      source: 'CodeTrendy',
+      rating: 5,
+      text: 'Output ePub passed Kindle preview clean. Saved me a freelancer pass.',
+    },
   ];
 
   return (
