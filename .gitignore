@@ -44,3 +44,7 @@ next-env.d.ts
 /index.html
 /worker.js
 /wrangler.toml
+
+# Claude Code local config (machine-specific, may contain secrets)
+.claude/settings.local.json
+.claude/launch.json
