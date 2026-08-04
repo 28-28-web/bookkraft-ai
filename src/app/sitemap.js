@@ -141,6 +141,24 @@ export default async function sitemap() {
       priority: 0.7,
     },
     {
+      url: `${BASE}/epub-errors/opf-role-attribute-not-allowed`,
+      lastModified: new Date('2026-08-05'),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE}/epub-errors/invalid-font-file-corrupted`,
+      lastModified: new Date('2026-08-05'),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE}/epub-errors/title-tag-empty-kobo`,
+      lastModified: new Date('2026-08-05'),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${BASE}/blog`,
       lastModified: new Date('2026-07-28'),
       changeFrequency: 'weekly',

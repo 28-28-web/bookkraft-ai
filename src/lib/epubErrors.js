@@ -59,6 +59,54 @@ export const EPUB_ERRORS = [
     ],
     relatedTool: 'epub-validator',
   },
+  {
+    slug: 'opf-role-attribute-not-allowed',
+    metaTitle: 'EPUB Error: opf:role Attribute Not Allowed (RSC-005) — How to Fix It',
+    metaDescription: 'Getting RSC-005 "attribute opf:role not allowed here" in EPUBCheck? Here\'s why it happens and how to fix the EPUB 2 vs EPUB 3 metadata conflict before uploading.',
+    title: 'EPUB Error: opf:role Attribute Not Allowed (RSC-005)',
+    errorMessage: 'RSC-005: /oebps/content.opf: error while parsing file: attribute "opf:role" not allowed here; expected attribute "dir", "id" or "xml:lang"',
+    cause: '<p>This happens when an outdated EPUB 2 attribute (opf:role) is used on an element in an EPUB 3 file. EPUB 3 replaced this attribute with a different metadata structure, so validators reject it as invalid on elements that don\'t support it in the newer spec.</p>',
+    fixSteps: '<ol><li>Open your content.opf file and locate the line number mentioned in the error.</li><li>Find the element using opf:role and check whether it\'s a metadata <code>&lt;dc:creator&gt;</code> or <code>&lt;dc:contributor&gt;</code> tag.</li><li>If your conversion tool generated this automatically, re-export using a tool that supports EPUB 3 metadata syntax rather than EPUB 2.</li><li>If editing manually, remove the opf:role attribute or replace it with the EPUB 3 equivalent metadata structure for author roles.</li><li>Re-validate to confirm the error clears.</li></ol>',
+    faq: [
+      {
+        q: 'Why does this happen with EPUB 3 files specifically?',
+        a: 'EPUB 2 and EPUB 3 handle certain metadata attributes differently. A file built with EPUB 2 conventions but declared as EPUB 3 will fail this kind of attribute check.',
+      },
+    ],
+    relatedTool: 'epub-validator',
+  },
+  {
+    slug: 'invalid-font-file-corrupted',
+    metaTitle: 'EPUB Error: Not a Valid Font (Corrupted Font File) — How to Fix It',
+    metaDescription: 'Getting "not a valid font: unpack_from requires a buffer" in EPUBCheck? The embedded font file is corrupted. Here\'s how to identify and replace it.',
+    title: 'EPUB Error: Not a Valid Font (Corrupted Font File)',
+    errorMessage: 'not a valid font: unpack_from requires a buffer of at least 22412 bytes for unpacking 16 bytes at offset 22396',
+    cause: '<p>This error means the font file embedded in your EPUB is corrupted or incomplete — usually because it was only partially downloaded, damaged during a file transfer, or improperly extracted from another format. The validator can\'t read the font\'s internal structure because bytes are missing from the file.</p>',
+    fixSteps: '<ol><li>Locate the font file causing the error inside your EPUB package (usually in a /fonts folder).</li><li>Re-download the original font file from its source rather than reusing the copy in your project.</li><li>Replace the corrupted file with the fresh copy, keeping the same filename.</li><li>If the problem persists, try a different font entirely — some free font files from third-party sites are pre-corrupted at the source.</li><li>Re-validate to confirm the font loads correctly.</li></ol>',
+    faq: [
+      {
+        q: 'How does a font file get corrupted?',
+        a: 'Most often this happens during an interrupted download, a bad copy-paste between file systems, or when a font is extracted from a ZIP archive incorrectly.',
+      },
+    ],
+    relatedTool: 'epub-validator',
+  },
+  {
+    slug: 'title-tag-empty-kobo',
+    metaTitle: 'EPUB Error: [title] Tag Is Empty (Kobo) — How to Fix It',
+    metaDescription: 'Getting "[title] tag is empty" from Kobo? Your content.opf is missing a book title in its metadata. Here\'s exactly how to find and fix it.',
+    title: 'EPUB Error: [title] Tag Is Empty (Kobo)',
+    errorMessage: '[title] tag is empty. in content.opf, line 7',
+    cause: '<p>Every EPUB requires a non-empty title element in the metadata section of content.opf. This error occurs when the title field was left blank during conversion, or when a template placeholder for the title was never filled in before export.</p>',
+    fixSteps: '<ol><li>Open content.opf and locate line 7 (or the line number in your specific error).</li><li>Find the <code>&lt;dc:title&gt;&lt;/dc:title&gt;</code> tag — if it\'s empty, add your book\'s title between the tags.</li><li>If you\'re using conversion software, check the book details/metadata screen before exporting to make sure the title field is filled in.</li><li>Re-export or re-save and re-validate.</li></ol>',
+    faq: [
+      {
+        q: 'Why does Kobo specifically flag this?',
+        a: 'Kobo\'s validation is generally stricter about required metadata fields than some other platforms, which is why an empty title might pass elsewhere but fail specifically on Kobo\'s check.',
+      },
+    ],
+    relatedTool: 'epub-validator',
+  },
 ];
 
 export function getErrorBySlug(slug) {
