@@ -114,6 +114,49 @@ export default function EpubValidator() {
             }
 
             if (opfContent) {
+                const emfHrefs = [...opfContent.matchAll(/href="([^"]+\.(?:emf|wmf))"/gi)].map(m => m[1]);
+                const emfMimeType = /media-type="image\/(?:x-)?(?:emf|wmf)"/i.test(opfContent);
+                if (emfHrefs.length === 0 && !emfMimeType) {
+                    checks.push({ name: 'EMF/WMF Images', status: 'pass', detail: 'No Windows-only image formats detected.' });
+                    passCount++;
+                } else {
+                    const count = emfHrefs.length || 1;
+                    checks.push({ name: 'EMF/WMF Images', status: 'warn', detail: `${count} EMF/WMF image${count > 1 ? 's' : ''} found. KDP and Apple Books reject EPUBs with Windows-only image formats — re-save these as PNG or JPG in your source document before re-exporting.`, fixLink: '/epub-errors/emf-image-fallback', fixTool: 'Fix Guide' });
+                }
+            }
+
+            if (opfContent) {
+                const normPath = (p) => p.split('/').reduce((acc, seg) => { if (seg === '..') acc.pop(); else if (seg !== '.') acc.push(seg); return acc; }, []).join('/');
+                const cssHrefs = [...opfContent.matchAll(/href="([^"]+\.css)"/gi)].map(m => m[1]);
+                const opfDir = opfPath.includes('/') ? opfPath.substring(0, opfPath.lastIndexOf('/') + 1) : '';
+                let totalFontRefs = 0;
+                let missingFonts = 0;
+                for (const cssHref of cssHrefs) {
+                    const cssPath = opfDir + cssHref;
+                    const cssFile = zip.file(cssPath) || zip.file(cssHref);
+                    if (!cssFile) continue;
+                    const cssContent = await cssFile.async('string');
+                    const fontUrls = [...cssContent.matchAll(/url\(['"]?([^'")\s]+\.(?:woff2?|ttf|otf|eot))['"]?\)/gi)].map(m => m[1]);
+                    for (const fontUrl of fontUrls) {
+                        if (fontUrl.startsWith('http') || fontUrl.startsWith('//')) continue;
+                        totalFontRefs++;
+                        const cssDir = cssPath.includes('/') ? cssPath.substring(0, cssPath.lastIndexOf('/') + 1) : '';
+                        const resolvedPath = normPath(cssDir + fontUrl);
+                        if (!zip.file(resolvedPath) && !zip.file(fontUrl)) missingFonts++;
+                    }
+                }
+                if (totalFontRefs === 0) {
+                    checks.push({ name: 'Font Files', status: 'pass', detail: 'No custom fonts embedded — device default font will be used.' });
+                    passCount++;
+                } else if (missingFonts === 0) {
+                    checks.push({ name: 'Font Files', status: 'pass', detail: `${totalFontRefs} embedded font${totalFontRefs > 1 ? 's' : ''} verified.` });
+                    passCount++;
+                } else {
+                    checks.push({ name: 'Font Files', status: 'warn', detail: `${missingFonts} font file${missingFonts > 1 ? 's' : ''} referenced in CSS but missing from the package. KDP and Apple Books may reject or mangle the layout.`, fixLink: '/epub-errors/font-link-validation', fixTool: 'Fix Guide' });
+                }
+            }
+
+            if (opfContent) {
                 const hasNav = /properties="[^"]*nav[^"]*"/.test(opfContent);
                 const hasNcx = /media-type="application\/x-dtbncx\+xml"/.test(opfContent);
                 if (hasNav || hasNcx) {
@@ -224,7 +267,7 @@ export default function EpubValidator() {
                     {/* Pro hint — visible before upload */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
                         <p style={{ fontSize: '0.85rem', color: '#6b7280', margin: 0 }}>
-                            Free scan checks 9 core issues.
+                            Free scan checks 11 core issues.
                         </p>
                         <a
                             href="/tools/epub-validator-premium"
