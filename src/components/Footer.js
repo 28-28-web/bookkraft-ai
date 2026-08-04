@@ -67,9 +67,6 @@ export default function Footer() {
                         <a href="https://codetrendy.com" target="_blank" rel="noopener noreferrer">
                             <img src="https://codetrendy.com/api/badge?style=classic" alt="Listed on codetrendy.com" width="108" height="36" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
                         </a>
-                        <a href="https://www.uneed.best/tool/bookkraft-ai" target="_blank" rel="noopener noreferrer">
-                            <img src="https://www.uneed.best/EMBED3.png" alt="Launching on Uneed" width="108" height="36" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
-                        </a>
                         <a href="https://launchpadly.co/startup/bookkraft-ai?ref=badge" target="_blank" rel="noopener noreferrer" data-launchpadly-badge="bookkraft-ai" data-launchpadly-badge-variant="listed-on">
                             <img src="https://launchpadly.co/embed/badges/startup/bookkraft-ai.svg?variant=listed-on" alt="Launchpadly Startup Directory" width="260" height="48" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
                         </a>
