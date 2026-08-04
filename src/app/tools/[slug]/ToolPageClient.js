@@ -1,6 +1,6 @@
 'use client';
 
-import { use } from 'react';
+import { use, useState } from 'react';
 import { getToolBySlug } from '@/lib/tools';
 import { useAuth } from '@/components/AuthProvider';
 import Sidebar from '@/components/Sidebar';
@@ -76,6 +76,58 @@ function ToolHeader({ tool }) {
     );
 }
 
+function extractFaqFromSeoContent(seoContent) {
+    if (!seoContent) return [];
+    const match = seoContent.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+    if (!match) return [];
+    try {
+        const schema = JSON.parse(match[1]);
+        return schema.mainEntity ?? [];
+    } catch {
+        return [];
+    }
+}
+
+function ToolFaqSection({ tool }) {
+    const [open, setOpen] = useState(null);
+    const items = extractFaqFromSeoContent(tool.seoContent);
+    if (items.length === 0) return null;
+    return (
+        <div style={{ maxWidth: 800, margin: '2rem auto 0', padding: '0 1rem' }}>
+            <h2 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1.25rem', color: 'var(--ink)' }}>
+                Common questions
+            </h2>
+            <div role="list">
+                {items.map((item, i) => {
+                    const isOpen = open === i;
+                    return (
+                        <div key={i} className={`faq-item${isOpen ? ' open' : ''}`} role="listitem">
+                            <button
+                                className="faq-question"
+                                onClick={() => setOpen(isOpen ? null : i)}
+                                aria-expanded={isOpen}
+                                id={`tool-faq-btn-${i}`}
+                                aria-controls={`tool-faq-ans-${i}`}
+                            >
+                                {item.name}
+                                <span className="faq-chevron" aria-hidden="true">▾</span>
+                            </button>
+                            <div
+                                id={`tool-faq-ans-${i}`}
+                                className="faq-answer"
+                                role="region"
+                                aria-labelledby={`tool-faq-btn-${i}`}
+                            >
+                                {item.acceptedAnswer.text}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+}
+
 export default function ToolPage({ params }) {
     const resolvedParams = use(params);
     const slug = resolvedParams.slug;
@@ -115,6 +167,7 @@ export default function ToolPage({ params }) {
                         <ToolHeader tool={tool} />
                         <div className="loading-state"><div className="spinner" /> Loading tool...</div>
                         <SeoContentBlock tool={tool} />
+                        <ToolFaqSection tool={tool} />
                     </div>
                 </main>
             </div>
@@ -143,6 +196,7 @@ export default function ToolPage({ params }) {
                             </div>
                         </div>
                         <SeoContentBlock tool={tool} />
+                        <ToolFaqSection tool={tool} />
                     </div>
                 </main>
             </div>
@@ -172,6 +226,7 @@ export default function ToolPage({ params }) {
                     <ToolHeader tool={tool} />
                     <ToolComponent tool={tool} />
                     <SeoContentBlock tool={tool} />
+                    <ToolFaqSection tool={tool} />
                     <RelatedToolsBlock tool={tool} />
                 </div>
             </main>
