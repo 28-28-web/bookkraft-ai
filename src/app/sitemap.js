@@ -35,7 +35,7 @@ export default async function sitemap() {
 
   const toolPages = tools.map(({ slug, priority }) => ({
     url: `${BASE}/tools/${slug}`,
-    lastModified: new Date('2026-03-16'),
+    lastModified: new Date('2026-08-05'),
     changeFrequency: 'weekly',
     priority,
   }));
@@ -104,6 +104,12 @@ export default async function sitemap() {
       priority: 0.3,
     },
     ...toolPages,
+    {
+      url: `${BASE}/tools/epub-validator-premium`,
+      lastModified: new Date('2026-08-05'),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
     {
       url: `${BASE}/tools/cover-checker`,
       lastModified: new Date('2026-07-21'),
