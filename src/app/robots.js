@@ -4,7 +4,10 @@ export default function robots() {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/dashboard/', '/account/', '/admin/', '/api/'],
+        disallow: [
+          '/dashboard/', '/account/', '/admin/', '/api/',
+          '/checkout/', '/history/', '/onboarding/', '/upgrade/', '/forgot-password/',
+        ],
       },
     ],
     sitemap: 'https://bookkraftai.com/sitemap.xml',
