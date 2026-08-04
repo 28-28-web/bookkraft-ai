@@ -117,6 +117,30 @@ export default async function sitemap() {
       priority: 1.0,
     },
     {
+      url: `${BASE}/epub-errors`,
+      lastModified: new Date('2026-08-05'),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE}/epub-errors/emf-image-fallback`,
+      lastModified: new Date('2026-08-05'),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE}/epub-errors/font-link-validation`,
+      lastModified: new Date('2026-08-05'),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE}/epub-errors/missing-manifest-resource`,
+      lastModified: new Date('2026-08-05'),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${BASE}/blog`,
       lastModified: new Date('2026-07-28'),
       changeFrequency: 'weekly',
