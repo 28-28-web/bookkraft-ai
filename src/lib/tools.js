@@ -107,6 +107,8 @@ export const TOOLS = [
     {
         slug: 'manuscript-cleanup',
         name: 'Manuscript Cleanup',
+        seoTitle: 'AI Manuscript Cleanup — Dialogue, Repetition & Cliché Checker',
+        h1: 'AI Manuscript Cleanup for Authors',
         category: 'formatting',
         desc: 'AI-powered manuscript cleanup that catches dialogue punctuation errors, repeated words, and clichés that basic spell checkers always miss. Works for fiction and non-fiction — any length, full novels included.',
         type: 'ai',
@@ -350,6 +352,9 @@ export const TOOLS = [
     {
         slug: 'style-sheet-auditor',
         name: 'Style Sheet Auditor',
+        seoTitle: 'Style Sheet Auditor for Manuscripts — AI Consistency Checker',
+        h1: 'Style Sheet Auditor for Manuscripts',
+        intro: 'AI scans your full manuscript for style inconsistencies — character name variations, capitalisation drift, hyphenation, and dialogue punctuation changes — that spell checkers miss. Free sample run available.',
         category: 'quality',
         desc: 'AI scans your manuscript for style inconsistencies — character names, capitalisation, hyphenation, dialogue punctuation — that human editors charge hundreds to catch. Any manuscript length, full novels included.',
         type: 'ai',
@@ -418,7 +423,7 @@ export const TOOLS = [
         desc: 'Build complete book metadata formatted for KDP, IngramSpark, Draft2Digital, and EPUB OPF files. Includes keywords, BISAC categories, and pricing fields. Free tool for indie authors. No account required.',
         seoTitle: 'Metadata Builder for KDP — Free Book Metadata Generator',
         h1: 'Metadata Builder for KDP, IngramSpark & EPUB',
-        intro: 'Build complete book metadata for KDP, IngramSpark, Draft2Digital, and EPUB OPF files from one form — title, subtitle, BISAC categories, keywords, and pricing formatted correctly for each platform. Free, no account required.',
+        intro: 'Metadata Builder for KDP creates complete book metadata for KDP, IngramSpark, Draft2Digital, and EPUB OPF files in one step — title, subtitle, BISAC categories, keywords, and pricing formatted correctly for each platform. Free, no account required.',
         type: 'logic',
         accessType: 'free',
         creditCost: 0,

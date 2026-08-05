@@ -118,24 +118,30 @@ export default function VellumAlternativePage() {
           },
           {
             n: 2,
+            title: 'Check style consistency',
+            href: '/tools/style-sheet-auditor',
+            body: "Before formatting, scan your draft for character name inconsistencies, capitalisation drift, and dialogue punctuation errors. These don't show up in Word's spell checker but become visible to readers — catch them before your manuscript goes into Vellum.",
+          },
+          {
+            n: 3,
             title: 'Generate your Table of Contents',
             href: '/tools/toc-generator',
             body: "KDP requires a clickable, properly structured TOC. Vellum generates one automatically during design, but if you're going straight to KDP or another platform, you'll need one before upload. The TOC Generator builds it in the right format.",
           },
           {
-            n: 3,
+            n: 4,
             title: 'Add front and back matter',
             href: '/tools/front-matter-generator',
             body: 'Title page, copyright page, and author bio at minimum. These need to exist before you import into Vellum so the design step includes them. The Front Matter and Back Matter generators produce ready-to-use text.',
           },
           {
-            n: 4,
+            n: 5,
             title: 'Validate your EPUB',
             href: '/tools/epub-validator',
             body: "If you're exporting from Vellum and uploading to Apple Books or Kobo, run the EPUB Validator on the output before submitting. Vellum's exports are generally clean, but Apple Books has strict validation that catches edge cases Vellum doesn't test for.",
           },
           {
-            n: 5,
+            n: 6,
             title: 'Build your metadata',
             href: '/tools/metadata-builder',
             body: 'Title, author, description, BISAC categories, and language need to match across KDP, your EPUB file, and any other platform you\'re submitting to. The Metadata Builder outputs all of it in the formats each platform expects.',
