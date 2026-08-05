@@ -42,6 +42,9 @@ export const TOOLS = [
     {
         slug: 'epub-formatter',
         name: 'EPUB Formatter',
+        seoTitle: 'EPUB Formatter — Convert to EPUB 3.0 for KDP',
+        h1: 'EPUB Formatter — Convert Your Manuscript to EPUB 3.0',
+        intro: 'EPUB formatter for indie authors. Paste your manuscript and generate a valid EPUB 3.0 file with correct chapter structure, metadata, and cover image — no Sigil, no Calibre, no coding required. Included in Starter and Pro plans.',
         category: 'formatting',
         desc: 'Generate a valid EPUB 3.0 file directly from your manuscript. Handles chapter breaks, metadata, cover image embedding, and file structure automatically. No software or coding needed.',
         type: 'logic',
@@ -73,6 +76,9 @@ export const TOOLS = [
     {
         slug: 'toc-generator',
         name: 'TOC Generator',
+        seoTitle: 'Table of Contents Generator for Kindle & EPUB — Free',
+        h1: 'Table of Contents Generator for Kindle and EPUB',
+        intro: 'Free Table of Contents Generator for Kindle, EPUB3, and NCX formats. Paste your chapter headings and get a correctly structured, clickable TOC ready to publish — no signup, no coding required.',
         category: 'formatting',
         desc: 'Build a clickable, correctly formatted Table of Contents for Kindle, EPUB3, and NCX. Paste your chapter headings and get clean, publish-ready TOC code in seconds. No signup needed.',
         type: 'logic',
@@ -149,6 +155,9 @@ export const TOOLS = [
     {
         slug: 'print-to-digital',
         name: 'Print-to-Digital Adapter',
+        seoTitle: 'Print-to-Digital Converter for KDP and EPUB',
+        h1: 'Print-to-Digital Converter for KDP and EPUB Books',
+        intro: 'Convert print-formatted manuscripts to eBook-ready text for KDP and EPUB. This print-to-digital converter handles page references, footnotes, running headers, and fixed-width tables automatically — any manuscript length, no manual search and replace.',
         category: 'formatting',
         desc: 'Convert print-specific elements like page references, footnotes, and running headers into eBook-ready format using AI. Works for KDP and EPUB — any manuscript length.',
         type: 'ai',
@@ -184,6 +193,9 @@ export const TOOLS = [
     {
         slug: 'front-matter-generator',
         name: 'Front Matter Generator',
+        seoTitle: 'Front Matter Generator for Books — KDP Title Page & Copyright Page',
+        h1: 'Front Matter Generator for KDP and EPUB Books',
+        intro: 'Front Matter Generator for indie authors. Fill out a form and get a professional title page, copyright page, dedication, and disclaimer formatted to KDP and EPUB standards — no formatting experience needed.',
         category: 'structure',
         desc: 'Generate a professional title page, copyright page, dedication, and disclaimer for your book. Fill out a simple form and get publish-ready front matter for KDP instantly.',
         type: 'logic',
@@ -229,6 +241,9 @@ export const TOOLS = [
     {
         slug: 'back-matter-generator',
         name: 'Back Matter Generator',
+        seoTitle: 'Back Matter Generator — Author Bio, Also By & Closing Pages for KDP',
+        h1: 'Back Matter Generator for Indie Authors',
+        intro: 'AI-powered back matter generator for books. Writes your author bio, Also By section, reader list call-to-action, and closing note — professional back matter for KDP and EPUB in minutes.',
         category: 'structure',
         desc: 'AI writes your author bio, mailing list call-to-action, Also By section, and closing note. Professional back matter for indie authors done in minutes. No formatting experience needed.',
         type: 'ai',
@@ -323,7 +338,7 @@ export const TOOLS = [
         free: true,
         related: [{ slug: 'kdp-keyword-finder', label: 'KDP Keyword Finder tool' }],
         upsell: null,
-        seoContent: `<h2>EPUB Validator for KDP and IngramSpark</h2><p>An EPUB file can look fine on your computer and still fail upload to KDP or get rejected by Apple Books. This tool checks the file structure before you submit it anywhere.</p><h2>What It Checks</h2><p>Structure errors that break navigation. Missing required metadata fields. Content issues that cause store rejections. No Java installation or desktop software required, runs entirely in the browser.</p><h2>Who This Is For</h2><p>Authors about to upload an EPUB to KDP, IngramSpark, Apple Books, or Kobo. Anyone who has had a file rejected without a clear reason. Formatters validating client files before delivery.</p><h2>How to Validate Your EPUB File</h2><p>Upload your .epub file, choose Quick Check for structure only or Full Check for structure plus content, and get results in seconds.</p><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the EPUB Validator free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free with no signup, account, or credit card required."}},{"@type":"Question","name":"Do I need Java or desktop software?","acceptedAnswer":{"@type":"Answer","text":"No. The validator runs entirely in your browser. No installation needed."}},{"@type":"Question","name":"What is the difference between Quick Check and Full Check?","acceptedAnswer":{"@type":"Answer","text":"Quick Check reviews file structure only. Full Check reviews structure plus content issues for a more thorough validation."}},{"@type":"Question","name":"Is this the same as an EPUB checker?","acceptedAnswer":{"@type":"Answer","text":"Yes. An EPUB validator and EPUB checker are the same thing — a tool that checks your EPUB file for errors before uploading to KDP, Apple Books, or IngramSpark. Both terms are used interchangeably by authors and formatters."}},{"@type":"Question","name":"Can I use this to verify an EPUB file?","acceptedAnswer":{"@type":"Answer","text":"Yes. This tool is used to verify EPUB files before uploading to any major store — KDP, Apple Books, IngramSpark, or Kobo. It checks structure, metadata, and content issues in seconds."}}]}</script>`,
+        seoContent: `<h2>EPUB Validator for KDP and IngramSpark</h2><p>An EPUB file can look fine on your computer and still fail upload to KDP or get rejected by Apple Books. This tool checks the file structure before you submit it anywhere.</p><h2>What It Checks</h2><p>Structure errors that break navigation. Missing required metadata fields. Content issues that cause store rejections. No Java installation or desktop software required, runs entirely in the browser.</p><h2>Who This Is For</h2><p>Authors about to upload an EPUB to KDP, IngramSpark, Apple Books, or Kobo. Anyone who has had a file rejected without a clear reason. Formatters validating client files before delivery.</p><h2>How to Validate Your EPUB File</h2><p>Upload your .epub file, choose Quick Check for structure only or Full Check for structure plus content, and get results in seconds.</p><h2>What Is EPUB Validation?</h2><p>EPUB validation is the process of checking whether an EPUB file conforms to the EPUB specification — and whether it meets the stricter submission requirements of specific stores like KDP, Apple Books, and IngramSpark. An EPUB file is a zip archive containing HTML, CSS, images, and metadata. Any broken reference, malformed XML, or missing required element can cause a store to reject the upload or display errors on an eReader. Running EPUB validation before submission catches these issues while you can still fix them.</p><h2>Free Online EPUB Validator — No Installation Required</h2><p>Most EPUB validation tools require Java, a desktop application, or a complicated command-line setup. This free online EPUB validator runs entirely in your browser — drop your file, get results in seconds, no download or account needed. Works on Windows, Mac, Linux, and Chromebook. The same validation checks available in dedicated tools, accessible without the setup overhead.</p><h2>Common EPUB Validation Errors and What They Mean</h2><p>OPF manifest errors appear when a file listed in your package document is missing or has the wrong media type. Navigation errors occur when the nav.xhtml document doesn't include a required toc element. Metadata errors are triggered by missing or malformed required fields — typically the identifier, title, or language. Cover reference errors happen when the cover image isn't correctly linked in the OPF. Each of these will surface in the validation report with its location, so you know exactly where to look.</p><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the EPUB Validator free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free with no signup, account, or credit card required."}},{"@type":"Question","name":"Do I need Java or desktop software?","acceptedAnswer":{"@type":"Answer","text":"No. The validator runs entirely in your browser. No installation needed."}},{"@type":"Question","name":"What is the difference between Quick Check and Full Check?","acceptedAnswer":{"@type":"Answer","text":"Quick Check reviews file structure only. Full Check reviews structure plus content issues for a more thorough validation."}},{"@type":"Question","name":"Is this the same as an EPUB checker?","acceptedAnswer":{"@type":"Answer","text":"Yes. An EPUB validator and EPUB checker are the same thing — a tool that checks your EPUB file for errors before uploading to KDP, Apple Books, or IngramSpark. Both terms are used interchangeably by authors and formatters."}},{"@type":"Question","name":"Can I use this to verify an EPUB file?","acceptedAnswer":{"@type":"Answer","text":"Yes. This tool is used to verify EPUB files before uploading to any major store — KDP, Apple Books, IngramSpark, or Kobo. It checks structure, metadata, and content issues in seconds."}},{"@type":"Question","name":"What does EPUB validation mean?","acceptedAnswer":{"@type":"Answer","text":"EPUB validation checks your file against the EPUB specification to confirm it is structurally correct and contains all required metadata. A valid EPUB file opens correctly on eReaders, navigates properly, and passes the automated checks that KDP, Apple Books, and IngramSpark run when you upload. An invalid file may be rejected at upload, display incorrectly on devices, or have navigation that doesn't work."}},{"@type":"Question","name":"Is this an online EPUB validator?","acceptedAnswer":{"@type":"Answer","text":"Yes. This is a free online EPUB validator — it runs entirely in your browser with no installation, no Java, and no account required. Upload your .epub file and get validation results in seconds from any device, including Windows, Mac, Linux, and Chromebook."}},{"@type":"Question","name":"What happens if I skip EPUB validation before uploading?","acceptedAnswer":{"@type":"Answer","text":"KDP, Apple Books, and IngramSpark run their own automated checks when you upload. If your file fails, you get a rejection notice — sometimes with a vague error message, sometimes with none at all. Validation before upload gives you the specific error, its location in the file, and time to fix it before the store sees the file."}}]}</script>`,
         fields: [
             { id: 'file', label: 'Drop your .epub file here or click to browse', type: 'file', accept: '.epub' },
             {
