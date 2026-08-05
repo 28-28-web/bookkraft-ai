@@ -364,14 +364,8 @@ export default function MetadataBuilder() {
             </>
         )}
 
-        <div className="seo-content" style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}>
-            <h2>Book Metadata Builder for Self-Publishing Platforms</h2>
-            <p>Upload your EPUB and we'll auto-detect your existing metadata. Then review, fill in any gaps, and export formatted for KDP, IngramSpark, Draft2Digital, and more.</p>
-            <h2>Who This Is For</h2>
-            <p>First-time authors who don't know what BISAC codes are or why they matter. Experienced authors publishing across multiple platforms who want consistent, accurate metadata without filling in the same fields five different times.</p>
-        </div>
 
-        <StickyUpgradeBanner />
+<StickyUpgradeBanner />
         </>
     );
 }
