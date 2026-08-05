@@ -19,6 +19,14 @@ const faqs = [
     q: 'Do I need to install anything to use BookKraft AI?',
     a: `No. BookKraft AI runs entirely in your browser. There is nothing to download or install, and ${FREE_TOOLS.length} tools — EPUB Validator, Metadata Builder, Cover Checker, Word Manuscript Cleanup Checker, and Full Manuscript Mode — are free with no signup required.`,
   },
+  {
+    q: 'Does BookKraft AI work with Atticus?',
+    a: 'Yes. After you export an EPUB from Atticus, run it through the free EPUB Validator to check structure, metadata, and cover dimensions before uploading. Atticus generates valid EPUBs in most cases, but validation catches edge cases that cause KDP or Apple Books rejections.',
+  },
+  {
+    q: 'I publish directly to KDP without a formatter. Is BookKraft AI useful?',
+    a: "Yes — especially the Word Cleanup Checker, EPUB Validator, Metadata Builder, and KDP Keyword Finder. KDP's internal converter handles a lot, but it doesn't tell you what it silently changed or what it rejected outright. Running your file through validation first removes that guesswork.",
+  },
 ];
 
 const faqSchema = {
@@ -104,6 +112,58 @@ export default function AlternativesPage() {
               <p style={{ fontSize: 15, lineHeight: 1.6, opacity: 0.85, margin: 0 }}>{s.desc}</p>
             </div>
           ))}
+        </div>
+
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }}>
+          How BookKraft AI fits into your workflow
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          It depends on which tool you're publishing with. Here's how the pre-flight step works with each one.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>If you're using Vellum</strong> — Vellum is Mac-only and handles design. BookKraft AI runs on any platform and handles what comes before design: manuscript cleanup, metadata, EPUB validation. Run BookKraft AI first, then bring the clean file into Vellum on a Mac.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>If you're using Atticus</strong> — Atticus formats and exports on Windows and Mac. But it doesn't validate the EPUB output or build KDP-ready metadata. BookKraft AI does both. Use Atticus for writing and formatting, then run the exported file through the validator before uploading.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 32, opacity: 0.9 }}>
+          <strong>If you're uploading directly to KDP</strong> — KDP accepts Word documents and EPUBs, converts them internally, and sometimes silently fixes errors and sometimes rejects the file. Running cleanup and validation before upload means you know what you're sending and why it should pass.
+        </p>
+
+        <div style={{ overflowX: 'auto', marginBottom: 56 }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15 }}>
+            <thead>
+              <tr style={{ borderBottom: '2px solid rgba(0,0,0,0.1)' }}>
+                <th style={{ textAlign: 'left', padding: '12px 8px' }}></th>
+                <th style={{ textAlign: 'left', padding: '12px 8px', opacity: 0.7 }}>Vellum</th>
+                <th style={{ textAlign: 'left', padding: '12px 8px', opacity: 0.7 }}>Atticus</th>
+                <th style={{ textAlign: 'left', padding: '12px 8px', color: '#c9a84c' }}>BookKraft AI</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['Platform', 'Mac only', 'Windows + Mac', 'Any browser'],
+                ['Price', '$249.99 ebook / $499.99 with print', '$147 one-time', `$19 one-time, or free for ${FREE_TOOLS.length} tools`],
+                ['Formatting & design', '✓', '✓', '—'],
+                ['Print PDF output', '✓', '✓', '—'],
+                ['EPUB Validator', '—', '—', '✓ Free'],
+                ['KDP Metadata builder', '—', '—', '✓ Free'],
+                ['Manuscript cleanup', '—', 'Basic', '✓'],
+                ['KDP keyword finder', '—', '—', '✓'],
+                ['No install needed', '—', '—', '✓'],
+              ].map(([label, vellum, atticus, bk], i) => (
+                <tr key={i} style={{ borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
+                  <td style={{ padding: '12px 8px', fontWeight: 600, opacity: 0.85 }}>{label}</td>
+                  <td style={{ padding: '12px 8px', opacity: 0.7 }}>{vellum}</td>
+                  <td style={{ padding: '12px 8px', opacity: 0.7 }}>{atticus}</td>
+                  <td style={{ padding: '12px 8px' }}>{bk}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p style={{ fontSize: 13, opacity: 0.6, marginTop: 10 }}>
+            BookKraft AI handles pre-flight — not design. The two aren't in competition.
+          </p>
         </div>
 
         {cards.length > 0 && (

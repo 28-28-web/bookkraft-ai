@@ -264,6 +264,39 @@ export default function ContactClient() {
                    </a>
                     {' '}for answers to common questions.
                 </p>
+
+                <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#1a1a1a', marginBottom: 12, marginTop: 32 }}>
+                    What we can help with
+                </h2>
+                <p style={{ color: '#666', lineHeight: 1.7, marginBottom: 12 }}>
+                    <strong style={{ color: '#333' }}>Tool errors and unexpected behavior</strong> — if something didn&apos;t work the way you expected, tell us what you uploaded and what happened. We can usually reproduce the issue and fix it.
+                </p>
+                <p style={{ color: '#666', lineHeight: 1.7, marginBottom: 12 }}>
+                    <strong style={{ color: '#333' }}>Questions about your specific EPUB</strong> — if your file is getting rejected by KDP or Apple Books and you&apos;re not sure why, describe the error message you got. We&apos;ll point you to the right check or tool.
+                </p>
+                <p style={{ color: '#666', lineHeight: 1.7, marginBottom: 12 }}>
+                    <strong style={{ color: '#333' }}>Feature requests</strong> — we build what authors actually need. If there&apos;s a formatting step you keep doing manually that should be a tool, we want to hear it.
+                </p>
+                <p style={{ color: '#666', lineHeight: 1.7, marginBottom: 24 }}>
+                    <strong style={{ color: '#333' }}>Account and billing</strong> — credit balance issues, payment questions, or anything related to your subscription. Include your account email so we can look it up.
+                </p>
+
+                <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#1a1a1a', marginBottom: 12 }}>
+                    What we can&apos;t help with
+                </h2>
+                <p style={{ color: '#666', lineHeight: 1.7, marginBottom: 12 }}>
+                    Writing or editing your book content — we handle the technical formatting side, not the manuscript itself.
+                </p>
+                <p style={{ color: '#666', lineHeight: 1.7, marginBottom: 24 }}>
+                    KDP account suspensions or policy violations — those go through Amazon&apos;s author support directly.
+                </p>
+
+                <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#1a1a1a', marginBottom: 12 }}>
+                    Response time
+                </h2>
+                <p style={{ color: '#666', lineHeight: 1.7 }}>
+                    We typically reply within 1–2 business days. For anything urgent — a launch deadline, a time-sensitive rejection — say so in the subject line and we&apos;ll prioritize it. We don&apos;t use automated replies, so the response you get is from a real person who read your message.
+                </p>
             </section>
 
             <Footer />

@@ -125,6 +125,49 @@ export default function KdpFormattingGuidePage() {
         </div>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
+          Common mistakes before uploading to KDP
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          Most rejections and quality flags come from the same handful of problems.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Skipping the cleanup pass.</strong> Double spaces, straight quotes, and stacked blank paragraphs don&apos;t stop Word from looking fine — but they show up in EPUB output and sometimes trigger KDP&apos;s quality review. Run the <Link href="/tools/word-cleanup" style={{ color: '#9c7f35', textDecoration: 'none' }}>Word Manuscript Cleanup Checker</Link> before converting.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Uploading without validating.</strong> KDP accepts your file, converts it internally, and doesn&apos;t always tell you what it changed or dropped. Apple Books and Kobo are stricter — they reject files KDP quietly accepts. Validate before uploading anywhere.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Incomplete metadata.</strong> A missing language tag, a blank description, or mismatched title formatting between your EPUB and your KDP listing can slow down approval or affect how your book appears in search. The <Link href="/tools/metadata-builder" style={{ color: '#9c7f35', textDecoration: 'none' }}>Metadata Builder</Link> fills all required fields in one step.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 40, opacity: 0.9 }}>
+          <strong>Wrong category paths.</strong> Authors often pick the broadest category available. Narrower subcategories have less competition and make bestseller rank easier to reach. The <Link href="/tools/kdp-keyword-finder" style={{ color: '#9c7f35', textDecoration: 'none' }}>KDP Keyword &amp; Category Finder</Link> generates specific paths, including ghost categories you can request from KDP support.
+        </p>
+
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
+          Pre-upload checklist
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          Before you upload to KDP, Apple Books, or Kobo, run through this list:
+        </p>
+        <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 40px' }}>
+          {[
+            'Manuscript cleaned (no double spaces, straight quotes, or encoding artifacts)',
+            'Clickable Table of Contents present and correctly structured',
+            'Front matter complete (title page, copyright, dedication)',
+            'Back matter complete (author bio, Also By, mailing list CTA)',
+            'EPUB file validates with zero errors',
+            'Cover image meets platform dimensions and file size requirements',
+            'Metadata complete: title, author, description, language, BISAC category, 7 keywords',
+            'Preview rendered correctly on at least one device or emulator',
+          ].map((item, i) => (
+            <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, marginBottom: 10, fontSize: 16, lineHeight: 1.6, opacity: 0.88 }}>
+              <input type="checkbox" disabled style={{ marginTop: 4, flexShrink: 0, accentColor: '#c9a84c' }} />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           Considering an all-in-one app instead?
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>

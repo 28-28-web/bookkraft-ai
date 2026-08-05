@@ -199,6 +199,8 @@ export default function FreeToolsPage() {
             {/* SEO Content */}
             <section style={{ padding: 'var(--space-16) 0', borderTop: '1px solid var(--border)' }}>
                 <div className="container" style={{ maxWidth: '800px', margin: '0 auto', padding: '0 1rem' }}>
+                    <p>These five tools cover the most common technical tasks before publishing an ebook: validating your EPUB structure, building KDP-ready metadata, checking your cover dimensions, cleaning up your Word manuscript, and converting a .docx file to a valid EPUB. Four of them work right away — open the page and start, no email address needed. The fifth (Full Manuscript Mode) requires a free BookKraft account because the converted file needs somewhere to go.</p>
+
                     <h2>Free Book Formatting Tools for Self-Publishers</h2>
                     <p>Publishing a book takes more than just writing. The formatting, metadata, file validation, cover specs — it all adds up. These free book formatting tools handle the technical side so you can focus on the work that actually matters.</p>
 
@@ -236,6 +238,15 @@ export default function FreeToolsPage() {
 
                     <h3>Do I need Calibre or Sigil to format an ebook?</h3>
                     <p>No. These tools run in your browser — no desktop software to install. Upload your .docx or .epub file and get results immediately.</p>
+
+                    <h3>Do I need to create an account to use these tools?</h3>
+                    <p>Four of the five tools need no account — EPUB Validator, Metadata Builder, Cover Checker, and Word Manuscript Cleanup Checker work immediately in any browser. Full Manuscript Mode requires a free BookKraft account because your converted file needs somewhere to go. No credit card is required for any of the free tools.</p>
+
+                    <h3>Are these tools really free, or is there a catch?</h3>
+                    <p>No catch. The four no-account tools are free with no usage limit — run them as many times as you need. Full Manuscript Mode is also free; it just requires an account so we can deliver your converted file. We don&apos;t ask for payment to access any of the free tools.</p>
+
+                    <h3>Do these tools work on Windows, Mac, and Linux?</h3>
+                    <p>Yes. All five run in any modern browser on any operating system. There&apos;s nothing to download or install — if your browser can open a webpage, the tools work.</p>
 
                     <h2>Need More Tools?</h2>
                     <p>The free tools cover core ebook formatting tasks. For AI-powered manuscript cleanup, KDP keyword research, back matter generation, print-to-digital conversion, and more — explore the full <a href="/pricing" style={{ color: 'var(--gold)' }}>BookKraft AI toolkit</a>. One-time purchase, no monthly fees.</p>

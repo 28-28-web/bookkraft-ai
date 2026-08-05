@@ -19,6 +19,14 @@ const faqs = [
     q: 'Does BookKraft AI work for KDP publishing?',
     a: 'Yes. Every tool is built specifically for indie authors publishing on KDP, Apple Books, Kobo, IngramSpark, and Draft2Digital.',
   },
+  {
+    q: 'Can I use BookKraft AI and Calibre together?',
+    a: 'Yes. A common setup is: BookKraft AI for pre-submission cleanup, validation, and metadata — Calibre for format conversions or managing your reading library. They don\'t overlap in any meaningful way, so you can use both without changing your existing workflow.',
+  },
+  {
+    q: 'Does Calibre\'s Tweak Book editor do the same thing as the EPUB Validator?',
+    a: 'Not quite. Tweak Book is an editor — you open your EPUB and modify the files inside it. The EPUB Validator reads your file and identifies structural errors without touching it. Validation usually happens first, editing second, so they\'re steps in the same workflow, not alternatives.',
+  },
 ];
 
 const faqSchema = {
@@ -80,6 +88,22 @@ export default function CalibreAlternativePage() {
             </tbody>
           </table>
         </div>
+
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
+          When to use Calibre, when to use BookKraft AI
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          The right choice depends on what you're actually trying to do, not which tool has more features overall.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Formatting your first book for KDP?</strong> Calibre's library management features aren't relevant here. You need to clean up your manuscript, generate a compliant table of contents, validate the EPUB, and build metadata — in that order. BookKraft AI handles each of those steps directly, with no setup required.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Already using Calibre for your personal ebook library?</strong> Keep using it for that. BookKraft AI handles the pre-submission steps for the book you're writing. The two tools cover different ground — there's no conflict, and no reason to pick one over the other.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 32, opacity: 0.9 }}>
+          <strong>Getting KDP rejections and not sure why?</strong> Calibre's built-in checks miss a lot of what KDP and Apple Books actually validate. Run your file through the free EPUB Validator first. It checks structural issues, manifest completeness, spine errors, and cover dimensions — and links to the fix for each one. Most rejection causes show up in the first scan.
+        </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           Why indie authors look for a Calibre alternative

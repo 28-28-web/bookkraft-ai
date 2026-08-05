@@ -19,6 +19,14 @@ const faqs = [
     q: 'Can I format a print book with BookKraft AI?',
     a: 'BookKraft AI focuses on ebook formatting and pre-flight checks (EPUB, Kindle/KFX, MOBI). It does not generate print-ready PDFs — that\'s Vellum\'s job, and one more reason the two work well together rather than as competitors.',
   },
+  {
+    q: 'Can BookKraft AI export the same visual themes as Vellum?',
+    a: "No. Vellum's visual themes — fonts, chapter headers, drop caps, and page layout — are the core of what it does. BookKraft AI generates structurally valid EPUB files with clean formatting, but it doesn't offer Vellum-style visual design templates. If visual theme variety matters to you, Vellum with Mac access is still the right tool for that layer.",
+  },
+  {
+    q: "What's the cheapest way to use Vellum if I'm on Windows?",
+    a: 'The most common options are MacinCloud (Mac rental by the hour or month) or asking a Mac-owning friend to run Vellum once you hand them the formatted file. BookKraft AI handles everything up to the design step on any platform, so the Mac time you\'d need in Vellum is shorter — you\'d be importing a clean, validated file rather than doing cleanup inside Vellum itself.',
+  },
 ];
 
 const faqSchema = {
@@ -76,6 +84,16 @@ export default function VellumAlternativePage() {
         </div>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
+          Why Vellum doesn&apos;t work on Windows
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          Vellum is built using macOS-only frameworks — Apple&apos;s AppKit and native Mac APIs that have no Windows equivalent. It isn&apos;t a licensing decision. The software literally cannot run outside of macOS. Wine, emulators, and cloud Mac services like MacinCloud can technically host it, but each adds cost, lag, and setup overhead that Mac users never deal with.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 32, opacity: 0.9 }}>
+          So most Windows authors either skip Vellum entirely or borrow Mac access just for the formatting step. BookKraft AI doesn&apos;t change that — but it handles the steps that happen before formatting, which means less time needed in Vellum when you get there.
+        </p>
+
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           Why Windows authors search for a Vellum alternative
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
@@ -84,6 +102,52 @@ export default function VellumAlternativePage() {
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
           BookKraft AI doesn't solve that platform problem by replacing Vellum's design tools — it solves a different, earlier problem: getting your manuscript clean, validated, and metadata-complete on any platform, before design even starts. If you do have Mac access for Vellum, running BookKraft AI first still saves you a cleanup pass; if you don't, BookKraft AI plus KDP's own tools gets a properly formatted book published without ever needing a Mac.
         </p>
+
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
+          Step-by-step: preparing your manuscript before Vellum
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 20, opacity: 0.9 }}>
+          Whether you&apos;re using Vellum on a Mac or going straight to KDP from Windows, these steps are the same. Do them before your manuscript goes anywhere near a formatter.
+        </p>
+        {[
+          {
+            n: 1,
+            title: 'Run the Word Manuscript Cleanup Checker',
+            href: '/tools/word-cleanup',
+            body: 'Upload your .docx file. It flags double spaces, straight quotes, broken em dashes, and encoding artifacts that become visible errors after conversion. Fix them in Word using find-and-replace, then re-save.',
+          },
+          {
+            n: 2,
+            title: 'Generate your Table of Contents',
+            href: '/tools/toc-generator',
+            body: "KDP requires a clickable, properly structured TOC. Vellum generates one automatically during design, but if you're going straight to KDP or another platform, you'll need one before upload. The TOC Generator builds it in the right format.",
+          },
+          {
+            n: 3,
+            title: 'Add front and back matter',
+            href: '/tools/front-matter-generator',
+            body: 'Title page, copyright page, and author bio at minimum. These need to exist before you import into Vellum so the design step includes them. The Front Matter and Back Matter generators produce ready-to-use text.',
+          },
+          {
+            n: 4,
+            title: 'Validate your EPUB',
+            href: '/tools/epub-validator',
+            body: "If you're exporting from Vellum and uploading to Apple Books or Kobo, run the EPUB Validator on the output before submitting. Vellum's exports are generally clean, but Apple Books has strict validation that catches edge cases Vellum doesn't test for.",
+          },
+          {
+            n: 5,
+            title: 'Build your metadata',
+            href: '/tools/metadata-builder',
+            body: 'Title, author, description, BISAC categories, and language need to match across KDP, your EPUB file, and any other platform you\'re submitting to. The Metadata Builder outputs all of it in the formats each platform expects.',
+          },
+        ].map((step) => (
+          <div key={step.n} style={{ marginBottom: 24, paddingLeft: 16, borderLeft: '3px solid rgba(201,168,76,0.4)' }}>
+            <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 6 }}>
+              {step.n}. <Link href={step.href} style={{ color: '#9c7f35', textDecoration: 'none' }}>{step.title} →</Link>
+            </h3>
+            <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.85, margin: 0 }}>{step.body}</p>
+          </div>
+        ))}
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           What BookKraft AI includes
