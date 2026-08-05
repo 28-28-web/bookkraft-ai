@@ -46,11 +46,8 @@ export async function POST(req) {
     </a>
   </p>
 
-  <p style="margin-top: 8px;">
-    <a href="https://bookkraftai.com/blog/book-metadata-guide"
-       style="color: #b8860b; text-decoration: none; font-size: 14px;">
-      Why does metadata matter for KDP? Read the guide →
-    </a>
+  <p style="margin-top: 8px; font-size: 14px; color: #9ca3af;">
+    Good metadata improves discoverability on KDP and other platforms — title, author, description, and categories all affect how readers find your book.
   </p>
 
   <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
