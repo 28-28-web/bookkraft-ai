@@ -29,6 +29,7 @@ export default function Footer() {
                         <Link href="/tools/toc-generator" className="footer-link">TOC Generator</Link>
                         <Link href="/tools/manuscript-cleanup" className="footer-link">Manuscript Cleanup</Link>
                         <Link href="/tools/style-sheet-auditor" className="footer-link">Style Sheet Auditor</Link>
+                        <Link href="/tools/kdp-keyword-finder" className="footer-link">KDP Keyword Finder</Link>
                         <Link href="/tools/word-cleanup" className="footer-link">Word Cleanup Checker</Link>
                         <Link href="/tools/cover-checker" className="footer-link">Cover Checker</Link>
                         <Link href="/tools/manuscript-mode" className="footer-link">Full Manuscript Mode</Link>

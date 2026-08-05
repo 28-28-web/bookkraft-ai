@@ -205,6 +205,14 @@ export default function KdpKeywordFinder() {
             },
             {
                 "@type": "Question",
+                "name": "Is this a KDP keywords generator?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes — it generates keyword phrases matched to your book's genre, themes, and comparable titles, formatted to stay within KDP's 50-character-per-slot limit. It also works as a KDP category finder, suggesting full Amazon category paths including ghost categories and narrow subcategories you can request from KDP support."
+                }
+            },
+            {
+                "@type": "Question",
                 "name": "What keywords are banned on Amazon KDP?",
                 "acceptedAnswer": {
                     "@type": "Answer",

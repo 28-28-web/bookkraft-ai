@@ -149,7 +149,7 @@ export default function AlternativesPage() {
                 ['EPUB Validator', '—', '—', '✓ Free'],
                 ['KDP Metadata builder', '—', '—', '✓ Free'],
                 ['Manuscript cleanup', '—', 'Basic', '✓'],
-                ['KDP keyword finder', '—', '—', '✓'],
+                [<Link key="kdp" href="/tools/kdp-keyword-finder" style={{ color: 'inherit', textDecoration: 'none' }}>KDP keyword finder</Link>, '—', '—', '✓'],
                 ['No install needed', '—', '—', '✓'],
               ].map(([label, vellum, atticus, bk], i) => (
                 <tr key={i} style={{ borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
@@ -219,7 +219,7 @@ export default function AlternativesPage() {
           What BookKraft AI includes
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
-          {TOOLS.length} tools covering the full pre-flight workflow: Kindle Format Fixer, EPUB Formatter, TOC Generator, Front Matter Generator, Back Matter Generator, CSS Snippet Generator, EPUB Validator, EPUB Validator Pro, Style Sheet Auditor, Print-to-Digital Adapter, Metadata Builder, KDP Keyword Finder, AI-powered Manuscript Cleanup, Word Manuscript Cleanup Checker, Cover Checker, and Full Manuscript Mode. {FREE_TOOLS.length} tools — EPUB Validator, Metadata Builder, Cover Checker, Word Manuscript Cleanup Checker, and Full Manuscript Mode — are free with no signup required.
+          {TOOLS.length} tools covering the full pre-flight workflow: Kindle Format Fixer, EPUB Formatter, TOC Generator, Front Matter Generator, Back Matter Generator, CSS Snippet Generator, EPUB Validator, EPUB Validator Pro, Style Sheet Auditor, Print-to-Digital Adapter, Metadata Builder, <Link href="/tools/kdp-keyword-finder" style={{ color: '#9c7f35', textDecoration: 'none' }}>KDP Keyword Finder</Link>, AI-powered Manuscript Cleanup, Word Manuscript Cleanup Checker, Cover Checker, and Full Manuscript Mode. {FREE_TOOLS.length} tools — EPUB Validator, Metadata Builder, Cover Checker, Word Manuscript Cleanup Checker, and Full Manuscript Mode — are free with no signup required.
         </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
