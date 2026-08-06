@@ -2,8 +2,8 @@ import FreeToolsPage from './FreeToolsPage';
 import { FREE_TOOLS } from '@/lib/constants';
 
 export const metadata = {
-  title: 'Free Book Formatting Tools for Indie Authors | BookKraft AI',
-  description: `${FREE_TOOLS.length} free book formatting tools for self-publishers — EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup, and EPUB Converter. No signup, no subscription.`,
+  title: 'Free Ebook Formatting Tools — No Signup, No Watermark | BookKraft AI',
+  description: 'Five free ebook formatting tools for indie authors — EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup, and EPUB Converter. Four require no signup. None add a watermark.',
   keywords: 'book formatting tools, book formatting for self publishing, book formatting, free book formatting, epub validator, docx to epub',
   alternates: {
     canonical: 'https://bookkraftai.com/free-tools',
