@@ -72,6 +72,9 @@ export default function Footer() {
                         <a href="https://launchpadly.co/startup/bookkraft-ai?ref=badge" target="_blank" rel="noopener noreferrer" data-launchpadly-badge="bookkraft-ai" data-launchpadly-badge-variant="listed-on">
                             <img src="https://launchpadly.co/embed/badges/startup/bookkraft-ai.svg?variant=listed-on" alt="Launchpadly Startup Directory" width="260" height="48" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
                         </a>
+                        <a href="https://startupbase.io/products/bookkraft-ai?utm_source=startupbase&utm_medium=badge&utm_campaign=featured-badge-light" target="_blank" rel="noopener noreferrer">
+                            <img src="https://statics.startupbase.io/site/badges/featured-on-sb.svg" alt="Featured on StartupBase" width="90" height="30" style={{ height: '30px', width: 'auto', opacity: 0.75 }} />
+                        </a>
                     </div>
                     <span style={{ fontSize: 12, color: 'rgba(247,243,236,0.3)' }}>Payments by Paddle</span>
                 </div>
