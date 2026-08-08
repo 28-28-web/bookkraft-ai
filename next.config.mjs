@@ -40,6 +40,11 @@ const nextConfig = {
         destination: '/tools/kindle-format-fixer',
         permanent: true,
       },
+      {
+        source: '/metadata-builder',
+        destination: '/tools/metadata-builder',
+        permanent: true,
+      },
     ];
   },
   async headers() {
