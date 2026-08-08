@@ -36,18 +36,6 @@ const TOOL_COMPONENTS = {
     'kdp-keyword-finder': KdpKeywordFinder,
 };
 
-// Shared SEO content block, rendered identically in every branch
-function SeoContentBlock({ tool }) {
-    if (!tool.seoContent) return null;
-    return (
-        <div
-            className="seo-content"
-            style={{ maxWidth: '800px', margin: '3rem auto', padding: '0 1rem' }}
-            dangerouslySetInnerHTML={{ __html: tool.seoContent }}
-        />
-    );
-}
-
 // Shared "related tools" block — only renders if tool.related is set
 function RelatedToolsBlock({ tool }) {
     if (!tool.related || tool.related.length === 0) return null;
@@ -76,21 +64,9 @@ function ToolHeader({ tool }) {
     );
 }
 
-function extractFaqFromSeoContent(seoContent) {
-    if (!seoContent) return [];
-    const match = seoContent.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
-    if (!match) return [];
-    try {
-        const schema = JSON.parse(match[1]);
-        return schema.mainEntity ?? [];
-    } catch {
-        return [];
-    }
-}
-
-function ToolFaqSection({ tool }) {
+function ToolFaqSection({ faqItems }) {
     const [open, setOpen] = useState(null);
-    const items = extractFaqFromSeoContent(tool.seoContent);
+    const items = faqItems;
     if (items.length === 0) return null;
     return (
         <div style={{ maxWidth: 800, margin: '2rem auto 0', padding: '0 1rem' }}>
@@ -128,7 +104,7 @@ function ToolFaqSection({ tool }) {
     );
 }
 
-export default function ToolPage({ params }) {
+export default function ToolPage({ params, faqItems = [], children }) {
     const resolvedParams = use(params);
     const slug = resolvedParams.slug;
     const tool = getToolBySlug(slug);
@@ -166,8 +142,8 @@ export default function ToolPage({ params }) {
                     <div className="tool-page-wrap">
                         <ToolHeader tool={tool} />
                         <div className="loading-state"><div className="spinner" /> Loading tool...</div>
-                        <SeoContentBlock tool={tool} />
-                        <ToolFaqSection tool={tool} />
+                        {children}
+                        <ToolFaqSection faqItems={faqItems} />
                     </div>
                 </main>
             </div>
@@ -195,8 +171,8 @@ export default function ToolPage({ params }) {
                                 </Link>
                             </div>
                         </div>
-                        <SeoContentBlock tool={tool} />
-                        <ToolFaqSection tool={tool} />
+                        {children}
+                        <ToolFaqSection faqItems={faqItems} />
                     </div>
                 </main>
             </div>
@@ -225,8 +201,8 @@ export default function ToolPage({ params }) {
                 <div className="tool-page-wrap">
                     <ToolHeader tool={tool} />
                     <ToolComponent tool={tool} />
-                    <SeoContentBlock tool={tool} />
-                    <ToolFaqSection tool={tool} />
+                    {children}
+                    <ToolFaqSection faqItems={faqItems} />
                     <RelatedToolsBlock tool={tool} />
                 </div>
             </main>
