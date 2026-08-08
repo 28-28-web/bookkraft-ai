@@ -23,15 +23,6 @@ const faqs = [
   },
 ];
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
-};
 
 const KDP_MIN_SHORT_SIDE = 500;
 const KDP_MAX_FILE_SIZE_MB = 5;
@@ -191,13 +182,7 @@ export default function CoverCheckerPage() {
   const appleResult = dims ? checkApple(dims.width, dims.height) : null;
 
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-
-      <main style={{ background: '#12141C', minHeight: '100vh', padding: '64px 20px 80px' }}>
+    <main style={{ background: '#12141C', minHeight: '100vh', padding: '64px 20px 80px' }}>
         <div style={{ maxWidth: 720, margin: '0 auto' }}>
 
           <div style={{ textAlign: 'center', marginBottom: 40 }}>
@@ -396,7 +381,6 @@ export default function CoverCheckerPage() {
           </div>
 
         </div>
-      </main>
-    </>
+    </main>
   );
 }

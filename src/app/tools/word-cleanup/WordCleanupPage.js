@@ -23,15 +23,6 @@ const faqs = [
   },
 ];
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
-};
 
 function severityForCount(count, warnAt, failAt) {
   if (count >= failAt) return 'fail';
@@ -218,13 +209,7 @@ export default function WordCleanupPage() {
   };
 
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-
-      <div style={{ maxWidth: 800, margin: '0 auto', padding: '48px 20px 0' }}>
+    <div style={{ maxWidth: 800, margin: '0 auto', padding: '48px 20px 0' }}>
         <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px,4vw,40px)', marginBottom: 12 }}>
           Word Manuscript Cleanup Checker
         </h1>
@@ -333,7 +318,6 @@ export default function WordCleanupPage() {
             <p style={{ margin: 0 }}>{f.a}</p>
           </div>
         ))}
-      </div>
-    </>
+    </div>
   );
 }

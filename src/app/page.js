@@ -50,13 +50,6 @@ export default function Page() {
         description: PRICING.lifetime.desc,
       },
     ],
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      reviewCount: '3000',
-      bestRating: '5',
-      worstRating: '1',
-    },
   };
 
   const faqSchema = {
