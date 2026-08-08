@@ -62,12 +62,6 @@ export default async function sitemap() {
       priority: 0.9,
     },
     {
-      url: `${BASE}/epub-validator`,
-      lastModified: new Date('2026-07-30'),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
       url: `${BASE}/tools/manuscript-mode`,
       lastModified: new Date('2026-07-30'),
       changeFrequency: 'weekly',

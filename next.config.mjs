@@ -30,6 +30,11 @@ const nextConfig = {
         destination: '/:path+',
         permanent: true,
       },
+      {
+        source: '/epub-validator',
+        destination: '/tools/epub-validator',
+        permanent: true,
+      },
     ];
   },
   async headers() {

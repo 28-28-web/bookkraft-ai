@@ -49,7 +49,7 @@ export default function FreeToolsPage() {
                                     <li key={i} style={{ fontSize: 'var(--text-sm)', color: 'var(--ink)' }}>✓ {item}</li>
                                 ))}
                             </ul>
-                               <Link href="/epub-validator" className="btn btn-gold btn-full" style={{ textDecoration: 'none' }}>
+                               <Link href="/tools/epub-validator" className="btn btn-gold btn-full" style={{ textDecoration: 'none' }}>
                                 Open EPUB Validator
                                  </Link>
                         </div>

@@ -165,7 +165,7 @@ export default function ManuscriptModePage() {
                     <p>Bold, italic, and underline from your .docx file are preserved in the EPUB. Word heading styles (Heading 1, 2, 3) are detected as chapter breaks and appear as section headings. What is not carried over: images, tables, footnotes, and font-size or colour changes. The converter handles text content and inline character emphasis — not page layout.</p>
 
                     <h2>Validate After Converting</h2>
-                    <p>After converting your doc to epub, run the file through the <Link href="/epub-validator" style={{ color: 'var(--gold)' }}>free EPUB Validator</Link> to confirm it passes structural checks before uploading to KDP or any other platform. The validator checks the same structural elements that publishing platforms test during submission.</p>
+                    <p>After converting your doc to epub, run the file through the <Link href="/tools/epub-validator" style={{ color: 'var(--gold)' }}>free EPUB Validator</Link> to confirm it passes structural checks before uploading to KDP or any other platform. The validator checks the same structural elements that publishing platforms test during submission.</p>
 
                     <h2>Frequently Asked Questions</h2>
 
