@@ -209,6 +209,7 @@ export default function WordCleanupPage() {
   };
 
   return (
+    <>
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '48px 20px 0' }}>
         <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px,4vw,40px)', marginBottom: 12 }}>
           Word Manuscript Cleanup Checker
@@ -319,5 +320,6 @@ export default function WordCleanupPage() {
           </div>
         ))}
     </div>
+    </>
   );
 }
