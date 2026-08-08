@@ -35,6 +35,11 @@ const nextConfig = {
         destination: '/tools/epub-validator',
         permanent: true,
       },
+      {
+        source: '/kindle-format-fixer',
+        destination: '/tools/kindle-format-fixer',
+        permanent: true,
+      },
     ];
   },
   async headers() {
