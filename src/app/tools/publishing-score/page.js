@@ -2,11 +2,11 @@ import PublishingScoreClient from './PublishingScoreClient';
 
 export const metadata = {
   title: 'Publishing Readiness Score — BookKraft AI',
-  description: 'See how publish-ready your eBook really is. Get a scored breakdown across formatting, metadata, structure, and more.',
+  description: 'Upload your EPUB and get a scored breakdown across formatting, metadata, structure, and cover requirements — so you know exactly what to fix before submitting to KDP or Apple Books.',
   alternates: { canonical: 'https://bookkraftai.com/tools/publishing-score' },
   openGraph: {
     title: 'Publishing Readiness Score — BookKraft AI',
-    description: 'See how publish-ready your eBook really is. Get a scored breakdown across formatting, metadata, structure, and more.',
+    description: 'Upload your EPUB and get a scored breakdown across formatting, metadata, structure, and cover requirements — so you know exactly what to fix before submitting to KDP or Apple Books.',
     url: 'https://bookkraftai.com/tools/publishing-score',
     siteName: 'BookKraft AI',
     type: 'website',

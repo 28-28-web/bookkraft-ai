@@ -2,7 +2,7 @@ import ContactClient from './ContactClient';
 
 export const metadata = {
   title: 'Contact — BookKraft AI',
-  description: 'Have a question or need help? Get in touch with the BookKraft AI team. We usually respond within 24 hours.',
+  description: 'Have a question about BookKraft AI\'s eBook formatting tools? Get in touch — we usually respond within 24 hours.',
   openGraph: {
     title: "Contact Us — BookKraft AI",
     description: "Get in touch with the BookKraft AI team. We are here to help with your eBook formatting questions.",

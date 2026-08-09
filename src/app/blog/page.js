@@ -4,11 +4,11 @@ import Footer from '@/components/Footer';
 
 export const metadata = {
   title: 'BookKraft AI Blog — EPUB & KDP Publishing Tips',
-  description: 'Expert guides on EPUB formatting, KDP errors, and self-publishing tools for indie authors.',
+  description: 'Guides on EPUB formatting, KDP errors, and self-publishing tools for indie authors — from fixing rejected uploads to building clean metadata and passing Apple Books validation.',
   alternates: { canonical: 'https://bookkraftai.com/blog' },
   openGraph: {
     title: 'BookKraft AI Blog — EPUB & KDP Publishing Tips',
-    description: 'Expert guides on EPUB formatting, KDP errors, and self-publishing tools for indie authors.',
+    description: 'Guides on EPUB formatting, KDP errors, and self-publishing tools for indie authors — from fixing rejected uploads to building clean metadata and passing Apple Books validation.',
     url: 'https://bookkraftai.com/blog',
     siteName: 'BookKraft AI',
     type: 'website',
