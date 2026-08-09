@@ -87,7 +87,7 @@ export default async function EpubErrorPage({ params }) {
         </div>
 
         {/* CTA */}
-        <div style={{ background: 'var(--sage-bg)', border: '1px solid var(--border)', borderRadius: 12, padding: '24px 28px' }}>
+        <div style={{ background: 'var(--sage-bg)', border: '1px solid var(--border)', borderRadius: 12, padding: '24px 28px', marginBottom: 16 }}>
           <p style={{ fontWeight: 700, fontSize: 16, marginBottom: 6, color: 'var(--ink)' }}>Check your EPUB before uploading</p>
           <p style={{ fontSize: 14, color: 'var(--mid)', marginBottom: 16, lineHeight: 1.6 }}>
             The free EPUB Validator catches structure, metadata, and navigation errors — no signup, no Java, runs in the browser.
@@ -99,6 +99,14 @@ export default async function EpubErrorPage({ params }) {
             Validate Your EPUB Free →
           </Link>
         </div>
+
+        <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.7 }}>
+          Building your EPUB correctly from the start prevents most of these errors before they happen. See the{' '}
+          <Link href="/epub-formatting-guide" style={{ color: 'var(--gold, #c9a84c)', textDecoration: 'none' }}>
+            EPUB formatting guide
+          </Link>{' '}
+          for the full workflow: manuscript cleanup, TOC, front matter, EPUB 3.0 generation, and validation.
+        </p>
 
       </main>
 

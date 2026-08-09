@@ -173,11 +173,19 @@ export default function KdpFormattingGuidePage() {
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
           Some authors prefer a single app that handles writing and formatting together. If that sounds like a better fit for your workflow, see how BookKraft AI compares to the most common all-in-one options.
         </p>
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 16 }}>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 32 }}>
           <Link href="/alternatives" style={{ display: 'inline-block', padding: '10px 20px', border: '1px solid rgba(201,168,76,0.4)', borderRadius: 8, color: '#9c7f35', fontWeight: 600, fontSize: 15, textDecoration: 'none' }}>
             Compare All Alternatives →
           </Link>
         </div>
+
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 48, opacity: 0.9 }}>
+          Publishing to Apple Books or IngramSpark as well as KDP? The{' '}
+          <Link href="/epub-formatting-guide" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            EPUB formatting guide
+          </Link>{' '}
+          covers the full workflow for all three stores, including store-specific validation differences and a pre-upload checklist.
+        </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           Frequently asked questions

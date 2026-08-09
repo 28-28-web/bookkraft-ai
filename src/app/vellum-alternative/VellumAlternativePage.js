@@ -172,6 +172,14 @@ export default function VellumAlternativePage() {
           </div>
         ))}
 
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 48, opacity: 0.9 }}>
+          Need a step-by-step walkthrough of the full EPUB formatting workflow before your manuscript goes into Vellum? See the{' '}
+          <Link href="/epub-formatting-guide" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            EPUB formatting guide
+          </Link>
+          .
+        </p>
+
         <div style={{ marginTop: 48, padding: '24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
           <p style={{ fontSize: 18, marginBottom: 16 }}>Try the free EPUB Validator — no signup needed.</p>
           <Link href="/free-tools" style={{ display: 'inline-block', padding: '12px 28px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 600, textDecoration: 'none' }}>
