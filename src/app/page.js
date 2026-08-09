@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 const LandingPage = dynamic(() => import('./landingpage'), { ssr: true, loading: () => <div style={{ minHeight: '100vh', background: 'var(--ink)' }} /> });
-import { FAQS, PRICING, FREE_TOOLS } from '../lib/constants';
+import { PRICING, FREE_TOOLS } from '../lib/constants';
 import { TOOLS } from '../lib/tools';
 
 export const metadata = {
@@ -52,28 +52,11 @@ export default function Page() {
     ],
   };
 
-  const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: FAQS.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: f.a,
-    },
-  })),
-};
-
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <LandingPage />
     </>

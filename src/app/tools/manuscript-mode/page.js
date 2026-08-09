@@ -26,65 +26,9 @@ export default function ManuscriptModePage() {
         },
     };
 
-    const faqSchema = {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: [
-            {
-                '@type': 'Question',
-                name: 'What file types can I convert to EPUB?',
-                acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: '.docx (Microsoft Word) and .txt (plain text) files are supported. The converter extracts your text, detects chapters by heading pattern, and builds a valid EPUB 3.0 file.',
-                },
-            },
-            {
-                '@type': 'Question',
-                name: 'Is the Word to EPUB conversion free?',
-                acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Yes. Full Manuscript Mode is free. A free BookKraft AI account is required to use it.',
-                },
-            },
-            {
-                '@type': 'Question',
-                name: 'Will bold and italic formatting from my Word document be preserved?',
-                acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Yes. Bold, italic, and underline formatting from your .docx file are preserved in the EPUB output. Word heading styles (Heading 1, 2, 3) also carry through as chapter markers. Images, tables, footnotes, and font-size changes are not carried over — the converter handles text content only.',
-                },
-            },
-            {
-                '@type': 'Question',
-                name: 'How are chapters detected when converting DOCX to EPUB?',
-                acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'For .docx files, Word heading styles (Heading 1, 2, 3) are detected as chapter breaks, as are paragraphs matching "Chapter N", "CHAPTER N", and "PART I/II/III". For .txt files, Markdown headings (# Title, ## Section) and the same text patterns are used.',
-                },
-            },
-            {
-                '@type': 'Question',
-                name: 'Is the EPUB output compatible with Amazon KDP?',
-                acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'The output is a valid EPUB 3.0 with correct mimetype, container.xml, OPF package, nav.xhtml, and toc.ncx — the structure KDP requires. We recommend running it through the free EPUB Validator at bookkraftai.com/epub-validator before submitting.',
-                },
-            },
-            {
-                '@type': 'Question',
-                name: 'Do I need to install Calibre or Sigil to convert Word to EPUB?',
-                acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'No. The conversion runs server-side — no desktop software required. Upload your .docx or .txt, fill in your title and author, and download the EPUB directly from your browser.',
-                },
-            },
-        ],
-    };
-
     return (
         <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
             {/* Hero */}
             <section style={{ background: 'var(--ink)', padding: 'var(--space-24) 0', textAlign: 'center' }}>

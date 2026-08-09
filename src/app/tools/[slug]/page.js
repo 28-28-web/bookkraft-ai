@@ -29,12 +29,6 @@ export default async function Page({ params }) {
 
   return (
     <>
-      {jsonLd && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      )}
       <ToolPageClient params={params} faqItems={faqItems}>
         {seoHtml && (
           <div

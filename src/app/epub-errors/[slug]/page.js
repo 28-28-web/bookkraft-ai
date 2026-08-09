@@ -24,23 +24,8 @@ export default async function EpubErrorPage({ params }) {
   const error = getErrorBySlug(slug);
   if (!error) notFound();
 
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: error.faq.map(({ q, a }) => ({
-      '@type': 'Question',
-      name: q,
-      acceptedAnswer: { '@type': 'Answer', text: a },
-    })),
-  };
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-
       <main style={{ maxWidth: 700, margin: '0 auto', padding: '56px 24px 80px' }}>
 
         {/* Breadcrumb */}

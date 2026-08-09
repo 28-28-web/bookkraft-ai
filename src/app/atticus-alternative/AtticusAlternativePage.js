@@ -21,18 +21,8 @@ const faqs = [
   },
 ];
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
-};
-
 const steps = [
-  { n: '01', title: 'Write', tool: 'Word, Scrivener, Google Docs', desc: 'Draft wherever you already write — BookKraft AI doesn’t touch this stage.' },
+  { n: ‘01’, title: ‘Write’, tool: ‘Word, Scrivener, Google Docs’, desc: ‘Draft wherever you already write — BookKraft AI doesn’t touch this stage.’ },
   { n: '02', title: 'Clean & Validate', tool: 'BookKraft AI', desc: 'Strip formatting artifacts, validate your EPUB, build metadata, catch errors before they cause a rejection.', highlight: true },
   { n: '03', title: 'Format & Design', tool: 'Atticus', desc: 'Import the clean file into Atticus for layout, theming, and print/ebook design.' },
 ];
@@ -40,10 +30,6 @@ const steps = [
 export default function AtticusAlternativePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
       <main style={{ maxWidth: 880, margin: '0 auto', padding: '64px 20px', color: 'var(--ink, #1a1a1a)' }}>
         <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(36px,5vw,56px)', fontWeight: 700, lineHeight: 1.1, marginBottom: 24 }}>
           Atticus Alternative for Indie Authors
