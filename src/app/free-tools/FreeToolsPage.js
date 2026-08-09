@@ -24,6 +24,141 @@ export default function FreeToolsPage() {
                 </div>
             </section>
 
+            {/* Comparison Table */}
+            <section style={{ padding: 'var(--space-16) 0', borderBottom: '1px solid var(--border)' }}>
+                <div className="container" style={{ maxWidth: 900, margin: '0 auto', padding: '0 1rem' }}>
+                    <h2 style={{ fontSize: 'var(--text-2xl)', marginBottom: 'var(--space-3)', textAlign: 'center' }}>
+                        How BookKraft Compares to Calibre, Reedsy, and Kindle Create
+                    </h2>
+                    <p style={{ color: 'var(--mid)', textAlign: 'center', marginBottom: 'var(--space-8)', maxWidth: 600, margin: '0 auto var(--space-8)' }}>
+                        Different tools for different workflows. See what each one actually covers.
+                    </p>
+                    <div style={{ overflowX: 'auto' }}>
+                        <table style={{
+                            width: '100%', borderCollapse: 'collapse',
+                            fontSize: 'var(--text-sm)', fontVariantNumeric: 'tabular-nums',
+                        }}>
+                            <thead>
+                                <tr style={{ background: 'var(--ink)', color: 'var(--cream)' }}>
+                                    <th style={{ padding: '12px 14px', textAlign: 'left', fontWeight: 600, minWidth: 160 }}>Feature</th>
+                                    <th style={{ padding: '12px 14px', textAlign: 'center', fontWeight: 600 }}>BookKraft</th>
+                                    <th style={{ padding: '12px 14px', textAlign: 'center', fontWeight: 600 }}>Calibre</th>
+                                    <th style={{ padding: '12px 14px', textAlign: 'center', fontWeight: 600 }}>Reedsy</th>
+                                    <th style={{ padding: '12px 14px', textAlign: 'center', fontWeight: 600 }}>Kindle Create</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {[
+                                    {
+                                        feature: 'EPUB Validator',
+                                        bk: '✓ free, no signup — with error descriptions',
+                                        calibre: 'Basic "Check Book"; full validation needs plugin + Java',
+                                        reedsy: '✗',
+                                        kc: '✗',
+                                    },
+                                    {
+                                        feature: 'Metadata Builder',
+                                        bk: '✓ free, no signup — KDP, EPUB OPF, IngramSpark',
+                                        calibre: 'Manual editing only; no platform-specific templates',
+                                        reedsy: 'Metadata within writing workflow',
+                                        kc: 'KDP only',
+                                    },
+                                    {
+                                        feature: 'Cover Checker',
+                                        bk: '✓ free, no signup — KDP + Apple Books',
+                                        calibre: '✗',
+                                        reedsy: '✗',
+                                        kc: 'Basic Kindle preview',
+                                    },
+                                    {
+                                        feature: 'Word Cleanup Checker',
+                                        bk: '✓ free, no signup',
+                                        calibre: '✗',
+                                        reedsy: '✗',
+                                        kc: '✗',
+                                    },
+                                    {
+                                        feature: 'DOCX → EPUB',
+                                        bk: '✓ free (account required)',
+                                        calibre: '✓ free; 200MB desktop app; manual cleanup often needed',
+                                        reedsy: '✓ write in Reedsy, then export (not a standalone converter)',
+                                        kc: '✓ free; reflowable books only, with limitations',
+                                    },
+                                    {
+                                        feature: 'Runs in browser',
+                                        bk: '✓',
+                                        calibre: '✗ desktop app',
+                                        reedsy: '✓',
+                                        kc: '✗ desktop app',
+                                    },
+                                    {
+                                        feature: 'Works offline',
+                                        bk: '✗',
+                                        calibre: '✓ fully offline, no account',
+                                        reedsy: '✗',
+                                        kc: '✓',
+                                    },
+                                    {
+                                        feature: 'Large library management',
+                                        bk: '✗',
+                                        calibre: '✓',
+                                        reedsy: '✗',
+                                        kc: '✗',
+                                    },
+                                    {
+                                        feature: 'Integrated writing workflow',
+                                        bk: '✗',
+                                        calibre: '✗',
+                                        reedsy: '✓ write + format + export in one place',
+                                        kc: '✓ format + Kindle preview',
+                                    },
+                                    {
+                                        feature: 'Price',
+                                        bk: 'Free (5 tools) + from $19 one-time',
+                                        calibre: 'Free, open-source',
+                                        reedsy: 'Free',
+                                        kc: 'Free',
+                                    },
+                                ].map((row, i) => (
+                                    <tr key={i} style={{ background: i % 2 === 0 ? 'var(--white)' : 'var(--cream)', borderBottom: '1px solid var(--border)' }}>
+                                        <td style={{ padding: '10px 14px', fontWeight: 600, color: 'var(--ink)' }}>{row.feature}</td>
+                                        <td style={{ padding: '10px 14px', textAlign: 'center', color: 'var(--ink)' }}>{row.bk}</td>
+                                        <td style={{ padding: '10px 14px', textAlign: 'center', color: 'var(--mid)' }}>{row.calibre}</td>
+                                        <td style={{ padding: '10px 14px', textAlign: 'center', color: 'var(--mid)' }}>{row.reedsy}</td>
+                                        <td style={{ padding: '10px 14px', textAlign: 'center', color: 'var(--mid)' }}>{row.kc}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* Honest competitor callouts */}
+                    <div style={{
+                        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                        gap: 'var(--space-4)', marginTop: 'var(--space-8)',
+                    }}>
+                        <div style={{ padding: 'var(--space-5)', background: 'var(--cream)', border: '1px solid var(--border)', borderRadius: 'var(--radius)' }}>
+                            <p style={{ fontWeight: 700, marginBottom: 'var(--space-2)', color: 'var(--ink)' }}>When Calibre is the better choice</p>
+                            <p style={{ color: 'var(--mid)', fontSize: 'var(--text-sm)', lineHeight: 1.6 }}>
+                                Managing a large personal library, converting between many formats offline, or doing deep EPUB surgery with plugins. Calibre&apos;s desktop depth is hard to match.
+                            </p>
+                        </div>
+                        <div style={{ padding: 'var(--space-5)', background: 'var(--cream)', border: '1px solid var(--border)', borderRadius: 'var(--radius)' }}>
+                            <p style={{ fontWeight: 700, marginBottom: 'var(--space-2)', color: 'var(--ink)' }}>When Reedsy is the better choice</p>
+                            <p style={{ color: 'var(--mid)', fontSize: 'var(--text-sm)', lineHeight: 1.6 }}>
+                                Writing and formatting in one place. If you want to draft, style, and export without switching apps, Reedsy&apos;s integrated workflow is built for that.
+                            </p>
+                        </div>
+                        <div style={{ padding: 'var(--space-5)', background: 'var(--cream)', border: '1px solid var(--border)', borderRadius: 'var(--radius)' }}>
+                            <p style={{ fontWeight: 700, marginBottom: 'var(--space-2)', color: 'var(--ink)' }}>When Kindle Create is the better choice</p>
+                            <p style={{ color: 'var(--mid)', fontSize: 'var(--text-sm)', lineHeight: 1.6 }}>
+                                Publishing exclusively to Amazon. Kindle Create&apos;s live Kindle preview and KDP-optimized output are purpose-built for that platform.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Tool Cards */}
             <section style={{ padding: 'var(--space-16) 0' }}>
                 <div className="container" style={{ maxWidth: 800, margin: '0 auto' }}>
