@@ -294,8 +294,8 @@ function HeroSection() {
             fontSize: 'clamp(2.4rem,5vw,3.75rem)', fontWeight: 800,
             color: '#fff', lineHeight: 1.1, marginBottom: 24,
           }}>
-            Stop Fighting Word.<br />
-            <em style={{ color: 'var(--gold)', fontStyle: 'normal' }}>Start Publishing.</em>
+            Stop Fighting Your Manuscript. <br />
+            <em style={{ color: 'var(--gold)', fontStyle: 'normal' }}>Ship Clean EPUB &amp; Kindle Files.</em>
           </h1>
 
           <p style={{
