@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllPosts, getPostBySlug, sanitizeGhostHtml, formatDate } from '@/lib/ghost';
 import Footer from '@/components/Footer';
+import { buildBreadcrumbSchema } from '@/lib/seo';
 
 const AUTHOR_PAGES = { Fateh: '/author/fateh' };
 
@@ -55,6 +56,12 @@ export default async function BlogPostPage({ params }) {
   const author = post.authors?.[0];
   const canonical = `https://bookkraftai.com/blog/${post.slug}`;
 
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', url: 'https://bookkraftai.com/' },
+    { name: 'Blog', url: 'https://bookkraftai.com/blog' },
+    { name: post.title, url: canonical },
+  ]);
+
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -79,6 +86,10 @@ export default async function BlogPostPage({ params }) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}

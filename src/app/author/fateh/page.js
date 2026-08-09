@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Footer from '@/components/Footer';
+import { buildBreadcrumbSchema } from '@/lib/seo';
 
 export const metadata = {
   title: 'Fateh — Author at BookKraft AI',
@@ -10,6 +11,12 @@ export const metadata = {
 };
 
 export default function AuthorFatehPage() {
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', url: 'https://bookkraftai.com/' },
+    { name: 'Blog', url: 'https://bookkraftai.com/blog' },
+    { name: 'Fateh', url: 'https://bookkraftai.com/author/fateh' },
+  ]);
+
   const personSchema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -28,6 +35,10 @@ export default function AuthorFatehPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}

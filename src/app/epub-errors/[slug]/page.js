@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { EPUB_ERRORS, getErrorBySlug } from '@/lib/epubErrors';
 import Footer from '@/components/Footer';
+import { buildBreadcrumbSchema } from '@/lib/seo';
 
 export async function generateStaticParams() {
   return EPUB_ERRORS.map(e => ({ slug: e.slug }));
@@ -24,8 +25,18 @@ export default async function EpubErrorPage({ params }) {
   const error = getErrorBySlug(slug);
   if (!error) notFound();
 
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', url: 'https://bookkraftai.com/' },
+    { name: 'EPUB Errors', url: 'https://bookkraftai.com/epub-errors' },
+    { name: error.title, url: `https://bookkraftai.com/epub-errors/${slug}` },
+  ]);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <main style={{ maxWidth: 700, margin: '0 auto', padding: '56px 24px 80px' }}>
 
         {/* Breadcrumb */}
