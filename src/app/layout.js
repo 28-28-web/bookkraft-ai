@@ -135,7 +135,9 @@ export default function RootLayout({ children }) {
                   "url": "https://bookkraftai.com",
                   "logo": {
                     "@type": "ImageObject",
-                    "url": "https://bookkraftai.com/favicon.png"
+                    "url": "https://bookkraftai.com/logo.png",
+                    "width": 640,
+                    "height": 640
                   },
                   "sameAs": [
                     "https://x.com/BookkraftTools",
