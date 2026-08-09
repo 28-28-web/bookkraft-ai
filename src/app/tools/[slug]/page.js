@@ -1,6 +1,10 @@
 import { notFound } from 'next/navigation';
-import { getToolBySlug } from '@/lib/tools';
+import { getToolBySlug, TOOLS } from '@/lib/tools';
 import ToolPageClient from './ToolPageClient';
+
+export function generateStaticParams() {
+  return TOOLS.map(tool => ({ slug: tool.slug }));
+}
 
 function extractJsonLd(html) {
   if (!html) return null;
