@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { getAllPosts, getPostBySlug, sanitizeGhostHtml, formatDate } from '@/lib/ghost';
 import Footer from '@/components/Footer';
 
+const AUTHOR_PAGES = { Fateh: '/author/fateh' };
+
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
@@ -51,9 +53,36 @@ export default async function BlogPostPage({ params }) {
   const safeHtml = sanitizeGhostHtml(post.html);
   const primaryTag = post.tags?.[0];
   const author = post.authors?.[0];
+  const canonical = `https://bookkraftai.com/blog/${post.slug}`;
+
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.meta_description || post.excerpt || '',
+    datePublished: post.published_at,
+    dateModified: post.updated_at || post.published_at,
+    url: canonical,
+    mainEntityOfPage: canonical,
+    author: {
+      '@type': 'Person',
+      name: 'Fateh',
+      url: 'https://bookkraftai.com/author/fateh',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'BookKraft AI',
+      url: 'https://bookkraftai.com',
+    },
+    ...(post.feature_image && { image: post.feature_image }),
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <style>{`
         .gh-content figure { margin: 2em 0; }
         .gh-content img { max-width: 100%; height: auto; border-radius: 6px; }
@@ -159,7 +188,11 @@ export default async function BlogPostPage({ params }) {
             paddingBottom: 32, borderBottom: '1px solid var(--border)',
             marginBottom: 40, flexWrap: 'wrap',
           }}>
-            {author?.name && <span>{author.name}</span>}
+            {author?.name && (
+              AUTHOR_PAGES[author.name]
+                ? <Link href={AUTHOR_PAGES[author.name]} style={{ color: 'var(--mid)', textDecoration: 'none', fontWeight: 600 }}>{author.name}</Link>
+                : <span>{author.name}</span>
+            )}
             <time dateTime={post.published_at}>{formatDate(post.published_at)}</time>
             {post.reading_time && <span>{post.reading_time} min read</span>}
           </div>
