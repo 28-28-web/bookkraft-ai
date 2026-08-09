@@ -30,7 +30,7 @@ const faqs = [
 ];
 
 const steps = [
-  { n: ‘01’, title: ‘Write’, tool: ‘Word, Scrivener, Google Docs’, desc: ‘Draft wherever you already write — BookKraft AI doesn’t touch this stage.’ },
+  { n: '01', title: 'Write', tool: 'Word, Scrivener, Google Docs', desc: "Draft wherever you already write — BookKraft AI doesn't touch this stage." },
   { n: '02', title: 'Clean & Validate', tool: 'BookKraft AI', desc: 'Strip formatting artifacts, validate your EPUB, build metadata, catch errors before they cause a rejection.', highlight: true },
   { n: '03', title: 'Format & Design', tool: 'Vellum', desc: 'Import the clean file into Vellum for visual theming and print/ebook design.' },
 ];

@@ -34,7 +34,7 @@ const steps = [
     n: '01',
     title: 'Write',
     tool: 'Word, Scrivener, Google Docs',
-    desc: 'Wherever you already draft — BookKraft AI doesn’t touch this stage.',
+    desc: "Wherever you already draft — BookKraft AI doesn't touch this stage.",
   },
   {
     n: '02',
