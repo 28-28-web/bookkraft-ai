@@ -33,12 +33,14 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', onClickOutside);
   }, []);
 
-  const isDashboard =
+  const isToolRoute = pathname?.startsWith('/tools');
+  const isAppRoute =
     pathname?.startsWith('/dashboard') ||
-    pathname?.startsWith('/tools') ||
     pathname?.startsWith('/history') ||
     pathname?.startsWith('/account') ||
     pathname?.startsWith('/admin');
+
+  const isDashboard = isAppRoute || (isToolRoute && !!user);
 
   const isResourcesActive =
     pathname === '/kdp-formatting-guide' ||

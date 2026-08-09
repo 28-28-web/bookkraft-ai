@@ -54,10 +54,13 @@ function RelatedToolsBlock({ tool }) {
 }
 
 // Shared header block, rendered identically in every branch
-function ToolHeader({ tool }) {
+function ToolHeader({ tool, user }) {
     return (
         <div className="tool-page-header">
-            <Link href="/dashboard" className="back-btn">← Back to Dashboard</Link>
+            {user
+                ? <Link href="/dashboard" className="back-btn">← Back to Dashboard</Link>
+                : <Link href="/free-tools" className="back-btn">← All Tools</Link>
+            }
             <h1>{tool.icon} {tool.h1 || tool.name}</h1>
             <p>{tool.intro || tool.desc}</p>
         </div>
@@ -140,7 +143,7 @@ export default function ToolPage({ params, faqItems = [], children }) {
                 <Sidebar />
                 <main className="main-content">
                     <div className="tool-page-wrap">
-                        <ToolHeader tool={tool} />
+                        <ToolHeader tool={tool} user={user} />
                         <div className="loading-state"><div className="spinner" /> Loading tool...</div>
                         {children}
                         <ToolFaqSection faqItems={faqItems} />
@@ -160,7 +163,7 @@ export default function ToolPage({ params, faqItems = [], children }) {
                 <Sidebar />
                 <main className="main-content">
                     <div className="tool-page-wrap">
-                        <ToolHeader tool={tool} />
+                        <ToolHeader tool={tool} user={user} />
                         <div className="tool-locked-card">
                             <div className="tool-locked-icon">🔒</div>
                             <h3>This tool requires the {bundleName}</h3>
@@ -199,7 +202,7 @@ export default function ToolPage({ params, faqItems = [], children }) {
             {!isFree && <Sidebar />}
             <main className={isFree ? 'main-content main-content-full' : 'main-content'}>
                 <div className="tool-page-wrap">
-                    <ToolHeader tool={tool} />
+                    <ToolHeader tool={tool} user={user} />
                     <ToolComponent tool={tool} />
                     {children}
                     <ToolFaqSection faqItems={faqItems} />
