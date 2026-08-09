@@ -16,11 +16,11 @@ const SenjaReviews = dynamic(() => import('@/components/SenjaReviews'), {
 // ─── DATA ────────────────────────────────────────────────────────────
 
 const TICKER_ITEMS = [
-  '<strong>@alex_rivera</strong> via CodeTrendy — "The interface is clean and does exactly what it promises"',
-  '<strong>@januine_dev</strong> via CodeTrendy — "Cleans up Word export mess in minutes"',
-  '<strong>@januine_dev</strong> via CodeTrendy — "Makes a real EPUB 3.0 that KDP accepts"',
-  '<strong>@januine_dev</strong> via CodeTrendy — "Two free tools, no signup. Best formatting money I\'ve spent"',
-  '<strong>@alex_rivera</strong> via CodeTrendy — "Really appreciate how well it\'s put together. Nice work by the team"',
+  '<strong>@alex_rivera</strong>: "The interface is clean and does exactly what it promises"',
+  '<strong>@januine_dev</strong>: "Cleans up Word export mess in minutes"',
+  '<strong>@januine_dev</strong>: "Makes a real EPUB 3.0 that KDP accepts"',
+  '<strong>@januine_dev</strong>: "Two free tools, no signup. Best formatting money I\'ve spent"',
+  '<strong>@alex_rivera</strong>: "Really appreciate how well it\'s put together. Nice work by the team"',
 ];
 
 const PLATFORMS = [
@@ -44,14 +44,14 @@ function Badge({ tool }) {
   if (tool.accessType === 'ai')
     return <span className="badge-v2 badge-v2-ai">✦ AI · {tool.creditCost}cr</span>;
   if (tool.accessType === 'logic')
-    return <span className="badge-v2 badge-v2-logic">Logic</span>;
+    return <span className="badge-v2 badge-v2-logic">Instant</span>;
   return <span className="badge-v2 badge-v2-locked">Locked</span>;
 }
 
 function typeLabel(tool) {
   if (tool.free) return 'instant · free';
   if (tool.accessType === 'ai') return 'ai-powered';
-  return 'instant logic';
+  return 'instant';
 }
 
 function ToolCard({ tool, index, problem, solution, outcome, fileType, primary }) {
@@ -588,7 +588,7 @@ const TOOL_FILTERS = [
   { key: 'all',   label: 'All' },
   { key: 'free',  label: 'Free' },
   { key: 'ai',    label: 'AI-Powered' },
-  { key: 'logic', label: 'Instant Logic' },
+  { key: 'logic', label: 'Instant' },
 ];
 
 function matchesToolFilter(tool, filter) {
