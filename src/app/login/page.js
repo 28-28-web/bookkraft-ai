@@ -3,7 +3,7 @@ import PageClient from './PageClient';
 export const metadata = {
   title: 'Login -- BookKraft AI',
   description: 'Log in to your BookKraft AI account and access your eBook formatting tools.',
-  robots: 'index, follow',
+  robots: { index: false, follow: false },
   alternates: { canonical: 'https://bookkraftai.com/login' },
 };
 
