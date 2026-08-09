@@ -117,6 +117,12 @@ export default async function sitemap() {
       priority: 1.0,
     },
     {
+      url: `${BASE}/epub-formatting-guide`,
+      lastModified: new Date('2026-08-09'),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
       url: `${BASE}/epub-errors`,
       lastModified: new Date('2026-08-05'),
       changeFrequency: 'weekly',
