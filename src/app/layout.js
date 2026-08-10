@@ -75,28 +75,6 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}>
       <head>
 
-        {/* ── GA4 Consent Mode v2 — must fire BEFORE GA4 loads ── */}
-        <script dangerouslySetInnerHTML={{ __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('consent', 'default', {
-            analytics_storage: 'granted',
-            ad_storage: 'denied',
-            ad_user_data: 'denied',
-            ad_personalization: 'denied',
-            wait_for_update: 500
-          });
-        `}} />
-
-        {/* ── GA4 ── */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-761HQ6CWTZ" />
-        <script dangerouslySetInnerHTML={{ __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-761HQ6CWTZ');
-        `}} />
-
         {/* ── Microsoft Clarity ── */}
         <Script id="microsoft-clarity" strategy="afterInteractive">
           {`
