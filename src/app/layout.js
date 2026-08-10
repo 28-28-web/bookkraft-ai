@@ -76,35 +76,26 @@ export default function RootLayout({ children }) {
       <head>
 
         {/* ── GA4 Consent Mode v2 — must fire BEFORE GA4 loads ── */}
-        <Script id="consent-defaults" strategy="beforeInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('consent', 'default', {
-              analytics_storage: 'granted',
-              ad_storage: 'denied',
-              ad_user_data: 'denied',
-              ad_personalization: 'denied',
-              wait_for_update: 500
-            });
-          `}
-        </Script>
+        <script dangerouslySetInnerHTML={{ __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('consent', 'default', {
+            analytics_storage: 'granted',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            wait_for_update: 500
+          });
+        `}} />
 
         {/* ── GA4 ── */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-761HQ6CWTZ"
-          strategy="afterInteractive"
-        />
-        <Script id="ga4-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-761HQ6CWTZ', {
-              page_path: window.location.pathname
-            });
-          `}
-        </Script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-761HQ6CWTZ" />
+        <script dangerouslySetInnerHTML={{ __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-761HQ6CWTZ');
+        `}} />
 
         {/* ── Microsoft Clarity ── */}
         <Script id="microsoft-clarity" strategy="afterInteractive">
