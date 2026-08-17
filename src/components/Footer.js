@@ -80,8 +80,7 @@ export default function Footer() {
                             }}
                         >
                             <img src="https://codetrendy.com/favicon.ico" alt="" width={14} height={14}
-                                style={{ display: 'block', opacity: 0.8 }}
-                                onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                                style={{ display: 'block', opacity: 0.8 }} />
                             <span style={{ color: 'rgba(247,243,236,0.45)', fontWeight: 500 }}>Listed on</span>
                             <span style={{ color: 'var(--gold)', fontWeight: 700 }}>CodeTrendy</span>
                         </a>
