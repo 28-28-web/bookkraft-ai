@@ -9,6 +9,8 @@
 
 const POLL_INTERVAL_MS = 2000;
 const inFlight = new Set();
+const crashCount = new Map();
+const MAX_JOB_CRASHES = 3;
 
 export async function register() {
     if (process.env.NEXT_RUNTIME !== 'nodejs') return;
@@ -64,7 +66,23 @@ export async function register() {
             if (inFlight.has(id)) continue;
             inFlight.add(id);
             runJob(id)
-                .catch((err) => console.error(`[jobs] Job ${id} crashed:`, err.message))
+                .catch(async (err) => {
+                    console.error(`[jobs] Job ${id} crashed:`, err.message);
+                    const count = (crashCount.get(id) || 0) + 1;
+                    crashCount.set(id, count);
+                    if (count >= MAX_JOB_CRASHES) {
+                        console.error(`[jobs] Job ${id} crashed ${count}x — marking failed.`);
+                        try {
+                            await db.query(
+                                `update jobs set status = 'failed', error = $2 where id = $1`,
+                                [id, `Crashed ${count}x. Last: ${err.message}`]
+                            );
+                        } catch (dbErr) {
+                            console.error(`[jobs] Could not mark job ${id} failed:`, dbErr.message);
+                        }
+                        crashCount.delete(id);
+                    }
+                })
                 .finally(() => inFlight.delete(id));
         }
     }, POLL_INTERVAL_MS);
