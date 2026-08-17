@@ -153,15 +153,18 @@ export default async function BlogPostPage({ params }) {
       `}</style>
 
       <main>
-        {post.feature_image && (
-          <div style={{ width: '100%', maxHeight: 480, overflow: 'hidden', background: 'var(--ink)' }}>
-            <img
-              src={post.feature_image}
-              alt={post.feature_image_alt || post.title}
-              style={{ width: '100%', maxHeight: 480, objectFit: 'cover', display: 'block' }}
-            />
-          </div>
-        )}
+        {post.feature_image && (() => {
+          const fitMode = post.feature_image_style || 'cover';
+          return (
+            <div style={{ width: '100%', background: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', ...(fitMode === 'contain' ? { padding: '16px 0' } : { maxHeight: 480, overflow: 'hidden' }) }}>
+              <img
+                src={post.feature_image}
+                alt={post.feature_image_alt || post.title}
+                style={{ display: 'block', ...(fitMode === 'contain' ? { maxWidth: '100%', maxHeight: 520, objectFit: 'contain' } : { width: '100%', maxHeight: 480, objectFit: 'cover' }) }}
+              />
+            </div>
+          );
+        })()}
 
         <div style={{ maxWidth: 740, margin: '0 auto', padding: '48px 24px 80px' }}>
           {/* Breadcrumb */}
