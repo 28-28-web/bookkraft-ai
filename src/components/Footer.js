@@ -66,8 +66,21 @@ export default function Footer() {
                         <a href="https://www.producthunt.com/products/book-kraft-ai?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-bookkraft-ai" target="_blank" rel="noopener noreferrer">
                             <img alt="BookKraft AI - AI-powered EPUB and Kindle formatting for indie authors | Product Hunt" width={250} height={54} src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1220281&theme=dark&t=1786991332060" style={{ height: '36px', width: 'auto' }} />
                         </a>
-                        <a href="https://codetrendy.com" target="_blank" rel="noopener noreferrer">
-                            <img src="https://codetrendy.com/api/badge?style=classic" alt="Listed on codetrendy.com" width="108" height="36" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
+                        <a
+                            href="https://codetrendy.com/?utm_source=partner-site&utm_medium=badge"
+                            target="_blank"
+                            rel="nofollow noopener noreferrer"
+                            style={{
+                                display: 'inline-flex', alignItems: 'center',
+                                height: '36px', padding: '0 12px',
+                                fontSize: '13px', fontWeight: 600,
+                                color: 'rgba(247,243,236,0.65)',
+                                border: '1px solid rgba(247,243,236,0.2)',
+                                borderRadius: '6px', textDecoration: 'none',
+                                background: 'rgba(255,255,255,0.03)',
+                            }}
+                        >
+                            Listed on CodeTrendy
                         </a>
                     </div>
                     <span style={{ fontSize: 12, color: 'rgba(247,243,236,0.3)' }}>Payments by Paddle</span>
