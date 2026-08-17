@@ -72,15 +72,18 @@ export default function Footer() {
                             rel="nofollow noopener noreferrer"
                             style={{
                                 display: 'inline-flex', alignItems: 'center',
-                                height: '36px', padding: '0 12px',
-                                fontSize: '13px', fontWeight: 600,
-                                color: 'rgba(247,243,236,0.65)',
-                                border: '1px solid rgba(247,243,236,0.2)',
+                                gap: 8, height: '36px', padding: '0 12px',
+                                fontSize: '13px',
+                                border: '1px solid rgba(201,168,76,0.3)',
                                 borderRadius: '6px', textDecoration: 'none',
                                 background: 'rgba(255,255,255,0.03)',
                             }}
                         >
-                            Listed on CodeTrendy
+                            <img src="https://codetrendy.com/favicon.ico" alt="" width={14} height={14}
+                                style={{ display: 'block', opacity: 0.8 }}
+                                onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                            <span style={{ color: 'rgba(247,243,236,0.45)', fontWeight: 500 }}>Listed on</span>
+                            <span style={{ color: 'var(--gold)', fontWeight: 700 }}>CodeTrendy</span>
                         </a>
                     </div>
                     <span style={{ fontSize: 12, color: 'rgba(247,243,236,0.3)' }}>Payments by Paddle</span>
