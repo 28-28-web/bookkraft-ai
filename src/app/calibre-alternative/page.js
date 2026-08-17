@@ -2,7 +2,7 @@ import CalibreAlternativePage from './CalibreAlternativePage';
 
 export const metadata = {
   title: 'Calibre Alternative for Indie Authors — BookKraft AI',
-  description: 'Calibre is powerful but complicated. BookKraft AI runs in any browser, no install needed, starts at $19 one-time. Free EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, and Full Manuscript Mode included.',
+  description: 'Browser-based Calibre alternative — EPUB Validator, Metadata Builder, Cover Checker, and DOCX to EPUB converter. No install, no Java. Free tools included.',
   alternates: {
     canonical: 'https://bookkraftai.com/calibre-alternative',
   },

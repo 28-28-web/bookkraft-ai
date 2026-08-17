@@ -69,6 +69,38 @@ export default function VellumAlternativePage() {
           ))}
         </div>
 
+        {/* Comparison table */}
+        <div style={{ overflowX: 'auto', marginBottom: 48, marginTop: 8 }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15 }}>
+            <thead>
+              <tr style={{ background: 'rgba(201,168,76,0.1)', borderBottom: '2px solid rgba(201,168,76,0.3)' }}>
+                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700 }}>Feature</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700 }}>Vellum</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700 }}>BookKraft AI</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['Platform', 'Mac only', 'Any browser (Win / Linux / Chromebook)'],
+                ['EPUB 3.0 output', '✓', '✓'],
+                ['Visual design themes', '30+ themes', '—'],
+                ['Print PDF output', '✓', '—'],
+                ['EPUB Validator', '—', '✓ Free'],
+                ['Metadata Builder', '—', '✓ Free'],
+                ['Word manuscript cleanup', '—', '✓ Free'],
+                ['DOCX to EPUB converter', '—', '✓ Free'],
+                ['Price', '$199.99 one-time', 'Free tools + from $19'],
+              ].map(([feat, vellum, bk], i) => (
+                <tr key={i} style={{ borderBottom: '1px solid rgba(201,168,76,0.15)', background: i % 2 === 0 ? 'transparent' : 'rgba(0,0,0,0.02)' }}>
+                  <td style={{ padding: '10px 16px', fontWeight: 600 }}>{feat}</td>
+                  <td style={{ padding: '10px 16px', opacity: 0.8 }}>{vellum}</td>
+                  <td style={{ padding: '10px 16px', opacity: 0.8 }}>{bk}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           Why Vellum doesn&apos;t work on Windows
         </h2>

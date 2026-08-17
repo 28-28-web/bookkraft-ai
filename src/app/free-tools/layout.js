@@ -1,6 +1,6 @@
 export const metadata = {
-    title: 'Free eBook Tools — EPUB Validator & Metadata Builder | BookKraft AI',
-    description: 'Two powerful eBook formatting tools, completely free. No signup, no credit card. Validate your EPUB files and build professional metadata instantly.',
+    title: 'Free EPUB Validator, Metadata Builder & Book Tools | BookKraft AI',
+    description: 'Five free ebook formatting tools — EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup, and DOCX to EPUB. No signup required.',
 };
 
 export default function FreeToolsLayout({ children }) {

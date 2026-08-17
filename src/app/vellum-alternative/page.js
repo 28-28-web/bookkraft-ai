@@ -1,8 +1,8 @@
 import VellumAlternativePage from './VellumAlternativePage';
 
 export const metadata = {
-  title: 'Vellum Alternative for Windows — BookKraft AI',
-  description: 'BookKraft AI runs on any platform and cleans up, validates, and preps your manuscript before it goes into Vellum for design. Not a replacement \u2014 a pre-flight step. Free EPUB Validator included.',
+  title: 'Vellum Alternative for Windows & Linux — BookKraft AI',
+  description: 'The Vellum alternative for Windows and Linux \u2014 EPUB validation, DOCX to EPUB conversion, and manuscript cleanup with no install required.',
   alternates: {
     canonical: 'https://bookkraftai.com/vellum-alternative',
   },

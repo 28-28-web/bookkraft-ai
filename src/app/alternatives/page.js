@@ -1,8 +1,8 @@
 import AlternativesPage from './AlternativesPage';
 
 export const metadata = {
-  title: 'BookKraft AI — Runs Before Your Formatter | eBook Pre-Flight Toolkit',
-  description: 'BookKraft AI cleans up, validates, and preps your manuscript before you hand it to Vellum, Atticus, or KDP directly. Browser-based, no install, starts at $19 one-time.',
+  title: 'Vellum & Atticus Alternative for Windows — BookKraft AI',
+  description: 'Browser-based Vellum and Atticus alternative for Windows — EPUB validation, manuscript cleanup, and metadata in any browser, no install. Free tools included.',
   alternates: {
     canonical: 'https://bookkraftai.com/alternatives',
   },
