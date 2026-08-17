@@ -146,7 +146,7 @@ function LoginContent() {
 
                     <p style={{ fontSize: '48px', textAlign: 'center' }}>✉</p>
 
-                    <h2>Check your email</h2>
+                    <h1>Check your email</h1>
 
                     <p>
 
@@ -178,7 +178,7 @@ function LoginContent() {
 
             <div className="auth-card">
 
-                <h2>Welcome back</h2>
+                <h1>Welcome back</h1>
 
                 <p>Sign in to continue formatting your book.</p>
 
