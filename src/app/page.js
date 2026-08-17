@@ -1,5 +1,4 @@
-import dynamic from 'next/dynamic';
-const LandingPage = dynamic(() => import('./landingpage'), { ssr: true, loading: () => <div style={{ minHeight: '100vh', background: 'var(--ink)' }} /> });
+import LandingPage from './landingpage';
 import { PRICING, FREE_TOOLS } from '../lib/constants';
 import { TOOLS } from '../lib/tools';
 

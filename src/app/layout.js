@@ -87,14 +87,14 @@ export default function RootLayout({ children }) {
             wait_for_update: 500
           });
         `}} />
-        {/* ── GA4 ── */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-H0G0L2F9ZF" />
-        <script dangerouslySetInnerHTML={{ __html: `
+        {/* ── GA4 library + config (afterInteractive — loads after LCP paint) ── */}
+        <Script id="ga4-loader" strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-H0G0L2F9ZF" />
+        <Script id="ga4-init" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'G-H0G0L2F9ZF');
-        `}} />
+        `}</Script>
 
         {/* ── Microsoft Clarity ── */}
         <Script id="microsoft-clarity" strategy="afterInteractive">
