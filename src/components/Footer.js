@@ -63,6 +63,9 @@ export default function Footer() {
                         🔒 Secure payments by Paddle &bull; 📧 hello@bookkraftai.com &bull; 🏢 Fateh Consortium Ltd, Bangladesh
                     </p>
                     <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+                        <a href="https://www.producthunt.com/products/book-kraft-ai?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-bookkraft-ai" target="_blank" rel="noopener noreferrer">
+                            <img alt="BookKraft AI - AI-powered EPUB and Kindle formatting for indie authors | Product Hunt" width={250} height={54} src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1220281&theme=dark&t=1786991332060" style={{ height: '36px', width: 'auto' }} />
+                        </a>
                         <a href="https://codetrendy.com" target="_blank" rel="noopener noreferrer">
                             <img src="https://codetrendy.com/api/badge?style=classic" alt="Listed on codetrendy.com" width="108" height="36" style={{ height: '36px', width: 'auto', opacity: 0.75 }} />
                         </a>
