@@ -3,7 +3,7 @@ import { FREE_TOOLS } from '@/lib/constants';
 
 export const metadata = {
   title: 'Sign Up -- BookKraft AI',
-  description: `Create your BookKraft AI account. Get ${FREE_TOOLS.length} free tools instantly - no credit card needed.`,
+  description: `Create your free BookKraft AI account — get ${FREE_TOOLS.length} free ebook formatting tools instantly, including EPUB Validator and Metadata Builder. No credit card needed.`,
   robots: { index: false, follow: false },
   alternates: { canonical: 'https://bookkraftai.com/signup' },
 };

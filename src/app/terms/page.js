@@ -5,7 +5,7 @@ import { FREE_TOOLS, LOGIC_TOOLS, AI_TOOLS } from '@/lib/constants';
 
 export const metadata = {
     title: 'Terms of Service — BookKraft AI',
-    description: 'BookKraft AI terms of service — please read before using our eBook formatting tools.',
+    description: 'Terms of Service for BookKraft AI — read our terms of use for the ebook formatting platform. Covers tool usage, accounts, payments, and content policies.',
 alternates: { canonical: 'https://bookkraftai.com/terms' }
 };
 

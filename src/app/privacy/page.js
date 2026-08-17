@@ -3,7 +3,7 @@ import Footer from '@/components/Footer';
 
 export const metadata = {
     title: 'Privacy Policy — BookKraft AI',
-    description: 'BookKraft AI privacy policy — how we collect, use, and protect your information.',
+    description: 'Privacy Policy for BookKraft AI — how we collect, use, and protect your data when using our EPUB validation, Kindle formatting, and metadata tools.',
  alternates: { canonical: 'https://bookkraftai.com/privacy'}
 
 };
