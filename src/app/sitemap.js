@@ -123,6 +123,24 @@ export default async function sitemap() {
       priority: 0.9,
     },
     {
+      url: `${BASE}/vellum-alternative`,
+      lastModified: new Date('2026-08-18'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE}/calibre-alternative`,
+      lastModified: new Date('2026-08-18'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE}/alternatives`,
+      lastModified: new Date('2026-08-18'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${BASE}/epub-errors`,
       lastModified: new Date('2026-08-05'),
       changeFrequency: 'weekly',
