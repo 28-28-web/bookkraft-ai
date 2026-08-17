@@ -143,6 +143,19 @@ export default function ManuscriptModePage() {
                     </div>
                 </div>
             </section>
+
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'FAQPage',
+                mainEntity: [
+                    { '@type': 'Question', name: 'What file types can I convert to EPUB?', acceptedAnswer: { '@type': 'Answer', text: '.docx (Microsoft Word) and .txt (plain text). The converter extracts text, detects chapters by heading pattern, and builds a valid EPUB 3.0.' } },
+                    { '@type': 'Question', name: 'Is the Word to EPUB conversion free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Full Manuscript Mode is free with a BookKraft AI account.' } },
+                    { '@type': 'Question', name: 'Will bold and italic from my Word file appear in the EPUB?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Bold, italic, and underline are preserved. Word heading styles (Heading 1, 2, 3) carry through as chapter markers. Images, tables, footnotes, and font changes are not carried over.' } },
+                    { '@type': 'Question', name: 'How are chapters detected?', acceptedAnswer: { '@type': 'Answer', text: "For .docx files: Word heading styles (Heading 1, 2, 3) create chapter breaks, as do paragraphs matching 'Chapter N' or 'PART I/II/III'. For .txt files: Markdown headings (# Title, ## Section) and the same text patterns are used." } },
+                    { '@type': 'Question', name: 'Is the EPUB output compatible with Amazon KDP?', acceptedAnswer: { '@type': 'Answer', text: 'The output is a valid EPUB 3.0 with correct structure. Run it through the EPUB checker before submitting to any platform.' } },
+                    { '@type': 'Question', name: 'Do I need Calibre or Sigil to convert my Word doc to EPUB?', acceptedAnswer: { '@type': 'Answer', text: 'No. The conversion runs server-side — no desktop software required. Upload your file, fill in your details, and download the EPUB.' } },
+                ],
+            }) }} />
         </>
     );
 }
