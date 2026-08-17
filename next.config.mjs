@@ -4,7 +4,6 @@ const nextConfig = {
   trailingSlash: false,
   experimental: {
     optimizePackageImports: ['react', 'react-dom'],
-    optimizeCss: true,
   },
   // E: is a network/slow drive — native fs change events don't reliably
   // reach the dev watcher (both webpack and Turbopack use this same key;
