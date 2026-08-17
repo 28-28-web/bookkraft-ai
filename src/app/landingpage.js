@@ -182,6 +182,7 @@ function HeroSection() {
     }));
 
     let raf;
+    let initTimer;
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -255,10 +256,11 @@ function HeroSection() {
 
       raf = requestAnimationFrame(draw);
     };
-    draw();
+    initTimer = setTimeout(draw, 300);
 
     return () => {
-      cancelAnimationFrame(raf);
+      clearTimeout(initTimer);
+      if (raf) cancelAnimationFrame(raf);
       window.removeEventListener('resize', resize);
     };
   }, []);
