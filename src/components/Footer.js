@@ -42,6 +42,7 @@ export default function Footer() {
                         <Link href="/contact" className="footer-link">Contact</Link>
                         <Link href="/privacy" className="footer-link">Privacy Policy</Link>
                         <Link href="/terms" className="footer-link">Terms of Service</Link>
+                        <a href="https://bookkraft-ai.tolt.io" className="footer-link" target="_blank" rel="noopener noreferrer">Affiliate Program</a>
                     </div>
                     <div>
                         <p className="footer-col-title">Get Started</p>
