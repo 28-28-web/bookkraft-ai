@@ -1,10 +1,7 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { TOOLS } from '../lib/tools';
-import { FAQS, PRICING, FREE_TOOLS } from '../lib/constants';
 import AnimatedSection from '../components/AnimatedSection';
-import SocialProofTicker from '../components/SocialProofTicker';
 import BookKraftBanner from '../components/BookKraftBanner';
 import Footer from '../components/Footer';
 import dynamic from 'next/dynamic';
@@ -94,7 +91,7 @@ function ToolCard({ tool, index, problem, solution, outcome, fileType, primary }
 
 // ─── ROOT ────────────────────────────────────────────────────────────
 
-export default function LandingPage() {
+export default function LandingPage({ tools, faqs, pricing }) {
   return (
     <>
       <style>{`
@@ -122,17 +119,17 @@ export default function LandingPage() {
       `}</style>
 
       <HeroSection />
-      <FreeToolsSection />
+      <FreeToolsSection tools={tools} />
       <TickerSection />
       <ManuscriptBanner />
-      <ToolGridSection />
+      <ToolGridSection tools={tools} />
       <PositioningSection />
       <WorkflowSection />
       <TestimonialsSection />
       <BookKraftBanner />
       <PlatformsSection />
-      <PricingSection />
-      <FAQSection />
+      <PricingSection pricing={pricing} />
+      <FAQSection faqs={faqs} />
       <Footer />
     </>
   );
@@ -547,9 +544,9 @@ const FREE_TOOL_PITCHES = [
   },
 ];
 
-function FreeToolsSection() {
+function FreeToolsSection({ tools }) {
   const pitches = FREE_TOOL_PITCHES
-    .map(pitch => ({ ...pitch, tool: TOOLS.find(t => t.slug === pitch.slug) }))
+    .map(pitch => ({ ...pitch, tool: tools.find(t => t.slug === pitch.slug) }))
     .filter(p => p.tool);
 
   return (
@@ -601,16 +598,16 @@ function matchesToolFilter(tool, filter) {
   return true;
 }
 
-function ToolGridSection() {
+function ToolGridSection({ tools }) {
   const [filter, setFilter] = useState('all');
-  const filteredTools = TOOLS.filter((t) => matchesToolFilter(t, filter));
+  const filteredTools = tools.filter((t) => matchesToolFilter(t, filter));
 
   return (
     <section className="tools-section-v2" id="tools-section" aria-labelledby="toolsHeading">
       <div className="section-inner-v2">
         <AnimatedSection>
           <div className="animate-on-scroll" style={{ textAlign:'center' }}>
-            <p className="section-eyebrow-v2">{TOOLS.length} Professional Tools</p>
+            <p className="section-eyebrow-v2">{tools.length} Professional Tools</p>
             <h2 className="section-title-v2" id="toolsHeading">EPUB 3.0 Validator, Kindle Manuscript Formatter & More</h2>
             <p className="section-sub-v2" style={{ maxWidth:500, margin:'0 auto' }}>
               From raw manuscript to polished EPUB — every step covered in one place.
@@ -814,7 +811,7 @@ function PlatformsSection() {
 
 // ─── 9. PRICING ──────────────────────────────────────────────────────
 
-function PricingSection() {
+function PricingSection({ pricing }) {
   const plans = [
     {
       key:'free', name:'Free', price:'$0', period:'forever',
@@ -824,26 +821,26 @@ function PricingSection() {
     },
     {
       key:'starter',
-      name: PRICING.starter.name,
-      price: PRICING.starter.label, period:'one-time',
-      desc: PRICING.starter.desc,
-      features: PRICING.starter.features,
+      name: pricing.starter.name,
+      price: pricing.starter.label, period:'one-time',
+      desc: pricing.starter.desc,
+      features: pricing.starter.features,
       cta:'Get Starter', href:'/pricing', featured:false,
     },
     {
       key:'pro',
-      name: PRICING.pro.name,
-      price: PRICING.pro.label, period:'one-time',
-      desc: PRICING.pro.desc,
-      features: PRICING.pro.features,
+      name: pricing.pro.name,
+      price: pricing.pro.label, period:'one-time',
+      desc: pricing.pro.desc,
+      features: pricing.pro.features,
       cta:'Get Pro', href:'/pricing', featured:true,
     },
     {
       key:'lifetime',
-      name: PRICING.lifetime.name,
-      price: PRICING.lifetime.label, period:'one-time',
-      desc: PRICING.lifetime.desc,
-      features: PRICING.lifetime.features,
+      name: pricing.lifetime.name,
+      price: pricing.lifetime.label, period:'one-time',
+      desc: pricing.lifetime.desc,
+      features: pricing.lifetime.features,
       cta:'Get Lifetime', href:'/pricing', featured:false,
     },
   ];
@@ -896,7 +893,7 @@ function PricingSection() {
 
 // ─── 10. FAQ ─────────────────────────────────────────────────────────
 
-function FAQSection() {
+function FAQSection({ faqs }) {
   const [open, setOpen] = useState(null);
   const toggle = i => setOpen(open === i ? null : i);
 
@@ -911,7 +908,7 @@ function FAQSection() {
         </AnimatedSection>
 
         <div style={{ marginTop:40 }} role="list">
-          {FAQS.map((faq, i) => {
+          {faqs.map((faq, i) => {
             const isOpen = open === i;
             return (
               <div key={i}

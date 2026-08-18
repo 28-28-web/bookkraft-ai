@@ -1,5 +1,5 @@
 import LandingPage from './landingpage';
-import { PRICING, FREE_TOOLS } from '../lib/constants';
+import { PRICING, FREE_TOOLS, FAQS } from '../lib/constants';
 import { TOOLS } from '../lib/tools';
 
 export const metadata = {
@@ -57,7 +57,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
       />
-      <LandingPage />
+      <LandingPage tools={TOOLS} faqs={FAQS} pricing={PRICING} />
     </>
   );
 }
