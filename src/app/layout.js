@@ -48,10 +48,7 @@ export const metadata = {
   title: 'BookKraft AI — EPUB & Kindle Tools for Indie Authors',
   description: TOOL_COUNT_DESC,
   keywords: 'ebook formatting, epub validator, kindle format, metadata builder, book publishing tools, kdp tools',
-  icons: {
-    icon: '/favicon.png',
-    apple: '/favicon.png',
-  },
+
   openGraph: {
     title: 'BookKraft AI — EPUB & Kindle Tools for Indie Authors',
     description: TOOL_COUNT_DESC,
