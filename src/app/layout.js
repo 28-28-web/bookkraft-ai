@@ -98,6 +98,13 @@ export default function RootLayout({ children }) {
           gtag('config', 'G-H0G0L2F9ZF');
         `}</Script>
 
+        {/* ── Tolt affiliate tracking ── */}
+        <Script
+          src="https://files.tlt-cdn.com/tlt.js"
+          data-tolt="pk_mLNuSRb6fKgNANwUVumQGKQb"
+          strategy="afterInteractive"
+        />
+
         {/* ── Microsoft Clarity ── */}
         <Script id="microsoft-clarity" strategy="afterInteractive">
           {`

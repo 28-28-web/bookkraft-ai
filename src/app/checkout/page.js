@@ -65,6 +65,7 @@ function CheckoutContent() {
             return;
         }
 
+        const toltReferral = window.tolt_referral;
         paddle.Checkout.open({
             settings: { displayMode: 'overlay', theme: 'light', locale: 'en' },
             items: [{ priceId: selected.paddlePriceId, quantity: 1 }],
@@ -73,6 +74,7 @@ function CheckoutContent() {
                 userId: user.id,
                 purchaseType: selected.purchaseType,
                 creditsToAdd: selected.creditsToAdd,
+                ...(toltReferral ? { tolt_referral: toltReferral } : {}),
             },
             customer: { email: user.email },
         });

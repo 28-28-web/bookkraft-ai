@@ -65,12 +65,14 @@ function CheckoutButton({ purchaseType, discountCode, className, children }) {
             window.location.href = fallbackUrl;
         }, CHECKOUT_WATCHDOG_MS);
 
+        const toltReferral = (window as any).tolt_referral;
         const payload = {
             items: [{ priceId, quantity: 1 }],
             ...(discountCode ? { discountCode } : {}),
             customData: {
                 userId: user.id,
                 purchaseType: purchaseType,
+                ...(toltReferral ? { tolt_referral: toltReferral } : {}),
             },
             customer: { email: user.email },
         };
