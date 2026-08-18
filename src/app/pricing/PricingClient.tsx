@@ -2,13 +2,14 @@
 
 import GuaranteeBadge from '@/components/GuaranteeBadge';
 import { PRICING, PADDLE_PRICE_IDS, TOOL_CREDIT_COSTS, FAQS, FREE_TOOLS } from '@/lib/constants';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { usePaddle } from '@/app/hooks/usePaddle';
 import { useAuth } from '@/components/AuthProvider';
 
 const CHECKOUT_WATCHDOG_MS = 5000;
 
-function CheckoutButton({ purchaseType, className, children }) {
+function CheckoutButton({ purchaseType, discountCode, className, children }) {
     const { paddle } = usePaddle();
     const { user } = useAuth() as { user: { id: string; email: string } | null };
     const [loading, setLoading] = useState(false);
@@ -39,8 +40,11 @@ function CheckoutButton({ purchaseType, className, children }) {
             return;
         }
 
+        const dc = discountCode ? `&dc=${encodeURIComponent(discountCode)}` : '';
+        const fallbackUrl = `/checkout?plan=${purchaseType}${dc}`;
+
         if (!paddle) {
-            window.location.href = '/checkout?plan=' + purchaseType;
+            window.location.href = fallbackUrl;
             return;
         }
 
@@ -58,11 +62,12 @@ function CheckoutButton({ purchaseType, className, children }) {
             settled = true;
             console.error('Paddle Checkout.open produced no overlay within 5s, falling back to /checkout');
             setLoading(false);
-            window.location.href = '/checkout?plan=' + purchaseType;
+            window.location.href = fallbackUrl;
         }, CHECKOUT_WATCHDOG_MS);
 
         const payload = {
             items: [{ priceId, quantity: 1 }],
+            ...(discountCode ? { discountCode } : {}),
             customData: {
                 userId: user.id,
                 purchaseType: purchaseType,
@@ -79,7 +84,7 @@ function CheckoutButton({ purchaseType, className, children }) {
                 settled = true;
                 clearTimeout(watchdog);
                 setLoading(false);
-                window.location.href = '/checkout?plan=' + purchaseType;
+                window.location.href = fallbackUrl;
             }
             return;
         }
@@ -101,7 +106,11 @@ function CheckoutButton({ purchaseType, className, children }) {
     );
 }
 
-export default function PricingPage() {
+function PricingContent() {
+    const searchParams = useSearchParams();
+    const ref = searchParams.get('ref') ?? searchParams.get('utm_source');
+    const discountCode = ref?.toLowerCase() === 'producthunt' ? 'PHLAUNCH' : undefined;
+
     return (
         <>
             {/* Hero */}
@@ -160,7 +169,7 @@ export default function PricingPage() {
                                 <ul className="price-features">
                                     {PRICING.starter.features.map((f, i) => <li key={i}>{f}</li>)}
                                 </ul>
-                                <CheckoutButton purchaseType="starter" className="btn btn-outline btn-full">
+                                <CheckoutButton purchaseType="starter" discountCode={discountCode} className="btn btn-outline btn-full">
                                     Get Starter
                                 </CheckoutButton>
                                 <GuaranteeBadge />
@@ -172,7 +181,7 @@ export default function PricingPage() {
                                 <ul className="price-features">
                                     {PRICING.pro.features.map((f, i) => <li key={i}>{f}</li>)}
                                 </ul>
-                                <CheckoutButton purchaseType="pro" className="btn btn-gold btn-full">
+                                <CheckoutButton purchaseType="pro" discountCode={discountCode} className="btn btn-gold btn-full">
                                     Get Pro
                                 </CheckoutButton>
                                 <GuaranteeBadge />
@@ -184,7 +193,7 @@ export default function PricingPage() {
                                 <ul className="price-features">
                                     {PRICING.lifetime.features.map((f, i) => <li key={i}>{f}</li>)}
                                 </ul>
-                                <CheckoutButton purchaseType="lifetime" className="btn btn-gold btn-full">
+                                <CheckoutButton purchaseType="lifetime" discountCode={discountCode} className="btn btn-gold btn-full">
                                     Get Lifetime Deal
                                 </CheckoutButton>
                                 <GuaranteeBadge />
@@ -222,6 +231,14 @@ export default function PricingPage() {
             {/* FAQ */}
             <PricingFAQ />
         </>
+    );
+}
+
+export default function PricingPage() {
+    return (
+        <Suspense fallback={null}>
+            <PricingContent />
+        </Suspense>
     );
 }
 

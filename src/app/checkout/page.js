@@ -22,6 +22,7 @@ function CheckoutContent() {
     const { user } = useAuth();
     const { paddle, failed } = usePaddle();
     const plan = searchParams.get('plan') || 'pro';
+    const discountCode = searchParams.get('dc') || undefined;
 
     const planMap = {
         starter: {
@@ -67,6 +68,7 @@ function CheckoutContent() {
         paddle.Checkout.open({
             settings: { displayMode: 'overlay', theme: 'light', locale: 'en' },
             items: [{ priceId: selected.paddlePriceId, quantity: 1 }],
+            ...(discountCode ? { discountCode } : {}),
             customData: {
                 userId: user.id,
                 purchaseType: selected.purchaseType,
@@ -147,17 +149,17 @@ function CheckoutContent() {
                     <p style={{ fontSize: 'var(--text-sm)', fontWeight: 600, marginBottom: 'var(--space-4)' }}>Other options:</p>
                     <div style={{ display: 'grid', gap: 'var(--space-2)' }}>
                         {plan !== 'starter' && (
-                            <Link href="/checkout?plan=starter" style={{ fontSize: 'var(--text-sm)', color: 'var(--gold)' }}>
+                            <Link href={`/checkout?plan=starter${discountCode ? `&dc=${encodeURIComponent(discountCode)}` : ''}`} style={{ fontSize: 'var(--text-sm)', color: 'var(--gold)' }}>
                                 Starter — {PRICING.starter.label} (all logic tools + 40 credits)
                             </Link>
                         )}
                         {plan !== 'pro' && (
-                            <Link href="/checkout?plan=pro" style={{ fontSize: 'var(--text-sm)', color: 'var(--gold)' }}>
+                            <Link href={`/checkout?plan=pro${discountCode ? `&dc=${encodeURIComponent(discountCode)}` : ''}`} style={{ fontSize: 'var(--text-sm)', color: 'var(--gold)' }}>
                                 Pro — {PRICING.pro.label} (all logic tools + 200 credits)
                             </Link>
                         )}
                         {plan !== 'lifetime' && (
-                            <Link href="/checkout?plan=lifetime" style={{ fontSize: 'var(--text-sm)', color: 'var(--gold)' }}>
+                            <Link href={`/checkout?plan=lifetime${discountCode ? `&dc=${encodeURIComponent(discountCode)}` : ''}`} style={{ fontSize: 'var(--text-sm)', color: 'var(--gold)' }}>
                                 Lifetime — {PRICING.lifetime.label} (Unlimited)
                             </Link>
                         )}
