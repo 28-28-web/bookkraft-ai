@@ -102,7 +102,7 @@ export default function RootLayout({ children }) {
         <Script
           src="https://files.tlt-cdn.com/tlt.js"
           data-tolt="pk_mLNuSRb6fKgNANwUVumQGKQb"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
 
         {/* ── Microsoft Clarity ── */}
