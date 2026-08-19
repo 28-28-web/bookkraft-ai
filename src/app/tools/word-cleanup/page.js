@@ -1,8 +1,8 @@
 import WordCleanupPage from './WordCleanupPage';
 
 export const metadata = {
-  title: 'Word Manuscript Cleanup Checker — Free | BookKraft AI',
-  description: 'Upload your .docx manuscript and instantly scan for double spaces, straight quotes, stray formatting, and blank-paragraph issues before you publish. Free, no signup, runs entirely in your browser.',
+  title: 'Reformat a Word Document for Publishing — Free Checker | BookKraft AI',
+  description: 'Before reformatting your Word document for KDP, scan for double spaces, straight quotes, and stray formatting. Free, runs in your browser, no signup.',
   alternates: {
     canonical: 'https://bookkraftai.com/tools/word-cleanup',
   },

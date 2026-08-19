@@ -212,10 +212,10 @@ export default function WordCleanupPage() {
     <>
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '48px 20px 0' }}>
         <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px,4vw,40px)', marginBottom: 12 }}>
-          Word Manuscript Cleanup Checker
+          Reformat Your Word Manuscript — Free Cleanup Checker
         </h1>
         <p style={{ fontSize: 17, color: 'var(--text-secondary, #666)', marginBottom: 32 }}>
-          Upload your .docx manuscript to scan for double spaces, straight quotes, stacked blank paragraphs, and stray formatting — free, no signup, runs entirely in your browser.
+          When you reformat a Word document for Kindle or EPUB, the hidden issues — double spaces between sentences, straight quotes, stacked blank paragraphs, stray bold or italic runs — follow the file unless you catch them first. Upload your .docx and this Word Manuscript Cleanup Checker flags every instance in seconds, so you can fix them before converting. Free, no signup, runs entirely in your browser.
         </p>
 
         <div
