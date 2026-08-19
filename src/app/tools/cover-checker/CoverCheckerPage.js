@@ -196,10 +196,10 @@ export default function CoverCheckerPage() {
               fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px,5vw,48px)',
               fontWeight: 700, color: '#fff', lineHeight: 1.15, marginBottom: 14,
             }}>
-              Cover Dimension Checker
+              Book Cover Dimensions Checker — KDP & Apple Books
             </h1>
             <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 16, lineHeight: 1.6, maxWidth: 480, margin: '0 auto' }}>
-              Upload your cover. Check it against Amazon KDP and Apple Books requirements before you upload it anywhere.
+              The dimensions of a book cover determine whether Amazon KDP or Apple Books will accept your file. Standard Kindle book cover dimensions recommend at least 2,500 pixels on the long side, a 1.6:1 portrait ratio — plus JPEG format and file size under 5MB. Upload your cover and this Cover Checker measures all of it instantly, in your browser. No upload to a server, no signup.
             </p>
           </div>
 
