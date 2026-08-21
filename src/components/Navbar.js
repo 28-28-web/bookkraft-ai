@@ -199,7 +199,7 @@ export default function Navbar() {
                 <Link href="/login" className="nav-signin">
                   Sign In
                 </Link>
-                <Link href="/signup" className="btn btn-sm btn-gold hover-lift">
+                <Link href="/signup" className="btn btn-sm btn-white hover-lift">
                   Get Started Free
                 </Link>
               </>
@@ -234,7 +234,7 @@ export default function Navbar() {
           <a href="https://bookkraft-ai.tolt.io" className="nav-link" target="_blank" rel="noopener noreferrer">Affiliate Program</a>
           <Link href="/headshot" className="nav-link">Author Headshot</Link>
           {!user && (
-            <Link href="/signup" className="btn btn-gold" style={{ marginTop: 8 }}>
+            <Link href="/signup" className="btn btn-white" style={{ marginTop: 8 }}>
               Get Started Free
             </Link>
           )}
