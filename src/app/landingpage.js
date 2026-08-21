@@ -187,11 +187,11 @@ function HeroSection() {
       wordParticles.forEach((p) => {
         ctx.save();
         ctx.globalAlpha = p.opacity;
-        ctx.fillStyle = '#d4af37';
+        ctx.fillStyle = '#606059';
         ctx.font = `${p.size}px 'DM Sans',sans-serif`;
         const tw = ctx.measureText(p.text).width;
         ctx.fillText(p.text, p.x, p.y);
-        ctx.strokeStyle = '#d4af37';
+        ctx.strokeStyle = '#606059';
         ctx.lineWidth = 0.8;
         ctx.globalAlpha = p.opacity * 0.4;
         ctx.beginPath();
@@ -265,7 +265,7 @@ function HeroSection() {
 
   return (
     <section style={{
-      position: 'relative', background: '#0d0a06',
+      position: 'relative', background: '#ffffff',
       minHeight: '100vh', display: 'flex', alignItems: 'center', overflow: 'hidden',
     }} aria-label="Hero">
       <canvas ref={canvasRef} aria-hidden="true" style={{
@@ -292,14 +292,14 @@ function HeroSection() {
 
           <h1 style={{
             fontSize: 'clamp(2.4rem,5vw,3.75rem)', fontWeight: 800,
-            color: '#fff', lineHeight: 1.1, marginBottom: 24,
+            color: '#1a1a18', lineHeight: 1.1, marginBottom: 24,
           }}>
             Stop Fighting Your Manuscript. <br />
             <em style={{ color: 'var(--gold)', fontStyle: 'normal' }}>Ship Clean EPUB &amp; Kindle Files.</em>
           </h1>
 
           <p style={{
-            fontSize: 18, color: 'rgba(247,243,236,0.62)', lineHeight: 1.7,
+            fontSize: 18, color: 'rgba(26,26,24,0.58)', lineHeight: 1.7,
             marginBottom: 40, maxWidth: 440,
           }}>
             KDP rejecting your file? Formatting taking hours? Upload your manuscript — get a clean, publish-ready EPUB in seconds.
@@ -313,10 +313,10 @@ function HeroSection() {
             }}>Start for Free →</a>
             <a href="/pricing" style={{
               display: 'inline-flex', alignItems: 'center',
-              background: 'transparent', color: 'rgba(247,243,236,0.68)',
+              background: 'transparent', color: 'rgba(26,26,24,0.68)',
               fontWeight: 600, fontSize: 16, padding: '14px 28px',
               borderRadius: 8, textDecoration: 'none',
-              border: '1px solid rgba(247,243,236,0.15)',
+              border: '1px solid rgba(26,26,24,0.18)',
             }}>See Pricing</a>
           </div>
 
@@ -324,7 +324,7 @@ function HeroSection() {
             {['KDP Ready', 'Apple Books', 'EPUB 3.0', 'No Calibre'].map((label) => (
               <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--gold)', display: 'inline-block', flexShrink: 0 }} />
-                <span style={{ fontSize: 13, color: 'rgba(247,243,236,0.45)', fontWeight: 500 }}>{label}</span>
+                <span style={{ fontSize: 13, color: 'rgba(26,26,24,0.55)', fontWeight: 500 }}>{label}</span>
               </div>
             ))}
           </div>
