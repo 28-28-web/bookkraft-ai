@@ -75,10 +75,16 @@ export default function Navbar() {
           {!isDashboard && (
             <div className="nav-links">
               <Link
-                href="/#tools-section"
-                className={`nav-link nav-link-interactive ${pathname === '/' ? 'active' : ''}`}
+                href="/free-tools"
+                className={`nav-link nav-link-interactive ${pathname === '/free-tools' ? 'active' : ''}`}
               >
-                Tools
+                Free Tools
+              </Link>
+              <Link
+                href="/tools"
+                className={`nav-link nav-link-interactive ${pathname === '/tools' ? 'active' : ''}`}
+              >
+                Paid Tools
               </Link>
               <Link
                 href="/alternatives"
@@ -168,12 +174,6 @@ export default function Navbar() {
                 )}
               </div>
 
-              <Link
-                href="/free-tools"
-                className={`nav-link nav-link-interactive ${pathname === '/free-tools' ? 'active' : ''}`}
-              >
-                Free Tools
-              </Link>
             </div>
           )}
 
@@ -234,13 +234,13 @@ export default function Navbar() {
       {/* Mobile nav drawer */}
       {!isDashboard && (
         <div className={`mobile-nav ${mobileOpen ? 'open' : ''}`} aria-hidden={!mobileOpen}>
-          <Link href="/#tools-section" className="nav-link">Tools</Link>
+          <Link href="/free-tools" className="nav-link">Free Tools</Link>
+          <Link href="/tools" className="nav-link">Paid Tools</Link>
           <Link href="/alternatives" className="nav-link">Alternatives</Link>
           <Link href="/pricing" className="nav-link">Pricing</Link>
           <Link href="/kdp-formatting-guide" className="nav-link">KDP Formatting Guide</Link>
           <Link href="/tools/publishing-score" className="nav-link">✦ Book Score</Link>
           <Link href="/tools/word-cleanup" className="nav-link">Word Cleanup Checker</Link>
-          <Link href="/free-tools" className="nav-link">Free Tools</Link>
           <Link href="/blog" className="nav-link">Blog</Link>
           <Link href="/headshot" className="nav-link">Author Headshot</Link>
           {!user && (

@@ -33,65 +33,9 @@ const WORKFLOW = [
   { n: '5', t: 'Download & publish', d: 'KDP-ready EPUB, PDF, DOCX'     },
 ];
 
-// ─── HELPERS ─────────────────────────────────────────────────────────
-
-function Badge({ tool }) {
-  if (tool.free)
-    return <span className="badge-v2 badge-v2-free">Free</span>;
-  if (tool.accessType === 'ai')
-    return <span className="badge-v2 badge-v2-ai">✦ AI · {tool.creditCost}cr</span>;
-  if (tool.accessType === 'logic')
-    return <span className="badge-v2 badge-v2-logic">Instant</span>;
-  return <span className="badge-v2 badge-v2-locked">Locked</span>;
-}
-
-function typeLabel(tool) {
-  if (tool.free) return 'instant · free';
-  if (tool.accessType === 'ai') return 'ai-powered';
-  return 'instant';
-}
-
-function ToolCard({ tool, index, problem, solution, outcome, fileType, primary }) {
-  // problem/solution/outcome/fileType are optional — when a caller passes
-  // them (the free-tools promo section), the card leads with the author's
-  // problem instead of the generic one-line desc. ToolGridSection doesn't
-  // pass these, so its cards render exactly as before.
-  const isPitchCard = !!problem;
-
-  return (
-    <Link
-      href={`/tools/${tool.slug}`}
-      className={`tool-card-v2 tool-card-fade-in stagger-${Math.min((index%3)+1,6)}${primary ? ' tool-card-v2-primary' : ''}`}
-      role="listitem"
-    >
-      <span className="tool-card-v2-num" aria-hidden="true">
-        {String(index+1).padStart(2,'0')}
-      </span>
-      <div className="tool-card-v2-header">
-        <span style={{ fontSize:22 }} aria-hidden="true">{tool.icon}</span>
-        {isPitchCard ? <span className="badge-v2 badge-v2-free">No signup</span> : <Badge tool={tool} />}
-      </div>
-      <h3>{tool.name}</h3>
-      {isPitchCard ? (
-        <>
-          <p style={{ fontWeight:700, color:'var(--ink)' }}>{problem}</p>
-          <p>{solution}</p>
-          <p style={{ color:'var(--mid)' }}>{outcome}</p>
-        </>
-      ) : (
-        <p>{tool.desc}</p>
-      )}
-      <div className="tool-card-v2-footer">
-        <span className="tool-type-label">{isPitchCard ? fileType : typeLabel(tool)}</span>
-        <span style={{ fontSize:16, color:'var(--gold)' }} aria-hidden="true">→</span>
-      </div>
-    </Link>
-  );
-}
-
 // ─── ROOT ────────────────────────────────────────────────────────────
 
-export default function LandingPage({ tools, faqs, pricing }) {
+export default function LandingPage({ faqs, pricing }) {
   return (
     <>
       <style>{`
@@ -120,10 +64,8 @@ export default function LandingPage({ tools, faqs, pricing }) {
 
       <HeroSection />
       <ProcessDiagramSection />
-      <FreeToolsSection tools={tools} />
       <TickerSection />
       <ManuscriptBanner />
-      <ToolGridSection tools={tools} />
       <PositioningSection />
       <WorkflowSection />
       <TestimonialsSection />
@@ -623,145 +565,7 @@ function ManuscriptBanner() {
   );
 }
 
-// Ordered deliberately — first entry is the visually primary card
-// (widest pain point: a rejected upload). Copy leads with the problem in
-// the author's own words, not the tool's feature name.
-const FREE_TOOL_PITCHES = [
-  {
-    slug: 'epub-validator',
-    problem: 'KDP rejected your file?',
-    solution: 'Finds the exact errors Amazon and Apple Books flag, explained in plain English — not raw XML error codes.',
-    outcome: 'Upload your .epub, get a full error report in seconds.',
-    fileType: '.epub file',
-    primary: true,
-  },
-  {
-    slug: 'word-cleanup',
-    problem: 'Your formatting broke somewhere in Word?',
-    solution: 'Scans for double spaces, straight quotes, stacked blank paragraphs, and stray bold or italic tags.',
-    outcome: 'Upload your .docx, get a line-by-line list of what to fix before it hits KDP.',
-    fileType: '.docx file',
-  },
-  {
-    slug: 'cover-checker',
-    problem: 'Not sure your cover is the right size?',
-    solution: 'Checks pixel dimensions, aspect ratio, and file format against KDP and Apple Books requirements.',
-    outcome: 'Upload your cover, know in seconds if it would get rejected.',
-    fileType: '.png or .jpg',
-  },
-  {
-    slug: 'metadata-builder',
-    problem: 'Re-typing the same book details for every platform?',
-    solution: 'Fill in title, keywords, and categories once — it formats them for KDP, IngramSpark, and EPUB OPF.',
-    outcome: 'One form, ready-to-paste metadata for every store you publish to.',
-    fileType: 'no file — just a form',
-  },
-  {
-    slug: 'manuscript-mode',
-    problem: 'Manuscript is a DOCX and you need a real EPUB?',
-    solution: 'Detects chapters, fixes smart quotes and em dashes, and builds a valid EPUB 3.0 file — no Calibre, no Sigil.',
-    outcome: 'Upload your .docx or .txt, download a KDP-ready EPUB.',
-    fileType: '.docx or .txt file',
-  },
-];
-
-function FreeToolsSection({ tools }) {
-  const pitches = FREE_TOOL_PITCHES
-    .map(pitch => ({ ...pitch, tool: tools.find(t => t.slug === pitch.slug) }))
-    .filter(p => p.tool);
-
-  return (
-    <section className="tools-section-v2" style={{ background:'var(--sage-bg)' }} id="free-tools-section" aria-labelledby="freeToolsHeading">
-      <div className="section-inner-v2">
-        <AnimatedSection>
-          <div className="animate-on-scroll" style={{ textAlign:'center' }}>
-            <p className="section-eyebrow-v2">Free — No Signup Required</p>
-            <h2 className="section-title-v2" id="freeToolsHeading">Five free tools. No signup, no card, no email.</h2>
-            <p className="section-sub-v2" style={{ maxWidth:640, margin:'0 auto' }}>
-              Validate an EPUB, check a cover's dimensions, scan a manuscript, build KDP metadata, or run a full manuscript check.
-            </p>
-          </div>
-        </AnimatedSection>
-
-        <div className="tool-grid-v2" role="list">
-          {pitches.map((p, i) => (
-            <ToolCard
-              key={p.slug}
-              tool={p.tool}
-              index={i}
-              problem={p.problem}
-              solution={p.solution}
-              outcome={p.outcome}
-              fileType={p.fileType}
-              primary={p.primary}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── 4. TOOL GRID ────────────────────────────────────────────────────
-
-const TOOL_FILTERS = [
-  { key: 'all',   label: 'All' },
-  { key: 'free',  label: 'Free' },
-  { key: 'ai',    label: 'AI-Powered' },
-  { key: 'logic', label: 'Instant' },
-];
-
-function matchesToolFilter(tool, filter) {
-  if (filter === 'all') return !tool.free;
-  if (filter === 'free') return !!tool.free;
-  if (filter === 'ai') return tool.accessType === 'ai';
-  if (filter === 'logic') return tool.accessType === 'logic';
-  return true;
-}
-
-function ToolGridSection({ tools }) {
-  const [filter, setFilter] = useState('all');
-  const filteredTools = tools.filter((t) => matchesToolFilter(t, filter));
-
-  return (
-    <section className="tools-section-v2" id="tools-section" aria-labelledby="toolsHeading">
-      <div className="section-inner-v2">
-        <AnimatedSection>
-          <div className="animate-on-scroll" style={{ textAlign:'center' }}>
-            <p className="section-eyebrow-v2">{tools.length} Professional Tools</p>
-            <h2 className="section-title-v2" id="toolsHeading">EPUB 3.0 Validator, Kindle Manuscript Formatter & More</h2>
-            <p className="section-sub-v2" style={{ maxWidth:500, margin:'0 auto' }}>
-              From raw manuscript to polished EPUB — every step covered in one place.
-            </p>
-          </div>
-        </AnimatedSection>
-
-        <div className="tool-filter-tabs" role="tablist" aria-label="Filter tools">
-          {TOOL_FILTERS.map((f) => (
-            <button
-              key={f.key}
-              type="button"
-              role="tab"
-              aria-selected={filter === f.key}
-              className={`tool-filter-tab${filter === f.key ? ' active' : ''}`}
-              onClick={() => setFilter(f.key)}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="tool-grid-v2" role="list" key={filter}>
-          {filteredTools.map((tool, i) => (
-            <ToolCard key={tool.slug} tool={tool} index={i} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── 5. POSITIONING ──────────────────────────────────────────────────
+// ─── 4. POSITIONING ──────────────────────────────────────────────────
 
 function PositioningSection() {
   const steps = [
