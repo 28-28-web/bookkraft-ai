@@ -124,10 +124,10 @@ export default function Navbar() {
                       position: 'absolute',
                       top: 'calc(100% + 10px)',
                       left: 0,
-                      background: 'var(--cream, #fff)',
-                      border: '1px solid var(--border, rgba(0,0,0,0.1))',
+                      background: 'var(--charcoal)',
+                      border: '1px solid rgba(255,255,255,0.12)',
                       borderRadius: 'var(--radius, 8px)',
-                      boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
                       minWidth: '200px',
                       padding: '6px',
                       zIndex: 50,
@@ -136,14 +136,14 @@ export default function Navbar() {
                     <Link
                       href="/alternatives"
                       onClick={() => setResourcesOpen(false)}
-                      style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'var(--ink, #1a1a1a)', fontSize: '14px' }}
+                      style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'rgba(255,255,255,0.8)', fontSize: '14px' }}
                     >
                       Alternatives
                     </Link>
                     <Link
                       href="/kdp-formatting-guide"
                       onClick={() => setResourcesOpen(false)}
-                      style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'var(--ink, #1a1a1a)', fontSize: '14px' }}
+                      style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'rgba(255,255,255,0.8)', fontSize: '14px' }}
                     >
                       KDP Formatting Guide
                     </Link>
@@ -152,14 +152,14 @@ export default function Navbar() {
                       onClick={() => setResourcesOpen(false)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'var(--ink, #1a1a1a)', fontSize: '14px' }}
+                      style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'rgba(255,255,255,0.8)', fontSize: '14px' }}
                     >
                       Affiliate Program
                     </a>
                     <Link
                       href="/headshot"
                       onClick={() => setResourcesOpen(false)}
-                      style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'var(--ink, #1a1a1a)', fontSize: '14px' }}
+                      style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'rgba(255,255,255,0.8)', fontSize: '14px' }}
                     >
                       Author Headshot
                     </Link>
