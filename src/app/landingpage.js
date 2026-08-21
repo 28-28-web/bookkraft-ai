@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import AnimatedSection from '../components/AnimatedSection';
 import BookKraftBanner from '../components/BookKraftBanner';
@@ -329,9 +330,16 @@ function HeroSection() {
           </div>
         </div>
 
-        {/* Right: conversion card */}
-        <div className="hero-conv-card" style={{ display: 'flex', justifyContent: 'center' }}>
-          <HeroConversionCard />
+        {/* Right: hero illustration */}
+        <div className="hero-conv-card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Image
+            src="/images/hero-books.png"
+            alt="Colorful books flowing diagonally — BookKraft AI"
+            width={768}
+            height={512}
+            priority={true}
+            style={{ width: '100%', height: 'auto', display: 'block', maxWidth: 560 }}
+          />
         </div>
       </div>
     </section>
