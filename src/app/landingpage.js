@@ -39,12 +39,6 @@ export default function LandingPage({ faqs, pricing }) {
   return (
     <>
       <style>{`
-        @keyframes bkWordUp {
-          to { opacity:1; transform:translateY(0); }
-        }
-        @keyframes bkGoldLine {
-          to { transform:scaleX(1); }
-        }
         @keyframes bkFadeUp {
           from { opacity:0; transform:translateY(14px); }
           to   { opacity:1; transform:translateY(0); }
@@ -53,17 +47,19 @@ export default function LandingPage({ faqs, pricing }) {
           from { transform:translateX(0); }
           to   { transform:translateX(-50%); }
         }
-        @media (max-width: 768px) {
-          .hero-canvas-grid {
+        @media (max-width: 720px) {
+          .bk-process-grid {
             grid-template-columns: 1fr !important;
-            padding: 100px 20px 60px !important;
+            gap: 22px !important;
           }
-          .hero-conv-card { display: none; }
+          .bk-process-arrow { display: none !important; }
+          .bk-card-top { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; }
         }
       `}</style>
 
       <HeroSection />
       <ProcessDiagramSection />
+      <ScorecardSection />
       <TickerSection />
       <ManuscriptBanner />
       <PositioningSection />
@@ -83,69 +79,43 @@ export default function LandingPage({ faqs, pricing }) {
 
 function HeroSection() {
   return (
-    <section style={{
-      position: 'relative',
-      background: 'var(--ink)',
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      overflow: 'hidden',
-    }} aria-label="Hero">
-      <div className="hero-canvas-grid" style={{
-        position: 'relative', zIndex: 1, width: '100%',
-        maxWidth: 1200, margin: '0 auto', padding: '120px 32px 80px',
-        display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center',
-      }}>
-        {/* Left copy */}
-        <div>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'rgba(201,168,76,0.15)', border: '1px solid rgba(201,168,76,0.35)',
-            borderRadius: 100, padding: '6px 16px', marginBottom: 32,
-          }}>
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--gold)', display: 'inline-block' }} />
-            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--gold)', textTransform: 'uppercase', fontFamily: 'var(--font-ibm-mono), monospace' }}>
-              Readiness Score · Know Before You Publish
-            </span>
-          </div>
-
-          <h1 style={{
-            fontSize: 'clamp(2.2rem,4.6vw,3.5rem)', fontWeight: 800,
-            color: '#f7f3ec', lineHeight: 1.1, marginBottom: 8,
-            fontFamily: 'var(--font-fraunces), Fraunces, serif',
-          }}>
-            Your manuscript has small mistakes{' '}
-            <em style={{ color: 'var(--gold)', fontStyle: 'normal' }}>Amazon won&apos;t tell you about.</em>
-          </h1>
-          <p style={{ fontSize: '0.95rem', fontWeight: 600, color: 'rgba(247,243,236,0.4)', marginBottom: 24, letterSpacing: '0.01em', fontFamily: 'var(--font-ibm-mono), monospace' }}>
-            EPUB &amp; Kindle formatting, checked before you publish.
-          </p>
-
-          <p style={{
-            fontSize: 18, color: 'rgba(247,243,236,0.62)', lineHeight: 1.7,
-            marginBottom: 40, maxWidth: 440,
-          }}>
-            Run a free Readiness Scan before you publish. One score, every platform, exactly what to fix first.
-          </p>
-
-          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-            <a href="/free-tools" style={{
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-              background: 'var(--gold)', color: '#0d0a06', fontWeight: 700,
-              fontSize: 16, padding: '14px 28px', borderRadius: 8, textDecoration: 'none',
-            }}>Run free Readiness Scan →</a>
-            <a href="/pricing" style={{
-              display: 'inline-flex', alignItems: 'center',
-              background: 'transparent', color: 'rgba(247,243,236,0.65)',
-              fontWeight: 600, fontSize: 16, padding: '14px 28px',
-              borderRadius: 8, textDecoration: 'none',
-            }}>See pricing</a>
-          </div>
+    <section style={{ background: 'var(--ink)', padding: '78px 0 0' }} aria-label="Hero">
+      <div style={{ maxWidth: 1040, margin: '0 auto', padding: '0 28px' }}>
+        <div style={{
+          display: 'inline-flex', alignItems: 'center', gap: 8,
+          border: '1px solid rgba(255,255,255,0.22)', borderRadius: 999,
+          padding: '6px 14px', marginBottom: 26,
+        }}>
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#fff', display: 'inline-block', flexShrink: 0 }} />
+          <span style={{ fontFamily: 'var(--font-ibm-mono), monospace', fontSize: '12.5px', fontWeight: 500, letterSpacing: '0.14em', color: 'rgba(255,255,255,0.75)', textTransform: 'uppercase' }}>
+            Publishing Preflight
+          </span>
         </div>
 
-        {/* Right: Readiness Score preview card */}
-        <div className="hero-conv-card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-          <ReadinessScoreCard />
+        <h1 style={{
+          fontFamily: 'var(--font-fraunces), Fraunces, serif', fontWeight: 500,
+          fontSize: 'clamp(34px, 4.6vw, 54px)', lineHeight: 1.08, letterSpacing: '-0.01em',
+          color: '#ffffff', maxWidth: 820, margin: '0 0 26px',
+        }}>
+          Your manuscript has small mistakes Amazon won&apos;t tell you about &mdash;{' '}
+          <em style={{ fontStyle: 'italic', color: 'rgba(255,255,255,0.6)', fontWeight: 500 }}>until after you upload it.</em>
+        </h1>
+
+        <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.65)', maxWidth: 560, margin: '0 0 36px', lineHeight: 1.5 }}>
+          Run a free Readiness Scan before you publish. One score, every platform, exactly what to fix first.
+        </p>
+
+        <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
+          <a href="/free-tools" style={{
+            background: '#ffffff', color: '#23262d', fontWeight: 600, fontSize: '15.5px',
+            padding: '14px 26px', borderRadius: 7, textDecoration: 'none', display: 'inline-block',
+            boxShadow: '0 10px 24px -8px rgba(0,0,0,0.5)',
+          }}>Run free Readiness Scan →</a>
+          <a href="/pricing" style={{
+            color: '#ffffff', fontSize: 15, padding: '14px 4px',
+            background: 'none', opacity: 0.75, textDecoration: 'underline',
+            textUnderlineOffset: '4px', textDecorationColor: 'rgba(255,255,255,0.3)',
+          }}>See pricing</a>
         </div>
       </div>
     </section>
@@ -156,120 +126,163 @@ function HeroSection() {
 // ─── READINESS SCORE CARD ────────────────────────────────────────────
 
 const RS_PLATFORMS = [
-  { name: 'Amazon KDP',    status: 'pass', label: 'Ready' },
-  { name: 'Apple Books',   status: 'warn', label: '2 issues' },
-  { name: 'Kobo',          status: 'pass', label: 'Ready' },
-  { name: 'IngramSpark',   status: 'fail', label: '1 critical issue' },
+  { name: 'Amazon KDP',  status: 'pass', label: 'Ready' },
+  { name: 'Apple Books', status: 'warn', label: '3 issues' },
+  { name: 'Kobo',        status: 'pass', label: 'Ready' },
+  { name: 'IngramSpark', status: 'fail', label: '2 issues' },
 ];
 
 const RS_FIXES = [
   {
     severity: 'critical',
-    title: 'Missing NCX navigation table',
-    detail: 'EPUB 2 readers (IngramSpark) require an NCX file. Your file doesn\'t have one.',
+    title: 'Table of contents isn’t connected to chapter 7',
+    detail: 'Readers can’t jump to it from the Kindle navigation.',
     href: '/tools/epub-formatter',
   },
   {
-    severity: 'warning',
-    title: 'Author name inconsistency',
-    detail: 'Metadata "author" field differs from the byline on the cover image.',
+    severity: 'critical',
+    title: 'Title doesn’t match across cover and metadata',
+    detail: '“The Long Way Home” vs “The Long Way Home: A Novel.”',
     href: '/tools/metadata-builder',
+  },
+  {
+    severity: 'warning',
+    title: 'Cover is 118px short of Apple Books’ minimum height',
+    detail: 'Current: 2382 × 1500. Needed: 2400 × 1600 or larger.',
+    href: '/tools/epub-formatter',
   },
 ];
 
 function ReadinessScoreCard() {
   return (
     <div style={{
-      background: '#fff', border: '1px solid var(--border)', borderRadius: 14,
-      width: '100%', maxWidth: 390, boxShadow: 'var(--shadow-lg)', overflow: 'hidden',
+      background: '#fff', color: '#1a1a1a',
+      borderRadius: 14, maxWidth: 760, margin: '0 auto',
+      boxShadow: '0 40px 80px -30px rgba(0,0,0,0.65), 0 0 0 1px rgba(0,0,0,0.06)',
+      overflow: 'hidden', position: 'relative',
     }}>
+      <div aria-hidden="true" style={{
+        position: 'absolute', inset: 10, border: '1px solid rgba(20,20,20,0.1)',
+        borderRadius: 9, pointerEvents: 'none', zIndex: 1,
+      }} />
+
       {/* Header row */}
-      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', padding: '20px 22px 16px', borderBottom: '1px solid var(--border)' }}>
+      <div className="bk-card-top" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '26px 34px 22px', borderBottom: '1px solid rgba(20,20,20,0.1)' }}>
         <div>
-          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--mid)', textTransform: 'uppercase', fontFamily: 'var(--font-ibm-mono), monospace', marginBottom: 3 }}>Readiness Report</div>
-          <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>my-novel-draft.epub</div>
+          <div style={{ fontFamily: 'var(--font-ibm-mono), monospace', fontSize: '12.5px', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(20,20,20,0.5)', marginBottom: 4 }}>Readiness Report</div>
+          <div style={{ fontSize: 14, color: 'rgba(20,20,20,0.7)' }}>my-novel-draft.epub</div>
         </div>
         <div style={{ textAlign: 'right' }}>
-          <span style={{ fontSize: 32, fontWeight: 800, color: 'var(--ink)', lineHeight: 1 }}>91</span>
-          <span style={{ fontSize: 14, color: 'var(--mid)', fontWeight: 500 }}>/100</span>
+          <div style={{ fontFamily: 'var(--font-fraunces), Fraunces, serif', fontWeight: 600, fontSize: 44, lineHeight: 1, color: 'var(--charcoal)' }}>
+            91<span style={{ fontFamily: 'var(--font-dm-sans), DM Sans, sans-serif', fontSize: 16, fontWeight: 500, color: 'rgba(20,20,20,0.4)' }}>/100</span>
+          </div>
+          <div style={{ fontSize: '12.5px', color: 'rgba(20,20,20,0.5)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Readiness</div>
         </div>
       </div>
 
       {/* Platform status matrix */}
-      <div style={{ padding: '14px 22px', borderBottom: '1px solid var(--border)' }}>
-        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: 'var(--mid)', textTransform: 'uppercase', fontFamily: 'var(--font-ibm-mono), monospace', marginBottom: 10 }}>Platform Status</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
-          {RS_PLATFORMS.map(({ name, status, label }) => {
+      <div style={{ padding: '22px 34px', borderBottom: '1px solid rgba(20,20,20,0.1)' }}>
+        <div style={{ fontFamily: 'var(--font-ibm-mono), monospace', fontSize: '11.5px', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(20,20,20,0.45)', marginBottom: 14 }}>Platform status</div>
+        <div>
+          {RS_PLATFORMS.map(({ name, status, label }, i) => {
             const dotColor = status === 'pass' ? 'var(--green)' : status === 'fail' ? 'var(--terracotta)' : 'var(--amber)';
             const labelColor = status === 'pass' ? 'var(--green)' : status === 'fail' ? 'var(--terracotta)' : 'var(--amber)';
             return (
-              <div key={name} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ width: 8, height: 8, borderRadius: '50%', background: dotColor, flexShrink: 0, display: 'inline-block' }} />
-                <span style={{ flex: 1, fontSize: 13, color: 'var(--ink)' }}>{name}</span>
-                <span style={{ fontSize: 12, fontWeight: 600, color: labelColor }}>{label}</span>
+              <div key={name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '9px 0', fontSize: '14.5px', borderBottom: i < RS_PLATFORMS.length - 1 ? '1px dashed rgba(20,20,20,0.12)' : 'none' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontWeight: 500 }}>
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: dotColor, flexShrink: 0, display: 'inline-block' }} />
+                  {name}
+                </div>
+                <span style={{ fontSize: 13, fontWeight: 500, color: labelColor }}>{label}</span>
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* Ordered fix list */}
-      <div style={{ padding: '14px 22px', borderBottom: '1px solid var(--border)' }}>
-        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: 'var(--mid)', textTransform: 'uppercase', fontFamily: 'var(--font-ibm-mono), monospace', marginBottom: 10 }}>Fix List</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {RS_FIXES.map(({ severity, title, detail, href }) => {
-            const badgeBg = severity === 'critical' ? 'var(--terracotta)' : 'var(--amber)';
-            return (
-              <div key={title}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 3 }}>
-                  <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', background: badgeBg, color: '#fff', padding: '2px 6px', borderRadius: 4, fontFamily: 'var(--font-ibm-mono), monospace', flexShrink: 0 }}>{severity}</span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)' }}>{title}</span>
-                </div>
-                <div style={{ fontSize: 12, color: 'var(--mid)', lineHeight: 1.5, marginBottom: 4 }}>{detail}</div>
-                <a href={href} style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink)', textDecoration: 'none' }}>Fix now →</a>
+      {/* Fix list */}
+      <div style={{ padding: '26px 34px 30px' }}>
+        <div style={{ fontFamily: 'var(--font-ibm-mono), monospace', fontSize: '11.5px', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(20,20,20,0.45)', marginBottom: 16 }}>Fix these, in order</div>
+        {RS_FIXES.map(({ severity, title, detail, href }, i) => {
+          const badgeBg = severity === 'critical' ? 'rgba(182,80,63,0.12)' : 'rgba(192,122,43,0.12)';
+          const badgeColor = severity === 'critical' ? 'var(--terracotta)' : 'var(--amber)';
+          return (
+            <div key={title} style={{ display: 'flex', alignItems: 'flex-start', gap: 14, padding: '12px 0', borderBottom: i < RS_FIXES.length - 1 ? '1px solid rgba(20,20,20,0.08)' : 'none' }}>
+              <span style={{ flexShrink: 0, fontFamily: 'var(--font-ibm-mono), monospace', fontSize: '10.5px', fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', padding: '4px 8px', borderRadius: 4, marginTop: 1, background: badgeBg, color: badgeColor }}>{severity}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 500, fontSize: '14.5px', marginBottom: 2 }}>{title}</div>
+                <div style={{ fontSize: 13, color: 'rgba(20,20,20,0.55)' }}>{detail}</div>
               </div>
-            );
-          })}
-        </div>
+              <a href={href} style={{ flexShrink: 0, fontSize: 13, fontWeight: 600, color: 'var(--charcoal)', textDecoration: 'none', whiteSpace: 'nowrap', marginTop: 1 }}>Fix now →</a>
+            </div>
+          );
+        })}
       </div>
 
       {/* Footer bar */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 22px', background: 'var(--paper-dim)' }}>
-        <span style={{ fontSize: 12, color: 'var(--mid)', fontFamily: 'var(--font-ibm-mono), monospace' }}>3 credits · full report</span>
-        <a href="/tools" style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink)', textDecoration: 'none' }}>Rescan after fixing →</a>
+      <div style={{ padding: '18px 34px', background: 'var(--paper-dim)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 13, color: 'rgba(20,20,20,0.55)' }}>
+        <span style={{ fontFamily: 'var(--font-ibm-mono), monospace' }}>3 credits · full report</span>
+        <a href="/tools" style={{ color: 'var(--charcoal)', fontWeight: 600, textDecoration: 'none' }}>Rescan after fixing →</a>
       </div>
     </div>
+  );
+}
+
+// ─── SCORECARD SECTION ───────────────────────────────────────────────
+
+function ScorecardSection() {
+  return (
+    <section style={{ background: 'var(--ink)', padding: '70px 0 90px' }}>
+      <div style={{ maxWidth: 1040, margin: '0 auto', padding: '0 28px' }}>
+        <p style={{ textAlign: 'center', fontFamily: 'var(--font-ibm-mono), monospace', fontSize: '12.5px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'rgba(255,255,255,0.4)', marginBottom: 14 }}>
+          What the scan gives back
+        </p>
+        <h2 style={{ textAlign: 'center', fontFamily: 'var(--font-fraunces), Fraunces, serif', fontWeight: 500, fontSize: 'clamp(24px, 3vw, 32px)', maxWidth: 640, margin: '0 auto 46px', color: '#ffffff', lineHeight: 1.25 }}>
+          One score. Every store you publish to. Exactly what to fix first.
+        </h2>
+        <ReadinessScoreCard />
+        <p style={{ textAlign: 'center', marginTop: 26, fontSize: 13, color: 'rgba(255,255,255,0.3)' }}>
+          Preview — not connected to live data
+        </p>
+      </div>
+    </section>
   );
 }
 
 // ─── PROCESS DIAGRAM ─────────────────────────────────────────────────
 
 const AUTHOR_STEPS = [
-  { n: '1', label: 'Write',           detail: 'Your draft, your tools', active: false },
-  { n: '2', label: 'Clean & Validate', detail: 'BookKraft AI checks here', active: true  },
-  { n: '3', label: 'Format & Design', detail: 'Vellum, Atticus, InDesign', active: false },
+  { n: '01', label: 'Write',            detail: 'Word, Scrivener, Google Docs', active: false },
+  { n: '02', label: 'Clean & Validate', detail: 'BookKraft AI runs the scan',   active: true  },
+  { n: '03', label: 'Format & Publish', detail: 'Vellum, Atticus, or KDP',      active: false },
 ];
 
 function ProcessDiagramSection() {
   return (
-    <section style={{ background: 'var(--paper-dim)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '40px 32px' }}>
-      <div style={{ maxWidth: 760, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0 }}>
+    <section style={{
+      background: 'var(--ink)',
+      borderTop: '1px solid rgba(255,255,255,0.09)',
+      borderBottom: '1px solid rgba(255,255,255,0.09)',
+      padding: '30px 0',
+      marginTop: 56,
+    }}>
+      <div className="bk-process-grid" style={{
+        maxWidth: 1040, margin: '0 auto', padding: '0 28px',
+        display: 'grid', gridTemplateColumns: '1fr auto 1fr auto 1fr', alignItems: 'center',
+      }}>
         {AUTHOR_STEPS.map((step, i) => (
           <React.Fragment key={step.label}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', minWidth: 160, padding: '0 12px' }}>
-              <div style={{
-                width: 44, height: 44, borderRadius: '50%', marginBottom: 10,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 15, fontWeight: 800,
-                background: step.active ? 'var(--gold)' : 'transparent',
-                border: step.active ? 'none' : '2px solid var(--border)',
-                color: step.active ? '#0d0a06' : 'var(--mid)',
-              }}>{step.n}</div>
-              <div style={{ fontSize: 14, fontWeight: step.active ? 800 : 500, color: step.active ? 'var(--ink)' : 'var(--mid)', marginBottom: 4 }}>{step.label}</div>
-              <div style={{ fontSize: 12, color: step.active ? 'var(--mid)' : 'rgba(107,101,96,0.55)', lineHeight: 1.4 }}>{step.detail}</div>
+            <div style={{ padding: '0 18px' }}>
+              <div style={{ fontFamily: 'var(--font-ibm-mono), monospace', fontSize: 12, letterSpacing: '0.1em', color: step.active ? '#ffffff' : 'rgba(255,255,255,0.5)' }}>
+                {step.n}
+              </div>
+              <div style={{ fontFamily: 'var(--font-fraunces), Fraunces, serif', fontSize: 19, margin: '6px 0 4px', color: step.active ? '#ffffff' : 'rgba(255,255,255,0.4)' }}>
+                {step.label}
+              </div>
+              <div style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.45)' }}>{step.detail}</div>
             </div>
             {i < AUTHOR_STEPS.length - 1 && (
-              <div style={{ fontSize: 18, color: 'var(--border)', flexShrink: 0, paddingBottom: 24 }}>→</div>
+              <div className="bk-process-arrow" style={{ color: 'rgba(255,255,255,0.25)', fontSize: 20 }}>→</div>
             )}
           </React.Fragment>
         ))}
