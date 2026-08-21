@@ -60,11 +60,9 @@ export default function Navbar() {
         <div className="navbar-inner">
           {/* Logo */}
           <Link href="/" aria-label="BookKraft AI — Home">
-            <div className="nav-logo" style={{display:"flex",alignItems:"center",gap:"10px"}}>
+            <div className="nav-logo">
               <img src="/bookkraft-logo.svg" alt="BookKraft AI logo" width="36" height="36" style={{width:"36px",height:"36px",borderRadius:"50%"}} />
-              <span className="nav-logo-text">
-                BookKraft <span>AI</span>
-              </span>
+              <span className="nav-logo-text">BookKraft <span>AI</span></span>
               <span className="nav-logo-tagline">eBook Formatting Toolkit</span>
             </div>
           </Link>

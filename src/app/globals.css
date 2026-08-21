@@ -494,7 +494,7 @@ pre {
     top: 0;
     z-index: 100;
     background: var(--ink);
-    border-bottom: 1px solid rgba(255,255,255,0.09);
+    border-bottom: 2px solid var(--paper-dim);
     display: flex;
     align-items: center;
     padding: 20px var(--space-6);
@@ -516,13 +516,16 @@ pre {
 
 .nav-logo {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
 }
 
 .nav-logo-text {
     font-family: 'Playfair Display', serif;
     font-size: 20px;
     font-weight: 700;
+    white-space: nowrap;
     color: #fff;
     line-height: 1;
 }
@@ -536,6 +539,7 @@ pre {
     text-transform: uppercase;
     letter-spacing: .1em;
     color: rgba(255,255,255,0.4);
+    white-space: nowrap;
     margin-top: 2px;
 }
 
@@ -4547,6 +4551,7 @@ pre {
   .pricing-grid-v2 { grid-template-columns: repeat(2, 1fr); }
   .footer-v2-grid { grid-template-columns: 1fr 1fr; }
   .mobile-menu-btn { display: flex; }
+  .nav-links { display: none; }
   .workflow-steps { flex-direction: column; }
   .workflow-steps::before { display: none; }
   .workflow-step { display: flex; align-items: center; gap: var(--space-md); text-align: left; }
