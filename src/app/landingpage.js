@@ -637,6 +637,11 @@ function FAQSection({ faqs }) {
             );
           })}
         </div>
+        <div style={{ textAlign: 'center', marginTop: 32 }}>
+          <Link href="/faq" style={{ fontSize: 14, color: 'var(--ink)', fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: '3px' }}>
+            More questions →
+          </Link>
+        </div>
       </div>
     </section>
   );

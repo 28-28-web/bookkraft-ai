@@ -140,6 +140,15 @@ export const FAQS = [
     },
 ];
 
+const HOME_FAQ_QUESTIONS = new Set([
+  'Do I need to pay monthly?',
+  'Do the free tools actually work without signing up?',
+  'How do credits work?',
+  'Can I get a refund?',
+]);
+export const HOME_FAQS = FAQS.filter(f => HOME_FAQ_QUESTIONS.has(f.q));
+export const FAQ_PAGE_FAQS = FAQS.filter(f => !HOME_FAQ_QUESTIONS.has(f.q));
+
 export const ONBOARD_STEPS = [
     {
         title: 'What are you formatting?',

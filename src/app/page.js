@@ -1,5 +1,5 @@
 import LandingPage from './landingpage';
-import { PRICING, FREE_TOOLS, FAQS } from '../lib/constants';
+import { PRICING, FREE_TOOLS, HOME_FAQS } from '../lib/constants';
 import { TOOLS } from '../lib/tools';
 
 export const metadata = {
@@ -51,13 +51,27 @@ export default function Page() {
     ],
   };
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: HOME_FAQS.map(f => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
       />
-      <LandingPage faqs={FAQS} pricing={PRICING} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <LandingPage faqs={HOME_FAQS} pricing={PRICING} />
     </>
   );
 }
