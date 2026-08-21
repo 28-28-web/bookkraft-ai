@@ -331,14 +331,14 @@ function HeroSection() {
         </div>
 
         {/* Right: hero illustration */}
-        <div className="hero-conv-card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="hero-conv-card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
           <Image
             src="/images/hero-books.png"
             alt="Colorful books flowing diagonally — BookKraft AI"
             width={768}
             height={512}
             priority={true}
-            style={{ width: '100%', height: 'auto', display: 'block', maxWidth: 560 }}
+            style={{ width: '100%', height: 'auto', display: 'block', maxWidth: 420, opacity: 0.88 }}
           />
         </div>
       </div>
