@@ -4,47 +4,73 @@
 
 
 /* ══════════════════════════════════════════════
-   BOOKKRAFT AI — INKY EDITORIAL DESIGN SYSTEM
+   BOOKKRAFT AI — DARK INK DESIGN SYSTEM
    ══════════════════════════════════════════════ */
 
 
 
 :root {
-  --ink: #0F0E0C;
-  --cream: #F7F3EC;
-  --gold: #C9933A;
-  --gold-light: #FDF4E3;
-  --rust: #8B3A1A;
-  --sage: #2E5E28;
-  --mid: #6B6560;
-  --border: #E2DDD6;
-  --white: #FFFFFF;
-  --text-xs: .75rem;
-  --text-sm: .875rem;
+  /* ── Dark surfaces ── */
+  --ink:       #15171d;   /* page background */
+  --ink-soft:  #1f222a;   /* secondary dark surfaces, nav hover */
+
+  /* ── Light surfaces ── */
+  --white:     #ffffff;   /* card backgrounds */
+  --paper-dim: #f4f4f2;   /* card footers, dividers, subtle off-white */
+  --cream:     #F7F3EC;   /* legacy warm off-white — kept for existing components */
+
+  /* ── Accents ── */
+  --charcoal:  #23262d;   /* primary accent — buttons, links, score ring */
+  --gold:      #C9933A;   /* editorial gold — kept */
+  --gold-light: #FDF4E3;  /* gold tint background — kept */
+
+  /* ── Body text ── */
+  --mid:       #6B6560;   /* secondary/muted text */
+
+  /* ── Borders ── */
+  --border:    #E2DDD6;   /* warm hairline (light bg) */
+  --line:      rgba(255,255,255,0.09); /* hairline on dark bg */
+
+  /* ── Semantic status — ONLY for severity/status, never decoration ── */
+  --terracotta: #b6503f;  /* critical / error */
+  --amber:      #c07a2b;  /* warning */
+  --green:      #3f7a5a;  /* pass / ready */
+
+  /* ── Legacy semantic aliases — kept for existing components ── */
+  --rust:      #b6503f;   /* alias → --terracotta */
+  --sage:      #3f7a5a;   /* alias → --green */
+
+  /* ── Typography scale ── */
+  --text-xs:   .75rem;
+  --text-sm:   .875rem;
   --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 1.875rem;
-  --text-4xl: 2.25rem;
-  --text-5xl: 3rem;
-  --text-6xl: 3.75rem;
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-6: 24px;
-  --space-8: 32px;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+  --text-6xl:  3.75rem;
+
+  /* ── Spacing scale ── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-6:  24px;
+  --space-8:  32px;
   --space-10: 40px;
   --space-12: 48px;
   --space-16: 64px;
   --space-20: 80px;
   --space-24: 96px;
   --space-32: 128px;
-  --shadow: 0 2px 8px rgba(15, 14, 12, .06);
-  --shadow-md: 0 4px 16px rgba(15, 14, 12, .08);
-  --shadow-lg: 0 16px 48px rgba(15, 14, 12, .12), 0 4px 16px rgba(15, 14, 12, .06);
-  --radius: 4px;
+
+  /* ── Elevation ── */
+  --shadow:    0 2px 8px rgba(21, 23, 29, .06);
+  --shadow-md: 0 4px 16px rgba(21, 23, 29, .08);
+  --shadow-lg: 0 16px 48px rgba(21, 23, 29, .12), 0 4px 16px rgba(21, 23, 29, .06);
+  --radius:    4px;
 }
 
 *,
