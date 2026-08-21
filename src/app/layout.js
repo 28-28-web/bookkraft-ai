@@ -1,6 +1,6 @@
 import './globals.css';
 import Script from 'next/script';
-import { Playfair_Display, DM_Sans, JetBrains_Mono } from 'next/font/google';
+import { Playfair_Display, DM_Sans, JetBrains_Mono, Fraunces, IBM_Plex_Mono } from 'next/font/google';
 import Navbar from '../components/Navbar';
 import { AuthProvider } from '../components/AuthProvider';
 import { ProjectProvider } from '../lib/ProjectContext';
@@ -43,6 +43,22 @@ const jetbrainsMono = JetBrains_Mono({
   preload: false,
 });
 
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  weight: ['700', '800', '900'],
+  variable: '--font-fraunces',
+  display: 'optional',
+  preload: true,
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-ibm-mono',
+  display: 'optional',
+  preload: false,
+});
+
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -74,7 +90,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${fraunces.variable} ${ibmPlexMono.variable}`}>
       <head>
 
         {/* ── GA4 Consent Mode v2 ── */}

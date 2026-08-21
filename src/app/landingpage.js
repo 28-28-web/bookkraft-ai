@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import AnimatedSection from '../components/AnimatedSection';
 import BookKraftBanner from '../components/BookKraftBanner';
@@ -70,8 +70,8 @@ export default function LandingPage({ faqs, pricing }) {
       <WorkflowSection />
       <TestimonialsSection />
       <BookKraftBanner />
-      <PlatformsSection />
       <PricingSection pricing={pricing} />
+      <PlatformsStripLine />
       <FAQSection faqs={faqs} />
       <Footer />
     </>
@@ -80,140 +80,17 @@ export default function LandingPage({ faqs, pricing }) {
 
 // ─── 1. HERO ─────────────────────────────────────────────────────────
 
-const HERO_WORDS = ['Chapter', 'Prologue', 'Epilogue', 'Once upon', 'In 1842', 'Her eyes', 'He said', 'Contents', 'Preface', 'The End', 'Part I', 'Foreword'];
-const BOOK_COLORS = ['#E74C3C', '#27AE60', '#2980B9', '#8E44AD', '#E67E22', '#C0392B', '#16A085'];
-const BOOK_TITLES = ['1984', 'Dune', 'Hamlet', 'Jane Eyre', 'Dracula', 'Gatsby', 'Moby Dick', 'Emma', 'Ulysses', 'Beloved'];
 
 function HeroSection() {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    const wordParticles = HERO_WORDS.map((text) => ({
-      text,
-      x: Math.random() * canvas.width * 0.42,
-      y: 40 + Math.random() * (canvas.height - 80),
-      speed: 0.25 + Math.random() * 0.35,
-      opacity: 0.7 + Math.random() * 0.25,
-      size: 16 + Math.floor(Math.random() * 6),
-    }));
-
-    const books = BOOK_COLORS.map((color, i) => ({
-      color,
-      title: BOOK_TITLES[i % BOOK_TITLES.length],
-      x: canvas.width * 0.58 + Math.random() * canvas.width * 0.38,
-      y: 30 + Math.random() * (canvas.height - 80),
-      speedX: -(0.25 + Math.random() * 0.4),
-      speedY: (Math.random() - 0.5) * 0.2,
-      rot: (Math.random() - 0.5) * 0.5,
-      rotSpd: (Math.random() - 0.5) * 0.004,
-      w: 55 + Math.random() * 15,
-      h: 75 + Math.random() * 20,
-    }));
-
-    let raf;
-    let initTimer;
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      wordParticles.forEach((p) => {
-        ctx.save();
-        ctx.globalAlpha = p.opacity;
-        ctx.fillStyle = '#606059';
-        ctx.font = `${p.size}px 'DM Sans',sans-serif`;
-        const tw = ctx.measureText(p.text).width;
-        ctx.fillText(p.text, p.x, p.y);
-        ctx.strokeStyle = '#606059';
-        ctx.lineWidth = 0.8;
-        ctx.globalAlpha = p.opacity * 0.4;
-        ctx.beginPath();
-        ctx.moveTo(p.x + tw + 6, p.y - p.size * 0.28);
-        ctx.lineTo(p.x + tw + 52, p.y - p.size * 0.28);
-        ctx.stroke();
-        ctx.restore();
-        p.x += p.speed;
-        if (p.x > canvas.width * 0.48) {
-          p.x = -ctx.measureText(p.text).width - 10;
-          p.y = 40 + Math.random() * (canvas.height - 80);
-        }
-      });
-
-      books.forEach((b) => {
-        ctx.save();
-        ctx.translate(b.x + b.w / 2, b.y + b.h / 2);
-        ctx.rotate(b.rot);
-        ctx.fillStyle = b.color;
-        ctx.beginPath();
-        ctx.roundRect(-b.w / 2, -b.h / 2, b.w, b.h, 3);
-        ctx.fill();
-        ctx.fillStyle = 'rgba(255,255,255,0.18)';
-        ctx.fillRect(-b.w / 2, -b.h / 2, b.w * 0.14, b.h);
-        ctx.fillStyle = 'rgba(0,0,0,0.18)';
-        ctx.beginPath();
-        ctx.moveTo(b.w / 2, -b.h / 2);
-        ctx.lineTo(b.w / 2 + 5, -b.h / 2 + 5);
-        ctx.lineTo(b.w / 2 + 5, b.h / 2 + 5);
-        ctx.lineTo(b.w / 2, b.h / 2);
-        ctx.closePath();
-        ctx.fill();
-        // title text on face
-        const faceCx = b.w * 0.07;
-        const rawWords = b.title.split(' ');
-        const lines = rawWords.length >= 2
-          ? [rawWords[0], rawWords[1]]
-          : rawWords[0].length <= 6
-            ? [rawWords[0]]
-            : [rawWords[0].slice(0, 6), rawWords[0].slice(6)];
-        ctx.fillStyle = 'rgba(255,255,255,0.9)';
-        ctx.font = 'bold 9px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        if (lines.length === 1) {
-          ctx.fillText(lines[0], faceCx, 0);
-        } else {
-          ctx.fillText(lines[0], faceCx, -6);
-          ctx.fillText(lines[1], faceCx, 6);
-        }
-        ctx.restore();
-        b.x += b.speedX;
-        b.y += b.speedY;
-        b.rot += b.rotSpd;
-        if (b.x < canvas.width * 0.52) {
-          b.x = canvas.width * 0.96 + Math.random() * 40;
-          b.y = 30 + Math.random() * (canvas.height - 80);
-        }
-      });
-
-      raf = requestAnimationFrame(draw);
-    };
-    initTimer = setTimeout(draw, 300);
-
-    return () => {
-      clearTimeout(initTimer);
-      if (raf) cancelAnimationFrame(raf);
-      window.removeEventListener('resize', resize);
-    };
-  }, []);
-
   return (
     <section style={{
-      position: 'relative', background: '#ffffff',
-      minHeight: '100vh', display: 'flex', alignItems: 'center', overflow: 'hidden',
+      position: 'relative',
+      background: 'var(--ink)',
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      overflow: 'hidden',
     }} aria-label="Hero">
-      <canvas ref={canvasRef} aria-hidden="true" style={{
-        position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.65,
-      }} />
-
       <div className="hero-canvas-grid" style={{
         position: 'relative', zIndex: 1, width: '100%',
         maxWidth: 1200, margin: '0 auto', padding: '120px 32px 80px',
@@ -223,28 +100,29 @@ function HeroSection() {
         <div>
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'rgba(201,168,76,0.12)', border: '1px solid rgba(201,168,76,0.28)',
+            background: 'rgba(201,168,76,0.15)', border: '1px solid rgba(201,168,76,0.35)',
             borderRadius: 100, padding: '6px 16px', marginBottom: 32,
           }}>
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--gold)', display: 'inline-block' }} />
-            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--gold)', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--gold)', textTransform: 'uppercase', fontFamily: 'var(--font-ibm-mono), monospace' }}>
               Readiness Score · Know Before You Publish
             </span>
           </div>
 
           <h1 style={{
             fontSize: 'clamp(2.2rem,4.6vw,3.5rem)', fontWeight: 800,
-            color: '#1a1a18', lineHeight: 1.1, marginBottom: 8,
+            color: '#f7f3ec', lineHeight: 1.1, marginBottom: 8,
+            fontFamily: 'var(--font-fraunces), Fraunces, serif',
           }}>
             Your manuscript has small mistakes{' '}
             <em style={{ color: 'var(--gold)', fontStyle: 'normal' }}>Amazon won&apos;t tell you about.</em>
           </h1>
-          <p style={{ fontSize: '0.95rem', fontWeight: 600, color: 'rgba(26,26,24,0.42)', marginBottom: 24, letterSpacing: '0.01em' }}>
+          <p style={{ fontSize: '0.95rem', fontWeight: 600, color: 'rgba(247,243,236,0.4)', marginBottom: 24, letterSpacing: '0.01em', fontFamily: 'var(--font-ibm-mono), monospace' }}>
             EPUB &amp; Kindle formatting, checked before you publish.
           </p>
 
           <p style={{
-            fontSize: 18, color: 'rgba(26,26,24,0.58)', lineHeight: 1.7,
+            fontSize: 18, color: 'rgba(247,243,236,0.62)', lineHeight: 1.7,
             marginBottom: 40, maxWidth: 440,
           }}>
             Run a free Readiness Scan before you publish. One score, every platform, exactly what to fix first.
@@ -258,7 +136,7 @@ function HeroSection() {
             }}>Run free Readiness Scan →</a>
             <a href="/pricing" style={{
               display: 'inline-flex', alignItems: 'center',
-              background: 'transparent', color: 'rgba(26,26,24,0.68)',
+              background: 'transparent', color: 'rgba(247,243,236,0.65)',
               fontWeight: 600, fontSize: 16, padding: '14px 28px',
               borderRadius: 8, textDecoration: 'none',
             }}>See pricing</a>
@@ -274,65 +152,6 @@ function HeroSection() {
   );
 }
 
-function HeroConversionCard() {
-  return (
-    <div style={{
-      background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)',
-      borderRadius: 16, padding: 32, width: '100%', maxWidth: 360,
-      backdropFilter: 'blur(12px)',
-    }}>
-      {/* DOCX input */}
-      <div style={{
-        background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)',
-        borderRadius: 12, padding: '16px 20px', display: 'flex', alignItems: 'center',
-        gap: 16, marginBottom: 20,
-      }}>
-        <div style={{
-          width: 44, height: 44, background: '#2563EB', borderRadius: 8,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: 10, fontWeight: 800, color: '#fff', flexShrink: 0,
-        }}>DOCX</div>
-        <div>
-          <div style={{ fontSize: 10, color: 'rgba(247,243,236,0.38)', fontWeight: 600, marginBottom: 2, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Your Manuscript</div>
-          <div style={{ fontSize: 14, color: '#fff', fontWeight: 600 }}>my-novel-draft.docx</div>
-          <div style={{ fontSize: 12, color: 'rgba(247,243,236,0.42)' }}>124 pages · 87,400 words</div>
-        </div>
-      </div>
-
-      <div style={{ textAlign: 'center', color: 'rgba(247,243,236,0.35)', fontSize: 14, marginBottom: 20 }}>
-        ↓ processing...
-      </div>
-
-      {/* EPUB output */}
-      <div style={{
-        background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(201,168,76,0.25)',
-        borderRadius: 12, padding: '16px 20px', display: 'flex', alignItems: 'center',
-        gap: 16, marginBottom: 16,
-      }}>
-        <div style={{
-          width: 44, height: 44, background: '#D97706', borderRadius: 8,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: 10, fontWeight: 800, color: '#fff', flexShrink: 0,
-        }}>EPUB</div>
-        <div>
-          <div style={{ fontSize: 10, color: 'rgba(247,243,236,0.38)', fontWeight: 600, marginBottom: 2, textTransform: 'uppercase', letterSpacing: '0.08em' }}>KDP-Ready Output</div>
-          <div style={{ fontSize: 14, color: '#fff', fontWeight: 600 }}>my-novel-draft.epub</div>
-          <div style={{ fontSize: 12, color: 'rgba(247,243,236,0.42)' }}>EPUB 3.0 · valid</div>
-        </div>
-      </div>
-
-      {/* Ready badge */}
-      <div style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-        background: 'rgba(34,197,94,0.12)', border: '1px solid rgba(34,197,94,0.28)',
-        borderRadius: 100, padding: '10px 20px',
-      }}>
-        <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#22C55E', display: 'inline-block' }} />
-        <span style={{ fontSize: 14, fontWeight: 600, color: '#22C55E' }}>Ready to upload</span>
-      </div>
-    </div>
-  );
-}
 
 // ─── READINESS SCORE CARD ────────────────────────────────────────────
 
@@ -367,7 +186,7 @@ function ReadinessScoreCard() {
       {/* Header row */}
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', padding: '20px 22px 16px', borderBottom: '1px solid var(--border)' }}>
         <div>
-          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--mid)', textTransform: 'uppercase', fontFamily: 'monospace', marginBottom: 3 }}>Readiness Report</div>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--mid)', textTransform: 'uppercase', fontFamily: 'var(--font-ibm-mono), monospace', marginBottom: 3 }}>Readiness Report</div>
           <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>my-novel-draft.epub</div>
         </div>
         <div style={{ textAlign: 'right' }}>
@@ -378,7 +197,7 @@ function ReadinessScoreCard() {
 
       {/* Platform status matrix */}
       <div style={{ padding: '14px 22px', borderBottom: '1px solid var(--border)' }}>
-        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: 'var(--mid)', textTransform: 'uppercase', fontFamily: 'monospace', marginBottom: 10 }}>Platform Status</div>
+        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: 'var(--mid)', textTransform: 'uppercase', fontFamily: 'var(--font-ibm-mono), monospace', marginBottom: 10 }}>Platform Status</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
           {RS_PLATFORMS.map(({ name, status, label }) => {
             const dotColor = status === 'pass' ? 'var(--green)' : status === 'fail' ? 'var(--terracotta)' : 'var(--amber)';
@@ -396,14 +215,14 @@ function ReadinessScoreCard() {
 
       {/* Ordered fix list */}
       <div style={{ padding: '14px 22px', borderBottom: '1px solid var(--border)' }}>
-        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: 'var(--mid)', textTransform: 'uppercase', fontFamily: 'monospace', marginBottom: 10 }}>Fix List</div>
+        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: 'var(--mid)', textTransform: 'uppercase', fontFamily: 'var(--font-ibm-mono), monospace', marginBottom: 10 }}>Fix List</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {RS_FIXES.map(({ severity, title, detail, href }) => {
             const badgeBg = severity === 'critical' ? 'var(--terracotta)' : 'var(--amber)';
             return (
               <div key={title}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 3 }}>
-                  <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', background: badgeBg, color: '#fff', padding: '2px 6px', borderRadius: 4, fontFamily: 'monospace', flexShrink: 0 }}>{severity}</span>
+                  <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', background: badgeBg, color: '#fff', padding: '2px 6px', borderRadius: 4, fontFamily: 'var(--font-ibm-mono), monospace', flexShrink: 0 }}>{severity}</span>
                   <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)' }}>{title}</span>
                 </div>
                 <div style={{ fontSize: 12, color: 'var(--mid)', lineHeight: 1.5, marginBottom: 4 }}>{detail}</div>
@@ -416,7 +235,7 @@ function ReadinessScoreCard() {
 
       {/* Footer bar */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 22px', background: 'var(--paper-dim)' }}>
-        <span style={{ fontSize: 12, color: 'var(--mid)', fontFamily: 'monospace' }}>3 credits · full report</span>
+        <span style={{ fontSize: 12, color: 'var(--mid)', fontFamily: 'var(--font-ibm-mono), monospace' }}>3 credits · full report</span>
         <a href="/tools" style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink)', textDecoration: 'none' }}>Rescan after fixing →</a>
       </div>
     </div>
@@ -713,24 +532,18 @@ function TestimonialsSection() {
   );
 }
 
-// ─── 8. PLATFORMS ────────────────────────────────────────────────────
+// ─── 8. PLATFORMS STRIP ──────────────────────────────────────────────
 
-function PlatformsSection() {
+function PlatformsStripLine() {
   return (
-    <section style={{ background:'var(--cream)', padding:'56px clamp(20px,4vw,48px)' }} aria-labelledby="platformsHeading">
-      <div className="content-wrap" style={{ textAlign:'center' }}>
-        <AnimatedSection>
-          <h2 id="platformsHeading" className="animate-on-scroll"
-            style={{ fontFamily:"'Playfair Display',serif", fontSize:24, fontWeight:700, marginBottom:24 }}>
-            Your formatted eBook works on every platform
-          </h2>
-          <div className="animate-on-scroll stagger-1"
-            style={{ display:'flex', flexWrap:'wrap', justifyContent:'center', gap:10 }}>
-            {PLATFORMS.map(p => <span key={p} className="platform-badge">{p}</span>)}
-          </div>
-        </AnimatedSection>
-      </div>
-    </section>
+    <div style={{
+      textAlign: 'center', padding: '14px 24px',
+      background: 'var(--paper-dim)', borderTop: '1px solid var(--border)',
+      fontSize: 12, color: 'var(--mid)', letterSpacing: '0.04em',
+      fontFamily: 'var(--font-ibm-mono), monospace',
+    }}>
+      {PLATFORMS.join(' · ')}
+    </div>
   );
 }
 
