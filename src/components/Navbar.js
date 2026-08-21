@@ -44,9 +44,7 @@ export default function Navbar() {
 
   const isResourcesActive =
     pathname === '/kdp-formatting-guide' ||
-    pathname === '/tools/publishing-score' ||
-    pathname === '/tools/word-cleanup' ||
-    pathname === '/blog' ||
+    pathname === '/alternatives' ||
     pathname === '/headshot';
 
   const credits = profile?.credits_balance || 0;
@@ -87,19 +85,19 @@ export default function Navbar() {
                 Paid Tools
               </Link>
               <Link
-                href="/alternatives"
-                className={`nav-link nav-link-interactive ${pathname === '/alternatives' ? 'active' : ''}`}
-              >
-                Alternatives
-              </Link>
-              <Link
                 href="/pricing"
                 className={`nav-link nav-link-interactive ${pathname === '/pricing' ? 'active' : ''}`}
               >
                 Pricing
               </Link>
+              <Link
+                href="/blog"
+                className={`nav-link nav-link-interactive ${pathname === '/blog' ? 'active' : ''}`}
+              >
+                Blog
+              </Link>
 
-              {/* Resources dropdown: Guide, Book Score, Blog */}
+              {/* Resources dropdown */}
               <div ref={resourcesRef} style={{ position: 'relative' }}>
                 <button
                   onClick={() => setResourcesOpen((v) => !v)}
@@ -136,33 +134,28 @@ export default function Navbar() {
                     }}
                   >
                     <Link
+                      href="/alternatives"
+                      onClick={() => setResourcesOpen(false)}
+                      style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'var(--ink, #1a1a1a)', fontSize: '14px' }}
+                    >
+                      Alternatives
+                    </Link>
+                    <Link
                       href="/kdp-formatting-guide"
                       onClick={() => setResourcesOpen(false)}
                       style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'var(--ink, #1a1a1a)', fontSize: '14px' }}
                     >
                       KDP Formatting Guide
                     </Link>
-                    <Link
-                      href="/tools/publishing-score"
+                    <a
+                      href="https://bookkraft-ai.tolt.io"
                       onClick={() => setResourcesOpen(false)}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'var(--ink, #1a1a1a)', fontSize: '14px' }}
                     >
-                      ✦ Book Score
-                    </Link>
-                    <Link
-                      href="/tools/word-cleanup"
-                      onClick={() => setResourcesOpen(false)}
-                      style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'var(--ink, #1a1a1a)', fontSize: '14px' }}
-                    >
-                      Word Cleanup Checker
-                    </Link>
-                    <Link
-                      href="/blog"
-                      onClick={() => setResourcesOpen(false)}
-                      style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'var(--ink, #1a1a1a)', fontSize: '14px' }}
-                    >
-                      Blog
-                    </Link>
+                      Affiliate Program
+                    </a>
                     <Link
                       href="/headshot"
                       onClick={() => setResourcesOpen(false)}
@@ -236,12 +229,11 @@ export default function Navbar() {
         <div className={`mobile-nav ${mobileOpen ? 'open' : ''}`} aria-hidden={!mobileOpen}>
           <Link href="/free-tools" className="nav-link">Free Tools</Link>
           <Link href="/tools" className="nav-link">Paid Tools</Link>
-          <Link href="/alternatives" className="nav-link">Alternatives</Link>
           <Link href="/pricing" className="nav-link">Pricing</Link>
-          <Link href="/kdp-formatting-guide" className="nav-link">KDP Formatting Guide</Link>
-          <Link href="/tools/publishing-score" className="nav-link">✦ Book Score</Link>
-          <Link href="/tools/word-cleanup" className="nav-link">Word Cleanup Checker</Link>
           <Link href="/blog" className="nav-link">Blog</Link>
+          <Link href="/alternatives" className="nav-link">Alternatives</Link>
+          <Link href="/kdp-formatting-guide" className="nav-link">KDP Formatting Guide</Link>
+          <a href="https://bookkraft-ai.tolt.io" className="nav-link" target="_blank" rel="noopener noreferrer">Affiliate Program</a>
           <Link href="/headshot" className="nav-link">Author Headshot</Link>
           {!user && (
             <Link href="/signup" className="btn btn-gold" style={{ marginTop: 8 }}>
