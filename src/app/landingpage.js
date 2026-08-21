@@ -62,7 +62,6 @@ export default function LandingPage({ faqs, pricing }) {
       <ScorecardSection />
       <TickerSection />
       <ManuscriptBanner />
-      <PositioningSection />
       <WorkflowSection />
       <TestimonialsSection />
       <BookKraftBanner />
@@ -391,44 +390,6 @@ function ManuscriptBanner() {
         <div style={{ marginTop: 20, color: 'rgba(247,243,236,0.35)', fontSize: 13 }}>
           Works with .docx and .txt · Chapter detection included · EPUB 3.0 output
         </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── 4. POSITIONING ──────────────────────────────────────────────────
-
-function PositioningSection() {
-  const steps = [
-    { n: '01', title: 'Write', tool: 'Word, Scrivener, Google Docs', desc: 'Draft wherever you already write.' },
-    { n: '02', title: 'Clean & Validate', tool: 'BookKraft AI', desc: 'Strip formatting artifacts, validate your EPUB, build metadata.', highlight: true },
-    { n: '03', title: 'Format & Design', tool: 'Vellum, Atticus, or KDP', desc: 'Hand off a clean file to whichever formatter you already use.' },
-  ];
-  return (
-    <section style={{ background:'var(--ink)', padding:'72px clamp(20px,4vw,48px)' }} aria-label="How BookKraft AI fits your workflow">
-      <div style={{ maxWidth:900, margin:'0 auto' }}>
-        <AnimatedSection>
-          <p className="section-eyebrow-v2 animate-on-scroll" style={{ color:'rgba(201,168,76,0.65)', textAlign:'center' }}>
-            BookKraft AI runs before your formatter
-          </p>
-          <p className="animate-on-scroll" style={{ textAlign:'center', color:'rgba(247,243,236,.65)', fontSize:15, maxWidth:520, margin:'0 auto 40px' }}>
-            Vellum and Atticus are full writing and design environments — BookKraft AI is the pre-flight step that happens before either one.
-          </p>
-          <div className="animate-on-scroll stagger-1" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(220px, 1fr))', gap:16 }}>
-            {steps.map((s) => (
-              <div key={s.n} style={{
-                border: s.highlight ? '2px solid #C9933A' : '1px solid rgba(255,255,255,0.12)',
-                background: s.highlight ? 'rgba(201,147,58,0.08)' : 'transparent',
-                borderRadius:12, padding:'24px 20px',
-              }}>
-                <div style={{ fontSize:12, fontWeight:700, letterSpacing:'0.1em', color:'#C9933A', marginBottom:10 }}>STEP {s.n}</div>
-                <h3 style={{ color:'#fff', fontSize:19, fontWeight:700, marginBottom:4 }}>{s.title}</h3>
-                <p style={{ color:'rgba(247,243,236,.5)', fontSize:13, fontWeight:600, marginBottom:10 }}>{s.tool}</p>
-                <p style={{ color:'rgba(247,243,236,.65)', fontSize:14, lineHeight:1.6, margin:0 }}>{s.desc}</p>
-              </div>
-            ))}
-          </div>
-        </AnimatedSection>
       </div>
     </section>
   );
