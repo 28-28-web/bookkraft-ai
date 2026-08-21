@@ -74,6 +74,12 @@ export default async function sitemap() {
       priority: 0.9,
     },
     {
+      url: `${BASE}/faq`,
+      lastModified: new Date('2026-08-22'),
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
       url: `${BASE}/pricing`,
       lastModified: new Date('2026-03-01'),
       changeFrequency: 'monthly',
