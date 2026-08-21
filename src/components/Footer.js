@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { TOOLS } from '@/lib/tools';
 
 export default function Footer() {
     return (
@@ -9,7 +8,7 @@ export default function Footer() {
                     <div>
                         <div className="footer-logo-v2">BookKraft <span>AI</span></div>
                         <p className="footer-tagline">
-                            Professional eBook formatting for indie authors. {TOOLS.length} tools that make
+                            Professional eBook formatting for indie authors. Tools that make
                             your manuscript publishable on any platform.
                         </p>
                         <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
@@ -23,23 +22,15 @@ export default function Footer() {
                     </div>
                     <div>
                         <p className="footer-col-title">Tools</p>
-                        <Link href="/tools/epub-validator" className="footer-link">EPUB Validator</Link>
-                        <Link href="/tools/metadata-builder" className="footer-link">Metadata Builder</Link>
-                        <Link href="/tools/kindle-format-fixer" className="footer-link">Kindle Format Fixer</Link>
-                        <Link href="/tools/toc-generator" className="footer-link">TOC Generator</Link>
-                        <Link href="/tools/manuscript-cleanup" className="footer-link">Manuscript Cleanup</Link>
-                        <Link href="/tools/style-sheet-auditor" className="footer-link">Style Sheet Auditor</Link>
-                        <Link href="/tools/kdp-keyword-finder" className="footer-link">KDP Keyword Finder</Link>
-                        <Link href="/tools/word-cleanup" className="footer-link">Word Cleanup Checker</Link>
-                        <Link href="/tools/cover-checker" className="footer-link">Cover Checker</Link>
-                        <Link href="/tools/manuscript-mode" className="footer-link">Full Manuscript Mode</Link>
-                        <Link href="/free-tools" className="footer-link">All Free Tools</Link>
+                        <Link href="/free-tools" className="footer-link">Free Tools</Link>
+                        <Link href="/tools" className="footer-link">Paid Tools</Link>
                     </div>
                     <div>
                         <p className="footer-col-title">Company</p>
                         <Link href="/pricing" className="footer-link">Pricing</Link>
                         <a href="https://blog.bookkraftai.com" className="footer-link" target="_blank" rel="noopener noreferrer">Blog</a>
                         <Link href="/contact" className="footer-link">Contact</Link>
+                        <Link href="/faq" className="footer-link">FAQ</Link>
                         <Link href="/privacy" className="footer-link">Privacy Policy</Link>
                         <Link href="/terms" className="footer-link">Terms of Service</Link>
                         <a href="https://bookkraft-ai.tolt.io" className="footer-link" target="_blank" rel="noopener noreferrer">Affiliate Program</a>
