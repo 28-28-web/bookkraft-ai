@@ -225,6 +225,19 @@ pre {
   background: rgba(247, 243, 236, .1);
 }
 
+.btn-white {
+  background: #ffffff;
+  color: var(--charcoal);
+  font-weight: 600;
+  box-shadow: 0 10px 24px -8px rgba(0,0,0,0.35);
+}
+
+.btn-white:hover {
+  background: #f5f5f5;
+  color: var(--charcoal);
+  box-shadow: 0 12px 28px -8px rgba(0,0,0,0.45);
+}
+
 .btn-outline {
   background: transparent;
   border: 1.5px solid var(--border);

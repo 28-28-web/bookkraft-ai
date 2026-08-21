@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import AnimatedSection from '../components/AnimatedSection';
-import BookKraftBanner from '../components/BookKraftBanner';
 import Footer from '../components/Footer';
 import dynamic from 'next/dynamic';
 const SenjaReviews = dynamic(() => import('@/components/SenjaReviews'), {
@@ -25,13 +24,6 @@ const PLATFORMS = [
   'Draft2Digital','Smashwords','OverDrive','Tolino','Scribd',
 ];
 
-const WORKFLOW = [
-  { n: '1', t: 'Upload manuscript',  d: 'DOCX, TXT, or paste directly'  },
-  { n: '2', t: 'Choose a tool',      d: 'Cleanup, formatting, keywords' },
-  { n: '3', t: 'AI processes it',    d: 'Claude AI works in seconds'    },
-  { n: '4', t: 'Preview output',     d: 'Phone, tablet, e-ink preview'  },
-  { n: '5', t: 'Download & publish', d: 'KDP-ready EPUB, PDF, DOCX'     },
-];
 
 // ─── ROOT ────────────────────────────────────────────────────────────
 
@@ -62,9 +54,7 @@ export default function LandingPage({ faqs, pricing }) {
       <ScorecardSection />
       <TickerSection />
       <ManuscriptBanner />
-      <WorkflowSection />
       <TestimonialsSection />
-      <BookKraftBanner />
       <PricingSection pricing={pricing} />
       <PlatformsStripLine />
       <FAQSection faqs={faqs} />
@@ -317,15 +307,17 @@ function TickerSection() {
 function ManuscriptBanner() {
   return (
     <section style={{
-      background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2410 100%)',
+      background: 'var(--charcoal)',
       padding: '48px 24px',
       textAlign: 'center',
+      borderTop: '1px solid rgba(255,255,255,0.08)',
+      borderBottom: '1px solid rgba(255,255,255,0.08)',
     }}>
       <div style={{ maxWidth: 680, margin: '0 auto' }}>
         <div style={{
           display: 'inline-block',
-          background: 'var(--gold)',
-          color: '#fff',
+          background: 'rgba(255,255,255,0.1)',
+          color: 'rgba(255,255,255,0.75)',
           fontSize: 12,
           fontWeight: 700,
           letterSpacing: '0.1em',
@@ -333,6 +325,7 @@ function ManuscriptBanner() {
           borderRadius: 20,
           marginBottom: 16,
           textTransform: 'uppercase',
+          border: '1px solid rgba(255,255,255,0.18)',
         }}>
           New Feature
         </div>
@@ -347,7 +340,7 @@ function ManuscriptBanner() {
           Convert Word DOCX to EPUB 3.0 — One Step, No Calibre
         </h2>
         <p style={{
-          color: 'rgba(247,243,236,0.55)',
+          color: 'rgba(255,255,255,0.6)',
           fontSize: 16,
           marginBottom: 28,
           lineHeight: 1.6,
@@ -358,14 +351,15 @@ function ManuscriptBanner() {
           <Link
             href="/tools/manuscript-mode"
             style={{
-              background: 'var(--gold)',
-              color: 'var(--ink)',
+              background: '#ffffff',
+              color: 'var(--charcoal)',
               padding: '14px 32px',
               borderRadius: 8,
               fontWeight: 700,
               fontSize: 16,
               textDecoration: 'none',
               display: 'inline-block',
+              boxShadow: '0 10px 24px -8px rgba(0,0,0,0.5)',
             }}
           >
             Try Full Manuscript Mode →
@@ -374,20 +368,20 @@ function ManuscriptBanner() {
             href="/tools/epub-validator"
             style={{
               background: 'transparent',
-              color: 'var(--gold)',
+              color: 'rgba(255,255,255,0.75)',
               padding: '14px 32px',
               borderRadius: 8,
               fontWeight: 600,
               fontSize: 16,
               textDecoration: 'none',
-              border: '1px solid var(--gold)',
+              border: '1px solid rgba(255,255,255,0.3)',
               display: 'inline-block',
             }}
           >
             Validate EPUB 3.0 Files
           </Link>
         </div>
-        <div style={{ marginTop: 20, color: 'rgba(247,243,236,0.35)', fontSize: 13 }}>
+        <div style={{ marginTop: 20, color: 'rgba(255,255,255,0.35)', fontSize: 13 }}>
           Works with .docx and .txt · Chapter detection included · EPUB 3.0 output
         </div>
       </div>
@@ -395,46 +389,6 @@ function ManuscriptBanner() {
   );
 }
 
-// ─── 6. WORKFLOW ─────────────────────────────────────────────────────
-
-function WorkflowSection() {
-  return (
-    <section className="section-cream" aria-labelledby="workflowHeading">
-      <div className="content-wrap">
-        <AnimatedSection>
-          <p className="section-eyebrow-v2 animate-on-scroll">How it works</p>
-          <h2 className="section-title-v2 animate-on-scroll stagger-1" id="workflowHeading">
-            From draft to published in 5 steps
-          </h2>
-        </AnimatedSection>
-
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(5,1fr)', gap:8, position:'relative', marginTop:52 }}>
-          <div aria-hidden="true" style={{
-            position:'absolute', top:26, left:'calc(10% + 20px)', right:'calc(10% + 20px)',
-            height:1, background:'var(--border)', zIndex:0,
-          }} />
-          {WORKFLOW.map((step, i) => (
-            <AnimatedSection key={i}>
-              <div className={`animate-on-scroll stagger-${i+1}`}
-                style={{ textAlign:'center', padding:'0 10px', position:'relative', zIndex:1 }}>
-                <div style={{
-                  width:52, height:52, borderRadius:'50%',
-                  background:'#fff', border:'1.5px solid var(--border)',
-                  display:'flex', alignItems:'center', justifyContent:'center',
-                  margin:'0 auto 14px',
-                  fontFamily:"'Playfair Display',serif",
-                  fontSize:18, fontWeight:700, fontStyle:'italic',
-                }} aria-hidden="true">{step.n}</div>
-                <p style={{ fontSize:13, fontWeight:700, marginBottom:5 }}>{step.t}</p>
-                <p style={{ fontSize:11.5, color:'var(--mid)', lineHeight:1.5 }}>{step.d}</p>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 // ─── 7. TESTIMONIALS ─────────────────────────────────────────────────
 
@@ -582,8 +536,7 @@ function PricingSection({ pricing }) {
                 <ul className="pricing-features-v2">
                   {plan.features.slice(0,6).map((f,j)=><li key={j}>{f}</li>)}
                 </ul>
-                <Link href={plan.href}
-                  className={plan.featured ? 'btn btn-gold btn-full' : 'btn btn-outline btn-full'}>
+                <Link href={plan.href} className="btn btn-white btn-full">
                   {plan.cta}
                 </Link>
                 <p className="pricing-tax">Tax included where applicable</p>
