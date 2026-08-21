@@ -79,7 +79,7 @@ export default function LandingPage({ faqs, pricing }) {
 
 function HeroSection() {
   return (
-    <section style={{ background: 'var(--ink)', padding: '78px 0 0' }} aria-label="Hero">
+    <section style={{ background: 'var(--ink)', padding: '120px 0 56px' }} aria-label="Hero">
       <div style={{ maxWidth: 1040, margin: '0 auto', padding: '0 28px' }}>
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: 8,
@@ -264,7 +264,6 @@ function ProcessDiagramSection() {
       borderTop: '1px solid rgba(255,255,255,0.09)',
       borderBottom: '1px solid rgba(255,255,255,0.09)',
       padding: '30px 0',
-      marginTop: 56,
     }}>
       <div className="bk-process-grid" style={{
         maxWidth: 1040, margin: '0 auto', padding: '0 28px',
