@@ -1,6 +1,5 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import AnimatedSection from '../components/AnimatedSection';
 import BookKraftBanner from '../components/BookKraftBanner';
@@ -120,6 +119,7 @@ export default function LandingPage({ tools, faqs, pricing }) {
       `}</style>
 
       <HeroSection />
+      <ProcessDiagramSection />
       <FreeToolsSection tools={tools} />
       <TickerSection />
       <ManuscriptBanner />
@@ -286,23 +286,23 @@ function HeroSection() {
           }}>
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--gold)', display: 'inline-block' }} />
             <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--gold)', textTransform: 'uppercase' }}>
-              Professional eBook Formatting
+              Readiness Score · Know Before You Publish
             </span>
           </div>
 
           <h1 style={{
-            fontSize: 'clamp(2.4rem,5vw,3.75rem)', fontWeight: 800,
+            fontSize: 'clamp(2.2rem,4.6vw,3.5rem)', fontWeight: 800,
             color: '#1a1a18', lineHeight: 1.1, marginBottom: 24,
           }}>
-            Stop Fighting Your Manuscript. <br />
-            <em style={{ color: 'var(--gold)', fontStyle: 'normal' }}>Ship Clean EPUB &amp; Kindle Files.</em>
+            Your manuscript has small mistakes{' '}
+            <em style={{ color: 'var(--gold)', fontStyle: 'normal' }}>Amazon won&apos;t tell you about.</em>
           </h1>
 
           <p style={{
             fontSize: 18, color: 'rgba(26,26,24,0.58)', lineHeight: 1.7,
             marginBottom: 40, maxWidth: 440,
           }}>
-            KDP rejecting your file? Formatting taking hours? Upload your manuscript — get a clean, publish-ready EPUB in seconds.
+            Upload your DOCX and get a full Readiness Score — every formatting issue, metadata gap, and EPUB error, with exact fixes. Fix before KDP flags you.
           </p>
 
           <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 40 }}>
@@ -310,7 +310,7 @@ function HeroSection() {
               display: 'inline-flex', alignItems: 'center', gap: 8,
               background: 'var(--gold)', color: '#0d0a06', fontWeight: 700,
               fontSize: 16, padding: '14px 28px', borderRadius: 8, textDecoration: 'none',
-            }}>Start for Free →</a>
+            }}>Check My Manuscript →</a>
             <a href="/pricing" style={{
               display: 'inline-flex', alignItems: 'center',
               background: 'transparent', color: 'rgba(26,26,24,0.68)',
@@ -321,7 +321,7 @@ function HeroSection() {
           </div>
 
           <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
-            {['KDP Ready', 'Apple Books', 'EPUB 3.0', 'No Calibre'].map((label) => (
+            {['40+ Checks', 'EPUB 3.0', 'KDP Ready', 'Results in Seconds'].map((label) => (
               <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--gold)', display: 'inline-block', flexShrink: 0 }} />
                 <span style={{ fontSize: 13, color: 'rgba(26,26,24,0.55)', fontWeight: 500 }}>{label}</span>
@@ -330,16 +330,9 @@ function HeroSection() {
           </div>
         </div>
 
-        {/* Right: hero illustration */}
+        {/* Right: Readiness Score preview card */}
         <div className="hero-conv-card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-          <Image
-            src="/images/hero-books.png"
-            alt="Colorful books flowing diagonally — BookKraft AI"
-            width={768}
-            height={512}
-            priority={true}
-            style={{ width: '100%', height: 'auto', display: 'block', maxWidth: 420, opacity: 0.88 }}
-          />
+          <ReadinessScoreCard />
         </div>
       </div>
     </section>
@@ -404,7 +397,126 @@ function HeroConversionCard() {
       </div>
     </div>
   );
-}function TickerSection() {
+}
+
+// ─── READINESS SCORE CARD ────────────────────────────────────────────
+
+const RS_CATEGORIES = [
+  { label: 'Formatting',        score: 94, status: 'pass' },
+  { label: 'Metadata',          score: 41, status: 'fail' },
+  { label: 'EPUB Structure',    score: 88, status: 'pass' },
+  { label: 'Table of Contents', score: 67, status: 'warn' },
+  { label: 'Cover',             score: 90, status: 'pass' },
+];
+
+function ReadinessScoreCard() {
+  const overallScore = 73;
+  const deg = Math.round((overallScore / 100) * 360);
+  return (
+    <div style={{
+      background: '#fff', border: '1px solid var(--border)', borderRadius: 20,
+      padding: '28px 24px', width: '100%', maxWidth: 360,
+      boxShadow: 'var(--shadow-lg)',
+    }}>
+      {/* File pill */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20, padding: '10px 14px', background: 'var(--paper-dim)', borderRadius: 10 }}>
+        <div style={{ width: 32, height: 32, background: '#2563EB', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 800, color: '#fff', flexShrink: 0 }}>DOCX</div>
+        <div>
+          <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>my-novel-draft.docx</div>
+          <div style={{ fontSize: 11, color: 'var(--mid)' }}>124 pages · 87,400 words</div>
+        </div>
+      </div>
+
+      {/* Score ring */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginBottom: 22 }}>
+        <div style={{
+          width: 80, height: 80, borderRadius: '50%', flexShrink: 0,
+          background: `conic-gradient(var(--amber) 0deg ${deg}deg, var(--border) ${deg}deg 360deg)`,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>
+          <div style={{ width: 58, height: 58, borderRadius: '50%', background: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontSize: 22, fontWeight: 800, color: 'var(--amber)', lineHeight: 1 }}>{overallScore}</span>
+            <span style={{ fontSize: 9, color: 'var(--mid)', fontWeight: 600 }}>/100</span>
+          </div>
+        </div>
+        <div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--amber)', marginBottom: 2 }}>Needs Work</div>
+          <div style={{ fontSize: 12, color: 'var(--mid)' }}>2 issues blocking KDP approval</div>
+        </div>
+      </div>
+
+      {/* Category rows */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 9, marginBottom: 22 }}>
+        {RS_CATEGORIES.map(({ label, score, status }) => {
+          const color = status === 'pass' ? 'var(--green)' : status === 'fail' ? 'var(--terracotta)' : 'var(--amber)';
+          const icon = status === 'pass' ? '✓' : status === 'fail' ? '✗' : '⚠';
+          return (
+            <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ width: 18, height: 18, borderRadius: '50%', background: color, color: '#fff', fontSize: 10, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{icon}</span>
+              <span style={{ flex: 1, fontSize: 13, color: 'var(--ink)' }}>{label}</span>
+              <div style={{ width: 60, height: 4, borderRadius: 2, background: 'var(--border)', overflow: 'hidden' }}>
+                <div style={{ width: `${score}%`, height: '100%', background: color, borderRadius: 2 }} />
+              </div>
+              <span style={{ fontSize: 12, fontWeight: 700, color, width: 24, textAlign: 'right' }}>{score}</span>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* CTA */}
+      <a href="/free-tools" style={{
+        display: 'block', background: 'var(--gold)', color: '#0d0a06',
+        fontWeight: 700, fontSize: 14, padding: '12px 20px',
+        borderRadius: 10, textDecoration: 'none', textAlign: 'center',
+      }}>
+        Check My Manuscript →
+      </a>
+      <div style={{ fontSize: 11, color: 'var(--mid)', textAlign: 'center', marginTop: 10 }}>
+        Free · No signup · Results in seconds
+      </div>
+    </div>
+  );
+}
+
+// ─── PROCESS DIAGRAM ─────────────────────────────────────────────────
+
+const PROCESS_STEPS = [
+  { icon: '📄', label: 'Upload', detail: 'DOCX, TXT, or paste' },
+  { icon: '🔍', label: 'AI Scans', detail: '40+ formatting factors' },
+  { icon: '📊', label: 'Readiness Score', detail: 'Pass / warn / fail per category' },
+  { icon: '🔧', label: 'Fix & Publish', detail: 'Guided tools for every issue' },
+];
+
+function ProcessDiagramSection() {
+  return (
+    <section style={{ background: 'var(--paper-dim)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '48px 32px' }}>
+      <div style={{ maxWidth: 1000, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 36 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--gold)', textTransform: 'uppercase', marginBottom: 8 }}>How It Works</div>
+          <p style={{ fontSize: 16, color: 'var(--mid)', maxWidth: 500, margin: '0 auto' }}>Upload once. Get a complete picture of exactly what needs fixing before Amazon sees it.</p>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 0, justifyContent: 'center', flexWrap: 'wrap' }}>
+          {PROCESS_STEPS.map((step, i) => (
+            <React.Fragment key={step.label}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', minWidth: 140, flex: '0 1 auto', padding: '0 8px' }}>
+                <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#fff', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, marginBottom: 12, boxShadow: 'var(--shadow)' }}>
+                  {step.icon}
+                </div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>{step.label}</div>
+                <div style={{ fontSize: 12, color: 'var(--mid)', lineHeight: 1.4 }}>{step.detail}</div>
+              </div>
+              {i < PROCESS_STEPS.length - 1 && (
+                <div style={{ fontSize: 20, color: 'var(--border)', alignSelf: 'center', padding: '0 4px', flexShrink: 0, marginTop: -24 }}>→</div>
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TickerSection() {
   const doubled = [...TICKER_ITEMS, ...TICKER_ITEMS];
   return (
     <div
