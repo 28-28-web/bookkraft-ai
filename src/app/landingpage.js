@@ -292,41 +292,34 @@ function HeroSection() {
 
           <h1 style={{
             fontSize: 'clamp(2.2rem,4.6vw,3.5rem)', fontWeight: 800,
-            color: '#1a1a18', lineHeight: 1.1, marginBottom: 24,
+            color: '#1a1a18', lineHeight: 1.1, marginBottom: 8,
           }}>
             Your manuscript has small mistakes{' '}
             <em style={{ color: 'var(--gold)', fontStyle: 'normal' }}>Amazon won&apos;t tell you about.</em>
           </h1>
+          <p style={{ fontSize: '0.95rem', fontWeight: 600, color: 'rgba(26,26,24,0.42)', marginBottom: 24, letterSpacing: '0.01em' }}>
+            EPUB &amp; Kindle formatting, checked before you publish.
+          </p>
 
           <p style={{
             fontSize: 18, color: 'rgba(26,26,24,0.58)', lineHeight: 1.7,
             marginBottom: 40, maxWidth: 440,
           }}>
-            Upload your DOCX and get a full Readiness Score — every formatting issue, metadata gap, and EPUB error, with exact fixes. Fix before KDP flags you.
+            Run a free Readiness Scan before you publish. One score, every platform, exactly what to fix first.
           </p>
 
-          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 40 }}>
+          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
             <a href="/free-tools" style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
               background: 'var(--gold)', color: '#0d0a06', fontWeight: 700,
               fontSize: 16, padding: '14px 28px', borderRadius: 8, textDecoration: 'none',
-            }}>Check My Manuscript →</a>
+            }}>Run free Readiness Scan →</a>
             <a href="/pricing" style={{
               display: 'inline-flex', alignItems: 'center',
               background: 'transparent', color: 'rgba(26,26,24,0.68)',
               fontWeight: 600, fontSize: 16, padding: '14px 28px',
               borderRadius: 8, textDecoration: 'none',
-              border: '1px solid rgba(26,26,24,0.18)',
-            }}>See Pricing</a>
-          </div>
-
-          <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
-            {['40+ Checks', 'EPUB 3.0', 'KDP Ready', 'Results in Seconds'].map((label) => (
-              <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--gold)', display: 'inline-block', flexShrink: 0 }} />
-                <span style={{ fontSize: 13, color: 'rgba(26,26,24,0.55)', fontWeight: 500 }}>{label}</span>
-              </div>
-            ))}
+            }}>See pricing</a>
           </div>
         </div>
 
@@ -401,78 +394,88 @@ function HeroConversionCard() {
 
 // ─── READINESS SCORE CARD ────────────────────────────────────────────
 
-const RS_CATEGORIES = [
-  { label: 'Formatting',        score: 94, status: 'pass' },
-  { label: 'Metadata',          score: 41, status: 'fail' },
-  { label: 'EPUB Structure',    score: 88, status: 'pass' },
-  { label: 'Table of Contents', score: 67, status: 'warn' },
-  { label: 'Cover',             score: 90, status: 'pass' },
+const RS_PLATFORMS = [
+  { name: 'Amazon KDP',    status: 'pass', label: 'Ready' },
+  { name: 'Apple Books',   status: 'warn', label: '2 issues' },
+  { name: 'Kobo',          status: 'pass', label: 'Ready' },
+  { name: 'IngramSpark',   status: 'fail', label: '1 critical issue' },
+];
+
+const RS_FIXES = [
+  {
+    severity: 'critical',
+    title: 'Missing NCX navigation table',
+    detail: 'EPUB 2 readers (IngramSpark) require an NCX file. Your file doesn\'t have one.',
+    href: '/tools/epub-formatter',
+  },
+  {
+    severity: 'warning',
+    title: 'Author name inconsistency',
+    detail: 'Metadata "author" field differs from the byline on the cover image.',
+    href: '/tools/metadata-builder',
+  },
 ];
 
 function ReadinessScoreCard() {
-  const overallScore = 73;
-  const deg = Math.round((overallScore / 100) * 360);
   return (
     <div style={{
-      background: '#fff', border: '1px solid var(--border)', borderRadius: 20,
-      padding: '28px 24px', width: '100%', maxWidth: 360,
-      boxShadow: 'var(--shadow-lg)',
+      background: '#fff', border: '1px solid var(--border)', borderRadius: 14,
+      width: '100%', maxWidth: 390, boxShadow: 'var(--shadow-lg)', overflow: 'hidden',
     }}>
-      {/* File pill */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20, padding: '10px 14px', background: 'var(--paper-dim)', borderRadius: 10 }}>
-        <div style={{ width: 32, height: 32, background: '#2563EB', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 800, color: '#fff', flexShrink: 0 }}>DOCX</div>
+      {/* Header row */}
+      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', padding: '20px 22px 16px', borderBottom: '1px solid var(--border)' }}>
         <div>
-          <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>my-novel-draft.docx</div>
-          <div style={{ fontSize: 11, color: 'var(--mid)' }}>124 pages · 87,400 words</div>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--mid)', textTransform: 'uppercase', fontFamily: 'monospace', marginBottom: 3 }}>Readiness Report</div>
+          <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>my-novel-draft.epub</div>
+        </div>
+        <div style={{ textAlign: 'right' }}>
+          <span style={{ fontSize: 32, fontWeight: 800, color: 'var(--ink)', lineHeight: 1 }}>91</span>
+          <span style={{ fontSize: 14, color: 'var(--mid)', fontWeight: 500 }}>/100</span>
         </div>
       </div>
 
-      {/* Score ring */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginBottom: 22 }}>
-        <div style={{
-          width: 80, height: 80, borderRadius: '50%', flexShrink: 0,
-          background: `conic-gradient(var(--amber) 0deg ${deg}deg, var(--border) ${deg}deg 360deg)`,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-        }}>
-          <div style={{ width: 58, height: 58, borderRadius: '50%', background: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ fontSize: 22, fontWeight: 800, color: 'var(--amber)', lineHeight: 1 }}>{overallScore}</span>
-            <span style={{ fontSize: 9, color: 'var(--mid)', fontWeight: 600 }}>/100</span>
-          </div>
-        </div>
-        <div>
-          <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--amber)', marginBottom: 2 }}>Needs Work</div>
-          <div style={{ fontSize: 12, color: 'var(--mid)' }}>2 issues blocking KDP approval</div>
-        </div>
-      </div>
-
-      {/* Category rows */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 9, marginBottom: 22 }}>
-        {RS_CATEGORIES.map(({ label, score, status }) => {
-          const color = status === 'pass' ? 'var(--green)' : status === 'fail' ? 'var(--terracotta)' : 'var(--amber)';
-          const icon = status === 'pass' ? '✓' : status === 'fail' ? '✗' : '⚠';
-          return (
-            <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ width: 18, height: 18, borderRadius: '50%', background: color, color: '#fff', fontSize: 10, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{icon}</span>
-              <span style={{ flex: 1, fontSize: 13, color: 'var(--ink)' }}>{label}</span>
-              <div style={{ width: 60, height: 4, borderRadius: 2, background: 'var(--border)', overflow: 'hidden' }}>
-                <div style={{ width: `${score}%`, height: '100%', background: color, borderRadius: 2 }} />
+      {/* Platform status matrix */}
+      <div style={{ padding: '14px 22px', borderBottom: '1px solid var(--border)' }}>
+        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: 'var(--mid)', textTransform: 'uppercase', fontFamily: 'monospace', marginBottom: 10 }}>Platform Status</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+          {RS_PLATFORMS.map(({ name, status, label }) => {
+            const dotColor = status === 'pass' ? 'var(--green)' : status === 'fail' ? 'var(--terracotta)' : 'var(--amber)';
+            const labelColor = status === 'pass' ? 'var(--green)' : status === 'fail' ? 'var(--terracotta)' : 'var(--amber)';
+            return (
+              <div key={name} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: dotColor, flexShrink: 0, display: 'inline-block' }} />
+                <span style={{ flex: 1, fontSize: 13, color: 'var(--ink)' }}>{name}</span>
+                <span style={{ fontSize: 12, fontWeight: 600, color: labelColor }}>{label}</span>
               </div>
-              <span style={{ fontSize: 12, fontWeight: 700, color, width: 24, textAlign: 'right' }}>{score}</span>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
 
-      {/* CTA */}
-      <a href="/free-tools" style={{
-        display: 'block', background: 'var(--gold)', color: '#0d0a06',
-        fontWeight: 700, fontSize: 14, padding: '12px 20px',
-        borderRadius: 10, textDecoration: 'none', textAlign: 'center',
-      }}>
-        Check My Manuscript →
-      </a>
-      <div style={{ fontSize: 11, color: 'var(--mid)', textAlign: 'center', marginTop: 10 }}>
-        Free · No signup · Results in seconds
+      {/* Ordered fix list */}
+      <div style={{ padding: '14px 22px', borderBottom: '1px solid var(--border)' }}>
+        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: 'var(--mid)', textTransform: 'uppercase', fontFamily: 'monospace', marginBottom: 10 }}>Fix List</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {RS_FIXES.map(({ severity, title, detail, href }) => {
+            const badgeBg = severity === 'critical' ? 'var(--terracotta)' : 'var(--amber)';
+            return (
+              <div key={title}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 3 }}>
+                  <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', background: badgeBg, color: '#fff', padding: '2px 6px', borderRadius: 4, fontFamily: 'monospace', flexShrink: 0 }}>{severity}</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)' }}>{title}</span>
+                </div>
+                <div style={{ fontSize: 12, color: 'var(--mid)', lineHeight: 1.5, marginBottom: 4 }}>{detail}</div>
+                <a href={href} style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink)', textDecoration: 'none' }}>Fix now →</a>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Footer bar */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 22px', background: 'var(--paper-dim)' }}>
+        <span style={{ fontSize: 12, color: 'var(--mid)', fontFamily: 'monospace' }}>3 credits · full report</span>
+        <a href="/tools" style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink)', textDecoration: 'none' }}>Rescan after fixing →</a>
       </div>
     </div>
   );
@@ -480,37 +483,35 @@ function ReadinessScoreCard() {
 
 // ─── PROCESS DIAGRAM ─────────────────────────────────────────────────
 
-const PROCESS_STEPS = [
-  { icon: '📄', label: 'Upload', detail: 'DOCX, TXT, or paste' },
-  { icon: '🔍', label: 'AI Scans', detail: '40+ formatting factors' },
-  { icon: '📊', label: 'Readiness Score', detail: 'Pass / warn / fail per category' },
-  { icon: '🔧', label: 'Fix & Publish', detail: 'Guided tools for every issue' },
+const AUTHOR_STEPS = [
+  { n: '1', label: 'Write',           detail: 'Your draft, your tools', active: false },
+  { n: '2', label: 'Clean & Validate', detail: 'BookKraft AI checks here', active: true  },
+  { n: '3', label: 'Format & Design', detail: 'Vellum, Atticus, InDesign', active: false },
 ];
 
 function ProcessDiagramSection() {
   return (
-    <section style={{ background: 'var(--paper-dim)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '48px 32px' }}>
-      <div style={{ maxWidth: 1000, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 36 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--gold)', textTransform: 'uppercase', marginBottom: 8 }}>How It Works</div>
-          <p style={{ fontSize: 16, color: 'var(--mid)', maxWidth: 500, margin: '0 auto' }}>Upload once. Get a complete picture of exactly what needs fixing before Amazon sees it.</p>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 0, justifyContent: 'center', flexWrap: 'wrap' }}>
-          {PROCESS_STEPS.map((step, i) => (
-            <React.Fragment key={step.label}>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', minWidth: 140, flex: '0 1 auto', padding: '0 8px' }}>
-                <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#fff', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, marginBottom: 12, boxShadow: 'var(--shadow)' }}>
-                  {step.icon}
-                </div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>{step.label}</div>
-                <div style={{ fontSize: 12, color: 'var(--mid)', lineHeight: 1.4 }}>{step.detail}</div>
-              </div>
-              {i < PROCESS_STEPS.length - 1 && (
-                <div style={{ fontSize: 20, color: 'var(--border)', alignSelf: 'center', padding: '0 4px', flexShrink: 0, marginTop: -24 }}>→</div>
-              )}
-            </React.Fragment>
-          ))}
-        </div>
+    <section style={{ background: 'var(--paper-dim)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '40px 32px' }}>
+      <div style={{ maxWidth: 760, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0 }}>
+        {AUTHOR_STEPS.map((step, i) => (
+          <React.Fragment key={step.label}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', minWidth: 160, padding: '0 12px' }}>
+              <div style={{
+                width: 44, height: 44, borderRadius: '50%', marginBottom: 10,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 15, fontWeight: 800,
+                background: step.active ? 'var(--gold)' : 'transparent',
+                border: step.active ? 'none' : '2px solid var(--border)',
+                color: step.active ? '#0d0a06' : 'var(--mid)',
+              }}>{step.n}</div>
+              <div style={{ fontSize: 14, fontWeight: step.active ? 800 : 500, color: step.active ? 'var(--ink)' : 'var(--mid)', marginBottom: 4 }}>{step.label}</div>
+              <div style={{ fontSize: 12, color: step.active ? 'var(--mid)' : 'rgba(107,101,96,0.55)', lineHeight: 1.4 }}>{step.detail}</div>
+            </div>
+            {i < AUTHOR_STEPS.length - 1 && (
+              <div style={{ fontSize: 18, color: 'var(--border)', flexShrink: 0, paddingBottom: 24 }}>→</div>
+            )}
+          </React.Fragment>
+        ))}
       </div>
     </section>
   );
