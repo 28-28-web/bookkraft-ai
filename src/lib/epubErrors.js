@@ -126,6 +126,11 @@ export const EPUB_ERRORS = [
       },
     ],
     relatedTool: 'epub-validator',
+    related: [
+      { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
+      { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+      { type: 'alternative', slug: 'sigil-alternative', label: 'Sigil alternative for EPUB editing' },
+    ],
   },
   {
     slug: 'invalid-opf-manifest-reference',
@@ -146,6 +151,10 @@ export const EPUB_ERRORS = [
       },
     ],
     relatedTool: 'epub-validator',
+    related: [
+      { type: 'alternative', slug: 'jutoh-alternative', label: 'Jutoh alternative for EPUB formatting' },
+      { type: 'platform-rejection', slug: 'draft2digital', label: 'Why Draft2Digital rejects ebooks' },
+    ],
   },
   {
     slug: 'duplicate-id-epub',
@@ -166,6 +175,10 @@ export const EPUB_ERRORS = [
       },
     ],
     relatedTool: 'epub-validator',
+    related: [
+      { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+      { type: 'alternative', slug: 'scrivener-alternative', label: 'Scrivener alternative for ebook production' },
+    ],
   },
   {
     slug: 'broken-spine-order',
@@ -186,6 +199,10 @@ export const EPUB_ERRORS = [
       },
     ],
     relatedTool: 'epub-validator',
+    related: [
+      { type: 'platform-rejection', slug: 'draft2digital', label: 'Why Draft2Digital rejects ebooks' },
+      { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
+    ],
   },
   {
     slug: 'ghost-spacing-epub',
@@ -206,6 +223,10 @@ export const EPUB_ERRORS = [
       },
     ],
     relatedTool: 'epub-formatter',
+    related: [
+      { type: 'alternative', slug: 'sigil-alternative', label: 'Sigil alternative for EPUB editing' },
+      { type: 'alternative', slug: 'scrivener-alternative', label: 'Scrivener alternative for ebook production' },
+    ],
   },
 ];
 

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { PLATFORM_REJECTIONS, getRejectionBySlug } from '@/lib/platformRejections';
 import Footer from '@/components/Footer';
 import { buildBreadcrumbSchema } from '@/lib/seo';
+import RelatedLinks from '@/components/RelatedLinks';
 
 export const dynamicParams = false;
 
@@ -124,19 +125,7 @@ export default async function PlatformRejectionPage({ params }) {
           </Link>.
         </p>
 
-        {rejection.relatedErrors?.length > 0 && (
-          <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.7, marginTop: 8 }}>
-            EPUB errors commonly linked to {rejection.platform} rejections:{' '}
-            {rejection.relatedErrors.map((e, i, arr) => (
-              <span key={e.slug}>
-                <Link href={`/epub-errors/${e.slug}`} style={{ color: 'var(--gold, #c9a84c)', textDecoration: 'none' }}>
-                  {e.label}
-                </Link>
-                {i < arr.length - 1 ? ', ' : ''}
-              </span>
-            ))}
-          </p>
-        )}
+        <RelatedLinks related={rejection.related} />
 
       </main>
       <Footer />

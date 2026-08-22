@@ -46,8 +46,10 @@ export const VS_ALTERNATIVES = [
       },
     ],
     relatedTool: 'epub-validator',
-    relatedErrors: [
-      { slug: 'ghost-spacing-epub', label: 'ghost spacing in e-reader previews' },
+    related: [
+      { type: 'epub-error', slug: 'ghost-spacing-epub', label: 'Ghost spacing in e-reader previews' },
+      { type: 'epub-error', slug: 'invalid-opf-manifest-reference', label: 'OPF manifest references a missing file' },
+      { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
     ],
   },
   {
@@ -93,8 +95,10 @@ export const VS_ALTERNATIVES = [
       },
     ],
     relatedTool: 'epub-formatter',
-    relatedErrors: [
-      { slug: 'invalid-opf-manifest-reference', label: 'OPF manifest references a missing file' },
+    related: [
+      { type: 'epub-error', slug: 'invalid-opf-manifest-reference', label: 'OPF manifest references a missing file' },
+      { type: 'platform-rejection', slug: 'draft2digital', label: 'Why Draft2Digital rejects ebooks' },
+      { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
     ],
   },
   {
@@ -144,8 +148,10 @@ export const VS_ALTERNATIVES = [
       },
     ],
     relatedTool: 'epub-formatter',
-    relatedErrors: [
-      { slug: 'ghost-spacing-epub', label: 'ghost spacing from empty paragraph tags' },
+    related: [
+      { type: 'epub-error', slug: 'ghost-spacing-epub', label: 'Ghost spacing from empty paragraph tags' },
+      { type: 'epub-error', slug: 'duplicate-id-epub', label: 'Duplicate ID attribute errors' },
+      { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
     ],
   },
 ];

@@ -47,8 +47,10 @@ export const PLATFORM_REJECTIONS = [
       },
     ],
     relatedTool: 'epub-validator',
-    relatedErrors: [
-      { slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table' },
+    related: [
+      { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table' },
+      { type: 'epub-error', slug: 'broken-spine-order', label: 'Broken spine order errors' },
+      { type: 'alternative', slug: 'scrivener-alternative', label: 'Scrivener alternative for ebook production' },
     ],
   },
   {
@@ -95,8 +97,10 @@ export const PLATFORM_REJECTIONS = [
       },
     ],
     relatedTool: 'epub-validator',
-    relatedErrors: [
-      { slug: 'duplicate-id-epub', label: 'Duplicate ID attribute errors' },
+    related: [
+      { type: 'epub-error', slug: 'duplicate-id-epub', label: 'Duplicate ID attribute errors' },
+      { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table' },
+      { type: 'alternative', slug: 'jutoh-alternative', label: 'Jutoh alternative for EPUB formatting' },
     ],
   },
   {
@@ -139,8 +143,10 @@ export const PLATFORM_REJECTIONS = [
       },
     ],
     relatedTool: 'epub-validator',
-    relatedErrors: [
-      { slug: 'broken-spine-order', label: 'Broken spine order errors' },
+    related: [
+      { type: 'epub-error', slug: 'broken-spine-order', label: 'Broken spine order errors' },
+      { type: 'epub-error', slug: 'invalid-opf-manifest-reference', label: 'OPF manifest references a missing file' },
+      { type: 'alternative', slug: 'jutoh-alternative', label: 'Jutoh alternative for EPUB formatting' },
     ],
   },
 ];

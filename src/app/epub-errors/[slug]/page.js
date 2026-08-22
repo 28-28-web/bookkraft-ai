@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { EPUB_ERRORS, getErrorBySlug } from '@/lib/epubErrors';
 import Footer from '@/components/Footer';
 import { buildBreadcrumbSchema } from '@/lib/seo';
+import RelatedLinks from '@/components/RelatedLinks';
 
 export async function generateStaticParams() {
   return EPUB_ERRORS.map(e => ({ slug: e.slug }));
@@ -103,6 +104,8 @@ export default async function EpubErrorPage({ params }) {
           </Link>{' '}
           for the full workflow: manuscript cleanup, TOC, front matter, EPUB 3.0 generation, and validation.
         </p>
+
+        <RelatedLinks related={error.related} />
 
       </main>
 
