@@ -244,16 +244,20 @@ export default function PricingPage() {
     );
 }
 
+const PRICING_FAQ_QUESTIONS = [
+    'Do I need to pay monthly?',
+    'Do the free tools actually work without signing up?',
+    'How do credits work?',
+    'Can I try the AI tools before buying credits?',
+    'Can I get a refund?',
+    'Do I need an account for the paid tools?',
+];
+
 function PricingFAQ() {
     const [openIndex, setOpenIndex] = useState(null);
-    const pricingFaqs = FAQS.filter(f =>
-        f.q.toLowerCase().includes('credit') || f.q.toLowerCase().includes('pay') ||
-        f.q.toLowerCase().includes('refund') || f.q.toLowerCase().includes('starter') ||
-        f.q.toLowerCase().includes('pro') || f.q.toLowerCase().includes('free') ||
-        f.q.toLowerCase().includes('subscription') || f.q.toLowerCase().includes('access') ||
-        f.q.toLowerCase().includes('account') || f.q.toLowerCase().includes('monthly') ||
-        f.q.toLowerCase().includes('buy')
-    );
+    const pricingFaqs = PRICING_FAQ_QUESTIONS
+        .map(q => FAQS.find(f => f.q === q))
+        .filter(Boolean);
 
     if (pricingFaqs.length === 0) return null;
 
