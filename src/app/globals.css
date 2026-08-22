@@ -4585,6 +4585,8 @@ pre {
   .footer-v2-grid { grid-template-columns: 1fr 1fr; }
   .mobile-menu-btn { display: flex; }
   .nav-links { display: none; }
+  .nav-signin { display: none; }
+  .nav-actions > a.btn { display: none; }
   .workflow-steps { flex-direction: column; }
   .workflow-steps::before { display: none; }
   .workflow-step { display: flex; align-items: center; gap: var(--space-md); text-align: left; }
