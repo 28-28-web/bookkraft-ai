@@ -131,11 +131,11 @@ function PricingContent() {
             </section>
 
             {/* Free tier */}
-            <section style={{ padding: 'var(--space-16) 0 0' }}>
+            <section style={{ padding: 'var(--space-16) 0 0', background: 'var(--charcoal)' }}>
                 <div className="container">
-                    <p className="eyebrow" style={{ textAlign: 'center' }}>ALWAYS FREE</p>
-                    <h2 className="section-heading center">No Account Needed</h2>
-                    <p className="section-sub center" style={{ marginBottom: 'var(--space-8)' }}>
+                    <p className="eyebrow" style={{ textAlign: 'center', color: 'var(--gold)' }}>ALWAYS FREE</p>
+                    <h2 className="section-heading center" style={{ color: 'var(--cream)' }}>No Account Needed</h2>
+                    <p className="section-sub center" style={{ marginBottom: 'var(--space-8)', color: 'rgba(247,243,236,0.65)' }}>
                         {FREE_TOOLS.length} tools work instantly, no signup required.
                     </p>
                     <div style={{
@@ -144,8 +144,8 @@ function PricingContent() {
                     }}>
                         {['EPUB Validator', 'Metadata Builder', 'Cover Checker', 'Word Cleanup Checker', 'Full Manuscript Mode'].map((name) => (
                             <span key={name} style={{
-                                padding: '10px 18px', border: '1px solid var(--border)', borderRadius: 'var(--radius)',
-                                fontSize: 'var(--text-sm)', fontWeight: 600,
+                                padding: '10px 18px', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 'var(--radius)',
+                                fontSize: 'var(--text-sm)', fontWeight: 600, color: 'var(--cream)',
                             }}>
                                 ✓ {name}
                             </span>
@@ -155,12 +155,12 @@ function PricingContent() {
             </section>
 
             {/* Main pricing grid */}
-            <section style={{ padding: 'var(--space-16) 0' }}>
+            <section style={{ padding: 'var(--space-16) 0', background: 'var(--charcoal)' }}>
                 <div className="container">
                     <div>
-                        <p className="eyebrow" style={{ textAlign: 'center' }}>PAID TIERS</p>
-                        <h2 className="section-heading center">Starter, Pro, or Lifetime</h2>
-                        <p className="section-sub center" style={{ marginBottom: 'var(--space-8) ' }}>
+                        <p className="eyebrow" style={{ textAlign: 'center', color: 'var(--gold)' }}>PAID TIERS</p>
+                        <h2 className="section-heading center" style={{ color: 'var(--cream)' }}>Starter, Pro, or Lifetime</h2>
+                        <p className="section-sub center" style={{ marginBottom: 'var(--space-8) ', color: 'rgba(247,243,236,0.65)' }}>
                             All logic tools included in every paid tier. Credits power the AI tools.
                         </p>
                         <div className="pricing-grid" style={{ maxWidth: 960, margin: '0 auto' }}>
@@ -204,9 +204,9 @@ function PricingContent() {
 
                         {/* Credit cost table */}
                         <div style={{ marginTop: 'var(--space-8)', maxWidth: 480, margin: 'var(--space-8) auto 0' }}>
-                            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 'var(--text-sm)' }}>
+                            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 'var(--text-sm)', color: 'var(--cream)' }}>
                                 <thead>
-                                    <tr style={{ borderBottom: '2px solid var(--border)' }}>
+                                    <tr style={{ borderBottom: '2px solid rgba(255,255,255,0.12)' }}>
                                         <th style={{ textAlign: 'left', padding: '8px 0' }}>AI Tool</th>
                                         <th style={{ textAlign: 'right', padding: '8px 0' }}>Credits/Run</th>
                                     </tr>
@@ -215,14 +215,14 @@ function PricingContent() {
                                     {Object.entries(TOOL_CREDIT_COSTS)
                                         .sort(([, a], [, b]) => a - b)
                                         .map(([slug, cost], i) => (
-                                            <tr key={i} style={{ borderBottom: '1px solid var(--border)' }}>
+                                            <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
                                                 <td style={{ padding: '8px 0' }}>{slug.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ')}</td>
                                                 <td style={{ textAlign: 'right', padding: '8px 0', color: 'var(--gold)', fontWeight: 600 }}>{cost}</td>
                                             </tr>
                                         ))}
                                 </tbody>
                             </table>
-                            <p style={{ fontSize: 'var(--text-xs)', color: 'var(--mid)', marginTop: 'var(--space-3)' }}>
+                            <p style={{ fontSize: 'var(--text-xs)', color: 'rgba(247,243,236,0.5)', marginTop: 'var(--space-3)' }}>
                                 Longer manuscripts scale in cost with word count — the exact price is shown before any credits are spent.
                             </p>
                         </div>
@@ -258,7 +258,7 @@ function PricingFAQ() {
     if (pricingFaqs.length === 0) return null;
 
     return (
-        <section className="faq-section" style={{ paddingBottom: 'var(--space-16)' }}>
+        <section className="faq-section" style={{ paddingBottom: 'var(--space-16)', background: 'var(--ink)' }}>
             <div className="container">
                 <h2 className="section-heading center">Pricing FAQ</h2>
                 <div className="faq-list">

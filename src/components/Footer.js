@@ -37,9 +37,9 @@ export default function Footer() {
                     </div>
                     <div>
                         <p className="footer-col-title">Get Started</p>
-                        <Link href="/free-tools" className="footer-link">Try Free Tools</Link>
                         <Link href="/signup" className="footer-link">Create Account</Link>
-                        <Link href="/pricing" className="footer-link">View Pricing</Link>
+                        <Link href="/dashboard" className="footer-link">Dashboard</Link>
+                        <Link href="/account" className="footer-link">Account Settings</Link>
                     </div>
                 </div>
                 <div className="footer-v2-bottom">

@@ -11,7 +11,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
+  const [toolsOpen, setToolsOpen] = useState(false);
   const resourcesRef = useRef(null);
+  const toolsRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -20,13 +22,16 @@ export default function Navbar() {
   }, []);
 
   // Close mobile menu on route change
-  useEffect(() => { setMobileOpen(false); setResourcesOpen(false); }, [pathname]);
+  useEffect(() => { setMobileOpen(false); setResourcesOpen(false); setToolsOpen(false); }, [pathname]);
 
-  // Close Resources dropdown on outside click
+  // Close dropdowns on outside click
   useEffect(() => {
     function onClickOutside(e) {
       if (resourcesRef.current && !resourcesRef.current.contains(e.target)) {
         setResourcesOpen(false);
+      }
+      if (toolsRef.current && !toolsRef.current.contains(e.target)) {
+        setToolsOpen(false);
       }
     }
     document.addEventListener('mousedown', onClickOutside);
@@ -41,6 +46,10 @@ export default function Navbar() {
     pathname?.startsWith('/admin');
 
   const isDashboard = isAppRoute || (isToolRoute && !!user);
+
+  const isToolsActive =
+    pathname === '/free-tools' ||
+    pathname?.startsWith('/tools');
 
   const isResourcesActive =
     pathname === '/kdp-formatting-guide' ||
@@ -70,18 +79,40 @@ export default function Navbar() {
           {/* Desktop nav links */}
           {!isDashboard && (
             <div className="nav-links">
-              <Link
-                href="/free-tools"
-                className={`nav-link nav-link-interactive ${pathname === '/free-tools' ? 'active' : ''}`}
-              >
-                Free Tools
-              </Link>
-              <Link
-                href="/tools"
-                className={`nav-link nav-link-interactive ${pathname === '/tools' ? 'active' : ''}`}
-              >
-                Paid Tools
-              </Link>
+              {/* Tools dropdown */}
+              <div ref={toolsRef} style={{ position: 'relative' }}>
+                <button
+                  onClick={() => setToolsOpen((v) => !v)}
+                  className={`nav-link nav-link-interactive ${isToolsActive ? 'active' : ''}`}
+                  style={{
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    display: 'inline-flex', alignItems: 'center', gap: '4px',
+                    font: 'inherit', color: 'inherit',
+                  }}
+                  aria-expanded={toolsOpen}
+                >
+                  Tools
+                  <span style={{ fontSize: '10px' }}>{toolsOpen ? '▲' : '▼'}</span>
+                </button>
+                {toolsOpen && (
+                  <div style={{
+                    position: 'absolute', top: 'calc(100% + 10px)', left: 0,
+                    background: 'var(--charcoal)', border: '1px solid rgba(255,255,255,0.12)',
+                    borderRadius: 'var(--radius, 8px)', boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+                    minWidth: '160px', padding: '6px', zIndex: 50,
+                  }}>
+                    <Link href="/free-tools" onClick={() => setToolsOpen(false)}
+                      style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'rgba(255,255,255,0.8)', fontSize: '14px' }}>
+                      Free Tools
+                    </Link>
+                    <Link href="/tools" onClick={() => setToolsOpen(false)}
+                      style={{ display: 'block', padding: '10px 12px', borderRadius: '6px', textDecoration: 'none', color: 'rgba(255,255,255,0.8)', fontSize: '14px' }}>
+                      Paid Tools
+                    </Link>
+                  </div>
+                )}
+              </div>
+
               <Link
                 href="/pricing"
                 className={`nav-link nav-link-interactive ${pathname === '/pricing' ? 'active' : ''}`}
@@ -225,10 +256,12 @@ export default function Navbar() {
       {/* Mobile nav drawer */}
       {!isDashboard && (
         <div className={`mobile-nav ${mobileOpen ? 'open' : ''}`} aria-hidden={!mobileOpen}>
+          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(247,243,236,0.35)', padding: '4px 0 2px', margin: 0 }}>Tools</p>
           <Link href="/free-tools" className="nav-link">Free Tools</Link>
           <Link href="/tools" className="nav-link">Paid Tools</Link>
           <Link href="/pricing" className="nav-link">Pricing</Link>
           <Link href="/blog" className="nav-link">Blog</Link>
+          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(247,243,236,0.35)', padding: '12px 0 2px', margin: 0 }}>Resources</p>
           <Link href="/alternatives" className="nav-link">Alternatives</Link>
           <Link href="/kdp-formatting-guide" className="nav-link">KDP Formatting Guide</Link>
           <a href="https://bookkraft-ai.tolt.io" className="nav-link" target="_blank" rel="noopener noreferrer">Affiliate Program</a>
