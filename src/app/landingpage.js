@@ -465,8 +465,8 @@ function PlatformsStripLine() {
   return (
     <div style={{
       textAlign: 'center', padding: '14px 24px',
-      background: 'var(--paper-dim)', borderTop: '1px solid var(--border)',
-      fontSize: 12, color: 'var(--mid)', letterSpacing: '0.04em',
+      background: 'var(--ink)', borderTop: '1px solid rgba(255,255,255,0.08)',
+      fontSize: 12, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.04em',
       fontFamily: 'var(--font-ibm-mono), monospace',
     }}>
       {PLATFORMS.join(' · ')}
@@ -562,11 +562,11 @@ function FAQSection({ faqs }) {
   const toggle = i => setOpen(open === i ? null : i);
 
   return (
-    <section className="section-cream" aria-labelledby="faqHeading">
+    <section className="section-cream" style={{ background: 'var(--ink)' }} aria-labelledby="faqHeading">
       <div style={{ maxWidth:680, margin:'0 auto' }}>
         <AnimatedSection>
           <p className="section-eyebrow-v2 animate-on-scroll">Common questions</p>
-          <h2 className="section-title-v2 animate-on-scroll stagger-1" id="faqHeading">
+          <h2 className="section-title-v2 animate-on-scroll stagger-1" id="faqHeading" style={{ color: 'var(--cream)' }}>
             EPUB & Kindle Formatting — Common Questions
           </h2>
         </AnimatedSection>
@@ -591,7 +591,7 @@ function FAQSection({ faqs }) {
           })}
         </div>
         <div style={{ textAlign: 'center', marginTop: 32 }}>
-          <Link href="/faq" style={{ fontSize: 14, color: 'var(--ink)', fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: '3px' }}>
+          <Link href="/faq" style={{ fontSize: 14, color: 'var(--gold)', fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: '3px' }}>
             More questions →
           </Link>
         </div>
