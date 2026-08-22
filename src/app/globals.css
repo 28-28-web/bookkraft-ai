@@ -4587,6 +4587,8 @@ pre {
   .nav-links { display: none; }
   .nav-signin { display: none; }
   .nav-actions > a.btn { display: none; }
+  .nav-logo-tagline { display: none; }
+  .navbar { padding-left: 12px; padding-right: 12px; }
   .workflow-steps { flex-direction: column; }
   .workflow-steps::before { display: none; }
   .workflow-step { display: flex; align-items: center; gap: var(--space-md); text-align: left; }
