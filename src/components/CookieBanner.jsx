@@ -11,6 +11,15 @@ export default function CookieBanner() {
       if (window.clarity) window.clarity('consent')
     }
   }, [])
+
+  useEffect(() => {
+    if (show) {
+      document.body.classList.add('cookie-consent-pending')
+    } else {
+      document.body.classList.remove('cookie-consent-pending')
+    }
+    return () => document.body.classList.remove('cookie-consent-pending')
+  }, [show])
   const updateConsent = (value) => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('consent', 'update', {
@@ -34,7 +43,7 @@ export default function CookieBanner() {
       bottom: '24px',
       left: '50%',
       transform: 'translateX(-50%)',
-      zIndex: 9999,
+      zIndex: 2147483647,
       background: '#1c1c1c',
       color: '#fff',
       padding: '14px 20px',

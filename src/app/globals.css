@@ -4679,3 +4679,18 @@ html, body { margin: 0 !important; padding: 0 !important; }
     font-size: var(--text-sm);
     margin-bottom: var(--space-10);
 }
+
+/* GTM popup stacking: when cookie consent banner is visible, push
+   GTM-injected fixed-bottom overlays (email capture popups etc.)
+   up so they don't visually collide with the cookie banner. */
+body.cookie-consent-pending > div[style*="bottom: 0"],
+body.cookie-consent-pending > div[style*="bottom:0"],
+body.cookie-consent-pending > div[style*="bottom: 0px"],
+body.cookie-consent-pending > div[style*="bottom:0px"] {
+    bottom: 90px !important;
+}
+body.cookie-consent-pending > iframe[style*="position"],
+body.cookie-consent-pending > div > iframe[style*="position: fixed"],
+body.cookie-consent-pending > div > iframe[style*="position:fixed"] {
+    margin-bottom: 90px !important;
+}
