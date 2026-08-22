@@ -171,7 +171,7 @@ function PricingContent() {
                                 <ul className="price-features">
                                     {PRICING.starter.features.map((f, i) => <li key={i}>{f}</li>)}
                                 </ul>
-                                <CheckoutButton purchaseType="starter" discountCode={discountCode} className="btn btn-outline btn-full">
+                                <CheckoutButton purchaseType="starter" discountCode={discountCode} className="btn btn-white btn-full">
                                     Get Starter
                                 </CheckoutButton>
                                 <GuaranteeBadge />
@@ -183,7 +183,7 @@ function PricingContent() {
                                 <ul className="price-features">
                                     {PRICING.pro.features.map((f, i) => <li key={i}>{f}</li>)}
                                 </ul>
-                                <CheckoutButton purchaseType="pro" discountCode={discountCode} className="btn btn-gold btn-full">
+                                <CheckoutButton purchaseType="pro" discountCode={discountCode} className="btn btn-white btn-full">
                                     Get Pro
                                 </CheckoutButton>
                                 <GuaranteeBadge />
@@ -195,7 +195,7 @@ function PricingContent() {
                                 <ul className="price-features">
                                     {PRICING.lifetime.features.map((f, i) => <li key={i}>{f}</li>)}
                                 </ul>
-                                <CheckoutButton purchaseType="lifetime" discountCode={discountCode} className="btn btn-gold btn-full">
+                                <CheckoutButton purchaseType="lifetime" discountCode={discountCode} className="btn btn-white btn-full">
                                     Get Lifetime Deal
                                 </CheckoutButton>
                                 <GuaranteeBadge />
