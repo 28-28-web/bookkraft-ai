@@ -87,7 +87,7 @@ export default function Navbar() {
                   style={{
                     background: 'none', border: 'none', cursor: 'pointer',
                     display: 'inline-flex', alignItems: 'center', gap: '4px',
-                    font: 'inherit', color: 'inherit',
+                    font: 'inherit',
                   }}
                   aria-expanded={toolsOpen}
                 >
@@ -139,7 +139,6 @@ export default function Navbar() {
                     alignItems: 'center',
                     gap: '4px',
                     font: 'inherit',
-                    color: 'inherit',
                   }}
                   aria-expanded={resourcesOpen}
                 >
