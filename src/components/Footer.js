@@ -71,7 +71,7 @@ export default function Footer() {
                                 background: 'rgba(255,255,255,0.03)',
                             }}
                         >
-                            <img src="https://codetrendy.com/favicon.ico" alt="" width={14} height={14}
+                            <img src="https://codetrendy.com/favicon.ico" alt="CodeTrendy logo" width={14} height={14}
                                 style={{ display: 'block', opacity: 0.8 }} />
                             <span style={{ color: 'rgba(247,243,236,0.45)', fontWeight: 500 }}>Listed on</span>
                             <span style={{ color: 'var(--gold)', fontWeight: 700 }}>CodeTrendy</span>

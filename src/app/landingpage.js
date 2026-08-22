@@ -84,11 +84,15 @@ function HeroSection() {
         <h1 style={{
           fontFamily: 'var(--font-fraunces), Fraunces, serif', fontWeight: 500,
           fontSize: 'clamp(34px, 4.6vw, 54px)', lineHeight: 1.08, letterSpacing: '-0.01em',
-          color: '#ffffff', maxWidth: 820, margin: '0 0 26px',
+          color: '#ffffff', maxWidth: 820, margin: '0 0 12px',
         }}>
           Your manuscript has small mistakes Amazon won&apos;t tell you about &mdash;{' '}
           <em style={{ fontStyle: 'italic', color: 'rgba(255,255,255,0.6)', fontWeight: 500 }}>until after you upload it.</em>
         </h1>
+
+        <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.3)', margin: '0 0 26px', letterSpacing: '0.03em' }}>
+          EPUB &amp; Kindle formatting, checked before you publish.
+        </p>
 
         <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.65)', maxWidth: 560, margin: '0 0 36px', lineHeight: 1.5 }}>
           Run a free Readiness Scan before you publish. One score, every platform, exactly what to fix first.
