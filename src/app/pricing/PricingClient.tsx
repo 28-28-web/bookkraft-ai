@@ -264,15 +264,20 @@ function PricingFAQ() {
     return (
         <section className="faq-section" style={{ paddingBottom: 'var(--space-16)', background: 'var(--ink)' }}>
             <div className="container">
-                <h2 className="section-heading center">Pricing FAQ</h2>
+                <p className="section-eyebrow-v2" style={{ textAlign: 'center' }}>Common Questions</p>
+                <h2 className="section-heading center" style={{ color: 'var(--cream)' }}>Pricing FAQ</h2>
                 <div className="faq-list">
                     {pricingFaqs.map((f, i) => (
-                        <div className={`faq-item ${openIndex === i ? 'open' : ''}`} key={i}>
-                            <div className="faq-q" onClick={() => setOpenIndex(openIndex === i ? null : i)}>
+                        <div className={`faq-item${openIndex === i ? ' open' : ''}`} key={i}>
+                            <button
+                                type="button"
+                                className="faq-question"
+                                onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                            >
                                 {f.q}
-                                <span className="faq-chevron">▼</span>
-                            </div>
-                            <div className="faq-a"><p>{f.a}</p></div>
+                                <span className="faq-chevron" aria-hidden="true">▾</span>
+                            </button>
+                            <div className="faq-answer"><p>{f.a}</p></div>
                         </div>
                     ))}
                 </div>
