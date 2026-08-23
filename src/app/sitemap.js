@@ -3,12 +3,13 @@ import path from 'path';
 import { EPUB_ERRORS } from '@/lib/epubErrors';
 import { PLATFORM_REJECTIONS } from '@/lib/platformRejections';
 import { VS_ALTERNATIVES } from '@/lib/vsAlternatives';
+import { CHECKLISTS } from '@/lib/checklists';
 
 const BASE = 'https://bookkraftai.com';
 
-// Bump CONTENT_DATE whenever epubErrors.js, platformRejections.js, or
-// vsAlternatives.js change meaningfully — a stale date here undermines
-// the freshness signal Google uses from lastModified.
+// Bump CONTENT_DATE whenever epubErrors.js, platformRejections.js,
+// vsAlternatives.js, or checklists.js change meaningfully — a stale date
+// here undermines the freshness signal Google uses from lastModified.
 const CONTENT_DATE = new Date('2026-08-23');
 
 function getLocalPosts() {
@@ -75,6 +76,13 @@ export default async function sitemap() {
     lastModified: CONTENT_DATE,
     changeFrequency: 'monthly',
     priority: 0.8,
+  }));
+
+  const checklistPages = CHECKLISTS.map((c) => ({
+    url: `${BASE}/checklist/${c.slug}`,
+    lastModified: CONTENT_DATE,
+    changeFrequency: 'monthly',
+    priority: 0.7,
   }));
 
   return [
@@ -190,6 +198,7 @@ export default async function sitemap() {
     ...epubErrorPages,
     ...platformRejectionPages,
     ...alternativePages,
+    ...checklistPages,
     {
       url: `${BASE}/author/fateh`,
       lastModified: new Date('2026-08-10'),

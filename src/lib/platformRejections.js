@@ -51,6 +51,7 @@ export const PLATFORM_REJECTIONS = [
       { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table' },
       { type: 'epub-error', slug: 'broken-spine-order', label: 'Broken spine order errors' },
       { type: 'alternative', slug: 'scrivener-alternative', label: 'Scrivener alternative for ebook production' },
+      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
     ],
   },
   {
@@ -101,6 +102,7 @@ export const PLATFORM_REJECTIONS = [
       { type: 'epub-error', slug: 'duplicate-id-epub', label: 'Duplicate ID attribute errors' },
       { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table' },
       { type: 'alternative', slug: 'jutoh-alternative', label: 'Jutoh alternative for EPUB formatting' },
+      { type: 'checklist', slug: 'apple-books-submission-checklist', label: 'Apple Books submission checklist' },
     ],
   },
   {

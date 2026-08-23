@@ -13,6 +13,10 @@ const TYPE_CONFIG = {
     href: (slug) => `/alternatives/${slug}`,
     heading: 'Tool comparisons',
   },
+  checklist: {
+    href: (slug) => `/checklist/${slug}`,
+    heading: 'Publishing checklists',
+  },
 };
 
 export default function RelatedLinks({ related }) {

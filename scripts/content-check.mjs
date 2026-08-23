@@ -26,6 +26,7 @@ function loadDataArray(relPath) {
 const epubErrors        = loadDataArray('src/lib/epubErrors.js');
 const platformRejections = loadDataArray('src/lib/platformRejections.js');
 const vsAlternatives    = loadDataArray('src/lib/vsAlternatives.js');
+const checklists        = loadDataArray('src/lib/checklists.js');
 
 // ── Prose extraction ──────────────────────────────────────────────────────────
 
@@ -47,6 +48,11 @@ function alternativeProse(a) {
   return stripHtml(`${a.intro} ${why}`);
 }
 
+function checklistProse(c) {
+  const items = c.sections.map((s) => `${s.heading} ${s.items.join(' ')}`).join(' ');
+  return stripHtml(`${c.intro} ${items}`);
+}
+
 // ── Unified entry list ────────────────────────────────────────────────────────
 
 const entries = [
@@ -64,6 +70,11 @@ const entries = [
     id: `alternatives/${a.slug}`,
     prose: alternativeProse(a),
     related: a.related,
+  })),
+  ...checklists.map((c) => ({
+    id: `checklist/${c.slug}`,
+    prose: checklistProse(c),
+    related: c.related,
   })),
 ];
 
@@ -104,7 +115,7 @@ function fail(msg) {
   failures++;
 }
 
-console.log(`\nChecking ${entries.length} entries (${epubErrors.length} epub-errors, ${platformRejections.length} platform-rejection, ${vsAlternatives.length} alternatives)\n`);
+console.log(`\nChecking ${entries.length} entries (${epubErrors.length} epub-errors, ${platformRejections.length} platform-rejection, ${vsAlternatives.length} alternatives, ${checklists.length} checklists)\n`);
 
 // Check 1: Minimum prose length
 console.log(`── Length check (min ${MIN_PROSE_CHARS} chars) ──────────────────────────────────`);
