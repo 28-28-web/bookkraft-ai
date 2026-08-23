@@ -149,6 +149,164 @@ export const PLATFORM_REJECTIONS = [
       { type: 'epub-error', slug: 'broken-spine-order', label: 'Broken spine order errors' },
       { type: 'epub-error', slug: 'invalid-opf-manifest-reference', label: 'OPF manifest references a missing file' },
       { type: 'alternative', slug: 'jutoh-alternative', label: 'Jutoh alternative for EPUB formatting' },
+      { type: 'platform-rejection', slug: 'smashwords', label: 'Why Smashwords rejects ebooks' },
+      { type: 'alternative', slug: 'draft2digital-alternative', label: "D2D's Book Builder as a formatting tool" },
+    ],
+  },
+  {
+    slug: 'kobo',
+    platform: 'Kobo',
+    metaTitle: 'Why Kobo Rejects Ebooks — Kobo Writing Life Rejection Causes',
+    metaDescription: "Kobo Writing Life rejected your ebook? Here are the most common Kobo-specific causes — KEPUB conversion stalls, Nickel CSS incompatibilities, 100MB file limit — and how to fix each one.",
+    intro: "<p>Kobo Writing Life (KWL) is both an upload portal and a conversion pipeline — every EPUB you submit is converted to Kobo's proprietary KEPUB format before it appears on any Kobo device or app. This two-stage process (upload → convert → list) means Kobo can reject your file at either stage: the initial upload check, or the KEPUB conversion that follows. Many Kobo-specific failures produce no visible error message at all — the book simply stays in \"Processing\" until you contact KWL support to find out what failed.</p>",
+    topReasons: [
+      {
+        title: 'KEPUB conversion stalls silently',
+        description: "Kobo converts every uploaded EPUB to its own KEPUB format before listing. Structural issues that EPUBCheck doesn't flag — deeply nested block elements, XPointer-style fragment identifiers in internal links, or invalid UTF-8 byte sequences outside the Basic Multilingual Plane — cause the KEPUB conversion process to hang indefinitely. The KWL dashboard shows \"Processing\" without advancing to \"Live.\" This is the most common source of Kobo-specific failures on files that pass full EPUBCheck validation.",
+      },
+      {
+        title: 'Nickel CSS rendering incompatibilities',
+        description: "Kobo's Nickel rendering engine does not support position: fixed, vw/vh viewport units, CSS3 transitions or animations, or some calc() expressions. A file that renders correctly in Kindle Previewer and Calibre can show blank pages, text overlap, or broken layout sections on Kobo devices. These are not validation errors — they are rendering incompatibilities discovered only when the file is previewed on a Kobo device or in the Kobo desktop app.",
+      },
+      {
+        title: '100MB file size ceiling',
+        description: "Kobo Writing Life enforces a 100MB maximum upload size, significantly stricter than KDP's 650MB or Apple Books' 2GB limit. Illustrated non-fiction, children's picture books, graphic novels, and books with many embedded photographs commonly exceed this. Images that pass other platforms can push a file over Kobo's limit — resize all body images to their actual display dimensions and target an EPUB size under 80MB to give a margin below the ceiling.",
+      },
+      {
+        title: "BCP 47 language code not in Kobo's catalog allowlist",
+        description: "Kobo's catalog system validates the dc:language field against a specific internal allowlist of BCP 47 codes. Uncommon regional variants — en-IN (English, India), pt-AO (Portuguese, Angola), fr-BE (French, Belgium) — may not appear in Kobo's recognized list, causing catalog processing to fail even when EPUBCheck accepts the language code as valid. Using the primary language subtag (en, pt, fr) without a regional variant resolves most of these.",
+      },
+      {
+        title: 'Adult content two-tier distribution blocking',
+        description: "Kobo separates 'listed on Kobo store' from 'distributed to retail partners.' Books with explicit sexual content can pass initial upload and appear in the Kobo store, then be blocked from distribution to retail partners (OverDrive, Indigo, Walmart) without removing the Kobo listing. Authors discover this when their book shows as Live on KWL but never appears at partner retailers.",
+      },
+      {
+        title: 'ISBN conflicts from parallel submissions',
+        description: "Authors who distribute to Kobo via both KWL directly and through an aggregator (Draft2Digital or Smashwords) can create duplicate listings under the same ISBN. Kobo flags the conflict and blocks one version — typically the aggregator's — until the duplicate is withdrawn. Resolving this requires contacting both KWL support and the aggregator to identify and remove the non-primary submission.",
+      },
+    ],
+    howToFix: "<ol><li>If your book is stuck in \"Processing,\" contact KWL support directly — include your book title and KWL account email. Request the KEPUB conversion log to identify the specific structural element causing the stall.</li><li>Preview your EPUB on a physical Kobo device or the Kobo desktop app before submitting, not just in Kindle Previewer or Calibre. Nickel-specific rendering issues only appear on Kobo's own renderer.</li><li>Validate with EPUBCheck before upload. While EPUBCheck won't catch Nickel CSS issues, it catches structural problems that compound with Kobo's KEPUB conversion pipeline.</li><li>Resize all body images to their actual display dimensions — target under 1MP per image and keep total EPUB size under 80MB to give a margin below Kobo's 100MB limit.</li><li>Use the primary BCP 47 language subtag (en, fr, pt) rather than regional variants unless you've confirmed the regional code is in Kobo's allowlist.</li><li>Choose one submission channel for Kobo — either direct via KWL or via an aggregator — not both. Parallel submissions create ISBN conflicts that require manual intervention to resolve.</li></ol>",
+    faq: [
+      {
+        q: 'Does Kobo accept EPUB 3?',
+        a: "Yes — EPUB 3 is Kobo's preferred format and generally produces cleaner KEPUB conversion output than EPUB 2. EPUB 2 files are also accepted but may produce a KEPUB with fewer enhanced features.",
+      },
+      {
+        q: 'How is KEPUB different from EPUB?',
+        a: "KEPUB is Kobo's proprietary reading format. It adds Kobo-specific features (chapter progress indicators, Reading Life statistics) and uses a different rendering pipeline. You never interact with KEPUB directly — it's the delivery format used internally by all Kobo apps and devices after your EPUB is converted during the KWL upload process.",
+      },
+      {
+        q: 'Why does my book show as Processing for several days?',
+        a: "Extended processing almost always means the KEPUB conversion stalled on a structural element in your EPUB. Kobo's system doesn't automatically notify you of conversion failures — it just stops processing. Contact KWL support if a book has been in Processing status for more than 72 hours and request the conversion error log.",
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'epub-error', slug: 'title-tag-empty-kobo', label: 'Empty title tag (Kobo metadata error)' },
+      { type: 'epub-error', slug: 'ghost-spacing-epub', label: 'Ghost spacing in e-reader previews' },
+      { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table' },
+      { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
+    ],
+  },
+  {
+    slug: 'google-play-books',
+    platform: 'Google Play Books',
+    metaTitle: 'Why Google Play Books Rejects Ebooks — Partner Center Requirements',
+    metaDescription: "Google Play Books rejected your ebook? Google has the strictest content policy of any major platform and ISBN requirements that differ from KDP. Here's what to check and fix before resubmitting.",
+    intro: "<p>Google Play Books Partner Center has the strictest content policy of any major ebook retailer and applies validation and pricing rules that differ from every other platform. Unlike KDP, which reviews contested content and sometimes approves it after human evaluation, Google Play rejections in restricted content categories are typically final with no appeal route. The ISBN requirement, price-matching behavior, and Google-specific EPUB validation also catch authors who've published to KDP and Apple Books without issue.</p>",
+    topReasons: [
+      {
+        title: 'Strictest content policy of any major ebook platform',
+        description: "Google Play Books rejects content categories that KDP, Apple Books, and Kobo accept — including explicit sexual content of any kind (there is no adult-opt-in process as there is on KDP), certain dark fiction sub-genres, and content that triggers Google's automated moderation classifiers. If your content falls into a restricted category, resubmission produces the same outcome. Google Play is simply not a viable distribution channel for those content types.",
+      },
+      {
+        title: 'Price-match enforcement creates first-submission surprises',
+        description: "Google automatically matches the lowest price your book appears at elsewhere. If your book is permafree on Smashwords, your own website, or Patreon, Google lists it at zero and may block relisting at a paid price. This is not a validation rejection — it is a pricing policy applied at listing time that authors encounter for the first time when their new listing appears at $0.00 without explanation.",
+      },
+      {
+        title: 'ISBN required for all paid books',
+        description: "Unlike KDP, which accepts EPUB without an ISBN and generates its own ASIN, Google Play Partner Center requires a valid ISBN-13 for every paid book. Books without a properly formatted ISBN in the OPF content.opf file — or with an ISBN in the file but missing from the Partner Center metadata form — are rejected at intake.",
+      },
+      {
+        title: 'Google-specific EPUB validation beyond EPUBCheck',
+        description: "Google's processing pipeline applies validation checks beyond standard EPUBCheck. Common Google-specific failures: NCX playOrder attribute values that are non-sequential or contain gaps, internal hyperlinks with unencoded special characters in href attributes (spaces, ampersands that should be %20 and %26), and OPF attribute combinations Google's parser doesn't recognize. Rejection emails cite Google system codes rather than EPUBCheck codes, making cross-referencing against standard documentation difficult.",
+      },
+      {
+        title: 'Copyright scanning flags stock images and near-duplicate content',
+        description: "Google scans uploaded book content and covers against its image rights database and Google Books scan index more aggressively than other platforms. Covers using stock images without embedded licensing metadata, images matching existing Google Books scans, and content with large portions matching publicly available text trigger rights holds requiring manual verification — a process that can take weeks to resolve.",
+      },
+    ],
+    howToFix: "<ol><li>Review Google Play Books' content policies before submitting — if your content touches restricted categories, resubmission will not produce a different outcome.</li><li>Confirm your book's lowest price across all platforms before submitting to Google Play. If it's free anywhere, expect Google to match that price automatically.</li><li>Add a valid ISBN-13 to content.opf as a dc:identifier element and enter the same ISBN in Partner Center's metadata form — both must be present and match.</li><li>Review your NCX playOrder values — they must be sequential integers with no gaps. Regenerate your TOC in Calibre or Sigil if the NCX was manually edited.</li><li>Check all internal href attributes for unencoded characters — spaces must be %20, ampersands must be %26.</li><li>If held for image rights review, submit license documentation for any stock images through Partner Center's rights dispute form.</li></ol>",
+    faq: [
+      {
+        q: 'Can I appeal a Google Play Books content rejection?',
+        a: "In most cases, no. Content rejections in restricted categories are applied by policy, not by case-by-case review. An appeal path exists mainly for books incorrectly flagged by automated moderation — not for content that genuinely falls in a restricted category.",
+      },
+      {
+        q: 'Does Google Play Books require an ISBN for free books?',
+        a: "No — Google generates its own identifier for free books. The ISBN requirement applies specifically to paid books submitted through Partner Center.",
+      },
+      {
+        q: 'Why did Google lower the price of my book without asking?',
+        a: "Google's Partner Center terms include a price-matching clause. Google monitors book prices on major retail sites and adjusts its listing price to match the lowest available price elsewhere. To maintain a paid price on Google Play, your book must not be free on any platform Google monitors.",
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-048)' },
+      { type: 'epub-error', slug: 'unescaped-ampersand-xhtml', label: 'Unescaped ampersand in XHTML' },
+      { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
+    ],
+  },
+  {
+    slug: 'smashwords',
+    platform: 'Smashwords',
+    metaTitle: 'Why Smashwords Rejects Ebooks — Meatgrinder and Premium Catalog',
+    metaDescription: "Smashwords rejected your book or blocked it from retail distribution? The Meatgrinder DOCX requirements, Premium Catalog gate, and D2D merger transition cause most Smashwords-specific issues. Here's how to fix them.",
+    intro: "<p>Smashwords is unique among major ebook distributors in using a DOCX-first conversion pipeline called Meatgrinder, which converts your Word document into multiple formats simultaneously. This means Smashwords-specific rejection causes are almost entirely about Word document formatting, not EPUB structure — a file that passes EPUBCheck validation can still fail Smashwords' auto-vetter if the source Word document doesn't follow the Smashwords Style Guide. Since merging with Draft2Digital in 2022, Smashwords shares distribution infrastructure with D2D, but the Meatgrinder pipeline and the Premium Catalog gate remain operational and continue to be the source of most Smashwords-specific author problems.</p>",
+    topReasons: [
+      {
+        title: 'Meatgrinder DOCX formatting requirements',
+        description: "Meatgrinder requires Word documents that conform strictly to the Smashwords Style Guide. The auto-vetter blocks conversion when it detects: tracked changes (Accept All Changes before submitting), Word comments, field codes (which produce auto-generated TOCs, page numbers, or cross-references in Word), or section breaks. These elements appear invisible in the finished document but cause conversion errors Meatgrinder can't recover from. Smashwords calls the full manual cleanup process the 'Nuclear Option' — a complete style reset in Word before submission.",
+      },
+      {
+        title: 'Table of contents format not recognized by the auto-vetter',
+        description: "Smashwords requires a specific manually built table of contents using Word bookmarks — not Word's built-in Insert → Table of Contents feature. A TOC generated with Word's auto-TOC function contains field codes that the auto-vetter flags as conversion-blocking. The correct method (per the Smashwords Style Guide) is a manually typed TOC with each chapter title hyperlinked to a named bookmark at the start of that chapter.",
+      },
+      {
+        title: 'Premium Catalog gate: accepted to the store ≠ distributed to retailers',
+        description: "Uploading successfully to Smashwords does not guarantee inclusion in the Premium Catalog, which controls distribution to Barnes & Noble, OverDrive, Scribd, and other retail partners. Premium rejection reasons include: missing or invalid ISBN, cover image under 1400px on the short side, non-standard metadata, and content flags specific to individual retailer partners. Books accepted to the Smashwords store but blocked from Premium appear on Smashwords.com only — no retailer listings appear.",
+      },
+      {
+        title: 'Adult content distribution controls',
+        description: "Smashwords allows explicit sexual content on its own store but withholds distribution to Apple Books, Barnes & Noble, and library channels for books marked adult. Authors who mark their book as adult and expect full retail distribution are often surprised to find it blocked from the majority of distribution partners. Smashwords provides a per-retailer opt-in checklist for adult titles in the account dashboard, but the behavior at individual retailers changes when partners update their content policies.",
+      },
+      {
+        title: 'D2D merger transition: dual-submission ISBN conflicts',
+        description: "Since Smashwords merged with Draft2Digital (2022), authors who previously used both platforms have had books submitted through both the legacy Smashwords system and D2D's system simultaneously. Retailers receive duplicate deliveries under the same ISBN. Smashwords (sharing infrastructure with D2D) blocks one version — typically the lower-priority submission — without clearly notifying the author. Resolving this requires identifying which system holds the active ISBN and withdrawing from the other.",
+      },
+    ],
+    howToFix: "<ol><li>Before submitting, run the 'Nuclear Option' cleanup from the Smashwords Style Guide: accept all tracked changes, delete all comments, convert all auto-generated field codes to plain text, and reset paragraph styles to Normal before reapplying heading styles manually.</li><li>Replace any Word auto-generated TOC with a manually typed one using Word bookmarks — each chapter title linked to a bookmark at the first paragraph of that chapter.</li><li>Check your Premium Catalog status in the dashboard after upload. If listed as 'Pending' for more than 5 business days, review the Premium requirements checklist and resubmit with the corrected file.</li><li>For adult content, review the distribution opt-in dashboard and confirm which retailer channels accept your content category before expecting retailer listings to appear.</li><li>If you've used both Smashwords and Draft2Digital previously, check both dashboards for active submissions under the same ISBN and withdraw from the non-primary channel to resolve the conflict.</li></ol>",
+    faq: [
+      {
+        q: 'Can I submit an EPUB to Smashwords instead of a DOCX?',
+        a: "Yes — since the D2D merger, Smashwords accepts EPUB submissions, which bypass the Meatgrinder pipeline entirely. EPUBs go through a lighter processing path. However, you still need to meet all Premium Catalog requirements (ISBN, cover size, metadata) when submitting EPUB, and the EPUB must pass Smashwords' basic validation.",
+      },
+      {
+        q: "What's the 'Nuclear Option' in the Smashwords Style Guide?",
+        a: "It's a manual formatting reset for Word documents — select all text, clear all formatting, then reapply styles from scratch. The goal is to eliminate hidden formatting artifacts (field codes, embedded styles, autoformatting) that Meatgrinder can't process. The Style Guide walks through the exact steps required.",
+      },
+      {
+        q: 'How is Smashwords different from Draft2Digital now that they have merged?',
+        a: "Smashwords operates as a distinct brand with its own storefront (Smashwords.com) and the Meatgrinder DOCX pipeline. D2D operates as the distribution network backend that both platforms share. From a submission standpoint, they remain separate dashboards with different interfaces and different requirements — but their retail distribution network is now the same infrastructure.",
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'platform-rejection', slug: 'draft2digital', label: 'Why Draft2Digital rejects ebooks' },
+      { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table' },
+      { type: 'epub-error', slug: 'ghost-spacing-epub', label: 'Ghost spacing from empty paragraph tags' },
+      { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
     ],
   },
 ];

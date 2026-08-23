@@ -106,6 +106,9 @@ export const EPUB_ERRORS = [
       },
     ],
     relatedTool: 'epub-validator',
+    related: [
+      { type: 'platform-rejection', slug: 'kobo', label: 'Why Kobo rejects ebooks' },
+    ],
   },
   {
     slug: 'missing-ncx-navigation',
