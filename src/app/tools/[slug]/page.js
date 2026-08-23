@@ -6,11 +6,15 @@ export function generateStaticParams() {
   return TOOLS.map(tool => ({ slug: tool.slug }));
 }
 
-function extractJsonLd(html) {
-  if (!html) return null;
-  const match = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
-  if (!match) return null;
-  try { return JSON.parse(match[1]); } catch { return null; }
+function extractAllJsonLd(html) {
+  if (!html) return [];
+  const results = [];
+  const re = /<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g;
+  let m;
+  while ((m = re.exec(html)) !== null) {
+    try { results.push(JSON.parse(m[1])); } catch { /* skip malformed */ }
+  }
+  return results;
 }
 
 function stripJsonLd(html) {
@@ -23,12 +27,19 @@ export default async function Page({ params }) {
   const tool = getToolBySlug(slug);
   if (!tool) notFound();
 
-  const jsonLd = extractJsonLd(tool.seoContent);
-  const faqItems = jsonLd?.mainEntity ?? [];
+  const schemas = extractAllJsonLd(tool.seoContent);
+  const faqItems = schemas.find(s => s['@type'] === 'FAQPage')?.mainEntity ?? [];
   const seoHtml = stripJsonLd(tool.seoContent);
 
   return (
     <>
+      {schemas.map((schema, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
       <ToolPageClient params={params} faqItems={faqItems}>
         {seoHtml && (
           <div
