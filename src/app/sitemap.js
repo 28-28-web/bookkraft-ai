@@ -1,7 +1,15 @@
 import fs from 'fs';
 import path from 'path';
+import { EPUB_ERRORS } from '@/lib/epubErrors';
+import { PLATFORM_REJECTIONS } from '@/lib/platformRejections';
+import { VS_ALTERNATIVES } from '@/lib/vsAlternatives';
 
 const BASE = 'https://bookkraftai.com';
+
+// Bump CONTENT_DATE whenever epubErrors.js, platformRejections.js, or
+// vsAlternatives.js change meaningfully — a stale date here undermines
+// the freshness signal Google uses from lastModified.
+const CONTENT_DATE = new Date('2026-08-23');
 
 function getLocalPosts() {
   const dir = path.join(process.cwd(), 'src', 'content', 'blog');
@@ -46,6 +54,27 @@ export default async function sitemap() {
     lastModified: new Date(post.published_at),
     changeFrequency: 'monthly',
     priority: 0.7,
+  }));
+
+  const epubErrorPages = EPUB_ERRORS.map((e) => ({
+    url: `${BASE}/epub-errors/${e.slug}`,
+    lastModified: CONTENT_DATE,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
+  const platformRejectionPages = PLATFORM_REJECTIONS.map((r) => ({
+    url: `${BASE}/platform-rejection/${r.slug}`,
+    lastModified: CONTENT_DATE,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
+  const alternativePages = VS_ALTERNATIVES.map((a) => ({
+    url: `${BASE}/alternatives/${a.slug}`,
+    lastModified: CONTENT_DATE,
+    changeFrequency: 'monthly',
+    priority: 0.8,
   }));
 
   return [
@@ -148,52 +177,19 @@ export default async function sitemap() {
     },
     {
       url: `${BASE}/alternatives`,
-      lastModified: new Date('2026-08-18'),
+      lastModified: CONTENT_DATE,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${BASE}/epub-errors`,
-      lastModified: new Date('2026-08-05'),
+      lastModified: CONTENT_DATE,
       changeFrequency: 'weekly',
       priority: 0.7,
     },
-    {
-      url: `${BASE}/epub-errors/emf-image-fallback`,
-      lastModified: new Date('2026-08-05'),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE}/epub-errors/font-link-validation`,
-      lastModified: new Date('2026-08-05'),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE}/epub-errors/missing-manifest-resource`,
-      lastModified: new Date('2026-08-05'),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE}/epub-errors/opf-role-attribute-not-allowed`,
-      lastModified: new Date('2026-08-05'),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE}/epub-errors/invalid-font-file-corrupted`,
-      lastModified: new Date('2026-08-05'),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE}/epub-errors/title-tag-empty-kobo`,
-      lastModified: new Date('2026-08-05'),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
+    ...epubErrorPages,
+    ...platformRejectionPages,
+    ...alternativePages,
     {
       url: `${BASE}/author/fateh`,
       lastModified: new Date('2026-08-10'),
