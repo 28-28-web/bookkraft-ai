@@ -152,6 +152,7 @@ export const PLATFORM_REJECTIONS = [
       { type: 'alternative', slug: 'jutoh-alternative', label: 'Jutoh alternative for EPUB formatting' },
       { type: 'platform-rejection', slug: 'smashwords', label: 'Why Smashwords rejects ebooks' },
       { type: 'alternative', slug: 'draft2digital-alternative', label: "D2D's Book Builder as a formatting tool" },
+      { type: 'platform-rejection', slug: 'overdrive', label: 'Why OverDrive rejects ebooks (library distribution)' },
     ],
   },
   {
@@ -307,6 +308,114 @@ export const PLATFORM_REJECTIONS = [
       { type: 'platform-rejection', slug: 'draft2digital', label: 'Why Draft2Digital rejects ebooks' },
       { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table' },
       { type: 'epub-error', slug: 'ghost-spacing-epub', label: 'Ghost spacing from empty paragraph tags' },
+      { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
+    ],
+  },
+  {
+    slug: 'ingram-spark',
+    platform: 'IngramSpark',
+    metaTitle: 'Why IngramSpark Rejects Books — Print PDF and Ebook Distribution Requirements',
+    metaDescription: "IngramSpark rejected your file? IngramSpark's print PDF/X-1a specification is stricter than KDP's. Here are the most common print and ebook rejection causes — bleed, spine width, barcode, embedded fonts — and how to fix each one.",
+    intro: "<p>IngramSpark is simultaneously a print-on-demand printer, a wholesale print distributor, and an ebook distribution network that delivers to Apple Books, Kobo, and Barnes &amp; Noble via its CoreSource pipeline. This multi-channel architecture means IngramSpark has two separate rejection pipelines — one for print files and one for ebook files — with requirements that operate independently of each other. Authors coming from KDP's relatively forgiving print submission process are most often caught out by IngramSpark's PDF/X-1a requirement: a prepress color standard that Ingram enforces strictly for professional print distribution and that KDP's self-publishing flow doesn't require at all.</p>",
+    topReasons: [
+      {
+        title: 'Interior or cover PDF not in PDF/X-1a format',
+        description: "IngramSpark requires both the interior PDF and the cover PDF to be in PDF/X-1a format — a prepress standard designed for consistent commercial print reproduction. Standard PDF, PDF/X-3, and PDF/X-4 are rejected at intake. PDF/X-1a requires CMYK or grayscale color (no RGB or ICC-based color profiles), embedded fonts (no font substitution), and no transparency. Most consumer PDF export tools — Canva, Google Docs, unoptimized InDesign exports — produce standard PDFs that fail this requirement without any visible error in the file itself.",
+      },
+      {
+        title: 'Cover bleed not set or set incorrectly',
+        description: "IngramSpark requires 0.125 inches of bleed on all four sides of the cover PDF — a printing margin that allows the press to cut to trim size without leaving white edges. A cover exported at exact trim size with no bleed, or with bleed on only some sides, is rejected before it reaches the printer. Canva and most consumer design tools produce covers at trim size with no bleed option, which is the primary reason first-time IngramSpark authors have their cover rejected while an identical cover file passes KDP's cover upload without issue.",
+      },
+      {
+        title: 'Spine width mismatch between cover PDF and page count',
+        description: "The spine width of the cover PDF must precisely match IngramSpark's calculation for your title's page count on your chosen paper stock. IngramSpark provides a cover template generator that outputs the exact spine width — but authors who design their cover early in the production process and revise the interior manuscript afterward end up with a cover built for the wrong page count. Even a difference of a few pages shifts the spine width enough to trigger a rejection, and Ingram cross-checks the submitted cover's spine dimensions against the interior page count on file.",
+      },
+      {
+        title: 'Fonts not embedded in the interior PDF',
+        description: "All fonts in the interior PDF must be fully embedded before submission. IngramSpark's print pipeline cannot substitute or download fonts at processing time — an unembedded font causes a processing failure that blocks both printing and wholesale distribution. This is most common in PDFs exported from word processors (Word, LibreOffice) without the embed-fonts option enabled, or from design software with subsetting settings that exclude some character ranges from the embedded font data.",
+      },
+      {
+        title: 'ISBN barcode missing, misplaced, or not matching the registered ISBN',
+        description: "IngramSpark requires the ISBN-13 barcode on the back cover of the printed book, placed in the lower right quadrant at 100% scale. The number in the barcode must exactly match the ISBN registered with IngramSpark for that title. Barcodes generated from a different ISBN, resized disproportionately, placed in a non-standard position, or printed at too small a scale for scanner readability are all rejected. Ingram also cross-references the barcode against the ISBN in their system — a cover with an ISBN registered to a different title or edition fails this cross-check.",
+      },
+      {
+        title: 'Ebook distribution failures via the CoreSource pipeline',
+        description: "IngramSpark distributes ebooks through CoreSource, which delivers to Apple Books, Kobo, Barnes & Noble, and other retail partners. A validation failure that IngramSpark's own intake passes can still cause a rejection at the CoreSource or destination-platform level, reported back through IngramSpark's dashboard with limited diagnostic detail. Apple Books' EPUBCheck strictness, Kobo's KEPUB conversion requirements, and retailer-specific metadata checks all apply to IngramSpark-distributed EPUBs — but the error message you receive from IngramSpark may not specify which downstream check failed or at which retailer.",
+      },
+    ],
+    howToFix: "<ol><li>Use IngramSpark's cover template generator before starting your cover design — it outputs the exact spine width, bleed dimensions, and trim size for your page count and paper stock. Finalizing your interior page count before generating the template gives you the correct dimensions to design to.</li><li>Export your interior PDF with PDF/X-1a compliance. In Adobe InDesign: File → Export → PDF/X-1a:2001 preset. In Affinity Publisher: File → Export → PDF → PDF/X-1a. Microsoft Word does not support PDF/X-1a export — use a layout application or a PDF conversion service for your print interior.</li><li>Enable font embedding in your PDF export settings. In InDesign, font embedding is on by default. In Word, go to File → Options → Save → 'Embed fonts in the file' before exporting to PDF.</li><li>Generate your ISBN barcode from the ISBN registered with IngramSpark, at 100% scale, and place it in the lower right of the back cover within IngramSpark's safe zone. IngramSpark's own barcode generator or Bowker's barcode tool produce correctly formatted output.</li><li>For ebook distribution failures, run your EPUB through EPUBCheck before uploading and fix all Critical and Error-level issues. For Apple Books-specific failures reported through IngramSpark's dashboard, consult Apple Books' EPUB requirements directly — IngramSpark's error message may not name the specific downstream check that failed.</li></ol>",
+    faq: [
+      {
+        q: 'Does IngramSpark accept the same EPUB format as KDP and Apple Books?',
+        a: "IngramSpark accepts EPUB 2 and EPUB 3 for ebook distribution. The EPUB passes through IngramSpark's intake validation, then through the CoreSource pipeline to destination retailers. An EPUB that passes EPUBCheck should meet IngramSpark's ebook intake requirements, though destination-platform failures at Apple Books or Kobo may be reported back with limited diagnostic detail.",
+      },
+      {
+        q: 'How do I calculate the correct spine width for my cover?',
+        a: "Use IngramSpark's cover template generator, which calculates spine width from your exact page count and paper stock selection (white 60lb, white 80lb, cream 60lb, or color interior). Generate a fresh template after you finalize your page count — adding or removing pages changes the spine width calculation and invalidates an earlier template's dimensions.",
+      },
+      {
+        q: "Is IngramSpark's content policy more or less restrictive than KDP's?",
+        a: "IngramSpark's retail content policies are broadly comparable to KDP's for ebook distribution. For library channel distribution through OverDrive (which Ingram supplies), content is subject to OverDrive's additional standards — explicit sexual content that passes IngramSpark's retail channel may be filtered at the OverDrive library gate separately.",
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'epub-error', slug: 'cover-image-not-declared', label: 'Cover image not declared in OPF manifest' },
+      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-048)' },
+      { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
+      { type: 'mistake', slug: 'epub-formatting-mistakes', label: '10 EPUB formatting mistakes that cause rejection' },
+      { type: 'alternative', slug: 'sigil-alternative', label: 'Sigil alternative for EPUB editing' },
+    ],
+  },
+  {
+    slug: 'overdrive',
+    platform: 'OverDrive',
+    metaTitle: 'Why OverDrive Rejects Ebooks — Library Distribution Requirements for Indie Authors',
+    metaDescription: "OverDrive (Libby) distributes ebooks to public libraries worldwide. Getting into library catalogs requires ONIX metadata, no pre-applied DRM, an ISBN, and content that meets library standards — not just retail approval.",
+    intro: "<p>OverDrive powers Libby, the app used by public library systems worldwide to lend ebooks and audiobooks to patrons. Getting your book into library catalogs through OverDrive is a separate distribution step from retail — one with different metadata requirements, its own content review, and a fundamental requirement that stops most authors on their first attempt: there is no direct author submission path. Books reach library catalogs through publisher accounts or distribution partners like Draft2Digital and IngramSpark, which handle ONIX metadata delivery on your behalf. What gets blocked isn't always the EPUB file itself — it's often the ONIX record sent by your aggregator, the content category, or a pre-applied DRM that conflicts with OverDrive's own licensing pipeline.</p>",
+    topReasons: [
+      {
+        title: 'No direct author submission path',
+        description: "OverDrive does not accept submissions from individual authors. Library catalog listing requires either an OverDrive publisher account (available to publishers with an established backlist; not designed for single-title indie authors) or distribution through an aggregator that has an OverDrive supply relationship — Draft2Digital, Smashwords, IngramSpark, PublishDrive, or StreetLib. Authors who expect a direct upload portal similar to KDP or Apple Books Connect will find no submission path. The aggregator handles ONIX delivery, DRM application, and the library account relationship on the author's behalf.",
+      },
+      {
+        title: 'ONIX 3.0 metadata required for library catalog ingest',
+        description: "OverDrive uses ONIX 3.0 records — not EPUB OPF metadata — to populate library catalog entries: the data that librarians review when acquiring titles and that patrons search when browsing Libby. When the ONIX record sent by your aggregator is incomplete — missing subject classifications, BISAC codes, audience codes, or territorial rights declarations — the title may be accepted by your aggregator but fail to ingest correctly into OverDrive's catalog, or appear only in limited library systems with reduced metadata. Fields that appear optional in your aggregator's metadata form are often required for full library catalog visibility.",
+      },
+      {
+        title: "Pre-applied DRM conflicts with OverDrive's Adobe ADE licensing system",
+        description: "OverDrive applies Adobe Digital Editions (ADE) DRM to every ebook it distributes to library systems. EPUBs that already have DRM applied — from a separate DRM provider, from a prior distribution arrangement, or from an author who applied their own file protection — cannot be processed by OverDrive's licensing pipeline, which expects a clean, DRM-free EPUB to wrap in ADE at ingest. Submit a DRM-free EPUB to your aggregator and let OverDrive apply its own DRM after ingest. This is not a content or quality rejection; it is a technical incompatibility between incoming DRM and OverDrive's own licensing system.",
+      },
+      {
+        title: 'Library content standards block titles that passed retail channels',
+        description: "Public library systems serve patrons of all ages and operate under community standards that differ from retail platforms. OverDrive applies content filtering beyond what D2D or IngramSpark require for retail distribution — explicit sexual content, graphic violence, and some dark fiction sub-genres are excluded from library catalog distribution even when the same title is available at retail. A title in D2D's Premium Catalog and distributed to Kobo and Apple Books may be separately blocked from OverDrive and Libby without notification from your aggregator unless you check your library channel distribution status explicitly in the dashboard.",
+      },
+      {
+        title: 'ISBN required — no alternative identifier accepted for library catalogs',
+        description: "Library catalog systems require an ISBN-13 for every listed title. Unlike KDP (which generates its own ASIN) or some retail platforms that accept a UUID-based identifier, OverDrive's catalog integration requires a valid ISBN in the ONIX record. Free ISBNs provided by aggregators (D2D, PublishDrive) are accepted, but the ISBN must be consistent across your ONIX record, your EPUB's OPF dc:identifier field, and your cover barcode. A mismatch between any of these causes catalog ingest failures that may not surface as an explicit error message in your aggregator dashboard.",
+      },
+    ],
+    howToFix: "<ol><li>Choose an aggregator with an active OverDrive supply relationship and confirm library distribution is opted into for your title — Draft2Digital, IngramSpark, PublishDrive, and StreetLib all offer library channel distribution as a separate opt-in from retail distribution. Check your title's distribution settings explicitly; library opt-in is not automatic.</li><li>Complete every metadata field your aggregator's form offers, even optional ones. BISAC subject codes, audience age range, series information, and territorial rights declarations all contribute to the ONIX record OverDrive uses for library catalog ingest. An incomplete ONIX record results in reduced catalog visibility even when the title is technically accepted.</li><li>Submit a DRM-free EPUB to your aggregator. Do not apply your own DRM before submission — OverDrive applies Adobe ADE DRM after ingest, and an incoming DRM layer will cause a processing incompatibility.</li><li>Review your title's content against OverDrive's content guidelines before expecting library distribution. If your title contains content filtered by library standards, it will not receive library channel distribution regardless of retail approval status.</li><li>Ensure your ISBN-13 is present in content.opf as a dc:identifier element and matches the ISBN in your aggregator's title registration and on your cover barcode. All three must be consistent for correct catalog ingest.</li></ol>",
+    faq: [
+      {
+        q: 'How do library patrons find and borrow my book?',
+        a: "Patrons find your title in their public library's Libby app catalog. When a library system acquires your title through OverDrive, patrons place holds and borrow it for a fixed lending period, after which the digital copy expires automatically. You don't interact with patrons directly — the relationship is between the library and OverDrive, with your aggregator as the supply intermediary.",
+      },
+      {
+        q: 'Do I get paid for library borrows?',
+        a: "Yes — OverDrive pays a royalty per lending transaction, passed through your aggregator. The specific model (pay-per-borrow or metered access) and rate depend on how your aggregator has structured the OverDrive arrangement. D2D, IngramSpark, and PublishDrive each publish their library channel royalty terms in their help documentation.",
+      },
+      {
+        q: "My book is on D2D and showing on retail channels — why isn't it appearing in library catalogs?",
+        a: "Three common reasons: (1) library distribution was not opted into during D2D title setup — it is a separate distribution selection from retail and is not enabled by default; (2) your title's content category is filtered by OverDrive's library standards even though it passed D2D's retail distribution check; (3) your ONIX metadata record has incomplete subject classifications that prevent correct catalog ingest at OverDrive. Check your D2D distribution settings and ONIX metadata completeness before assuming a technical EPUB issue.",
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-048)' },
+      { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table' },
+      { type: 'platform-rejection', slug: 'draft2digital', label: 'Why Draft2Digital rejects ebooks' },
+      { type: 'platform-rejection', slug: 'smashwords', label: 'Why Smashwords rejects ebooks' },
       { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
     ],
   },

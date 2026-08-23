@@ -132,6 +132,7 @@ export const EPUB_ERRORS = [
     related: [
       { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
       { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+      { type: 'platform-rejection', slug: 'overdrive', label: 'Why OverDrive rejects ebooks (library distribution)' },
       { type: 'alternative', slug: 'sigil-alternative', label: 'Sigil alternative for EPUB editing' },
       { type: 'epub-error', slug: 'toc-ncx-navpoint-mismatch', label: 'NCX navPoint mismatch — TOC links to wrong chapters' },
     ],
@@ -255,6 +256,7 @@ export const EPUB_ERRORS = [
     related: [
       { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
       { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+      { type: 'platform-rejection', slug: 'ingram-spark', label: 'Why IngramSpark rejects books' },
       { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
       { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
     ],

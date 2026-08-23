@@ -74,6 +74,7 @@ export const CHECKLISTS = [
     related: [
       { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
       { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+      { type: 'platform-rejection', slug: 'ingram-spark', label: 'Why IngramSpark rejects books' },
       { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table' },
       { type: 'epub-error', slug: 'ghost-spacing-epub', label: 'Ghost spacing in e-reader previews' },
       { type: 'mistake', slug: 'epub-formatting-mistakes', label: '10 EPUB formatting mistakes that cause rejection' },
