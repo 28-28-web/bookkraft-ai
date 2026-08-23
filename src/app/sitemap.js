@@ -186,6 +186,12 @@ export default async function sitemap() {
       priority: 0.8,
     },
     {
+      url: `${BASE}/atticus-alternative`,
+      lastModified: new Date('2026-08-18'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${BASE}/calibre-alternative`,
       lastModified: new Date('2026-08-18'),
       changeFrequency: 'monthly',

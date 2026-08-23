@@ -153,6 +153,8 @@ export const VS_ALTERNATIVES = [
       { type: 'epub-error', slug: 'duplicate-id-epub', label: 'Duplicate ID attribute errors' },
       { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
       { type: 'mistake', slug: 'word-scrivener-export-mistakes', label: 'Word and Scrivener export mistakes guide' },
+      { type: 'flat-alternative', slug: 'vellum-alternative', label: 'Vellum alternative for Windows authors' },
+      { type: 'flat-alternative', slug: 'atticus-alternative', label: 'Atticus alternative for indie authors' },
     ],
   },
   {
@@ -207,6 +209,7 @@ export const VS_ALTERNATIVES = [
       { type: 'epub-error', slug: 'duplicate-id-epub', label: 'Duplicate ID attribute errors' },
       { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
       { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
+      { type: 'flat-alternative', slug: 'atticus-alternative', label: 'Atticus alternative for indie authors' },
     ],
   },
   {

@@ -21,6 +21,10 @@ const TYPE_CONFIG = {
     href: (slug) => `/mistakes/${slug}`,
     heading: 'Common formatting mistakes',
   },
+  'flat-alternative': {
+    href: (slug) => `/${slug}`,
+    heading: 'Tool comparisons',
+  },
 };
 
 export default function RelatedLinks({ related }) {

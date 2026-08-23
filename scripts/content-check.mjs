@@ -138,13 +138,21 @@ for (const e of entries) {
 }
 console.log('   done\n');
 
-// Check 2: Empty related[] regression
+// Check 2: Empty related[] regression + unknown type guard
 // Entries without a `related` field at all are pre-linking-system — silently skip.
 // An entry that has `related: []` explicitly is an error (probably cleared by accident).
+const KNOWN_TYPES = new Set(['epub-error', 'platform-rejection', 'alternative', 'checklist', 'mistake', 'flat-alternative']);
 console.log('── Related field check ──────────────────────────────────────────────────────');
 for (const e of entries) {
   if (Array.isArray(e.related) && e.related.length === 0) {
     fail(`${e.id}: related: [] is empty — add cross-pattern links or remove the field entirely`);
+  }
+  if (Array.isArray(e.related)) {
+    for (const item of e.related) {
+      if (!KNOWN_TYPES.has(item.type)) {
+        fail(`${e.id}: related[] contains unknown type "${item.type}" — add it to KNOWN_TYPES or fix the typo`);
+      }
+    }
   }
 }
 console.log('   done\n');
