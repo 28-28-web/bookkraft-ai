@@ -4698,3 +4698,73 @@ body.cookie-consent-pending > div > iframe[style*="position: fixed"],
 body.cookie-consent-pending > div > iframe[style*="position:fixed"] {
     margin-bottom: 90px !important;
 }
+
+/* ── Content page shared classes ─────────────────────────────────────────────
+   Used across epub-errors, platform-rejection, alternatives, checklist,
+   and mistakes templates to replace repeated inline styles. */
+
+.content-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+}
+
+.content-h1 {
+  font-size: clamp(1.6rem, 4vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+.link-gold {
+  color: var(--gold, #c9a84c);
+  text-decoration: none;
+}
+
+.link-mid {
+  color: var(--mid);
+  text-decoration: none;
+}
+
+.content-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.section-divider {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+.info-card {
+  background: var(--sage-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 16px;
+}
+
+.badge-num {
+  flex-shrink: 0;
+  min-width: 26px;
+  height: 26px;
+  background: var(--gold);
+  color: var(--ink);
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  margin-top: 1px;
+}
+
+.btn-cta {
+  font-weight: 700;
+  height: auto;
+  padding: 11px 24px;
+  border-radius: 8px;
+}
