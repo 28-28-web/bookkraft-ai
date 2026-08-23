@@ -57,7 +57,7 @@ export const VS_ALTERNATIVES = [
     tool: 'Jutoh',
     metaTitle: 'Best Jutoh Alternative for EPUB Formatting — BookKraft AI',
     metaDescription: "Considering a Jutoh alternative? BookKraft AI offers browser-based EPUB formatting, validation, and metadata tools with no purchase, no license key, and no desktop install required.",
-    intro: "<p>Jutoh is a paid desktop application for converting manuscripts to EPUB, MOBI, and other ebook formats. It has deep formatting controls but requires a one-time license purchase, a desktop installation, and a configuration workflow that takes time to learn. BookKraft AI provides the same core outcomes — EPUB generation, formatting cleanup, validation — as a browser-based tool with free entry-level access and no purchase required before you see results.</p>",
+    intro: "<p>Jutoh requires a license purchase (£35–44) before you can export a full EPUB, plus a desktop install and a project file system to keep in sync with your manuscript. BookKraft AI covers the same core outcomes — EPUB formatting, validation, and metadata — as a browser tool with free entry-level access: no purchase required before you see results, no project files, no installation.</p>",
     whySwitch: [
       {
         title: 'No upfront purchase',
@@ -162,7 +162,7 @@ export const VS_ALTERNATIVES = [
     tool: 'Reedsy Book Editor',
     metaTitle: 'Reedsy Book Editor Alternative — BookKraft AI',
     metaDescription: "Using Reedsy Book Editor but hitting validation errors or Apple Books rejections on export? BookKraft AI adds EPUBCheck validation, metadata control, and structural fixes that Reedsy's export doesn't provide.",
-    intro: "<p>Reedsy Book Editor is a browser-based formatter designed to produce visually polished ebook and print outputs for fiction authors. It handles chapter organization, typographic styling, and simultaneous EPUB and PDF export well. What it doesn't provide is pre-upload technical validation: Reedsy's EPUB export is designed to look right in reading apps, not to satisfy EPUBCheck 5.x and the additional requirements of Apple Books Connect and Kobo Writing Life. BookKraft AI is the validation and structural-fix layer that Reedsy authors need before distributing — not a replacement for the formatting step Reedsy handles well.</p>",
+    intro: "<p>Reedsy Book Editor produces visually polished EPUB output but doesn't run EPUBCheck validation before export — the file passes Reedsy's preview but can fail Apple Books Connect and Kobo Writing Life on structural metadata, nav.xhtml compliance, or attribute issues Reedsy's renderer doesn't expose. BookKraft is the validation and structural-fix layer Reedsy authors need before platform submission, not a replacement for the formatting step Reedsy handles well.</p>",
     whySwitch: [
       {
         title: 'EPUBCheck validation before you upload',
@@ -217,7 +217,7 @@ export const VS_ALTERNATIVES = [
     tool: "Draft2Digital Book Builder",
     metaTitle: "Draft2Digital Book Builder Alternative — BookKraft AI",
     metaDescription: "D2D's Book Builder formats your DOCX for distribution but the intermediate EPUB is invisible. BookKraft AI validates before D2D converts, catching structural issues before they become retailer rejections.",
-    intro: "<p>Draft2Digital's Book Builder is the built-in formatting tool available to every author distributing through D2D — upload a DOCX, and D2D converts it to retailer-ready formats for Apple Books, Kobo, B&N, and its other partners. The convenience is real, but so is the trade-off: D2D's conversion runs after you submit, and you don't see or validate the intermediate EPUB it creates. If the conversion introduces formatting issues, you discover them from a reader complaint or a post-delivery retailer flag, not from a pre-upload check. BookKraft covers the validation and pre-flight step that D2D Book Builder doesn't include — and lets you submit an EPUB to D2D directly if you want full control over the file D2D distributes.</p>",
+    intro: "<p>D2D Book Builder converts your DOCX after you submit — the intermediate EPUB it creates is invisible to you before it's delivered to retailers. If D2D's conversion introduces ghost spacing, broken navigation, or CSS that fails Kobo's renderer, you find out from a reader complaint or a post-delivery platform flag, not a pre-upload check. BookKraft adds the validation step D2D Book Builder doesn't include: convert to EPUB, validate against EPUBCheck, fix issues, then upload the validated EPUB directly to D2D.</p>",
     whySwitch: [
       {
         title: 'Validate before D2D converts',

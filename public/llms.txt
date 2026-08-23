@@ -1,72 +1,123 @@
 # BookKraft AI
 
-_Last updated: 2026-08-10_
+_Last updated: 2026-08-24_
 
-> BookKraft AI is a one-time-purchase eBook formatting toolkit for indie authors. It provides 16 tools that take a manuscript from raw draft to a publish-ready EPUB or Kindle file, covering formatting cleanup, EPUB generation, table of contents creation, front/back matter generation, EPUB validation, metadata building, and AI-powered manuscript editing. No subscriptions. Credits never expire. Five tools are free forever with no signup required.
+> Browser-based EPUB formatting, validation, and metadata tools for self-published authors publishing to KDP, Apple Books, Kobo, and Draft2Digital.
 
-BookKraft AI exists to replace expensive one-time desktop software (Vellum, $250, Mac-only; Atticus, $147) with a cheaper, AI-assisted, browser-based alternative starting at $19 one-time. Output is compatible with Amazon KDP, Apple Books, Barnes & Noble, Kobo, Draft2Digital, Smashwords, OverDrive, Tolino, and Scribd.
+BookKraft AI helps indie authors prepare ebook files for platform submission — including free EPUB validation against EPUBCheck 5.x, metadata editing, manuscript cleanup, and structured content guides covering EPUB errors, platform rejection causes, formatting mistakes, and publishing checklists. Output is compatible with Amazon KDP, Apple Books, Barnes & Noble, Kobo, Draft2Digital, Smashwords, OverDrive, Tolino, and Scribd.
 
 ## Core facts
 
 - Pricing model: one-time purchase, no subscriptions. AI tools use credits that never expire.
-- Free tier: 5 tools (EPUB Validator, Metadata Builder, Cover Checker, Word Manuscript Cleanup Checker, Full Manuscript Mode) — no account or signup required, unlimited use.
-- Starter: $19, includes 5 formatting logic tools (unlocked forever) + 40 AI credits.
-- Pro: $49, includes 5 formatting logic tools (unlocked forever) + 200 AI credits.
+- Free tier: 5 tools (EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, Full Manuscript Mode) — no account or signup required, unlimited use.
+- Starter: $19, includes 5 formatting tools (unlocked forever) + 40 AI credits.
+- Pro: $49, includes 5 formatting tools (unlocked forever) + 200 AI credits.
 - Lifetime Access: $149, all 16 tools, unlimited AI runs (rate limited), all future tools included.
 - AI tools run on Claude Haiku by Anthropic.
 - Refund policy: 7-day money-back guarantee on any purchase.
-- Checkout is handled via Paddle.
-
-## Tools
-
-### Free tools (no account required)
-
-- EPUB Validator — checks an EPUB file for structure errors, missing metadata, and content issues before uploading to KDP or IngramSpark; free, no signup needed.
-- Metadata Builder — builds complete book metadata for KDP, IngramSpark, Draft2Digital, and EPUB OPF files, including keywords, BISAC categories, and pricing fields; free, no account required.
-- Cover Checker — validates cover image dimensions, DPI, and format requirements for KDP and EPUB; free, no signup needed.
-- Word Manuscript Cleanup Checker — scans a manuscript for formatting issues introduced by Word or Google Docs; free, no account required.
-- Full Manuscript Mode — uploads a .docx or .txt manuscript, detects chapters, cleans formatting, and outputs a complete EPUB 3.0 file in one step; free, no login required.
-
-### Formatting logic tools (included in Starter and Pro, no credits used)
-
-- Kindle Format Fixer — fixes smart quotes, em dashes, double spaces, and encoding errors from Word/Google Docs exports.
-- EPUB Formatter — generates a valid EPUB 3.0 file from a manuscript, handling chapter breaks, metadata, and cover embedding.
-- TOC Generator — builds a clickable Table of Contents for Kindle, EPUB3, and NCX formats.
-- Front Matter Generator — generates title page, copyright page, dedication, and disclaimer.
-- CSS Snippet Generator — generates copy-paste CSS for drop caps, scene breaks, blockquotes, and pull quotes for Kindle KFX and EPUB.
-
-### AI tools (use credits, available in all paid plans)
-
-- Manuscript Cleanup — catches dialogue punctuation errors, repeated words, and clichés; scales with manuscript length (~1 credit per 10,000 words); free 500-word sample available.
-- Print-to-Digital Adapter — converts print-specific elements (page references, footnotes, running headers) into eBook-ready format; scales with length.
-- Back Matter Generator — writes author bio, mailing list CTA, Also By section, and closing note; costs 2 credits.
-- EPUB Validator Pro — deep AI validation including ghost spacing detection, duplicate ID scan, OPF manifest check, and store-specific pass/fail reports for KDP, Apple Books, and Google Play; costs 2 credits.
-- Style Sheet Auditor — scans for style inconsistencies (character names, capitalization, hyphenation, dialogue punctuation); free 500-word sample available.
-- KDP Keyword & Category Finder — generates long-tail KDP keywords and full Amazon category paths; costs 1 credit.
+- Checkout handled via Paddle.
 
 ## Frequently asked
 
 - BookKraft AI has no monthly fees; every purchase is one-time and credits never expire.
 - EPUB works on Apple Books, Kobo, and Barnes & Noble; Kindle/MOBI/KFX works only on Amazon devices. BookKraft AI tools support both formats.
-- The 5 free tools (EPUB Validator, Metadata Builder, Cover Checker, Word Manuscript Cleanup Checker, Full Manuscript Mode) require no account, email, or credit card.
+- The 5 free tools (EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, Full Manuscript Mode) require no account, email, or credit card.
 - AI tools use Claude Haiku by Anthropic for formatting and analysis tasks.
 - Manuscript Cleanup and Style Sheet Auditor offer a free 500-word sample before purchasing credits.
 
-## Pages
+## Free Tools (No Account Required)
 
-- [Homepage](https://bookkraftai.com): overview of all 16 tools, pricing, and FAQ
-- [Pricing](https://bookkraftai.com/pricing): full pricing breakdown for Free, Starter, Pro, and Lifetime tiers
-- [Free Tools](https://bookkraftai.com/free-tools): 5 free tools with no signup required
-- [Blog](https://bookkraftai.com/blog): articles on eBook formatting, KDP publishing, and self-publishing topics
-- [Author: Fateh](https://bookkraftai.com/author/fateh): founder profile and author page
-- [EPUB Formatting Guide](https://bookkraftai.com/epub-formatting-guide): step-by-step guide to formatting EPUBs from manuscript to upload
-- [KDP Formatting Guide](https://bookkraftai.com/kdp-formatting-guide): guide to formatting manuscripts for Kindle Direct Publishing
-- [EPUB Errors Reference](https://bookkraftai.com/epub-errors): reference for common EPUB validation errors and how to fix them
-- [EPUB Validator tool](https://bookkraftai.com/tools/epub-validator): free EPUB structure and metadata validator
-- [Book Score / Publishing Readiness Score](https://bookkraftai.com/tools/publishing-score): free tool that scores manuscript publishing readiness
-- [Contact](https://bookkraftai.com/contact)
+- [EPUB Validator](https://bookkraftai.com/tools/epub-validator): Validates EPUB 2/3 against current EPUBCheck spec with plain-English error explanations. No signup.
+- [Metadata Builder](https://bookkraftai.com/tools/metadata-builder): Inspect and edit all OPF metadata fields — dc:title, dc:creator, dc:identifier, dc:language.
+- [Cover Checker](https://bookkraftai.com/tools/cover-checker): Validates cover image dimensions, color profile, and format against KDP, Apple Books, and Kobo requirements.
+- [Word Cleanup Checker](https://bookkraftai.com/tools/word-cleanup): Scans a manuscript for formatting habits from Word or Google Docs that cause EPUB conversion problems.
+- [Full Manuscript Mode](https://bookkraftai.com/tools/manuscript-mode): Uploads a DOCX or TXT manuscript, detects chapters, cleans formatting, and outputs a complete EPUB 3 file in one step.
 
-## Optional
+## Formatting Tools (Starter and Pro — No Credits)
 
-- [Privacy Policy](https://bookkraftai.com/privacy)
-- [Terms of Service](https://bookkraftai.com/terms)
+- [EPUB Formatter](https://bookkraftai.com/tools/epub-formatter): Full EPUB 3 generation from DOCX — correct structure, CSS, navigation, and metadata.
+- [Kindle Format Fixer](https://bookkraftai.com/tools/kindle-format-fixer): Fixes smart quotes, em dashes, double spaces, and encoding errors from Word/Google Docs exports.
+- [TOC Generator](https://bookkraftai.com/tools/toc-generator): Generates a correctly structured EPUB table of contents (NCX and nav.xhtml) from chapter headings.
+- [Front Matter Generator](https://bookkraftai.com/tools/front-matter-generator): Produces title page, copyright page, dedication, and front matter XHTML conforming to EPUB 3 requirements.
+- [CSS Snippet Generator](https://bookkraftai.com/tools/css-snippet-generator): Generates EPUB-compatible CSS for drop caps, scene breaks, blockquotes, and pull quotes.
+
+## AI Tools (Credits Required)
+
+- [Manuscript Cleanup](https://bookkraftai.com/tools/manuscript-cleanup): Catches dialogue punctuation errors, repeated words, and encoding artifacts. Scales with manuscript length (~1 credit per 10,000 words). Free 500-word sample available.
+- [Print to Digital](https://bookkraftai.com/tools/print-to-digital): Converts print-specific elements (page references, footnotes, running headers) to ebook-ready structure. Scales with length.
+- [Style Sheet Auditor](https://bookkraftai.com/tools/style-sheet-auditor): Identifies CSS properties that cause rendering failures on Kindle, Kobo, and Apple Books. Free 500-word sample available.
+- [KDP Keyword Finder](https://bookkraftai.com/tools/kdp-keyword-finder): Generates long-tail keyword phrases for KDP's 7 keyword slots. 1 credit per run.
+- [Back Matter Generator](https://bookkraftai.com/tools/back-matter-generator): Writes author bio, mailing list CTA, Also By section, and closing note. 2 credits per run.
+- [EPUB Validator Premium](https://bookkraftai.com/tools/epub-validator-premium): Deep EPUB validation with per-error fix guidance, ghost spacing detection, and store-specific pass/fail reports. 2 credits per run.
+
+## EPUB Error Reference
+
+16 pages covering specific EPUB validation errors — cause, fix steps, and FAQ for each.
+
+- [EPUB Errors Index](https://bookkraftai.com/epub-errors)
+- [Fallback Required for EMF Images](https://bookkraftai.com/epub-errors/emf-image-fallback)
+- [Font Link Validation Failed](https://bookkraftai.com/epub-errors/font-link-validation)
+- [Missing Manifest Resource](https://bookkraftai.com/epub-errors/missing-manifest-resource)
+- [opf:role Attribute Not Allowed (RSC-005)](https://bookkraftai.com/epub-errors/opf-role-attribute-not-allowed)
+- [Corrupted Font File](https://bookkraftai.com/epub-errors/invalid-font-file-corrupted)
+- [Empty Title Tag (Kobo)](https://bookkraftai.com/epub-errors/title-tag-empty-kobo)
+- [Missing NCX Navigation Table](https://bookkraftai.com/epub-errors/missing-ncx-navigation)
+- [OPF Manifest References Missing File (RSC-007)](https://bookkraftai.com/epub-errors/invalid-opf-manifest-reference)
+- [Duplicate ID Attribute](https://bookkraftai.com/epub-errors/duplicate-id-epub)
+- [Broken Spine Order](https://bookkraftai.com/epub-errors/broken-spine-order)
+- [Ghost Spacing — Extra Blank Lines in E-Reader Preview](https://bookkraftai.com/epub-errors/ghost-spacing-epub)
+- [Cover Image Not Declared in OPF Manifest](https://bookkraftai.com/epub-errors/cover-image-not-declared)
+- [Malformed XHTML — Unclosed Tags](https://bookkraftai.com/epub-errors/malformed-xhtml-unclosed-tag)
+- [Unescaped Ampersand in XHTML](https://bookkraftai.com/epub-errors/unescaped-ampersand-xhtml)
+- [NCX navPoint Mismatch — TOC Links to Wrong Chapters](https://bookkraftai.com/epub-errors/toc-ncx-navpoint-mismatch)
+- [Unique Identifier Not Found (OPF-048)](https://bookkraftai.com/epub-errors/unique-identifier-not-found)
+
+## Platform Rejection Guides
+
+8 pages explaining why each major ebook retailer rejects files — platform-specific validation rules, metadata requirements, and content policies.
+
+- [Why Amazon KDP Rejects Ebooks](https://bookkraftai.com/platform-rejection/amazon-kdp)
+- [Why Apple Books Rejects Ebooks](https://bookkraftai.com/platform-rejection/apple-books)
+- [Why Draft2Digital Rejects Ebooks](https://bookkraftai.com/platform-rejection/draft2digital)
+- [Why Kobo Rejects Ebooks](https://bookkraftai.com/platform-rejection/kobo)
+- [Why Google Play Books Rejects Ebooks](https://bookkraftai.com/platform-rejection/google-play-books)
+- [Why Smashwords Rejects Ebooks](https://bookkraftai.com/platform-rejection/smashwords)
+- [Why IngramSpark Rejects Books](https://bookkraftai.com/platform-rejection/ingram-spark)
+- [Why OverDrive Rejects Ebooks (Library Distribution)](https://bookkraftai.com/platform-rejection/overdrive)
+
+## Tool Alternatives
+
+Comparison guides for authors evaluating BookKraft AI against other EPUB formatting and manuscript tools.
+
+- [Alternatives Index](https://bookkraftai.com/alternatives)
+- [Sigil Alternative](https://bookkraftai.com/alternatives/sigil-alternative)
+- [Jutoh Alternative](https://bookkraftai.com/alternatives/jutoh-alternative)
+- [Scrivener Alternative](https://bookkraftai.com/alternatives/scrivener-alternative)
+- [Reedsy Book Editor Alternative](https://bookkraftai.com/alternatives/reedsy-alternative)
+- [D2D Book Builder Alternative](https://bookkraftai.com/alternatives/draft2digital-alternative)
+- [Vellum Alternative for Windows](https://bookkraftai.com/vellum-alternative)
+- [Atticus Alternative](https://bookkraftai.com/atticus-alternative)
+- [Calibre Alternative](https://bookkraftai.com/calibre-alternative)
+
+## Publishing Checklists
+
+3 pre-upload and pre-submission checklists for common ebook publishing workflows.
+
+- [22-Point EPUB Formatting Checklist](https://bookkraftai.com/checklist/epub-formatting-checklist)
+- [20-Point KDP Pre-Launch Checklist](https://bookkraftai.com/checklist/kdp-pre-launch-checklist)
+- [21-Point Apple Books Submission Checklist](https://bookkraftai.com/checklist/apple-books-submission-checklist)
+
+## Common Formatting Mistakes
+
+3 structured guides covering the most frequent EPUB formatting errors, each linking to detailed error pages.
+
+- [10 EPUB Formatting Mistakes That Get Books Rejected](https://bookkraftai.com/mistakes/epub-formatting-mistakes)
+- [7 KDP Formatting Mistakes Indie Authors Make](https://bookkraftai.com/mistakes/kdp-formatting-mistakes)
+- [7 Formatting Mistakes Word and Scrivener Authors Make Before Converting to EPUB](https://bookkraftai.com/mistakes/word-scrivener-export-mistakes)
+
+## Guides
+
+- [EPUB Formatting Guide](https://bookkraftai.com/epub-formatting-guide): Comprehensive guide to EPUB structure, manuscript cleanup, TOC generation, metadata, and validation workflow.
+- [KDP Formatting Guide](https://bookkraftai.com/kdp-formatting-guide): Guide to formatting manuscripts for Kindle Direct Publishing.
+- [FAQ](https://bookkraftai.com/faq)
+- [Pricing](https://bookkraftai.com/pricing)

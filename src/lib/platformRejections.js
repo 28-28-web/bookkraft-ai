@@ -4,7 +4,7 @@ export const PLATFORM_REJECTIONS = [
     platform: 'Amazon KDP',
     metaTitle: 'Why Amazon KDP Rejects Ebooks — Most Common Reasons',
     metaDescription: "KDP rejected your ebook? Here are the most common reasons Amazon KDP rejects EPUB and DOCX files — from validation errors and metadata issues to content policy flags — and how to fix each one.",
-    intro: '<p>Amazon KDP is the most common upload destination for self-published authors, and its rejection system catches problems ranging from technical file errors to content policy issues. Some rejections arrive as automated upload errors; others come as emails from the KDP content review team after a book is queued for review. Knowing which category applies to your rejection determines where to look first.</p>',
+    intro: '<p>Amazon KDP rejects ebooks for two distinct reasons: structural EPUB errors that fail the automated upload check immediately, and content policy flags that trigger a human review queue with a 1–5 business day delay. Which category caught your submission determines where to look — EPUBCheck failures surface as upload errors the moment the file is submitted, while content flags arrive as review emails after the book is queued.</p>',
     topReasons: [
       {
         title: 'EPUB validation failures',
@@ -111,7 +111,7 @@ export const PLATFORM_REJECTIONS = [
     platform: 'Draft2Digital',
     metaTitle: 'Why Draft2Digital Rejects Ebooks — Common Reasons and Fixes',
     metaDescription: "Draft2Digital rejected your file? D2D distributes to 40+ retailers and has its own validation step. Here are the most common Draft2Digital rejection reasons and how to resolve them.",
-    intro: "<p>Draft2Digital (D2D) is a distribution aggregator that converts your source file and delivers it to 40+ retailers including Barnes &amp; Noble, Kobo, Apple Books, and Scribd. Because D2D handles conversion for multiple destinations, its acceptance requirements are tighter than a single-retailer upload — a file that would pass KDP direct upload might fail D2D's pre-conversion checks, since D2D needs a clean source file to produce clean output across all its downstream partners.</p>",
+    intro: "<p>Draft2Digital's acceptance requirements are stricter than a single-retailer upload because D2D converts your file and delivers it to 40+ retailers simultaneously — a file that passes KDP's upload can fail D2D's pre-conversion check if it would produce broken output for downstream partners. The most common D2D-specific failure categories are unsupported file formats (PDF is rejected; D2D requires EPUB, DOCX, or RTF), EPUB structural errors, and cover images below D2D's 1400px minimum.</p>",
     topReasons: [
       {
         title: 'Unsupported file format',
@@ -160,7 +160,7 @@ export const PLATFORM_REJECTIONS = [
     platform: 'Kobo',
     metaTitle: 'Why Kobo Rejects Ebooks — Kobo Writing Life Rejection Causes',
     metaDescription: "Kobo Writing Life rejected your ebook? Here are the most common Kobo-specific causes — KEPUB conversion stalls, Nickel CSS incompatibilities, 100MB file limit — and how to fix each one.",
-    intro: "<p>Kobo Writing Life (KWL) is both an upload portal and a conversion pipeline — every EPUB you submit is converted to Kobo's proprietary KEPUB format before it appears on any Kobo device or app. This two-stage process (upload → convert → list) means Kobo can reject your file at either stage: the initial upload check, or the KEPUB conversion that follows. Many Kobo-specific failures produce no visible error message at all — the book simply stays in \"Processing\" until you contact KWL support to find out what failed.</p>",
+    intro: "<p>Kobo Writing Life can reject your EPUB at two separate stages: the initial upload check, and the KEPUB conversion that runs afterward. The conversion stage is where Kobo-specific failures occur — structural issues that pass EPUBCheck and upload to KDP without error can cause Kobo's KEPUB pipeline to stall silently, leaving the book stuck in \"Processing\" with no error message until you contact KWL support directly.</p>",
     topReasons: [
       {
         title: 'KEPUB conversion stalls silently',
@@ -265,7 +265,7 @@ export const PLATFORM_REJECTIONS = [
     platform: 'Smashwords',
     metaTitle: 'Why Smashwords Rejects Ebooks — Meatgrinder and Premium Catalog',
     metaDescription: "Smashwords rejected your book or blocked it from retail distribution? The Meatgrinder DOCX requirements, Premium Catalog gate, and D2D merger transition cause most Smashwords-specific issues. Here's how to fix them.",
-    intro: "<p>Smashwords is unique among major ebook distributors in using a DOCX-first conversion pipeline called Meatgrinder, which converts your Word document into multiple formats simultaneously. This means Smashwords-specific rejection causes are almost entirely about Word document formatting, not EPUB structure — a file that passes EPUBCheck validation can still fail Smashwords' auto-vetter if the source Word document doesn't follow the Smashwords Style Guide. Since merging with Draft2Digital in 2022, Smashwords shares distribution infrastructure with D2D, but the Meatgrinder pipeline and the Premium Catalog gate remain operational and continue to be the source of most Smashwords-specific author problems.</p>",
+    intro: "<p>Smashwords rejections are almost entirely about Word document formatting, not EPUB structure — a file that passes EPUBCheck can fail Meatgrinder's auto-vetter if the source DOCX contains tracked changes, Word-generated TOC field codes, or style artifacts the pipeline can't process. Since the D2D merger (2022), Smashwords and Draft2Digital share distribution infrastructure, but Meatgrinder and the Premium Catalog gate that controls retailer distribution remain separate.</p>",
     topReasons: [
       {
         title: 'Meatgrinder DOCX formatting requirements',
@@ -316,7 +316,7 @@ export const PLATFORM_REJECTIONS = [
     platform: 'IngramSpark',
     metaTitle: 'Why IngramSpark Rejects Books — Print PDF and Ebook Distribution Requirements',
     metaDescription: "IngramSpark rejected your file? IngramSpark's print PDF/X-1a specification is stricter than KDP's. Here are the most common print and ebook rejection causes — bleed, spine width, barcode, embedded fonts — and how to fix each one.",
-    intro: "<p>IngramSpark is simultaneously a print-on-demand printer, a wholesale print distributor, and an ebook distribution network that delivers to Apple Books, Kobo, and Barnes &amp; Noble via its CoreSource pipeline. This multi-channel architecture means IngramSpark has two separate rejection pipelines — one for print files and one for ebook files — with requirements that operate independently of each other. Authors coming from KDP's relatively forgiving print submission process are most often caught out by IngramSpark's PDF/X-1a requirement: a prepress color standard that Ingram enforces strictly for professional print distribution and that KDP's self-publishing flow doesn't require at all.</p>",
+    intro: "<p>IngramSpark has two independent rejection pipelines — one for print files and one for ebook distribution — and authors coming from KDP are most often caught by print requirements KDP doesn't enforce. The biggest blocker: both the interior PDF and cover PDF must be in PDF/X-1a format, a prepress standard requiring CMYK color, fully embedded fonts, and no transparency — requirements that consumer tools like Canva and Google Docs don't produce without extra steps.</p>",
     topReasons: [
       {
         title: 'Interior or cover PDF not in PDF/X-1a format',
@@ -372,7 +372,7 @@ export const PLATFORM_REJECTIONS = [
     platform: 'OverDrive',
     metaTitle: 'Why OverDrive Rejects Ebooks — Library Distribution Requirements for Indie Authors',
     metaDescription: "OverDrive (Libby) distributes ebooks to public libraries worldwide. Getting into library catalogs requires ONIX metadata, no pre-applied DRM, an ISBN, and content that meets library standards — not just retail approval.",
-    intro: "<p>OverDrive powers Libby, the app used by public library systems worldwide to lend ebooks and audiobooks to patrons. Getting your book into library catalogs through OverDrive is a separate distribution step from retail — one with different metadata requirements, its own content review, and a fundamental requirement that stops most authors on their first attempt: there is no direct author submission path. Books reach library catalogs through publisher accounts or distribution partners like Draft2Digital and IngramSpark, which handle ONIX metadata delivery on your behalf. What gets blocked isn't always the EPUB file itself — it's often the ONIX record sent by your aggregator, the content category, or a pre-applied DRM that conflicts with OverDrive's own licensing pipeline.</p>",
+    intro: "<p>There is no direct author submission path to OverDrive — every book in Libby's library catalogs reaches there through an aggregator (Draft2Digital, IngramSpark, PublishDrive) or a publisher account, not through a direct upload portal. What gets blocked isn't always the EPUB file itself: OverDrive rejections are more often caused by an incomplete ONIX metadata record from your aggregator, a pre-applied DRM that conflicts with OverDrive's own Adobe ADE licensing pipeline, or content that passes retail channel standards but falls outside library distribution requirements.</p>",
     topReasons: [
       {
         title: 'No direct author submission path',

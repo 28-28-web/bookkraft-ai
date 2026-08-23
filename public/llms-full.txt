@@ -1,0 +1,104 @@
+# BookKraft AI
+
+_Last updated: 2026-08-24_
+
+> Browser-based EPUB formatting, validation, and metadata tools for self-published authors publishing to KDP, Apple Books, Kobo, and Draft2Digital.
+
+BookKraft AI helps indie authors prepare ebook files for platform submission — including free EPUB validation against EPUBCheck 5.x, metadata editing, manuscript cleanup, and structured content guides covering EPUB errors, platform rejection causes, formatting mistakes, and publishing checklists. Output is compatible with Amazon KDP, Apple Books, Barnes & Noble, Kobo, Draft2Digital, Smashwords, OverDrive, Tolino, and Scribd.
+
+## Free Tools (No Account Required)
+
+- [EPUB Validator](https://bookkraftai.com/tools/epub-validator): Validates EPUB 2 and EPUB 3 files against current EPUBCheck 5.x specification. Returns errors in plain English with fix guidance. No signup, no Java, runs in the browser.
+- [Metadata Builder](https://bookkraftai.com/tools/metadata-builder): Inspect and edit all OPF metadata fields — dc:title, dc:creator, dc:identifier, dc:language, dc:publisher, and more. Exports a corrected content.opf without touching the rest of the EPUB.
+- [Cover Checker](https://bookkraftai.com/tools/cover-checker): Validates cover image dimensions (minimum 1400px short side), color profile (RGB/sRGB), file format, and file size against KDP, Apple Books, and Kobo requirements.
+- [Word Cleanup Checker](https://bookkraftai.com/tools/word-cleanup): Scans a manuscript for formatting habits from Word or Google Docs — tracked changes, field codes, smart-quote encoding artifacts, double spaces — that cause EPUB conversion problems.
+- [Full Manuscript Mode](https://bookkraftai.com/tools/manuscript-mode): Uploads a DOCX or TXT manuscript, detects chapter breaks, cleans formatting, and outputs a complete EPUB 3 file in one step. No account required.
+
+## Formatting Tools (Starter and Pro — No Credits)
+
+- [EPUB Formatter](https://bookkraftai.com/tools/epub-formatter): Converts DOCX manuscripts to clean EPUB 3 — correct spine, manifest, nav.xhtml, NCX, CSS, and metadata. Handles chapter detection, front matter, back matter, and image embedding.
+- [Kindle Format Fixer](https://bookkraftai.com/tools/kindle-format-fixer): Fixes smart quotes, em dashes, double spaces, and encoding errors from Word/Google Docs exports for Kindle-specific formatting issues.
+- [TOC Generator](https://bookkraftai.com/tools/toc-generator): Generates a correctly structured EPUB table of contents (NCX and nav.xhtml) from chapter headings, with correct playOrder sequencing and anchor references.
+- [Front Matter Generator](https://bookkraftai.com/tools/front-matter-generator): Produces title page, copyright page, dedication, and front matter XHTML conforming to EPUB 3 structural requirements.
+- [CSS Snippet Generator](https://bookkraftai.com/tools/css-snippet-generator): Generates EPUB-compatible CSS snippets for paragraph styles, drop caps, chapter headers, and block quotes that render consistently across Kindle, Kobo, and Apple Books.
+
+## AI Tools (Credits Required)
+
+- [Manuscript Cleanup](https://bookkraftai.com/tools/manuscript-cleanup): Catches dialogue punctuation errors, repeated words, and clichés. Scales with manuscript length (~1 credit per 10,000 words). Free 500-word sample available before purchasing.
+- [Print to Digital](https://bookkraftai.com/tools/print-to-digital): Converts print-specific elements — page references, footnotes, running headers, print margin styles — to ebook-ready structure. Scales with manuscript length.
+- [Style Sheet Auditor](https://bookkraftai.com/tools/style-sheet-auditor): Identifies CSS properties not supported by Kindle's renderer, Kobo's Nickel engine, or Apple Books — position:fixed, vw/vh units, CSS animations, and others. Free 500-word sample available.
+- [KDP Keyword Finder](https://bookkraftai.com/tools/kdp-keyword-finder): Generates long-tail keyword phrases suited to KDP's 7 keyword slots for a given book topic, genre, and target audience. 1 credit per run.
+- [Back Matter Generator](https://bookkraftai.com/tools/back-matter-generator): Writes author bio, mailing list CTA, Also By section, and closing note for EPUB packages. 2 credits per run.
+- [EPUB Validator Premium](https://bookkraftai.com/tools/epub-validator-premium): Deep EPUB validation with per-error fix guidance, ghost spacing detection, duplicate ID scan, OPF manifest check, and store-specific pass/fail reports for KDP, Apple Books, and Google Play. 2 credits per run.
+
+## EPUB Error Reference
+
+16 pages covering specific EPUB validation errors — cause, fix steps, and FAQ for each error code or structural problem.
+
+- [EPUB Errors Index](https://bookkraftai.com/epub-errors): Full index of all 16 EPUB error reference pages with error codes and brief descriptions.
+- [Fallback Required for EMF Images](https://bookkraftai.com/epub-errors/emf-image-fallback): EMF (Windows Metafile) images embedded during Word-to-EPUB conversion are not a valid EPUB image type and require a fallback — fix by re-saving affected images as PNG or JPG before conversion.
+- [Font Link Validation Failed](https://bookkraftai.com/epub-errors/font-link-validation): Fires when an EPUB references a font file that is missing, corrupted, or has a license that prohibits embedding in distributed files.
+- [Missing Manifest Resource](https://bookkraftai.com/epub-errors/missing-manifest-resource): A file exists inside the EPUB package or is referenced by content but is not declared in the OPF manifest — usually caused by conversion tools that generate files without updating the manifest.
+- [opf:role Attribute Not Allowed (RSC-005)](https://bookkraftai.com/epub-errors/opf-role-attribute-not-allowed): RSC-005 on opf:role fires when an EPUB 2 metadata attribute appears in a file declaring EPUB 3 — most commonly in Scrivener EPUB 2 compile output or older Calibre exports.
+- [Corrupted Font File](https://bookkraftai.com/epub-errors/invalid-font-file-corrupted): The embedded font file is corrupted or incomplete — bytes missing due to interrupted download, file transfer damage, or incorrect extraction. Fix by re-downloading the original font.
+- [Empty Title Tag (Kobo)](https://bookkraftai.com/epub-errors/title-tag-empty-kobo): Kobo flags this when dc:title in content.opf is empty — left blank during conversion or unpopulated from a template. Fix by adding the book title between the dc:title tags.
+- [Missing NCX Navigation Table](https://bookkraftai.com/epub-errors/missing-ncx-navigation): The OPF manifest references toc.ncx but the file is absent from the EPUB archive — regenerate using Calibre (Edit Book → Tools → Table of Contents) or Sigil.
+- [OPF Manifest References Missing File (RSC-007)](https://bookkraftai.com/epub-errors/invalid-opf-manifest-reference): The manifest declares a file path that doesn't exist in the archive — the opposite of a missing-manifest error. The file was deleted, renamed, or never generated.
+- [Duplicate ID Attribute](https://bookkraftai.com/epub-errors/duplicate-id-epub): Conversion tools that build EPUB chapters from a template copy the same structural id values into every chapter file, causing RSC-005 duplicate-id failures and breaking anchor-link navigation.
+- [Broken Spine Order](https://bookkraftai.com/epub-errors/broken-spine-order): An OPF spine itemref points to a manifest ID that doesn't exist, or the same ID appears in the spine twice — both prevent reading systems from determining chapter sequence.
+- [Ghost Spacing — Extra Blank Lines in E-Reader Preview](https://bookkraftai.com/epub-errors/ghost-spacing-epub): Not a validation error — blank-looking lines appear in e-reader previews from empty paragraph tags used as spacers during Word-to-EPUB conversion, or CSS margin stacking that doubles paragraph gaps.
+- [Cover Image Not Declared in OPF Manifest](https://bookkraftai.com/epub-errors/cover-image-not-declared): Without properties="cover-image" on the cover manifest entry, KDP shows a gray placeholder and Apple Books may reject the file — the image exists but isn't identified as the cover.
+- [Malformed XHTML — Unclosed Tags](https://bookkraftai.com/epub-errors/malformed-xhtml-unclosed-tag): RSC-005 fires when EPUB chapter files contain HTML-style void elements (br, img, hr without self-closing slashes) instead of XHTML-required self-closed forms — Apple Books rejects on these, Calibre renders permissively.
+- [Unescaped Ampersand in XHTML](https://bookkraftai.com/epub-errors/unescaped-ampersand-xhtml): A literal & in EPUB content causes a fatal XML parse error — the file cannot be processed at all. Every & must be written as &amp; in EPUB XHTML content and metadata.
+- [NCX navPoint Mismatch — TOC Links to Wrong Chapters](https://bookkraftai.com/epub-errors/toc-ncx-navpoint-mismatch): An NCX navPoint mismatch means the ebook's table of contents links to wrong chapters or missing anchor IDs — caused by chapter reordering after NCX generation or anchor ID changes in target files.
+- [Unique Identifier Not Found (OPF-048)](https://bookkraftai.com/epub-errors/unique-identifier-not-found): OPF-048 fires when the unique-identifier attribute on the OPF package element names a cross-reference ID that doesn't match any dc:identifier element — not a missing ISBN, but a broken cross-reference between two attribute names.
+
+## Platform Rejection Guides
+
+8 pages explaining why each major ebook retailer rejects files — platform-specific validation rules, metadata requirements, and content policies.
+
+- [Why Amazon KDP Rejects Ebooks](https://bookkraftai.com/platform-rejection/amazon-kdp): KDP rejects for two distinct reasons — structural EPUB errors that fail automated upload checks immediately, and content policy flags that trigger a human review queue with a 1–5 business day delay.
+- [Why Apple Books Rejects Ebooks](https://bookkraftai.com/platform-rejection/apple-books): Apple Books has the strictest EPUB validation of any major platform — runs full EPUBCheck plus Apple-specific schema rules, requires ISBN-13 for paid books, and validates HTML inside chapter files.
+- [Why Draft2Digital Rejects Ebooks](https://bookkraftai.com/platform-rejection/draft2digital): D2D's requirements are stricter than single-retailer uploads because it converts your file for 40+ retailers simultaneously — PDF format is rejected entirely; EPUB, DOCX, or RTF required.
+- [Why Kobo Rejects Ebooks](https://bookkraftai.com/platform-rejection/kobo): Kobo can reject at two stages — initial upload check or KEPUB conversion — with structural issues that pass EPUBCheck causing silent conversion stalls that leave books stuck in "Processing."
+- [Why Google Play Books Rejects Ebooks](https://bookkraftai.com/platform-rejection/google-play-books): Google Play has the strictest content policy of any major ebook retailer, requires ISBN-13 for all paid books, auto-matches the lowest price found elsewhere, and applies Google-specific EPUB validation beyond EPUBCheck.
+- [Why Smashwords Rejects Ebooks](https://bookkraftai.com/platform-rejection/smashwords): Smashwords rejections are almost entirely about Word document formatting — tracked changes, field codes, and style artifacts — not EPUB structure, because submissions go through the DOCX-first Meatgrinder pipeline.
+- [Why IngramSpark Rejects Books](https://bookkraftai.com/platform-rejection/ingram-spark): IngramSpark has two independent rejection pipelines for print and ebook distribution — the most common blocker is the PDF/X-1a format requirement for print files that consumer design tools don't produce by default.
+- [Why OverDrive Rejects Ebooks (Library Distribution)](https://bookkraftai.com/platform-rejection/overdrive): There is no direct author submission path to OverDrive — library distribution requires an aggregator (D2D, IngramSpark, PublishDrive). Rejections are typically ONIX metadata issues, DRM conflicts, or content filtered by library standards.
+
+## Tool Alternatives
+
+Comparison guides for authors evaluating BookKraft AI against other EPUB formatting and manuscript tools.
+
+- [Alternatives Index](https://bookkraftai.com/alternatives): Overview of BookKraft AI as an alternative to common EPUB formatting and editing tools.
+- [Sigil Alternative](https://bookkraftai.com/alternatives/sigil-alternative): Sigil requires editing raw HTML, CSS, and OPF files by hand — BookKraft AI covers the same outcomes (validation, formatting fixes, metadata) in a browser with no installation and no manual XML editing.
+- [Jutoh Alternative](https://bookkraftai.com/alternatives/jutoh-alternative): Jutoh requires a license purchase (£35–44) and a desktop install before you can export a full EPUB — BookKraft covers the same core outcomes with free entry-level access in any browser.
+- [Scrivener Alternative](https://bookkraftai.com/alternatives/scrivener-alternative): Scrivener-compiled EPUBs frequently contain ghost spacing, duplicate IDs, and NCX structure that fails Apple Books — BookKraft validates and fixes these automatically after Scrivener's compile step.
+- [Reedsy Book Editor Alternative](https://bookkraftai.com/alternatives/reedsy-alternative): Reedsy produces polished EPUB output but doesn't run EPUBCheck validation before export — BookKraft adds the pre-submission validation and structural-fix layer Reedsy doesn't include.
+- [D2D Book Builder Alternative](https://bookkraftai.com/alternatives/draft2digital-alternative): D2D Book Builder's conversion runs after you submit and the intermediate EPUB is invisible — BookKraft lets you validate before delivery and upload a clean EPUB directly to D2D.
+- [Vellum Alternative for Windows](https://bookkraftai.com/vellum-alternative): Vellum is Mac-only — BookKraft AI provides browser-based EPUB formatting and validation for Windows authors who can't access Vellum's output pipeline.
+- [Atticus Alternative](https://bookkraftai.com/atticus-alternative): Comparison of BookKraft AI and Atticus for EPUB formatting, validation, and platform submission preparation.
+- [Calibre Alternative](https://bookkraftai.com/calibre-alternative): Calibre's EPUB editor requires desktop installation and surfaces errors in technical schema messages — BookKraft provides browser-based EPUB validation and formatting with plain-English error explanations.
+
+## Publishing Checklists
+
+3 pre-upload and pre-submission checklists for common ebook publishing workflows.
+
+- [22-Point EPUB Formatting Checklist](https://bookkraftai.com/checklist/epub-formatting-checklist): A formatted EPUB that passes this checklist will pass technical validation on KDP, Apple Books, and Draft2Digital — covers structure, metadata, navigation, images, and CSS in grouped sections.
+- [20-Point KDP Pre-Launch Checklist](https://bookkraftai.com/checklist/kdp-pre-launch-checklist): Picks up where EPUB validation leaves off — covers Kindle navigation requirements, KDP metadata, content review triggers, and publishing setup decisions specific to Amazon that don't apply to other platforms.
+- [21-Point Apple Books Submission Checklist](https://bookkraftai.com/checklist/apple-books-submission-checklist): Pre-submission gate for Apple Books Connect — covers file validation, navigation, cover color mode, ISBN format in content.opf, and the two Apple-specific requirements most commonly overlooked by authors publishing to KDP first.
+
+## Common Formatting Mistakes
+
+3 structured guides covering the most frequent EPUB formatting errors, each linking to detailed error pages.
+
+- [10 EPUB Formatting Mistakes That Get Books Rejected](https://bookkraftai.com/mistakes/epub-formatting-mistakes): The ten most common EPUB rejection causes — ghost spacing, duplicate IDs, missing cover declarations, broken NCX, unescaped ampersands — each mapped to a detailed fix guide.
+- [7 KDP Formatting Mistakes Indie Authors Make](https://bookkraftai.com/mistakes/kdp-formatting-mistakes): KDP-specific formatting mistakes that pass the upload pipeline but surface after the book is live — covers store cover placeholders, broken Kindle navigation, and duplicate chapter rendering.
+- [7 Formatting Mistakes Word and Scrivener Authors Make Before Converting to EPUB](https://bookkraftai.com/mistakes/word-scrivener-export-mistakes): Document habits in Word and Scrivener that survive the conversion process intact and cause downstream EPUB problems — fixing them in the source prevents them from recurring on every re-export.
+
+## Guides
+
+- [EPUB Formatting Guide](https://bookkraftai.com/epub-formatting-guide): Comprehensive guide to EPUB structure and the full production workflow — manuscript cleanup, TOC generation, front matter, EPUB 3 generation, metadata, and validation before platform submission.
+- [KDP Formatting Guide](https://bookkraftai.com/kdp-formatting-guide): Guide to formatting manuscripts for Kindle Direct Publishing, covering manuscript prep, metadata, cover requirements, and upload steps.
+- [FAQ](https://bookkraftai.com/faq): Frequently asked questions about BookKraft AI tools, pricing, and EPUB formatting for self-published authors.
+- [Pricing](https://bookkraftai.com/pricing): BookKraft AI pricing — free tools available without signup, credit-based AI tools for paid features.
