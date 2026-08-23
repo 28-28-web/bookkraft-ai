@@ -13,12 +13,12 @@ export const metadata = {
 export default function ManuscriptModePage() {
     const softwareSchema = {
         '@context': 'https://schema.org',
-        '@type': 'WebApplication',
-        name: 'DOCX to EPUB Converter — Full Manuscript Mode',
+        '@type': 'SoftwareApplication',
+        name: 'Full Manuscript Mode',
         url: 'https://bookkraftai.com/tools/manuscript-mode',
-        description: 'Convert .docx or .txt manuscripts to valid EPUB 3.0. Automatic chapter detection, smart quote correction, em dash fixes, and encoding cleanup included. No Calibre or Sigil required.',
         applicationCategory: 'UtilitiesApplication',
-        operatingSystem: 'Web',
+        operatingSystem: 'Web Browser',
+        description: 'Free EPUB builder that accepts DOCX or TXT uploads, auto-detects chapters, cleans formatting, and outputs a complete EPUB 3 file in one step. Free BookKraft AI account required.',
         offers: {
             '@type': 'Offer',
             price: '0',

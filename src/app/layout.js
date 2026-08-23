@@ -159,7 +159,7 @@ export default function RootLayout({ children }) {
                     "https://www.facebook.com/bookkraftai",
                     "https://www.linkedin.com/in/book-kraft-ai-b49a34401"
                   ],
-                  "description": "Professional eBook formatting tools for indie authors."
+                  "description": "Browser-based EPUB formatting, validation, and metadata tools for self-published authors. 5 free tools available without signup."
                 },
                 {
                   "@type": "WebSite",

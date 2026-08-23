@@ -9,8 +9,20 @@ export const metadata = {
 };
 
 export default function Page() {
+  const softwareSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Word Manuscript Cleanup Checker',
+    url: 'https://bookkraftai.com/tools/word-cleanup',
+    applicationCategory: 'UtilitiesApplication',
+    operatingSystem: 'Web Browser',
+    description: 'Free Word document checker that scans manuscripts for tracked changes, field codes, and formatting habits from Word or Google Docs that cause EPUB conversion problems. No signup required.',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
       <WordCleanupPage />
     </>
   );
