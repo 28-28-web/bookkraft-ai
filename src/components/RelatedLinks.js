@@ -17,6 +17,10 @@ const TYPE_CONFIG = {
     href: (slug) => `/checklist/${slug}`,
     heading: 'Publishing checklists',
   },
+  mistake: {
+    href: (slug) => `/mistakes/${slug}`,
+    heading: 'Common formatting mistakes',
+  },
 };
 
 export default function RelatedLinks({ related }) {

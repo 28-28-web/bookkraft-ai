@@ -4,11 +4,12 @@ import { EPUB_ERRORS } from '@/lib/epubErrors';
 import { PLATFORM_REJECTIONS } from '@/lib/platformRejections';
 import { VS_ALTERNATIVES } from '@/lib/vsAlternatives';
 import { CHECKLISTS } from '@/lib/checklists';
+import { MISTAKES } from '@/lib/mistakes';
 
 const BASE = 'https://bookkraftai.com';
 
 // Bump CONTENT_DATE whenever epubErrors.js, platformRejections.js,
-// vsAlternatives.js, or checklists.js change meaningfully — a stale date
+// vsAlternatives.js, checklists.js, or mistakes.js change meaningfully — a stale date
 // here undermines the freshness signal Google uses from lastModified.
 const CONTENT_DATE = new Date('2026-08-23');
 
@@ -80,6 +81,13 @@ export default async function sitemap() {
 
   const checklistPages = CHECKLISTS.map((c) => ({
     url: `${BASE}/checklist/${c.slug}`,
+    lastModified: CONTENT_DATE,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
+  const mistakePages = MISTAKES.map((m) => ({
+    url: `${BASE}/mistakes/${m.slug}`,
     lastModified: CONTENT_DATE,
     changeFrequency: 'monthly',
     priority: 0.7,
@@ -199,6 +207,7 @@ export default async function sitemap() {
     ...platformRejectionPages,
     ...alternativePages,
     ...checklistPages,
+    ...mistakePages,
     {
       url: `${BASE}/author/fateh`,
       lastModified: new Date('2026-08-10'),

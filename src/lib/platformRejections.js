@@ -52,6 +52,7 @@ export const PLATFORM_REJECTIONS = [
       { type: 'epub-error', slug: 'broken-spine-order', label: 'Broken spine order errors' },
       { type: 'alternative', slug: 'scrivener-alternative', label: 'Scrivener alternative for ebook production' },
       { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
+      { type: 'mistake', slug: 'kdp-formatting-mistakes', label: '7 KDP formatting mistakes indie authors make' },
     ],
   },
   {

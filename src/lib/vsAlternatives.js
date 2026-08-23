@@ -152,6 +152,7 @@ export const VS_ALTERNATIVES = [
       { type: 'epub-error', slug: 'ghost-spacing-epub', label: 'Ghost spacing from empty paragraph tags' },
       { type: 'epub-error', slug: 'duplicate-id-epub', label: 'Duplicate ID attribute errors' },
       { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
+      { type: 'mistake', slug: 'word-scrivener-export-mistakes', label: 'Word and Scrivener export mistakes guide' },
     ],
   },
   {

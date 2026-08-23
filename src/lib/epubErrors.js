@@ -230,6 +230,7 @@ export const EPUB_ERRORS = [
     related: [
       { type: 'alternative', slug: 'sigil-alternative', label: 'Sigil alternative for EPUB editing' },
       { type: 'alternative', slug: 'scrivener-alternative', label: 'Scrivener alternative for ebook production' },
+      { type: 'mistake', slug: 'word-scrivener-export-mistakes', label: 'Word and Scrivener export mistakes guide' },
     ],
   },
   {
