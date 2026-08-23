@@ -130,6 +130,7 @@ export const EPUB_ERRORS = [
       { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
       { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
       { type: 'alternative', slug: 'sigil-alternative', label: 'Sigil alternative for EPUB editing' },
+      { type: 'epub-error', slug: 'toc-ncx-navpoint-mismatch', label: 'NCX navPoint mismatch — TOC links to wrong chapters' },
     ],
   },
   {
@@ -226,6 +227,129 @@ export const EPUB_ERRORS = [
     related: [
       { type: 'alternative', slug: 'sigil-alternative', label: 'Sigil alternative for EPUB editing' },
       { type: 'alternative', slug: 'scrivener-alternative', label: 'Scrivener alternative for ebook production' },
+    ],
+  },
+  {
+    slug: 'cover-image-not-declared',
+    metaTitle: 'EPUB Error: Cover Image Not Declared in OPF Manifest — How to Fix It',
+    metaDescription: "Cover exists in your EPUB but KDP shows a gray placeholder? The cover image needs properties=\"cover-image\" in the OPF manifest. Here's how to add it.",
+    title: 'EPUB Error: Cover Image Not Declared in OPF Manifest',
+    errorMessage: 'Cover image is present in the EPUB package but not identified as the cover — KDP displays a gray placeholder; Apple Books may reject the file on submission',
+    cause: '<p>EPUB 3 requires the cover image manifest entry to include <code>properties="cover-image"</code> so reading systems and distribution platforms know which image to use as the book\'s cover. When this attribute is absent, the image exists and is referenced in the manifest — basic validation passes — but the cover isn\'t identified as such. KDP falls back to a gray placeholder on the product page, and Apple Books Connect may reject the submission because it requires explicit cover identification. In EPUB 2, the equivalent is a <code>&lt;meta name="cover" content="id-of-cover-item" /&gt;</code> element in the OPF metadata block, where the content value matches the cover image manifest item\'s id. The most common cause is conversion tools that add the cover image to the manifest but omit the <code>properties</code> attribute — particularly when converting from DOCX or from older EPUB formats that predate the properties mechanism.</p>',
+    fixSteps: '<ol><li>Open content.opf and find the manifest item for your cover image — typically the entry for <code>cover.jpg</code> or <code>Cover.png</code>.</li><li>Add <code>properties="cover-image"</code> to that item: <code>&lt;item id="cover-image" href="images/cover.jpg" media-type="image/jpeg" properties="cover-image" /&gt;</code>.</li><li>Confirm exactly one manifest item has <code>properties="cover-image"</code> — multiple items with this property are invalid.</li><li>For EPUB 2 files, check that the OPF metadata block includes <code>&lt;meta name="cover" content="cover-image" /&gt;</code> where <code>content</code> matches the cover image\'s manifest id attribute.</li><li>Re-validate with EPUBCheck to confirm the cover declaration is correct, then re-upload and verify the cover thumbnail appears in the platform preview.</li></ol>',
+    faq: [
+      {
+        q: 'Why does KDP show my cover correctly in Kindle Previewer but display a gray placeholder on the product page?',
+        a: "Kindle Previewer finds the cover image by scanning the EPUB package directly. KDP's product page derives the cover from the properties=\"cover-image\" declaration in the manifest — without it, the product listing falls back to a placeholder even if the image is physically present in the file.",
+      },
+      {
+        q: 'Does every EPUB need this declaration, even if I upload a cover separately on KDP?',
+        a: "Yes — the properties=\"cover-image\" declaration should be in every distributed EPUB regardless of whether the platform also takes a separate cover upload. Without it, reading apps may not display a cover thumbnail in the user's library even if the platform accepted the file.",
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
+      { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+      { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
+      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
+    ],
+  },
+  {
+    slug: 'malformed-xhtml-unclosed-tag',
+    metaTitle: 'EPUB Error: Malformed XHTML — Unclosed Tags in Chapter Files',
+    metaDescription: "EPUB content files must be valid XHTML — unclosed <br>, <img>, or <hr> tags cause XML parse failures on Apple Books and EPUBCheck. Here's how to find and fix every instance.",
+    title: 'EPUB Error: Malformed XHTML — Unclosed Tags in Chapter Files',
+    errorMessage: 'RSC-005: Error while parsing file: element "br" must be followed by either attribute specifications, ">" or "/>". Element type "img" must be terminated by the matching end-tag',
+    cause: '<p>EPUB content documents are XHTML, which follows XML rules — every element must be properly closed. HTML allows <code>&lt;br&gt;</code>, <code>&lt;img src="..."&gt;</code>, and <code>&lt;hr&gt;</code> without closing syntax; XHTML requires <code>&lt;br/&gt;</code>, <code>&lt;img src="..."/&gt;</code>, and <code>&lt;hr/&gt;</code>. When chapter content is copied from web pages, pasted from Word\'s HTML export, or produced by older conversion tools that output HTML4 rather than XHTML, the resulting files fail XML parsing with RSC-005. Apple Books validates HTML inside chapter documents and rejects files with unclosed tags even when the OPF structure passes EPUBCheck. The error message includes the file name and line number — EPUBCheck\'s RSC-005 flag covers multiple error types (duplicate IDs, attribute errors, malformed elements), so check the message text to confirm you\'re looking at the malformed-element variant.</p>',
+    fixSteps: '<ol><li>Run EPUBCheck or use Calibre\'s Check Book (Edit Book → Tools → Check Book) to get a list of RSC-005 errors with file names and line numbers.</li><li>Open each flagged chapter file and fix void element syntax: <code>&lt;br&gt;</code> → <code>&lt;br/&gt;</code>, <code>&lt;img ...&gt;</code> → <code>&lt;img .../&gt;</code>, <code>&lt;hr&gt;</code> → <code>&lt;hr/&gt;</code>.</li><li>Fix improperly nested elements: a <code>&lt;p&gt;</code> tag containing a block-level element like <code>&lt;div&gt;</code> violates XHTML nesting rules — restructure the markup so they are siblings, not nested.</li><li>Check for unquoted attributes: <code>&lt;img src=cover.jpg&gt;</code> → <code>&lt;img src="cover.jpg"/&gt;</code>.</li><li>Re-run EPUBCheck after fixing all files and confirm no RSC-005 parse errors from malformed elements remain.</li></ol>',
+    faq: [
+      {
+        q: 'My EPUB opened fine in Calibre — why does Apple Books still reject it?',
+        a: "Calibre's viewer renders permissively, treating EPUB content as HTML in some versions. Apple Books runs a strict XML parser against each chapter file. A file that displays correctly in Calibre and passes a basic EPUBCheck run can still fail Apple's stricter chapter-level HTML validation.",
+      },
+      {
+        q: 'How did unclosed tags get into my EPUB?',
+        a: "The most common sources: (1) copying formatted text from a website using HTML5-style void elements without self-closing slashes, (2) Word's 'Save as Web Page' export, which outputs HTML rather than XHTML, and (3) older conversion tools that generate HTML4-compatible output.",
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+      { type: 'checklist', slug: 'apple-books-submission-checklist', label: 'Apple Books submission checklist' },
+    ],
+  },
+  {
+    slug: 'unescaped-ampersand-xhtml',
+    metaTitle: 'EPUB Error: Unescaped Ampersand in XHTML — How to Fix It',
+    metaDescription: "EPUBCheck reporting \"character & is not allowed\" or XML parse error? Literal & in EPUB content must be escaped as &amp;. Here's how to find and fix every instance.",
+    title: 'EPUB Error: Unescaped Ampersand in XHTML Content',
+    errorMessage: 'RSC-005: Error while parsing file: The reference to entity "medium" must end with the ";" delimiter. Or: Character "&" is not allowed in element or attribute values',
+    cause: '<p>EPUB content files are XML documents. In XML, <code>&amp;</code> is a reserved character used to start entity references such as <code>&amp;amp;</code>, <code>&amp;nbsp;</code>, and <code>&amp;lt;</code>. A literal <code>&amp;</code> that is not part of a valid entity reference causes the XML parser to throw a fatal parse error — the file cannot be read at all. Common sources: URLs with query strings (<code>?utm_source=email&amp;medium=newsletter</code>), titles with ampersands (<code>Smith &amp; Jones</code>), chapter headings copied from web pages, and OPF metadata values such as publisher names containing <code>&amp;</code>. Every platform that processes the EPUB hits this error before the file loads.</p>',
+    fixSteps: '<ol><li>EPUBCheck\'s error message includes the file and line number — open that file and go to the reported line.</li><li>Replace every literal <code>&amp;</code> in text content and attribute values with <code>&amp;amp;</code>.</li><li>Do not replace <code>&amp;</code> inside existing valid entity references: <code>&amp;nbsp;</code> or <code>&amp;lt;</code> should be left as-is — the ampersand there is already part of a valid reference.</li><li>Check content.opf as well — publisher names, series titles, and other metadata fields containing <code>&amp;</code> need the same escaping.</li><li>Search all chapter files, not just the one in the error message — the same source text often propagates to multiple chapters from the same manuscript.</li><li>Re-validate with EPUBCheck after fixing to confirm no remaining XML parse errors.</li></ol>',
+    faq: [
+      {
+        q: 'I need to display an ampersand on screen — will &amp;amp; show up as literal text to readers?',
+        a: '&amp;amp; is the XHTML-correct way to encode an ampersand. Browsers and e-readers decode &amp;amp; back to & before displaying it, so readers see the & character, not the entity reference text.',
+      },
+      {
+        q: 'Are there other characters that need escaping the same way?',
+        a: "Yes: < must be &lt; and > should be &gt; when used as literal characters in text content. Inside attribute values, quotation marks may need &quot; (double quotes) or &apos; (single quotes) depending on which delimiter wraps the attribute. Ampersand errors are the most common because they appear in URLs and titles; the others are less frequent but follow the same XML escaping rules.",
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
+      { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+    ],
+  },
+  {
+    slug: 'toc-ncx-navpoint-mismatch',
+    metaTitle: 'EPUB Error: NCX navPoint Mismatch — TOC Links to Wrong Chapters',
+    metaDescription: "Kindle TOC jumping to wrong chapters? NCX navPoints pointing to missing anchors? Here's how to diagnose and fix TOC-to-spine mismatches in your EPUB.",
+    title: 'EPUB Error: NCX navPoint Mismatch (TOC Links to Wrong or Missing Chapters)',
+    errorMessage: 'NCX-002: Referenced resource "OEBPS/chapter03.xhtml#ch3-start" could not be found. Or: Kindle TOC navigation selects a chapter entry but jumps to the wrong location in the book',
+    cause: '<p>The NCX file (toc.ncx) defines the navigable table of contents for EPUB 2 and EPUB 3 files. Each <code>&lt;navPoint&gt;</code> has a <code>&lt;content src="..."/&gt;</code> element pointing to a chapter file and optionally an anchor within that file. Mismatches occur when: (1) chapters are reordered after the NCX was generated, so navPoints reference chapters in the old sequence; (2) anchor IDs referenced in the NCX (<code>chapter03.xhtml#ch3-start</code>) were renamed or removed from the target file; (3) the conversion tool generated the NCX from an intermediate file list and the final chapter filenames differ. This error is distinct from <code>missing-ncx-navigation</code> (where no NCX exists at all) and <code>broken-spine-order</code> (where the OPF spine structure is invalid) — here the NCX is present and well-formed, but its chapter references don\'t match the actual content or reading order.</p>',
+    fixSteps: '<ol><li>Open toc.ncx and list all <code>&lt;content src="..."/&gt;</code> values — write out the chapter files and anchor IDs each navPoint references.</li><li>For references that include a fragment (e.g., <code>#ch3-start</code>), open the target chapter file and confirm the id exists — search for <code>id="ch3-start"</code>. If missing, either add the anchor to the chapter or update the navPoint src to remove the fragment.</li><li>Compare the navPoint order in toc.ncx against the <code>&lt;itemref&gt;</code> order in the OPF <code>&lt;spine&gt;</code> — they should match. If chapters were reordered, update the navPoint sequence to match the spine.</li><li>The fastest complete fix: regenerate the NCX from your current chapter structure using Calibre (Edit Book → Tools → Table of Contents → Generate TOC from document) or Sigil (Tools → Table of Contents → Generate Table of Contents).</li><li>After regenerating, open in Kindle Previewer and test every TOC entry: click each chapter link and verify it lands on the correct chapter heading.</li></ol>',
+    faq: [
+      {
+        q: 'How is a navPoint mismatch different from a broken spine?',
+        a: 'The spine controls sequential reading order — what "next page" means when paging through continuously. The NCX controls the navigational TOC users see when tapping "Go To" or opening the chapter list. They can diverge independently: a spine in the wrong order shows chapters out of sequence when reading through; an NCX mismatch sends users to the wrong chapter when tapping a title, but the sequential read still works. Both need to be correct.',
+      },
+      {
+        q: "EPUBCheck didn't flag a chapter order problem — why is Kindle still navigating to the wrong chapter?",
+        a: "EPUBCheck can detect missing anchor references (NCX-002) but doesn't validate whether the navPoint sequence matches your intended reading order, since it has no way to know what that order should be. Order mismatches are a logical error, not a structural one — EPUBCheck sees a valid NCX, just one whose chapter sequence differs from the spine.",
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table' },
+      { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
+    ],
+  },
+  {
+    slug: 'unique-identifier-not-found',
+    metaTitle: 'EPUB Error: Unique Identifier Not Found (OPF-048) — How to Fix It',
+    metaDescription: "EPUBCheck OPF-048: unique-identifier attribute refers to an undefined ID? Here's why this OPF cross-reference breaks and how to fix it before uploading to Apple Books.",
+    title: 'EPUB Error: Unique Identifier Not Found (OPF-048)',
+    errorMessage: 'OPF-048: The "unique-identifier" attribute in the package element refers to an ID "bookid" that is not defined anywhere in the document',
+    cause: '<p>Every EPUB OPF file has a <code>&lt;package&gt;</code> element with a <code>unique-identifier</code> attribute whose value must match the <code>id</code> attribute of exactly one <code>&lt;dc:identifier&gt;</code> element in the metadata block. The EPUB spec requires this cross-reference so processing systems know which identifier (ISBN, UUID, or DOI) is the canonical book ID. OPF-048 fires when the <code>unique-identifier</code> value (e.g., <code>"bookid"</code>) doesn\'t match the <code>id</code> of any <code>&lt;dc:identifier&gt;</code> in the metadata. This is different from a missing or empty ISBN — the identifier value may be present and correctly formatted, but the attribute names used as the cross-reference don\'t agree. Common causes: manual OPF editing that changes one attribute without updating the other, or conversion tools that generate the <code>unique-identifier</code> and the <code>dc:identifier id</code> from different naming conventions.</p>',
+    fixSteps: '<ol><li>Open content.opf and find the opening <code>&lt;package&gt;</code> tag — note the exact value of its <code>unique-identifier</code> attribute (e.g., <code>unique-identifier="bookid"</code>).</li><li>In the <code>&lt;metadata&gt;</code> block, find all <code>&lt;dc:identifier&gt;</code> elements and check their <code>id</code> attributes (e.g., <code>&lt;dc:identifier id="isbn-13"&gt;978-...&lt;/dc:identifier&gt;</code>).</li><li>Make the values match: either change the <code>unique-identifier</code> attribute to match an existing dc:identifier\'s <code>id</code>, or change the dc:identifier\'s <code>id</code> to match the <code>unique-identifier</code> value. Both sides must be identical.</li><li>Confirm only one <code>&lt;dc:identifier&gt;</code> carries the <code>id</code> value that <code>unique-identifier</code> references.</li><li>Re-validate with EPUBCheck and confirm OPF-048 is cleared.</li></ol>',
+    faq: [
+      {
+        q: 'Is this the same as a missing ISBN?',
+        a: "No — a missing ISBN means the dc:identifier value is empty or the element is absent. OPF-048 means the identifier may be present and correctly formatted, but the package element's unique-identifier attribute points to an id that doesn't match any dc:identifier's id attribute. You can have a valid ISBN in the metadata and still get OPF-048.",
+      },
+      {
+        q: 'Which platforms are strictest about this error?',
+        a: "Apple Books validates OPF-048 and rejects submissions with this error. KDP generally accepts files with this error since it can extract metadata without the cross-reference being intact, though metadata warnings may appear. EPUBCheck flags it at the Error level — fix before distributing regardless of platform.",
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+      { type: 'epub-error', slug: 'title-tag-empty-kobo', label: 'Empty title tag (Kobo metadata error)' },
+      { type: 'checklist', slug: 'apple-books-submission-checklist', label: 'Apple Books submission checklist' },
     ],
   },
 ];
