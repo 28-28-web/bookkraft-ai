@@ -7,7 +7,7 @@ import ToolResultsCTA from '@/components/ToolResultsCTA';
 const faqs = [
   {
     q: 'What size should my KDP ebook cover be?',
-    a: 'Amazon recommends 2560 x 1600 pixels for Kindle covers, a 1.6:1 height-to-width ratio. The minimum is 500 pixels on the shortest side -- covers below that will not display on Amazon at all. Anything below the recommended size will also look soft on high-resolution screens.',
+    a: 'Amazon recommends 2560 × 1600 pixels for Kindle covers, a 1.6:1 height-to-width ratio. The minimum is 625px wide × 1000px tall — covers below that will not display on Amazon. Anything below the recommended size will also look soft on high-resolution screens.',
   },
   {
     q: 'Does KDP accept PNG covers?',
@@ -24,9 +24,10 @@ const faqs = [
 ];
 
 
-const KDP_MIN_SHORT_SIDE = 500;
-const KDP_MAX_FILE_SIZE_MB = 5;
-const KDP_RECOMMENDED_LONG_SIDE = 2500;
+const KDP_MIN_WIDTH = 625;
+const KDP_MIN_HEIGHT = 1000;
+const KDP_MAX_FILE_SIZE_MB = 50;
+const KDP_RECOMMENDED_LONG_SIDE = 2560;
 const KDP_RATIO = 1.6;
 const KDP_RATIO_TOLERANCE = 0.08;
 const APPLE_MIN_SHORT_SIDE = 1400;
@@ -55,8 +56,8 @@ function checkKDP(width, height, fileType, fileSizeMB) {
 
   checks.push({
     label: 'Minimum size',
-    pass: shortSide >= KDP_MIN_SHORT_SIDE,
-    detail: `${shortSide}px shortest side — minimum is ${KDP_MIN_SHORT_SIDE}px (covers below this won't display on Amazon)`,
+    pass: width >= KDP_MIN_WIDTH && height >= KDP_MIN_HEIGHT,
+    detail: `${width}×${height}px — minimum is ${KDP_MIN_WIDTH}×${KDP_MIN_HEIGHT}px (width and height checked independently)`,
   });
 
   checks.push({
@@ -65,7 +66,7 @@ function checkKDP(width, height, fileType, fileSizeMB) {
     detail: longSide >= KDP_RECOMMENDED_LONG_SIDE
       ? `${longSide}px — meets the ${KDP_RECOMMENDED_LONG_SIDE}px recommendation`
       : `${longSide}px — below the ${KDP_RECOMMENDED_LONG_SIDE}px recommendation, may look soft on high-res screens`,
-    warning: longSide < KDP_RECOMMENDED_LONG_SIDE && shortSide >= KDP_MIN_SHORT_SIDE,
+    warning: longSide < KDP_RECOMMENDED_LONG_SIDE && width >= KDP_MIN_WIDTH && height >= KDP_MIN_HEIGHT,
   });
   checks.push({
     label: 'Aspect ratio',
@@ -152,8 +153,8 @@ export default function CoverCheckerPage() {
       return;
     }
     setError('');
-    if (file.size > 20 * 1024 * 1024) {
-      setError('File too large to check — try an image under 20MB.');
+    if (file.size > 55 * 1024 * 1024) {
+      setError('File too large to check — try an image under 55MB.');
       return;
     }
     setFileType(file.type);
@@ -199,7 +200,7 @@ export default function CoverCheckerPage() {
               Book Cover Dimensions Checker — KDP & Apple Books
             </h1>
             <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 16, lineHeight: 1.6, maxWidth: 480, margin: '0 auto' }}>
-              The dimensions of a book cover determine whether Amazon KDP or Apple Books will accept your file. Standard Kindle book cover dimensions recommend at least 2,500 pixels on the long side, a 1.6:1 portrait ratio — plus JPEG format and file size under 5MB. Upload your cover and this Cover Checker measures all of it instantly, in your browser. No upload to a server, no signup.
+              The dimensions of a book cover determine whether Amazon KDP or Apple Books will accept your file. Standard Kindle book cover dimensions recommend at least 2,560 pixels on the long side, a 1.6:1 portrait ratio — plus JPEG format and file size under 50MB. Upload your cover and this Cover Checker measures all of it instantly, in your browser. No upload to a server, no signup.
             </p>
           </div>
 
@@ -359,7 +360,7 @@ export default function CoverCheckerPage() {
               KDP and Apple Books cover requirements
             </h2>
             <p style={{ fontSize: 15, lineHeight: 1.7, marginBottom: 24 }}>
-              Amazon recommends 2560 x 1600 pixels for Kindle ebook covers, a 1.6:1 ratio, saved as JPEG. The minimum is 500 pixels on the shortest side -- below that, covers will not display on Amazon at all. Covers below 2500px on the longest side often look soft on high-resolution Kindle devices. Apple Books requires a minimum of 1400 pixels on the shortest side. This tool checks your cover against both sets of requirements before you upload it anywhere, entirely in your browser.
+              Amazon recommends 2560 × 1600 pixels for Kindle ebook covers, a 1.6:1 ratio, saved as JPEG. The minimum is 625px wide × 1000px tall — below that, covers will not display on Amazon at all. Covers below 2560px on the longest side often look soft on high-resolution Kindle devices. Apple Books requires a minimum of 1400 pixels on the shortest side. This tool checks your cover against both sets of requirements before you upload it anywhere, entirely in your browser.
             </p>
 
             <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, color: '#fff', fontWeight: 700, marginBottom: 14 }}>
