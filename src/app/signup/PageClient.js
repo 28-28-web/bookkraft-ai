@@ -76,10 +76,16 @@ function SignupPageClient() {
 
                 // Auto-confirmed, go to onboarding
 
+                if (typeof window !== 'undefined' && window.gtag) {
+                    window.gtag('event', 'sign_up', { method: 'email' });
+                }
                 router.push('/onboarding');
 
             } else {
 
+                if (typeof window !== 'undefined' && window.gtag) {
+                    window.gtag('event', 'sign_up', { method: 'email' });
+                }
                 setSuccess('Check your email for a confirmation link, then sign in.');
 
             }

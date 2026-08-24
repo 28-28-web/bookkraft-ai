@@ -62,6 +62,9 @@ function LoginContent() {
 
             if (loginError) throw loginError;
 
+            if (typeof window !== 'undefined' && window.gtag) {
+                window.gtag('event', 'login', { method: 'email' });
+            }
             router.push(redirectTo);
 
         } catch (err) {
