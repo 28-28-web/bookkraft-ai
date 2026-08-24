@@ -46,7 +46,7 @@ export function calculateCreditCost(toolSlug, wordCount) {
 
 // ── Max tokens per tool for Claude ──
 const TOOL_MAX_TOKENS = {
-    'manuscript-cleanup': 4000,
+    'manuscript-cleanup': 8192,   // cleaned_text ≈ input length; ~3000-word chunks need ~4500 tokens; 8192 is Haiku's output ceiling
     'back-matter-generator': 2000,
     'style-sheet-auditor': 3000,
     'print-to-digital': 4000,
@@ -231,6 +231,12 @@ export async function callClaude({ system, user: userPrompt, maxTokens = 4000, t
     }
 
     const data = await response.json();
+
+    if (data.stop_reason === 'max_tokens') {
+        console.error('Claude response truncated at token limit. Tool:', toolSlug, 'Limit:', tokens);
+        throw new Error('Response truncated at token limit');
+    }
+
     const text = data.content?.map((b) => b.text || '').join('') || '';
 
     // Parse JSON — strip markdown code fences if present
