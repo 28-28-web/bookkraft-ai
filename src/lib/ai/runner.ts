@@ -37,7 +37,8 @@ Return ONLY: {
   "cleaned_text": "the full cleaned text for this chunk",
   "changes": [{"type": "string", "description": "string"}],
   "flags": [{"type": "repeat|cliche", "word": "string", "occurrences": 0, "suggestion": "string"}]
-}`,
+}
+Return at most 30 of the most significant changes in the changes array.`,
         responseSchemaHint: 'cleaned_text/changes/flags',
     },
     'print-to-digital': {
