@@ -244,7 +244,10 @@ async function finalizeJob(jobId: string, config: ToolConfig) {
         const failedChunks = chunkRows.filter((c) => c.status === 'failed');
         const total = chunkRows.length;
 
-        const { rows: jobRows } = await client.query(`select * from jobs where id = $1 for update`, [jobId]);
+        // No FOR UPDATE here: instrumentation.js finalize_called Map guarantees a
+        // single finalizeJob caller per job, and the db.query counter bump below
+        // uses a separate pool connection that would deadlock if this row were locked.
+        const { rows: jobRows } = await client.query(`select * from jobs where id = $1`, [jobId]);
         const job = jobRows[0];
 
         if (doneChunks.length === 0) {
