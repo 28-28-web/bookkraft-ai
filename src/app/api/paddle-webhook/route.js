@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { processPaddlePurchase } from '@/lib/db/purchases';
+import { getPool } from '@/lib/db/pool';
+import { BrevoClient } from '@getbrevo/brevo';
 
 /**
  * Fire a GA4 purchase event via Measurement Protocol.
@@ -103,6 +105,144 @@ const HEADSHOT_CREDITS = {
     'headshot-200': 200,
 };
 
+async function sendRefundReviewAlert({ userId, purchaseType, paddleTransactionId, creditsReversed, shortfall }) {
+    const apiKey = process.env.BREVO_API_KEY;
+    if (!apiKey) {
+        console.warn('sendRefundReviewAlert: BREVO_API_KEY not set — skipping');
+        return;
+    }
+    try {
+        const brevo = new BrevoClient({ apiKey });
+        await brevo.transactionalEmails.sendTransacEmail({
+            to: [{ email: 'januinetech7979@gmail.com', name: 'Admin' }],
+            sender: { email: 'hello@bookkraftai.com', name: 'BookKraft' },
+            subject: `[BookKraft Admin] Refund shortfall — manual review required`,
+            htmlContent: `
+                <p><strong>A refund was processed but the user had already spent some credits.</strong></p>
+                <table style="border-collapse:collapse;font-family:sans-serif">
+                    <tr><td style="padding:4px 12px 4px 0"><strong>User ID</strong></td><td>${userId}</td></tr>
+                    <tr><td style="padding:4px 12px 4px 0"><strong>Purchase type</strong></td><td>${purchaseType}</td></tr>
+                    <tr><td style="padding:4px 12px 4px 0"><strong>Paddle order</strong></td><td>${paddleTransactionId}</td></tr>
+                    <tr><td style="padding:4px 12px 4px 0"><strong>Credits reversed</strong></td><td>${creditsReversed}</td></tr>
+                    <tr><td style="padding:4px 12px 4px 0"><strong>Shortfall</strong></td><td>${shortfall} credits (already spent before refund)</td></tr>
+                </table>
+                <p>User balance floored at 0. <code>refund_review_required = true</code> on their account.</p>
+                <p>Check the jobs table to audit actual credit consumption for this user.</p>
+            `,
+        });
+        console.log(`sendRefundReviewAlert: sent for order ${paddleTransactionId}`);
+    } catch (err) {
+        console.warn('sendRefundReviewAlert: Brevo send failed:', err.message);
+    }
+}
+
+async function processRefundAdjustment({ paddleTransactionId }) {
+    const pool = getPool();
+    const client = await pool.connect();
+    try {
+        await client.query('BEGIN');
+
+        // Lock the purchase row. Two concurrent Paddle deliveries of the same
+        // adjustment will serialize here: the second blocks until the first
+        // commits, then sees refunded_at IS NOT NULL and skips (idempotent).
+        const { rows: purchaseRows } = await client.query(
+            `SELECT id, user_id, purchase_type, credits_added, refunded_at
+             FROM purchases
+             WHERE paddle_order_id = $1
+             FOR UPDATE`,
+            [paddleTransactionId]
+        );
+
+        if (purchaseRows.length === 0) {
+            // Headshot purchase, test charge, or purchase predates our records.
+            await client.query('ROLLBACK');
+            return { skipped: 'no_matching_purchase' };
+        }
+
+        const purchase = purchaseRows[0];
+
+        if (purchase.refunded_at !== null) {
+            // Same adjustment already processed — idempotency gate.
+            await client.query('ROLLBACK');
+            return { skipped: 'already_refunded' };
+        }
+
+        // Stamp refunded_at before touching anything else.
+        await client.query(
+            `UPDATE purchases SET refunded_at = NOW() WHERE id = $1`,
+            [purchase.id]
+        );
+
+        const creditsToReverse = purchase.credits_added ?? 0;
+
+        // Re-derive access flags from remaining non-refunded purchases so we
+        // don't blind-clear flags if the user bought multiple tiers.
+        const { rows: remainingRows } = await client.query(
+            `SELECT purchase_type FROM purchases
+             WHERE user_id = $1 AND refunded_at IS NULL`,
+            [purchase.user_id]
+        );
+
+        const netLogicBundle = remainingRows.some(r => PURCHASE_GRANTS[r.purchase_type]?.grantLogicBundle);
+        const netFullAccess  = remainingRows.some(r => PURCHASE_GRANTS[r.purchase_type]?.grantFullAccess);
+        const netLifetime    = remainingRows.some(r => PURCHASE_GRANTS[r.purchase_type]?.grantLifetime);
+
+        // Lock user row for balance update (purchase → user order, same as
+        // processPaddlePurchase, so deadlock impossible between the two).
+        const { rows: userRows } = await client.query(
+            `SELECT credits_balance FROM users WHERE id = $1 FOR UPDATE`,
+            [purchase.user_id]
+        );
+
+        if (userRows.length === 0) {
+            await client.query('ROLLBACK');
+            return { skipped: 'user_not_found' };
+        }
+
+        const currentBalance = userRows[0].credits_balance ?? 0;
+        const newBalance = Math.max(0, currentBalance - creditsToReverse);
+        const shortfall = Math.max(0, creditsToReverse - currentBalance);
+        const needsReview = shortfall > 0;
+
+        await client.query(
+            `UPDATE users SET
+               credits_balance       = $1,
+               has_logic_bundle      = $2,
+               has_full_access       = $3,
+               is_lifetime           = $4,
+               refund_review_required = $5
+             WHERE id = $6`,
+            [newBalance, netLogicBundle, netFullAccess, netLifetime, needsReview, purchase.user_id]
+        );
+
+        await client.query('COMMIT');
+
+        if (needsReview) {
+            console.warn(
+                `processRefundAdjustment: shortfall ${shortfall} credits — user ${purchase.user_id} flagged for review`
+            );
+        }
+
+        return {
+            processed: true,
+            userId: purchase.user_id,
+            purchaseType: purchase.purchase_type,
+            creditsReversed: creditsToReverse,
+            newBalance,
+            shortfall,
+            needsReview,
+            netLogicBundle,
+            netFullAccess,
+            netLifetime,
+        };
+    } catch (err) {
+        await client.query('ROLLBACK');
+        throw err;
+    } finally {
+        client.release();
+    }
+}
+
 export async function POST(request) {
     const rawBody = await request.text();
 
@@ -129,6 +269,50 @@ export async function POST(request) {
 
         const body = JSON.parse(rawBody);
         const eventType = body.event_type;
+
+        if (eventType === 'adjustment.created' || eventType === 'adjustment.updated') {
+            const action = body.data?.action;
+            const status = body.data?.status;
+            if (!['refund', 'chargeback'].includes(action) || status !== 'approved') {
+                return NextResponse.json({ received: true });
+            }
+
+            const adjTransactionId = body.data?.transaction_id;
+            if (!adjTransactionId) {
+                console.error('Paddle webhook: adjustment missing transaction_id');
+                return NextResponse.json({ error: 'missing_transaction_id' }, { status: 400 });
+            }
+
+            let result;
+            try {
+                result = await processRefundAdjustment({ paddleTransactionId: adjTransactionId });
+            } catch (err) {
+                console.error('processRefundAdjustment failed:', err.message);
+                return NextResponse.json({ error: 'refund_processing_failed' }, { status: 500 });
+            }
+
+            if (result.skipped) {
+                console.log(`Paddle refund skipped (${result.skipped}) for transaction ${adjTransactionId}`);
+                return NextResponse.json({ received: true, skipped: result.skipped });
+            }
+
+            console.log(
+                `Paddle refund processed: user=${result.userId} type=${result.purchaseType} ` +
+                `reversed=${result.creditsReversed} new_balance=${result.newBalance} shortfall=${result.shortfall}`
+            );
+
+            if (result.needsReview) {
+                await sendRefundReviewAlert({
+                    userId: result.userId,
+                    purchaseType: result.purchaseType,
+                    paddleTransactionId: adjTransactionId,
+                    creditsReversed: result.creditsReversed,
+                    shortfall: result.shortfall,
+                });
+            }
+
+            return NextResponse.json({ received: true, processed: true });
+        }
 
         if (eventType !== 'transaction.completed') {
             return NextResponse.json({ received: true });
