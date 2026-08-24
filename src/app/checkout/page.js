@@ -65,6 +65,16 @@ function CheckoutContent() {
             return;
         }
 
+        // Read GA4 client_id from the _ga cookie so the server-side
+        // Measurement Protocol purchase event can be attributed to this
+        // browser session. Cookie format: _ga=GA1.1.{client_id}
+        // Silently absent when GA is blocked — checkout proceeds normally.
+        let gaClientId = null;
+        try {
+            const m = document.cookie.match(/_ga=GA[\d.]+\.(.+?)(?:;|$)/);
+            if (m) gaClientId = m[1].trim();
+        } catch { /* blocked GA cookie — no-op */ }
+
         const toltReferral = window.tolt_referral;
         paddle.Checkout.open({
             settings: { displayMode: 'overlay', theme: 'light', locale: 'en' },
@@ -75,6 +85,7 @@ function CheckoutContent() {
                 purchaseType: selected.purchaseType,
                 creditsToAdd: selected.creditsToAdd,
                 ...(toltReferral ? { tolt_referral: toltReferral } : {}),
+                ...(gaClientId ? { gaClientId } : {}),
             },
             customer: { email: user.email },
         });

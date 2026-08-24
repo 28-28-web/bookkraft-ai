@@ -2,6 +2,65 @@ import { NextResponse } from 'next/server';
 import { processPaddlePurchase } from '@/lib/db/purchases';
 
 /**
+ * Fire a GA4 purchase event via Measurement Protocol.
+ * Called server-side after processPaddlePurchase confirms a new transaction —
+ * more reliable than client-side (fires even if user closes tab after payment).
+ *
+ * Failure is non-fatal: any error is logged but the webhook still returns 200
+ * so Paddle does not retry. The payment flow is never coupled to analytics.
+ *
+ * gaClientId is the browser's _ga cookie value passed through Paddle customData.
+ * If absent (ad blocker, privacy browser), falls back to a synthetic client_id
+ * derived from the Paddle order ID so the event still records in GA4 — it just
+ * won't be stitched to the user's browsing session.
+ */
+async function fireGA4PurchaseEvent({ gaClientId, userId, purchaseType, paddleOrderId, amountPaid }) {
+    const measurementId = process.env.GA4_MEASUREMENT_ID;
+    const apiSecret = process.env.GA4_MP_SECRET;
+
+    if (!measurementId || !apiSecret) {
+        console.warn('GA4 MP: GA4_MEASUREMENT_ID or GA4_MP_SECRET not set — skipping purchase event');
+        return;
+    }
+
+    const clientId = gaClientId || `paddle.${paddleOrderId}`;
+
+    const payload = {
+        client_id: clientId,
+        user_id: userId,
+        non_personalized_ads: true,
+        events: [{
+            name: 'purchase',
+            params: {
+                transaction_id: paddleOrderId,
+                value: amountPaid,
+                currency: 'USD',
+                items: [{
+                    item_id: purchaseType,
+                    item_name: purchaseType,
+                    price: amountPaid,
+                    quantity: 1,
+                }],
+            },
+        }],
+    };
+
+    try {
+        const res = await fetch(
+            `https://www.google-analytics.com/mp/collect?measurement_id=${encodeURIComponent(measurementId)}&api_secret=${encodeURIComponent(apiSecret)}`,
+            { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }
+        );
+        if (!res.ok) {
+            console.warn(`GA4 MP: purchase event HTTP ${res.status} for order ${paddleOrderId}`);
+        } else {
+            console.log(`GA4 MP: purchase event fired — order ${paddleOrderId}, value ${amountPaid}, client_id ${gaClientId ? 'real' : 'synthetic'}`);
+        }
+    } catch (err) {
+        console.warn('GA4 MP: fetch failed:', err.message);
+    }
+}
+
+/**
  * Paddle Webhook — Phase 3 pricing + cross-domain headshot credits
  *
  * All access-granting writes go through processPaddlePurchase() (see
@@ -163,6 +222,18 @@ export async function POST(request) {
         } catch (err) {
             console.error('processPaddlePurchase failed:', err.message);
             return NextResponse.json({ error: 'purchase_processing_failed' }, { status: 500 });
+        }
+
+        // Fire GA4 purchase event only for new transactions — not idempotent
+        // replays (Paddle may retry a webhook that already succeeded).
+        if (!result.alreadyProcessed) {
+            await fireGA4PurchaseEvent({
+                gaClientId: customData.gaClientId ?? null,
+                userId,
+                purchaseType,
+                paddleOrderId,
+                amountPaid,
+            });
         }
 
         return NextResponse.json({
