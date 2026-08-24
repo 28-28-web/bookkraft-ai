@@ -53,6 +53,7 @@ export const PLATFORM_REJECTIONS = [
       { type: 'alternative', slug: 'scrivener-alternative', label: 'Scrivener alternative for ebook production' },
       { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
       { type: 'mistake', slug: 'kdp-formatting-mistakes', label: '7 KDP formatting mistakes indie authors make' },
+      { type: 'cover-requirement', slug: 'amazon-kdp-ebook', label: 'Amazon KDP ebook cover size requirements' },
     ],
   },
   {
@@ -104,6 +105,7 @@ export const PLATFORM_REJECTIONS = [
       { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table' },
       { type: 'alternative', slug: 'jutoh-alternative', label: 'Jutoh alternative for EPUB formatting' },
       { type: 'checklist', slug: 'apple-books-submission-checklist', label: 'Apple Books submission checklist' },
+      { type: 'cover-requirement', slug: 'apple-books-ebook', label: 'Apple Books ebook cover size requirements' },
     ],
   },
   {

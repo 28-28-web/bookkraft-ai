@@ -25,6 +25,10 @@ const TYPE_CONFIG = {
     href: (slug) => `/${slug}`,
     heading: 'Tool comparisons',
   },
+  'cover-requirement': {
+    href: (slug) => `/cover-requirements/${slug}`,
+    heading: 'Cover requirements',
+  },
 };
 
 export default function RelatedLinks({ related }) {
