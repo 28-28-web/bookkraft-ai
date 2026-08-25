@@ -218,6 +218,30 @@ export default async function sitemap() {
       priority: 0.8,
     },
     {
+      url: `${BASE}/ebook-template`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE}/book-formatting-software`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE}/manuscript-format`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE}/book-cover-size`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${BASE}/alternatives`,
       lastModified: CONTENT_DATE,
       changeFrequency: 'monthly',
