@@ -99,7 +99,10 @@ function sleep(ms: number) {
 
 function isRetryable(err: any): boolean {
     const msg = String(err?.message || '');
-    return /Claude API error: (429|5\d\d)/.test(msg);
+    if (/Claude API error: (429|5\d\d)/.test(msg)) return true;
+    // Claude occasionally returns non-JSON on a valid response; retry once.
+    if (msg === 'Failed to parse AI response as JSON') return true;
+    return false;
 }
 
 async function processOneChunk(chunk: any, config: ToolConfig, meta: Record<string, any>, toolSlug: string) {
