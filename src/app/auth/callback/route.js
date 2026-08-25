@@ -58,9 +58,12 @@ export async function GET(request) {
         const { data, error } = await supabase.auth.exchangeCodeForSession(code);
         if (!error) {
             // Read _ga cookie for client_id so the event stitches to the
-            // user's browsing session. Falls back to a synthetic id if absent.
+            // user's browsing session. Falls back to a valid GA4 MP format
+            // (<random>.<timestamp>) when _ga is absent (incognito, fresh browser).
+            // auth.<uuid> was the old fallback — GA4 silently drops events with
+            // non-numeric client_ids, so those hits never appeared in reports.
             const gaCookie = cookieStore.get('_ga')?.value;
-            let gaClientId = null;
+            let gaClientId = `${Math.floor(Math.random() * 1e9)}.${Math.floor(Date.now() / 1000)}`;
             if (gaCookie) {
                 const m = gaCookie.match(/GA[\d.]+\.(.+)$/);
                 if (m) gaClientId = m[1];
