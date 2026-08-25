@@ -6,23 +6,29 @@ import { NextResponse } from 'next/server';
 async function fireGA4AuthEvent({ eventName, method, userId, gaClientId }) {
     const measurementId = process.env.GA4_MEASUREMENT_ID;
     const apiSecret = process.env.GA4_MP_SECRET;
-    if (!measurementId || !apiSecret) return;
+    if (!measurementId || !apiSecret) {
+        console.warn('[GA4 MP] missing env vars — GA4_MEASUREMENT_ID or GA4_MP_SECRET not set');
+        return;
+    }
+    const payload = {
+        client_id: gaClientId,
+        user_id: userId,
+        non_personalized_ads: true,
+        events: [{ name: eventName, params: { method } }],
+    };
+    console.log('[GA4 MP] firing', eventName, { method, client_id: gaClientId, user_id: userId });
     try {
-        await fetch(
+        const res = await fetch(
             `https://www.google-analytics.com/mp/collect?measurement_id=${encodeURIComponent(measurementId)}&api_secret=${encodeURIComponent(apiSecret)}`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    client_id: gaClientId || `auth.${userId}`,
-                    user_id: userId,
-                    non_personalized_ads: true,
-                    events: [{ name: eventName, params: { method } }],
-                }),
+                body: JSON.stringify(payload),
             }
         );
+        console.log('[GA4 MP] response status', res.status);
     } catch (err) {
-        console.warn('GA4 MP: auth event failed:', err.message);
+        console.warn('[GA4 MP] fetch failed:', err.message);
     }
 }
 
@@ -55,6 +61,7 @@ export async function GET(request) {
             }
         );
 
+        console.log('[auth/callback] code exchange, next=', next);
         const { data, error } = await supabase.auth.exchangeCodeForSession(code);
         if (!error) {
             // Read _ga cookie for client_id so the event stitches to the
