@@ -84,7 +84,8 @@ ${chunkText}
 Return ONLY: {
   "detected_rules": [{"category": "string", "rule": "string"}],
   "violations": [{"severity": "critical|warning|notice", "category": "string", "quoted_text": "string", "issue": "string", "suggestion": "string"}]
-}`,
+}
+Return at most 30 of the most significant violations in the violations array.`,
         responseSchemaHint: 'detected_rules/violations',
     },
 };

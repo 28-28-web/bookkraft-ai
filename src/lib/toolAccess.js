@@ -49,7 +49,7 @@ const TOOL_MAX_TOKENS = {
     'manuscript-cleanup': 16000,  // cleaned_text ≈ input length; ~3000-word chunks need ~4500-12000 tokens; 16000 gives safe headroom within Haiku 4.5's 64000-token ceiling
     'back-matter-generator': 2000,
     'style-sheet-auditor': 3000,
-    'print-to-digital': 4000,
+    'print-to-digital': 8000,  // adapted_text ≈ input length; 3000-word chunk ≈ 4000 tokens leaving no room for conversions/needs_review; 8000 gives safe headroom
     'kdp-keyword-finder': 1500,
 };
 
