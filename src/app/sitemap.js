@@ -206,6 +206,18 @@ export default async function sitemap() {
       priority: 0.8,
     },
     {
+      url: `${BASE}/word-to-epub`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE}/how-to-make-epub-file`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${BASE}/alternatives`,
       lastModified: CONTENT_DATE,
       changeFrequency: 'monthly',
