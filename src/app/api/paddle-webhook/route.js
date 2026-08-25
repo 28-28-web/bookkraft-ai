@@ -105,6 +105,36 @@ const HEADSHOT_CREDITS = {
     'headshot-200': 200,
 };
 
+async function sendPurchaseNotification({ userId, purchaseType, paddleOrderId, amountPaid, userEmail }) {
+    const apiKey = process.env.BREVO_API_KEY;
+    if (!apiKey) {
+        console.warn('sendPurchaseNotification: BREVO_API_KEY not set — skipping');
+        return;
+    }
+    try {
+        const brevo = new BrevoClient({ apiKey });
+        await brevo.transactionalEmails.sendTransacEmail({
+            to: [{ email: 'januinetech7979@gmail.com', name: 'Admin' }],
+            sender: { email: 'hello@bookkraftai.com', name: 'BookKraft' },
+            subject: `[BookKraft] New purchase — ${purchaseType} ($${amountPaid.toFixed(2)})`,
+            htmlContent: `
+                <p><strong>A new purchase was completed.</strong></p>
+                <table style="border-collapse:collapse;font-family:sans-serif">
+                    <tr><td style="padding:4px 12px 4px 0"><strong>Plan</strong></td><td>${purchaseType}</td></tr>
+                    <tr><td style="padding:4px 12px 4px 0"><strong>Amount</strong></td><td>$${amountPaid.toFixed(2)}</td></tr>
+                    <tr><td style="padding:4px 12px 4px 0"><strong>Customer email</strong></td><td>${userEmail || '(not in customData)'}</td></tr>
+                    <tr><td style="padding:4px 12px 4px 0"><strong>User ID</strong></td><td>${userId}</td></tr>
+                    <tr><td style="padding:4px 12px 4px 0"><strong>Paddle order</strong></td><td>${paddleOrderId}</td></tr>
+                    <tr><td style="padding:4px 12px 4px 0"><strong>Timestamp</strong></td><td>${new Date().toUTCString()}</td></tr>
+                </table>
+            `,
+        });
+        console.log(`sendPurchaseNotification: sent for order ${paddleOrderId}`);
+    } catch (err) {
+        console.warn('sendPurchaseNotification: Brevo send failed:', err.message);
+    }
+}
+
 async function sendRefundReviewAlert({ userId, purchaseType, paddleTransactionId, creditsReversed, shortfall }) {
     const apiKey = process.env.BREVO_API_KEY;
     if (!apiKey) {
@@ -408,8 +438,8 @@ export async function POST(request) {
             return NextResponse.json({ error: 'purchase_processing_failed' }, { status: 500 });
         }
 
-        // Fire GA4 purchase event only for new transactions — not idempotent
-        // replays (Paddle may retry a webhook that already succeeded).
+        // Fire GA4 purchase event and admin notification only for new transactions —
+        // not idempotent replays (Paddle may retry a webhook that already succeeded).
         if (!result.alreadyProcessed) {
             await fireGA4PurchaseEvent({
                 gaClientId: customData.gaClientId ?? null,
@@ -418,6 +448,7 @@ export async function POST(request) {
                 paddleOrderId,
                 amountPaid,
             });
+            void sendPurchaseNotification({ userId, purchaseType, paddleOrderId, amountPaid, userEmail });
         }
 
         return NextResponse.json({

@@ -84,6 +84,7 @@ function CheckoutContent() {
                 userId: user.id,
                 purchaseType: selected.purchaseType,
                 creditsToAdd: selected.creditsToAdd,
+                userEmail: user.email,
                 ...(toltReferral ? { tolt_referral: toltReferral } : {}),
                 ...(gaClientId ? { gaClientId } : {}),
             },
