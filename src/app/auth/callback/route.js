@@ -72,7 +72,7 @@ export async function GET(request) {
             const gaCookie = cookieStore.get('_ga')?.value;
             let gaClientId = `${Math.floor(Math.random() * 1e9)}.${Math.floor(Date.now() / 1000)}`;
             if (gaCookie) {
-                const m = gaCookie.match(/GA[\d.]+\.(.+)$/);
+                const m = gaCookie.match(/^GA\d+\.\d+\.(.+)$/);
                 if (m) gaClientId = m[1];
             }
 
