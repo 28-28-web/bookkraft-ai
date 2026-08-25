@@ -33,6 +33,10 @@ const faqs = [
     q: 'Is there a difference between fiction and nonfiction keyword strategy?',
     a: "Yes — significantly. Fiction readers search for the reading experience: trope, setting, sub-genre, and emotional tone. Nonfiction readers search for the problem they want solved and the outcome they want to achieve. A thriller author using nonfiction-style problem phrases (\"how to survive a thriller\") or a nonfiction author using fiction-style trope phrases will miss their actual reader. The keyword research approach and the phrase structures that work are different for each.",
   },
+  {
+    q: 'How do I check if Amazon has indexed my KDP keywords?',
+    a: "Search Amazon for the exact keyword phrase you submitted — type it into Amazon's book search bar. If your book appears in results, the keyword is indexed. If it doesn't appear, either the keyword hasn't propagated yet (allow 24–72 hours after publishing or updating), or Amazon didn't index that phrase. Narrow the search by adding your author name or a distinctive title word to confirm your book's rank for that phrase. There's no official Amazon tool for keyword indexation — this manual search method is the standard approach authors use.",
+  },
 ];
 
 const genrePatterns = [

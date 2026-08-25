@@ -1,0 +1,342 @@
+import Link from 'next/link';
+
+const faqs = [
+  {
+    q: 'Does Kindle support EPUB?',
+    a: "Yes. Amazon added native EPUB support in late 2022 via a firmware update for Kindle devices and a Kindle app update. Before that, Kindle only supported its own formats (MOBI, AZW3, KFX). The change means readers can now send EPUB files to their Kindle via Send to Kindle without conversion. For authors, KDP has accepted EPUB submissions for years — this was always the recommended format for publishing to Amazon.",
+  },
+  {
+    q: 'Which format should I submit to KDP — EPUB or MOBI?',
+    a: "EPUB. Amazon recommends EPUB 3.0 as the primary submission format. KDP converts the EPUB to its internal formats (AZW3/KFX) after upload — you don't need to produce MOBI or AZW3 files yourself. Submitting MOBI is still accepted but MOBI is the older format with fewer features. EPUB 3.0 gives KDP the cleanest input for its conversion pipeline.",
+  },
+  {
+    q: 'Can Kindle read PDF files?',
+    a: "Yes — readers can send PDF files to their Kindle via the Send to Kindle service or USB transfer. But PDF on Kindle is a poor reading experience: the fixed-page layout doesn't reflow to the screen size, small text stays small, and font-size adjustments have no effect. For authors: never submit a PDF to KDP as your ebook file. KDP accepts PDFs for print interior layouts, not for ebook distribution. Always submit EPUB for ebooks.",
+  },
+  {
+    q: 'What is the difference between MOBI, AZW3, and KFX?',
+    a: "All three are Amazon-proprietary Kindle formats. MOBI is the oldest — based on the PalmDOC format, limited HTML/CSS support, still widely compatible. AZW3 (also called KF8) replaced MOBI as Kindle's primary format around 2011 — it supports HTML5 and CSS3, better typography, and enhanced ebook features. KFX is Amazon's current format for newer Kindle devices and apps — it adds features like improved font rendering and page-flip effects. Authors don't produce KFX directly; KDP generates it from your EPUB submission.",
+  },
+  {
+    q: 'Will my EPUB pass KDP validation?',
+    a: "KDP accepts EPUB 2.0 and EPUB 3.0 but has specific requirements: a cover image declared in the package manifest, a valid nav document (EPUB 3.0), no encrypted content, and images meeting minimum resolution thresholds. The free EPUB Validator checks for all of these before you upload — catching validation failures at submission costs time and can delay publishing.",
+  },
+  {
+    q: 'What is EPUB 3.0 vs EPUB 2.0?',
+    a: "EPUB 3.0 is the current standard. It's based on HTML5 and CSS3, requires a nav.xhtml navigation document, supports media overlays and accessibility metadata, and is required by Apple Books and Kobo. EPUB 2.0 uses older HTML 4 / XHTML 1.1 and an older NCX-based table of contents. KDP accepts both, but EPUB 3.0 produces better conversion output. BookKraft AI's EPUB Formatter outputs EPUB 3.0.",
+  },
+  {
+    q: 'Should I use EPUB or PDF for selling ebooks?',
+    a: "EPUB for selling through retailers (Amazon KDP, Apple Books, Kobo, IngramSpark). These platforms require EPUB — PDF submissions are rejected or accepted only for print interiors. PDF is appropriate if you're selling directly from your own website as a downloadable file and your content benefits from a fixed layout (heavily designed books, workbooks, visual guides). For standard novels and nonfiction, EPUB is the correct format for distribution everywhere.",
+  },
+  {
+    q: 'Can I send an EPUB to my Kindle directly?',
+    a: "Yes. Use Amazon's Send to Kindle service (sendtokindle.com or the desktop app) — upload the EPUB and it delivers to your registered Kindle devices and apps. You can also transfer EPUB files via USB to Kindle devices running firmware 5.16.2 or later, which added native EPUB reading without conversion.",
+  },
+];
+
+const formats = [
+  {
+    format: 'EPUB 3.0',
+    producer: 'Industry standard',
+    kindle: '✓ Native (2022+)',
+    kdpSubmit: '✓ Recommended',
+    appleBooks: '✓ Required',
+    kobo: '✓ Required',
+    notes: 'Submit this to KDP. BookKraft AI outputs EPUB 3.0.',
+  },
+  {
+    format: 'EPUB 2.0',
+    producer: 'Older standard',
+    kindle: '✓ Converted',
+    kdpSubmit: '✓ Accepted',
+    appleBooks: '⚠ Often rejected',
+    kobo: '⚠ Often rejected',
+    notes: 'Still accepted by KDP but produces lower-quality conversion. Avoid for new books.',
+  },
+  {
+    format: 'AZW3 / KF8',
+    producer: 'Amazon',
+    kindle: '✓ Native',
+    kdpSubmit: '✓ Accepted',
+    appleBooks: '—',
+    kobo: '—',
+    notes: 'Amazon\'s HTML5-based format. KDP generates this from your EPUB — no need to produce it yourself.',
+  },
+  {
+    format: 'MOBI',
+    producer: 'Amazon (legacy)',
+    kindle: '✓ Native',
+    kdpSubmit: '✓ Accepted',
+    appleBooks: '—',
+    kobo: '—',
+    notes: 'Older format, limited CSS support. Accepted but not recommended for new submissions.',
+  },
+  {
+    format: 'KFX',
+    producer: 'Amazon (current)',
+    kindle: '✓ Native',
+    kdpSubmit: '— (generated by KDP)',
+    appleBooks: '—',
+    kobo: '—',
+    notes: 'KDP\'s internal delivery format. Generated automatically from your EPUB after upload.',
+  },
+  {
+    format: 'PDF',
+    producer: 'Any',
+    kindle: '⚠ Fixed layout only',
+    kdpSubmit: '✗ Print interior only',
+    appleBooks: '✗',
+    kobo: '✗',
+    notes: 'Not suitable for ebook distribution. Fixed layout breaks reflow on all screen sizes.',
+  },
+];
+
+const epubVsPdf = [
+  {
+    aspect: 'Retailer distribution',
+    epub: '✓ KDP, Apple Books, Kobo, IngramSpark all require EPUB',
+    pdf: '✗ Rejected by all major ebook retailers',
+  },
+  {
+    aspect: 'Font size adjustment',
+    epub: '✓ Reflowable — reader sets their own size',
+    pdf: '✗ Fixed — small text stays small on small screens',
+  },
+  {
+    aspect: 'Screen size adaptation',
+    epub: '✓ Reflows to any screen (phone, tablet, e-reader)',
+    pdf: '✗ Fixed page size — requires zooming and scrolling',
+  },
+  {
+    aspect: 'E-reader compatibility',
+    epub: '✓ All e-readers, all screen sizes',
+    pdf: '⚠ Readable but poor experience on 6-inch Kindle screens',
+  },
+  {
+    aspect: 'Accessibility',
+    epub: '✓ Screen reader compatible, semantic structure',
+    pdf: '⚠ Varies significantly by how the PDF was created',
+  },
+  {
+    aspect: 'Fixed visual layout',
+    epub: '⚠ Reflowable — exact layout not preserved',
+    pdf: '✓ Exact layout preserved (useful for workbooks, visual books)',
+  },
+  {
+    aspect: 'Direct download sales',
+    epub: '✓ Works well',
+    pdf: '✓ Works well — common for blog-based ebook sales',
+  },
+];
+
+export default function KindleEpubFormatPage() {
+  return (
+    <>
+      <main style={{ maxWidth: 880, margin: '0 auto', padding: '64px 20px', color: 'var(--ink, #1a1a1a)' }}>
+        <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(36px,5vw,56px)', fontWeight: 700, lineHeight: 1.1, marginBottom: 24 }}>
+          Does Kindle Support EPUB?
+        </h1>
+
+        <div style={{ padding: '20px 24px', background: 'rgba(201,168,76,0.08)', border: '2px solid rgba(201,168,76,0.35)', borderRadius: 10, marginBottom: 36 }}>
+          <p style={{ fontSize: 18, lineHeight: 1.6, margin: 0, fontWeight: 500 }}>
+            <strong>Yes.</strong> Kindle devices and the Kindle app added native EPUB support in late 2022. For authors publishing on Amazon: KDP has accepted EPUB submissions for years and recommends EPUB 3.0 as the primary format for ebook publishing. You don&apos;t need to produce MOBI or AZW3 files — submit EPUB and KDP handles the conversion.
+          </p>
+        </div>
+
+        <p style={{ fontSize: 19, lineHeight: 1.6, marginBottom: 32, opacity: 0.9 }}>
+          This guide covers how Kindle formats work, which format to submit when publishing on KDP, and why EPUB beats PDF for ebook distribution — with a comparison table of every format Kindle reads.
+        </p>
+
+        {/* Format comparison table */}
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }}>
+          Ebook formats — Kindle compatibility and retailer support
+        </h2>
+        <div style={{ overflowX: 'auto', marginBottom: 48 }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+            <thead>
+              <tr style={{ background: 'rgba(201,168,76,0.1)', borderBottom: '2px solid rgba(201,168,76,0.3)' }}>
+                <th style={{ padding: '12px 14px', textAlign: 'left', fontWeight: 700 }}>Format</th>
+                <th style={{ padding: '12px 14px', textAlign: 'left', fontWeight: 700 }}>Kindle</th>
+                <th style={{ padding: '12px 14px', textAlign: 'left', fontWeight: 700 }}>KDP submit</th>
+                <th style={{ padding: '12px 14px', textAlign: 'left', fontWeight: 700 }}>Apple Books</th>
+                <th style={{ padding: '12px 14px', textAlign: 'left', fontWeight: 700 }}>Kobo</th>
+                <th style={{ padding: '12px 14px', textAlign: 'left', fontWeight: 700, minWidth: 200 }}>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {formats.map((r, i) => (
+                <tr
+                  key={i}
+                  style={{
+                    borderBottom: '1px solid rgba(201,168,76,0.15)',
+                    background: r.format === 'EPUB 3.0' ? 'rgba(201,168,76,0.06)' : i % 2 === 0 ? 'transparent' : 'rgba(0,0,0,0.02)',
+                  }}
+                >
+                  <td style={{ padding: '10px 14px', fontWeight: r.format === 'EPUB 3.0' ? 700 : 600, whiteSpace: 'nowrap' }}>{r.format}</td>
+                  <td style={{ padding: '10px 14px', opacity: 0.85 }}>{r.kindle}</td>
+                  <td style={{ padding: '10px 14px', opacity: 0.85 }}>{r.kdpSubmit}</td>
+                  <td style={{ padding: '10px 14px', opacity: 0.85 }}>{r.appleBooks}</td>
+                  <td style={{ padding: '10px 14px', opacity: 0.85 }}>{r.kobo}</td>
+                  <td style={{ padding: '10px 14px', opacity: 0.75, fontSize: 12 }}>{r.notes}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Kindle format history */}
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
+          EPUB vs MOBI vs KFX — what Kindle actually uses
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          Kindle has used three main formats over its history. As an author, you only need to know which one to submit — KDP handles the rest.
+        </p>
+        <ul style={{ fontSize: 17, lineHeight: 1.9, opacity: 0.9, paddingLeft: 24, marginBottom: 24 }}>
+          <li>
+            <strong>MOBI</strong> — Kindle&apos;s original format (2007). Based on the PalmDOC standard, limited CSS support, widely compatible with all Kindle generations. Still accepted by KDP but now the oldest and least capable of the three.
+          </li>
+          <li>
+            <strong>AZW3 (KF8)</strong> — Replaced MOBI as Kindle&apos;s primary format around 2011. HTML5 and CSS3 support, better typography and layout control. KDP generates AZW3 from your EPUB submission.
+          </li>
+          <li>
+            <strong>KFX</strong> — Amazon&apos;s current internal delivery format for newer Kindle devices and apps. Adds improved font rendering, better hyphenation, and Kindle-specific features. KDP generates KFX automatically — you never produce it yourself.
+          </li>
+        </ul>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 32, opacity: 0.9 }}>
+          The practical implication: submit EPUB 3.0 to KDP. KDP converts it to AZW3 or KFX for delivery to readers. The quality of that conversion depends heavily on how clean your EPUB is — a valid, well-structured EPUB 3.0 file produces better Kindle output than a poorly structured one.
+        </p>
+
+        {/* EPUB vs PDF */}
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
+          EPUB vs PDF for ebook publishing
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 20, opacity: 0.9 }}>
+          PDF is not a viable ebook format for retail distribution. The comparison:
+        </p>
+        <div style={{ overflowX: 'auto', marginBottom: 48 }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15 }}>
+            <thead>
+              <tr style={{ background: 'rgba(201,168,76,0.1)', borderBottom: '2px solid rgba(201,168,76,0.3)' }}>
+                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700 }}>Aspect</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700 }}>EPUB</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700 }}>PDF</th>
+              </tr>
+            </thead>
+            <tbody>
+              {epubVsPdf.map(({ aspect, epub, pdf }, i) => (
+                <tr key={i} style={{ borderBottom: '1px solid rgba(201,168,76,0.15)', background: i % 2 === 0 ? 'transparent' : 'rgba(0,0,0,0.02)' }}>
+                  <td style={{ padding: '10px 16px', fontWeight: 600 }}>{aspect}</td>
+                  <td style={{ padding: '10px 16px', opacity: 0.85 }}>{epub}</td>
+                  <td style={{ padding: '10px 16px', opacity: 0.85 }}>{pdf}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 40, opacity: 0.9 }}>
+          PDF has one legitimate ebook use case: direct download sales from your own website for content where exact visual layout matters — heavily designed workbooks, graphic-heavy guides, formatted planners. For standard novels, memoir, and most nonfiction, EPUB is the correct format for everywhere that matters.
+        </p>
+
+        {/* How to submit EPUB to KDP */}
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 8 }}>
+          How to submit an EPUB to KDP
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 24, opacity: 0.9 }}>
+          Before uploading, validate the file — KDP rejects EPUBs with structural errors and the rejection doesn&apos;t always tell you what failed.
+        </p>
+        {[
+          {
+            n: 1,
+            title: 'Prepare a valid EPUB 3.0 file',
+            href: '/tools/epub-formatter',
+            body: 'If converting from a Word document, use the EPUB Formatter to generate a valid EPUB 3.0 file with a correct nav document, clean CSS, and complete package metadata. KDP\'s conversion pipeline handles valid EPUBs cleanly — fixing validation errors after conversion produces worse output.',
+          },
+          {
+            n: 2,
+            title: 'Validate before uploading',
+            href: '/tools/epub-validator',
+            body: 'Run the EPUB through the free EPUB Validator. It checks for the specific errors KDP flags at submission: missing cover declaration, malformed nav document, image resolution issues, and encoding problems. Takes 30 seconds and avoids a rejection email.',
+          },
+          {
+            n: 3,
+            title: 'Upload to KDP',
+            body: 'Log in to kdp.amazon.com. Go to your bookshelf → Add new title (or Edit for an existing book). In the Content section, upload your EPUB file. KDP will run its own validator and display any errors before you reach the final publish step.',
+          },
+          {
+            n: 4,
+            title: 'Preview on Kindle Previewer',
+            body: "KDP's online previewer shows how the book renders on different Kindle devices and screen sizes. Check the first chapter, a chapter break, and any images. Problems visible in the previewer will be visible to readers.",
+          },
+          {
+            n: 5,
+            title: 'Publish',
+            body: "Once KDP's validator passes and the preview looks correct, submit. KDP typically makes the book available within 24–72 hours after publishing approval. Keyword and category changes made at this step take effect within the same window.",
+          },
+        ].map((step) => (
+          <div key={step.n} style={{ marginBottom: 24, paddingLeft: 16, borderLeft: '3px solid rgba(201,168,76,0.4)' }}>
+            <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 6 }}>
+              {step.n}.{' '}
+              {step.href
+                ? <Link href={step.href} style={{ color: '#9c7f35', textDecoration: 'none' }}>{step.title} →</Link>
+                : step.title}
+            </h3>
+            <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.85, margin: 0 }}>{step.body}</p>
+          </div>
+        ))}
+
+        {/* FAQ */}
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 56, marginBottom: 16 }}>
+          Frequently asked questions
+        </h2>
+        {faqs.map((f, i) => (
+          <div key={i} style={{ marginBottom: 28 }}>
+            <h3 style={{ fontSize: 19, fontWeight: 600, marginBottom: 8 }}>{f.q}</h3>
+            <p style={{ fontSize: 16, lineHeight: 1.6, opacity: 0.85 }}>{f.a}</p>
+          </div>
+        ))}
+
+        {/* Cross-links */}
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9, marginTop: 32 }}>
+          Converting a Word document to EPUB? See the{' '}
+          <Link href="/word-to-epub" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            Word to EPUB guide
+          </Link>
+          . Full EPUB formatting standards are in the{' '}
+          <Link href="/epub-formatting-guide" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            EPUB formatting guide
+          </Link>
+          . EPUB validation errors by type are in the{' '}
+          <Link href="/epub-errors" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            EPUB error reference
+          </Link>
+          . Starting from a Word template? See{' '}
+          <Link href="/ebook-template" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            ebook template
+          </Link>
+          .
+        </p>
+
+        {/* CTA */}
+        <div style={{ marginTop: 48, padding: '28px 24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
+          <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Convert your manuscript to EPUB 3.0 — free.</p>
+          <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Upload a Word .docx file. Download a valid EPUB that passes KDP, Apple Books, and Kobo validation.</p>
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link
+              href="/tools/epub-formatter"
+              style={{ display: 'inline-block', padding: '13px 28px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 15 }}
+            >
+              Open EPUB Formatter →
+            </Link>
+            <Link
+              href="/tools/epub-validator"
+              style={{ display: 'inline-block', padding: '13px 28px', background: 'transparent', color: 'var(--ink, #1a1a1a)', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 15, border: '1px solid rgba(201,168,76,0.5)' }}
+            >
+              Validate Existing EPUB →
+            </Link>
+          </div>
+        </div>
+      </main>
+    </>
+  );
+}
