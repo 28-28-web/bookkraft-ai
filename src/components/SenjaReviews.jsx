@@ -21,7 +21,7 @@ export default function SenjaReviews() {
       className="senja-embed"
       data-id="1c25abdc-e900-4f4a-8da1-218a1c30fee3"
       data-mode="shadow"
-      data-lazyload="false"
+      data-lazyload="true"
       style={{ display: "block", width: "100%" }}
     />
   );

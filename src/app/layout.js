@@ -18,11 +18,10 @@ const playfair = Playfair_Display({
   weight: ['400', '700'],
   style: ['normal', 'italic'],
   variable: '--font-playfair',
-  // 'optional' avoids the font-swap LCP delay: text paints at first-paint
-  // time (with the preloaded font or system fallback) and never re-paints.
-  // Works best paired with preload:true, which is already set.
   display: 'optional',
-  preload: true,
+  // Not in the above-fold LCP path — preload freed so Fraunces (the LCP font)
+  // gets sole preload bandwidth on mobile.
+  preload: false,
 });
 
 const dmSans = DM_Sans({
@@ -45,7 +44,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 const fraunces = Fraunces({
   subsets: ['latin'],
-  weight: ['700', '800', '900'],
+  weight: ['500', '600'],
   variable: '--font-fraunces',
   display: 'optional',
   preload: true,

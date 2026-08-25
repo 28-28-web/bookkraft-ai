@@ -1,3 +1,4 @@
+import HeroSection from '../components/HeroSection';
 import LandingPage from './landingpage';
 import { PRICING, FREE_TOOLS, HOME_FAQS } from '../lib/constants';
 import { TOOLS } from '../lib/tools';
@@ -71,6 +72,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
+      <HeroSection />
       <LandingPage faqs={HOME_FAQS} pricing={PRICING} />
     </>
   );
