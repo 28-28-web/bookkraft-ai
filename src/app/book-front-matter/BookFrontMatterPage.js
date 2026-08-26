@@ -88,7 +88,8 @@ const backMatterElements = [
     name: 'Acknowledgements',
     required: false,
     who: 'Optional',
-    what: 'Thanks to editors, beta readers, critique partners, research sources, writing communities, and anyone who contributed to making the book. Can appear in front matter (before chapter one) or back matter (after the final chapter). Back matter placement is more common in commercial fiction.',
+    what: 'Thanks to editors, beta readers, critique partners, research sources, writing communities, and anyone who contributed to making the book. Can appear in front matter (before chapter one) or back matter (after the final chapter). Back matter placement is more common in commercial fiction. For examples by tone and what to include, see the acknowledgments page guide.',
+    link: { text: 'acknowledgments page guide', href: '/book-acknowledgments-page' },
   },
   {
     name: 'A note from the author',

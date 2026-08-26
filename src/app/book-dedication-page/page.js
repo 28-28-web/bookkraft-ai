@@ -1,7 +1,7 @@
 import BookDedicationPage from './BookDedicationPage';
 
 export const metadata = {
-  title: 'Dedication Page for a Book — Samples and Examples | BookKraft AI',
+  title: 'Dedication Page of a Book — Examples and Samples | BookKraft AI',
   description: 'What goes on a dedication page, where it appears in front matter, and 12 real examples by type — personal, professional, humorous, and minimalist.',
   alternates: {
     canonical: 'https://bookkraftai.com/book-dedication-page',
