@@ -152,6 +152,12 @@ export default function AmazonKeywordResearchPage() {
           </div>
         ))}
 
+        <p style={{ fontSize: 15, lineHeight: 1.7, opacity: 0.75, marginBottom: 36, marginTop: 8 }}>
+          For regularly updated data on which phrases are trending across Amazon&apos;s book categories, Kindlepreneur publishes a detailed breakdown of{' '}
+          <a href="https://kindlepreneur.com/most-searched-amazon-keywords-trends/" target="_blank" rel="noopener noreferrer" style={{ color: '#9c7f35', textDecoration: 'none' }}>most-searched Amazon keywords and trends</a>
+          {' '}that complements the manual autocomplete approach.
+        </p>
+
         <h3 style={{ fontSize: 22, fontWeight: 700, marginTop: 36, marginBottom: 12 }}>Method 2: KDP Keyword & Category Finder</h3>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 20, opacity: 0.9 }}>
           The alphabet method takes 20–30 minutes and requires you to know your sub-genre well enough to explore the right branches. The{' '}

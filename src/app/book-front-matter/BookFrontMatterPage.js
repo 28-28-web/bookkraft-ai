@@ -279,7 +279,9 @@ export default function BookFrontMatterPage() {
         <Link href="/manuscript-format" style={{ color: '#9c7f35', textDecoration: 'none' }}>
           manuscript format standards
         </Link>
-        .
+        . For a broader view of self-publishing decisions — which platforms, paths, and conventions apply to your situation — Jane Friedman&apos;s{' '}
+        <a href="https://janefriedman.com/self-publish-your-book/" target="_blank" rel="noopener noreferrer" style={{ color: '#9c7f35', textDecoration: 'none' }}>Start Here: How to Self-Publish Your Book</a>
+        {' '}is a well-regarded overview.
       </p>
     </main>
   );
