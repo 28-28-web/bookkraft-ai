@@ -254,6 +254,24 @@ export default async function sitemap() {
       priority: 0.8,
     },
     {
+      url: `${BASE}/copyright-page-template`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE}/book-dedication-page`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE}/book-front-matter`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${BASE}/alternatives`,
       lastModified: CONTENT_DATE,
       changeFrequency: 'monthly',
