@@ -1,6 +1,6 @@
 import './globals.css';
 import Script from 'next/script';
-import { Playfair_Display, DM_Sans, JetBrains_Mono, Fraunces, IBM_Plex_Mono } from 'next/font/google';
+import { Playfair_Display, DM_Sans, JetBrains_Mono, IBM_Plex_Mono } from 'next/font/google';
 import Navbar from '../components/Navbar';
 import { AuthProvider } from '../components/AuthProvider';
 import { ProjectProvider } from '../lib/ProjectContext';
@@ -42,13 +42,6 @@ const jetbrainsMono = JetBrains_Mono({
   preload: false,
 });
 
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  weight: ['500', '600'],
-  variable: '--font-fraunces',
-  display: 'optional',
-  preload: true,
-});
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
@@ -89,8 +82,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${fraunces.variable} ${ibmPlexMono.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable}`}>
       <head>
+
+        {/* Fraunces self-hosted — preloads immediately at HTML-parse, before CSS resolves */}
+        <link rel="preload" href="/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
 
         {/* ── GA4 Consent Mode v2 ── */}
         <script dangerouslySetInnerHTML={{ __html: `
