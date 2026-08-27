@@ -25,7 +25,7 @@ async function fireGA4PurchaseEvent({ gaClientId, userId, purchaseType, paddleOr
         return;
     }
 
-    const clientId = gaClientId || `paddle.${paddleOrderId}`;
+    const clientId = gaClientId || `${Math.floor(Math.random() * 1e9)}.${Math.floor(Date.now() / 1000)}`;
 
     const payload = {
         client_id: clientId,
