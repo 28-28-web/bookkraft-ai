@@ -153,12 +153,13 @@ function StatusPill({ status }) {
   );
 }
 
-export default function WordCleanupPage({ children }) {
+export default function WordCleanupPage({ children, faqItems = [] }) {
   const [fileName, setFileName] = useState('');
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
+  const [openFaq, setOpenFaq] = useState(null);
   const inputRef = useRef(null);
 
   const handleFile = async (file) => {
@@ -281,6 +282,41 @@ export default function WordCleanupPage({ children }) {
       </div>
 
       {children}
+
+      {faqItems.length > 0 && (
+        <div style={{ maxWidth: 800, margin: '2rem auto 0', padding: '0 1rem' }}>
+          <h2 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1.25rem', color: 'var(--ink)' }}>
+            Common questions
+          </h2>
+          <div role="list">
+            {faqItems.map((item, i) => {
+              const isOpen = openFaq === i;
+              return (
+                <div key={i} className={`faq-item${isOpen ? ' open' : ''}`} role="listitem">
+                  <button
+                    className="faq-question"
+                    onClick={() => setOpenFaq(isOpen ? null : i)}
+                    aria-expanded={isOpen}
+                    id={`wc-faq-btn-${i}`}
+                    aria-controls={`wc-faq-ans-${i}`}
+                  >
+                    {item.name}
+                    <span className="faq-chevron" aria-hidden="true">▾</span>
+                  </button>
+                  <div
+                    id={`wc-faq-ans-${i}`}
+                    className="faq-answer"
+                    role="region"
+                    aria-labelledby={`wc-faq-btn-${i}`}
+                  >
+                    {item.acceptedAnswer.text}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </>
   );
 }
