@@ -553,6 +553,10 @@ export const TOOLS = [
             { slug: 'metadata-builder', label: 'Book Metadata Builder' },
             { slug: 'epub-validator', label: 'EPUB Validator' },
             { slug: 'why-kdp-keywords-arent-ranking', label: "Why Your KDP Keywords Aren't Ranking", href: '/kdp-keyword-guide/why-kdp-keywords-arent-ranking' },
+            { slug: 'kdp-keyword-banned-terms', label: 'KDP Keyword Banned Terms — Complete List', href: '/kdp-keyword-guide/kdp-keyword-banned-terms' },
+            { slug: 'how-to-find-amazon-ghost-categories', label: 'How to Find Amazon Ghost Categories', href: '/kdp-keyword-guide/how-to-find-amazon-ghost-categories' },
+            { slug: 'kdp-category-limit', label: 'KDP Category Limit — How Many Can You Choose', href: '/kdp-keyword-guide/kdp-category-limit' },
+            { slug: 'backend-keywords-vs-search-terms', label: 'KDP Backend Keywords vs Search Terms', href: '/kdp-keyword-guide/backend-keywords-vs-search-terms' },
         ],
         fields: [
             { id: 'title', label: 'Book title', type: 'text', placeholder: 'My Book' },
