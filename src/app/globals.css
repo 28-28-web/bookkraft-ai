@@ -4710,6 +4710,39 @@ body.cookie-consent-pending > div > iframe[style*="position:fixed"] {
     margin-bottom: 90px !important;
 }
 
+/* ── SEO content sections ────────────────────────────────────────────────────
+   Used in publishing-score, word-cleanup, manuscript-cleanup (via [slug])
+   and any tool that appends a server-rendered prose block below the tool UI. */
+
+.seo-content {
+  line-height: 1.8;
+  color: var(--ink);
+}
+
+.seo-content h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 2.25rem;
+  margin-bottom: 0.625rem;
+  color: var(--ink);
+}
+
+.seo-content h3 {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+}
+
+.seo-content p {
+  font-size: 1.0625rem;
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+
 /* ── Content page shared classes ─────────────────────────────────────────────
    Used across epub-errors, platform-rejection, alternatives, checklist,
    and mistakes templates to replace repeated inline styles. */
