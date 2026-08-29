@@ -219,7 +219,7 @@ export const KDP_GUIDE_ARTICLES = [
         a: "No. Amazon's policy caps books at 10 categories total. KDP support will not add categories beyond that limit. If you want to change which 10 categories you're in, you can request removals and substitutions — categories aren't permanently locked to a book.",
       },
       {
-        q: 'Can I remove a category I'm already in?',
+        q: "Can I remove a category I'm already in?",
         a: "Yes. Contact KDP support with your ASIN and the category path you want removed. This is useful if you've been placed in a category that's no longer relevant, or if you want to swap one placement for a better-fit option within your 10-category limit.",
       },
       {
@@ -238,7 +238,7 @@ export const KDP_GUIDE_ARTICLES = [
   },
   {
     slug: 'backend-keywords-vs-search-terms',
-    metaTitle: 'KDP Backend Keywords vs Amazon Search Terms — What's the Difference | BookKraft AI',
+    metaTitle: "KDP Backend Keywords vs Amazon Search Terms — What's the Difference | BookKraft AI",
     metaDescription:
       "KDP backend keywords are one input into Amazon's search term profile — not the whole thing. Here's how both work, what you control, and how to optimize each.",
     title: 'KDP Backend Keywords vs Amazon Search Terms — What\'s the Difference',
