@@ -21,5 +21,21 @@ export const metadata = {
 };
 
 export default function PublishingScorePage() {
-  return <PublishingScoreClient />;
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Publishing Readiness Score',
+    url: 'https://bookkraftai.com/tools/publishing-score',
+    applicationCategory: 'UtilitiesApplication',
+    operatingSystem: 'Web Browser',
+    description: 'Analyzes a manuscript or EPUB for publishing readiness across 6 categories: formatting, metadata, structure, cover, readability, and content. Free, runs in the browser.',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  };
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <PublishingScoreClient />
+    </>
+  );
 }
