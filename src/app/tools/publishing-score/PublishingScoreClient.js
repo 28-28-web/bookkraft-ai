@@ -5,7 +5,7 @@ import UpsellBanner from '@/components/UpsellBanner';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { TOOLS } from '@/lib/tools';
 
-export default function PublishingScoreClient() {
+export default function PublishingScoreClient({ children }) {
   const [text, setText] = useState('');
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -186,6 +186,7 @@ export default function PublishingScoreClient() {
       )}
 
       <StickyUpgradeBanner />
+      {children}
     </main>
   );
 }
