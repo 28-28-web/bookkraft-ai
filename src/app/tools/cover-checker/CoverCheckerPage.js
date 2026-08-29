@@ -21,6 +21,22 @@ const faqs = [
     q: 'Does this tool upload my cover anywhere?',
     a: 'No. The image is read and measured entirely in your browser. Nothing is uploaded to a server.',
   },
+  {
+    q: 'What is the maximum file size KDP accepts for covers?',
+    a: 'KDP accepts cover image files up to 50 MB. In practice, a JPEG cover at 2560 × 1600px saved at high quality is typically 2–8 MB — well within the limit. If your file is over 50 MB, re-export at a lower JPEG quality setting (85–90 is sufficient for print-level sharpness).',
+  },
+  {
+    q: 'Does my cover need to be RGB or can it be CMYK?',
+    a: 'RGB (specifically sRGB) is required for all ebook covers on KDP and Apple Books. CMYK is a print color space — it will cause colors to display incorrectly on screen and may cause your cover to be rejected. If you designed in CMYK for a print edition, convert to sRGB before exporting the ebook cover.',
+  },
+  {
+    q: 'My aspect ratio flagged a warning — how close does the ratio need to be?',
+    a: "This tool uses a tolerance of ±0.08 around KDP's 1.6:1 recommended ratio (height ÷ width). A ratio between 1.52 and 1.68 passes. Outside that range the tool flags a warning, but KDP will still accept the cover as long as it meets minimum dimensions — it just may not display optimally in search results and on product pages where covers are shown at a fixed ratio.",
+  },
+  {
+    q: 'Is the cover size the same for KDP print books?',
+    a: 'No. KDP print covers (for paperback and hardcover) have completely different requirements — the cover file must include front, spine, and back at a print-ready resolution (300 DPI), with exact dimensions calculated from your trim size and page count. KDP provides a cover template generator for print. This tool checks ebook covers only.',
+  },
 ];
 
 
@@ -144,6 +160,7 @@ export default function CoverCheckerPage() {
   const [fileSizeMB, setFileSizeMB] = useState(null);
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState('');
+  const [openFaq, setOpenFaq] = useState(null);
   const inputRef = useRef(null);
 
   const handleFile = (file) => {
@@ -366,12 +383,48 @@ export default function CoverCheckerPage() {
             <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, color: '#fff', fontWeight: 700, marginBottom: 14 }}>
               Frequently asked questions
             </h2>
-            {faqs.map((f, i) => (
-              <div key={i} style={{ marginBottom: 20 }}>
-                <h3 style={{ color: '#fff', fontSize: 16, fontWeight: 600, marginBottom: 6 }}>{f.q}</h3>
-                <p style={{ fontSize: 14, lineHeight: 1.6, color: 'rgba(255,255,255,0.6)' }}>{f.a}</p>
-              </div>
-            ))}
+            <div role="list">
+              {faqs.map((f, i) => {
+                const isOpen = openFaq === i;
+                return (
+                  <div
+                    key={i}
+                    className={`faq-item${isOpen ? ' open' : ''}`}
+                    role="listitem"
+                    style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)' }}
+                  >
+                    <button
+                      className="faq-question"
+                      style={{ color: '#fff' }}
+                      onClick={() => setOpenFaq(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                      id={`cc-faq-btn-${i}`}
+                      aria-controls={`cc-faq-ans-${i}`}
+                    >
+                      {f.q}
+                      <span
+                        className="faq-chevron"
+                        aria-hidden="true"
+                        style={{
+                          background: isOpen ? '#C9933A' : 'rgba(255,255,255,0.08)',
+                          borderColor: isOpen ? '#C9933A' : 'rgba(255,255,255,0.15)',
+                          color: isOpen ? '#12141C' : 'rgba(255,255,255,0.55)',
+                        }}
+                      >▾</span>
+                    </button>
+                    <div
+                      id={`cc-faq-ans-${i}`}
+                      className="faq-answer"
+                      role="region"
+                      aria-labelledby={`cc-faq-btn-${i}`}
+                      style={{ color: 'rgba(255,255,255,0.6)' }}
+                    >
+                      {f.a}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           <div style={{ marginTop: 40, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.08)' }}>
