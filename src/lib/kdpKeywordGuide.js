@@ -1,10 +1,10 @@
 export const KDP_GUIDE_ARTICLES = [
   {
     slug: 'why-kdp-keywords-arent-ranking',
-    metaTitle: "Why Your KDP Keywords Aren't Getting Your Book Found | BookKraft AI",
+    metaTitle: "Why Your KDP Keywords Aren't Ranking — 5 Mistakes to Fix | BookKraft AI",
     metaDescription:
       "If your KDP keywords aren't driving discovery, one of five specific mistakes is usually the cause. Here's how to diagnose which one is hurting your listing.",
-    title: "Why Your KDP Keywords Aren't Getting Your Book Found",
+    title: "Why Your KDP Keywords Aren't Ranking — 5 Mistakes to Fix",
     body: `<h2>Your 7 Keyword Slots Are the Algorithm's Only Direct Input From You</h2>
 <p>Amazon's search algorithm can't read your synopsis or interpret your cover design. It reads your title, subtitle, and the 7 keyword fields you enter when publishing — and that's the primary signal it uses to decide which search queries your book appears in.</p>
 <p>Your title and subtitle get indexed automatically. Everything else you're hoping the algorithm picks up — the mood, the tropes, the target audience — it will only find if you put it in the keyword slots. Those 7 fields, each up to 50 characters, are your only direct line to the algorithm. Most authors fill them in fifteen minutes during upload and never revisit them. That's the root of most keyword underperformance.</p>

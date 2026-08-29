@@ -45,7 +45,7 @@ function RelatedToolsBlock({ tool }) {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                 {tool.related.map((r) => (
                     <li key={r.slug}>
-                        <Link href={`/tools/${r.slug}`}>{r.label}</Link>
+                        <Link href={r.href ?? `/tools/${r.slug}`}>{r.label}</Link>
                     </li>
                 ))}
             </ul>

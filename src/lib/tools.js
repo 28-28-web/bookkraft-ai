@@ -552,6 +552,7 @@ export const TOOLS = [
         related: [
             { slug: 'metadata-builder', label: 'Book Metadata Builder' },
             { slug: 'epub-validator', label: 'EPUB Validator' },
+            { slug: 'why-kdp-keywords-arent-ranking', label: "Why Your KDP Keywords Aren't Ranking", href: '/kdp-keyword-guide/why-kdp-keywords-arent-ranking' },
         ],
         fields: [
             { id: 'title', label: 'Book title', type: 'text', placeholder: 'My Book' },
