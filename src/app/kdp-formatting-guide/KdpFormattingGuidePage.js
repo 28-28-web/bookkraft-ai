@@ -177,6 +177,27 @@ export default function KdpFormattingGuidePage() {
         </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
+          Kindle-specific formatting
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          Kindle books are delivered in Amazon&apos;s KFX format, which Kindle devices and apps render natively. You never submit KFX directly — KDP converts your uploaded EPUB or Word document internally. What you control is how clean that source file is before the conversion happens.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Reflowable vs fixed layout.</strong> Most ebooks use reflowable layout, where text adjusts to fit any screen size or font setting the reader chooses. Fixed layout locks the page design in place — useful for illustrated children&apos;s books, graphic novels, or books where the precise position of text and images matters. For prose fiction and most non-fiction, reflowable is the right choice; fixed layout breaks the reading experience on small screens and with large-text accessibility settings.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>MOBI format is deprecated.</strong> Amazon stopped accepting <code>.mobi</code> file uploads in 2022. Submit EPUB (preferred for control over formatting) or a Word document. KDP converts either format to KFX for delivery.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Enhanced Typesetting.</strong> Amazon applies Enhanced Typesetting automatically on supported devices when your book meets its formatting requirements. It improves hyphenation, kerning, and text justification. Books with clean, properly structured EPUB CSS are more likely to qualify; books with heavy inline styles or image-based text typically do not. Amazon determines eligibility automatically — there is no manual opt-in.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 40, opacity: 0.9 }}>
+          <strong>Test with Kindle Previewer.</strong> Amazon&apos;s free Kindle Previewer simulates how your book renders across different Kindle devices and screen sizes before you upload. Testing here catches layout issues — particularly with images, tables, and drop caps — that don&apos;t show up in a standard EPUB reader. Running your file through the{' '}
+          <Link href="/tools/epub-validator" style={{ color: '#9c7f35', textDecoration: 'none' }}>EPUB Validator</Link>{' '}
+          first reduces the chance of Previewer surfacing structural errors.
+        </p>
+
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           Common mistakes before uploading to KDP
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
