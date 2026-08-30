@@ -153,6 +153,27 @@ export default function KdpFormattingGuidePage() {
         </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
+          EPUB file structure requirements
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          An EPUB file is a ZIP archive with a required internal structure. Understanding the mandatory components helps explain why EPUB validators flag certain errors — and why files that look correct in a Word export still fail structural validation.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>mimetype.</strong> The first file in the ZIP archive must be named <code>mimetype</code>, contain exactly the string <code>application/epub+zip</code> with no trailing newline, and be stored uncompressed (no deflate). This is a hard EPUB spec requirement — it lets reading systems identify the file format by reading the first bytes of the archive without extracting it.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>META-INF/container.xml.</strong> The <code>container.xml</code> file inside the <code>META-INF</code> directory tells reading systems where to find the OPF package document. Without it, a reading system has no entry point into the book. It must declare the full path to your <code>.opf</code> file — for example, <code>OEBPS/content.opf</code>.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Spine and manifest (the OPF document).</strong> The OPF package file defines two critical structures: the manifest (every file in the EPUB declared by ID, path, and media type) and the spine (the ordered reading sequence that references manifest items by ID). Every chapter document, the nav.xhtml, and any auxiliary files must appear in the manifest. The spine sets the order readers follow when paginating through the book — items in the manifest but absent from the spine are inaccessible via normal navigation.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 40, opacity: 0.9 }}>
+          <strong>nav.xhtml.</strong> The EPUB3 navigation document serves as the primary Table of Contents (<code>epub:type=&quot;toc&quot;</code>), and optionally as a page list and landmarks section (marking the cover, start of content, and back matter). It must appear in both the manifest and the spine. A nav document missing from either can pass basic structural validation and still trigger KDP&apos;s quality review as malformed. The{' '}
+          <Link href="/tools/epub-validator" style={{ color: '#9c7f35', textDecoration: 'none' }}>EPUB Validator</Link>{' '}
+          checks all four components and reports exactly which structural requirement failed.
+        </p>
+
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           Chapter formatting conventions
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
