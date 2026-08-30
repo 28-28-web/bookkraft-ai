@@ -65,8 +65,10 @@ export async function GET(request) {
         const verifierCookie = allCookies.find(n => n.includes('code-verifier'));
         console.log('[auth/callback] cookies present:', allCookies.filter(n => n.startsWith('sb-')));
         console.log('[auth/callback] code-verifier cookie:', verifierCookie ?? 'MISSING');
-        console.log('[auth/callback] code exchange, next=', next);
+        const t0 = Date.now();
+        console.log('[auth/callback] code exchange start, next=', next);
         const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+        console.log(`[auth/callback] code exchange done in ${Date.now() - t0}ms, error=`, error?.code ?? 'none');
         if (!error) {
             // Read _ga cookie for client_id so the event stitches to the
             // user's browsing session. Falls back to a valid GA4 MP format
