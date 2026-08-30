@@ -25,6 +25,81 @@ const PLATFORMS = [
 ];
 
 
+// ─── INTENT CARDS ────────────────────────────────────────────────────
+
+const INTENTS = [
+  {
+    label: 'I have a Word manuscript',
+    desc: 'Convert .docx or .txt to EPUB, or clean formatting errors first',
+    href: '/tools/manuscript-mode',
+    cta: 'Convert to EPUB →',
+  },
+  {
+    label: 'I have an EPUB',
+    desc: 'Validate structure and check KDP, Apple Books, Kobo compliance',
+    href: '/tools/epub-validator',
+    cta: 'Validate EPUB →',
+  },
+  {
+    label: 'My book has formatting problems',
+    desc: 'Fix smart quotes, encoding artifacts, and style inconsistencies',
+    href: '/tools/manuscript-cleanup',
+    cta: 'Fix formatting →',
+  },
+  {
+    label: 'I want to publish on KDP',
+    desc: 'Get a readiness score, see exactly what to fix before you upload',
+    href: '/tools/publishing-score',
+    cta: 'Run KDP check →',
+  },
+];
+
+function IntentSection() {
+  return (
+    <section style={{
+      background: 'var(--white)',
+      borderBottom: '1px solid var(--border)',
+      padding: '52px 28px',
+    }}>
+      <div style={{ maxWidth: 1040, margin: '0 auto' }}>
+        <p style={{
+          textAlign: 'center',
+          fontFamily: 'var(--font-ibm-mono), monospace',
+          fontSize: '12px', letterSpacing: '0.14em', textTransform: 'uppercase',
+          color: 'var(--mid)', marginBottom: 32,
+        }}>
+          What are you trying to do?
+        </p>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: 14,
+        }}>
+          {INTENTS.map(({ label, desc, href, cta }) => (
+            <a key={href} href={href} style={{ textDecoration: 'none', color: 'inherit', display: 'flex' }}>
+              <div style={{
+                flex: 1, border: '1px solid var(--border)', borderRadius: 'var(--radius)',
+                padding: '22px 22px 20px', background: 'var(--white)',
+                display: 'flex', flexDirection: 'column', gap: 8,
+              }}>
+                <div style={{ fontWeight: 700, fontSize: 15, color: 'var(--ink)', lineHeight: 1.3 }}>
+                  {label}
+                </div>
+                <div style={{ fontSize: 13, color: 'var(--mid)', lineHeight: 1.5, flex: 1 }}>
+                  {desc}
+                </div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--gold)', marginTop: 6 }}>
+                  {cta}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── ROOT ────────────────────────────────────────────────────────────
 
 export default function LandingPage({ faqs, pricing }) {
@@ -49,6 +124,7 @@ export default function LandingPage({ faqs, pricing }) {
         }
       `}</style>
 
+      <IntentSection />
       <ProcessDiagramSection />
       <ScorecardSection />
       <TickerSection />

@@ -35,7 +35,7 @@ export default function HeroSection() {
             background: '#ffffff', color: '#23262d', fontWeight: 600, fontSize: '15.5px',
             padding: '14px 26px', borderRadius: 7, textDecoration: 'none', display: 'inline-block',
             boxShadow: '0 10px 24px -8px rgba(0,0,0,0.5)',
-          }}>Run free Readiness Scan →</a>
+          }}>Run a Free Book Readiness Check →</a>
           <a href="/pricing" style={{
             color: '#ffffff', fontSize: 15, padding: '14px 4px',
             background: 'none', opacity: 0.75, textDecoration: 'underline',
