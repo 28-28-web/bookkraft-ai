@@ -156,6 +156,27 @@ export default function KdpFormattingGuidePage() {
         </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
+          Font selection for ebooks
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          Font choice in ebooks works differently from print. Most EPUB readers — including Kindle — let users switch to their preferred reading font at any time. That makes font selection matter most for two things: the fallback rendering when no user override is active, and custom fonts you choose to embed in the EPUB file itself.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Safe system font stacks.</strong> If you don&apos;t embed a custom font, the reader&apos;s device uses its built-in default. Declaring an explicit <code>font-family</code> stack in your EPUB CSS makes the fallback intentional rather than accidental. Common stacks: <code>Georgia, &apos;Times New Roman&apos;, serif</code> for body text in fiction; <code>Helvetica, Arial, sans-serif</code> for non-fiction with heavy structure.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Serif vs sans-serif for body text.</strong> Long-form prose traditionally uses a serif face — the serifs assist horizontal tracking across lines on screen. Sans-serif works well for shorter text, callouts, and non-fiction that reads in chunks rather than linearly. Pick one for the body style and apply it consistently; mixing both within body paragraphs creates visual noise.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Embedding custom fonts.</strong> A font embedded in the EPUB package appears as &ldquo;Publisher Font&rdquo; in Kindle&apos;s font menu, giving readers the option to use your chosen typeface. Embedded fonts must be declared in the EPUB manifest and referenced via a CSS <code>@font-face</code> rule. Only embed fonts with a license that permits EPUB redistribution — most commercial font licenses do not include it without a separate ebook license.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 40, opacity: 0.9 }}>
+          The{' '}
+          <Link href="/tools/css-snippet-generator" style={{ color: '#9c7f35', textDecoration: 'none' }}>CSS Snippet Generator</Link>{' '}
+          outputs ready-to-use <code>@font-face</code> declarations and body-text stacks formatted for EPUB stylesheets.
+        </p>
+
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           Common mistakes before uploading to KDP
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
