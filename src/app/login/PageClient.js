@@ -83,6 +83,10 @@ function LoginContent() {
 
     const handleGoogleAuth = async () => {
 
+        if (loading) return;
+
+        setLoading(true);
+
         try {
 
             await supabase.auth.signInWithOAuth({
@@ -95,9 +99,13 @@ function LoginContent() {
 
         } catch (err) {
 
+            setLoading(false);
+
             showToast('Google sign-in failed: ' + err.message, 'error');
 
         }
+
+        // No finally — page navigates away on success; loading intentionally stays true
 
     };
 
@@ -239,7 +247,7 @@ function LoginContent() {
 
 
 
-                <button className="btn btn-google btn-full" onClick={handleGoogleAuth}>
+                <button className="btn btn-google btn-full" onClick={handleGoogleAuth} disabled={loading}>
 
                     <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
 
@@ -257,7 +265,7 @@ function LoginContent() {
 
                 </button>
 
-                <button className="btn btn-outline btn-full" style={{ marginTop: 'var(--space-3)' }} onClick={handleMagicLink}>
+                <button className="btn btn-outline btn-full" style={{ marginTop: 'var(--space-3)' }} onClick={handleMagicLink} disabled={loading}>
 
                     Send Magic Link
 
