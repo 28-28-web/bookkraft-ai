@@ -174,6 +174,30 @@ export default function KdpFormattingGuidePage() {
         </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
+          Metadata requirements
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          Every EPUB package must include four required Dublin Core metadata fields in the OPF document. These are defined by the EPUB3 specification — not just required by KDP, but by any conforming reading system.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>dc:title.</strong> The title of the book, matching the title as it appears on the cover and in the KDP listing. Series subtitles and edition labels are typically handled separately, not appended to dc:title.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>dc:creator.</strong> The author name. Multiple <code>dc:creator</code> elements are allowed for co-authored works. In EPUB3, an <code>opf:role</code> attribute on <code>dc:creator</code> can specify the contributor relationship using MARC relator codes (e.g., <code>aut</code> for author, <code>edt</code> for editor, <code>ill</code> for illustrator).
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>dc:language.</strong> The primary language of the book as a BCP 47 tag — <code>en</code> for English, <code>en-US</code> for American English, <code>fr</code> for French, and so on. This field affects how reading systems handle hyphenation, text-to-speech, and search indexing.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>dc:identifier.</strong> A unique identifier for the book — typically the ISBN. If you don&apos;t have an ISBN, KDP assigns an ASIN after publishing. The <code>dc:identifier</code> element must still be present and must match the identifier referenced by the package element&apos;s <code>unique-identifier</code> attribute, or the EPUB will fail spec validation.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 40, opacity: 0.9 }}>
+          <strong>BISAC subject codes.</strong> BISAC codes classify books by subject and genre and form the basis of KDP&apos;s category assignment. Adding <code>dc:subject</code> elements with BISAC codes to your EPUB metadata and matching them to your KDP dashboard categories improves discoverability. BISAC codes are maintained by the Book Industry Study Group and are updated periodically — verify any specific code against the current BISAC Subject Headings list or your KDP dashboard before submitting. The{' '}
+          <Link href="/tools/metadata-builder" style={{ color: '#9c7f35', textDecoration: 'none' }}>Metadata Builder</Link>{' '}
+          fills all four required Dublin Core fields and generates valid dc:subject entries from your chosen categories.
+        </p>
+
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           Chapter formatting conventions
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
