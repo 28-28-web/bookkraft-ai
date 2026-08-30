@@ -33,6 +33,15 @@ async function fireGA4AuthEvent({ eventName, method, userId, gaClientId }) {
 }
 
 export async function GET(request) {
+    // Block prefetch probes — OAuth codes are single-use; a prefetch would
+    // consume the code before the real navigation arrives.
+    const isPrefetch =
+        request.headers.get('next-router-prefetch') !== null ||
+        (request.headers.get('purpose') ?? '').toLowerCase() === 'prefetch';
+    if (isPrefetch) {
+        return new Response(null, { status: 204 });
+    }
+
     const { searchParams } = new URL(request.url);
     const origin = 'https://bookkraftai.com';
     const code = searchParams.get('code');
@@ -75,7 +84,15 @@ export async function GET(request) {
         console.log('[auth/callback] code-verifier cookie:', verifierCookie ?? 'MISSING');
         const t0 = Date.now();
         console.log('[auth/callback] code exchange start, next=', next);
-        const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+        let data, error;
+        try {
+            ({ data, error } = await supabase.auth.exchangeCodeForSession(code));
+        } catch (thrown) {
+            console.error('[auth/callback] exchangeCodeForSession threw:', thrown?.message ?? thrown);
+            return NextResponse.redirect(
+                `${origin}/login?error=${encodeURIComponent('Sign-in failed. Please try again.')}`
+            );
+        }
         console.log(`[auth/callback] code exchange done in ${Date.now() - t0}ms, error=`, error?.code ?? 'none');
 
         // Decisive diagnostic: verify Set-Cookie headers actually exist on redirectResponse
