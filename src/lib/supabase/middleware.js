@@ -2,6 +2,11 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse } from 'next/server';
 
 export async function updateSession(request) {
+    // /auth/callback handles its own session exchange — middleware must not touch it
+    if (request.nextUrl.pathname === '/auth/callback') {
+        return NextResponse.next({ request });
+    }
+
     let supabaseResponse = NextResponse.next({ request });
 
     const supabase = createServerClient(
