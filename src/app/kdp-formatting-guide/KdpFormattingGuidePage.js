@@ -177,6 +177,30 @@ export default function KdpFormattingGuidePage() {
         </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
+          Paperback vs ebook differences
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          Formatting for print and for ebooks are separate workflows — the same file rarely works for both without adjustment. The core difference is that print layout is fixed (every page has an exact physical size and position) while ebook layout is reflowable (text adapts to the reader&apos;s screen size and font settings).
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Page size and margins.</strong> A print book has a specific trim size — the physical dimensions of the finished page — and inside margins large enough to account for the binding. Ebooks have no fixed page size at all. For current print trim sizes, minimum inside margins based on page count, and bleed requirements, consult KDP&apos;s print book specifications directly, as these requirements are updated periodically.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Image resolution.</strong> Print images need 300 DPI at their printed size — the industry standard for commercial printing. Ebook images render on screen, where 72–96 DPI is sufficient; higher resolution adds file size without visible benefit on most devices. Images prepared for print are safe to reuse in ebooks; screen-resolution images used in print will appear noticeably soft.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Bleed.</strong> Print books with images or backgrounds that extend to the page edge require bleed — extra image area beyond the trim line that gets cut off during binding. Ebooks have no bleed because there is no physical cut. If you&apos;re building full-bleed interior pages or covers for print, check KDP&apos;s print formatting guidelines for the required bleed dimensions.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Font sizes.</strong> Print uses absolute point sizes because the page dimensions are fixed. Ebooks should use relative units (<code>em</code> or <code>rem</code>) so text scales correctly when readers adjust their preferred font size. A comfortable body text size in print often needs adjustment for ebook CSS.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 40, opacity: 0.9 }}>
+          <strong>Covers are entirely separate files.</strong> A print cover wraps spine and back; its width depends on page count and paper type. An ebook cover is a single front-face image with no spine. Both have specific dimension and file requirements — use KDP&apos;s cover calculator for print and check KDP&apos;s ebook cover specifications for the current image requirements. The{' '}
+          <Link href="/tools/cover-checker" style={{ color: '#9c7f35', textDecoration: 'none' }}>Cover Checker</Link>{' '}
+          validates ebook cover dimensions before you upload.
+        </p>
+
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           Kindle-specific formatting
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
