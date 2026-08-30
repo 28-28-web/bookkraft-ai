@@ -81,6 +81,30 @@ export default function KdpFormattingGuidePage() {
           Formatting a manuscript for Amazon KDP, Apple Books, and Kobo involves more steps than most authors expect: cleanup, structure, validation, metadata, and a handful of details that determine whether your book passes quality review on the first try. Here is the full process, step by step, with a tool for each one.
         </p>
 
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 0, marginBottom: 16 }}>
+          Manuscript formatting basics
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          Most manuscript formatting problems come from the same source: writing tools designed for print store text in ways that break when converted to reflowable ebook formats. Understanding four fundamentals before you start formatting prevents the most common upload failures.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Use paragraph styles, not manual spacing.</strong> Every paragraph should get its spacing from a named style — Body Text, First Paragraph, Chapter Opening. Adding blank lines between paragraphs or pressing Return twice creates extra space that EPUB converters interpret inconsistently.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>First-line indentation belongs in CSS, not in the document.</strong> Pressing Tab or using spacebar indentation looks correct in Word but produces double-indentation on some Kindle devices. Ebook-standard indentation is set via a CSS <code>text-indent</code> property applied to the paragraph style, not typed manually.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Remove double spaces.</strong> The practice of putting two spaces after a period is visible in some EPUB readers and can trigger KDP&apos;s automated quality review. A single cleanup pass removes all of them before they reach the converter.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Avoid character-level formatting overrides.</strong> Text bolded by selecting it and pressing Ctrl+B is stored as a character override. Text bolded through a paragraph style is stored as a style property. Both look identical in Word — but only style-based formatting survives EPUB conversion cleanly across all devices.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 40, opacity: 0.9 }}>
+          None of these rules change the writing. They change how the writing is stored. Fixing them before converting to EPUB is the fastest way to reduce first-upload rejections. The{' '}
+          <Link href="/tools/word-cleanup" style={{ color: '#9c7f35', textDecoration: 'none' }}>Word Manuscript Cleanup Checker</Link>{' '}
+          catches all four automatically.
+        </p>
+
         <div style={{ marginBottom: 48 }}>
           {sections.map((s, i) => (
             <div key={i} style={{ marginBottom: 40, paddingBottom: 32, borderBottom: i < sections.length - 1 ? '1px solid rgba(0,0,0,0.08)' : 'none' }}>
