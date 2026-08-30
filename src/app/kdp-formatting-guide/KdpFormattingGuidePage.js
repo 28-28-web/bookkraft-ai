@@ -135,6 +135,24 @@ export default function KdpFormattingGuidePage() {
         </div>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
+          Table of Contents requirements
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          A clickable Table of Contents is required for Kindle books. The technical structure differs depending on the EPUB version you&apos;re building, and getting the format wrong is one of the most consistent reasons books fail KDP quality review.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>EPUB3 nav element.</strong> In EPUB3, the TOC lives in a navigation document — typically named <code>nav.xhtml</code> — and is marked with the <code>epub:type=&quot;toc&quot;</code> attribute on the <code>&lt;nav&gt;</code> element. This is the primary TOC that KDP and modern readers parse. Each entry in the nav points to a chapter heading via a relative link within the EPUB package.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>NCX fallback for EPUB2 readers.</strong> Older reading systems — including some Kindle devices — rely on a <code>toc.ncx</code> file for navigation. Including an NCX alongside the EPUB3 nav document provides backwards compatibility. Most EPUB generation tools produce both automatically; if you&apos;re building EPUB by hand, omitting the NCX can cause navigation to fail on older devices.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 40, opacity: 0.9 }}>
+          <strong>Spine position.</strong> KDP expects the TOC to appear in the EPUB spine before the first chapter, so it is reachable as a navigable location in the book — not just an invisible structure element in the package file. A TOC declared only in the manifest but not in the reading order can pass validation and still fail KDP&apos;s review. The{' '}
+          <Link href="/tools/toc-generator" style={{ color: '#9c7f35', textDecoration: 'none' }}>TOC Generator</Link>{' '}
+          outputs a correctly structured EPUB3 nav with NCX fallback and places it correctly in the spine.
+        </p>
+
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           Chapter formatting conventions
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
