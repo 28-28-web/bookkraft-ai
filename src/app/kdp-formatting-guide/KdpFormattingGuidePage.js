@@ -201,6 +201,24 @@ export default function KdpFormattingGuidePage() {
         </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
+          Image and cover requirements
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Cover format and color mode.</strong> Ebook covers must be submitted as JPEG or PNG files in RGB color mode. CMYK images — typically prepared for offset printing — do not render correctly in ebook readers and produce washed-out or shifted colors. For print covers submitted through KDP Print, check KDP&apos;s current cover specifications for accepted color modes, as ebook and print workflows have different requirements.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Cover dimensions.</strong> KDP has specific minimum and maximum pixel requirements for ebook cover images, along with a recommended aspect ratio. These requirements have been updated over time — consult KDP&apos;s current cover image guidelines for the exact dimensions before preparing your file. The{' '}
+          <Link href="/tools/cover-checker" style={{ color: '#9c7f35', textDecoration: 'none' }}>Cover Checker</Link>{' '}
+          validates your cover against current platform requirements automatically.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Interior images.</strong> Images placed inside an ebook should also be RGB and saved as JPEG or PNG. KDP recompresses and resizes images during the internal conversion to KFX, so starting with the highest-resolution version you have gives the converter the most to work with. Images prepared at 300 DPI (for print use) are safe to include — they will be larger than strictly necessary for screen display but will not look worse.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 40, opacity: 0.9 }}>
+          <strong>Transparency.</strong> PNG supports transparency; JPEG does not. Transparent PNG images may render with a black or white background depending on the reader&apos;s theme. Test any transparent images in Kindle Previewer before uploading — or flatten them to a white background first to avoid unpredictable rendering across devices.
+        </p>
+
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           Kindle-specific formatting
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
