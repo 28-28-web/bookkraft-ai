@@ -40,6 +40,14 @@ export async function GET(request) {
 
     if (code) {
         const cookieStore = await cookies();
+
+        // Create the success redirect response BEFORE the Supabase client so
+        // setAll() writes session cookies directly onto this response object.
+        // cookieStore.set() only modifies the implicit response — that object is
+        // discarded when we return NextResponse.redirect(), so the session cookies
+        // would never reach the browser.
+        const redirectResponse = NextResponse.redirect(`${origin}${next}`);
+
         const supabase = createServerClient(
             process.env.NEXT_PUBLIC_SUPABASE_URL,
             process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
@@ -49,13 +57,9 @@ export async function GET(request) {
                         return cookieStore.getAll();
                     },
                     setAll(cookiesToSet) {
-                        try {
-                            cookiesToSet.forEach(({ name, value, options }) =>
-                                cookieStore.set(name, value, options)
-                            );
-                        } catch {
-                            // Ignore errors from Server Components
-                        }
+                        cookiesToSet.forEach(({ name, value, options }) =>
+                            redirectResponse.cookies.set(name, value, options)
+                        );
                     },
                 },
             }
@@ -69,12 +73,8 @@ export async function GET(request) {
         console.log('[auth/callback] code exchange start, next=', next);
         const { data, error } = await supabase.auth.exchangeCodeForSession(code);
         console.log(`[auth/callback] code exchange done in ${Date.now() - t0}ms, error=`, error?.code ?? 'none');
+
         if (!error) {
-            // Read _ga cookie for client_id so the event stitches to the
-            // user's browsing session. Falls back to a valid GA4 MP format
-            // (<random>.<timestamp>) when _ga is absent (incognito, fresh browser).
-            // auth.<uuid> was the old fallback — GA4 silently drops events with
-            // non-numeric client_ids, so those hits never appeared in reports.
             const gaCookie = cookieStore.get('_ga')?.value;
             let gaClientId = `${Math.floor(Math.random() * 1e9)}.${Math.floor(Date.now() / 1000)}`;
             if (gaCookie) {
@@ -84,8 +84,6 @@ export async function GET(request) {
 
             const provider = data?.user?.app_metadata?.provider ?? 'unknown';
             const method = provider === 'google' ? 'google' : 'magic_link';
-            // Heuristic: signup/PageClient.js sets next=/onboarding, login sets /dashboard.
-            // If /onboarding is ever reused for non-signup flows, revisit this.
             const eventName = next.includes('/onboarding') ? 'sign_up' : 'login';
 
             void fireGA4AuthEvent({
@@ -95,8 +93,9 @@ export async function GET(request) {
                 gaClientId,
             });
 
-            return NextResponse.redirect(`${origin}${next}`);
+            return redirectResponse;
         }
+
         console.error('Auth error:', error);
         const friendlyMsg = error.code === 'flow_state_not_found'
             ? 'Your sign-in link has expired or was already used. Please try signing in again.'
