@@ -135,6 +135,27 @@ export default function KdpFormattingGuidePage() {
         </div>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
+          Chapter formatting conventions
+        </h2>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          Drop caps, scene breaks, and chapter heading styles don&apos;t have a single correct format — but they need to be consistent across every chapter. Inconsistency is what readers and reviewers notice first.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Chapter headings.</strong> Use one heading style for every chapter opener — H1, H2, or a styled paragraph — and keep the format identical throughout. Mixing &ldquo;Chapter One&rdquo;, &ldquo;Chapter 1&rdquo;, and bare numerals across chapters creates inconsistency that reflects poorly in quality review and confuses automated TOC generators.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Drop caps.</strong> A drop cap on the first letter of each chapter is a common fiction convention. In EPUB, drop caps are set via CSS (<code>::first-letter</code> with <code>float: left</code> and a matching line-height). Not all readers render them identically, so test in Kindle Previewer before relying on them as a visual anchor.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          <strong>Scene breaks.</strong> The standard for marking a scene break within a chapter is three asterisks (<code>***</code>), a hash (<code>#</code>), or a decorative ornament. Plain blank lines are unreliable — EPUB converters often collapse them or flag them as formatting errors. Whatever mark you choose, use it in every scene break in the book.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 40, opacity: 0.9 }}>
+          <strong>Page breaks before chapter headings.</strong> Each new chapter should open on a fresh page, set via CSS (<code>break-before: page</code>), not by pressing Return multiple times. Stacked empty paragraphs collapse differently across devices and sometimes disappear entirely in conversion. The{' '}
+          <Link href="/tools/manuscript-cleanup" style={{ color: '#9c7f35', textDecoration: 'none' }}>Manuscript Cleanup</Link>{' '}
+          tool flags inconsistent heading formats and stacked paragraph breaks before they reach the converter.
+        </p>
+
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           Common mistakes before uploading to KDP
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
