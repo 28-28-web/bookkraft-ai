@@ -74,6 +74,13 @@ export async function GET(request) {
         const { data, error } = await supabase.auth.exchangeCodeForSession(code);
         console.log(`[auth/callback] code exchange done in ${Date.now() - t0}ms, error=`, error?.code ?? 'none');
 
+        // Decisive diagnostic: verify Set-Cookie headers actually exist on redirectResponse
+        const setCookieRaw = redirectResponse.headers.get('set-cookie');
+        console.log('[auth/callback] Set-Cookie on redirectResponse:', setCookieRaw ?? 'NONE — cookies not written to response');
+        const cookiesOnResponse = redirectResponse.cookies.getAll();
+        console.log('[auth/callback] cookies on redirectResponse count:', cookiesOnResponse.length);
+        console.log('[auth/callback] cookie names on response:', cookiesOnResponse.map(c => c.name));
+
         if (!error) {
             const gaCookie = cookieStore.get('_ga')?.value;
             let gaClientId = `${Math.floor(Math.random() * 1e9)}.${Math.floor(Date.now() / 1000)}`;
