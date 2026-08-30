@@ -61,6 +61,10 @@ export async function GET(request) {
             }
         );
 
+        const allCookies = cookieStore.getAll().map(c => c.name);
+        const verifierCookie = allCookies.find(n => n.includes('code-verifier'));
+        console.log('[auth/callback] cookies present:', allCookies.filter(n => n.startsWith('sb-')));
+        console.log('[auth/callback] code-verifier cookie:', verifierCookie ?? 'MISSING');
         console.log('[auth/callback] code exchange, next=', next);
         const { data, error } = await supabase.auth.exchangeCodeForSession(code);
         if (!error) {
