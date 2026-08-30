@@ -131,7 +131,7 @@ function PricingContent() {
             </section>
 
             {/* Free tier */}
-            <section style={{ padding: 'var(--space-16) 0 0', background: 'var(--charcoal)' }}>
+            <section style={{ padding: 'var(--space-16) 0 0', background: 'var(--ink)' }}>
                 <div className="container">
                     <p className="eyebrow" style={{ textAlign: 'center', color: 'var(--gold)' }}>ALWAYS FREE</p>
                     <h2 className="section-heading center" style={{ color: 'var(--cream)' }}>No Account Needed</h2>
@@ -155,7 +155,7 @@ function PricingContent() {
             </section>
 
             {/* Main pricing grid */}
-            <section style={{ padding: 'var(--space-16) 0', background: 'var(--charcoal)' }}>
+            <section style={{ padding: 'var(--space-16) 0', background: 'var(--ink)' }}>
                 <div className="container">
                     <div>
                         <p className="eyebrow" style={{ textAlign: 'center', color: 'var(--gold)' }}>PAID TIERS</p>
@@ -164,7 +164,7 @@ function PricingContent() {
                             All logic tools included in every paid tier. Credits power the AI tools.
                         </p>
                         <div className="pricing-grid" style={{ maxWidth: 960, margin: '0 auto' }}>
-                            <div className="price-card">
+                            <div className="price-card" style={{ borderRadius: 8, border: '1px solid rgba(0,0,0,0.1)' }}>
                                 <p className="price-plan">{PRICING.starter.name}</p>
                                 <div className="price-amount">{PRICING.starter.label}<span> one-time</span></div>
                                 <p className="price-desc">{PRICING.starter.desc}</p>
@@ -176,7 +176,7 @@ function PricingContent() {
                                 </CheckoutButton>
                                 <GuaranteeBadge />
                             </div>
-                            <div className="price-card featured">
+                            <div className="price-card featured" style={{ borderRadius: 8, background: 'var(--charcoal)', border: '1px solid rgba(201,147,58,0.35)' }}>
                                 <p className="price-plan">{PRICING.pro.name}</p>
                                 <div className="price-amount">{PRICING.pro.label}<span> one-time</span></div>
                                 <p className="price-desc">{PRICING.pro.desc}</p>
@@ -188,7 +188,7 @@ function PricingContent() {
                                 </CheckoutButton>
                                 <GuaranteeBadge />
                             </div>
-                            <div className="price-card lifetime-card">
+                            <div className="price-card lifetime-card" style={{ borderRadius: 8 }}>
                                 <p className="price-plan">{PRICING.lifetime.name}</p>
                                 <div className="price-amount">{PRICING.lifetime.label}<span> one-time</span></div>
                                 <p className="price-desc">{PRICING.lifetime.desc}</p>
