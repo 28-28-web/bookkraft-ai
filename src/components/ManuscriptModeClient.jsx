@@ -84,10 +84,30 @@ export default function ManuscriptModeClient() {
         }
     };
 
+    const gtag = (...args) => {
+        if (typeof window !== 'undefined' && window.gtag) window.gtag(...args);
+    };
+
     const handleSubmit = async () => {
         if (!file) { setErrorMsg('Please upload a file first.'); return; }
         if (!title.trim()) { setErrorMsg('Please enter a book title.'); return; }
         if (!author.trim()) { setErrorMsg('Please enter an author name.'); return; }
+
+        // Reject oversized files before upload — prevents proxy body-size errors
+        if (file.size > 10 * 1024 * 1024) {
+            setErrorMsg('File is too large (over 10 MB). Try compressing your .docx or splitting the manuscript into parts.');
+            gtag('event', 'file_upload_failed', { tool_name: 'manuscript_mode', error_type: 'file_too_large' });
+            return;
+        }
+
+        if (!file.name.match(/\.(docx|txt)$/i)) {
+            setErrorMsg(`".${file.name.split('.').pop()}" files aren't supported. Please upload a .docx or .txt file.`);
+            gtag('event', 'file_upload_failed', { tool_name: 'manuscript_mode', error_type: 'invalid_format' });
+            return;
+        }
+
+        gtag('event', 'tool_start', { tool_name: 'manuscript_mode' });
+        gtag('event', 'file_upload_start', { tool_name: 'manuscript_mode', file_size_kb: Math.round(file.size / 1024) });
 
         setStatus('processing');
         setErrorMsg('');
@@ -107,15 +127,24 @@ export default function ManuscriptModeClient() {
             });
 
             if (!res.ok) {
-                const err = await res.json();
-                if (err.error === 'unauthorized') {
-                    setErrorMsg('Please sign in to use this tool.');
-                } else if (err.error === 'bundle_required') {
-                    setErrorMsg('This tool requires Starter, Pro, or Lifetime.');
+                const data = await res.json().catch(() => ({}));
+                let msg;
+                if (data.error === 'unauthorized') {
+                    msg = 'Please sign in to use this tool.';
+                } else if (data.error === 'bundle_required') {
+                    msg = 'This tool requires Starter, Pro, or Lifetime.';
+                } else if (res.status === 413 || data.error === 'file_too_large') {
+                    msg = 'Your file is too large for the server to process. Try a .docx under 8 MB, or split the manuscript into parts.';
+                } else if (data.error === 'parse_failed') {
+                    msg = "We couldn't read your file. Make sure it's a valid .docx or .txt and try again.";
+                } else if (data.error === 'empty_file') {
+                    msg = 'This file appears to be empty. Please check the document and try again.';
                 } else {
-                    setErrorMsg(err.message || 'Something went wrong. Please try again.');
+                    msg = "EPUB generation failed. Please try again — if the problem continues, re-save your document as .docx and upload it again.";
                 }
+                setErrorMsg(msg);
                 setStatus('error');
+                gtag('event', 'file_upload_failed', { tool_name: 'manuscript_mode', error_type: data.error || 'server_error', http_status: res.status });
                 return;
             }
 
@@ -133,10 +162,14 @@ export default function ManuscriptModeClient() {
                 wordCount: wordCount ? Number(wordCount).toLocaleString() : '?',
             });
             setStatus('done');
+            gtag('event', 'file_upload_success', { tool_name: 'manuscript_mode' });
+            gtag('event', 'tool_complete', { tool_name: 'manuscript_mode', chapters: chaptersFound });
+            gtag('event', 'result_view', { tool_name: 'manuscript_mode' });
 
-        } catch (err) {
-            setErrorMsg('Network error. Please try again.');
+        } catch {
+            setErrorMsg('Could not reach the server — check your connection and try again.');
             setStatus('error');
+            gtag('event', 'file_upload_failed', { tool_name: 'manuscript_mode', error_type: 'network_error' });
         }
     };
 
@@ -322,8 +355,17 @@ export default function ManuscriptModeClient() {
                     </div>
 
                     {errorMsg && (
-                        <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 8, padding: '12px 16px', color: '#dc2626', fontSize: 14 }}>
-                            {errorMsg}
+                        <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 8, padding: '12px 16px' }}>
+                            <p style={{ color: '#dc2626', fontSize: 14, margin: '0 0 10px' }}>{errorMsg}</p>
+                            <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+                                <button
+                                    onClick={() => { setErrorMsg(''); setStatus('idle'); fileInputRef.current?.click(); }}
+                                    style={{ fontSize: 13, fontWeight: 600, color: '#B8962E', background: 'none', border: '1px solid #B8962E', borderRadius: 5, padding: '4px 12px', cursor: 'pointer' }}
+                                >
+                                    Try Again
+                                </button>
+                                <span style={{ fontSize: 12, color: '#888' }}>Supported: .docx, .txt · max 10 MB</span>
+                            </div>
                         </div>
                     )}
 

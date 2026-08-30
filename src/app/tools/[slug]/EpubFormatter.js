@@ -27,8 +27,15 @@ export default function EpubFormatter() {
 
     const updateField = (key, value) => setForm((f) => ({ ...f, [key]: value }));
 
+    const gtag = (...args) => {
+        if (typeof window !== 'undefined' && window.gtag) window.gtag(...args);
+    };
+
     const handleSubmit = async () => {
         if (!manuscript.trim()) return;
+
+        gtag('event', 'tool_start', { tool_name: 'epub_formatter' });
+
         setLoading(true);
         setError('');
         setSuccess('');
@@ -49,8 +56,12 @@ export default function EpubFormatter() {
             });
 
             if (!res.ok) {
-                const data = await res.json();
-                setError(data.error || 'Something went wrong');
+                const data = await res.json().catch(() => ({}));
+                const msg = data.error || (res.status === 413
+                    ? 'Your manuscript is too large for this tool. Try splitting it into smaller parts.'
+                    : 'EPUB generation failed. Please check your manuscript text and try again.');
+                setError(msg);
+                console.error('epub-formatter error:', res.status, data);
                 return;
             }
 
@@ -65,8 +76,9 @@ export default function EpubFormatter() {
             URL.revokeObjectURL(url);
 
             setSuccess(`✓ ${filename} generated! Check your downloads folder.`);
+            gtag('event', 'tool_complete', { tool_name: 'epub_formatter' });
         } catch {
-            setError('Network error. Try again.');
+            setError('Could not reach the server — check your connection and try again.');
         } finally {
             setLoading(false);
         }

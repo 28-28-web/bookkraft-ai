@@ -92,7 +92,10 @@ export async function GET(request) {
             return NextResponse.redirect(`${origin}${next}`);
         }
         console.error('Auth error:', error);
-        return NextResponse.redirect(`${origin}/login?error=${error.message}`);
+        const friendlyMsg = error.code === 'flow_state_not_found'
+            ? 'Your sign-in link has expired or was already used. Please try signing in again.'
+            : error.message;
+        return NextResponse.redirect(`${origin}/login?error=${encodeURIComponent(friendlyMsg)}`);
     }
 
     return NextResponse.redirect(`${origin}/login?error=auth_failed`);

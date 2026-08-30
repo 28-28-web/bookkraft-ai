@@ -35,11 +35,17 @@ export default function FileUploader({ onTextExtracted, accept = '.docx,.txt', l
             .trim();
     };
 
+    const gtag = (...args) => {
+        if (typeof window !== 'undefined' && window.gtag) window.gtag(...args);
+    };
+
     const processFile = useCallback(async (file) => {
         if (!file) return;
         setLoading(true);
         setError('');
         setFileName(file.name);
+
+        gtag('event', 'file_upload_start', { tool_name: 'file_uploader', file_type: file.name.split('.').pop() });
 
         try {
             if (file.name.endsWith('.docx')) {
@@ -58,15 +64,20 @@ export default function FileUploader({ onTextExtracted, accept = '.docx,.txt', l
 
                 const plainText = htmlToPlainText(html);
                 onTextExtracted(plainText, html);
+                gtag('event', 'file_upload_success', { tool_name: 'file_uploader', file_type: 'docx' });
             } else if (file.name.endsWith('.txt') || file.type === 'text/plain') {
                 const text = await file.text();
                 onTextExtracted(text, null);
+                gtag('event', 'file_upload_success', { tool_name: 'file_uploader', file_type: 'txt' });
             } else {
-                setError('Please upload a .docx or .txt file.');
+                const ext = file.name.split('.').pop().toLowerCase();
+                setError(`"${ext}" files aren't supported. Please upload a .docx or .txt file.`);
+                gtag('event', 'file_upload_failed', { tool_name: 'file_uploader', error_type: 'invalid_format' });
             }
         } catch (err) {
-            setError('Could not read file. Try pasting your text instead.');
+            setError("We couldn't read this file — it may be corrupted or in an unsupported format. Try re-saving as .docx or paste your text instead.");
             console.error('File upload error:', err);
+            gtag('event', 'file_upload_failed', { tool_name: 'file_uploader', error_type: 'parse_error' });
         } finally {
             setLoading(false);
         }
@@ -109,7 +120,20 @@ export default function FileUploader({ onTextExtracted, accept = '.docx,.txt', l
                     </div>
                 )}
             </div>
-            {error && <p style={{ color: 'var(--rust)', fontSize: '12px', marginTop: '6px' }}>{error}</p>}
+            {error && (
+                <div style={{ marginTop: '8px', padding: '10px 12px', background: 'rgba(255,107,91,0.06)', border: '1px solid rgba(255,107,91,0.25)', borderRadius: '6px' }}>
+                    <p style={{ color: 'var(--rust)', fontSize: '13px', margin: '0 0 8px' }}>{error}</p>
+                    <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+                        <button
+                            style={{ fontSize: '12px', fontWeight: 600, color: 'var(--gold)', background: 'none', border: '1px solid var(--gold)', borderRadius: '4px', padding: '3px 10px', cursor: 'pointer' }}
+                            onClick={(e) => { e.stopPropagation(); setError(''); setFileName(''); document.getElementById('file-upload-input').click(); }}
+                        >
+                            Try Again
+                        </button>
+                        <span style={{ fontSize: '12px', color: 'var(--mid)' }}>Supported: .docx, .txt</span>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

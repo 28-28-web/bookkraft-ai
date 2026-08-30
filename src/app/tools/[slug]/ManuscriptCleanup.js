@@ -29,8 +29,14 @@ export default function ManuscriptCleanup() {
         }
     }, [currentProject?.id]);
 
+    const gtag = (...args) => {
+        if (typeof window !== 'undefined' && window.gtag) window.gtag(...args);
+    };
+
     const handleSampleSubmit = async () => {
         if (!input.trim()) return;
+
+        gtag('event', 'tool_start', { tool_name: 'manuscript_cleanup', mode: 'sample' });
 
         setLoading(true);
         setError('');
@@ -47,12 +53,14 @@ export default function ManuscriptCleanup() {
             });
             const data = await res.json();
             if (!res.ok) {
-                setError(data.message || data.error || 'Something went wrong');
+                setError(data.message || data.error || 'Something went wrong. Please try again.');
                 return;
             }
             setResult({ ...data.data, isSample: data.isSample, wordsProcessed: data.wordsProcessed });
+            gtag('event', 'tool_complete', { tool_name: 'manuscript_cleanup', mode: 'sample' });
+            gtag('event', 'result_view', { tool_name: 'manuscript_cleanup', mode: 'sample' });
         } catch {
-            setError('Network error. Try again.');
+            setError('Could not reach the server — check your connection and try again.');
         } finally {
             setLoading(false);
         }
@@ -60,6 +68,8 @@ export default function ManuscriptCleanup() {
 
     const handleFullResult = async (merged, meta) => {
         setResult({ ...merged, isSample: false, wordsProcessed: meta.wordCount, partial: meta.status === 'partial', creditsCharged: meta.creditsCharged });
+        gtag('event', 'tool_complete', { tool_name: 'manuscript_cleanup', mode: 'full', words_processed: meta.wordCount });
+        gtag('event', 'result_view', { tool_name: 'manuscript_cleanup', mode: 'full' });
         await refreshProfile();
     };
 

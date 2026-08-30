@@ -84,7 +84,18 @@ export async function POST(request) {
         const access = await checkToolAccess('manuscript-mode', request);
         if (!access.allowed) return access.response;
 
-        const formData = await request.formData();
+        let formData;
+        try {
+            formData = await request.formData();
+        } catch (parseErr) {
+            console.error('Manuscript mode — body parse failed:', parseErr.message);
+            // Nginx/proxy body-size limit or truncated multipart stream
+            return NextResponse.json(
+                { error: 'parse_failed', message: 'We could not read the uploaded file — it may be too large or the upload was interrupted. Try a .docx under 8 MB.' },
+                { status: 413 }
+            );
+        }
+
         const file = formData.get('file');
         const title = formData.get('title') || 'Untitled';
         const author = formData.get('author') || 'Unknown';
@@ -316,6 +327,6 @@ ${ncxNavPoints}
 
     } catch (err) {
         console.error('Manuscript mode error:', err);
-        return NextResponse.json({ error: 'manuscript_mode_error', message: err.message }, { status: 500 });
+        return NextResponse.json({ error: 'manuscript_mode_error', message: 'EPUB generation failed. Please try again.' }, { status: 500 });
     }
 }

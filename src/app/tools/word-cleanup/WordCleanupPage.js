@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import JSZip from 'jszip';
 import ToolResultsCTA from '@/components/ToolResultsCTA';
 
@@ -153,6 +153,10 @@ function StatusPill({ status }) {
   );
 }
 
+const gtag = (...args) => {
+  if (typeof window !== 'undefined' && window.gtag) window.gtag(...args);
+};
+
 export default function WordCleanupPage({ children, faqItems = [] }) {
   const [fileName, setFileName] = useState('');
   const [result, setResult] = useState(null);
@@ -162,10 +166,19 @@ export default function WordCleanupPage({ children, faqItems = [] }) {
   const [openFaq, setOpenFaq] = useState(null);
   const inputRef = useRef(null);
 
+  useEffect(() => {
+    if (result) gtag('event', 'result_view', { tool_name: 'word_cleanup', overall_status: result.overallStatus });
+  }, [result]);
+
   const handleFile = async (file) => {
     if (!file) return;
+
+    gtag('event', 'file_upload_start', { tool_name: 'word_cleanup' });
+
     if (!file.name.toLowerCase().endsWith('.docx')) {
-      setError('Please upload a .docx file. Older .doc files are not supported.');
+      const ext = file.name.split('.').pop().toLowerCase();
+      setError(`"${ext}" files aren't supported here. Please upload a .docx file — re-save from Word or Google Docs if needed.`);
+      gtag('event', 'file_upload_failed', { tool_name: 'word_cleanup', error_type: 'invalid_format' });
       return;
     }
 
@@ -177,14 +190,15 @@ export default function WordCleanupPage({ children, faqItems = [] }) {
     try {
       const scan = await scanDocx(file);
       setResult(scan);
-      if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', 'word_cleanup_scan', {
-          event_category: 'tools',
-          event_label: scan.overallStatus,
-        });
-      }
+      gtag('event', 'file_upload_success', { tool_name: 'word_cleanup' });
+      gtag('event', 'tool_complete', { tool_name: 'word_cleanup', overall_status: scan.overallStatus });
     } catch (err) {
-      setError(err.message || 'Something went wrong reading this file.');
+      const msg = err.message?.includes('word/document.xml')
+        ? "We couldn't read this file. Make sure it's a valid .docx — older .doc files must be re-saved first."
+        : "We couldn't parse this file — it may be corrupted. Try re-saving as .docx and uploading again.";
+      setError(msg);
+      console.error('word-cleanup scan error:', err);
+      gtag('event', 'file_upload_failed', { tool_name: 'word_cleanup', error_type: 'parse_error' });
     } finally {
       setLoading(false);
     }
@@ -235,9 +249,18 @@ export default function WordCleanupPage({ children, faqItems = [] }) {
         )}
 
         {error && (
-          <p style={{ marginTop: 20, padding: '12px 16px', background: 'rgba(255,107,91,0.08)', border: '1px solid rgba(255,107,91,0.3)', borderRadius: 8, color: '#FF6B5B', fontSize: 14 }}>
-            {error}
-          </p>
+          <div style={{ marginTop: 20, padding: '14px 16px', background: 'rgba(255,107,91,0.08)', border: '1px solid rgba(255,107,91,0.3)', borderRadius: 8 }}>
+            <p style={{ color: '#FF6B5B', fontSize: 14, margin: '0 0 10px' }}>{error}</p>
+            <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+              <button
+                style={{ fontSize: 13, fontWeight: 600, color: '#C9933A', background: 'none', border: '1px solid #C9933A', borderRadius: 5, padding: '4px 12px', cursor: 'pointer' }}
+                onClick={() => { setError(''); inputRef.current?.click(); }}
+              >
+                Try Again
+              </button>
+              <a href="#faq" style={{ fontSize: 13, color: '#888', textDecoration: 'underline' }}>See supported file types</a>
+            </div>
+          </div>
         )}
 
         {result && (
@@ -284,7 +307,7 @@ export default function WordCleanupPage({ children, faqItems = [] }) {
       {children}
 
       {faqItems.length > 0 && (
-        <div style={{ maxWidth: 800, margin: '2rem auto 0', padding: '0 1rem' }}>
+        <div id="faq" style={{ maxWidth: 800, margin: '2rem auto 0', padding: '0 1rem' }}>
           <h2 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1.25rem', color: 'var(--ink)' }}>
             Common questions
           </h2>
