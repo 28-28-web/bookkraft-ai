@@ -1,9 +1,7 @@
-import { NextResponse } from 'next/server';
+import { updateSession } from '@/lib/supabase/middleware';
 
-// Protected routes — redirect to login if not authenticated
-// Full Supabase session check runs on the live server (env vars required)
 export async function proxy(request) {
-    return NextResponse.next();
+    return await updateSession(request);
 }
 
 export const config = {
