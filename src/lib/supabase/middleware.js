@@ -30,9 +30,13 @@ export async function updateSession(request) {
         }
     );
 
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
+    let user = null;
+    try {
+        const { data } = await supabase.auth.getUser();
+        user = data?.user ?? null;
+    } catch (err) {
+        console.error('[updateSession] getUser threw:', err?.message ?? err);
+    }
 
     // Protected routes — redirect to login if not authenticated
     const protectedPaths = ['/dashboard', '/tools', '/history', '/account', '/admin', '/onboarding'];
