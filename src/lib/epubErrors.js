@@ -359,6 +359,134 @@ export const EPUB_ERRORS = [
       { type: 'checklist', slug: 'apple-books-submission-checklist', label: 'Apple Books submission checklist' },
     ],
   },
+  {
+    slug: 'missing-container-xml',
+    metaTitle: 'EPUB Error: Missing container.xml — How to Fix It',
+    metaDescription: 'container.xml missing from META-INF? This is the most fundamental EPUB structural error — every reading system entry point depends on it. Here\'s how to find, fix, and re-validate.',
+    title: 'EPUB Error: Missing or Invalid container.xml',
+    errorMessage: 'PKG-006: Required META-INF/container.xml resource is missing. Or: XML parse error in META-INF/container.xml — element not terminated correctly',
+    cause: '<p>Every EPUB file is a ZIP archive with a mandatory folder structure. The most critical component is <code>META-INF/container.xml</code> — a small XML file that tells reading systems and validators where to find the OPF package document that defines the rest of the book. Without it, there is no valid entry point: no reader, validator, or distribution platform can determine how to open the EPUB. This error fires when container.xml is absent from the archive entirely, placed in the wrong folder (outside <code>META-INF/</code>), or contains malformed XML that prevents parsing. Common causes are manual ZIP creation without preserving the required folder structure, extraction and re-archiving with a general-purpose ZIP tool that drops the META-INF directory, and corrupted exports from older conversion software.</p>',
+    fixSteps: '<ol><li>Unzip your EPUB and confirm <code>META-INF/container.xml</code> exists at the root of the archive — the META-INF folder must sit at the same level as OEBPS or OPS, not inside them.</li><li>If container.xml is missing, create it as a plain XML file inside a new <code>META-INF/</code> folder. It must contain a <code>&lt;container&gt;</code> element with a <code>&lt;rootfile&gt;</code> child declaring the full path to your OPF file (e.g., <code>full-path="OEBPS/content.opf"</code>) and <code>media-type="application/oebps-package+xml"</code>.</li><li>If the file exists but EPUBCheck reports an XML parse error, open it in a text editor and fix the syntax — check for missing closing tags, unquoted attribute values, or an incorrect XML declaration at the top of the file.</li><li>When re-packing the EPUB into a ZIP, use an EPUB-aware tool such as Sigil or Calibre\'s Export function rather than a generic ZIP utility — most ZIP tools do not preserve the required file order or folder structure.</li><li>Re-validate with EPUBCheck to confirm container.xml is recognized and that the OPF rootfile path it declares resolves to an actual file in the package.</li></ol>',
+    faq: [
+      {
+        q: 'Why is container.xml the most important file in an EPUB?',
+        a: 'It\'s the entry point for the entire format. Reading systems open the EPUB ZIP, locate META-INF/container.xml first, and read it to find the OPF package document path. Every other file in the EPUB is discovered from the OPF — without container.xml there is no valid starting point and the file cannot be opened or validated at all.',
+      },
+      {
+        q: 'My EPUB opens in Calibre but EPUBCheck still reports a missing container.xml. Why?',
+        a: 'Calibre\'s viewer is permissive — it scans the ZIP archive directly for likely OPF files when container.xml is missing or malformed. EPUBCheck and distribution platforms (KDP, Apple Books) follow the EPUB specification strictly: container.xml must exist, be in the correct location, and be valid XML before any other file is examined.',
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'epub-error', slug: 'invalid-mimetype', label: 'Invalid or missing EPUB mimetype file' },
+      { type: 'epub-error', slug: 'invalid-opf-structure', label: 'Invalid OPF structure errors' },
+      { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
+      { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+    ],
+  },
+  {
+    slug: 'invalid-mimetype',
+    metaTitle: 'EPUB Error: Invalid or Missing mimetype File — How to Fix It',
+    metaDescription: 'EPUBCheck reporting a mimetype error? The EPUB mimetype file must be the first entry in the ZIP archive, stored uncompressed, and contain exactly "application/epub+zip". Here\'s how to fix it.',
+    title: 'EPUB Error: Invalid or Missing mimetype File',
+    errorMessage: 'PKG-006: the mimetype file must be the first file in the OCF ZIP Container. Or: PKG-007: mimetype entry has wrong media type or content',
+    cause: '<p>Every EPUB ZIP archive must begin with a plain text file named <code>mimetype</code> containing exactly the string <code>application/epub+zip</code> — no leading or trailing whitespace, no byte-order mark, and no newline at the end. This file must also be stored without compression (using ZIP\'s "stored" method rather than "deflate") as the very first entry in the archive. Reading systems use it as a magic identifier to confirm the file is an EPUB before parsing any XML. Errors occur when the mimetype file is missing, placed inside a subfolder instead of at the archive root, contains extra characters or a trailing newline, is compressed rather than stored, or is not the first entry in the ZIP because another file was added before it during re-archiving. The most common cause is re-saving an EPUB through a general-purpose ZIP tool, which compresses all files and does not control entry order.</p>',
+    fixSteps: '<ol><li>Unzip your EPUB and confirm a file named exactly <code>mimetype</code> (no extension) exists at the root — not inside any subfolder. Its content must be exactly the 20-character string <code>application/epub+zip</code> with no spaces, newline, or trailing characters.</li><li>If the file is missing or contains incorrect content, create it using a plain text editor, type <code>application/epub+zip</code>, and save as UTF-8 without BOM. Verify the file size is exactly 20 bytes.</li><li>When repacking the EPUB ZIP, the mimetype file must be added first using the "stored" (no compression) method. From the command line: <code>zip -X -0 yourbook.epub mimetype</code> first, then add all other files with <code>zip -rX yourbook.epub META-INF OEBPS</code>.</li><li>Do not use macOS Finder Compress, Windows Explorer Send to Compressed Folder, or standard ZIP utilities to create or repack an EPUB — they do not control compression level per file or file order. Use Sigil or Calibre\'s Export function instead.</li><li>Re-validate with EPUBCheck to confirm the mimetype is the first, uncompressed entry in the archive.</li></ol>',
+    faq: [
+      {
+        q: 'Why must the mimetype file be first and uncompressed?',
+        a: 'The EPUB OCF (Open Container Format) specification requires it so reading systems can identify the file type by reading the first few bytes of the ZIP archive without fully decompressing it — the same principle as image magic bytes. If it\'s compressed or in the wrong position, a reader can\'t confirm the file is an EPUB before loading it.',
+      },
+      {
+        q: 'Does this error cause my EPUB to be rejected by KDP or Apple Books?',
+        a: 'Most platforms validate the mimetype as a pre-check before any content inspection. KDP may accept the upload but flag it with a warning; Apple Books and IngramSpark typically reject the file outright when the OCF container validation fails.',
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'epub-error', slug: 'missing-container-xml', label: 'Missing or invalid container.xml' },
+      { type: 'platform-rejection', slug: 'ingram-spark', label: 'Why IngramSpark rejects books' },
+      { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+    ],
+  },
+  {
+    slug: 'missing-language-declaration',
+    metaTitle: 'EPUB Error: Missing Language Declaration (dc:language) — How to Fix It',
+    metaDescription: 'EPUBCheck OPF-012: dc:language missing from package metadata? All EPUB 3 files require a language declaration. Here\'s how to add it and which BCP 47 language codes to use.',
+    title: 'EPUB Error: Missing Language Declaration (dc:language)',
+    errorMessage: 'OPF-012: the dc:language element is missing from the package metadata',
+    cause: '<p>The EPUB 3 specification requires at least one <code>&lt;dc:language&gt;</code> element in the OPF metadata block to declare the primary language of the publication. Without it, EPUBCheck reports OPF-012, and distribution platforms cannot determine the language for accessibility configuration, screen reader settings, text-to-speech, or search indexing. This element is frequently absent when EPUB files are generated from templates that do not automatically populate all metadata fields, when authors convert from plain text or Markdown without setting document language properties first, or when conversion tools treat this field as optional and omit it. Apple Books and IngramSpark validate this field strictly; KDP is more lenient but still records a metadata warning that can affect discoverability.</p>',
+    fixSteps: '<ol><li>Open content.opf and locate the <code>&lt;metadata&gt;</code> block — search for an existing <code>&lt;dc:language&gt;</code> element. If it is absent, add one.</li><li>Use a BCP 47 language tag as the element value: <code>&lt;dc:language&gt;en&lt;/dc:language&gt;</code> for English. Common codes: <code>en</code> (English), <code>en-US</code> (American English), <code>en-GB</code> (British English), <code>fr</code> (French), <code>de</code> (German), <code>es</code> (Spanish), <code>pt</code> (Portuguese), <code>ja</code> (Japanese).</li><li>Place the element inside the <code>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/"&gt;</code> block alongside your existing <code>dc:title</code> and <code>dc:creator</code> elements.</li><li>If publishing a bilingual or multilingual title, add one <code>&lt;dc:language&gt;</code> element per language — the first one is treated as the primary language by most platforms.</li><li>Re-validate with EPUBCheck to confirm OPF-012 is cleared, then re-upload to any platform that previously flagged the missing language.</li></ol>',
+    faq: [
+      {
+        q: 'What format is the language code — can I write "English" instead of "en"?',
+        a: 'No — the value must be a BCP 47 language tag, not the spelled-out language name. "en" is correct for English; "English" would be an invalid code that EPUBCheck rejects. BCP 47 uses two-letter ISO 639-1 codes, optionally followed by a region subtag: "en-US", "fr-CA", "zh-TW".',
+      },
+      {
+        q: 'Do I need this even if my book is entirely in one language?',
+        a: 'Yes. The dc:language declaration is required by the EPUB 3 specification regardless of whether the content is monolingual. Even a simple English-only book needs <dc:language>en</dc:language> in its OPF metadata to pass EPUBCheck validation.',
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'epub-error', slug: 'missing-dc-identifier', label: 'Missing dc:identifier (unique identifier)' },
+      { type: 'epub-error', slug: 'title-tag-empty-kobo', label: 'Empty title tag (Kobo metadata error)' },
+      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-048)' },
+      { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+    ],
+  },
+  {
+    slug: 'broken-internal-link',
+    metaTitle: 'EPUB Error: Broken Internal Link (RSC-007) — How to Fix It',
+    metaDescription: 'EPUBCheck RSC-007: internal href points to a missing file or anchor? Broken footnote links and chapter cross-references cause this. Here\'s how to trace and fix every instance.',
+    title: 'EPUB Error: Broken Internal Link (RSC-007)',
+    errorMessage: 'RSC-007: The referenced resource "OEBPS/chapter01.xhtml#fn-23" could not be found in the EPUB',
+    cause: '<p>RSC-007 fires when an internal hyperlink inside your EPUB content points to a target that does not exist — either a file that was removed from the package, or an anchor ID that was renamed, deleted, or never created in the target document. The most common cases are footnote links (<code>&lt;a href="#fn-23"&gt;</code>) where the corresponding <code>&lt;span id="fn-23"&gt;</code> in the endnotes file was removed during editing, chapter cross-references that became stale after chapters were renumbered or reorganized, and navigation document links that do not match the heading IDs in the chapter files. Because EPUB is XHTML-based, every internal link is validated as a real resolvable reference — unlike HTML in a browser where a broken anchor simply scrolls to the top of the page, EPUB validators treat unresolved internal links as structural errors.</p>',
+    fixSteps: '<ol><li>Run EPUBCheck and collect all RSC-007 errors — each one includes the file containing the broken link and the exact <code>href</code> value that failed to resolve.</li><li>For each broken link, determine whether the href targets a fragment identifier only (e.g., <code>#fn-23</code>) or a separate file plus fragment (e.g., <code>endnotes.xhtml#fn-23</code>). If it targets a file, confirm that file exists in the package and is declared in the OPF manifest.</li><li>Open the target file and search for an element with an <code>id</code> attribute matching the fragment (e.g., <code>id="fn-23"</code>). If absent, either add the missing <code>id</code> to the correct element or update the broken link\'s href to match an existing id.</li><li>For footnote and endnote systems, ensure each reference anchor in the chapter body has a matching return link in the notes file, and that both sides use identical id values without typos or case differences.</li><li>After fixing all instances, re-validate with EPUBCheck and test footnote navigation in Kindle Previewer to confirm links resolve correctly end to end.</li></ol>',
+    faq: [
+      {
+        q: 'How is this RSC-007 error different from the OPF manifest reference error?',
+        a: 'The OPF manifest reference error (also coded RSC-007 in some EPUBCheck versions) means the OPF file declares a resource that is absent from the package. This variant means a hyperlink inside your content HTML points to an anchor or file that does not resolve — it is a content-level link problem, not a package-structure problem. Both share the error code but the source and fix are different.',
+      },
+      {
+        q: 'Does EPUBCheck flag broken links to external websites as well?',
+        a: 'No. EPUBCheck validates only internal references: links to other files within the EPUB package and anchor fragments within those files. External URLs pointing to websites are outside the scope of structural EPUB validation and are not checked.',
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'epub-error', slug: 'duplicate-id-epub', label: 'Duplicate ID attribute in EPUB' },
+      { type: 'epub-error', slug: 'toc-ncx-navpoint-mismatch', label: 'NCX navPoint mismatch' },
+      { type: 'epub-error', slug: 'invalid-opf-manifest-reference', label: 'OPF manifest references a missing file' },
+    ],
+  },
+  {
+    slug: 'missing-nav-document',
+    metaTitle: 'EPUB Error: Missing Navigation Document (nav.xhtml) — How to Fix It',
+    metaDescription: 'EPUBCheck RSC-019: EPUB 3 Navigation Document missing or not declared in the manifest? nav.xhtml is required for all EPUB 3 publications. Here\'s how to create or restore it.',
+    title: 'EPUB Error: Missing EPUB 3 Navigation Document (nav.xhtml)',
+    errorMessage: 'RSC-019: an EPUB 3 Publication must include a Navigation Document. Or: manifest item with "nav" property not found in the package',
+    cause: '<p>EPUB 3 requires a Navigation Document — an XHTML file that provides machine-readable structure for the book\'s table of contents, landmarks, and page list. This file must be declared in the OPF manifest with <code>properties="nav"</code>. Without it, EPUBCheck issues RSC-019 and the publication fails EPUB 3 validation. The navigation document is distinct from and cannot be substituted by the EPUB 2 NCX file (toc.ncx): the NCX is optional in EPUB 3, kept only for backwards compatibility with older reading systems, but nav.xhtml is mandatory. The most common cause is export from tools that generate EPUB 2-style packages while declaring <code>version="3.0"</code> in the OPF — they produce a toc.ncx without adding a nav.xhtml, which satisfies EPUB 2 requirements but fails EPUB 3 validation on every strict platform.</p>',
+    fixSteps: '<ol><li>Open content.opf and check the <code>&lt;package&gt;</code> element\'s <code>version</code> attribute — if it says <code>version="3.0"</code>, your EPUB is an EPUB 3 publication and requires a navigation document.</li><li>Search the manifest for an item with <code>properties="nav"</code> — this identifies the navigation document. If absent, either the nav file is missing from the package or it exists but lacks the required <code>properties</code> attribute.</li><li>In Calibre: open your EPUB in Edit Book, go to Tools → Table of Contents → Insert Inline Table of Contents. Calibre creates an EPUB 3-compatible navigation document and registers it in the manifest automatically.</li><li>In Sigil: open the EPUB and go to Tools → Generate Table of Contents — Sigil handles nav.xhtml creation for EPUB 3 packages and adds the correct manifest entry.</li><li>Re-validate with EPUBCheck after adding or restoring the navigation document, and confirm RSC-019 is cleared. Open the EPUB in Kindle Previewer or Apple Books to verify chapter navigation works from the TOC.</li></ol>',
+    faq: [
+      {
+        q: 'My EPUB has a toc.ncx — why does it still fail with RSC-019?',
+        a: 'toc.ncx is the EPUB 2 navigation file and is optional in EPUB 3. RSC-019 is specifically about the EPUB 3 Navigation Document (nav.xhtml), which is a different file that serves the same purpose under the newer specification. An EPUB 3 publication must have nav.xhtml even if it also includes a toc.ncx for backwards compatibility — one does not substitute for the other.',
+      },
+      {
+        q: 'Should EPUB 3 files include both nav.xhtml and toc.ncx?',
+        a: 'nav.xhtml is required for EPUB 3. toc.ncx is optional but recommended for wide compatibility — older Kindle devices, some Kobo firmware versions, and certain library distribution systems still expect an NCX for chapter navigation. Including both nav.xhtml and toc.ncx is the safest approach for broad distribution.',
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table (EPUB 2)' },
+      { type: 'epub-error', slug: 'toc-ncx-navpoint-mismatch', label: 'NCX navPoint mismatch' },
+      { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+      { type: 'platform-rejection', slug: 'overdrive', label: 'Why OverDrive rejects ebooks (library distribution)' },
+    ],
+  },
 ];
 
 export function getErrorBySlug(slug) {
