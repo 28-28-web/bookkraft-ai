@@ -20,7 +20,6 @@ async function fireGA4AuthEvent({ eventName, method, userId, gaClientId }) {
         non_personalized_ads: true,
         events: [{ name: eventName, params: { method } }],
     };
-    console.log('[GA4 MP] firing', eventName, { method, client_id: gaClientId, user_id: userId });
     try {
         const res = await fetch(
             `https://www.google-analytics.com/mp/collect?measurement_id=${encodeURIComponent(measurementId)}&api_secret=${encodeURIComponent(apiSecret)}`,
@@ -30,7 +29,7 @@ async function fireGA4AuthEvent({ eventName, method, userId, gaClientId }) {
                 body: JSON.stringify(payload),
             }
         );
-        console.log('[GA4 MP] response status', res.status);
+        if (!res.ok) console.warn('[GA4 MP] unexpected status', res.status);
     } catch (err) {
         console.warn('[GA4 MP] fetch failed:', err.message);
     }
