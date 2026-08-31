@@ -109,6 +109,13 @@ export async function POST(request) {
             return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
         }
 
+        if (file.size > 10 * 1024 * 1024) {
+            return NextResponse.json(
+                { error: 'file_too_large', message: 'File too large (max 10 MB).' },
+                { status: 413 }
+            );
+        }
+
         const fileBuffer = Buffer.from(await file.arrayBuffer());
         let rawContent = '';
         let isDocx = false;

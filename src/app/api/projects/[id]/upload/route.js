@@ -32,7 +32,7 @@ export async function POST(request, { params }) {
 
         // Check file size (max 10MB)
         if (file.size > 10 * 1024 * 1024) {
-            return NextResponse.json({ error: 'File too large (max 10MB)' }, { status: 400 });
+            return NextResponse.json({ error: 'File too large (max 10MB)' }, { status: 413 });
         }
 
         let html = '';
