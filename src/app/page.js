@@ -73,7 +73,7 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <HeroSection />
-      <LandingPage faqs={HOME_FAQS} pricing={PRICING} />
+      <LandingPage faqs={HOME_FAQS} />
     </>
   );
 }

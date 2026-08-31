@@ -102,7 +102,7 @@ function IntentSection() {
 
 // ─── ROOT ────────────────────────────────────────────────────────────
 
-export default function LandingPage({ faqs, pricing }) {
+export default function LandingPage({ faqs }) {
   return (
     <>
       <style>{`
@@ -130,7 +130,7 @@ export default function LandingPage({ faqs, pricing }) {
       <TickerSection />
       <ManuscriptBanner />
       <TestimonialsSection />
-      <PricingSection pricing={pricing} />
+      <PricingSection />
       <PlatformsStripLine />
       <FAQSection faqs={faqs} />
       <Footer />
@@ -500,82 +500,20 @@ function PlatformsStripLine() {
   );
 }
 
-// ─── 9. PRICING ──────────────────────────────────────────────────────
+// ─── 9. PRICING CTA ──────────────────────────────────────────────────
 
-function PricingSection({ pricing }) {
-  const plans = [
-    {
-      key:'free', name:'Free', price:'$0', period:'forever',
-      desc:'4 tools, no signup, no limits.',
-      features:['EPUB Validator','Metadata Builder','Cover Checker','Word Cleanup Checker','No account needed','Unlimited use'],
-      cta:'Start Free', href:'/tools/epub-validator', featured:false,
-    },
-    {
-      key:'starter',
-      name: pricing.starter.name,
-      price: pricing.starter.label, period:'one-time',
-      desc: pricing.starter.desc,
-      features: pricing.starter.features,
-      cta:'Get Starter', href:'/pricing', featured:false,
-    },
-    {
-      key:'pro',
-      name: pricing.pro.name,
-      price: pricing.pro.label, period:'one-time',
-      desc: pricing.pro.desc,
-      features: pricing.pro.features,
-      cta:'Get Pro', href:'/pricing', featured:true,
-    },
-    {
-      key:'lifetime',
-      name: pricing.lifetime.name,
-      price: pricing.lifetime.label, period:'one-time',
-      desc: pricing.lifetime.desc,
-      features: pricing.lifetime.features,
-      cta:'Get Lifetime', href:'/pricing', featured:false,
-    },
-  ];
-
+function PricingSection() {
   return (
-    <section className="section-white" id="pricing" aria-labelledby="pricingHeading">
-      <div className="content-wrap">
-        <AnimatedSection>
-          <div className="animate-on-scroll" style={{ textAlign:'center', marginBottom:48 }}>
-            <p className="section-eyebrow-v2">Simple, honest pricing</p>
-            <h2 className="section-title-v2" id="pricingHeading">No subscriptions. Ever.</h2>
-            <p className="section-sub-v2">Pay once, own forever. Credits never expire. No monthly fees.</p>
-          </div>
-        </AnimatedSection>
-
-        <div className="pricing-grid-v2" role="list">
-          {plans.map((plan, i) => (
-            <AnimatedSection key={plan.key}>
-              <div
-                className={`pricing-card-v2 animate-on-scroll stagger-${i+1}${plan.featured?' featured':''}`}
-                role="listitem" style={{ position:'relative' }}
-              >
-                {plan.featured && <span className="pricing-best-badge">Best Value</span>}
-                <h3>{plan.name}</h3>
-                <div className="pricing-price">{plan.price}<span> / {plan.period}</span></div>
-                {plan.retail && <p className="pricing-retail">{plan.retail}</p>}
-                <p className="pricing-desc">{plan.desc}</p>
-                <ul className="pricing-features-v2">
-                  {plan.features.slice(0,6).map((f,j)=><li key={j}>{f}</li>)}
-                </ul>
-                <Link href={plan.href} className="btn btn-white btn-full">
-                  {plan.cta}
-                </Link>
-                <p className="pricing-tax">Tax included where applicable</p>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
-
-        <div className="pricing-trust">
-          <div className="pricing-trust-item"><span className="pricing-trust-icon" aria-hidden="true">🔒</span>Secure Checkout via Paddle</div>
-          <div className="pricing-trust-item"><span className="pricing-trust-icon" aria-hidden="true">⭐</span>5/5 on CodeTrendy · Real author reviews</div>
-          <div className="pricing-trust-item"><span className="pricing-trust-icon" aria-hidden="true">♾️</span>Credits never expire</div>
-        </div>
+    <section className="section-white" id="pricing" style={{ padding: '64px 0' }}>
+      <div className="content-wrap" style={{ textAlign: 'center' }}>
+        <p className="section-eyebrow-v2">Simple, honest pricing</p>
+        <h2 className="section-title-v2" style={{ marginBottom: 12 }}>Pay once, own forever.</h2>
+        <p className="section-sub-v2" style={{ marginBottom: 32 }}>
+          No subscriptions. No monthly fees. Credits never expire.
+        </p>
+        <Link href="/pricing" className="btn btn-gold" style={{ fontSize: 16, padding: '12px 32px', textDecoration: 'none' }}>
+          See pricing
+        </Link>
       </div>
     </section>
   );
