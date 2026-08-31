@@ -13,7 +13,7 @@ const BASE = 'https://bookkraftai.com';
 // Bump CONTENT_DATE whenever epubErrors.js, platformRejections.js,
 // vsAlternatives.js, checklists.js, or mistakes.js change meaningfully — a stale date
 // here undermines the freshness signal Google uses from lastModified.
-const CONTENT_DATE = new Date('2026-08-24');
+const CONTENT_DATE = new Date('2026-09-01');
 
 function getLocalPosts() {
   const dir = path.join(process.cwd(), 'src', 'content', 'blog');
