@@ -50,11 +50,6 @@ const nextConfig = {
   async headers() {
     return [
       {
-        // OAuth callback: single-use codes — must never be cached anywhere.
-        source: '/auth/callback',
-        headers: [{ key: 'Cache-Control', value: 'no-store' }],
-      },
-      {
         source: '/(.*)',
         headers: [
           {
@@ -105,6 +100,12 @@ const nextConfig = {
         source: '/login',
         has: [{ type: 'query', key: 'redirect' }],
         headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+      },
+      {
+        // Must come AFTER the /(.*) catch-all so it wins the Cache-Control key.
+        // OAuth codes are single-use — no caching at any layer.
+        source: '/auth/callback',
+        headers: [{ key: 'Cache-Control', value: 'no-store' }],
       },
     ];
   },
