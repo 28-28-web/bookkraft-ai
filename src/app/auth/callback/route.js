@@ -67,13 +67,14 @@ export async function GET(request) {
                             return cookieStore.getAll();
                         },
                         setAll(cookiesToSet) {
-                            cookiesToSet.forEach(({ name, value, options }) =>
+                            cookiesToSet.forEach(({ name, value, options }) => {
+                                console.log('[auth/callback] setAll:', name, JSON.stringify(options));
                                 redirectResponse.cookies.set(name, value, {
                                     ...options,
                                     secure: true,
                                     httpOnly: true,
-                                })
-                            );
+                                });
+                            });
                         },
                     },
                 }
@@ -120,6 +121,7 @@ export async function GET(request) {
                     console.log('[auth/callback] could not measure Set-Cookie:', measureErr?.message);
                 }
 
+                console.log('[auth/callback] returning response status:', redirectResponse.status, 'location:', redirectResponse.headers.get('location'));
                 return redirectResponse;
             }
 
