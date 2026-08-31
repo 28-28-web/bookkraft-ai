@@ -85,7 +85,9 @@ export async function GET(request) {
                                 redirectResponse.cookies.set(name, value, {
                                     ...options,
                                     secure: true,
-                                    httpOnly: true,
+                                    // httpOnly intentionally omitted — Supabase's createBrowserClient
+                                    // reads session via document.cookie; HttpOnly makes it invisible
+                                    // to client JS and breaks onAuthStateChange session restoration.
                                 })
                             );
                         },
