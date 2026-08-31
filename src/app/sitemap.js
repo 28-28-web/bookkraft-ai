@@ -322,6 +322,12 @@ export default async function sitemap() {
       priority: 0.8,
     },
     {
+      url: `${BASE}/kdp-category-keywords`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${BASE}/kdp-keyword-guide`,
       lastModified: CONTENT_DATE,
       changeFrequency: 'monthly',
