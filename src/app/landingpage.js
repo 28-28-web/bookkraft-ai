@@ -25,6 +25,101 @@ const PLATFORMS = [
 ];
 
 
+// ─── HOW IT WORKS ────────────────────────────────────────────────────
+
+const HOW_STEPS = [
+  {
+    n: '01',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+        <path d="M11 4v12M7 8l4-4 4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M4 18h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+      </svg>
+    ),
+    label: 'Upload your book',
+    detail: 'Drop your EPUB, DOCX, or manuscript file',
+  },
+  {
+    n: '02',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+        <circle cx="10" cy="10" r="6" stroke="currentColor" strokeWidth="1.6"/>
+        <path d="M14.5 14.5L18 18" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+      </svg>
+    ),
+    label: 'Find problems',
+    detail: 'Scan for structure, metadata, and platform issues',
+  },
+  {
+    n: '03',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+        <path d="M14.5 4a3 3 0 01.7 4.9L8 16l-4 1 1-4 7.2-7.2A3 3 0 0114.5 4z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    label: 'Fix them',
+    detail: 'Use the matching tool — most fixes take under a minute',
+  },
+  {
+    n: '04',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+        <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.6"/>
+        <path d="M7.5 11l2.5 2.5L14.5 8.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    label: 'Publish with confidence',
+    detail: 'Upload knowing your file will pass platform review',
+  },
+];
+
+function HowItWorksSection() {
+  return (
+    <section style={{
+      background: 'var(--ink)',
+      borderTop: '1px solid rgba(255,255,255,0.09)',
+      borderBottom: '1px solid rgba(255,255,255,0.09)',
+      padding: '44px 0',
+    }}>
+      <div style={{ maxWidth: 1040, margin: '0 auto', padding: '0 28px' }}>
+        <div className="bk-how-grid" style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: 0,
+        }}>
+          {HOW_STEPS.map((step, i) => (
+            <div key={step.n} style={{
+              padding: '0 28px',
+              borderRight: i < HOW_STEPS.length - 1 ? '1px solid rgba(255,255,255,0.09)' : 'none',
+            }}>
+              <div style={{ color: 'var(--gold)', marginBottom: 12 }}>
+                {step.icon}
+              </div>
+              <div style={{
+                fontFamily: 'var(--font-ibm-mono), monospace',
+                fontSize: 11, letterSpacing: '0.12em',
+                color: 'rgba(255,255,255,0.35)', marginBottom: 7,
+              }}>
+                {step.n}
+              </div>
+              <div style={{
+                fontFamily: 'var(--font-fraunces), Fraunces, serif',
+                fontSize: 17, color: '#ffffff',
+                fontWeight: 500, marginBottom: 6, lineHeight: 1.3,
+              }}>
+                {step.label}
+              </div>
+              <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', lineHeight: 1.55 }}>
+                {step.detail}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── INTENT CARDS ────────────────────────────────────────────────────
 
 const INTENTS = [
@@ -32,25 +127,25 @@ const INTENTS = [
     label: 'I have a Word manuscript',
     desc: 'Convert .docx or .txt to EPUB, or clean formatting errors first',
     href: '/tools/manuscript-mode',
-    cta: 'Convert to EPUB →',
+    cta: 'Format My Book →',
   },
   {
     label: 'I have an EPUB',
     desc: 'Validate structure and check KDP, Apple Books, Kobo compliance',
     href: '/tools/epub-validator',
-    cta: 'Validate EPUB →',
+    cta: 'Validate My EPUB →',
   },
   {
-    label: 'My book has formatting problems',
+    label: 'My manuscript has formatting problems',
     desc: 'Fix smart quotes, encoding artifacts, and style inconsistencies',
     href: '/tools/manuscript-cleanup',
-    cta: 'Fix formatting →',
+    cta: 'Clean My Manuscript →',
   },
   {
     label: 'I want to publish on KDP',
     desc: 'Get a readiness score, see exactly what to fix before you upload',
     href: '/tools/publishing-score',
-    cta: 'Run KDP check →',
+    cta: 'Prepare for KDP →',
   },
 ];
 
@@ -121,9 +216,21 @@ export default function LandingPage({ faqs }) {
           }
           .bk-process-arrow { display: none !important; }
           .bk-card-top { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; }
+          .bk-how-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 32px 0 !important;
+          }
+          .bk-how-grid > div { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.09); padding-bottom: 28px !important; }
+          .bk-how-grid > div:nth-child(3), .bk-how-grid > div:nth-child(4) { border-bottom: none !important; }
+        }
+        @media (max-width: 460px) {
+          .bk-how-grid { grid-template-columns: 1fr !important; }
+          .bk-how-grid > div:nth-child(3) { border-bottom: 1px solid rgba(255,255,255,0.09) !important; }
+          .bk-how-grid > div:nth-child(4) { border-bottom: none !important; }
         }
       `}</style>
 
+      <HowItWorksSection />
       <IntentSection />
       <ProcessDiagramSection />
       <ScorecardSection />

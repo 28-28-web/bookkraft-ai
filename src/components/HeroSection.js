@@ -16,31 +16,26 @@ export default function HeroSection() {
         <h1 style={{
           fontFamily: 'var(--font-fraunces), Fraunces, serif', fontWeight: 500,
           fontSize: 'clamp(34px, 4.6vw, 54px)', lineHeight: 1.08, letterSpacing: '-0.01em',
-          color: '#ffffff', maxWidth: 820, margin: '0 0 12px',
+          color: '#ffffff', maxWidth: 820, margin: '0 0 22px',
         }}>
-          Your manuscript has small mistakes Amazon won&apos;t tell you about &mdash;{' '}
-          <em style={{ fontStyle: 'italic', color: 'rgba(255,255,255,0.6)', fontWeight: 500 }}>until after you upload it.</em>
+          Make Your Book Publication-Ready
         </h1>
 
-        <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.3)', margin: '0 0 26px', letterSpacing: '0.03em' }}>
-          EPUB &amp; Kindle formatting, checked before you publish.
-        </p>
-
-        <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.65)', maxWidth: 560, margin: '0 0 36px', lineHeight: 1.5 }}>
-          Run a free Readiness Scan before you publish. One score, every platform, exactly what to fix first.
+        <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.65)', maxWidth: 520, margin: '0 0 36px', lineHeight: 1.5 }}>
+          Format, validate, clean and prepare your ebook before publishing.
         </p>
 
         <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
-          <a href="/free-tools" style={{
+          <a href="/tools/epub-validator" style={{
             background: '#ffffff', color: '#23262d', fontWeight: 600, fontSize: '15.5px',
             padding: '14px 26px', borderRadius: 7, textDecoration: 'none', display: 'inline-block',
             boxShadow: '0 10px 24px -8px rgba(0,0,0,0.5)',
-          }}>Run a Free Book Readiness Check →</a>
-          <a href="/pricing" style={{
+          }}>Check My Book — Free →</a>
+          <a href="/free-tools" style={{
             color: '#ffffff', fontSize: 15, padding: '14px 4px',
             background: 'none', opacity: 0.75, textDecoration: 'underline',
             textUnderlineOffset: '4px', textDecorationColor: 'rgba(255,255,255,0.3)',
-          }}>See pricing</a>
+          }}>Explore Free Tools</a>
         </div>
       </div>
     </section>
