@@ -1,15 +1,15 @@
 import FreeToolsPage from './FreeToolsPage';
 
 export const metadata = {
-  title: 'Free EPUB & Kindle Tools — No Signup | BookKraft AI',
-  description: 'Five free ebook formatting tools: EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, and EPUB Converter. No signup, no credit card.',
-  keywords: 'free epub validator, book formatting tools, epub converter, metadata builder, cover checker, word cleanup, kindle formatting free',
+  title: 'Free eBook Formatting Tools — No Signup, No Credit Card | BookKraft AI',
+  description: 'Five free ebook formatting tools for indie authors: EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, and Manuscript-to-EPUB Converter. No signup, no credit card.',
+  keywords: 'free ebook formatting tools, free epub validator, book formatting tools, epub converter free, metadata builder, cover checker, word cleanup, kindle formatting free',
   alternates: {
     canonical: 'https://bookkraftai.com/free-tools',
   },
   openGraph: {
-    title: 'Free EPUB & Kindle Tools — No Signup | BookKraft AI',
-    description: 'Five free ebook formatting tools: EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, and EPUB Converter. No signup, no credit card.',
+    title: 'Free eBook Formatting Tools — No Signup | BookKraft AI',
+    description: 'Five free ebook formatting tools for indie authors: EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, and Manuscript-to-EPUB Converter. No signup, no credit card.',
     siteName: 'BookKraft AI',
     type: 'website',
     url: 'https://bookkraftai.com/free-tools',
@@ -17,12 +17,44 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free EPUB & Kindle Tools — No Signup | BookKraft AI',
-    description: 'Five free ebook formatting tools: EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, and EPUB Converter. No signup, no credit card.',
+    title: 'Free eBook Formatting Tools — No Signup | BookKraft AI',
+    description: 'Five free ebook formatting tools for indie authors: EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, and Manuscript-to-EPUB Converter. No signup, no credit card.',
   },
 };
 
 export default function Page() {
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Are these ebook formatting tools really free?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Yes. All five tools are free with no usage limit. Four of them require no account at all — open the page and run them immediately. Full Manuscript Mode (DOCX to EPUB) requires a free BookKraft account. No credit card is required for any free tool.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Do I need to create an account to use these tools?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Four tools require no account: EPUB Validator, Metadata Builder, Cover Checker, and Word Cleanup Checker. Full Manuscript Mode requires a free BookKraft account so the converted EPUB file has somewhere to download from. No credit card is required for any free tool.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Do these tools add a watermark to my files?',
+        acceptedAnswer: { '@type': 'Answer', text: 'No. None of the five tools add watermarks, attribution text, or BookKraft branding to output files. The EPUB you get back is a clean EPUB 3.0 file with your content only.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'What ebook format does Amazon KDP require?',
+        acceptedAnswer: { '@type': 'Answer', text: 'KDP accepts EPUB and DOCX. The recommended format is EPUB 3.0 — use the Full Manuscript Mode to convert your DOCX to EPUB and the EPUB Validator to check it before uploading.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Do I need Calibre or Sigil to format my ebook?',
+        acceptedAnswer: { '@type': 'Answer', text: 'No. These tools run entirely in your browser. No desktop software to download or install. If your browser can open a webpage, the tools work — on Windows, Mac, Linux, and Chromebook.' },
+      },
+    ],
+  };
+
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -41,6 +73,7 @@ export default function Page() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       <FreeToolsPage />
     </>

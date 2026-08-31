@@ -165,7 +165,7 @@ function FreeToolCard({ tool }) {
           <p style={{ fontSize: 13, color: 'var(--mid)', lineHeight: 1.55, flex: 1, marginBottom: 14 }}>{tool.desc}</p>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 12, borderTop: '1px solid var(--border)' }}>
             <span style={{ fontSize: 11, fontFamily: 'monospace', color: 'var(--mid)' }}>{tool.fileType}</span>
-            <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)' }}>Open →</span>
+            <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)' }}>Try {tool.name} →</span>
           </div>
         </div>
       </div>
@@ -219,13 +219,12 @@ export default function FreeToolsPage() {
       {/* Page header */}
       <section style={{ background: 'var(--ink)', padding: '80px 32px 60px' }}>
         <div style={{ maxWidth: 860, margin: '0 auto' }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'rgba(247,243,236,0.45)', textTransform: 'uppercase', fontFamily: 'monospace', marginBottom: 20 }}>/free-tools</div>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'rgba(247,243,236,0.45)', textTransform: 'uppercase', fontFamily: 'monospace', marginBottom: 20 }}>Free tools</div>
           <h1 style={{ fontSize: 'clamp(1.9rem,4vw,2.75rem)', fontWeight: 800, color: 'var(--cream)', lineHeight: 1.1, marginBottom: 16 }}>
-            Five free tools. No signup, no card, no limits.
+            Free eBook Formatting Tools
           </h1>
-          <p style={{ fontSize: 16, color: 'rgba(247,243,236,0.62)', maxWidth: 540, lineHeight: 1.6 }}>
-            AI-powered tools — including the full Readiness Score — live on a{' '}
-            <Link href="/tools" style={{ color: 'var(--gold)', fontWeight: 600 }}>separate page</Link>.
+          <p style={{ fontSize: 16, color: 'rgba(247,243,236,0.62)', maxWidth: 580, lineHeight: 1.6 }}>
+            Validate, clean, and format your book for every major publishing platform — no account needed for most tools, no credit card ever.
           </p>
         </div>
       </section>
@@ -239,6 +238,40 @@ export default function FreeToolsPage() {
             ))}
             <CtaCard />
           </div>
+        </div>
+      </section>
+
+      {/* Workflow guide */}
+      <section style={{ padding: '56px 32px 64px', borderBottom: '1px solid var(--border)', background: 'var(--white)' }}>
+        <div style={{ maxWidth: 720, margin: '0 auto' }}>
+          <h2 style={{ fontSize: 'var(--text-2xl)', fontWeight: 700, color: 'var(--ink)', marginBottom: 10 }}>
+            How to use these tools together
+          </h2>
+          <p style={{ color: 'var(--mid)', fontSize: 'var(--text-base)', lineHeight: 1.6, marginBottom: 40 }}>
+            Run them in this order before uploading to KDP, Apple Books, or Kobo.
+          </p>
+          <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+            {[
+              { href: '/tools/word-cleanup', label: 'Word Cleanup Checker', detail: 'Scan your .docx for double spaces, straight quotes, and stacked blank paragraphs. Fix issues in the original file before conversion — easier to clean before than after.' },
+              { href: '/tools/manuscript-mode', label: 'Full Manuscript Mode', detail: 'Upload the cleaned .docx and download a valid EPUB 3.0 — chapter detection, smart quotes, and em dashes handled automatically. No Calibre, no Sigil.' },
+              { href: '/tools/epub-validator', label: 'EPUB Validator', detail: 'Upload the EPUB and verify every structural check passes: mimetype, OPF, spine, navigation, image refs, and CSS. Get exact fixes for any error found.' },
+              { href: '/tools/metadata-builder', label: 'Metadata Builder', detail: 'Fill one form and get formatted metadata for KDP, Apple Books, IngramSpark, and Draft2Digital — copy-paste ready for each platform\'s publisher portal.' },
+              { href: '/tools/cover-checker', label: 'Cover Checker', detail: 'Upload your cover image and verify pixel dimensions, aspect ratio, DPI, and file size against Amazon KDP, Apple Books, and Kobo requirements before you upload anywhere.' },
+            ].map(({ href, label, detail }, i) => (
+              <li key={href} style={{ display: 'flex', gap: 20, paddingBottom: i < 4 ? 32 : 0, position: 'relative' }}>
+                {i < 4 && <div style={{ position: 'absolute', left: 17, top: 37, bottom: 0, width: 1, background: 'var(--border)' }} />}
+                <div style={{ flexShrink: 0, width: 34, height: 34, borderRadius: '50%', background: 'var(--ink)', color: 'var(--cream)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 13, zIndex: 1 }}>
+                  {i + 1}
+                </div>
+                <div>
+                  <Link href={href} style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink)', textDecoration: 'none' }}>
+                    {label} →
+                  </Link>
+                  <p style={{ marginTop: 4, fontSize: 13, color: 'var(--mid)', lineHeight: 1.55, maxWidth: 560 }}>{detail}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
