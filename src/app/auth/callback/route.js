@@ -2,6 +2,10 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
+// Prevent Next.js from ever treating this OAuth callback as a static route.
+// Single-use codes must always be handled on demand, never pre-rendered.
+export const dynamic = 'force-dynamic';
+
 // Non-fatal. Failure is logged but never blocks the redirect.
 async function fireGA4AuthEvent({ eventName, method, userId, gaClientId }) {
     const measurementId = process.env.GA4_MEASUREMENT_ID;

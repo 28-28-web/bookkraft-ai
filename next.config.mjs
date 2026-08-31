@@ -50,6 +50,11 @@ const nextConfig = {
   async headers() {
     return [
       {
+        // OAuth callback: single-use codes — must never be cached anywhere.
+        source: '/auth/callback',
+        headers: [{ key: 'Cache-Control', value: 'no-store' }],
+      },
+      {
         source: '/(.*)',
         headers: [
           {
