@@ -2,9 +2,9 @@ import Link from 'next/link';
 import ManuscriptModeClient from '@/components/ManuscriptModeClient';
 
 export const metadata = {
-    title: 'DOCX to EPUB Converter — Word to EPUB Free | BookKraft AI',
-    description: 'Convert docx to epub in one step — preserves bold, italic, and chapters. Valid EPUB 3.0 for KDP and Apple Books. No Calibre needed. Free BookKraft account.',
-    keywords: 'docx to epub, word to epub, convert docx to epub, convert word to epub, convert doc to epub, word to epub converter',
+    title: 'Free DOCX to EPUB Converter — Word to EPUB 3.0 | BookKraft AI',
+    description: 'Convert your Word manuscript to a valid EPUB 3.0 free — chapters auto-detected, smart quotes and encoding fixed. No Calibre or Sigil. Free BookKraft account.',
+    keywords: 'docx to epub free, word to epub converter, convert docx to epub, manuscript to epub, word to epub 3.0, epub builder free, free epub converter, word to epub no calibre',
     alternates: {
         canonical: 'https://bookkraftai.com/tools/manuscript-mode',
     },
@@ -99,37 +99,62 @@ export default function ManuscriptModePage() {
             <section style={{ padding: 'var(--space-16) 0', borderTop: '1px solid var(--border)' }}>
                 <div className="container" style={{ maxWidth: '800px', margin: '0 auto', padding: '0 1rem' }}>
 
-                    <h2>Who This Tool Is For</h2>
-                    <p>Self-publishing authors who have a finished manuscript in Word and need a clean EPUB for KDP or other platforms. Freelance formatters who handle DOCX-to-EPUB conversion for clients. Writers switching from Word to EPUB without learning Calibre or Sigil. Anyone who needs to convert a .txt export from Scrivener, iA Writer, or any writing app to a distributable ebook.</p>
+                    <h2>What Full Manuscript Mode Does</h2>
+                    <p>Full Manuscript Mode converts a .docx or .txt manuscript directly to a valid EPUB 3.0 file — no Calibre, no Sigil, no coding. The pipeline runs server-side:</p>
+                    <ol>
+                        <li><strong>Upload</strong> — accepts .docx (Word) or .txt files up to 10 MB.</li>
+                        <li><strong>Format fixes</strong> — optional passes for smart quotes, em dashes, encoding artifacts, and double spaces.</li>
+                        <li><strong>Chapter detection</strong> — Word heading styles (H1/H2/H3), &ldquo;Chapter N&rdquo;, &ldquo;PART N&rdquo;, and Markdown # headings each become a separate chapter file.</li>
+                        <li><strong>EPUB build</strong> — generates a complete EPUB 3.0: mimetype, container.xml, OPF manifest, nav.xhtml, toc.ncx, and individual chapter XHTML files.</li>
+                        <li><strong>Download</strong> — one .epub file, ready to upload to KDP, Apple Books, or Kobo.</li>
+                    </ol>
+                    <p>Bold, italic, and underline from your Word file carry through. What is not converted: images, tables, footnotes, and font-size or color changes.</p>
 
-                    <h2>Convert DOCX to EPUB Without Calibre</h2>
-                    <p>Calibre can convert Word files to EPUB, but it requires installation, has a steep learning curve, and produces inconsistent output from .docx files. This Word to EPUB converter runs server-side through your browser, applies targeted formatting fixes before building the file, and outputs a structurally valid EPUB 3.0 — without any software to install or configure.</p>
+                    <h2>Common Manuscript Formatting Issues This Fixes</h2>
+                    <p>Word and Google Docs exports leave formatting debris that breaks EPUB readers and KDP validation. All four fixes are optional toggles:</p>
+                    <ul>
+                        <li><strong>Smart quotes</strong> — Word sometimes exports straight quote marks (&quot; &apos;) instead of curly typographic ones. The fix converts them before the EPUB is built.</li>
+                        <li><strong>Em dashes</strong> — double hyphens (--) from typed manuscripts convert to proper em dashes (—).</li>
+                        <li><strong>Encoding artifacts (mojibake)</strong> — garbled characters like â€™ or Ã© from encoding mismatches are reversed automatically.</li>
+                        <li><strong>Double spaces and blank lines</strong> — consecutive spaces, extra tabs, and stacked blank paragraphs are collapsed. Excess blank lines in EPUB output are a common cause of the <Link href="/epub-errors/ghost-spacing-epub" style={{ color: 'var(--gold)' }}>ghost-spacing-epub error</Link>.</li>
+                    </ul>
 
-                    <h2>Word Formatting in the EPUB Output</h2>
-                    <p>Bold, italic, and underline from your .docx file are preserved in the EPUB. Word heading styles (Heading 1, 2, 3) are detected as chapter breaks and appear as section headings. What is not carried over: images, tables, footnotes, and font-size or colour changes. The converter handles text content and inline character emphasis — not page layout.</p>
-
-                    <h2>Validate After Converting</h2>
-                    <p>After converting your doc to epub, run the file through the <Link href="/tools/epub-validator" style={{ color: 'var(--gold)' }}>free EPUB Validator</Link> to confirm it passes structural checks before uploading to KDP or any other platform. The validator checks the same structural elements that publishing platforms test during submission. For the full formatting workflow — TOC, front matter, metadata, and store-specific requirements — see the <Link href="/epub-formatting-guide" style={{ color: 'var(--gold)' }}>EPUB formatting guide</Link>.</p>
+                    <h2>How to Use Full Manuscript Mode</h2>
+                    <ol>
+                        <li><strong>Sign in</strong> — create a free BookKraft account (no credit card required). The tool is free.</li>
+                        <li><strong>Upload your file</strong> — drag and drop your .docx or .txt file (max 10 MB). EPUB and PDF are not accepted as input.</li>
+                        <li><strong>Enter book details</strong> — add title, author name, and language. ISBN is optional.</li>
+                        <li><strong>Select formatting fixes</strong> — toggle smart quotes, em dashes, encoding fix, and double spaces. Leave all on for a full cleanup pass.</li>
+                        <li><strong>Generate EPUB</strong> — click the button. Processing runs in seconds.</li>
+                        <li><strong>Validate before uploading</strong> — run the output through the <Link href="/tools/epub-validator" style={{ color: 'var(--gold)' }}>free EPUB Validator</Link> to confirm it passes structural checks before submitting to KDP or any other platform.</li>
+                    </ol>
 
                     <h2>Frequently Asked Questions</h2>
 
-                    <h3>What file types can I convert to EPUB?</h3>
-                    <p>.docx (Microsoft Word) and .txt (plain text). The converter extracts text, detects chapters by heading pattern, and builds a valid EPUB 3.0.</p>
+                    <h3>What file types does Full Manuscript Mode accept?</h3>
+                    <p>.docx (Microsoft Word) and .txt (plain text), up to 10 MB. EPUB and PDF are not accepted as input. The converter extracts text, detects chapters, and builds a valid EPUB 3.0.</p>
 
-                    <h3>Is the Word to EPUB conversion free?</h3>
-                    <p>Yes. Full Manuscript Mode is free with a BookKraft AI account.</p>
+                    <h3>Is Full Manuscript Mode free?</h3>
+                    <p>Yes. Full Manuscript Mode is free with a BookKraft AI account — no credit card or paid plan required.</p>
 
                     <h3>Will bold and italic from my Word file appear in the EPUB?</h3>
-                    <p>Yes. Bold, italic, and underline are preserved. Word heading styles (Heading 1, 2, 3) carry through as chapter markers. Images, tables, footnotes, and font changes are not carried over.</p>
+                    <p>Yes. Bold, italic, and underline are preserved. Word heading styles (Heading 1, 2, 3) are detected as chapter breaks. Images, tables, footnotes, and font-size or color changes are not carried over.</p>
 
-                    <h3>How are chapters detected?</h3>
-                    <p>For .docx files: Word heading styles (Heading 1, 2, 3) create chapter breaks, as do paragraphs matching &ldquo;Chapter N&rdquo; or &ldquo;PART I/II/III&rdquo;. For .txt files: Markdown headings (# Title, ## Section) and the same text patterns are used.</p>
+                    <h3>How does chapter detection work?</h3>
+                    <p>For .docx files: Word heading styles (Heading 1, 2, 3) and paragraphs matching &ldquo;Chapter N&rdquo; or &ldquo;PART I/II/III&rdquo; create chapter breaks. For .txt files: Markdown headings (# Title, ## Section) and the same text patterns are used.</p>
 
                     <h3>Is the EPUB output compatible with Amazon KDP?</h3>
-                    <p>The output is a valid EPUB 3.0 with correct structure. Run it through the <Link href="/tools/epub-validator" style={{ color: 'var(--gold)' }}>EPUB checker</Link> before submitting to any platform.</p>
+                    <p>The output is a valid EPUB 3.0 with correct structure. Run it through the <Link href="/tools/epub-validator" style={{ color: 'var(--gold)' }}>free EPUB Validator</Link> before submitting to any platform to confirm all structural checks pass.</p>
 
-                    <h3>Do I need Calibre or Sigil to convert my Word doc to EPUB?</h3>
-                    <p>No. The conversion runs server-side — no desktop software required. Upload your file, fill in your details, and download the EPUB.</p>
+                    <h3>Do I need Calibre or Sigil to convert my Word file to EPUB?</h3>
+                    <p>No. The conversion runs server-side — no desktop software to install or configure. Upload your file, fill in book details, and download the EPUB.</p>
+
+                    <h2>Related BookKraft Tools</h2>
+                    <ul>
+                        <li><Link href="/tools/epub-validator" style={{ color: 'var(--gold)' }}><strong>EPUB Validator</strong></Link> — validate your converted EPUB before uploading to KDP or Apple Books. Free, no account needed.</li>
+                        <li><Link href="/tools/kindle-format-fixer" style={{ color: 'var(--gold)' }}><strong>Kindle Format Fixer</strong></Link> — text-only formatting pass (smart quotes, em dashes, encoding) without building an EPUB. Included in Starter and Pro plans.</li>
+                        <li><Link href="/epub-formatting-guide" style={{ color: 'var(--gold)' }}><strong>EPUB Formatting Guide</strong></Link> — full workflow from manuscript to store-ready EPUB, including TOC, front matter, and store-specific requirements.</li>
+                    </ul>
 
                     {/* CTA */}
                     <div style={{ marginTop: 'var(--space-12)', textAlign: 'center', padding: 'var(--space-8)', background: 'var(--ink)', borderRadius: 'var(--radius)', color: 'var(--cream)' }}>
@@ -148,12 +173,12 @@ export default function ManuscriptModePage() {
                 '@context': 'https://schema.org',
                 '@type': 'FAQPage',
                 mainEntity: [
-                    { '@type': 'Question', name: 'What file types can I convert to EPUB?', acceptedAnswer: { '@type': 'Answer', text: '.docx (Microsoft Word) and .txt (plain text). The converter extracts text, detects chapters by heading pattern, and builds a valid EPUB 3.0.' } },
-                    { '@type': 'Question', name: 'Is the Word to EPUB conversion free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Full Manuscript Mode is free with a BookKraft AI account.' } },
-                    { '@type': 'Question', name: 'Will bold and italic from my Word file appear in the EPUB?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Bold, italic, and underline are preserved. Word heading styles (Heading 1, 2, 3) carry through as chapter markers. Images, tables, footnotes, and font changes are not carried over.' } },
-                    { '@type': 'Question', name: 'How are chapters detected?', acceptedAnswer: { '@type': 'Answer', text: "For .docx files: Word heading styles (Heading 1, 2, 3) create chapter breaks, as do paragraphs matching 'Chapter N' or 'PART I/II/III'. For .txt files: Markdown headings (# Title, ## Section) and the same text patterns are used." } },
-                    { '@type': 'Question', name: 'Is the EPUB output compatible with Amazon KDP?', acceptedAnswer: { '@type': 'Answer', text: 'The output is a valid EPUB 3.0 with correct structure. Run it through the EPUB checker before submitting to any platform.' } },
-                    { '@type': 'Question', name: 'Do I need Calibre or Sigil to convert my Word doc to EPUB?', acceptedAnswer: { '@type': 'Answer', text: 'No. The conversion runs server-side — no desktop software required. Upload your file, fill in your details, and download the EPUB.' } },
+                    { '@type': 'Question', name: 'What file types does Full Manuscript Mode accept?', acceptedAnswer: { '@type': 'Answer', text: '.docx (Microsoft Word) and .txt (plain text), up to 10 MB. EPUB and PDF are not accepted as input. The converter extracts text, detects chapters by heading pattern, and builds a valid EPUB 3.0.' } },
+                    { '@type': 'Question', name: 'Is Full Manuscript Mode free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Full Manuscript Mode is free with a BookKraft AI account — no credit card or paid plan required.' } },
+                    { '@type': 'Question', name: 'Will bold and italic from my Word file appear in the EPUB?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Bold, italic, and underline are preserved. Word heading styles (Heading 1, 2, 3) are detected as chapter breaks. Images, tables, footnotes, and font-size or color changes are not carried over.' } },
+                    { '@type': 'Question', name: 'How does chapter detection work?', acceptedAnswer: { '@type': 'Answer', text: "For .docx files: Word heading styles (Heading 1, 2, 3) and paragraphs matching 'Chapter N' or 'PART I/II/III' create chapter breaks. For .txt files: Markdown headings (# Title, ## Section) and the same text patterns are used." } },
+                    { '@type': 'Question', name: 'Is the EPUB output compatible with Amazon KDP?', acceptedAnswer: { '@type': 'Answer', text: 'The output is a valid EPUB 3.0 with correct structure. Run it through the free EPUB Validator before submitting to any platform to confirm all structural checks pass.' } },
+                    { '@type': 'Question', name: 'Do I need Calibre or Sigil to convert my Word file to EPUB?', acceptedAnswer: { '@type': 'Answer', text: 'No. The conversion runs server-side — no desktop software to install or configure. Upload your file, fill in book details, and download the EPUB.' } },
                 ],
             }) }} />
         </>
