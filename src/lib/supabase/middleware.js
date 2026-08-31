@@ -44,7 +44,8 @@ export async function updateSession(request) {
 
     // Free tools bypass auth — no login required (v8.0 spec)
     const freeSlugs = ['epub-validator', 'metadata-builder', 'word-cleanup', 'cover-checker', 'manuscript-mode', 'publishing-score'];
-    const isFreeToolUrl = freeSlugs.some((s) => request.nextUrl.pathname === `/tools/${s}`);
+    const isFreeToolUrl = request.nextUrl.pathname === '/tools'
+        || freeSlugs.some((s) => request.nextUrl.pathname === `/tools/${s}`);
 
     if (isProtected && !isFreeToolUrl && !user) {
     const url = request.nextUrl.clone();
