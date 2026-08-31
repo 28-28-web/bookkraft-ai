@@ -6,6 +6,7 @@ import { VS_ALTERNATIVES } from '@/lib/vsAlternatives';
 import { CHECKLISTS } from '@/lib/checklists';
 import { MISTAKES } from '@/lib/mistakes';
 import { COVER_REQUIREMENTS } from '@/lib/coverRequirements';
+import { KDP_GUIDE_ARTICLES } from '@/lib/kdpKeywordGuide';
 
 const BASE = 'https://bookkraftai.com';
 
@@ -314,5 +315,23 @@ export default async function sitemap() {
       priority: 0.5,
     },
     ...blogPostPages,
+    {
+      url: `${BASE}/headshot`,
+      lastModified: new Date('2026-08-05'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE}/kdp-keyword-guide`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    ...KDP_GUIDE_ARTICLES.map(({ slug }) => ({
+      url: `${BASE}/kdp-keyword-guide/${slug}`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    })),
   ];
 }

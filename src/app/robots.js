@@ -5,8 +5,9 @@ export default function robots() {
         userAgent: '*',
         allow: '/',
         disallow: [
-          '/dashboard/', '/account/', '/admin/', '/api/',
-          '/checkout/', '/history/', '/onboarding/', '/upgrade/', '/forgot-password/',
+          '/dashboard', '/account', '/admin', '/api',
+          '/checkout', '/history', '/onboarding', '/upgrade', '/forgot-password',
+          '/auth/callback',
         ],
       },
     ],

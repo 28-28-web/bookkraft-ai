@@ -102,6 +102,22 @@ const nextConfig = {
         headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
       },
       {
+        source: '/admin',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+      },
+      {
+        source: '/admin/:path*',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+      },
+      {
+        source: '/dashboard',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+      },
+      {
+        source: '/dashboard/:path*',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+      },
+      {
         // Must come AFTER the /(.*) catch-all so it wins the Cache-Control key.
         // OAuth codes are single-use — no caching at any layer.
         source: '/auth/callback',
