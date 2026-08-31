@@ -487,6 +487,135 @@ export const EPUB_ERRORS = [
       { type: 'platform-rejection', slug: 'overdrive', label: 'Why OverDrive rejects ebooks (library distribution)' },
     ],
   },
+  {
+    slug: 'invalid-opf-structure',
+    metaTitle: 'EPUB Error: Invalid OPF Structure — How to Fix It',
+    metaDescription: 'EPUBCheck reporting OPF structure errors? The content.opf file must follow a strict element order and namespace. Here\'s how to diagnose and fix invalid OPF package documents.',
+    title: 'EPUB Error: Invalid OPF Package Structure',
+    errorMessage: 'RSC-005: Error while parsing file content.opf — element "spine" not allowed here. Or: OPF-001: Package document is not valid',
+    cause: '<p>The OPF package document (content.opf) is the central index of your EPUB — it declares the book\'s metadata, lists every resource in the manifest, and defines the reading order in the spine. The EPUB specification requires these child elements to appear in strict order inside the <code>&lt;package&gt;</code> root: <code>&lt;metadata&gt;</code> first, then <code>&lt;manifest&gt;</code>, then <code>&lt;spine&gt;</code>. Placing them out of order causes a fatal XML parse error. Other common structural problems include manifest items missing required attributes (<code>id</code>, <code>href</code>, or <code>media-type</code>), an incorrect or missing namespace declaration on the <code>&lt;package&gt;</code> element, a missing or wrong <code>version</code> attribute, and deprecated EPUB 2 elements like <code>&lt;guide&gt;</code> used in a file declared as EPUB 3. These errors most often appear after manual editing of the OPF file or when a conversion tool generates non-standard output.</p>',
+    fixSteps: '<ol><li>Open content.opf in a text editor and confirm the root <code>&lt;package&gt;</code> element has the correct attributes: <code>version="3.0"</code> (or "2.0"), <code>xmlns="http://www.idpf.org/2007/opf"</code>, and a <code>unique-identifier</code> pointing to a <code>&lt;dc:identifier&gt;</code> in the metadata block.</li><li>Check that the three required child elements appear in order: <code>&lt;metadata&gt;</code>, then <code>&lt;manifest&gt;</code>, then <code>&lt;spine&gt;</code>. If they are out of order, rearrange them to match this sequence.</li><li>Verify every item in the <code>&lt;manifest&gt;</code> has all three required attributes: <code>id</code> (unique within the manifest), <code>href</code> (path to the file), and <code>media-type</code> (the MIME type of the file). A manifest item missing any of these will fail validation.</li><li>Confirm <code>&lt;metadata&gt;</code> declares the Dublin Core namespace: <code>xmlns:dc="http://purl.org/dc/elements/1.1/"</code>. Without this, EPUBCheck cannot parse the dc:title, dc:creator, and dc:language elements.</li><li>Re-validate with EPUBCheck after each fix — OPF structural errors are often chained, and resolving the first one may reveal others further down the file.</li></ol>',
+    faq: [
+      {
+        q: 'Why does element order matter in an OPF file?',
+        a: 'The OPF schema defines a strict content model — the EPUB specification requires metadata before manifest before spine because each section references the previous one. A spine item references a manifest id; a manifest item references a file; metadata describes the package. Processing them out of order breaks the reference chain, so EPUBCheck rejects any OPF where these sections appear in the wrong sequence.',
+      },
+      {
+        q: 'My OPF file looks correct in a text editor but EPUBCheck still reports a parse error. What else could be wrong?',
+        a: 'Common non-obvious causes: an encoding issue where the file is saved as UTF-16 instead of UTF-8, a byte-order mark (BOM) at the start of the file that breaks XML parsing, invisible whitespace or control characters copied from a source document, or an XML declaration that incorrectly specifies the encoding. Open the file in a hex editor or use a strict XML validator to catch issues that appear invisible in a plain text editor.',
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'epub-error', slug: 'missing-container-xml', label: 'Missing or invalid container.xml' },
+      { type: 'epub-error', slug: 'missing-manifest-resource', label: 'Missing manifest resource' },
+      { type: 'epub-error', slug: 'missing-dc-identifier', label: 'Missing dc:identifier (unique identifier)' },
+      { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
+    ],
+  },
+  {
+    slug: 'duplicate-manifest-item',
+    metaTitle: 'EPUB Error: Duplicate Manifest Item — How to Fix It',
+    metaDescription: 'EPUBCheck flagging duplicate href or duplicate id in the OPF manifest? Each file can only appear once. Here\'s why this happens and how to remove the duplicate entries.',
+    title: 'EPUB Error: Duplicate Item in OPF Manifest',
+    errorMessage: 'OPF-067: Manifest item with href "images/cover.jpg" is already declared. Or: RSC-005: id "chapter01" is already defined in the manifest',
+    cause: '<p>Every file in an EPUB must be declared exactly once in the OPF manifest. Each manifest item must have a unique <code>id</code> attribute and a unique <code>href</code> value — two items cannot point to the same file, and two items cannot share the same id. This error fires when the same file appears twice in the manifest under different ids, or when the same id is reused across two different manifest items. It most often occurs during manual OPF editing when an author adds a file that was already registered, or when two EPUB files are merged and their manifest sections are concatenated without checking for overlaps. It also appears in files generated by certain export tools that produce one entry for the internal package reference and a second for the file path.</p>',
+    fixSteps: '<ol><li>Open content.opf and search for the href value named in the error (e.g., <code>images/cover.jpg</code>). Locate both manifest items that reference the same file.</li><li>Determine which item is the correct one — check which id is referenced in the spine, the navigation document, or anywhere else in the file. The referenced entry should stay; the unreferenced duplicate should be removed.</li><li>If the duplicate items have different ids and both are referenced elsewhere, consolidate to one: update all other references to use the surviving id, then remove the duplicate manifest item.</li><li>After removing the duplicate manifest entry, confirm the spine contains no orphaned <code>&lt;itemref&gt;</code> pointing to the deleted id — remove those too if present.</li><li>Re-validate with EPUBCheck to confirm no duplicate href or id values remain in the manifest.</li></ol>',
+    faq: [
+      {
+        q: 'Is a duplicate manifest item the same as a duplicate id attribute in content?',
+        a: 'No — a duplicate manifest item means the same file is listed twice inside the OPF manifest section. A duplicate id attribute (a separate EPUBCheck error) means the same id value is used on two HTML elements inside a chapter XHTML file. The manifest item error is a package-structure problem; the id duplication error is a content-file problem.',
+      },
+      {
+        q: 'Can two manifest items have the same id but different hrefs?',
+        a: 'No. Both the id and the href must be unique within the manifest. Duplicate ids are an immediate XML validity failure because id attributes must be unique within any XML document. Duplicate hrefs fail the EPUB specification separately, since each physical file can only have one canonical manifest entry.',
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'epub-error', slug: 'missing-manifest-resource', label: 'Missing manifest resource' },
+      { type: 'epub-error', slug: 'invalid-opf-manifest-reference', label: 'OPF manifest references a missing file' },
+      { type: 'epub-error', slug: 'duplicate-id-epub', label: 'Duplicate ID attribute in EPUB content' },
+      { type: 'epub-error', slug: 'broken-spine-order', label: 'Broken spine order' },
+    ],
+  },
+  {
+    slug: 'missing-alt-text',
+    metaTitle: 'EPUB Error: Missing Alt Text on Images (ACC-001) — How to Fix It',
+    metaDescription: 'EPUBCheck ACC-001: img element missing alt attribute? All EPUB images require alt text for accessibility. Apple Books now enforces this. Here\'s how to fix every instance.',
+    title: 'EPUB Error: Missing Alt Text on Images (ACC-001)',
+    errorMessage: 'ACC-001: The "img" element must have an "alt" attribute, except under certain conditions',
+    cause: '<p>The EPUB Accessibility specification — aligned with WCAG 2.0 Level AA — requires every <code>&lt;img&gt;</code> element in EPUB content files to carry an <code>alt</code> attribute. This attribute provides a text alternative for readers using screen readers, text-to-speech, or devices that cannot display images. EPUBCheck reports ACC-001 when any image element is missing this attribute entirely. Apple Books has enforced accessibility validation since 2022 and will flag or reject files with ACC-001 errors. Even for decorative images that convey no information, the attribute is still required — it should be present but set to an empty string (<code>alt=""</code>), which signals to assistive technology that the image can be safely ignored. Missing alt text most often appears in EPUBs converted from Word or InDesign exports where images were inserted without document-level alt text set in the source.</p>',
+    fixSteps: '<ol><li>Run EPUBCheck to get a list of all ACC-001 errors — each one includes the chapter file and line number of the <code>&lt;img&gt;</code> missing an alt attribute.</li><li>For each flagged image, decide whether it is a content image (conveys information the reader needs) or a decorative image (purely visual, adds nothing to the reading experience).</li><li>For content images, add a descriptive alt attribute: <code>&lt;img src="chart.png" alt="Bar chart showing sales by quarter"/&gt;</code>. Describe what the image shows, not what it looks like — focus on the information it communicates.</li><li>For decorative images, add an empty alt attribute: <code>&lt;img src="divider.png" alt=""/&gt;</code>. This tells screen readers to skip the image entirely rather than announcing "image" with no description.</li><li>Re-validate with EPUBCheck after updating all chapter files. If submitting to Apple Books, use the Accessibility checker in Calibre (Edit Book → Tools → Check Accessibility) as an additional pass before upload.</li></ol>',
+    faq: [
+      {
+        q: 'Do I need alt text even for images that are just decorative chapter dividers?',
+        a: 'Yes — the alt attribute is required on every img element regardless of whether the image carries meaning. For purely decorative images, use an empty alt attribute (alt="") rather than omitting it. An empty alt tells assistive technology to skip the image; a missing alt attribute causes a validation error and may cause screen readers to announce the filename instead.',
+      },
+      {
+        q: 'Apple Books accepted my EPUB before — why is it now rejecting on missing alt text?',
+        a: 'Apple Books tightened its accessibility validation requirements in 2022 to align with the EPUB Accessibility 1.1 specification. Files that passed upload before this change may no longer pass the current validation. Adding alt text to all images is now a baseline requirement for Apple Books submission.',
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'epub-error', slug: 'invalid-image-format', label: 'Invalid image format in EPUB' },
+      { type: 'epub-error', slug: 'emf-image-fallback', label: 'EMF image fallback error' },
+      { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+    ],
+  },
+  {
+    slug: 'missing-dc-identifier',
+    metaTitle: 'EPUB Error: Missing dc:identifier (Unique Identifier) — How to Fix It',
+    metaDescription: 'EPUB missing a unique identifier in OPF metadata? Every EPUB requires a dc:identifier element with an ISBN or UUID. Here\'s how to add one and wire it to the package element.',
+    title: 'EPUB Error: Missing dc:identifier (Unique Identifier)',
+    errorMessage: 'OPF-030: A dc:identifier element is required in the package metadata. Or: OPF-048: the "unique-identifier" attribute refers to an ID that is not defined anywhere in the document',
+    cause: '<p>Every EPUB publication must have a unique identifier declared in the OPF metadata block as a <code>&lt;dc:identifier&gt;</code> element. This identifier — typically an ISBN, a DOI, or a randomly generated UUID — links the publication to a single edition and allows platforms and reading systems to track it across updates. Beyond the element itself, the <code>&lt;package&gt;</code> root element must have a <code>unique-identifier</code> attribute whose value matches the <code>id</code> attribute of one specific <code>&lt;dc:identifier&gt;</code> element. When the dc:identifier element is entirely absent, EPUBCheck reports OPF-030. When the element exists but the cross-reference between <code>unique-identifier</code> and the element\'s <code>id</code> is broken, EPUBCheck reports OPF-048 instead. Both indicate a missing or disconnected identifier, but require slightly different fixes.</p>',
+    fixSteps: '<ol><li>Open content.opf and check the <code>&lt;metadata&gt;</code> block for a <code>&lt;dc:identifier&gt;</code> element. If missing, add one — if you have an ISBN, use it; if not, generate a UUID and format it as <code>urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>.</li><li>Give the <code>&lt;dc:identifier&gt;</code> element an <code>id</code> attribute: <code>&lt;dc:identifier id="book-id"&gt;urn:uuid:your-uuid-here&lt;/dc:identifier&gt;</code>.</li><li>Find the opening <code>&lt;package&gt;</code> tag and confirm its <code>unique-identifier</code> attribute value matches the id you just set: <code>&lt;package ... unique-identifier="book-id"&gt;</code>. Both values must be identical.</li><li>If you are publishing on a platform that assigns ISBNs (KDP, IngramSpark), you can use their assigned ISBN as the identifier value: <code>&lt;dc:identifier id="isbn"&gt;978-0-000-00000-0&lt;/dc:identifier&gt;</code>.</li><li>Re-validate with EPUBCheck to confirm both OPF-030 and OPF-048 are cleared.</li></ol>',
+    faq: [
+      {
+        q: 'Do I need an ISBN, or can I use a UUID?',
+        a: 'A UUID is perfectly valid as a dc:identifier and is the recommended approach when you don\'t have an ISBN. Format it as urn:uuid: followed by a standard UUID string. You can generate a free UUID using any UUID generator tool. ISBNs are required by some retailers for print books but are not mandatory for EPUB validation — a UUID satisfies the EPUB spec entirely.',
+      },
+      {
+        q: 'How is this different from the OPF-048 unique-identifier-not-found error?',
+        a: 'OPF-030 means the dc:identifier element itself is missing from the metadata block. OPF-048 means a dc:identifier element exists but its id attribute does not match the value in the package element\'s unique-identifier attribute — it\'s a cross-reference mismatch rather than a missing element. The fix for OPF-030 is to add the element; the fix for OPF-048 is to align the attribute values on both sides.',
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-048)' },
+      { type: 'epub-error', slug: 'missing-language-declaration', label: 'Missing language declaration (dc:language)' },
+      { type: 'epub-error', slug: 'invalid-opf-structure', label: 'Invalid OPF structure errors' },
+      { type: 'platform-rejection', slug: 'ingram-spark', label: 'Why IngramSpark rejects books' },
+    ],
+  },
+  {
+    slug: 'invalid-image-format',
+    metaTitle: 'EPUB Error: Unsupported Image Format — How to Fix It',
+    metaDescription: 'EPUBCheck MED-002: image format not in the EPUB core media types? TIFF, BMP, HEIC, and AVIF are not supported. Here\'s how to convert your images and update the manifest.',
+    title: 'EPUB Error: Unsupported Image Format (MED-002)',
+    errorMessage: 'MED-002: Referenced resource "images/photo.tiff" is of a type that is not allowed in this context',
+    cause: '<p>EPUB 3 defines a set of core media types — formats that all compliant reading systems must support. For images, those are JPEG (<code>image/jpeg</code>), PNG (<code>image/png</code>), GIF (<code>image/gif</code>), SVG (<code>image/svg+xml</code>), and WebP (<code>image/webp</code>, added in EPUB 3.3). Any other image format — including TIFF, BMP, HEIC, AVIF, PSD, or EMF — is not in the core media types and triggers MED-002 when referenced in content or declared in the manifest. TIFF files typically arrive from InDesign or Photoshop exports that didn\'t convert to web formats. HEIC images come from iOS photos imported directly into a manuscript. BMP appears in files converted from older Windows applications. Unlike EMF images (which have a specific fallback mechanism), these formats have no fallback path in the EPUB spec — the only fix is to convert them to a supported format.</p>',
+    fixSteps: '<ol><li>Run EPUBCheck to identify every MED-002 error — each one specifies the file and the unsupported image path.</li><li>For each unsupported image, convert it to JPEG (for photos and complex images) or PNG (for images with transparency, diagrams, or line art). Use an image editor, export from your source application, or a free converter tool.</li><li>If the filename extension changes during conversion (e.g., photo.tiff → photo.jpg), update every reference to the old filename: in the OPF manifest href and media-type, and in any <code>&lt;img src="..."&gt;</code> elements in chapter XHTML files.</li><li>Update the manifest media-type attribute to match the new format: <code>media-type="image/jpeg"</code> or <code>media-type="image/png"</code>.</li><li>Delete the original unsupported format file from the EPUB package, then re-validate with EPUBCheck to confirm no MED-002 errors remain.</li></ol>',
+    faq: [
+      {
+        q: 'Is WebP a valid EPUB image format?',
+        a: 'WebP (image/webp) was added to the EPUB 3.3 core media types, so it is valid in EPUB 3.3 publications. However, many older e-readers and platforms still run EPUB 3.0 or EPUB 3.2 validators, which do not include WebP in their core media type lists. For maximum compatibility across all platforms and devices, JPEG and PNG remain the safest choices.',
+      },
+      {
+        q: 'My image is an EMF file — is that the same as this error?',
+        a: 'EMF is a different case. The EPUB spec allows "foreign" (non-core) resources in the manifest only if a fallback is provided. EMF images trigger a separate "fallback required" error rather than a flat MED-002 rejection. In practice the fix is the same — convert to PNG or JPEG — but the EPUBCheck error code and the spec path that leads to it differ.',
+      },
+    ],
+    relatedTool: 'epub-validator',
+    related: [
+      { type: 'epub-error', slug: 'emf-image-fallback', label: 'EMF image fallback error (foreign resource)' },
+      { type: 'epub-error', slug: 'missing-alt-text', label: 'Missing alt text on images' },
+      { type: 'epub-error', slug: 'missing-manifest-resource', label: 'Missing manifest resource' },
+      { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+    ],
+  },
 ];
 
 export function getErrorBySlug(slug) {
