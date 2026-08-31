@@ -57,9 +57,9 @@ export default function EpubFormatter() {
 
             if (!res.ok) {
                 const data = await res.json().catch(() => ({}));
-                const msg = data.error || (res.status === 413
+                const msg = res.status === 413
                     ? 'Your manuscript is too large for this tool. Try splitting it into smaller parts.'
-                    : 'EPUB generation failed. Please check your manuscript text and try again.');
+                    : 'EPUB generation failed. Please check your manuscript text and try again.';
                 setError(msg);
                 console.error('epub-formatter error:', res.status, data);
                 return;

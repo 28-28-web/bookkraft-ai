@@ -72,7 +72,8 @@ export default function MetadataBuilder() {
                 seriesVolume: seriesVolumeMatch ? seriesVolumeMatch[1].trim() : f.seriesVolume,
             }));
         } catch (err) {
-            setExtractError(`Could not read EPUB: ${err.message}`);
+            console.error('EPUB extract error:', err);
+            setExtractError('Could not read this EPUB — the file may be corrupted or incorrectly formatted.');
         }
         setExtracting(false);
     };

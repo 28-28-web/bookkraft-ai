@@ -78,6 +78,6 @@ Return ONLY: {
         return NextResponse.json({ success: true, data, isSample: true, wordsProcessed: wc });
     } catch (err) {
         console.error('Manuscript cleanup sample error:', err);
-        return NextResponse.json({ error: 'api_error', message: err.message }, { status: 500 });
+        return NextResponse.json({ error: 'api_error', message: 'Something went wrong. Please try again.' }, { status: 500 });
     }
 }

@@ -193,8 +193,9 @@ export default function EpubValidator() {
             setResults({ checks, passCount, total: checks.length, filename: epubFile.name, sizeMB, hasErrors: passCount < checks.length });
 
         } catch (err) {
+            console.error('EPUB parse error:', err);
             setResults({
-                checks: [{ name: 'File Parse', status: 'fail', detail: `Could not read EPUB: ${err.message}. Is this a valid .epub file?` }],
+                checks: [{ name: 'File Parse', status: 'fail', detail: 'Could not read this file — it may be corrupted or not a valid .epub file.' }],
                 passCount: 0, total: 1, filename: epubFile.name, hasErrors: true,
             });
         }

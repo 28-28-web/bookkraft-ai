@@ -53,7 +53,7 @@ export default function ManuscriptCleanup() {
             });
             const data = await res.json();
             if (!res.ok) {
-                setError(data.message || data.error || 'Something went wrong. Please try again.');
+                setError(data.message || 'Something went wrong. Please try again.');
                 return;
             }
             setResult({ ...data.data, isSample: data.isSample, wordsProcessed: data.wordsProcessed });
