@@ -109,8 +109,6 @@ export async function POST(request) {
             return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
         }
 
-        console.log('[manuscript-mode] file type:', typeof file, file?.constructor?.name, 'size:', file?.size, 'length:', file?.length);
-
         if (file.size > 10 * 1024 * 1024) {
             return NextResponse.json(
                 { error: 'file_too_large', message: 'File too large (max 10 MB).' },
