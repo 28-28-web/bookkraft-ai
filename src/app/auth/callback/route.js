@@ -103,23 +103,27 @@ export async function GET(request) {
         console.log('[auth/callback] cookie names on response:', cookiesOnResponse.map(c => c.name));
 
         if (!error) {
-            const gaCookie = cookieStore.get('_ga')?.value;
-            let gaClientId = `${Math.floor(Math.random() * 1e9)}.${Math.floor(Date.now() / 1000)}`;
-            if (gaCookie) {
-                const m = gaCookie.match(/^GA\d+\.\d+\.(.+)$/);
-                if (m) gaClientId = m[1];
+            try {
+                const gaCookie = cookieStore.get('_ga')?.value;
+                let gaClientId = `${Math.floor(Math.random() * 1e9)}.${Math.floor(Date.now() / 1000)}`;
+                if (gaCookie) {
+                    const m = gaCookie.match(/^GA\d+\.\d+\.(.+)$/);
+                    if (m) gaClientId = m[1];
+                }
+
+                const provider = data?.user?.app_metadata?.provider ?? 'unknown';
+                const method = provider === 'google' ? 'google' : 'magic_link';
+                const eventName = next.includes('/onboarding') ? 'sign_up' : 'login';
+
+                void fireGA4AuthEvent({
+                    eventName,
+                    method,
+                    userId: data?.user?.id,
+                    gaClientId,
+                });
+            } catch (successErr) {
+                console.error('[auth/callback] error in success block (auth still succeeded):', successErr?.message ?? successErr);
             }
-
-            const provider = data?.user?.app_metadata?.provider ?? 'unknown';
-            const method = provider === 'google' ? 'google' : 'magic_link';
-            const eventName = next.includes('/onboarding') ? 'sign_up' : 'login';
-
-            void fireGA4AuthEvent({
-                eventName,
-                method,
-                userId: data?.user?.id,
-                gaClientId,
-            });
 
             return redirectResponse;
         }
