@@ -13,6 +13,12 @@ export default function EpubFormatter() {
     const [success, setSuccess] = useState('');
     const fileRef = useRef(null);
 
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'tool_view', { tool_name: 'epub_formatter' });
+        }
+    }, []);
+
     // Pre-fill from active project
     useEffect(() => {
         if (currentProject?.id && !manuscript) {

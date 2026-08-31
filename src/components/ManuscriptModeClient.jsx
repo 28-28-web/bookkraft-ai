@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '@/components/AuthProvider';
 
 export default function ManuscriptModeClient() {
@@ -18,6 +18,12 @@ export default function ManuscriptModeClient() {
     const [errorMsg, setErrorMsg] = useState('');
     const [result, setResult] = useState(null);
     const fileInputRef = useRef(null);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'tool_view', { tool_name: 'manuscript_mode' });
+        }
+    }, []);
 
     if (loading) return <div style={{ padding: 40, textAlign: 'center', color: '#888' }}>Loading...</div>;
 

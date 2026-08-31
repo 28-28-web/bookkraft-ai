@@ -157,6 +157,14 @@ const gtag = (...args) => {
   if (typeof window !== 'undefined' && window.gtag) window.gtag(...args);
 };
 
+const fileSizeRange = (bytes) => {
+  if (!bytes) return 'unknown';
+  if (bytes < 1024 * 1024) return '0-1MB';
+  if (bytes < 5 * 1024 * 1024) return '1-5MB';
+  if (bytes < 10 * 1024 * 1024) return '5-10MB';
+  return '10MB+';
+};
+
 export default function WordCleanupPage({ children, faqItems = [] }) {
   const [fileName, setFileName] = useState('');
   const [result, setResult] = useState(null);
@@ -167,13 +175,18 @@ export default function WordCleanupPage({ children, faqItems = [] }) {
   const inputRef = useRef(null);
 
   useEffect(() => {
+    gtag('event', 'tool_view', { tool_name: 'word_cleanup' });
+  }, []);
+
+  useEffect(() => {
     if (result) gtag('event', 'result_view', { tool_name: 'word_cleanup', overall_status: result.overallStatus });
   }, [result]);
 
   const handleFile = async (file) => {
     if (!file) return;
 
-    gtag('event', 'file_upload_start', { tool_name: 'word_cleanup' });
+    gtag('event', 'tool_start', { tool_name: 'word_cleanup' });
+    gtag('event', 'file_upload_start', { tool_name: 'word_cleanup', file_size_range: fileSizeRange(file.size) });
 
     if (!file.name.toLowerCase().endsWith('.docx')) {
       const ext = file.name.split('.').pop().toLowerCase();

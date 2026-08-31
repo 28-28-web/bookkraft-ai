@@ -1,39 +1,11 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
+import { fireGA4Event } from '@/lib/ga4';
 
 // Prevent Next.js from ever treating this OAuth callback as a static route.
 // Single-use codes must always be handled on demand, never pre-rendered.
 export const dynamic = 'force-dynamic';
-
-// Non-fatal. Failure is logged but never blocks the redirect.
-async function fireGA4AuthEvent({ eventName, method, userId, gaClientId }) {
-    const measurementId = process.env.GA4_MEASUREMENT_ID;
-    const apiSecret = process.env.GA4_MP_SECRET;
-    if (!measurementId || !apiSecret) {
-        console.warn('[GA4 MP] missing env vars — GA4_MEASUREMENT_ID or GA4_MP_SECRET not set');
-        return;
-    }
-    const payload = {
-        client_id: gaClientId,
-        user_id: userId,
-        non_personalized_ads: true,
-        events: [{ name: eventName, params: { method } }],
-    };
-    try {
-        const res = await fetch(
-            `https://www.google-analytics.com/mp/collect?measurement_id=${encodeURIComponent(measurementId)}&api_secret=${encodeURIComponent(apiSecret)}`,
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-            }
-        );
-        if (!res.ok) console.warn('[GA4 MP] unexpected status', res.status);
-    } catch (err) {
-        console.warn('[GA4 MP] fetch failed:', err.message);
-    }
-}
 
 // Traefik's buffering middleware ("upload-limit@file") fails with "no data
 // ready" when it tries to buffer a redirect response that has no body.
@@ -113,7 +85,7 @@ export async function GET(request) {
                     const provider = data?.user?.app_metadata?.provider ?? 'unknown';
                     const method = provider === 'google' ? 'google' : 'magic_link';
                     const eventName = next.includes('/onboarding') ? 'sign_up' : 'login';
-                    void fireGA4AuthEvent({ eventName, method, userId: data?.user?.id, gaClientId });
+                    void fireGA4Event({ clientId: gaClientId, userId: data?.user?.id, eventName, params: { method } });
                 } catch (successErr) {
                     console.error('[auth/callback] GA4 error (auth still succeeded):', successErr?.message ?? successErr);
                 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import ToolResultsCTA from '@/components/ToolResultsCTA';
 
@@ -162,6 +162,12 @@ export default function CoverCheckerPage() {
   const [error, setError] = useState('');
   const [openFaq, setOpenFaq] = useState(null);
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'tool_view', { tool_name: 'cover_checker' });
+    }
+  }, []);
 
   const handleFile = (file) => {
     if (!file) return;

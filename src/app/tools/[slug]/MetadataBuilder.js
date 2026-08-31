@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import UpsellBanner from '@/components/UpsellBanner';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { TOOLS } from '@/lib/tools';
@@ -26,14 +26,31 @@ export default function MetadataBuilder() {
     const [extractError, setExtractError] = useState(null);
     const [epubFilename, setEpubFilename] = useState('');
 
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'tool_view', { tool_name: 'metadata_builder' });
+        }
+    }, []);
+
     const updateField = (key, value) => setForm((f) => ({ ...f, [key]: value }));
     const keywords = [form.kw1, form.kw2, form.kw3, form.kw4, form.kw5, form.kw6, form.kw7].filter(Boolean);
     const langCode = { English: 'en', Spanish: 'es', French: 'fr', German: 'de', Portuguese: 'pt', Italian: 'it', Dutch: 'nl' }[form.language] || 'en';
+
+    const fileSizeRange = (bytes) => {
+        if (!bytes) return 'unknown';
+        if (bytes < 1024 * 1024) return '0-1MB';
+        if (bytes < 5 * 1024 * 1024) return '1-5MB';
+        if (bytes < 10 * 1024 * 1024) return '5-10MB';
+        return '10MB+';
+    };
 
     const extractFromEpub = async (file) => {
         setExtracting(true);
         setExtractError(null);
         setEpubFilename(file.name);
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'file_upload_start', { tool_name: 'metadata_builder', file_type: 'epub', file_size_range: fileSizeRange(file.size) });
+        }
         try {
             const JSZip = (await import('jszip')).default;
             const zip = await JSZip.loadAsync(file);
@@ -71,8 +88,14 @@ export default function MetadataBuilder() {
                 series: seriesMatch ? seriesMatch[1].trim() : f.series,
                 seriesVolume: seriesVolumeMatch ? seriesVolumeMatch[1].trim() : f.seriesVolume,
             }));
+            if (typeof window !== 'undefined' && window.gtag) {
+                window.gtag('event', 'file_upload_success', { tool_name: 'metadata_builder', file_type: 'epub', file_size_range: fileSizeRange(file.size) });
+            }
         } catch (err) {
             console.error('EPUB extract error:', err);
+            if (typeof window !== 'undefined' && window.gtag) {
+                window.gtag('event', 'file_upload_failed', { tool_name: 'metadata_builder', file_type: 'epub', error_type: 'parse', file_size_range: fileSizeRange(file.size) });
+            }
             setExtractError('Could not read this EPUB — the file may be corrupted or incorrectly formatted.');
         }
         setExtracting(false);

@@ -22,6 +22,12 @@ export default function ManuscriptCleanup() {
     const SAMPLE_LIMIT = 500;
 
     useEffect(() => {
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'tool_view', { tool_name: 'manuscript_cleanup' });
+        }
+    }, []);
+
+    useEffect(() => {
         if (currentProject?.id && !input) {
             loadProjectText(currentProject.id).then(text => {
                 if (text) setInput(text);

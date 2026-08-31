@@ -2,7 +2,7 @@
 
 import GuaranteeBadge from '@/components/GuaranteeBadge';
 import { PRICING, PADDLE_PRICE_IDS, TOOL_CREDIT_COSTS, FAQS, FREE_TOOLS } from '@/lib/constants';
-import { useState, Suspense } from 'react';
+import { useState, Suspense, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { usePaddle } from '@/app/hooks/usePaddle';
 import { useAuth } from '@/components/AuthProvider';
@@ -33,6 +33,10 @@ function CheckoutButton({ purchaseType, discountCode, className, children }) {
         if (priceNotReady) {
             console.error(`No Paddle price ID configured for "${purchaseType}" yet.`);
             return;
+        }
+
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+            (window as any).gtag('event', 'pricing_cta_click', { plan: purchaseType });
         }
 
         if (!user) {
@@ -78,6 +82,10 @@ function CheckoutButton({ purchaseType, discountCode, className, children }) {
         };
         console.log('Paddle Checkout.open payload:', payload);
 
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+            (window as any).gtag('event', 'checkout_start', { plan: purchaseType });
+        }
+
         try {
             paddle.Checkout.open(payload);
         } catch (err) {
@@ -112,6 +120,12 @@ function PricingContent() {
     const searchParams = useSearchParams();
     const ref = searchParams.get('ref') ?? searchParams.get('utm_source');
     const discountCode = ref?.toLowerCase() === 'producthunt' ? 'PHLAUNCH' : undefined;
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+            (window as any).gtag('event', 'pricing_view');
+        }
+    }, []);
 
     return (
         <>

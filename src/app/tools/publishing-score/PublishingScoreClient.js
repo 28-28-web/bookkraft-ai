@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ScoreCard from './ScoreCard';
 import UpsellBanner from '@/components/UpsellBanner';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
@@ -14,6 +14,12 @@ export default function PublishingScoreClient({ children }) {
   const [name, setName] = useState('');
   const [emailError, setEmailError] = useState('');
   const [emailSent, setEmailSent] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'tool_view', { tool_name: 'publishing_score' });
+    }
+  }, []);
 
   const handleFileUpload = async (e) => {
     const file = e.target.files?.[0];

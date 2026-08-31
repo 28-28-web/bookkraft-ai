@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useAuth } from '@/components/AuthProvider';
 import { useRouter } from 'next/navigation';
 
@@ -13,6 +13,20 @@ export default function EpubValidatorPremium() {
     const [dragOver, setDragOver] = useState(false);
     const [fileError, setFileError] = useState(null);
     const [creditError, setCreditError] = useState(null);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'tool_view', { tool_name: 'epub_validator_premium' });
+        }
+    }, []);
+
+    const fileSizeRange = (bytes) => {
+        if (!bytes) return 'unknown';
+        if (bytes < 1024 * 1024) return '0-1MB';
+        if (bytes < 5 * 1024 * 1024) return '1-5MB';
+        if (bytes < 10 * 1024 * 1024) return '5-10MB';
+        return '10MB+';
+    };
 
     const validate = useCallback(async (epubFile) => {
         if (!user) {
@@ -28,6 +42,11 @@ export default function EpubValidatorPremium() {
         setResults(null);
         setFileError(null);
         setCreditError(null);
+
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'tool_start', { tool_name: 'epub_validator_premium' });
+            window.gtag('event', 'file_upload_start', { tool_name: 'epub_validator_premium', file_type: 'epub', file_size_range: fileSizeRange(epubFile.size) });
+        }
 
         try {
             // Credits deducted server-side after validation completes
@@ -280,6 +299,8 @@ export default function EpubValidatorPremium() {
                     ghost_tags: totalGhostTags,
                     duplicate_ids: totalDuplicates,
                 });
+                window.gtag('event', 'file_upload_success', { tool_name: 'epub_validator_premium', file_type: 'epub', file_size_range: fileSizeRange(epubFile.size) });
+                window.gtag('event', 'tool_complete', { tool_name: 'epub_validator_premium', issue_count: checks.length - passCount });
             }
 
             const creditRes = await fetch('/api/tools/epub-validator-premium', {
@@ -296,6 +317,9 @@ setResults({ checks, passCount, total: checks.length, filename: epubFile.name, s
 
         } catch (err) {
             console.error('EPUB parse error:', err);
+            if (typeof window !== 'undefined' && window.gtag) {
+                window.gtag('event', 'file_upload_failed', { tool_name: 'epub_validator_premium', file_type: 'epub', error_type: 'parse', file_size_range: fileSizeRange(epubFile.size) });
+            }
             setResults({
                 checks: [{ name: 'File Parse', status: 'fail', detail: 'Could not read this file — it may be corrupted or not a valid .epub file.' }],
                 passCount: 0, total: 1, filename: epubFile.name, storeResults: {},
