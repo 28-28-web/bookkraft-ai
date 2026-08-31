@@ -107,6 +107,19 @@ export async function GET(request) {
                     console.error('[auth/callback] GA4 error (auth still succeeded):', successErr?.message ?? successErr);
                 }
 
+                try {
+                    const setCookies = typeof redirectResponse.headers.getSetCookie === 'function'
+                        ? redirectResponse.headers.getSetCookie()
+                        : [redirectResponse.headers.get('set-cookie')].filter(Boolean);
+                    const totalBytes = setCookies.reduce((sum, v) => sum + v.length, 0);
+                    console.log('[auth/callback] Set-Cookie count:', setCookies.length, 'total bytes:', totalBytes);
+                    setCookies.forEach((v, i) =>
+                        console.log(`[auth/callback] cookie[${i}] name=${v.split('=')[0]} len=${v.length}`)
+                    );
+                } catch (measureErr) {
+                    console.log('[auth/callback] could not measure Set-Cookie:', measureErr?.message);
+                }
+
                 return redirectResponse;
             }
 
