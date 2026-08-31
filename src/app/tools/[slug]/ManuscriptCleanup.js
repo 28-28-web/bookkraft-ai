@@ -1,6 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useLoadingSteps } from '@/hooks/useLoadingSteps';
+
+const CLEANUP_STEPS = [
+    { text: 'Analyzing text...', ms: 1500 },
+    { text: 'Checking formatting...', ms: 2500 },
+    { text: 'Almost done...', ms: 0 },
+];
 import { useAuth } from '@/components/AuthProvider';
 import { useProject } from '@/lib/ProjectContext';
 import WordCounter, { countWords, getWordLimitError } from '@/components/WordCounter';
@@ -16,6 +23,7 @@ export default function ManuscriptCleanup() {
     const [genre, setGenre] = useState('fiction');
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState(null);
+    const stepText = useLoadingSteps(CLEANUP_STEPS, loading);
     const [error, setError] = useState('');
     const [activeTab, setActiveTab] = useState(0);
     const [sampleMode, setSampleMode] = useState(false);
@@ -145,7 +153,7 @@ export default function ManuscriptCleanup() {
                         <button className="btn btn-primary generate-btn"
                             onClick={handleSampleSubmit}
                             disabled={loading || !input.trim()}>
-                            {loading ? <><div className="spinner" /> Cleaning...</> : 'Run Free Sample'}
+                            {loading ? <><div className="spinner" /> {stepText}</> : 'Run Free Sample'}
                         </button>
                         {error && <p className="auth-error" style={{ marginTop: '1rem' }}>{error}</p>}
                     </>
@@ -167,7 +175,7 @@ export default function ManuscriptCleanup() {
             <div className="tool-output-card">
                 <h3>Output</h3>
                 {!result && !loading && <div className="output-placeholder">Paste text and click to see results.</div>}
-                {loading && <div className="loading-state"><div className="spinner" /> AI is analyzing your text...</div>}
+                {loading && <div className="loading-state"><div className="spinner" /> {stepText}</div>}
 
                 {result && (
                     <>

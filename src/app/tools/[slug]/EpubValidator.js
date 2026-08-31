@@ -5,6 +5,14 @@ import UpsellBanner from '@/components/UpsellBanner';
 import ValidationBadge from './ValidationBadge';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { TOOLS } from '@/lib/tools';
+import { useLoadingSteps } from '@/hooks/useLoadingSteps';
+
+const EPUB_VAL_STEPS = [
+    { text: 'Reading EPUB...', ms: 1000 },
+    { text: 'Checking structure...', ms: 1500 },
+    { text: 'Checking metadata...', ms: 1500 },
+    { text: 'Almost done...', ms: 0 },
+];
 
 export default function EpubValidator() {
     const [file, setFile] = useState(null);
@@ -17,6 +25,7 @@ export default function EpubValidator() {
     const [name, setName] = useState('');
     const [emailError, setEmailError] = useState('');
     const [emailSent, setEmailSent] = useState(false);
+    const stepText = useLoadingSteps(EPUB_VAL_STEPS, loading);
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.gtag) {
@@ -321,7 +330,7 @@ export default function EpubValidator() {
                         </div>
                     )}
 
-                    {loading && <div className="loading-state"><div className="spinner" /> Validating your EPUB...</div>}
+                    {loading && <div className="loading-state"><div className="spinner" /> {stepText}</div>}
                 </>
             )}
 

@@ -2,6 +2,14 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useProject } from '@/lib/ProjectContext';
+import { useLoadingSteps } from '@/hooks/useLoadingSteps';
+
+const FORMATTER_STEPS = [
+    { text: 'Uploading...', ms: 1500 },
+    { text: 'Processing manuscript...', ms: 2500 },
+    { text: 'Building EPUB...', ms: 3500 },
+    { text: 'Almost done...', ms: 0 },
+];
 
 export default function EpubFormatter() {
     const { currentProject, loadProjectText } = useProject();
@@ -10,6 +18,7 @@ export default function EpubFormatter() {
     const [coverFile, setCoverFile] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const stepText = useLoadingSteps(FORMATTER_STEPS, loading);
     const [success, setSuccess] = useState('');
     const fileRef = useRef(null);
 
@@ -127,7 +136,7 @@ export default function EpubFormatter() {
                     value={manuscript} onChange={(e) => setManuscript(e.target.value)} />
 
                 <button className="btn btn-gold generate-btn" onClick={handleSubmit} disabled={loading || !manuscript.trim()}>
-                    {loading ? <><div className="spinner" /> Generating EPUB...</> : '📦 Generate EPUB File'}
+                    {loading ? <><div className="spinner" /> {stepText}</> : '📦 Generate EPUB File'}
                 </button>
                 {error && <p className="auth-error" style={{ marginTop: '1rem' }}>{error}</p>}
                 {success && <p className="auth-success" style={{ marginTop: '1rem' }}>{success}</p>}

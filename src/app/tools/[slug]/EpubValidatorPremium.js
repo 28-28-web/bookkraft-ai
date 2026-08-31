@@ -3,6 +3,14 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useAuth } from '@/components/AuthProvider';
 import { useRouter } from 'next/navigation';
+import { useLoadingSteps } from '@/hooks/useLoadingSteps';
+
+const EPUB_PREMIUM_STEPS = [
+    { text: 'Reading EPUB...', ms: 1500 },
+    { text: 'Running deep scan...', ms: 2500 },
+    { text: 'Checking store compatibility...', ms: 2500 },
+    { text: 'Almost done...', ms: 0 },
+];
 
 export default function EpubValidatorPremium() {
     const { user, profile, refreshProfile } = useAuth();
@@ -13,6 +21,7 @@ export default function EpubValidatorPremium() {
     const [dragOver, setDragOver] = useState(false);
     const [fileError, setFileError] = useState(null);
     const [creditError, setCreditError] = useState(null);
+    const stepText = useLoadingSteps(EPUB_PREMIUM_STEPS, loading);
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.gtag) {
@@ -413,7 +422,7 @@ setResults({ checks, passCount, total: checks.length, filename: epubFile.name, s
             {loading && (
                 <div className="loading-state">
                     <div className="spinner" />
-                    Running deep validation — checking ghost spacing, duplicate IDs, manifest, cover dimensions...
+                    {stepText}
                 </div>
             )}
 

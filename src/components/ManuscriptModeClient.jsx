@@ -1,6 +1,14 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '@/components/AuthProvider';
+import { useLoadingSteps } from '@/hooks/useLoadingSteps';
+
+const MODE_STEPS = [
+    { text: 'Uploading...', ms: 2000 },
+    { text: 'Reading manuscript...', ms: 3000 },
+    { text: 'Detecting chapters...', ms: 4000 },
+    { text: 'Almost done...', ms: 0 },
+];
 
 export default function ManuscriptModeClient() {
     const { user, loading } = useAuth();
@@ -15,6 +23,7 @@ export default function ManuscriptModeClient() {
         removeDoubleSpaces: true,
     });
     const [status, setStatus] = useState('idle');
+    const stepText = useLoadingSteps(MODE_STEPS, status === 'processing');
     const [errorMsg, setErrorMsg] = useState('');
     const [result, setResult] = useState(null);
     const fileInputRef = useRef(null);
@@ -390,7 +399,7 @@ export default function ManuscriptModeClient() {
                             transition: 'background 0.2s',
                         }}
                     >
-                        {status === 'processing' ? 'Processing your manuscript…' : 'Generate EPUB →'}
+                        {status === 'processing' ? stepText || 'Uploading...' : 'Generate EPUB →'}
                     </button>
 
                 </div>

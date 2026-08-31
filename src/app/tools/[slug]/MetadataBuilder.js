@@ -4,6 +4,13 @@ import { useState, useMemo, useEffect } from 'react';
 import UpsellBanner from '@/components/UpsellBanner';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { TOOLS } from '@/lib/tools';
+import { useLoadingSteps } from '@/hooks/useLoadingSteps';
+
+const META_STEPS = [
+    { text: 'Reading EPUB...', ms: 800 },
+    { text: 'Extracting metadata...', ms: 1500 },
+    { text: 'Almost done...', ms: 0 },
+];
 
 export default function MetadataBuilder() {
     const [form, setForm] = useState({
@@ -25,6 +32,7 @@ export default function MetadataBuilder() {
     const [extracting, setExtracting] = useState(false);
     const [extractError, setExtractError] = useState(null);
     const [epubFilename, setEpubFilename] = useState('');
+    const stepText = useLoadingSteps(META_STEPS, extracting);
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.gtag) {
@@ -196,7 +204,7 @@ export default function MetadataBuilder() {
                                 📖 Drop your EPUB to auto-fill metadata, or fill in manually below
                             </p>
                         </div>
-                        {extracting && <p style={{ fontSize: '0.85rem', color: '#6b7280' }}>Reading EPUB...</p>}
+                        {stepText && <p style={{ fontSize: '0.85rem', color: '#6b7280' }}>{stepText}</p>}
                         {epubFilename && !extracting && (
                             <div style={{ background: '#f0fdf4', border: '1px solid #86efac', borderRadius: '6px', padding: '8px 12px', fontSize: '0.85rem', color: '#166534' }}>
                                 ✅ Extracted from <strong>{epubFilename}</strong> — review and fill gaps below.

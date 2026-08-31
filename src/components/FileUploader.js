@@ -2,6 +2,13 @@
 
 import { useState, useCallback } from 'react';
 import { CHAPTER_BOUNDARY_MARKER } from '@/lib/ai/chunker';
+import { useLoadingSteps } from '@/hooks/useLoadingSteps';
+
+const FILE_STEPS = [
+    { text: 'Reading file...', ms: 800 },
+    { text: 'Extracting text...', ms: 1800 },
+    { text: 'Almost done...', ms: 0 },
+];
 
 /**
  * FileUploader — Drag-and-drop .docx/.txt upload component.
@@ -18,6 +25,7 @@ export default function FileUploader({ onTextExtracted, accept = '.docx,.txt', l
     const [dragOver, setDragOver] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const stepText = useLoadingSteps(FILE_STEPS, loading);
 
     // Strip HTML tags to get plain text for tool textareas
     const htmlToPlainText = (html) => {
@@ -106,7 +114,7 @@ export default function FileUploader({ onTextExtracted, accept = '.docx,.txt', l
 
                 {loading ? (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
-                        <div className="spinner" /> Extracting text...
+                        <div className="spinner" /> {stepText}
                     </div>
                 ) : fileName ? (
                     <div style={{ textAlign: 'center' }}>
