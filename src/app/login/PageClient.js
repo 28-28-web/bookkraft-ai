@@ -89,6 +89,12 @@ function LoginContent() {
 
         try {
 
+            // signInWithOAuth does not await initializePromise internally, so
+            // _recoverAndRefresh() → _removeSession() can race with and delete
+            // the PKCE code_verifier cookie before navigation.  Awaiting here
+            // ensures initialization is done before we write the verifier.
+            await supabase.auth.initialize();
+
             await supabase.auth.signInWithOAuth({
 
                 provider: 'google',
