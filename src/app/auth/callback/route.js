@@ -36,6 +36,16 @@ async function fireGA4AuthEvent({ eventName, method, userId, gaClientId }) {
     }
 }
 
+// Traefik's buffering middleware ("upload-limit@file") fails with "no data
+// ready" when it tries to buffer a redirect response that has no body.
+// Setting Content-Length: 0 tells it explicitly there is nothing to buffer.
+function safeRedirect(url) {
+    const r = NextResponse.redirect(url);
+    r.headers.set('Cache-Control', 'no-store');
+    r.headers.set('Content-Length', '0');
+    return r;
+}
+
 export async function GET(request) {
     // Block prefetch probes — OAuth codes are single-use; a prefetch would
     // consume the code before the real navigation arrives.
@@ -60,8 +70,7 @@ export async function GET(request) {
             // cookieStore.set() only modifies the implicit response — that object is
             // discarded when we return NextResponse.redirect(), so the session cookies
             // would never reach the browser.
-            const redirectResponse = NextResponse.redirect(`${origin}${next}`);
-            redirectResponse.headers.set('Cache-Control', 'no-store');
+            const redirectResponse = safeRedirect(`${origin}${next}`);
 
             const supabase = createServerClient(
                 process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -89,11 +98,7 @@ export async function GET(request) {
                 ({ data, error } = await supabase.auth.exchangeCodeForSession(code));
             } catch (thrown) {
                 console.error('[auth/callback] exchangeCodeForSession threw:', thrown?.message ?? thrown);
-                const r = NextResponse.redirect(
-                    `${origin}/login?error=${encodeURIComponent('Sign-in failed. Please try again.')}`
-                );
-                r.headers.set('Cache-Control', 'no-store');
-                return r;
+                return safeRedirect(`${origin}/login?error=${encodeURIComponent('Sign-in failed. Please try again.')}`);
             }
 
             if (!error) {
@@ -118,18 +123,12 @@ export async function GET(request) {
             const friendlyMsg = error.code === 'flow_state_not_found'
                 ? 'Your sign-in link has expired or was already used. Please try signing in again.'
                 : error.message;
-            const errResponse = NextResponse.redirect(`${origin}/login?error=${encodeURIComponent(friendlyMsg)}`);
-            errResponse.headers.set('Cache-Control', 'no-store');
-            return errResponse;
+            return safeRedirect(`${origin}/login?error=${encodeURIComponent(friendlyMsg)}`);
         } catch (outerErr) {
             console.error('[auth/callback] unexpected error:', outerErr?.message ?? outerErr);
-            const r = NextResponse.redirect(
-                `${origin}/login?error=${encodeURIComponent('Sign-in failed. Please try again.')}`
-            );
-            r.headers.set('Cache-Control', 'no-store');
-            return r;
+            return safeRedirect(`${origin}/login?error=${encodeURIComponent('Sign-in failed. Please try again.')}`);
         }
     }
 
-    return NextResponse.redirect(`${origin}/login?error=auth_failed`);
+    return safeRedirect(`${origin}/login?error=auth_failed`);
 }
