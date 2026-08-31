@@ -2,7 +2,7 @@
 
 import GuaranteeBadge from '@/components/GuaranteeBadge';
 import { PRICING, PADDLE_PRICE_IDS, TOOL_CREDIT_COSTS, FAQS, FREE_TOOLS } from '@/lib/constants';
-import { useState, Suspense, useEffect } from 'react';
+import { useState, Suspense, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { usePaddle } from '@/app/hooks/usePaddle';
 import { useAuth } from '@/components/AuthProvider';
@@ -116,16 +116,38 @@ function CheckoutButton({ purchaseType, discountCode, className, children }) {
     );
 }
 
+const TOOL_LABELS: Record<string, string> = {
+    'manuscript-cleanup': 'Manuscript Cleanup',
+    'print-to-digital': 'Print-to-Digital Converter',
+    'back-matter-generator': 'Back Matter Generator',
+    'epub-validator-premium': 'EPUB Validator Pro',
+    'style-sheet-auditor': 'Style Sheet Auditor',
+    'kdp-keyword-finder': 'KDP Keyword Finder',
+};
+
 function PricingContent() {
     const searchParams = useSearchParams();
     const ref = searchParams.get('ref') ?? searchParams.get('utm_source');
     const discountCode = ref?.toLowerCase() === 'producthunt' ? 'PHLAUNCH' : undefined;
+    const [highlightedPlan, setHighlightedPlan] = useState<string | null>(null);
+    const starterRef = useRef<HTMLDivElement>(null);
+    const proRef = useRef<HTMLDivElement>(null);
+    const lifetimeRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (typeof window !== 'undefined' && (window as any).gtag) {
             (window as any).gtag('event', 'pricing_view');
         }
     }, []);
+
+    const highlightPlan = (plan: string) => {
+        const refs: Record<string, React.RefObject<HTMLDivElement>> = {
+            starter: starterRef, pro: proRef, lifetime: lifetimeRef,
+        };
+        setHighlightedPlan(plan);
+        refs[plan]?.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => setHighlightedPlan(null), 2500);
+    };
 
     return (
         <>
@@ -174,14 +196,64 @@ function PricingContent() {
                     <div>
                         <p className="eyebrow" style={{ textAlign: 'center', color: 'var(--gold)' }}>PAID TIERS</p>
                         <h2 className="section-heading center" style={{ color: 'var(--cream)' }}>Starter, Pro, or Lifetime</h2>
-                        <p className="section-sub center" style={{ marginBottom: 'var(--space-8) ', color: 'rgba(247,243,236,0.65)' }}>
+                        <p className="section-sub center" style={{ marginBottom: 'var(--space-6)', color: 'rgba(247,243,236,0.65)' }}>
                             All logic tools included in every paid tier. Credits power the AI tools.
                         </p>
+
+                        {/* What do you need? */}
+                        <div style={{ marginBottom: 'var(--space-8)', textAlign: 'center' }}>
+                            <p style={{ color: 'rgba(247,243,236,0.4)', fontSize: '11px', marginBottom: '10px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                                What do you need?
+                            </p>
+                            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                                {([
+                                    { label: 'One book to format', plan: 'starter', hint: 'Starter' },
+                                    { label: 'Publishing multiple books', plan: 'pro', hint: 'Pro' },
+                                    { label: 'Long-term, frequent publishing', plan: 'lifetime', hint: 'Lifetime' },
+                                ] as const).map(({ label, plan, hint }) => (
+                                    <button
+                                        key={plan}
+                                        onClick={() => highlightPlan(plan)}
+                                        type="button"
+                                        style={{
+                                            background: highlightedPlan === plan ? 'rgba(201,147,58,0.15)' : 'rgba(255,255,255,0.06)',
+                                            border: `1px solid ${highlightedPlan === plan ? 'var(--gold)' : 'rgba(255,255,255,0.14)'}`,
+                                            borderRadius: 100,
+                                            padding: '9px 16px',
+                                            color: 'var(--cream)',
+                                            fontSize: 'var(--text-sm)',
+                                            cursor: 'pointer',
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            gap: '7px',
+                                            transition: 'background 0.2s, border-color 0.2s',
+                                        }}
+                                    >
+                                        {label}
+                                        <span style={{ color: 'var(--gold)', fontWeight: 700, fontSize: '12px' }}>→ {hint}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
                         <div className="pricing-grid" style={{ maxWidth: 960, margin: '0 auto' }}>
-                            <div className="price-card" style={{ borderRadius: 8, border: '1px solid rgba(0,0,0,0.1)' }}>
+                            <div
+                                ref={starterRef}
+                                className="price-card"
+                                style={{
+                                    borderRadius: 8,
+                                    border: highlightedPlan === 'starter' ? '2px solid var(--gold)' : '1px solid rgba(0,0,0,0.1)',
+                                    boxShadow: highlightedPlan === 'starter' ? '0 0 0 4px rgba(201,147,58,0.18)' : undefined,
+                                    transition: 'border 0.3s, box-shadow 0.3s',
+                                }}
+                            >
                                 <p className="price-plan">{PRICING.starter.name}</p>
+                                <p style={{ fontSize: '12px', color: 'rgba(60,45,30,0.5)', margin: '-6px 0 8px', fontStyle: 'italic' }}>For your next book</p>
                                 <div className="price-amount">{PRICING.starter.label}<span> one-time</span></div>
                                 <p className="price-desc">{PRICING.starter.desc}</p>
+                                <p style={{ fontSize: '12px', color: 'rgba(60,45,30,0.6)', margin: '-4px 0 14px', lineHeight: 1.45 }}>
+                                    e.g. 20 EPUB Validator Pro scans, or 40 KDP keyword searches
+                                </p>
                                 <ul className="price-features">
                                     {PRICING.starter.features.map((f, i) => <li key={i}>{f}</li>)}
                                 </ul>
@@ -190,10 +262,24 @@ function PricingContent() {
                                 </CheckoutButton>
                                 <GuaranteeBadge />
                             </div>
-                            <div className="price-card featured" style={{ borderRadius: 8, background: 'var(--charcoal)', border: '1px solid rgba(201,147,58,0.35)' }}>
+                            <div
+                                ref={proRef}
+                                className="price-card featured"
+                                style={{
+                                    borderRadius: 8,
+                                    background: 'var(--charcoal)',
+                                    border: highlightedPlan === 'pro' ? '2px solid var(--gold)' : '1px solid rgba(201,147,58,0.35)',
+                                    boxShadow: highlightedPlan === 'pro' ? '0 0 0 4px rgba(201,147,58,0.25)' : undefined,
+                                    transition: 'border 0.3s, box-shadow 0.3s',
+                                }}
+                            >
                                 <p className="price-plan">{PRICING.pro.name}</p>
+                                <p style={{ fontSize: '12px', color: 'rgba(247,243,236,0.45)', margin: '-6px 0 8px', fontStyle: 'italic' }}>For authors publishing regularly</p>
                                 <div className="price-amount">{PRICING.pro.label}<span> one-time</span></div>
                                 <p className="price-desc">{PRICING.pro.desc}</p>
+                                <p style={{ fontSize: '12px', color: 'rgba(247,243,236,0.5)', margin: '-4px 0 14px', lineHeight: 1.45 }}>
+                                    e.g. 100 EPUB Validator Pro scans, or keyword research for a 10-book series
+                                </p>
                                 <ul className="price-features">
                                     {PRICING.pro.features.map((f, i) => <li key={i}>{f}</li>)}
                                 </ul>
@@ -202,10 +288,23 @@ function PricingContent() {
                                 </CheckoutButton>
                                 <GuaranteeBadge />
                             </div>
-                            <div className="price-card lifetime-card" style={{ borderRadius: 8 }}>
+                            <div
+                                ref={lifetimeRef}
+                                className="price-card lifetime-card"
+                                style={{
+                                    borderRadius: 8,
+                                    border: highlightedPlan === 'lifetime' ? '2px solid var(--gold)' : undefined,
+                                    boxShadow: highlightedPlan === 'lifetime' ? '0 0 0 4px rgba(201,147,58,0.18)' : undefined,
+                                    transition: 'border 0.3s, box-shadow 0.3s',
+                                }}
+                            >
                                 <p className="price-plan">{PRICING.lifetime.name}</p>
+                                <p style={{ fontSize: '12px', color: 'rgba(247,243,236,0.45)', margin: '-6px 0 8px', fontStyle: 'italic' }}>For serious authors, editors & frequent publishers</p>
                                 <div className="price-amount">{PRICING.lifetime.label}<span> one-time</span></div>
                                 <p className="price-desc">{PRICING.lifetime.desc}</p>
+                                <p style={{ fontSize: '12px', color: 'rgba(247,243,236,0.5)', margin: '-4px 0 14px', lineHeight: 1.45 }}>
+                                    No counting — unlimited AI runs on every tool, forever
+                                </p>
                                 <ul className="price-features">
                                     {PRICING.lifetime.features.map((f, i) => <li key={i}>{f}</li>)}
                                 </ul>
@@ -216,13 +315,19 @@ function PricingContent() {
                             </div>
                         </div>
 
-                        {/* Credit cost table */}
-                        <div style={{ marginTop: 'var(--space-8)', maxWidth: 480, margin: 'var(--space-8) auto 0' }}>
+                        {/* How credits work */}
+                        <div style={{ maxWidth: 480, margin: 'var(--space-12) auto 0' }}>
+                            <h3 style={{ color: 'var(--cream)', fontSize: 'var(--text-base)', fontWeight: 700, marginBottom: 'var(--space-2)', textAlign: 'center' }}>
+                                How credits work
+                            </h3>
+                            <p style={{ fontSize: 'var(--text-sm)', color: 'rgba(247,243,236,0.6)', marginBottom: 'var(--space-4)', textAlign: 'center', lineHeight: 1.5 }}>
+                                Each AI tool costs a fixed number of credits per run. Longer manuscripts scale up — the exact cost is shown before any credits are spent.
+                            </p>
                             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 'var(--text-sm)', color: 'var(--cream)' }}>
                                 <thead>
                                     <tr style={{ borderBottom: '2px solid rgba(255,255,255,0.12)' }}>
                                         <th style={{ textAlign: 'left', padding: '8px 0' }}>AI Tool</th>
-                                        <th style={{ textAlign: 'right', padding: '8px 0' }}>Credits/Run</th>
+                                        <th style={{ textAlign: 'right', padding: '8px 0' }}>Credits / Run</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -230,14 +335,14 @@ function PricingContent() {
                                         .sort(([, a], [, b]) => a - b)
                                         .map(([slug, cost], i) => (
                                             <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
-                                                <td style={{ padding: '8px 0' }}>{slug.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ')}</td>
+                                                <td style={{ padding: '8px 0' }}>{TOOL_LABELS[slug] ?? slug.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ')}</td>
                                                 <td style={{ textAlign: 'right', padding: '8px 0', color: 'var(--gold)', fontWeight: 600 }}>{cost}</td>
                                             </tr>
                                         ))}
                                 </tbody>
                             </table>
                             <p style={{ fontSize: 'var(--text-xs)', color: 'rgba(247,243,236,0.5)', marginTop: 'var(--space-3)' }}>
-                                Longer manuscripts scale in cost with word count — the exact price is shown before any credits are spent.
+                                Credits never expire. Top-ups are available at any time from your account dashboard.
                             </p>
                         </div>
                     </div>
