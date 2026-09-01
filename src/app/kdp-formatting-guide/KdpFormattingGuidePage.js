@@ -467,6 +467,13 @@ export default function KdpFormattingGuidePage() {
                     </div>
                 ))}
 
+                {/* ── CROSS-LINKS ── */}
+                <p style={{ fontSize: 16, lineHeight: 1.75, marginTop: 40, marginBottom: 24, opacity: 0.88 }}>
+                    This guide covers ebook (Kindle) formatting specifically. If you are also publishing a print edition — or deciding whether to publish both — see the{' '}
+                    <Link href="/kdp-print-vs-digital" style={LINK_STYLE}>KDP print vs digital guide</Link>{' '}
+                    for the file format, ISBN, royalty, and distribution differences between KDP ebook and KDP Print.
+                </p>
+
                 {/* ── CTA ── */}
                 <div style={{ marginTop: 48, padding: '24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
                     <p style={{ fontSize: 17, marginBottom: 16, fontWeight: 500 }}>Start with the free EPUB Validator — no signup, no Java, runs in your browser.</p>

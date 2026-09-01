@@ -267,6 +267,12 @@ export default async function sitemap() {
       priority: 0.8,
     },
     {
+      url: `${BASE}/kdp-print-vs-digital`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${BASE}/epub-images`,
       lastModified: CONTENT_DATE,
       changeFrequency: 'monthly',
