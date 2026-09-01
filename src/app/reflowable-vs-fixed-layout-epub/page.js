@@ -181,7 +181,7 @@ export default function ReflowableVsFixedLayoutPage() {
         ))}
 
         {/* Cross-links */}
-        <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginTop: 48, marginBottom: 32, opacity: 0.9 }}>
+        <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginTop: 48, marginBottom: 16, opacity: 0.9 }}>
           For the full reflowable EPUB build workflow — manuscript cleanup, TOC, metadata, and platform submission — see the{' '}
           <Link href="/epub-formatting-guide" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             EPUB formatting guide
@@ -193,6 +193,17 @@ export default function ReflowableVsFixedLayoutPage() {
           . For a comparison of book formatting tools — desktop apps, online tools, and browser-based converters — see{' '}
           <Link href="/book-formatting-software" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             book formatting software
+          </Link>
+          .
+        </p>
+        <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 32, opacity: 0.9 }}>
+          For the EPUB navigation document format — nav.xhtml structure, toc.ncx, and KDP navigation requirements — see the{' '}
+          <Link href="/epub-toc-guide" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            EPUB TOC guide
+          </Link>
+          . For a complete OPF metadata reference — required fields, ISBNs, language codes, and how stores use each field — see the{' '}
+          <Link href="/epub-metadata-guide" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            EPUB metadata guide
           </Link>
           .
         </p>
