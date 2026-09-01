@@ -65,7 +65,7 @@ export const COVER_REQUIREMENTS = [
       { label: 'Color profile', value: 'sRGB' },
       { label: 'CMYK', value: 'Not accepted — causes rejection' },
     ],
-    details: '<p>Apple Books requires cover images to be at least 1400×2100 pixels, in RGB color mode with an sRGB color profile. The minimum is notably higher than KDP\'s 625×1000px floor — a cover that passes KDP\'s size check may still fail Apple Books. CMYK images are rejected; this is the most common reason print covers fail Apple\'s validation, since print designers typically work in CMYK and may not have a separate RGB/sRGB export.</p><p>Apple validates color profiles at the byte level — saving as RGB in some tools does not automatically embed an sRGB profile. When exporting your cover, explicitly set the color profile to sRGB in the export dialog rather than relying on the application default.</p>',
+    details: '<p>Apple Books requires cover images to be at least 1400×2100 pixels, in RGB color mode with an sRGB color profile. The minimum is notably higher than KDP\'s 625×1000px floor — a cover that passes KDP\'s size check may still fail Apple Books. CMYK images are rejected; this is the most common reason print covers fail Apple\'s validation, since print designers typically work in CMYK and may not have a separate RGB/sRGB export.</p><p>Apple validates color profiles at the byte level — saving as RGB in some tools does not automatically embed an sRGB profile. When exporting your cover, explicitly set the color profile to sRGB in the export dialog rather than relying on the application default.</p><h3 style="font-size:1rem;font-weight:700;margin:24px 0 10px">How to export a compliant Apple Books cover</h3><ol style="padding-left:1.4em;line-height:1.8;font-size:15px"><li><strong>Set canvas size to at least 1400×2100px.</strong> Work at 2800×4200px (2×) if your design tool supports it — Apple Books scales down gracefully and the extra resolution gives you room if the image is ever reused elsewhere.</li><li><strong>Design in RGB color mode from the start.</strong> If the cover was built for print (CMYK), open it in Photoshop and go to Image → Mode → RGB Color before doing anything else. Converting late in the process reduces banding risk compared to converting the exported JPEG.</li><li><strong>Assign sRGB explicitly on export.</strong> In Photoshop: File → Export → Export As → Color Space → sRGB. In Affinity Photo: File → Export → JPEG → Color Space → sRGB IEC 61966-2.1. In Canva: download as PNG or JPEG — Canva exports sRGB by default. Do not rely on "Save for Web" with default settings; some versions omit the profile tag.</li><li><strong>Export as JPEG or PNG.</strong> JPEG at 90–100 quality is standard. PNG is accepted but produces larger files with no quality benefit for photographic covers. Avoid WebP, TIFF, or PDF — Apple Books does not accept these as the cover image file.</li><li><strong>Verify before embedding.</strong> Open the exported file in Preview (macOS) → Tools → Show Inspector → Color Model should read "RGB". On Windows, right-click → Properties → Details → Color representation. Run the file through BookKraft\'s Cover Checker to confirm dimensions, color mode, and format against Apple Books requirements before adding it to your EPUB.</li></ol>',
     commonMistakes: [
       {
         title: 'CMYK cover from print workflow',
@@ -92,6 +92,14 @@ export const COVER_REQUIREMENTS = [
       {
         q: 'Is there a maximum file size for Apple Books cover images?',
         a: 'Apple does not publish a specific cover image file size limit, but excessively large images (above ~20MB) can cause submission processing issues. A 1400×2100px JPEG at maximum quality is typically 2–4MB — well within safe limits.',
+      },
+      {
+        q: 'Can I use the same cover image for KDP and Apple Books?',
+        a: 'Only if the image already meets Apple\'s stricter requirements. KDP accepts covers as small as 625×1000px and does not reject CMYK. Apple Books requires a minimum of 1400×2100px in sRGB color mode. If your KDP cover is at least 1400×2100px and was exported as sRGB, it will work for Apple Books. If it was exported from a print workflow in CMYK, it will not — you need a separate RGB/sRGB export.',
+      },
+      {
+        q: 'Does Apple Books require a minimum DPI for cover images?',
+        a: 'Apple Books does not enforce a DPI (dots per inch) requirement for ebook covers — DPI is a print concept and has no technical meaning for screen-displayed images. What matters is the pixel dimension: at least 1400×2100px. A 1400×2100px image at 72 DPI contains the same pixel data as one at 300 DPI; the DPI metadata tag does not affect acceptance.',
       },
     ],
     relatedTool: 'cover-checker',
