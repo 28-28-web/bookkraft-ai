@@ -296,6 +296,18 @@ export default async function sitemap() {
     ...checklistPages,
     ...mistakePages,
     {
+      url: `${BASE}/platform-rejection`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE}/checklist`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${BASE}/cover-requirements`,
       lastModified: CONTENT_DATE,
       changeFrequency: 'monthly',
