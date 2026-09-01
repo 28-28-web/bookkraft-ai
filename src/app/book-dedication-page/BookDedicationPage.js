@@ -209,6 +209,10 @@ export default function BookDedicationPage() {
         <Link href="/copyright-page-template" style={{ color: '#9c7f35', textDecoration: 'none' }}>
           copyright page template and examples
         </Link>
+        . For the acknowledgments page — longer than a dedication, lists contributors by name — see the{' '}
+        <Link href="/book-acknowledgments-page" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+          book acknowledgments page guide
+        </Link>
         . For EPUB structure when building front matter files manually, see the{' '}
         <Link href="/kindle-epub-format" style={{ color: '#9c7f35', textDecoration: 'none' }}>
           Kindle EPUB format guide

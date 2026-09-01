@@ -156,7 +156,8 @@ export const KDP_GUIDE_ARTICLES = [
 <h2>How Many Ghost Categories to Request</h2>
 <p>KDP allows up to 10 categories total per book (the 2 selected during upload plus up to 8 more through support). Whether to request all 8 additional slots depends on genuine fit — Amazon expects the categories you request to match your book's actual content.</p>
 <p>Request categories where your book genuinely belongs and where you can realistically rank. A book placed in a mismatched category generates poor engagement from readers who browse to it, which sends negative signals back to Amazon's algorithm. Better to hold 6–7 well-fitted categories than 10 where 3 are stretches.</p>
-<p>The <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> outputs full category paths — including ghost categories matched to your book's genre and themes — formatted as the exact path text you paste into a KDP support request, with a rationale for each recommendation so you can evaluate fit before requesting.</p>`,
+<p>The <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> outputs full category paths — including ghost categories matched to your book's genre and themes — formatted as the exact path text you paste into a KDP support request, with a rationale for each recommendation so you can evaluate fit before requesting.</p>
+<p>For a complete reference on KDP category strategy — how browse categories interact with backend keywords, how to request ghost categories via support, and how to evaluate category fit — see the <a href="/kdp-category-keywords" style="color:var(--gold,#c9a84c);text-decoration:none">KDP category keywords guide</a>.</p>`,
     faq: [
       {
         q: 'How long does KDP support take to add ghost categories?',
@@ -212,7 +213,8 @@ export const KDP_GUIDE_ARTICLES = [
 <h2>Categories and Keywords — How They Work Together</h2>
 <p>Categories control browse placement — which browse paths lead to your book. Backend keyword slots control search placement — which queries surface your book. Amazon uses both signals together, and some categories are keyword-gated: specific phrases in your backend keyword fields signal to Amazon that your book belongs in a particular category, supplementing the formal placement request.</p>
 <p>This means keyword optimization and category optimization should be done together. Once your categories are set, make sure your backend keyword phrases reinforce the same genre, trope, and audience signals your category placements establish. A mismatch between your categories and keywords can reduce how much browse traffic you actually capture from category placement.</p>
-<p>The <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> generates both: 7 keyword phrases for your backend fields and full category paths — including ghost categories — with the exact text for a KDP support request, so keyword and category signals align from the start.</p>`,
+<p>The <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> generates both: 7 keyword phrases for your backend fields and full category paths — including ghost categories — with the exact text for a KDP support request, so keyword and category signals align from the start.</p>
+<p>For a deeper look at category strategy — ghost category discovery, how keyword-category gating works, and maximizing your 10-category limit — see the <a href="/kdp-category-keywords" style="color:var(--gold,#c9a84c);text-decoration:none">KDP category keywords guide</a>.</p>`,
     faq: [
       {
         q: 'Can I request more than 10 categories?',

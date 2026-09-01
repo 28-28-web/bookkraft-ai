@@ -371,6 +371,18 @@ export default function Page() {
         </Link>
       </div>
 
+      <p style={{ fontSize: 15, lineHeight: 1.7, opacity: 0.85, marginBottom: 32 }}>
+        If your EPUB passes validation but the store still rejects it, see{' '}
+        <Link href="/platform-rejection" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+          why platforms reject ebooks
+        </Link>
+        {' '}— rejection reasons by platform, with the specific fix for each. For a single-page pre-upload checklist, see the{' '}
+        <Link href="/checklist" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+          ebook publishing checklists
+        </Link>
+        .
+      </p>
+
       {/* Bottom CTA */}
       <div style={{ padding: '24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
         <p style={{ fontSize: 18, marginBottom: 16 }}>Start with the free EPUB Validator — no signup needed.</p>

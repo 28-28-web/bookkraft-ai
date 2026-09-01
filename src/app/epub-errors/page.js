@@ -88,12 +88,19 @@ export default function EpubErrorsIndexPage() {
 
         <div style={{ marginTop: 48, marginBottom: 32, padding: '24px', background: 'var(--cream, #f7f3ec)', border: '1px solid var(--border)', borderRadius: 10 }}>
           <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>Prevent errors on the next book</p>
-          <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.65, marginBottom: 0 }}>
+          <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.65, marginBottom: 8 }}>
             Most of the errors on this page are avoidable by building the EPUB correctly from the start. The{' '}
             <Link href="/epub-formatting-guide" style={{ color: 'var(--gold, #c9a84c)', textDecoration: 'none' }}>
               EPUB formatting guide
             </Link>{' '}
             walks through every step — manuscript cleanup, TOC generation, CSS, front matter, EPUB 3.0 generation, and validation — with a tool for each one.
+          </p>
+          <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.65, marginBottom: 0 }}>
+            Before uploading, run through the{' '}
+            <Link href="/checklist" style={{ color: 'var(--gold, #c9a84c)', textDecoration: 'none' }}>
+              pre-upload publishing checklist
+            </Link>
+            {' '}— a single-page list covering every step from file structure to platform-specific submission requirements.
           </p>
         </div>
 

@@ -275,6 +275,10 @@ export default function BookFrontMatterPage() {
         <Link href="/book-dedication-page" style={{ color: '#9c7f35', textDecoration: 'none' }}>
           book dedication page examples
         </Link>
+        . For the acknowledgments page — what to include and how to format it — see the{' '}
+        <Link href="/book-acknowledgments-page" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+          book acknowledgments page guide
+        </Link>
         . For manuscript formatting before building your EPUB, see{' '}
         <Link href="/manuscript-format" style={{ color: '#9c7f35', textDecoration: 'none' }}>
           manuscript format standards

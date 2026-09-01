@@ -193,6 +193,10 @@ export default function CopyrightPageTemplatePage() {
         <Link href="/book-dedication-page" style={{ color: '#9c7f35', textDecoration: 'none' }}>
           book dedication page examples
         </Link>
+        . For the acknowledgments page — what to include and how it differs from a dedication — see the{' '}
+        <Link href="/book-acknowledgments-page" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+          book acknowledgments page guide
+        </Link>
         . For EPUB file structure requirements when building your front matter files, see the{' '}
         <Link href="/kindle-epub-format" style={{ color: '#9c7f35', textDecoration: 'none' }}>
           Kindle EPUB format guide
