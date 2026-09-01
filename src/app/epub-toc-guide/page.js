@@ -258,6 +258,10 @@ export default function EpubTocGuidePage() {
           <Link href="/epub-metadata-guide" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             EPUB metadata guide
           </Link>
+          . For EPUB CSS — safe properties for paragraphs, headings, and page breaks — see{' '}
+          <Link href="/epub-css-for-ebooks" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            CSS for EPUB files
+          </Link>
           .
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 32, opacity: 0.9 }}>
