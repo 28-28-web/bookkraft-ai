@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { TOOL_CREDIT_COSTS } from '@/lib/constants';
+import { TOOL_CREDIT_COSTS } from '@/lib/toolCosts';
 
 const AuthContext = createContext({});
 

@@ -1,6 +1,7 @@
 // BookKraft AI — Chat Assistant Decision Tree
-
-import { TOOLS } from './tools';
+// TOOL_COUNT is hardcoded to avoid bundling tools.js (115KB) into the client.
+// Update when adding/removing tools from tools.js.
+const TOOL_COUNT = 16;
 
 export const CHAT_TREE = {
     root: {
@@ -210,7 +211,7 @@ export const CHAT_TREE = {
 
     // ── ALL TOOLS ──
     all_tools: {
-        message: `Here are all ${TOOLS.length} tools. Starter unlocks the 5 logic tools plus 40 AI credits for $19 one-time — best place to start.`,
+        message: `Here are all ${TOOL_COUNT} tools. Starter unlocks the 5 logic tools plus 40 AI credits for $19 one-time — best place to start.`,
         options: [
             { label: "Get Starter ($19)", next: null, toolLink: "/checkout?plan=starter", toolPrice: "$19" },
             { label: "Show me individual tool prices", next: null, toolLink: "/dashboard" },

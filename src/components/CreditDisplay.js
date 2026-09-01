@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { TOOL_CREDIT_COSTS } from '@/lib/constants';
+import { TOOL_CREDIT_COSTS } from '@/lib/toolCosts';
 
 /**
  * CreditDisplay — Shows credit cost and balance before AI tool submit
