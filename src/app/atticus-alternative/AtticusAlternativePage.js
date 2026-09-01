@@ -93,7 +93,11 @@ export default function AtticusAlternativePage() {
           <Link href="/epub-formatting-guide" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             EPUB formatting guide
           </Link>
-          .
+          . For a full comparison of book formatting tools,{' '}
+          <Link href="/book-formatting-software" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            book formatting software
+          </Link>
+          {' '}covers desktop apps, online tools, and browser-based converters side by side.
         </p>
 
         <div style={{ marginTop: 48, padding: '24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>

@@ -58,6 +58,14 @@ export default function KdpKeywordGuideIndexPage() {
           ))}
         </div>
 
+        <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--mid)', marginTop: 32, marginBottom: 40 }}>
+          For KDP browse category selection — including ghost categories and the keyword-category gating system — see the{' '}
+          <Link href="/kdp-category-keywords" style={{ color: 'var(--gold)', textDecoration: 'none' }}>
+            KDP category keywords guide
+          </Link>
+          .
+        </p>
+
         <div style={{ marginTop: 48, padding: '24px', background: 'var(--cream, #f7f3ec)', border: '1px solid var(--border)', borderRadius: 10 }}>
           <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>Get keywords for your specific book</p>
           <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.65, marginBottom: 16 }}>

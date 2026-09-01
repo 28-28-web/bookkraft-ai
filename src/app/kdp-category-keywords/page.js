@@ -269,6 +269,9 @@ export default function KdpCategoryKeywordsPage() {
           <Link href="/epub-formatting-guide" style={{ fontSize: 15, color: 'var(--gold)', textDecoration: 'none', fontWeight: 600 }}>
             KDP Formatting Guide →
           </Link>
+          <Link href="/amazon-keyword-research" style={{ fontSize: 15, color: 'var(--gold)', textDecoration: 'none', fontWeight: 600 }}>
+            Amazon Keyword Research for Books →
+          </Link>
         </div>
 
       </main>

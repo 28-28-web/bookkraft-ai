@@ -276,6 +276,10 @@ export default function AmazonKeywordResearchPage() {
           <Link href="/cover-requirements/amazon-kdp-ebook" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             Amazon KDP cover requirements
           </Link>
+          . For KDP browse categories — including ghost categories only accessible via KDP support — see{' '}
+          <Link href="/kdp-category-keywords" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            KDP category keywords
+          </Link>
           .
         </p>
 

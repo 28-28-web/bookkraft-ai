@@ -113,7 +113,11 @@ export default function CalibreAlternativePage() {
           <Link href="/epub-formatting-guide" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             EPUB formatting guide
           </Link>
-          .
+          . For a full comparison of book formatting tools,{' '}
+          <Link href="/book-formatting-software" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            book formatting software
+          </Link>
+          {' '}covers desktop apps, online tools, and browser-based converters.
         </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>

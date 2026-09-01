@@ -40,6 +40,14 @@ export default function CoverRequirementsIndexPage() {
           ))}
         </div>
 
+        <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.7, marginBottom: 24 }}>
+          For pixel dimensions and aspect ratios across all platforms in one place, see the{' '}
+          <Link href="/book-cover-size" style={{ color: 'var(--gold)', textDecoration: 'none' }}>
+            book cover size guide
+          </Link>
+          .
+        </p>
+
         <div style={{ padding: '24px', background: 'var(--cream)', border: '1px solid var(--border)', borderRadius: 10 }}>
           <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>Check your cover before uploading</p>
           <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.65, marginBottom: 16 }}>

@@ -195,7 +195,11 @@ export default function VellumAlternativePage() {
           <Link href="/epub-formatting-guide" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             EPUB formatting guide
           </Link>
-          .
+          . Comparing other formatting tools?{' '}
+          <Link href="/book-formatting-software" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            Book formatting software
+          </Link>
+          {' '}covers the full landscape — desktop apps, online tools, and browser-based converters.
         </p>
 
         <div style={{ marginTop: 48, padding: '24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
