@@ -380,6 +380,10 @@ export default function Page() {
         <Link href="/checklist" style={{ color: '#9c7f35', textDecoration: 'none' }}>
           ebook publishing checklists
         </Link>
+        . Not sure whether your book needs a reflowable or fixed-layout EPUB? See{' '}
+        <Link href="/reflowable-vs-fixed-layout-epub" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+          reflowable vs fixed-layout EPUB
+        </Link>
         .
       </p>
 

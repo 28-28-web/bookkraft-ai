@@ -40,6 +40,14 @@ export default function ChecklistIndexPage() {
           ))}
         </div>
 
+        <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.7, marginBottom: 24 }}>
+          For an overall publishing readiness check — metadata completeness, formatting quality, and store-specific compliance scored together — see the{' '}
+          <Link href="/tools/publishing-score" style={{ color: 'var(--gold)', textDecoration: 'none' }}>
+            Publishing Score tool
+          </Link>
+          .
+        </p>
+
         <div style={{ padding: '24px', background: 'var(--cream)', border: '1px solid var(--border)', borderRadius: 10 }}>
           <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>Validate before you check off</p>
           <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.65, marginBottom: 16 }}>
