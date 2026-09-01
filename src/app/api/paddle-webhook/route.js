@@ -293,7 +293,9 @@ export async function POST(request) {
         const customData = body.data?.custom_data || {};
         const { userId, purchaseType, userEmail } = customData;
         const paddleOrderId = body.data?.id;
-        const amountPaid = parseFloat(body.data?.details?.totals?.total || '0') / 100;
+        const rawTotal = body.data?.details?.totals?.total;
+        console.log(`[GA4-diag] paddleOrderId=${paddleOrderId} purchaseType=${purchaseType} rawTotal=${rawTotal} grandTotal=${body.data?.details?.totals?.grand_total}`);
+        const amountPaid = parseFloat(rawTotal || '0') / 100;
 
         if (!paddleOrderId) {
             console.error('Paddle webhook: missing transaction id');
@@ -348,6 +350,19 @@ export async function POST(request) {
 
             const artBody = await artRes.json().catch(() => ({}));
             console.log(`Paddle webhook: headshot credits granted — ${creditsToAdd} credits → ${userEmail}`, artBody);
+
+            await fireGA4Event({
+                clientId: customData.gaClientId ?? null,
+                userId: userEmail,
+                eventName: 'purchase',
+                params: {
+                    transaction_id: paddleOrderId,
+                    value: amountPaid,
+                    currency: 'USD',
+                    items: [{ item_id: purchaseType, item_name: purchaseType, price: amountPaid, quantity: 1 }],
+                },
+            });
+
             return NextResponse.json({ received: true, processed: purchaseType, creditsGranted: creditsToAdd });
         }
 
