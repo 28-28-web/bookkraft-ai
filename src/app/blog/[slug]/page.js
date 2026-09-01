@@ -26,6 +26,7 @@ export async function generateMetadata({ params }) {
   return {
     title: `${title} — BookKraft AI`,
     description,
+    robots: post.noindex ? 'noindex' : 'index, follow',
     alternates: { canonical },
     openGraph: {
       title: post.og_title || title,
