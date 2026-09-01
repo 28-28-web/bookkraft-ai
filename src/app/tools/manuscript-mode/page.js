@@ -154,6 +154,7 @@ export default function ManuscriptModePage() {
                         <li><Link href="/tools/epub-validator" style={{ color: 'var(--gold)' }}><strong>EPUB Validator</strong></Link> — validate your converted EPUB before uploading to KDP or Apple Books. Free, no account needed.</li>
                         <li><Link href="/tools/kindle-format-fixer" style={{ color: 'var(--gold)' }}><strong>Kindle Format Fixer</strong></Link> — text-only formatting pass (smart quotes, em dashes, encoding) without building an EPUB. Included in Starter and Pro plans.</li>
                         <li><Link href="/epub-formatting-guide" style={{ color: 'var(--gold)' }}><strong>EPUB Formatting Guide</strong></Link> — full workflow from manuscript to store-ready EPUB, including TOC, front matter, and store-specific requirements.</li>
+                        <li><Link href="/blog/best-ebook-formats-epub-vs-pdf-vs-mobi" style={{ color: 'var(--gold)' }}><strong>EPUB vs PDF vs MOBI — Which Format Should You Publish In?</strong></Link> — explains the real differences between ebook formats and which platforms accept which.</li>
                     </ul>
 
                     {/* CTA */}
