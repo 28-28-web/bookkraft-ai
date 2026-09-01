@@ -18,9 +18,9 @@ const playfair = Playfair_Display({
   weight: ['400', '700'],
   style: ['normal', 'italic'],
   variable: '--font-playfair',
-  display: 'optional',
-  // Not in the above-fold LCP path — preload freed so Fraunces (the LCP font)
-  // gets sole preload bandwidth on mobile.
+  display: 'swap',
+  // Content page H1–H4 LCP font. No preload — Fraunces owns the single
+  // preload slot on homepage; content pages benefit from swap over optional.
   preload: false,
 });
 
@@ -29,8 +29,7 @@ const dmSans = DM_Sans({
   weight: ['400', '500', '700'],
   variable: '--font-dm-sans',
   display: 'swap',
-  // Body text is not the LCP element. Removing the preload frees bandwidth
-  // so Playfair Display (the LCP font) arrives within the optional window.
+  // Body text, not LCP. No preload needed.
   preload: false,
 });
 
