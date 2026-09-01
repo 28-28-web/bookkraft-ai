@@ -20,6 +20,28 @@ export default async function BlogIndexPage() {
 
   return (
     <>
+      <style>{`
+        .bk-blog-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+          gap: 20px;
+        }
+        .bk-blog-card {
+          background: var(--paper-dim, #f4f4f2);
+          border-radius: 10px;
+          overflow: hidden;
+          border: 1px solid rgba(21,23,29,0.08);
+          cursor: pointer;
+          transition: box-shadow 0.2s, transform 0.15s;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+        .bk-blog-card:hover {
+          box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+          transform: translateY(-2px);
+        }
+      `}</style>
       <main>
         {/* Hero */}
         <section style={{
@@ -50,11 +72,7 @@ export default async function BlogIndexPage() {
             {posts.length === 0 ? (
               <p style={{ textAlign: 'center', color: 'var(--mid)' }}>No posts yet.</p>
             ) : (
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-                gap: 'var(--space-6)',
-              }}>
+              <div className="bk-blog-grid">
                 {posts.map((post) => <PostCard key={post.slug} post={post} />)}
               </div>
             )}
@@ -71,59 +89,68 @@ function PostCard({ post }) {
   const excerpt = post.custom_excerpt || post.excerpt || '';
 
   return (
-    <Link href={`/blog/${post.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-      <article style={{
-        background: 'var(--white)', border: '1px solid var(--border)',
-        borderRadius: 'var(--radius)', overflow: 'hidden',
-        display: 'flex', flexDirection: 'column', height: '100%',
-      }}>
-        {post.feature_image && (
-          <div style={{ aspectRatio: '16/9', overflow: 'hidden' }}>
+    <Link href={`/blog/${post.slug}`} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+      <article className="bk-blog-card">
+        {/* Image area — fixed 140px, matches ToolCard thumb height */}
+        <div style={{
+          height: 140, flexShrink: 0, overflow: 'hidden',
+          background: 'var(--paper-dim,#f4f4f2)',
+          borderBottom: '1px solid rgba(21,23,29,0.06)',
+        }}>
+          {post.feature_image && (
             <img
               src={post.feature_image}
               alt={post.feature_image_alt || post.title}
               style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
             />
-          </div>
-        )}
-        <div style={{ padding: 'var(--space-5)', display: 'flex', flexDirection: 'column', flex: 1 }}>
+          )}
+        </div>
+
+        {/* Body */}
+        <div style={{ padding: '14px 16px', flex: 1, display: 'flex', flexDirection: 'column', gap: 6 }}>
           {primaryTag && (
             <span style={{
-              fontSize: 11, fontWeight: 700, letterSpacing: '0.08em',
-              textTransform: 'uppercase', color: 'var(--gold)', marginBottom: 'var(--space-2)',
-              display: 'block',
+              alignSelf: 'flex-start',
+              fontSize: '0.6rem', fontFamily: 'monospace', fontWeight: 700,
+              letterSpacing: '0.05em', textTransform: 'uppercase',
+              color: '#c07a2b', background: 'rgba(192,122,43,0.12)',
+              border: '1px solid #c07a2b',
+              borderRadius: 3, padding: '2px 6px', whiteSpace: 'nowrap',
             }}>
               {primaryTag.name}
             </span>
           )}
           <h2 style={{
             fontSize: 'var(--text-lg)', fontWeight: 700, lineHeight: 1.3,
-            marginBottom: 'var(--space-3)', color: 'var(--ink)',
+            margin: 0, color: 'var(--ink)',
           }}>
             {post.title}
           </h2>
           {excerpt && (
             <p style={{
-              fontSize: 'var(--text-sm)', color: 'var(--mid)', lineHeight: 1.6,
-              flex: 1, marginBottom: 'var(--space-4)',
+              margin: 0, fontSize: '0.8rem', color: 'rgba(21,23,29,0.6)',
+              lineHeight: 1.55, flex: 1,
               display: '-webkit-box', WebkitLineClamp: 3,
               WebkitBoxOrient: 'vertical', overflow: 'hidden',
             }}>
               {excerpt}
             </p>
           )}
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: 'var(--space-3)',
-            fontSize: 'var(--text-sm)', color: 'var(--mid)', marginTop: 'auto',
-          }}>
-            <time dateTime={post.published_at}>{formatDate(post.published_at)}</time>
-            {post.reading_time && (
-              <>
-                <span aria-hidden="true">·</span>
-                <span>{post.reading_time} min read</span>
-              </>
-            )}
-          </div>
+        </div>
+
+        {/* Footer — mirrors ToolCard's borderTop footer */}
+        <div style={{
+          padding: '10px 16px', borderTop: '1px solid rgba(21,23,29,0.06)',
+          display: 'flex', alignItems: 'center', gap: 8,
+          fontSize: '0.75rem', fontFamily: 'monospace', color: 'rgba(21,23,29,0.45)',
+        }}>
+          <time dateTime={post.published_at}>{formatDate(post.published_at)}</time>
+          {post.reading_time && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>{post.reading_time} min read</span>
+            </>
+          )}
         </div>
       </article>
     </Link>
