@@ -280,6 +280,10 @@ export default function AmazonKeywordResearchPage() {
           <Link href="/kdp-category-keywords" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             KDP category keywords
           </Link>
+          . For the book description field — HTML formatting, character limit, and copywriting structure — see the{' '}
+          <Link href="/kdp-book-description" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            KDP book description guide
+          </Link>
           .
         </p>
 
