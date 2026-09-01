@@ -273,6 +273,18 @@ export default async function sitemap() {
       priority: 0.8,
     },
     {
+      url: `${BASE}/epub-fonts`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE}/kdp-ebook-pricing`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${BASE}/epub-images`,
       lastModified: CONTENT_DATE,
       changeFrequency: 'monthly',

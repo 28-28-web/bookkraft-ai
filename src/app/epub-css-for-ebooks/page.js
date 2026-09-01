@@ -284,12 +284,19 @@ h3 {
           </Link>
           .
         </p>
-        <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 32, opacity: 0.9 }}>
+        <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
           For Kindle-specific EPUB structure and formatting requirements, see the{' '}
           <Link href="/kindle-epub-format" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             Kindle EPUB format guide
           </Link>
           .
+        </p>
+        <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 32, opacity: 0.9 }}>
+          For font selection decisions — which typefaces to embed, licensing (OFL vs commercial), and subsetting — see the{' '}
+          <Link href="/epub-fonts" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            fonts in EPUB files guide
+          </Link>
+          . That page covers the design-decision layer; this page covers the CSS syntax.
         </p>
 
         {/* CTA */}

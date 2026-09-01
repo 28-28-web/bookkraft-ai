@@ -284,6 +284,10 @@ export default function AmazonKeywordResearchPage() {
           <Link href="/kdp-book-description" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             KDP book description guide
           </Link>
+          . For ebook pricing strategy — royalty tiers, permafree mechanics, and series pricing — see the{' '}
+          <Link href="/kdp-ebook-pricing" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            KDP ebook pricing guide
+          </Link>
           .
         </p>
 

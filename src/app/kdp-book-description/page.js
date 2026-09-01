@@ -237,6 +237,10 @@ Avoid plot synopsis — write toward the feeling of reading the book.</p>
           <Link href="/epub-metadata-guide" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             EPUB metadata guide
           </Link>
+          . For ebook pricing strategy — how royalty tiers interact with price selection, permafree, and Kindle Unlimited — see the{' '}
+          <Link href="/kdp-ebook-pricing" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            KDP ebook pricing guide
+          </Link>
           .
         </p>
 
