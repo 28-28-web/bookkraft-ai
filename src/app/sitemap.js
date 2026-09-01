@@ -255,6 +255,12 @@ export default async function sitemap() {
       priority: 0.8,
     },
     {
+      url: `${BASE}/chapter-breaks-epub`,
+      lastModified: CONTENT_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${BASE}/manuscript-format`,
       lastModified: CONTENT_DATE,
       changeFrequency: 'monthly',

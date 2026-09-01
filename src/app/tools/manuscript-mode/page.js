@@ -156,6 +156,7 @@ export default function ManuscriptModePage() {
                         <li><Link href="/epub-formatting-guide" style={{ color: 'var(--gold)' }}><strong>EPUB Formatting Guide</strong></Link> — full workflow from manuscript to store-ready EPUB, including TOC, front matter, and store-specific requirements.</li>
                         <li><Link href="/blog/best-ebook-formats-epub-vs-pdf-vs-mobi" style={{ color: 'var(--gold)' }}><strong>EPUB vs PDF vs MOBI — Which Format Should You Publish In?</strong></Link> — explains the real differences between ebook formats and which platforms accept which.</li>
                         <li>Prefer a dedicated desktop formatting app? See how BookKraft compares — <Link href="/vellum-alternative" style={{ color: 'var(--gold)' }}><strong>Vellum alternative</strong></Link> and <Link href="/atticus-alternative" style={{ color: 'var(--gold)' }}><strong>Atticus alternative</strong></Link>.</li>
+                        <li>For how EPUB chapter structure works — spine splitting, heading detection, and how chapters map to TOC entries — see the <Link href="/chapter-breaks-epub" style={{ color: 'var(--gold)' }}><strong>chapter breaks in EPUB guide</strong></Link>.</li>
                     </ul>
 
                     {/* CTA */}

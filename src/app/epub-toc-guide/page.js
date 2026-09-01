@@ -273,6 +273,10 @@ export default function EpubTocGuidePage() {
           <Link href="/epub-errors" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             EPUB error reference
           </Link>
+          . For how chapter file splitting relates to TOC entry structure — how spine items map to navigable chapters — see{' '}
+          <Link href="/chapter-breaks-epub" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            chapter breaks in EPUB
+          </Link>
           .
         </p>
 
