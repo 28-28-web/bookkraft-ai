@@ -1,9 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { useAuth } from '@/components/AuthProvider';
 import LivePreview from '@/components/LivePreview';
 
 export default function KdpKeywordFinder() {
+    const { refreshProfile } = useAuth();
     const [form, setForm] = useState({ title: '', genre: 'Romance', reader: '', comps: '', themes: '' });
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState(null);
@@ -100,10 +102,13 @@ export default function KdpKeywordFinder() {
                         </div>
 
                         {/* Tips */}
-                        {result.tips?.length > 0 && (
+                        {result.tips && (
                             <div className="keyword-tips">
                                 <h4>Tips</h4>
-                                <ul>{result.tips.map((t, i) => <li key={i}>{t}</li>)}</ul>
+                                {Array.isArray(result.tips)
+                                    ? <ul>{result.tips.map((t, i) => <li key={i}>{t}</li>)}</ul>
+                                    : <p>{result.tips}</p>
+                                }
                             </div>
                         )}
 

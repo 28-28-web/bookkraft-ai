@@ -41,6 +41,11 @@ export async function POST(request) {
         let current = { title: 'Untitled Chapter', content: [] };
 
         for (const line of lines) {
+            if (/^-{3,}$/.test(line.trim())) {
+                // Standalone separator (scene break) — push blank line to preserve paragraph gap
+                current.content.push('');
+                continue;
+            }
             const match = line.match(headingRegex);
             if (match) {
                 if (current.content.length > 0 || chapters.length > 0) {

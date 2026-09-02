@@ -1,9 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { useAuth } from '@/components/AuthProvider';
 import LivePreview from '@/components/LivePreview';
 
 export default function BackMatterGenerator() {
+    const { refreshProfile } = useAuth();
     const [form, setForm] = useState({
         author: '', background: '', bookTitle: '', genre: 'Romance',
         otherBooks: '', mailingListUrl: '', readerMagnet: '', socials: '', tone: 'warm',

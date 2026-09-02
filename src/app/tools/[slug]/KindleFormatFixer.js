@@ -45,6 +45,9 @@ export default function KindleFormatFixer() {
 
         // 3. Fix em dashes
         if (fixes.emDashes) {
+            // Protect standalone separator lines (---) before em-dash replacement
+            const SEP = '\x02SCENEBREAK\x03';
+            result = result.replace(/^-{3,}$/gm, SEP);
             let emCount = 0;
             const r1 = result.match(/\s*--\s*/g);
             if (r1) emCount += r1.length;
@@ -52,6 +55,8 @@ export default function KindleFormatFixer() {
             const r2 = result.match(/\s+-\s+/g);
             if (r2) emCount += r2.length;
             result = result.replace(/(?<!\w)\s+-\s+(?!\w)/g, ' — ');
+            // Restore separator lines
+            result = result.replace(new RegExp(SEP, 'g'), '---');
             if (emCount > 0) counts['em dashes fixed'] = emCount;
         }
 

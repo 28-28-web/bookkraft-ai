@@ -36,10 +36,10 @@ Return ONLY: {
   "keywords": [{"phrase": "string", "character_count": 0, "rationale": "string", "angle": "theme|audience|setting|trope|emotion|comp"}],
   "primary_categories": [{"path": "string", "rationale": "string"}],
   "alternative_categories": [{"path": "string", "rationale": "string"}],
-  "tips": "string"
+  "tips": ["string", "string", "string"]
 }
 
-Provide exactly 7 keywords, 2 primary categories, and 3 alternative categories.`,
+Provide exactly 7 keywords, 2 primary categories, 3 alternative categories, and 3-5 tips as strings in the array.`,
             toolSlug: 'kdp-keyword-finder',
             temperature: 0,
         });
