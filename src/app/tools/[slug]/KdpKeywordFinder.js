@@ -75,7 +75,25 @@ export default function KdpKeywordFinder() {
                                         <span className={`keyword-chars ${kw.character_count > 50 ? 'keyword-over' : ''}`}>{kw.character_count} chars</span>
                                     </div>
                                     <p className="keyword-rationale">{kw.rationale}</p>
-                                    <span className="keyword-angle">{kw.angle}</span>
+                                    <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '4px' }}>
+                                        <span className="keyword-angle">{kw.angle}</span>
+                                        {kw.competition_level && (
+                                            <span className={`keyword-angle`} style={{
+                                                background: kw.competition_level === 'low' ? 'var(--sage-light, #e8f5e9)' : kw.competition_level === 'high' ? 'var(--rust-bg, #FEF2F2)' : 'var(--gold-light)',
+                                                color: kw.competition_level === 'low' ? 'var(--sage)' : kw.competition_level === 'high' ? 'var(--rust)' : 'var(--ink)',
+                                            }}>
+                                                {kw.competition_level} competition
+                                            </span>
+                                        )}
+                                        {kw.ranking_potential && (
+                                            <span className={`keyword-angle`} style={{
+                                                background: kw.ranking_potential === 'strong' ? 'var(--sage-light, #e8f5e9)' : kw.ranking_potential === 'weak' ? 'var(--rust-bg, #FEF2F2)' : 'var(--gold-light)',
+                                                color: kw.ranking_potential === 'strong' ? 'var(--sage)' : kw.ranking_potential === 'weak' ? 'var(--rust)' : 'var(--ink)',
+                                            }}>
+                                                {kw.ranking_potential} ranking potential
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
                             ))}
                         </div>

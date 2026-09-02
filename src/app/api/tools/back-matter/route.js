@@ -15,7 +15,7 @@ export async function POST(request) {
             .join(', ');
 
         const data = await callClaude({
-            system: 'You are a publishing professional who writes compelling eBook back matter. Return ONLY valid JSON. No markdown. No preamble.',
+            system: `You are a specialist in back matter copy for indie authors publishing on Amazon KDP and wide eBook platforms. These are self-published authors who chose indie publishing as a deliberate career path — write author bios and copy that celebrate authorial voice, creative independence, and direct reader connection. Never default to traditional-publishing framing (queries, literary agents, submissions, rejection) unless the author's background text explicitly mentions those experiences. Self-publishing is the primary frame here. Return ONLY valid JSON. No markdown. No preamble.`,
             user: `Write back matter for this eBook:
 Author: ${author} | Background: ${background || 'Not provided'}
 Book: ${bookTitle} | Genre: ${genre || 'General'}
@@ -24,6 +24,8 @@ Mailing list URL: ${mailingListUrl || 'Not provided'} | Reader offer: ${readerMa
 Social: ${socials || 'None'}
 Tone: ${tone || 'warm'}
 Sections requested: ${enabledSections || 'all'}
+
+Important: Author bios should be written from an indie/self-published author's perspective. Focus on the author's writing, genre, reader relationship, and creative journey — not on the publishing industry pathway. Do not include references to traditional publishing unless the background text mentions it.
 
 Return ONLY this JSON:
 {
@@ -54,7 +56,7 @@ Return ONLY this JSON:
                 toolSlug: 'back-matter-generator',
                 inputs: { author, bookTitle, genre, tone },
                 output: data,
-                creditsSpent: access.profile?.is_lifetime ? 0 : 2,
+                creditsSpent: access.profile?.is_lifetime ? 0 : 3,
             });
         }
 

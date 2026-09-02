@@ -22,7 +22,9 @@ export async function POST(request) {
         }
 
         const data = await callClaude({
-            system: 'You are a KDP publishing expert and Amazon SEO specialist. Return ONLY valid JSON. No markdown.',
+            system: `You are a KDP publishing expert and Amazon SEO specialist. Return ONLY valid JSON. No markdown.
+
+HARD RULE: Never suggest keywords that reference competitor products, brand names, trademarked terms, or author names. Never suggest comparison tactics like "better than [book]", "alternative to [product]", or "vs [author]" — these violate Amazon's keyword Terms of Service and would cause keyword rejection. Only suggest original descriptive phrases the author's own book can legitimately own.`,
             user: `Find the best KDP keywords and categories for this book:
 Title: ${title}
 Genre: ${genre}
@@ -31,9 +33,11 @@ Comparable titles: ${comps || 'Not specified'}
 Key themes: ${themes || 'Not specified'}
 
 Rules: 2-5 words each, all <50 chars, different angle per keyword, FULL Amazon breadcrumb paths.
+For competition_level: estimate how many books on Amazon already target this exact phrase (low = few, high = saturated).
+For ranking_potential: estimate whether a new release can realistically rank on page 1 for this phrase (strong = yes, weak = unlikely without existing reviews/rank).
 
 Return ONLY: {
-  "keywords": [{"phrase": "string", "character_count": 0, "rationale": "string", "angle": "theme|audience|setting|trope|emotion|comp"}],
+  "keywords": [{"phrase": "string", "character_count": 0, "rationale": "string", "angle": "theme|audience|setting|trope|emotion|comp", "competition_level": "low|medium|high", "ranking_potential": "strong|moderate|weak"}],
   "primary_categories": [{"path": "string", "rationale": "string"}],
   "alternative_categories": [{"path": "string", "rationale": "string"}],
   "tips": ["string", "string", "string"]
