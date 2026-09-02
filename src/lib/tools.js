@@ -1,4 +1,7 @@
 // BookKraft AI v8.0 — 16 eBook Formatting Tool Definitions (derive counts from TOOLS.length, don't hardcode)
+// SINGLE SOURCE OF TRUTH for credit costs: change `creditCost` here ONLY.
+// toolAccess.js, constants.js, and toolCosts.js all derive TOOL_CREDIT_COSTS from this file.
+// API routes use TOOL_CREDIT_COSTS['slug'] for creditsSpent — never hardcode the number there.
 
 export const TOOLS = [
     // ── FORMATTING CATEGORY ──────────────────────────────────────────────

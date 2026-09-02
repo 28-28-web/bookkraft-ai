@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { checkToolAccess, callClaude, deductCredits, saveHistory, countWords } from '@/lib/toolAccess';
+import { checkToolAccess, callClaude, deductCredits, saveHistory, countWords, TOOL_CREDIT_COSTS } from '@/lib/toolAccess';
 
 export async function POST(request) {
     try {
@@ -56,7 +56,7 @@ Return ONLY this JSON:
                 toolSlug: 'back-matter-generator',
                 inputs: { author, bookTitle, genre, tone },
                 output: data,
-                creditsSpent: access.profile?.is_lifetime ? 0 : 3,
+                creditsSpent: access.profile?.is_lifetime ? 0 : TOOL_CREDIT_COSTS['back-matter-generator'],
             });
         }
 

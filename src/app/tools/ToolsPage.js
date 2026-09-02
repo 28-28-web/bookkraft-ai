@@ -369,14 +369,14 @@ const TOOLS = [
     slug: 'back-matter-generator',
     name: 'Back Matter Generator',
     desc: 'AI writes your author bio, Also By section, reader list CTA, acknowledgements, and connect page in minutes.',
-    badge: '2 credits', badgeType: 'ai',
+    badge: '3 credits', badgeType: 'ai',
     Thumb: BackMatterThumb,
   },
   {
     slug: 'kdp-keyword-finder',
     name: 'KDP Keyword Finder',
     desc: 'Generate long-tail Amazon keyword phrases and ghost category paths formatted for KDP\'s 7 backend keyword fields.',
-    badge: '1 credit', badgeType: 'ai',
+    badge: '2 credits', badgeType: 'ai',
     Thumb: KdpKeywordThumb,
   },
 ];

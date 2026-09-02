@@ -36,7 +36,7 @@ export default function TermsPage() {
                     <li><strong>Lifetime ($149):</strong> Unlimited access to all tools, rate-limited to 3 concurrent AI runs and 500,000 words processed per rolling 24-hour period.</li>
                 </ul>
                 <h3>3.2 Credits</h3>
-                <p>AI credits never expire. Credits are deducted only after a successful AI tool run — if the AI processing fails, no credits are deducted. Base credit cost per tool: KDP Keyword Finder (1 credit), EPUB Validator Pro (2 credits), Back Matter Generator (2 credits), Manuscript Cleanup, Style Sheet Auditor, and Print-to-Digital (1 credit per 10,000 words, minimum 1 — a full-length novel run costs more than a short sample; the exact cost is shown before you confirm).</p>
+                <p>AI credits never expire. Credits are deducted only after a successful AI tool run — if the AI processing fails, no credits are deducted. Base credit cost per tool: KDP Keyword Finder (2 credits), EPUB Validator Pro (2 credits), Back Matter Generator (3 credits), Manuscript Cleanup, Style Sheet Auditor, and Print-to-Digital (1 credit per 10,000 words, minimum 1 — a full-length novel run costs more than a short sample; the exact cost is shown before you confirm).</p>
                 <h3>3.3 Taxes</h3>
                 <p>All prices are inclusive of applicable taxes. Tax is calculated and collected by our payment processor, Paddle, based on your location.</p>
 

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { checkToolAccess, deductCredits, saveHistory } from '@/lib/toolAccess';
+import { checkToolAccess, deductCredits, saveHistory, TOOL_CREDIT_COSTS } from '@/lib/toolAccess';
 
 export async function POST(request) {
     try {
@@ -11,7 +11,7 @@ export async function POST(request) {
             return NextResponse.json({ error: 'Missing data' }, { status: 400 });
         }
 
-        // Deduct 2 credits after validation is complete
+        // Deduct credits after validation is complete
         if (access.user && access.profile && !access.profile.is_lifetime) {
             await deductCredits(access.user.id, 'epub-validator-premium');
         }
@@ -24,7 +24,7 @@ export async function POST(request) {
                 inputs: { filename },
                 output: results,
                 wordCount: 0,
-                creditsSpent: access.profile?.is_lifetime ? 0 : 2,
+                creditsSpent: access.profile?.is_lifetime ? 0 : TOOL_CREDIT_COSTS['epub-validator-premium'],
             });
         }
 

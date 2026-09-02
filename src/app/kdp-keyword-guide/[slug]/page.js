@@ -87,7 +87,7 @@ export default async function KdpKeywordGuideArticlePage({ params }) {
           <p style={{ fontSize: 14, color: 'var(--mid)', marginBottom: 16, lineHeight: 1.6 }}>
             The KDP Keyword &amp; Category Finder generates 7 long-tail keyword phrases tailored to your
             genre, comparable titles, and target reader — plus ghost category paths with the exact text
-            for a KDP support request. Requires the Starter plan, 1 credit per run.
+            for a KDP support request. Requires the Starter plan, 2 credits per run.
           </p>
           <Link href="/tools/kdp-keyword-finder" className="btn btn-gold btn-cta">
             Find KDP Keywords →

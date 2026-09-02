@@ -238,7 +238,7 @@ export default function KdpCategoryKeywordsPage() {
           <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--cream)', marginBottom: 8 }}>KDP Keyword &amp; Category Finder</p>
           <p style={{ fontSize: 14, lineHeight: 1.65, color: 'rgba(247,243,236,.7)', marginBottom: 16 }}>
             Generates 7 keyword phrases for your backend fields and full category paths — including ghost categories —
-            tailored to your genre, comparable titles, and target reader. 1 credit per run.
+            tailored to your genre, comparable titles, and target reader. 2 credits per run.
             Included in the Starter plan ($19 one-time).
           </p>
           <Link

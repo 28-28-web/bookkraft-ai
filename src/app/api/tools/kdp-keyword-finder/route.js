@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { checkToolAccess, callClaude, deductCredits, saveHistory, countWords } from '@/lib/toolAccess';
+import { checkToolAccess, callClaude, deductCredits, saveHistory, countWords, TOOL_CREDIT_COSTS } from '@/lib/toolAccess';
 
 export async function POST(request) {
     try {
@@ -72,7 +72,7 @@ Provide exactly 7 keywords, 2 primary categories, 3 alternative categories, and 
                 inputs: { title, genre },
                 output: data,
                 wordCount: wc,
-                creditsSpent: access.profile?.is_lifetime ? 0 : 2,
+                creditsSpent: access.profile?.is_lifetime ? 0 : TOOL_CREDIT_COSTS['kdp-keyword-finder'],
             });
         }
 

@@ -85,9 +85,9 @@ const TOOL_LINKS = {
     coverChecker: { href: '/tools/cover-checker', label: 'Cover Checker', note: 'free' },
     cssSnippet: { href: '/tools/css-snippet-generator', label: 'CSS Snippet Generator', note: 'Starter plan' },
     metadataBuilder: { href: '/tools/metadata-builder', label: 'Metadata Builder', note: 'free' },
-    kdpKeywordFinder: { href: '/tools/kdp-keyword-finder', label: 'KDP Keyword & Category Finder', note: '1 credit' },
+    kdpKeywordFinder: { href: '/tools/kdp-keyword-finder', label: 'KDP Keyword & Category Finder', note: '2 credits' },
     frontMatter: { href: '/tools/front-matter-generator', label: 'Front Matter Generator', note: 'Starter plan' },
-    backMatter: { href: '/tools/back-matter-generator', label: 'Back Matter Generator', note: '2 credits' },
+    backMatter: { href: '/tools/back-matter-generator', label: 'Back Matter Generator', note: '3 credits' },
     styleSheetAuditor: { href: '/tools/style-sheet-auditor', label: 'Style Sheet Auditor', note: '1 credit; free 500-word sample' },
 };
 
@@ -364,7 +364,7 @@ export default function KdpFormattingGuidePage() {
                         <li><strong>Book description.</strong> The description field on your KDP product page accepts HTML formatting — bold, italic, lists, and headings. For the character limit, supported tags, and a copywriting structure, see the <Link href="/kdp-book-description" style={LINK_STYLE}>KDP book description guide</Link>.</li>
                     </ul>
                     <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
-                        <Link href="/tools/metadata-builder" style={LINK_STYLE}>Metadata Builder</Link> fills all four required Dublin Core fields and generates formatted output for KDP, IngramSpark, Draft2Digital, and EPUB OPF — free, no account required. <Link href="/tools/kdp-keyword-finder" style={LINK_STYLE}>KDP Keyword & Category Finder</Link> generates 7 long-tail keyword phrases tailored to your genre and comparable titles, plus ghost category paths — 1 credit per run.
+                        <Link href="/tools/metadata-builder" style={LINK_STYLE}>Metadata Builder</Link> fills all four required Dublin Core fields and generates formatted output for KDP, IngramSpark, Draft2Digital, and EPUB OPF — free, no account required. <Link href="/tools/kdp-keyword-finder" style={LINK_STYLE}>KDP Keyword & Category Finder</Link> generates 7 long-tail keyword phrases tailored to your genre and comparable titles, plus ghost category paths — 2 credits per run.
                     </p>
                 </Section>
 
