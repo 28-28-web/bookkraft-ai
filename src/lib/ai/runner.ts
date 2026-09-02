@@ -55,12 +55,18 @@ This is one chunk of a longer manuscript — adapt it on its own terms, do not r
 
 For page references: use context to infer chapter. Replace "see page N" with "see [Chapter Name]".
 
+For scene breaks: a standalone line containing only "---" is a scene/section break marker. In the adapted text, convert it to "* * *" (the standard eBook scene break convention). Log each one in conversions with type "scene_break", original "---", replacement "* * *".
+
+For tables: a pipe-delimited table (lines starting with | or containing | separators) is a fixed-width print table.
+- Simple tables (3 or fewer columns, no merged cells): convert to a semantic HTML table in the adapted text. Use <table><caption>Table: [inferred subject]</caption><thead>...</thead><tbody>...</tbody></table>. Log in conversions with type "table".
+- Complex tables (4+ columns, merged cells, or unclear structure): leave the original table text unchanged and add an entry to needs_review with item: "Table: [first few words of table]" and reason: "Complex table requires manual reformatting for eBook accessibility; consider simplifying to 3 columns or converting to a list.".
+
 TEXT:
 ${chunkText}
 
 Return ONLY: {
   "adapted_text": "the full adapted text for this chunk",
-  "conversions": [{"type": "page_reference|footnote|running_header|table|figure_ref", "original": "string", "replacement": "string"}],
+  "conversions": [{"type": "page_reference|footnote|running_header|table|scene_break|figure_ref", "original": "string", "replacement": "string"}],
   "needs_review": [{"item": "string", "reason": "string"}]
 }`,
         responseSchemaHint: 'adapted_text/conversions/needs_review',
