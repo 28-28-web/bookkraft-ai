@@ -362,7 +362,7 @@ const TOOLS = [
     slug: 'epub-validator-premium',
     name: 'EPUB Validator Pro',
     desc: 'Deep validation: ghost spacing, duplicate IDs, manifest check, cover dimensions, and store-specific pass/fail report.',
-    badge: '2 credits', badgeType: 'ai',
+    badge: '3 credits', badgeType: 'ai',
     Thumb: ValidatorProThumb,
   },
   {

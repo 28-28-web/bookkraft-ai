@@ -18,6 +18,7 @@ export default function EpubValidatorPremium() {
     const [file, setFile] = useState(null);
     const [results, setResults] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [storeReportLoading, setStoreReportLoading] = useState(false);
     const [dragOver, setDragOver] = useState(false);
     const [fileError, setFileError] = useState(null);
     const [creditError, setCreditError] = useState(null);
@@ -42,8 +43,8 @@ export default function EpubValidatorPremium() {
             router.push('/login?redirect=/tools/epub-validator-premium');
             return;
         }
-        if (!profile || (profile.credits_balance || 0) < 2) {
-            setCreditError('You need 2 credits to run a premium validation. Purchase credits to continue.');
+        if (!profile || (profile.credits_balance || 0) < 3) {
+            setCreditError('You need 3 credits to run a premium validation. Purchase credits to continue.');
             return;
         }
 
@@ -312,17 +313,41 @@ export default function EpubValidatorPremium() {
                 window.gtag('event', 'tool_complete', { tool_name: 'epub_validator_premium', issue_count: checks.length - passCount });
             }
 
-            const creditRes = await fetch('/api/tools/epub-validator-premium', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ filename: epubFile.name, results: { passCount, total: checks.length } }),
-});
-if (!creditRes.ok) {
-    setCreditError('Validation complete but credits could not be processed. Please contact support.');
-}
+            // Show deterministic results immediately; AI store report loads in background
+            setLoading(false);
+            setResults({ checks, passCount, total: checks.length, filename: epubFile.name, sizeMB, storeResults, storeReport: null });
+            setStoreReportLoading(true);
 
-await refreshProfile();
-setResults({ checks, passCount, total: checks.length, filename: epubFile.name, sizeMB, storeResults });
+            try {
+                const creditRes = await fetch('/api/tools/epub-validator-premium', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        filename: epubFile.name,
+                        results: {
+                            passCount,
+                            total: checks.length,
+                            checks: checks.map(c => ({ name: c.name, status: c.status, detail: c.detail })),
+                        },
+                    }),
+                });
+                if (!creditRes.ok) {
+                    setCreditError('Validation complete but credits could not be processed. Please contact support.');
+                    setResults(prev => prev ? { ...prev, storeReportError: true } : prev);
+                } else {
+                    const creditData = await creditRes.json();
+                    if (creditData.storeReport) {
+                        setResults(prev => prev ? { ...prev, storeReport: creditData.storeReport } : prev);
+                    } else {
+                        setResults(prev => prev ? { ...prev, storeReportError: true } : prev);
+                    }
+                }
+                await refreshProfile();
+            } catch {
+                setResults(prev => prev ? { ...prev, storeReportError: true } : prev);
+            } finally {
+                setStoreReportLoading(false);
+            }
 
         } catch (err) {
             console.error('EPUB parse error:', err);
@@ -382,7 +407,7 @@ setResults({ checks, passCount, total: checks.length, filename: epubFile.name, s
             {/* Credit notice */}
             {!results && (
                 <div style={{ background: '#fef9f0', border: '1px solid #f0c070', borderRadius: '10px', padding: '14px 18px', marginBottom: '20px', fontSize: '0.9rem', color: '#92600a' }}>
-                    <strong>2 credits per scan.</strong> Includes ghost spacing detection, duplicate ID scan, OPF manifest cross-check, cover dimensions, and store-specific report.
+                    <strong>3 credits per scan.</strong> Includes ghost spacing detection, duplicate ID scan, OPF manifest cross-check, cover dimensions, and store-specific report.
                 </div>
             )}
 
@@ -459,6 +484,68 @@ setResults({ checks, passCount, total: checks.length, filename: epubFile.name, s
                             ))}
                         </div>
                     )}
+
+                    {/* AI store-by-store report */}
+                    <div style={{ marginBottom: '24px' }}>
+                        <h4 style={{ margin: '0 0 12px', fontSize: '1rem', fontWeight: 700 }}>AI Store-by-Store Analysis</h4>
+                        {storeReportLoading && (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '16px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '10px', fontSize: '0.9rem', color: 'var(--mid)' }}>
+                                <div className="spinner" />
+                                Generating plain-language store report…
+                            </div>
+                        )}
+                        {!storeReportLoading && results.storeReportError && (
+                            <div style={{ padding: '14px 16px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '10px', fontSize: '0.85rem', color: 'var(--mid)' }}>
+                                Store-specific breakdown unavailable — try again by re-uploading the file.
+                            </div>
+                        )}
+                        {!storeReportLoading && results.storeReport && (() => {
+                            const STORE_LABELS = {
+                                amazonKdp: { label: 'Amazon KDP', icon: '📦' },
+                                appleBooks: { label: 'Apple Books', icon: '🍎' },
+                                googlePlayBooks: { label: 'Google Play Books', icon: '📱' },
+                                ingramSpark: { label: 'IngramSpark', icon: '🏭' },
+                            };
+                            const statusColors = {
+                                pass: { bg: '#f0fdf4', border: '#86efac', text: '#166534', badge: '#dcfce7' },
+                                warn: { bg: '#fffbeb', border: '#fcd34d', text: '#92600a', badge: '#fef3c7' },
+                                fail: { bg: '#fff5f5', border: '#fca5a5', text: '#c53030', badge: '#fee2e2' },
+                            };
+                            return (
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '12px' }}>
+                                    {Object.entries(STORE_LABELS).map(([key, { label, icon }]) => {
+                                        const store = results.storeReport[key];
+                                        if (!store) return null;
+                                        const col = statusColors[store.status] || statusColors.warn;
+                                        return (
+                                            <div key={key} style={{ background: col.bg, border: `1px solid ${col.border}`, borderRadius: '10px', padding: '16px' }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                                                    <span>{icon}</span>
+                                                    <strong style={{ fontSize: '0.95rem', color: col.text }}>{label}</strong>
+                                                    <span style={{ marginLeft: 'auto', fontSize: '0.75rem', fontWeight: 700, padding: '2px 8px', borderRadius: '99px', background: col.badge, color: col.text }}>
+                                                        {store.status.toUpperCase()}
+                                                    </span>
+                                                </div>
+                                                <p style={{ margin: '0 0 10px', fontSize: '0.85rem', color: col.text, lineHeight: 1.5 }}>{store.summary}</p>
+                                                {store.issues?.length > 0 && (
+                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                                        {store.issues.map((issue, i) => (
+                                                            <div key={i} style={{ background: 'rgba(255,255,255,0.6)', borderRadius: '8px', padding: '10px 12px', fontSize: '0.82rem' }}>
+                                                                <div style={{ fontWeight: 600, color: col.text, marginBottom: '4px' }}>
+                                                                    {issue.severity === 'blocking' ? '🚫' : '⚠️'} {issue.check}
+                                                                </div>
+                                                                <div style={{ color: '#374151', lineHeight: 1.4 }}>{issue.fix}</div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            );
+                        })()}
+                    </div>
 
                     {/* Download report */}
                     <button

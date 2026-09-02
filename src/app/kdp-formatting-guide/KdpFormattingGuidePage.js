@@ -78,7 +78,7 @@ const TOOL_LINKS = {
     manuscriptCleanup: { href: '/tools/manuscript-cleanup', label: 'Manuscript Cleanup', note: '1 credit; free 500-word sample' },
     epubFormatter: { href: '/tools/epub-formatter', label: 'EPUB Formatter', note: 'Starter plan' },
     epubValidator: { href: '/tools/epub-validator', label: 'EPUB Validator', note: 'free' },
-    epubValidatorPro: { href: '/tools/epub-validator-premium', label: 'EPUB Validator Pro', note: '2 credits' },
+    epubValidatorPro: { href: '/tools/epub-validator-premium', label: 'EPUB Validator Pro', note: '3 credits' },
     manuscriptMode: { href: '/tools/manuscript-mode', label: 'Full Manuscript Mode', note: 'free' },
     kindleFormatFixer: { href: '/tools/kindle-format-fixer', label: 'Kindle Format Fixer', note: 'Starter plan' },
     tocGenerator: { href: '/tools/toc-generator', label: 'TOC Generator', note: 'Starter plan' },
@@ -386,7 +386,7 @@ export default function KdpFormattingGuidePage() {
                         <li><strong>IngramSpark</strong> — sits between the two, with clearer rejection messages but stricter compliance requirements than KDP.</li>
                     </ul>
                     <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
-                        The free <Link href="/tools/epub-validator" style={LINK_STYLE}>online EPUB Validator</Link> checks all 11 structural requirements — mimetype, container, OPF, metadata, spine, navigation, cover reference, image and CSS references, file size — in your browser, with plain-English error messages and fix links. Free, no signup. For deeper checks (ghost spacing, duplicate IDs, OPF manifest completeness, store-specific pass/fail reports for KDP, Apple Books, and Google Play), <Link href="/tools/epub-validator-premium" style={LINK_STYLE}>EPUB Validator Pro</Link> runs a full scan — 2 credits per run.
+                        The free <Link href="/tools/epub-validator" style={LINK_STYLE}>online EPUB Validator</Link> checks all 11 structural requirements — mimetype, container, OPF, metadata, spine, navigation, cover reference, image and CSS references, file size — in your browser, with plain-English error messages and fix links. Free, no signup. For deeper checks (ghost spacing, duplicate IDs, OPF manifest completeness, store-specific pass/fail reports for KDP, Apple Books, and Google Play), <Link href="/tools/epub-validator-premium" style={LINK_STYLE}>EPUB Validator Pro</Link> runs a full scan — 3 credits per run.
                     </p>
                 </Section>
 

@@ -468,11 +468,11 @@ export default function EpubValidator() {
                                     Pro scan checks ghost spacing, duplicate IDs, OPF manifest cross-check, and cover dimensions — plus a store-specific report for KDP, Apple Books, and Google Play.
                                 </p>
                                 <p style={{ color: '#9ca3af', fontSize: '0.82rem', marginBottom: '16px' }}>
-                                    Costs 2 credits. Results download as a full HTML report.
+                                    Costs 3 credits. Results download as a full HTML report.
                                 </p>
                                 <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                                     <a href="/tools/epub-validator-premium" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>
-                                        Run Pro Scan — 2 Credits →
+                                        Run Pro Scan — 3 Credits →
                                     </a>
                                     <a href="/pricing" style={{ display: 'inline-block', background: 'transparent', color: '#C9933A', border: '1px solid #C9933A', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>
                                         Buy Credits
