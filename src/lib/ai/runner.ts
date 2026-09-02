@@ -55,7 +55,9 @@ This is one chunk of a longer manuscript — adapt it on its own terms, do not r
 
 For page references: use context to infer chapter. Replace "see page N" with "see [Chapter Name]".
 
-For scene breaks: a standalone line containing only "---" is a scene/section break marker. In the adapted text, convert it to "* * *" (the standard eBook scene break convention). Log each one in conversions with type "scene_break", original "---", replacement "* * *".
+For scene breaks and section dividers: a standalone line containing only "---" requires context-sensitive handling based on what immediately follows it.
+- If the very next non-blank line looks like a section heading (short line, all-caps or title-cased, no terminal punctuation — e.g. "ENDNOTES", "APPENDIX", "Chapter Two", "Bibliography"): the "---" is a section divider, not a scene break. Remove the "---" entirely and preserve the heading on its own line with a blank line before it. Do NOT fuse the "---" with the heading text. Log in conversions with type "section_divider", original "---\n[heading]", replacement "[heading] (section divider removed)".
+- Otherwise, when "---" sits between two ordinary paragraphs: convert it to "* * *" (the standard eBook scene break convention). Log in conversions with type "scene_break", original "---", replacement "* * *".
 
 For tables: a pipe-delimited table (lines starting with | or containing | separators) is a fixed-width print table.
 - Simple tables (3 or fewer columns, no merged cells): convert to a semantic HTML table in the adapted text. Use <table><caption>Table: [inferred subject]</caption><thead>...</thead><tbody>...</tbody></table>. Log in conversions with type "table".
