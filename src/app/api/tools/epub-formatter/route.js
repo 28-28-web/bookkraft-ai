@@ -1,6 +1,55 @@
 import { NextResponse } from 'next/server';
 import { checkToolAccess } from '@/lib/toolAccess';
 
+function getMediaType(filename) {
+    const ext = filename.split('.').pop().toLowerCase();
+    return { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', gif: 'image/gif', webp: 'image/webp', svg: 'image/svg+xml' }[ext] || 'image/jpeg';
+}
+
+/**
+ * Render one paragraph block to XHTML, handling inline image references.
+ * Supports two forms:
+ *   - Whole paragraph = ![alt](filename) → <figure><img .../></figure>
+ *   - Image inline among text  → <p>text <img .../> text</p>
+ * Images not in imageMap (not uploaded) fall back to escaped literal text.
+ */
+function renderParagraph(text, imageMap) {
+    const trimmed = text.trim();
+    if (!trimmed) return null;
+
+    const hasImage = /!\[[^\]]*\]\([^)]+\)/.test(trimmed);
+    if (!hasImage) {
+        return `    <p>${trimmed.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>`;
+    }
+
+    // Entire paragraph is a single image ref
+    const imageOnlyMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+    if (imageOnlyMatch) {
+        const alt = imageOnlyMatch[1].replace(/"/g, '&quot;');
+        const rawFile = imageOnlyMatch[2].split('/').pop();
+        if (imageMap[rawFile]) {
+            return `    <figure><img src="../images/${imageMap[rawFile].safeFilename}" alt="${alt}"/></figure>`;
+        }
+        return `    <p>${trimmed.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>`;
+    }
+
+    // Inline images mixed with text — split on image tokens, escape non-image parts
+    const parts = trimmed.split(/(!\[[^\]]*\]\([^)]+\))/);
+    const rendered = parts.map(part => {
+        const m = part.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+        if (m) {
+            const alt = m[1].replace(/"/g, '&quot;');
+            const rawFile = m[2].split('/').pop();
+            if (imageMap[rawFile]) {
+                return `<img src="../images/${imageMap[rawFile].safeFilename}" alt="${alt}"/>`;
+            }
+            return part.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+        return part.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }).join('');
+    return `    <p>${rendered}</p>`;
+}
+
 export async function POST(request) {
     try {
         const access = await checkToolAccess('epub-formatter');
@@ -17,6 +66,20 @@ export async function POST(request) {
 
         if (!manuscript) {
             return NextResponse.json({ error: 'Missing manuscript text' }, { status: 400 });
+        }
+
+        // Collect inline image uploads: FormData keys like 'image:filename.jpg'
+        const imageMap = {};
+        for (const [key, value] of formData.entries()) {
+            if (key.startsWith('image:') && value?.size > 0) {
+                const rawName = key.slice(6);
+                const safeFilename = rawName.replace(/[^a-zA-Z0-9._-]/g, '_');
+                imageMap[rawName] = {
+                    buffer: Buffer.from(await value.arrayBuffer()),
+                    safeFilename,
+                    mediaType: getMediaType(rawName),
+                };
+            }
         }
 
         // Dynamic import JSZip
@@ -81,12 +144,19 @@ export async function POST(request) {
 
         // Cover image
         let coverManifest = '';
-        let coverSpine = '';
         if (coverFile && coverFile.size > 0) {
             const coverBuffer = Buffer.from(await coverFile.arrayBuffer());
             const ext = coverFile.type === 'image/png' ? 'png' : 'jpg';
             zip.file(`OEBPS/cover.${ext}`, coverBuffer);
             coverManifest = `<item id="cover-image" href="cover.${ext}" media-type="${coverFile.type}" properties="cover-image"/>`;
+        }
+
+        // Inline images → OEBPS/images/
+        const imageManifestItems = [];
+        for (const { buffer, safeFilename, mediaType } of Object.values(imageMap)) {
+            zip.file(`OEBPS/images/${safeFilename}`, buffer);
+            const itemId = `img-${safeFilename.replace(/[^a-zA-Z0-9]/g, '-')}`;
+            imageManifestItems.push(`<item id="${itemId}" href="images/${safeFilename}" media-type="${mediaType}"/>`);
         }
 
         // Chapter files
@@ -100,7 +170,8 @@ export async function POST(request) {
                 .join('\n')
                 .split(/\n\n+/)
                 .filter((p) => p.trim())
-                .map((p) => `    <p>${p.trim().replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>`)
+                .map((p) => renderParagraph(p, imageMap))
+                .filter(Boolean)
                 .join('\n');
 
             const xhtml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -166,7 +237,6 @@ ${ncxNavPoints}
 </ncx>`);
 
         // content.opf
-        const wordCount = manuscript.split(/\s+/).length;
         zip.file('OEBPS/content.opf', `<?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" unique-identifier="bookid" version="3.0">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
@@ -179,6 +249,7 @@ ${ncxNavPoints}
     <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
     <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
     ${coverManifest}
+    ${imageManifestItems.join('\n    ')}
     ${manifestItems.join('\n    ')}
   </manifest>
   <spine toc="ncx">

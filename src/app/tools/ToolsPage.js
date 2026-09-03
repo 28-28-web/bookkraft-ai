@@ -305,7 +305,7 @@ const TOOLS = [
   {
     slug: 'epub-formatter',
     name: 'EPUB Formatter',
-    desc: 'Paste your manuscript to generate a valid EPUB 3.0 with chapters, metadata, and cover image. No Calibre or Sigil needed.',
+    desc: 'Paste your manuscript with inline image references (![alt](filename.jpg)) — upload the images once and they\'re embedded exactly where you placed them. Generates EPUB 3.0 with chapters, metadata, and cover.',
     badge: 'Starter', badgeType: 'logic',
     Thumb: EpubFormatterThumb,
   },

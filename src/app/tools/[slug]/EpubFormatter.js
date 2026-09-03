@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { useProject } from '@/lib/ProjectContext';
 import { useLoadingSteps } from '@/hooks/useLoadingSteps';
 
@@ -16,6 +16,7 @@ export default function EpubFormatter() {
     const [form, setForm] = useState({ title: 'My Book', author: 'Author Name', language: 'English', isbn: '', headingDetection: 'auto' });
     const [manuscript, setManuscript] = useState('');
     const [coverFile, setCoverFile] = useState(null);
+    const [imageFiles, setImageFiles] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const stepText = useLoadingSteps(FORMATTER_STEPS, loading);
@@ -34,11 +35,26 @@ export default function EpubFormatter() {
             loadProjectText(currentProject.id).then(text => {
                 if (text) setManuscript(text);
             });
-            // Also set title/author from project
             if (currentProject.title) setForm(f => ({ ...f, title: currentProject.title }));
             if (currentProject.author) setForm(f => ({ ...f, author: currentProject.author }));
         }
     }, [currentProject?.id]);
+
+    // Parse manuscript for ![alt](filename) image references
+    const imageRefs = useMemo(() => {
+        const seen = new Set();
+        const refs = [];
+        const regex = /!\[([^\]]*)\]\(([^)]+)\)/g;
+        let m;
+        while ((m = regex.exec(manuscript)) !== null) {
+            const filename = m[2].split('/').pop();
+            if (!seen.has(filename)) {
+                seen.add(filename);
+                refs.push({ filename, alt: m[1] });
+            }
+        }
+        return refs;
+    }, [manuscript]);
 
     const updateField = (key, value) => setForm((f) => ({ ...f, [key]: value }));
 
@@ -64,6 +80,14 @@ export default function EpubFormatter() {
             formData.append('isbn', form.isbn);
             formData.append('headingDetection', form.headingDetection);
             if (coverFile) formData.append('cover', coverFile);
+
+            // Append only images still referenced in current manuscript
+            const currentFilenames = new Set(imageRefs.map(r => r.filename));
+            Object.entries(imageFiles).forEach(([filename, file]) => {
+                if (file && currentFilenames.has(filename)) {
+                    formData.append(`image:${filename}`, file);
+                }
+            });
 
             const res = await fetch('/api/tools/epub-formatter', {
                 method: 'POST',
@@ -132,8 +156,32 @@ export default function EpubFormatter() {
             <div className="tool-output-card">
                 <h3>Manuscript</h3>
                 <textarea className="form-textarea" style={{ minHeight: '300px' }}
-                    placeholder="Paste your full manuscript here. Use # for chapter headings, or select a detection method."
+                    placeholder={`Paste your full manuscript here. Use # for chapter headings.\n\nTo embed images, reference them with Markdown syntax:\n![Alt text](filename.jpg)\n\nUpload slots will appear below for each image you reference.`}
                     value={manuscript} onChange={(e) => setManuscript(e.target.value)} />
+
+                {imageRefs.length > 0 && (
+                    <div style={{ margin: '12px 0', padding: '14px 16px', background: 'var(--card-bg, #f9f6f1)', border: '1px solid var(--border, #e8e0d0)', borderRadius: '8px' }}>
+                        <p style={{ margin: '0 0 10px', fontWeight: 600, fontSize: '0.9rem' }}>
+                            {imageRefs.length} image{imageRefs.length !== 1 ? 's' : ''} referenced — upload them to embed in the EPUB
+                        </p>
+                        {imageRefs.map(({ filename }) => (
+                            <div key={filename} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                                <code style={{ fontSize: '0.82rem', minWidth: '160px', opacity: 0.75 }}>{filename}</code>
+                                <label style={{ cursor: 'pointer', fontSize: '0.85rem', color: 'var(--gold, #c9933a)', textDecoration: 'underline' }}>
+                                    {imageFiles[filename] ? `✓ ${imageFiles[filename].name}` : 'Choose file'}
+                                    <input type="file" accept="image/*" style={{ display: 'none' }}
+                                        onChange={e => {
+                                            const file = e.target.files[0];
+                                            if (file) setImageFiles(prev => ({ ...prev, [filename]: file }));
+                                        }} />
+                                </label>
+                            </div>
+                        ))}
+                        <p style={{ margin: '8px 0 0', fontSize: '0.78rem', opacity: 0.6 }}>
+                            Images not uploaded will appear as plain text in the EPUB.
+                        </p>
+                    </div>
+                )}
 
                 <button className="btn btn-gold generate-btn" onClick={handleSubmit} disabled={loading || !manuscript.trim()}>
                     {loading ? <><div className="spinner" /> {stepText}</> : '📦 Generate EPUB File'}
