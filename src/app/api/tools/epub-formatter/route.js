@@ -222,6 +222,24 @@ export async function POST(request) {
         }
         chapters.push({ ...current });
 
+        // Content before the first heading - title page, copyright, epigraph -
+        // belongs to no heading, so it keeps the seeded fallback title and ships
+        // as "Untitled Chapter". Promote its first line to the title when that
+        // line reads like one, and drop it from the body so it is not repeated
+        // underneath the <h1> it becomes. The fallback now only survives when
+        // the block opens with something too long to be a title.
+        const UNTITLED = 'Untitled Chapter';
+        if (chapters.length > 0 && chapters[0].title === UNTITLED) {
+            const firstIdx = chapters[0].content.findIndex((line) => line.trim());
+            const candidate = firstIdx === -1 ? '' : chapters[0].content[firstIdx].trim();
+            if (candidate && candidate.length <= 120) {
+                chapters[0] = {
+                    title: candidate,
+                    content: chapters[0].content.slice(firstIdx + 1),
+                };
+            }
+        }
+
         if (chapters.length === 0) {
             chapters.push({ title: 'Chapter 1', content: lines });
         }
