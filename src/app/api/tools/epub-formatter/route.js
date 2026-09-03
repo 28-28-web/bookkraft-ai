@@ -22,6 +22,62 @@ function renderInline(text) {
 }
 
 /**
+ * Markdown pipe-table support.
+ *
+ * A table is a header row, a |---|---| separator row, then body rows - all
+ * consecutive lines, so the block reaches this file intact from the paragraph
+ * splitter. Cells run through renderInline, so they get the same escaping and
+ * bold/italic handling as ordinary prose.
+ */
+const isTableRow = (line) => {
+    const t = line.trim();
+    return t.length > 1 && t.startsWith('|') && t.endsWith('|');
+};
+
+const splitTableRow = (line) =>
+    line
+        .trim()
+        .replace(/^[|]/, '')
+        .replace(/[|]$/, '')
+        .split('|')
+        .map((c) => c.trim());
+
+const isTableSeparatorRow = (line) =>
+    isTableRow(line) && splitTableRow(line).every((c) => /^:?-+:?$/.test(c));
+
+function renderTable(lines) {
+    const header = splitTableRow(lines[0]);
+    const aligns = splitTableRow(lines[1]).map((c) => {
+        if (/^:-+:$/.test(c)) return 'center';
+        if (/^-+:$/.test(c)) return 'right';
+        return '';
+    });
+    const cell = (tag, text, i) => {
+        const align = aligns[i] ? ` style="text-align:${aligns[i]}"` : '';
+        return `<${tag}${align}>${renderInline(text || '')}</${tag}>`;
+    };
+    const head = header.map((c, i) => cell('th', c, i)).join('');
+    const body = lines
+        .slice(2)
+        .map((line) => {
+            const cells = splitTableRow(line);
+            // Pad or trim each row to the header's column count so a malformed
+            // row still produces a rectangular table instead of broken markup.
+            const row = Array.from({ length: header.length }, (_, i) => cell('td', cells[i], i));
+            return `        <tr>${row.join('')}</tr>`;
+        })
+        .join('\n');
+    return [
+        '    <table>',
+        `      <thead><tr>${head}</tr></thead>`,
+        '      <tbody>',
+        body,
+        '      </tbody>',
+        '    </table>',
+    ].join('\n');
+}
+
+/**
  * Render one paragraph block to XHTML, handling inline image references.
  * Supports two forms:
  *   - Whole paragraph = ![alt](filename) → <figure><img .../></figure>
@@ -31,6 +87,28 @@ function renderInline(text) {
 function renderParagraph(text, imageMap) {
     const trimmed = text.trim();
     if (!trimmed) return null;
+
+    // Tables are block-level: pull one out before any paragraph handling so its
+    // rows are never flattened into a single <p>. Text on either side of the
+    // table within the same block still renders normally.
+    const blockLines = trimmed.split('\n');
+    const tableStart = blockLines.findIndex(
+        (line, i) =>
+            isTableRow(line) && i + 1 < blockLines.length && isTableSeparatorRow(blockLines[i + 1])
+    );
+    if (tableStart !== -1) {
+        let tableEnd = tableStart + 2;
+        while (tableEnd < blockLines.length && isTableRow(blockLines[tableEnd])) tableEnd++;
+        const before = blockLines.slice(0, tableStart).join('\n').trim();
+        const after = blockLines.slice(tableEnd).join('\n').trim();
+        return [
+            before && renderParagraph(before, imageMap),
+            renderTable(blockLines.slice(tableStart, tableEnd)),
+            after && renderParagraph(after, imageMap),
+        ]
+            .filter(Boolean)
+            .join('\n');
+    }
 
     const hasImage = /!\[[^\]]*\]\([^)]+\)/.test(trimmed);
     if (!hasImage) {
@@ -197,10 +275,22 @@ export async function POST(request) {
                 .filter(Boolean)
                 .join('\n');
 
+            // Table CSS is emitted per chapter, only where a table exists, so
+            // chapters without one carry no extra markup. Kept to properties
+            // that render reliably across Kindle, Apple Books, and Kobo.
+            const tableCss = paragraphs.includes('<table>')
+                ? `
+<style type="text/css">
+table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 0.9em; }
+th, td { border: 1px solid #999; padding: 0.4em 0.5em; text-align: left; vertical-align: top; }
+th { background-color: #eee; font-weight: bold; }
+</style>`
+                : '';
+
             const xhtml = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="${langCode}" lang="${langCode}">
-<head><title>${ch.title}</title></head>
+<head><title>${ch.title}</title>${tableCss}</head>
 <body>
   <h1>${ch.title}</h1>
 ${paragraphs}
