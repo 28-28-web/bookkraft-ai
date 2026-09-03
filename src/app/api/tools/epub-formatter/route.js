@@ -7,6 +7,21 @@ function getMediaType(filename) {
 }
 
 /**
+ * Escape XHTML-significant characters, then convert inline markdown emphasis.
+ * Escaping runs first so that the <strong>/<em> tags emitted here survive it;
+ * only < and > are escaped, which leaves the asterisk patterns intact to match.
+ * Bold is matched before italic so ** is never consumed as two single *.
+ * Never call this on image alt text - see renderParagraph.
+ */
+function renderInline(text) {
+    return text
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\*\*(?=\S)([\s\S]*?\S)\*\*/g, '<strong>$1</strong>')
+        .replace(/(^|[^*])\*(?=\S)([^*]*?\S)\*(?!\*)/g, '$1<em>$2</em>');
+}
+
+/**
  * Render one paragraph block to XHTML, handling inline image references.
  * Supports two forms:
  *   - Whole paragraph = ![alt](filename) → <figure><img .../></figure>
@@ -19,7 +34,7 @@ function renderParagraph(text, imageMap) {
 
     const hasImage = /!\[[^\]]*\]\([^)]+\)/.test(trimmed);
     if (!hasImage) {
-        return `    <p>${trimmed.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>`;
+        return `    <p>${renderInline(trimmed)}</p>`;
     }
 
     // Entire paragraph is a single image ref
@@ -28,7 +43,7 @@ function renderParagraph(text, imageMap) {
         const alt = imageOnlyMatch[1].replace(/"/g, '&quot;');
         const rawFile = imageOnlyMatch[2].split('/').pop();
         if (imageMap[rawFile]) {
-            return `    <figure><img src="../images/${imageMap[rawFile].safeFilename}" alt="${alt}"/></figure>`;
+            return `    <figure><img src="images/${imageMap[rawFile].safeFilename}" alt="${alt}"/></figure>`;
         }
         return `    <p>${trimmed.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>`;
     }
@@ -41,11 +56,11 @@ function renderParagraph(text, imageMap) {
             const alt = m[1].replace(/"/g, '&quot;');
             const rawFile = m[2].split('/').pop();
             if (imageMap[rawFile]) {
-                return `<img src="../images/${imageMap[rawFile].safeFilename}" alt="${alt}"/>`;
+                return `<img src="images/${imageMap[rawFile].safeFilename}" alt="${alt}"/>`;
             }
             return part.replace(/</g, '&lt;').replace(/>/g, '&gt;');
         }
-        return part.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return renderInline(part);
     }).join('');
     return `    <p>${rendered}</p>`;
 }
@@ -56,7 +71,15 @@ export async function POST(request) {
         if (!access.allowed) return access.response;
 
         const formData = await request.formData();
-        const manuscript = formData.get('manuscript');
+        const manuscriptRaw = formData.get('manuscript');
+        // Browsers submit textarea content with CRLF line endings, which makes the
+        // paragraph split on /\n\n+/ below never match - collapsing a whole
+        // chapter into a single <p> and stopping standalone image refs from
+        // rendering as <figure>.
+        const manuscript =
+            typeof manuscriptRaw === 'string'
+                ? manuscriptRaw.replace(/\r\n?/g, '\n')
+                : manuscriptRaw;
         const title = formData.get('title') || 'Untitled';
         const author = formData.get('author') || 'Unknown';
         const language = formData.get('language') || 'en';
