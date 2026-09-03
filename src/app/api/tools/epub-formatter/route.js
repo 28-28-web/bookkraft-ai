@@ -7,6 +7,17 @@ function getMediaType(filename) {
 }
 
 /**
+ * Escape the characters that make XHTML/OPF ill-formed. Ampersand must be
+ * replaced first, otherwise it would re-escape the ampersands introduced by
+ * the later replacements.
+ */
+const escapeXml = (text) =>
+    String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+/**
  * Escape XHTML-significant characters, then convert inline markdown emphasis.
  * Escaping runs first so that the <strong>/<em> tags emitted here survive it;
  * only < and > are escaped, which leaves the asterisk patterns intact to match.
@@ -14,9 +25,7 @@ function getMediaType(filename) {
  * Never call this on image alt text - see renderParagraph.
  */
 function renderInline(text) {
-    return text
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
+    return escapeXml(text)
         .replace(/\*\*(?=\S)([\s\S]*?\S)\*\*/g, '<strong>$1</strong>')
         .replace(/(^|[^*])\*(?=\S)([^*]*?\S)\*(?!\*)/g, '$1<em>$2</em>');
 }
@@ -118,12 +127,12 @@ function renderParagraph(text, imageMap) {
     // Entire paragraph is a single image ref
     const imageOnlyMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
     if (imageOnlyMatch) {
-        const alt = imageOnlyMatch[1].replace(/"/g, '&quot;');
+        const alt = escapeXml(imageOnlyMatch[1]).replace(/"/g, '&quot;');
         const rawFile = imageOnlyMatch[2].split('/').pop();
         if (imageMap[rawFile]) {
             return `    <figure><img src="images/${imageMap[rawFile].safeFilename}" alt="${alt}"/></figure>`;
         }
-        return `    <p>${trimmed.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>`;
+        return `    <p>${escapeXml(trimmed)}</p>`;
     }
 
     // Inline images mixed with text — split on image tokens, escape non-image parts
@@ -131,12 +140,12 @@ function renderParagraph(text, imageMap) {
     const rendered = parts.map(part => {
         const m = part.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
         if (m) {
-            const alt = m[1].replace(/"/g, '&quot;');
+            const alt = escapeXml(m[1]).replace(/"/g, '&quot;');
             const rawFile = m[2].split('/').pop();
             if (imageMap[rawFile]) {
                 return `<img src="images/${imageMap[rawFile].safeFilename}" alt="${alt}"/>`;
             }
-            return part.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return escapeXml(part);
         }
         return renderInline(part);
     }).join('');
@@ -308,9 +317,9 @@ th { background-color: #eee; font-weight: bold; }
             const xhtml = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="${langCode}" lang="${langCode}">
-<head><title>${ch.title}</title>${tableCss}</head>
+<head><title>${escapeXml(ch.title)}</title>${tableCss}</head>
 <body>
-  <h1>${ch.title}</h1>
+  <h1>${escapeXml(ch.title)}</h1>
 ${paragraphs}
 </body>
 </html>`;
@@ -324,7 +333,7 @@ ${paragraphs}
         const navItems = chapters
             .map((ch, i) => {
                 const slug = slugify(ch.title) || `chapter-${i + 1}`;
-                return `      <li><a href="${slug}.xhtml">${ch.title}</a></li>`;
+                return `      <li><a href="${slug}.xhtml">${escapeXml(ch.title)}</a></li>`;
             })
             .join('\n');
 
@@ -347,7 +356,7 @@ ${navItems}
             .map((ch, i) => {
                 const slug = slugify(ch.title) || `chapter-${i + 1}`;
                 return `    <navPoint id="navpoint-${i + 1}" playOrder="${i + 1}">
-      <navLabel><text>${ch.title}</text></navLabel>
+      <navLabel><text>${escapeXml(ch.title)}</text></navLabel>
       <content src="${slug}.xhtml"/>
     </navPoint>`;
             })
@@ -361,7 +370,7 @@ ${navItems}
     <meta name="dtb:totalPageCount" content="0"/>
     <meta name="dtb:maxPageNumber" content="0"/>
   </head>
-  <docTitle><text>${title}</text></docTitle>
+  <docTitle><text>${escapeXml(title)}</text></docTitle>
   <navMap>
 ${ncxNavPoints}
   </navMap>
@@ -371,8 +380,8 @@ ${ncxNavPoints}
         zip.file('OEBPS/content.opf', `<?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" unique-identifier="bookid" version="3.0">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
-    <dc:title>${title}</dc:title>
-    <dc:creator>${author}</dc:creator>
+    <dc:title>${escapeXml(title)}</dc:title>
+    <dc:creator>${escapeXml(author)}</dc:creator>
     <dc:language>${langCode}</dc:language>
     <dc:identifier id="bookid">${bookId}</dc:identifier>
   </metadata>
