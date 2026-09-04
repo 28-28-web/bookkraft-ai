@@ -11,9 +11,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/indexnow-submit.mjs",
     "start": "next start",
     "lint": "eslint",
-    "content-check": "node scripts/content-check.mjs"
+    "content-check": "node scripts/content-check.mjs",
+    "indexnow": "node scripts/indexnow-submit.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.90.0",
