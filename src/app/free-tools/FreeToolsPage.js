@@ -224,7 +224,7 @@ export default function FreeToolsPage() {
             Free eBook Formatting Tools
           </h1>
           <p style={{ fontSize: 16, color: 'rgba(247,243,236,0.62)', maxWidth: 580, lineHeight: 1.6 }}>
-            Validate, clean, and format your book for every major publishing platform — no account needed for most tools, no credit card ever.
+            Validate, clean, and format your book for every major publishing platform — no account needed for most tools, no credit card ever. New to self-publishing? Start with our <Link href="/blog/what-is-amazon-kdp-guide-for-new-authors" style={{ color: 'inherit', textDecoration: 'underline' }}>guide to Amazon KDP</Link>.
           </p>
         </div>
       </section>

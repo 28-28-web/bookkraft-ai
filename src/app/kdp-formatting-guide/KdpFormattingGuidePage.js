@@ -185,7 +185,7 @@ export default function KdpFormattingGuidePage() {
                 </h1>
 
                 <p style={{ fontSize: 18, lineHeight: 1.65, marginBottom: 48, opacity: 0.88 }}>
-                    Formatting a book for Amazon KDP involves twelve distinct steps — from manuscript cleanup through EPUB structure, Kindle-specific requirements, metadata, validation, and a final pre-upload checklist. This guide covers every step with the specific rules KDP, Apple Books, and Kobo enforce, and links to the right tool for each one.
+                    Formatting a book for Amazon KDP involves twelve distinct steps — from manuscript cleanup through EPUB structure, Kindle-specific requirements, metadata, validation, and a final pre-upload checklist. This guide covers every step with the specific rules KDP, Apple Books, and Kobo enforce, and links to the right tool for each one. New to the platform? Start with <Link href="/blog/what-is-amazon-kdp-guide-for-new-authors" style={LINK_STYLE}>what Amazon KDP is</Link> for how publishing and royalties work first.
                 </p>
 
                 {/* ── 1. OVERVIEW ── */}
