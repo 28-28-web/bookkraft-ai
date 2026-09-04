@@ -233,7 +233,7 @@ export async function POST(request) {
         const { Paddle } = await import('@paddle/paddle-node-sdk');
         const paddle = new Paddle(process.env.PADDLE_API_KEY);
         try {
-            paddle.webhooks.unmarshal(rawBody, secret, signature);
+            await paddle.webhooks.unmarshal(rawBody, secret, signature);
         } catch (e) {
             console.error('Invalid Paddle signature');
             return NextResponse.json({ error: 'invalid_signature' }, { status: 401 });
