@@ -11,6 +11,16 @@
 
 const BASE = 'https://bookkraftai.com';
 
+// Local runs get the key from .env.local, which Next loads for the app but a
+// bare `node` process does not. In production the variable is already in the
+// environment and this does nothing.
+try {
+    process.loadEnvFile('.env.local');
+} catch {
+    // no .env.local, or an older Node without loadEnvFile — the environment
+    // is expected to carry INDEXNOW_KEY on its own.
+}
+
 const TOOL_SLUGS = [
     'back-matter-generator',
     'css-snippet-generator',
