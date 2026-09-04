@@ -166,9 +166,18 @@ export default function ToolPage({ params, faqItems = [], children }) {
                         <ToolHeader tool={tool} user={user} />
                         <div className="tool-locked-card">
                             <div className="tool-locked-icon">🔒</div>
-                            <h3>This tool requires the {bundleName}</h3>
-                            <p>Unlock {tool.name} with the {bundleName} for ${bundlePrice} — one-time payment, use it forever.</p>
+                            <h3>{user ? `This tool requires the ${bundleName}` : `Sign in to use ${tool.name}`}</h3>
+                            <p>
+                                {user
+                                    ? `Unlock ${tool.name} with the ${bundleName} for $${bundlePrice} — one-time payment, use it forever.`
+                                    : `Everything below explains what ${tool.name} does. To run it, sign in — or get the ${bundleName} for $${bundlePrice}, a one-time payment you keep forever.`}
+                            </p>
                             <div className="tool-locked-actions">
+                                {!user && (
+                                    <Link href={`/login?redirect=/tools/${slug}`} className="btn btn-primary" style={{ textDecoration: 'none' }}>
+                                        Sign in →
+                                    </Link>
+                                )}
                                 <Link href={`/checkout?plan=${checkoutPlan}`} className="btn btn-gold" style={{ textDecoration: 'none' }}>
                                     Get {bundleName} — ${bundlePrice} →
                                 </Link>

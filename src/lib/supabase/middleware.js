@@ -38,22 +38,25 @@ export async function updateSession(request) {
         console.error('[updateSession] getUser threw:', err?.message ?? err);
     }
 
-    // Protected routes — redirect to login if not authenticated
-    const protectedPaths = ['/dashboard', '/tools', '/history', '/account', '/admin', '/onboarding'];
+    // Protected routes — redirect to login if not authenticated.
+    //
+    // /tools is deliberately NOT here. Tool pages are marketing pages: name,
+    // description, how it works, FAQ, and JSON-LD, all server-rendered. Guarding
+    // the route meant an unauthenticated visitor - including Googlebot and
+    // Bingbot - got a redirect to /login instead of the page, so no tool page
+    // could ever be indexed. Running a tool stays gated server-side in
+    // checkToolAccess (src/lib/toolAccess.js), which fails closed on every
+    // /api/tools/* request, so dropping the page guard costs no access control.
+    const protectedPaths = ['/dashboard', '/history', '/account', '/admin', '/onboarding'];
     const isProtected = protectedPaths.some((p) => request.nextUrl.pathname.startsWith(p));
 
-    // Free tools bypass auth — no login required (v8.0 spec)
-    const freeSlugs = ['epub-validator', 'metadata-builder', 'word-cleanup', 'cover-checker', 'manuscript-mode', 'publishing-score'];
-    const isFreeToolUrl = request.nextUrl.pathname === '/tools'
-        || freeSlugs.some((s) => request.nextUrl.pathname === `/tools/${s}`);
-
-    if (isProtected && !isFreeToolUrl && !user) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/login';
-    url.searchParams.set('redirect', request.nextUrl.pathname);
-    url.searchParams.set('reason', 'auth-required');
-    return NextResponse.redirect(url);
-}
+    if (isProtected && !user) {
+        const url = request.nextUrl.clone();
+        url.pathname = '/login';
+        url.searchParams.set('redirect', request.nextUrl.pathname);
+        url.searchParams.set('reason', 'auth-required');
+        return NextResponse.redirect(url);
+    }
 
     // If user is logged in and tries to visit login/signup, redirect to dashboard
     if (user && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/signup')) {
