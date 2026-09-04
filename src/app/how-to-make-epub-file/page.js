@@ -1,8 +1,8 @@
 import HowToMakeEpubPage from './HowToMakeEpubPage';
 
 export const metadata = {
-  title: 'How to Make an EPUB File — Step-by-Step Guide | BookKraft AI',
-  description: 'How to make an EPUB file from a Word document, Google Doc, or plain text. Free online tool — no software to install. EPUB 3.0 output that passes KDP, Apple Books, and Kobo validation.',
+  title: 'How to Make an EPUB File Free — No Calibre or Sigil',
+  description: 'Turn a Word doc into a valid EPUB 3 in 4 steps — free, in your browser, no software. Output passes KDP, Apple Books, and Kobo validation on first upload.',
   alternates: {
     canonical: 'https://bookkraftai.com/how-to-make-epub-file',
   },
