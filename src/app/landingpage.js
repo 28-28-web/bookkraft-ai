@@ -357,7 +357,7 @@ export default function LandingPage({ faqs, epubFaqs }) {
         .bk-efaq-item details summary { display: flex; align-items: baseline; justify-content: space-between; padding: 18px 2px; cursor: pointer; list-style: none; font-weight: 600; font-size: 15.5px; color: var(--ink); line-height: 1.45; gap: 16px; }
         .bk-efaq-item details summary::-webkit-details-marker { display: none; }
         .bk-efaq-item details summary::after { content: '+'; font-size: 22px; font-weight: 300; color: var(--mid); flex-shrink: 0; }
-        .bk-efaq-item details[open] summary::after { content: '\2212'; }
+        .bk-efaq-item details[open] summary::after { content: '\\2212'; }
         .bk-efaq-answer { padding: 0 2px 20px; font-size: 15px; color: var(--mid); line-height: 1.75; margin: 0; }
         .bk-efaq-footer { text-align: center; margin-top: 40px; }
       `}</style>
