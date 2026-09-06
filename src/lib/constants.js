@@ -140,6 +140,49 @@ export const FAQS = [
     },
 ];
 
+export const EPUB_KDP_FAQS = [
+  {
+    q: 'What is an EPUB file and why does KDP need it?',
+    a: 'EPUB is the standard file format for eBooks. It stands for Electronic Publication. When you upload an EPUB to KDP, Amazon converts it to the Kindle format for you. A clean, valid EPUB means your book looks right on every Kindle device. Upload a broken file and KDP may reject it or show your readers garbled text.',
+  },
+  {
+    q: 'Why does Apple Books reject my EPUB but Amazon accepts it?',
+    a: 'Apple Books has stricter EPUB rules than Amazon. Amazon often accepts files with minor errors; Apple Books rejects them outright. Common reasons for rejection include a cover image that is too small, a missing or broken table of contents, or metadata that does not match the file. Run your EPUB through a validator before uploading. Fix every error flagged and re-upload.',
+  },
+  {
+    q: 'How do I fix common KDP formatting errors?',
+    a: 'Most KDP formatting errors start in Word. The usual problems are smart quotes that turn into question marks, tab indents that Kindle ignores, and extra blank lines between paragraphs. Fix them before you convert to EPUB — not after. Our Kindle Format Fixer corrects eight common errors in your browser. Clean the file first, then convert.',
+  },
+  {
+    q: "What's the difference between EPUB 2 and EPUB 3?",
+    a: 'EPUB 2 is the older format. It works on most eReaders but lacks support for better fonts and accessibility features. EPUB 3 is the current standard. KDP, Apple Books, and Kobo all prefer EPUB 3 now. If you are formatting a new book, use EPUB 3. It gives you a clickable table of contents, better font control, and wider platform support.',
+  },
+  {
+    q: 'Do I need an ISBN to publish on KDP?',
+    a: 'No. Amazon assigns a free ASIN (Amazon Standard Identification Number) when you publish on KDP. You only need an ISBN if you plan to sell on other platforms like IngramSpark or Kobo. ISBNs are free in some countries and cost money in others. If you are only publishing on Amazon, you can skip the ISBN entirely. Add one later if you expand to other stores.',
+  },
+  {
+    q: 'How do I create a clickable table of contents for Kindle?',
+    a: 'A Kindle table of contents needs to link to actual chapters in your EPUB file. The easiest method is to use heading styles (H1 for chapters, H2 for sections) in Word before you convert. Our TOC Generator takes your chapter headings and outputs the correct HTML for Kindle. Paste it into your EPUB and readers can tap any chapter to jump straight there.',
+  },
+  {
+    q: 'What cover image size does KDP require?',
+    a: 'KDP requires a cover that is at least 2,560 × 1,600 pixels. The ideal ratio is 1.6:1 (height to width). The file must be a JPEG or TIFF, under 50 MB. A cover smaller than these requirements gets rejected before your book goes live. Apple Books requires a minimum of 2,400 × 1,600 pixels. Our Cover Checker verifies your image against all platform requirements before you upload.',
+  },
+  {
+    q: 'How do I convert a Word document to EPUB without losing formatting?',
+    a: 'The key is to use proper styles in Word before you convert. Use Heading 1 for chapter titles, Heading 2 for subheadings, and Normal for body text. Avoid using tabs or spaces to indent paragraphs — use paragraph indent settings instead. Our Full Manuscript Mode converts your DOCX or TXT to EPUB 3.0 in one step. It detects chapters automatically and fixes the most common Word formatting problems.',
+  },
+  {
+    q: 'What is EpubCheck and why should I use it?',
+    a: 'EpubCheck is the official EPUB validation tool. It checks your file against the EPUB standard and lists every error. KDP and Apple Books both run EpubCheck automatically when you upload. If your file fails, it gets rejected. Our EPUB Validator runs the same checks in your browser with no Java install. Fix errors before you upload and avoid the back-and-forth rejection cycle.',
+  },
+  {
+    q: "What's the difference between free and paid EPUB formatting tools?",
+    a: 'Free tools like Calibre and Sigil work well but require setup and a learning curve. Paid tools like BookKraft AI run in your browser with no install. They target specific formatting problems — smart quotes, spine errors, missing metadata — and surface them faster than a manual check. If you publish one book a year, free tools are fine. If you publish regularly, a dedicated tool saves hours per book.',
+  },
+];
+
 const HOME_FAQ_QUESTIONS = new Set([
   'Do I need to pay monthly?',
   'Do the free tools actually work without signing up?',

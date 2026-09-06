@@ -268,9 +268,35 @@ function ToolsDirectorySection() {
   );
 }
 
+// ─── EPUB & KDP FAQ ──────────────────────────────────────────────────
+
+function EpubFaqSection({ epubFaqs }) {
+  return (
+    <section className="bk-efaq-section">
+      <div className="bk-efaq-inner">
+        <p className="bk-efaq-eyebrow">EPUB &amp; KDP questions</p>
+        <h2 className="bk-efaq-h2">Common questions from indie authors</h2>
+        <ul className="bk-efaq-list">
+          {epubFaqs.map(({ q, a }) => (
+            <li key={q} className="bk-efaq-item">
+              <details>
+                <summary>{q}</summary>
+                <p className="bk-efaq-answer">{a}</p>
+              </details>
+            </li>
+          ))}
+        </ul>
+        <div className="bk-efaq-footer">
+          <a href="/faq" className="bk-tools-more">More questions →</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── ROOT ────────────────────────────────────────────────────────────
 
-export default function LandingPage({ faqs }) {
+export default function LandingPage({ faqs, epubFaqs }) {
   return (
     <>
       <style>{`
@@ -319,6 +345,21 @@ export default function LandingPage({ faqs }) {
         .bk-tool-desc { font-size: 13px; color: var(--mid); line-height: 1.6; }
         .bk-tools-footer { text-align: center; margin-top: 8px; }
         .bk-tools-more { font-size: 14px; font-weight: 600; color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+
+        /* EPUB & KDP FAQ Section */
+        .bk-efaq-section { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 64px 28px 72px; }
+        .bk-efaq-inner { max-width: 760px; margin: 0 auto; }
+        .bk-efaq-eyebrow { text-align: center; font-family: var(--font-ibm-mono), monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); margin-bottom: 12px; }
+        .bk-efaq-h2 { text-align: center; font-family: var(--font-fraunces), Fraunces, serif; font-weight: 500; font-size: clamp(22px, 2.8vw, 30px); color: var(--ink); margin: 0 0 44px; line-height: 1.25; }
+        .bk-efaq-list { list-style: none; margin: 0; padding: 0; }
+        .bk-efaq-item { border-bottom: 1px solid var(--border); }
+        .bk-efaq-item:first-child { border-top: 1px solid var(--border); }
+        .bk-efaq-item details summary { display: flex; align-items: baseline; justify-content: space-between; padding: 18px 2px; cursor: pointer; list-style: none; font-weight: 600; font-size: 15.5px; color: var(--ink); line-height: 1.45; gap: 16px; }
+        .bk-efaq-item details summary::-webkit-details-marker { display: none; }
+        .bk-efaq-item details summary::after { content: '+'; font-size: 22px; font-weight: 300; color: var(--mid); flex-shrink: 0; }
+        .bk-efaq-item details[open] summary::after { content: '\2212'; }
+        .bk-efaq-answer { padding: 0 2px 20px; font-size: 15px; color: var(--mid); line-height: 1.75; margin: 0; }
+        .bk-efaq-footer { text-align: center; margin-top: 40px; }
       `}</style>
 
       <HowItWorksSection />
@@ -331,6 +372,7 @@ export default function LandingPage({ faqs }) {
       <TestimonialsSection />
       <PricingSection />
       <PlatformsStripLine />
+      <EpubFaqSection epubFaqs={epubFaqs} />
       <FAQSection faqs={faqs} />
       <Footer />
     </>

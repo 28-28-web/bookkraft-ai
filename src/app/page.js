@@ -1,6 +1,6 @@
 import HeroSection from '../components/HeroSection';
 import LandingPage from './landingpage';
-import { PRICING, FREE_TOOLS, HOME_FAQS } from '../lib/constants';
+import { PRICING, FREE_TOOLS, HOME_FAQS, EPUB_KDP_FAQS } from '../lib/constants';
 import { TOOLS } from '../lib/tools';
 
 export const metadata = {
@@ -55,7 +55,7 @@ export default function Page() {
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: HOME_FAQS.map(f => ({
+    mainEntity: [...HOME_FAQS, ...EPUB_KDP_FAQS].map(f => ({
       '@type': 'Question',
       name: f.q,
       acceptedAnswer: { '@type': 'Answer', text: f.a },
@@ -73,7 +73,7 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <HeroSection />
-      <LandingPage faqs={HOME_FAQS} />
+      <LandingPage faqs={HOME_FAQS} epubFaqs={EPUB_KDP_FAQS} />
     </>
   );
 }
