@@ -195,6 +195,90 @@ function IntentSection() {
   );
 }
 
+// ─── TOOLS DIRECTORY ─────────────────────────────────────────────────
+
+const TOOL_GROUPS = [
+  {
+    label: 'Free — no account needed',
+    labelColor: '#4a9e6e',
+    tools: [
+      { slug: 'epub-validator',  name: 'EPUB Validator',        desc: 'Check your EPUB file against KDP, Apple Books, and IngramSpark requirements. Validates structure, metadata, spine order, and cover image declaration. Runs entirely in your browser — no Java, no upload.' },
+      { slug: 'word-cleanup',    name: 'Word Cleanup Checker',  desc: 'Upload your .docx and instantly flag double spaces, straight quotes, stacked blank paragraphs, and stray formatting before you convert to EPUB.' },
+      { slug: 'cover-checker',   name: 'Cover Checker',         desc: 'Upload your cover image and verify pixel dimensions, aspect ratio, and file format against KDP and Apple Books requirements before uploading to any store.' },
+      { slug: 'manuscript-mode', name: 'Full Manuscript Mode',  desc: 'One-step DOCX or TXT to EPUB 3.0 converter. Detects chapters automatically, fixes smart quotes, em dashes, and encoding artifacts, and generates a store-ready EPUB file.' },
+      { slug: 'metadata-builder',name: 'Book Metadata Builder', desc: 'Build KDP, IngramSpark, and EPUB OPF metadata — BISAC category codes, keyword fields, and pricing — formatted correctly for each platform in one step.' },
+    ],
+  },
+  {
+    label: 'Starter plan — unlimited use',
+    labelColor: '#b8962e',
+    tools: [
+      { slug: 'kindle-format-fixer',    name: 'Kindle Format Fixer',    desc: 'Fix smart quotes, em dashes, double spaces, tab indents, and encoding artifacts from Word exports. Eight Kindle formatting fixes in a single browser pass — no upload required.' },
+      { slug: 'epub-formatter',         name: 'EPUB Formatter',          desc: 'Convert any manuscript to EPUB 3.0 with chapters, metadata, cover, and inline images. Paste your text with Markdown image references and the formatter embeds them exactly where placed.' },
+      { slug: 'toc-generator',          name: 'TOC Generator',           desc: 'Paste your chapter headings and get a clickable table of contents in Kindle HTML, EPUB3 nav.xhtml, or NCX format. Supports H1, H2, and H3 heading levels.' },
+      { slug: 'front-matter-generator', name: 'Front Matter Generator',  desc: 'Generate title page, copyright page, dedication, and disclaimer formatted for KDP in seconds. Handles pen names, optional ISBN, and multiple disclaimer types.' },
+      { slug: 'css-snippet-generator',  name: 'CSS Snippet Generator',   desc: 'Get copy-paste CSS for drop caps, scene breaks, blockquotes, pull quotes, and poetry formatting. Live preview included. Tested for Kindle KFX, Apple Books, and Kobo.' },
+    ],
+  },
+  {
+    label: 'AI tools — credit per run',
+    labelColor: '#7b68c8',
+    tools: [
+      { slug: 'manuscript-cleanup',    name: 'Manuscript Cleanup',       desc: 'AI-powered cleanup that catches dialogue punctuation errors, repeated words within 200 words, and clichés that spell checkers miss. Fiction and non-fiction, any manuscript length. 1 credit.' },
+      { slug: 'print-to-digital',      name: 'Print-to-Digital Adapter', desc: 'Convert page references, footnotes, running headers, and fixed-width tables from print manuscripts into eBook-ready format for KDP or EPUB. 1 credit per run.' },
+      { slug: 'style-sheet-auditor',   name: 'Style Sheet Auditor',      desc: 'AI scans your manuscript for inconsistent character names, capitalisation, hyphenation, and dialogue punctuation across any length — the consistency checks a copy editor runs before submission. 1 credit.' },
+      { slug: 'kdp-keyword-finder',    name: 'KDP Keyword Finder',       desc: 'Generate 7 long-tail Amazon keyword phrases and ghost category paths tailored to your genre and comparable titles. Includes competition level and ranking potential per phrase. 2 credits.' },
+      { slug: 'back-matter-generator', name: 'Back Matter Generator',    desc: 'AI-written author bio, Also By section, reader list call-to-action, acknowledgements, and connect page for KDP and EPUB — all six back matter sections in one run. 3 credits.' },
+      { slug: 'epub-validator-premium',name: 'EPUB Validator Pro',        desc: 'Deep EPUB scan: ghost spacing detection, duplicate ID check, OPF manifest cross-reference, cover dimension verification, and a store-specific pass/fail report for KDP, Apple Books, and Google Play. 3 credits.' },
+    ],
+  },
+];
+
+function ToolsDirectorySection() {
+  return (
+    <section style={{ background: 'var(--white)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '60px 28px 68px' }}>
+      <div style={{ maxWidth: 1040, margin: '0 auto' }}>
+        <p style={{ textAlign: 'center', fontFamily: 'var(--font-ibm-mono), monospace', fontSize: '12px', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--mid)', marginBottom: 12 }}>
+          All tools
+        </p>
+        <h2 style={{ textAlign: 'center', fontFamily: 'var(--font-fraunces), Fraunces, serif', fontWeight: 500, fontSize: 'clamp(22px, 2.8vw, 30px)', color: 'var(--ink)', margin: '0 0 48px', lineHeight: 1.25 }}>
+          16 tools for every stage of indie publishing
+        </h2>
+
+        {TOOL_GROUPS.map(({ label, labelColor, tools }) => (
+          <div key={label} style={{ marginBottom: 44 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: labelColor, flexShrink: 0, display: 'inline-block' }} />
+              <span style={{ fontFamily: 'var(--font-ibm-mono), monospace', fontSize: '11.5px', letterSpacing: '0.12em', textTransform: 'uppercase', color: labelColor, fontWeight: 600 }}>
+                {label}
+              </span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: 14 }}>
+              {tools.map(({ slug, name, desc }) => (
+                <a key={slug} href={`/tools/${slug}`} style={{ textDecoration: 'none', color: 'inherit', display: 'flex' }}>
+                  <div style={{ flex: 1, border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '18px 20px 16px', background: 'var(--white)', display: 'flex', flexDirection: 'column', gap: 6, transition: 'border-color 0.15s' }}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--gold)'}
+                    onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
+                  >
+                    <div style={{ fontWeight: 700, fontSize: '14.5px', color: 'var(--ink)', lineHeight: 1.25 }}>{name}</div>
+                    <div style={{ fontSize: 13, color: 'var(--mid)', lineHeight: 1.6 }}>{desc}</div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        <div style={{ textAlign: 'center', marginTop: 8 }}>
+          <a href="/tools" style={{ fontSize: 14, fontWeight: 600, color: 'var(--gold)', textDecoration: 'underline', textUnderlineOffset: '3px' }}>
+            Browse all tools →
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── ROOT ────────────────────────────────────────────────────────────
 
 export default function LandingPage({ faqs }) {
@@ -232,6 +316,7 @@ export default function LandingPage({ faqs }) {
 
       <HowItWorksSection />
       <IntentSection />
+      <ToolsDirectorySection />
       <ProcessDiagramSection />
       <ScorecardSection />
       <TickerSection />

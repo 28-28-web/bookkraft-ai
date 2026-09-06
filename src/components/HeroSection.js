@@ -15,10 +15,10 @@ export default function HeroSection() {
 
         <h1 style={{
           fontFamily: 'var(--font-fraunces), Fraunces, serif', fontWeight: 500,
-          fontSize: 'clamp(34px, 4.6vw, 54px)', lineHeight: 1.08, letterSpacing: '-0.01em',
+          fontSize: 'clamp(30px, 4.2vw, 50px)', lineHeight: 1.1, letterSpacing: '-0.01em',
           color: '#ffffff', maxWidth: 820, margin: '0 0 22px',
         }}>
-          Make Your Book Publication-Ready
+          Free EPUB &amp; Kindle Formatting Tools for KDP Authors
         </h1>
 
         <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.65)', maxWidth: 520, margin: '0 0 36px', lineHeight: 1.5 }}>
