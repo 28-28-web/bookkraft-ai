@@ -296,41 +296,25 @@ function EpubFaqSection({ epubFaqs }) {
 
 // ─── ROOT ────────────────────────────────────────────────────────────
 
-function AnnouncementBanner() {
-  const [visible, setVisible] = useState(true);
-
-  React.useEffect(() => {
-    try {
-      if (localStorage.getItem('book-banner-dismissed') === '1') setVisible(false);
-    } catch {}
-  }, []);
-
-  function dismiss() {
-    try { localStorage.setItem('book-banner-dismissed', '1'); } catch {}
-    setVisible(false);
-  }
-
-  if (!visible) return null;
-
+function BookPromoSection() {
   return (
-    <div className="bk-announce-bar" role="region" aria-label="New release announcement">
-      <div className="bk-announce-inner">
+    <section className="bk-promo-section" aria-label="New book announcement">
+      <div className="bk-promo-card">
         <img
           src="/images/blog/why-book-got-rejected-cover.png"
-          alt=""
-          className="bk-announce-thumb"
-          aria-hidden="true"
+          alt="Why Your Book Got Rejected — book cover"
+          className="bk-promo-cover"
         />
-        <div className="bk-announce-body">
-          <a href="/blog/why-your-book-got-rejected" className="bk-announce-link">
-            📖 New from BookKraft AI &mdash; <span className="bk-announce-title">&ldquo;Why Your Book Got Rejected&rdquo;</span> &mdash; The complete EPUB &amp; KDP formatting guide for 2026. Free for Starter &amp; Pro members.
+        <div className="bk-promo-body">
+          <span className="bk-promo-badge">Free for Starter &amp; Pro members</span>
+          <h2 className="bk-promo-title">Why Your Book Got Rejected</h2>
+          <p className="bk-promo-subtitle">The EPUB &amp; KDP Formatting Guide for 2026</p>
+          <a href="/blog/why-your-book-got-rejected" className="bk-promo-cta">
+            Get Your Free Copy →
           </a>
         </div>
-        <button className="bk-announce-close" onClick={dismiss} aria-label="Dismiss announcement">
-          &#215;
-        </button>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -399,23 +383,23 @@ export default function LandingPage({ faqs, epubFaqs }) {
         .bk-efaq-answer { padding: 0 2px 20px; font-size: 15px; color: var(--mid); line-height: 1.75; margin: 0; }
         .bk-efaq-footer { text-align: center; margin-top: 40px; }
 
-        /* Announcement Banner */
-        .bk-announce-bar { background: #fdf8ec; border-bottom: 1px solid #e8d5a0; padding: 10px 16px; }
-        .bk-announce-inner { max-width: 1040px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
-        .bk-announce-thumb { width: 40px; height: 56px; object-fit: cover; border-radius: 3px; flex-shrink: 0; box-shadow: 0 1px 5px rgba(0,0,0,0.18); }
-        .bk-announce-body { flex: 1; min-width: 0; }
-        .bk-announce-link { text-decoration: none; color: var(--ink); font-size: 14px; line-height: 1.5; display: block; }
-        .bk-announce-link:hover .bk-announce-title { text-decoration: underline; text-underline-offset: 2px; }
-        .bk-announce-title { color: var(--gold); font-weight: 700; }
-        .bk-announce-close { background: none; border: none; cursor: pointer; color: var(--mid); font-size: 20px; line-height: 1; padding: 4px 8px; flex-shrink: 0; border-radius: 4px; }
-        .bk-announce-close:hover { color: var(--ink); background: rgba(0,0,0,0.06); }
-        @media (max-width: 480px) {
-          .bk-announce-thumb { display: none; }
-          .bk-announce-link { font-size: 13px; }
+        /* Book Promo Section */
+        .bk-promo-section { background: var(--white); border-bottom: 1px solid var(--border); padding: 36px 24px; }
+        .bk-promo-card { max-width: 860px; margin: 0 auto; background: linear-gradient(135deg, #fdf7e8 0%, #fffbf2 60%, #fdf7e8 100%); border: 1px solid #e2c97e; border-radius: 14px; box-shadow: 0 4px 20px rgba(160,115,20,0.10), 0 1px 4px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 28px; padding: 28px 32px; }
+        .bk-promo-cover { height: 140px; width: auto; border-radius: 5px; object-fit: cover; box-shadow: 0 6px 20px rgba(0,0,0,0.22); flex-shrink: 0; }
+        .bk-promo-body { flex: 1; min-width: 0; }
+        .bk-promo-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #8a6300; background: rgba(196,148,20,0.13); border: 1px solid rgba(196,148,20,0.30); border-radius: 100px; padding: 3px 11px; margin-bottom: 10px; }
+        .bk-promo-title { font-family: var(--font-fraunces), Fraunces, serif; font-weight: 600; font-size: clamp(17px, 2.2vw, 22px); color: var(--ink); line-height: 1.25; margin: 0 0 5px; }
+        .bk-promo-subtitle { font-size: 14px; color: var(--mid); margin: 0 0 18px; line-height: 1.5; }
+        .bk-promo-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--gold); color: #fff; font-weight: 700; font-size: 14px; padding: 10px 20px; border-radius: 7px; text-decoration: none; transition: opacity 0.15s, box-shadow 0.15s; box-shadow: 0 2px 8px rgba(160,115,20,0.28); }
+        .bk-promo-cta:hover { opacity: 0.90; box-shadow: 0 4px 14px rgba(160,115,20,0.36); }
+        @media (max-width: 580px) {
+          .bk-promo-card { flex-direction: column; align-items: flex-start; gap: 18px; padding: 22px 20px; }
+          .bk-promo-cover { height: 110px; }
         }
       `}</style>
 
-      <AnnouncementBanner />
+      <BookPromoSection />
       <HowItWorksSection />
       <IntentSection />
       <ToolsDirectorySection />
