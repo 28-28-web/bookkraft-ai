@@ -296,6 +296,44 @@ function EpubFaqSection({ epubFaqs }) {
 
 // ─── ROOT ────────────────────────────────────────────────────────────
 
+function AnnouncementBanner() {
+  const [visible, setVisible] = useState(true);
+
+  React.useEffect(() => {
+    try {
+      if (localStorage.getItem('book-banner-dismissed') === '1') setVisible(false);
+    } catch {}
+  }, []);
+
+  function dismiss() {
+    try { localStorage.setItem('book-banner-dismissed', '1'); } catch {}
+    setVisible(false);
+  }
+
+  if (!visible) return null;
+
+  return (
+    <div className="bk-announce-bar" role="region" aria-label="New release announcement">
+      <div className="bk-announce-inner">
+        <img
+          src="/images/blog/why-book-got-rejected-cover.png"
+          alt=""
+          className="bk-announce-thumb"
+          aria-hidden="true"
+        />
+        <div className="bk-announce-body">
+          <a href="/blog/why-your-book-got-rejected" className="bk-announce-link">
+            📖 New from BookKraft AI &mdash; <span className="bk-announce-title">&ldquo;Why Your Book Got Rejected&rdquo;</span> &mdash; The complete EPUB &amp; KDP formatting guide for 2026. Free for Starter &amp; Pro members.
+          </a>
+        </div>
+        <button className="bk-announce-close" onClick={dismiss} aria-label="Dismiss announcement">
+          &#215;
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function LandingPage({ faqs, epubFaqs }) {
   return (
     <>
@@ -360,8 +398,24 @@ export default function LandingPage({ faqs, epubFaqs }) {
         .bk-efaq-item details[open] summary::after { content: '\\2212'; }
         .bk-efaq-answer { padding: 0 2px 20px; font-size: 15px; color: var(--mid); line-height: 1.75; margin: 0; }
         .bk-efaq-footer { text-align: center; margin-top: 40px; }
+
+        /* Announcement Banner */
+        .bk-announce-bar { background: #fdf8ec; border-bottom: 1px solid #e8d5a0; padding: 10px 16px; }
+        .bk-announce-inner { max-width: 1040px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
+        .bk-announce-thumb { width: 40px; height: 56px; object-fit: cover; border-radius: 3px; flex-shrink: 0; box-shadow: 0 1px 5px rgba(0,0,0,0.18); }
+        .bk-announce-body { flex: 1; min-width: 0; }
+        .bk-announce-link { text-decoration: none; color: var(--ink); font-size: 14px; line-height: 1.5; display: block; }
+        .bk-announce-link:hover .bk-announce-title { text-decoration: underline; text-underline-offset: 2px; }
+        .bk-announce-title { color: var(--gold); font-weight: 700; }
+        .bk-announce-close { background: none; border: none; cursor: pointer; color: var(--mid); font-size: 20px; line-height: 1; padding: 4px 8px; flex-shrink: 0; border-radius: 4px; }
+        .bk-announce-close:hover { color: var(--ink); background: rgba(0,0,0,0.06); }
+        @media (max-width: 480px) {
+          .bk-announce-thumb { display: none; }
+          .bk-announce-link { font-size: 13px; }
+        }
       `}</style>
 
+      <AnnouncementBanner />
       <HowItWorksSection />
       <IntentSection />
       <ToolsDirectorySection />
