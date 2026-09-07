@@ -331,7 +331,7 @@ export default function LandingPage({ faqs, epubFaqs }) {
       <ScorecardSection />
       <TickerSection />
       <ManuscriptBanner />
-      <TestimonialsSection />
+      <CaseStudySection />
       <PricingSection />
       <PlatformsStripLine />
       <EpubFaqSection epubFaqs={epubFaqs} />
@@ -619,70 +619,79 @@ function ManuscriptBanner() {
 }
 
 
-// ─── 7. TESTIMONIALS ─────────────────────────────────────────────────
+// ─── 7. CASE STUDY ───────────────────────────────────────────────────
 
-function initials(name) {
-  return name.split(' ').filter(Boolean).map(w => w[0]).join('').slice(0, 2).toUpperCase();
-}
-
-function TestimonialsSection() {
-  const REVIEWS = [
-    {
-      name: 'Alex Rivera',
-      source: 'CodeTrendy',
-      rating: 5,
-      text: 'I\'ve been using this for a bit and really appreciate how well it\'s put together. The interface is clean and it does exactly what it promises. Nice work by the team.',
-    },
-    {
-      name: 'Januine Developer',
-      source: 'CodeTrendy',
-      rating: 5,
-      text: 'If you\'ve ever spent 2 hours fixing smart quotes or wanted to throw your laptop because Word broke your formatting again... read this. Cleans up Word export mess in minutes. Makes a real EPUB 3.0 that KDP accepts. Two free tools – no signup. Best formatting money I\'ve spent. And I\'m cheap.',
-    },
-    {
-      name: 'Jamie Park',
-      source: 'CodeTrendy',
-      rating: 5,
-      text: 'Output ePub passed Kindle preview clean. Saved me a freelancer pass.',
-    },
-  ];
-
+function CaseStudySection() {
   return (
-    <section className="section-white" aria-labelledby="reviewsHeading">
+    <section className="section-white" style={{ padding: '64px 0' }}>
       <div className="content-wrap">
-        <AnimatedSection>
-          <p className="section-eyebrow-v2 animate-on-scroll">Author wins</p>
-          <h2 className="section-title-v2 animate-on-scroll stagger-1" id="reviewsHeading">
-            What indie authors are saying
-          </h2>
-        </AnimatedSection>
+        <p style={{
+          fontFamily: 'var(--font-ibm-mono), monospace',
+          fontSize: '12px', letterSpacing: '0.14em', textTransform: 'uppercase',
+          color: 'var(--gold)', marginBottom: 14, textAlign: 'center',
+        }}>
+          Our own experience
+        </p>
+        <h2 style={{
+          fontFamily: 'var(--font-fraunces), Fraunces, serif',
+          fontWeight: 500,
+          fontSize: 'clamp(22px, 2.8vw, 30px)',
+          color: 'var(--ink)',
+          textAlign: 'center',
+          lineHeight: 1.25,
+          marginBottom: 20,
+        }}>
+          We use BookKraft AI on our own books
+        </h2>
+        <p style={{
+          maxWidth: 620, margin: '0 auto 36px',
+          fontSize: 15, lineHeight: 1.7, color: 'var(--mid)',
+          textAlign: 'center',
+        }}>
+          While formatting <em>Why Your Book Got Rejected</em>, we found a real bug: the EPUB Formatter
+          was leaving raw <code style={{ fontFamily: 'var(--font-ibm-mono), monospace', fontSize: 13 }}>---</code> section
+          breaks as literal text in the generated EPUB — so instead of a clean scene break, readers saw
+          the dashes merged into the surrounding paragraph.
+        </p>
 
-        {/* CodeTrendy Reviews */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24, marginTop: 48, marginBottom: 48 }}>
-          {REVIEWS.map((review, i) => (
-            <AnimatedSection key={i}>
-              <div className={`testimonial-card-v2 animate-on-scroll stagger-${i + 1}`}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 14 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div className="testimonial-avatar" aria-hidden="true">{initials(review.name)}</div>
-                    <div>
-                      <p style={{ fontWeight: 700, fontSize: 15, marginBottom: 2 }}>{review.name}</p>
-                      <p style={{ fontSize: 12, color: 'var(--mid)' }}>via {review.source}</p>
-                    </div>
-                  </div>
-                  <span className="testimonial-stars-v2" aria-label={`${review.rating} stars`}>
-                    {'★'.repeat(review.rating)}
-                  </span>
-                </div>
-                <p style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--ink)', fontStyle: 'italic' }}>
-                  "{review.text}"
-                </p>
-              </div>
-            </AnimatedSection>
-          ))}
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: 16, maxWidth: 760, margin: '0 auto 32px',
+        }}>
+          <div style={{ background: 'rgba(255,107,91,0.06)', border: '1px solid rgba(255,107,91,0.2)', borderRadius: 10, padding: 20 }}>
+            <p style={{ fontFamily: 'var(--font-ibm-mono), monospace', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#c0392b', marginBottom: 14 }}>Before</p>
+            <p style={{ fontSize: 14, lineHeight: 1.8, color: 'var(--ink)', fontFamily: 'Georgia, serif' }}>
+              ...end of a paragraph.{' '}
+              <span style={{ background: 'rgba(255,107,91,0.15)', padding: '1px 3px', borderRadius: 3 }}>— —</span>
+              {' '}Next paragraph starts here...
+            </p>
+            <p style={{ fontSize: 12, color: 'var(--mid)', marginTop: 10, fontStyle: 'italic' }}>Raw dashes merged into surrounding text</p>
+          </div>
+
+          <div style={{ background: 'rgba(61,220,151,0.06)', border: '1px solid rgba(61,220,151,0.25)', borderRadius: 10, padding: 20 }}>
+            <p style={{ fontFamily: 'var(--font-ibm-mono), monospace', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#1a7a4a', marginBottom: 14 }}>After</p>
+            <p style={{ fontSize: 14, lineHeight: 1.8, color: 'var(--ink)', fontFamily: 'Georgia, serif' }}>
+              ...end of a paragraph.
+            </p>
+            <p style={{ textAlign: 'center', fontSize: 16, letterSpacing: '0.3em', color: 'var(--mid)', margin: '10px 0' }}>* * *</p>
+            <p style={{ fontSize: 14, lineHeight: 1.8, color: 'var(--ink)', fontFamily: 'Georgia, serif' }}>
+              Next paragraph starts here...
+            </p>
+            <p style={{ fontSize: 12, color: 'var(--mid)', marginTop: 10, fontStyle: 'italic' }}>Clean scene break, correct EPUB output</p>
+          </div>
         </div>
 
-       {/* Senja widget - disabled until real reviews collected */}
+        <p style={{
+          maxWidth: 580, margin: '0 auto',
+          fontSize: 14, lineHeight: 1.7, color: 'var(--mid)',
+          textAlign: 'center',
+        }}>
+          We found it, fixed it, and shipped the fix — before it ever shipped in your book.{' '}
+          <a href="https://www.amazon.com/dp/B0HJ11BGQV" target="_blank" rel="noopener noreferrer"
+            style={{ color: 'var(--gold)', textDecoration: 'underline' }}>
+            See the book we built it on →
+          </a>
+        </p>
       </div>
     </section>
   );
