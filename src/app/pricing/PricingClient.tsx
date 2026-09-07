@@ -200,6 +200,22 @@ function PricingContent() {
                             All logic tools included in every paid tier. Credits power the AI tools.
                         </p>
 
+                        {/* Try-before-you-buy callout */}
+                        <div style={{
+                            maxWidth: 600, margin: '0 auto var(--space-6)',
+                            padding: '12px 20px',
+                            background: 'rgba(201,147,58,0.08)',
+                            border: '1px solid rgba(201,147,58,0.25)',
+                            borderRadius: 8,
+                            textAlign: 'center',
+                            fontSize: '14px',
+                            color: 'rgba(247,243,236,0.75)',
+                            lineHeight: 1.5,
+                        }}>
+                            <strong style={{ color: 'var(--gold)' }}>Try before you buy:</strong>{' '}
+                            Every AI tool runs a free 500-word sample on your own text — no credits charged, no account needed.
+                        </div>
+
                         {/* What do you need? */}
                         <div style={{ marginBottom: 'var(--space-8)', textAlign: 'center' }}>
                             <p style={{ color: 'rgba(247,243,236,0.4)', fontSize: '11px', marginBottom: '10px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
