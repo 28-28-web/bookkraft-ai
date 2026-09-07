@@ -219,6 +219,18 @@ export default function BookDedicationPage() {
         </Link>
         .
       </p>
+
+      {/* CTA */}
+      <div style={{ padding: '28px 24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center', marginTop: 40 }}>
+        <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Format your full book — dedication included — as EPUB 3.0.</p>
+        <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Full Manuscript Mode converts your .docx or .txt to a valid EPUB 3.0. Chapters detected automatically, smart quotes and em dashes cleaned. Free — no signup required.</p>
+        <Link
+          href="/tools/manuscript-mode"
+          style={{ display: 'inline-block', padding: '13px 30px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 16 }}
+        >
+          Open Full Manuscript Mode →
+        </Link>
+      </div>
     </main>
   );
 }

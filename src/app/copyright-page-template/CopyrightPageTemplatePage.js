@@ -203,6 +203,18 @@ export default function CopyrightPageTemplatePage() {
         </Link>
         .
       </p>
+
+      {/* CTA */}
+      <div style={{ padding: '28px 24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center', marginTop: 40 }}>
+        <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Build your complete book metadata alongside your copyright information.</p>
+        <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>The Metadata Builder generates your title, author, ISBN, publisher, and BISAC category fields for KDP, IngramSpark, and EPUB OPF — the same fields that belong on your copyright page. Free — no account required.</p>
+        <Link
+          href="/tools/metadata-builder"
+          style={{ display: 'inline-block', padding: '13px 30px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 16 }}
+        >
+          Open Metadata Builder →
+        </Link>
+      </div>
     </main>
   );
 }
