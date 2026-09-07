@@ -40,6 +40,25 @@ export async function POST(request) {
             return NextResponse.json(data, { status });
         }
 
+        try {
+            const brevoKey = process.env.BREVO_API_KEY_TWO;
+            const brevoListId = parseInt(process.env.BREVO_TOOL_LEADS_LIST_ID || '0', 10);
+            if (brevoKey && brevoListId) {
+                await fetch('https://api.brevo.com/v3/contacts', {
+                    method: 'POST',
+                    headers: { 'api-key': brevoKey, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: email.toLowerCase().trim(),
+                        listIds: [brevoListId],
+                        updateEnabled: true,
+                        attributes: { SOURCE_TOOL: source_tool },
+                    }),
+                });
+            }
+        } catch {
+            // intentionally silent — Supabase write is source of truth
+        }
+
         return NextResponse.json({ ok: true });
     } catch (err) {
         console.error('Leads route error:', err);
