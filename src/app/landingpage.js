@@ -384,18 +384,18 @@ export default function LandingPage({ faqs, epubFaqs }) {
         .bk-efaq-footer { text-align: center; margin-top: 40px; }
 
         /* Book Promo Section */
-        .bk-promo-section { background: var(--white); border-bottom: 1px solid var(--border); padding: 36px 24px; }
-        .bk-promo-card { max-width: 860px; margin: 0 auto; background: linear-gradient(135deg, #fdf7e8 0%, #fffbf2 60%, #fdf7e8 100%); border: 1px solid #e2c97e; border-radius: 14px; box-shadow: 0 4px 20px rgba(160,115,20,0.10), 0 1px 4px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 28px; padding: 28px 32px; }
-        .bk-promo-cover { height: 140px; width: auto; border-radius: 5px; object-fit: cover; box-shadow: 0 6px 20px rgba(0,0,0,0.22); flex-shrink: 0; }
+        .bk-promo-section { background: var(--white); border-bottom: 1px solid var(--border); padding: 40px 24px; }
+        .bk-promo-card { max-width: 860px; margin: 0 auto; background: linear-gradient(135deg, #c8870a 0%, #e8a020 40%, #d4900e 100%); border-radius: 22px; box-shadow: 0 8px 40px rgba(180,110,8,0.38), 0 2px 8px rgba(0,0,0,0.12); display: flex; align-items: center; gap: 32px; padding: 32px 40px; }
+        .bk-promo-cover { height: 190px; width: auto; border-radius: 6px; object-fit: cover; flex-shrink: 0; transform: rotate(-2.5deg); box-shadow: 0 12px 36px rgba(0,0,0,0.40), 0 3px 8px rgba(0,0,0,0.20); }
         .bk-promo-body { flex: 1; min-width: 0; }
-        .bk-promo-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #8a6300; background: rgba(196,148,20,0.13); border: 1px solid rgba(196,148,20,0.30); border-radius: 100px; padding: 3px 11px; margin-bottom: 10px; }
-        .bk-promo-title { font-family: var(--font-fraunces), Fraunces, serif; font-weight: 600; font-size: clamp(17px, 2.2vw, 22px); color: var(--ink); line-height: 1.25; margin: 0 0 5px; }
-        .bk-promo-subtitle { font-size: 14px; color: var(--mid); margin: 0 0 18px; line-height: 1.5; }
-        .bk-promo-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--gold); color: #fff; font-weight: 700; font-size: 14px; padding: 10px 20px; border-radius: 7px; text-decoration: none; transition: opacity 0.15s, box-shadow 0.15s; box-shadow: 0 2px 8px rgba(160,115,20,0.28); }
-        .bk-promo-cta:hover { opacity: 0.90; box-shadow: 0 4px 14px rgba(160,115,20,0.36); }
+        .bk-promo-badge { display: inline-block; font-size: 10.5px; font-weight: 800; letter-spacing: 0.11em; text-transform: uppercase; color: #7a4a00; background: rgba(255,255,255,0.92); border-radius: 100px; padding: 4px 13px; margin-bottom: 12px; }
+        .bk-promo-title { font-family: var(--font-fraunces), Fraunces, serif; font-weight: 700; font-size: clamp(19px, 2.4vw, 25px); color: #fff; line-height: 1.2; margin: 0 0 6px; text-shadow: 0 1px 3px rgba(0,0,0,0.18); }
+        .bk-promo-subtitle { font-size: 14px; color: rgba(255,255,255,0.82); margin: 0 0 20px; line-height: 1.5; }
+        .bk-promo-cta { display: inline-flex; align-items: center; gap: 6px; background: #fff; color: #8a5500; font-weight: 800; font-size: 14px; padding: 11px 22px; border-radius: 8px; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 2px 10px rgba(0,0,0,0.18); }
+        .bk-promo-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.22); }
         @media (max-width: 580px) {
-          .bk-promo-card { flex-direction: column; align-items: flex-start; gap: 18px; padding: 22px 20px; }
-          .bk-promo-cover { height: 110px; }
+          .bk-promo-card { flex-direction: column; align-items: flex-start; gap: 20px; padding: 24px 22px; }
+          .bk-promo-cover { height: 140px; transform: rotate(-2deg); }
         }
       `}</style>
 
