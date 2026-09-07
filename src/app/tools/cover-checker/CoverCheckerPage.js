@@ -221,6 +221,7 @@ export default function CoverCheckerPage() {
   const appleResult = dims ? checkApple(dims.width, dims.height) : null;
 
   return (
+    <>
     <main style={{ background: '#12141C', minHeight: '100vh', padding: '64px 20px 80px' }}>
         <div style={{ maxWidth: 720, margin: '0 auto' }}>
 
@@ -458,5 +459,6 @@ export default function CoverCheckerPage() {
         </div>
     </main>
     <StickyUpgradeBanner />
+    </>
   );
 }
