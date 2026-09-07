@@ -36,6 +36,7 @@ export default function PrintToDigital() {
                 <FileUploader
                     onTextExtracted={(text) => setInput(text)}
                     label="Upload your print manuscript (.docx or .txt) — any length"
+                    toolName="print_to_digital"
                 />
                 <textarea className="form-textarea" style={{ minHeight: '250px' }}
                     placeholder="Or paste your print-format text here — no word cap..."

@@ -14,6 +14,8 @@ import WordCounter, { countWords, getWordLimitError } from '@/components/WordCou
 import LivePreview from '@/components/LivePreview';
 import FileUploader from '@/components/FileUploader';
 import JobRunner from '@/components/JobRunner';
+import ToolResultsCTA from '@/components/ToolResultsCTA';
+import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 
 export default function ManuscriptCleanup() {
     const { profile, refreshProfile } = useAuth();
@@ -99,6 +101,7 @@ export default function ManuscriptCleanup() {
                 <FileUploader
                     onTextExtracted={(text) => setInput(text)}
                     label="Upload your manuscript (.docx or .txt) — any length"
+                    toolName="manuscript_cleanup"
                 />
 
                 <textarea className="form-textarea" style={{ minHeight: '250px' }}
@@ -246,11 +249,17 @@ export default function ManuscriptCleanup() {
                             beforeHtml={`<p>${input.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>`}
                             afterHtml={result.cleaned_text ? `<p>${result.cleaned_text.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>` : ''}
                         />
+                        <ToolResultsCTA
+                            toolSlug="manuscript-cleanup"
+                            subjectNoun="manuscript"
+                            issueCount={(result.changes?.length || 0) + (result.flags?.length || 0)}
+                        />
                     </>
                 )}
             </div>
         </div>
 
+<StickyUpgradeBanner />
 </>
     );
 }

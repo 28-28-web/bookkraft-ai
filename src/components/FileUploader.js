@@ -20,7 +20,7 @@ const FILE_STEPS = [
  * chunk on real chapter breaks instead of only paragraph count. Pasted text
  * never has this marker and chunks on paragraphs alone, same as before.
  */
-export default function FileUploader({ onTextExtracted, accept = '.docx,.txt', label = 'Upload a file' }) {
+export default function FileUploader({ onTextExtracted, accept = '.docx,.txt', label = 'Upload a file', toolName = 'file_uploader' }) {
     const [fileName, setFileName] = useState('');
     const [dragOver, setDragOver] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -61,7 +61,7 @@ export default function FileUploader({ onTextExtracted, accept = '.docx,.txt', l
         setError('');
         setFileName(file.name);
 
-        gtag('event', 'file_upload_start', { tool_name: 'file_uploader', file_type: file.name.split('.').pop(), file_size_range: fileSizeRange(file.size) });
+        gtag('event', 'file_upload_start', { tool_name: toolName, file_type: file.name.split('.').pop(), file_size_range: fileSizeRange(file.size) });
 
         try {
             if (file.name.endsWith('.docx')) {
@@ -80,20 +80,20 @@ export default function FileUploader({ onTextExtracted, accept = '.docx,.txt', l
 
                 const plainText = htmlToPlainText(html);
                 onTextExtracted(plainText, html);
-                gtag('event', 'file_upload_success', { tool_name: 'file_uploader', file_type: 'docx', file_size_range: fileSizeRange(file.size) });
+                gtag('event', 'file_upload_success', { tool_name: toolName, file_type: 'docx', file_size_range: fileSizeRange(file.size) });
             } else if (file.name.endsWith('.txt') || file.type === 'text/plain') {
                 const text = await file.text();
                 onTextExtracted(text, null);
-                gtag('event', 'file_upload_success', { tool_name: 'file_uploader', file_type: 'txt', file_size_range: fileSizeRange(file.size) });
+                gtag('event', 'file_upload_success', { tool_name: toolName, file_type: 'txt', file_size_range: fileSizeRange(file.size) });
             } else {
                 const ext = file.name.split('.').pop().toLowerCase();
                 setError(`"${ext}" files aren't supported. Please upload a .docx or .txt file.`);
-                gtag('event', 'file_upload_failed', { tool_name: 'file_uploader', error_type: 'invalid_format', file_type: ext, file_size_range: fileSizeRange(file.size) });
+                gtag('event', 'file_upload_failed', { tool_name: toolName, error_type: 'invalid_format', file_type: ext, file_size_range: fileSizeRange(file.size) });
             }
         } catch (err) {
             setError("We couldn't read this file — it may be corrupted or in an unsupported format. Try re-saving as .docx or paste your text instead.");
             console.error('File upload error:', err);
-            gtag('event', 'file_upload_failed', { tool_name: 'file_uploader', error_type: 'parse_error', file_type: file.name.split('.').pop(), file_size_range: fileSizeRange(file.size) });
+            gtag('event', 'file_upload_failed', { tool_name: toolName, error_type: 'parse_error', file_type: file.name.split('.').pop(), file_size_range: fileSizeRange(file.size) });
         } finally {
             setLoading(false);
         }

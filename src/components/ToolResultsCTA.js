@@ -35,7 +35,7 @@ export default function ToolResultsCTA({ toolSlug, subjectNoun = 'file', issueCo
                 return;
             }
             if (typeof window !== 'undefined' && window.gtag) {
-                window.gtag('event', 'lead_captured', { tool_name: toolSlug, issue_count: issueCount || 0 });
+                window.gtag('event', 'email_captured', { tool_name: toolSlug, issue_count: issueCount || 0 });
             }
             setSubmitted(true);
         } catch {

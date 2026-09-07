@@ -44,6 +44,7 @@ export default function StyleSheetAuditor() {
                 <FileUploader
                     onTextExtracted={(text) => setInput(text)}
                     label="Upload your manuscript (.docx or .txt) — any length"
+                    toolName="style_sheet_auditor"
                 />
                 <textarea className="form-textarea" style={{ minHeight: '200px' }}
                     placeholder="Or paste your manuscript here — no word cap..."

@@ -150,7 +150,7 @@ export default function MetadataBuilder() {
         e.preventDefault();
         if (!form.title && !form.authors) return;
         if (typeof window !== 'undefined' && window.gtag) {
-            window.gtag('event', 'metadata_checked', { issue_count: failCount + warnCount });
+            window.gtag('event', 'tool_complete', { tool_name: 'metadata_builder', issue_count: failCount + warnCount });
         }
         setShowReport(true);
     };

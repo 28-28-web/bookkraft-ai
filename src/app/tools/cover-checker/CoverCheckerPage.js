@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import ToolResultsCTA from '@/components/ToolResultsCTA';
+import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 
 const faqs = [
   {
@@ -180,13 +181,27 @@ export default function CoverCheckerPage() {
       setError('File too large to check — try an image under 55MB.');
       return;
     }
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'tool_start', { tool_name: 'cover_checker' });
+    }
     setFileType(file.type);
     setFileName(file.name);
     setFileSizeMB(file.size / (1024 * 1024));
     const url = URL.createObjectURL(file);
     const img = new window.Image();
     img.onload = () => {
-      setDims({ width: img.naturalWidth, height: img.naturalHeight });
+      const w = img.naturalWidth;
+      const h = img.naturalHeight;
+      const fsMB = file.size / (1024 * 1024);
+      const kdp = checkKDP(w, h, file.type, fsMB);
+      const apple = checkApple(w, h);
+      const issueCount = [...kdp.checks, ...apple.checks].filter((c) => !c.pass).length;
+      const status = kdp.status === 'pass' && apple.status === 'pass' ? 'pass' : 'fail';
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'result_view', { tool_name: 'cover_checker', status });
+        window.gtag('event', 'tool_complete', { tool_name: 'cover_checker', issue_count: issueCount });
+      }
+      setDims({ width: w, height: h });
       setImage(url);
     };
     img.onerror = () => setError('Could not read this image file.');
@@ -442,5 +457,6 @@ export default function CoverCheckerPage() {
 
         </div>
     </main>
+    <StickyUpgradeBanner />
   );
 }

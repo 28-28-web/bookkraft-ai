@@ -82,7 +82,7 @@ export default function PublishingScoreClient({ children }) {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
       if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', 'publishing_score_generated', { score: data.total });
+        window.gtag('event', 'tool_complete', { tool_name: 'publishing_score', score: data.total });
       }
       setResult(data);
     } catch (err) {
