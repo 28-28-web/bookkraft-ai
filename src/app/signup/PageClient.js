@@ -32,6 +32,11 @@ function SignupPageClient() {
 
     const supabase = createClient();
 
+    const [pendingPlan] = useState(() => {
+        if (typeof window === 'undefined') return null;
+        return new URLSearchParams(window.location.search).get('plan') || null;
+    });
+
 
 
     const handleSignup = async (e) => {
@@ -79,12 +84,18 @@ function SignupPageClient() {
                 if (typeof window !== 'undefined' && window.gtag) {
                     window.gtag('event', 'sign_up', { method: 'email' });
                 }
+                if (pendingPlan) {
+                    try { localStorage.setItem('bk_pending_plan', pendingPlan); } catch {}
+                }
                 router.push('/onboarding');
 
             } else {
 
                 if (typeof window !== 'undefined' && window.gtag) {
                     window.gtag('event', 'sign_up', { method: 'email' });
+                }
+                if (pendingPlan) {
+                    try { localStorage.setItem('bk_pending_plan', pendingPlan); } catch {}
                 }
                 setSuccess('Check your email for a confirmation link, then sign in.');
 
@@ -107,6 +118,10 @@ function SignupPageClient() {
     const handleGoogleAuth = async () => {
 
         try {
+
+            if (pendingPlan) {
+                try { localStorage.setItem('bk_pending_plan', pendingPlan); } catch {}
+            }
 
             await supabase.auth.signInWithOAuth({
 

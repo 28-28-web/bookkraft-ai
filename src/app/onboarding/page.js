@@ -13,6 +13,21 @@ export default function OnboardingPage() {
     const router = useRouter();
     const [step, setStep] = useState(0);
     const [answers, setAnswers] = useState({});
+    const [pendingPlan, setPendingPlan] = useState(null);
+
+    const showRecommendations = step === ONBOARD_STEPS.length;
+
+    useEffect(() => {
+        if (showRecommendations) {
+            try {
+                const plan = localStorage.getItem('bk_pending_plan');
+                if (plan) {
+                    setPendingPlan(plan);
+                    localStorage.removeItem('bk_pending_plan');
+                }
+            } catch {}
+        }
+    }, [showRecommendations]);
 
     useEffect(() => {
         if (!loading && !user) router.replace('/login');
@@ -23,7 +38,6 @@ export default function OnboardingPage() {
 
     const currentStep = ONBOARD_STEPS[step];
     const isLastFormStep = step === ONBOARD_STEPS.length - 1;
-    const showRecommendations = step === ONBOARD_STEPS.length;
 
     const handleSelect = async (value) => {
         const newAnswers = { ...answers, [currentStep.key]: value };
@@ -53,6 +67,8 @@ export default function OnboardingPage() {
     const stage = answers.writing_stage || 'starting';
     const recommendedSlugs = TOOL_RECOMMENDATIONS[goal]?.[stage] || TOOL_RECOMMENDATIONS.unsure.starting;
     const recommendedTools = recommendedSlugs.map((s) => TOOLS.find((t) => t.slug === s)).filter(Boolean);
+
+    const planLabel = { starter: 'Starter', pro: 'Pro', lifetime: 'Lifetime' }[pendingPlan] || '';
 
     if (showRecommendations) {
         const primaryTool = recommendedTools[0];
@@ -98,22 +114,45 @@ export default function OnboardingPage() {
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem', marginTop: '1.5rem' }}>
-                        {primaryTool && (
-                            <Link
-                                href={`/tools/${primaryTool.slug}`}
-                                className="btn btn-primary btn-full"
-                                style={{ textDecoration: 'none' }}
-                            >
-                                Open {primaryTool.name} →
-                            </Link>
+                        {pendingPlan ? (
+                            <>
+                                <Link
+                                    href={`/checkout?plan=${pendingPlan}`}
+                                    className="btn btn-primary btn-full"
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    Continue to {planLabel} checkout →
+                                </Link>
+                                {primaryTool && (
+                                    <Link
+                                        href={`/tools/${primaryTool.slug}`}
+                                        className="btn btn-secondary btn-full"
+                                        style={{ textDecoration: 'none' }}
+                                    >
+                                        Open {primaryTool.name} first
+                                    </Link>
+                                )}
+                            </>
+                        ) : (
+                            <>
+                                {primaryTool && (
+                                    <Link
+                                        href={`/tools/${primaryTool.slug}`}
+                                        className="btn btn-primary btn-full"
+                                        style={{ textDecoration: 'none' }}
+                                    >
+                                        Open {primaryTool.name} →
+                                    </Link>
+                                )}
+                                <Link
+                                    href="/dashboard"
+                                    className="btn btn-secondary btn-full"
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    Go to dashboard
+                                </Link>
+                            </>
                         )}
-                        <Link
-                            href="/dashboard"
-                            className="btn btn-secondary btn-full"
-                            style={{ textDecoration: 'none' }}
-                        >
-                            Go to dashboard
-                        </Link>
                     </div>
                 </div>
             </div>
