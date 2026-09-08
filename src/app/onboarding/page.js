@@ -34,7 +34,10 @@ export default function OnboardingPage() {
                 await fetch('/api/onboarding', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ formatting_goal: newAnswers.formatting_goal }),
+                    body: JSON.stringify({
+                        formatting_goal: newAnswers.formatting_goal,
+                        writing_stage: newAnswers.writing_stage,
+                    }),
                 });
             } catch (err) {
                 console.error('Failed to save onboarding:', err);
@@ -52,6 +55,7 @@ export default function OnboardingPage() {
     const recommendedTools = recommendedSlugs.map((s) => TOOLS.find((t) => t.slug === s)).filter(Boolean);
 
     if (showRecommendations) {
+        const primaryTool = recommendedTools[0];
         return (
             <div className="onboard-wrap">
                 <div className="onboard-card" style={{ maxWidth: '640px' }}>
@@ -67,7 +71,7 @@ export default function OnboardingPage() {
                     </p>
 
                     <div className="recommended-tools">
-                        {recommendedTools.map((tool) => (
+                        {recommendedTools.map((tool, i) => (
                             <Link
                                 key={tool.slug}
                                 href={`/tools/${tool.slug}`}
@@ -76,7 +80,14 @@ export default function OnboardingPage() {
                             >
                                 <span className="recommended-icon">{tool.icon}</span>
                                 <div>
-                                    <h4>{tool.name}</h4>
+                                    <h4>
+                                        {tool.name}
+                                        {i === 0 && (
+                                            <span style={{ marginLeft: '0.5rem', fontSize: '0.7rem', fontWeight: 600, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                                Start here
+                                            </span>
+                                        )}
+                                    </h4>
                                     <p>{tool.desc}</p>
                                 </div>
                                 <span className={`recommended-badge ${tool.free ? 'free' : 'paid'}`}>
@@ -86,13 +97,22 @@ export default function OnboardingPage() {
                         ))}
                     </div>
 
-                    <div style={{ display: 'flex', gap: '.75rem', marginTop: '1.5rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem', marginTop: '1.5rem' }}>
+                        {primaryTool && (
+                            <Link
+                                href={`/tools/${primaryTool.slug}`}
+                                className="btn btn-primary btn-full"
+                                style={{ textDecoration: 'none' }}
+                            >
+                                Open {primaryTool.name} →
+                            </Link>
+                        )}
                         <Link
                             href="/dashboard"
-                            className="btn btn-primary btn-full"
+                            className="btn btn-secondary btn-full"
                             style={{ textDecoration: 'none' }}
                         >
-                            Go to Dashboard →
+                            Go to dashboard
                         </Link>
                     </div>
                 </div>
