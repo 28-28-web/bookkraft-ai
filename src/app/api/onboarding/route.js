@@ -17,7 +17,7 @@ export async function POST(request) {
         return NextResponse.json({ error: 'invalid_json' }, { status: 400 });
     }
 
-    const { formatting_goal } = body;
+    const { formatting_goal, writing_stage } = body;
     if (!formatting_goal || typeof formatting_goal !== 'string') {
         return NextResponse.json({ error: 'missing_formatting_goal' }, { status: 400 });
     }
@@ -25,8 +25,8 @@ export async function POST(request) {
     try {
         const db = getPool();
         await db.query(
-            'UPDATE users SET formatting_goal = $1 WHERE id = $2',
-            [formatting_goal, user.id]
+            'UPDATE users SET formatting_goal = $1, writing_stage = $2 WHERE id = $3',
+            [formatting_goal, writing_stage || null, user.id]
         );
         return NextResponse.json({ ok: true });
     } catch (err) {
