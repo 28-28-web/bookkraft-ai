@@ -18,7 +18,7 @@ export async function generateMetadata({ params }) {
   const post = await getPostBySlug(slug);
   if (!post) return {};
 
-  const title = post.meta_title || post.title;
+  const title = post.title;
   const description = post.meta_description || post.custom_excerpt || post.excerpt || '';
   const canonical = `https://bookkraftai.com/blog/${post.slug}`;
   const ogImage = post.og_image || post.feature_image;

@@ -3,11 +3,27 @@ import LandingPage from './landingpage';
 import { PRICING, FREE_TOOLS, HOME_FAQS, EPUB_KDP_FAQS } from '../lib/constants';
 import { TOOLS } from '../lib/tools';
 
+const _HOME_TITLE = 'BookKraft AI — EPUB & Kindle Tools for Indie Authors';
+const _HOME_DESC = `${TOOLS.length} tools for indie authors. Fix Kindle errors, validate EPUBs, build metadata, generate keywords. One-time price, no subscription. Start free.`;
+
 export const metadata = {
-  title: 'BookKraft AI — EPUB & Kindle Tools for Indie Authors',
-  description: `${TOOLS.length} tools for indie authors. Fix Kindle errors, validate EPUBs, build metadata, generate keywords. One-time price, no subscription. Start free.`,
+  title: _HOME_TITLE,
+  description: _HOME_DESC,
   alternates: {
     canonical: 'https://bookkraftai.com/',
+  },
+  openGraph: {
+    title: _HOME_TITLE,
+    description: _HOME_DESC,
+    siteName: 'BookKraft AI',
+    type: 'website',
+    url: 'https://bookkraftai.com/',
+    images: [{ url: 'https://bookkraftai.com/og-image.jpg', width: 1200, height: 630, alt: 'BookKraft AI – eBook Formatting Toolkit' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: _HOME_TITLE,
+    description: _HOME_DESC,
   },
 };
 
