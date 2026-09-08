@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 import { useProject } from '@/lib/ProjectContext';
 import { TOOLS } from '@/lib/tools';
-import { TOOL_CATEGORIES, TOOL_CREDIT_COSTS } from '@/lib/constants';
+import { TOOL_CATEGORIES, TOOL_CREDIT_COSTS, TOOL_RECOMMENDATIONS } from '@/lib/constants';
 import Sidebar from '@/components/Sidebar';
 
 export default function DashboardPage() {
@@ -84,6 +84,23 @@ export default function DashboardPage() {
     const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
     const name = user?.email?.split('@')[0] || 'there';
 
+    const showNudge = projects.length === 0 && !!profile?.formatting_goal;
+    let nudgeTool = null;
+    let nudgePhrase = '';
+    if (showNudge) {
+        const goal = profile.formatting_goal;
+        const stage = profile.writing_stage || 'starting';
+        const phrases = {
+            kindle:  { starting: 'starting a Kindle eBook', manuscript: 'formatting a Kindle eBook', problems: 'fixing a Kindle eBook with errors', print: 'converting a print book to Kindle' },
+            epub:    { starting: 'starting an EPUB', manuscript: 'formatting an EPUB', problems: 'fixing an EPUB with errors', print: 'converting a print book to EPUB' },
+            both:    { starting: 'starting a Kindle + EPUB project', manuscript: 'formatting for Kindle and EPUB', problems: 'fixing a file with errors', print: 'converting a print book to digital' },
+            unsure:  { starting: 'getting started', manuscript: 'formatting your manuscript', problems: 'fixing a file with errors', print: 'converting a print book to digital' },
+        };
+        nudgePhrase = phrases[goal]?.[stage] || 'getting started';
+        const slugs = TOOL_RECOMMENDATIONS[goal]?.[stage] || TOOL_RECOMMENDATIONS.unsure.starting;
+        nudgeTool = TOOLS.find((t) => t.slug === slugs[0]) || null;
+    }
+
     const handleCreateBook = async () => {
         if (!newTitle.trim()) return;
         setCreating(true);
@@ -134,6 +151,25 @@ export default function DashboardPage() {
                         </Link>
                     )}
                 </div>
+
+                {/* Onboarding nudge — new users, no projects yet */}
+                {showNudge && nudgeTool && (
+                    <div style={{
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                        gap: 'var(--space-4)', padding: 'var(--space-4)',
+                        marginBottom: 'var(--space-6)', background: 'var(--cream)',
+                        border: '1px solid var(--border)', borderRadius: 'var(--radius)',
+                    }}>
+                        <p style={{ margin: 0, fontSize: 'var(--text-sm)', color: 'var(--ink)' }}>
+                            You&apos;re {nudgePhrase}. Try <strong>{nudgeTool.name}</strong> first.
+                        </p>
+                        <Link href={`/tools/${nudgeTool.slug}`}
+                            className="btn btn-gold btn-sm"
+                            style={{ textDecoration: 'none', whiteSpace: 'nowrap' }}>
+                            Try it now →
+                        </Link>
+                    </div>
+                )}
 
                 {/* ── My Books Section ── */}
                 <div style={{ marginBottom: 'var(--space-8)' }}>
