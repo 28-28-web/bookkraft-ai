@@ -195,6 +195,14 @@ function SignupPageClient() {
 
                         />
 
+                        {password.length > 0 && (
+                            <p style={{ fontSize: '12px', margin: '4px 0 0', color: password.length >= 8 ? 'var(--sage)' : 'var(--mid)' }}>
+                                {password.length >= 8
+                                    ? '✓ 8+ characters'
+                                    : `✗ ${8 - password.length} more character${8 - password.length !== 1 ? 's' : ''} needed`}
+                            </p>
+                        )}
+
                     </div>
 
                     <button className="btn btn-primary btn-full" type="submit" disabled={loading}>

@@ -36,7 +36,17 @@ function CheckoutButton({ purchaseType, discountCode, className, children }) {
         }
 
         if (typeof window !== 'undefined' && (window as any).gtag) {
-            (window as any).gtag('event', 'pricing_cta_click', { plan: purchaseType });
+            let gaClientId: string | null = null;
+            try {
+                const m = document.cookie.match(/_ga=GA[\d.]+\.(.+?)(?:;|$)/);
+                if (m) gaClientId = m[1].trim();
+            } catch { /* blocked */ }
+            (window as any).gtag('event', 'pricing_cta_click', {
+                plan: purchaseType,
+                page_type: 'pricing',
+                user_id: user?.id || null,
+                anonymous_id: !user ? (gaClientId || null) : null,
+            });
         }
 
         if (!user) {
@@ -136,6 +146,7 @@ const TOOL_LABELS: Record<string, string> = {
 };
 
 function PricingContent() {
+    const { user } = useAuth() as { user: { id: string } | null };
     const searchParams = useSearchParams();
     const ref = searchParams.get('ref') ?? searchParams.get('utm_source');
     const discountCode = ref?.toLowerCase() === 'producthunt' ? 'PHLAUNCH' : undefined;
@@ -146,7 +157,16 @@ function PricingContent() {
 
     useEffect(() => {
         if (typeof window !== 'undefined' && (window as any).gtag) {
-            (window as any).gtag('event', 'pricing_view');
+            let gaClientId: string | null = null;
+            try {
+                const m = document.cookie.match(/_ga=GA[\d.]+\.(.+?)(?:;|$)/);
+                if (m) gaClientId = m[1].trim();
+            } catch { /* blocked */ }
+            (window as any).gtag('event', 'pricing_view', {
+                page_type: 'pricing',
+                user_id: user?.id || null,
+                anonymous_id: !user ? (gaClientId || null) : null,
+            });
         }
     }, []);
 
