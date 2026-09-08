@@ -286,6 +286,23 @@ export async function POST(request) {
             return NextResponse.json({ received: true, processed: true });
         }
 
+        if (eventType === 'transaction.payment_failed') {
+            const customData = body.data?.custom_data || {};
+            const { userId, purchaseType } = customData;
+            const errorCode = body.data?.payments?.[0]?.error_code || null;
+            await fireGA4Event({
+                clientId: customData.gaClientId ?? null,
+                userId: userId || null,
+                eventName: 'payment_failed',
+                params: {
+                    plan: purchaseType || null,
+                    page_type: 'checkout',
+                    ...(errorCode ? { error_code: errorCode } : {}),
+                },
+            });
+            return NextResponse.json({ received: true });
+        }
+
         if (eventType !== 'transaction.completed') {
             return NextResponse.json({ received: true });
         }
@@ -407,6 +424,18 @@ export async function POST(request) {
                     value: amountPaid,
                     currency: 'USD',
                     items: [{ item_id: purchaseType, item_name: purchaseType, price: amountPaid, quantity: 1 }],
+                },
+            });
+            await fireGA4Event({
+                clientId: customData.gaClientId ?? null,
+                userId,
+                eventName: 'payment_success',
+                params: {
+                    plan: purchaseType,
+                    page_type: 'checkout',
+                    transaction_id: paddleOrderId,
+                    value: amountPaid,
+                    currency: 'USD',
                 },
             });
             void sendPurchaseNotification({ userId, purchaseType, paddleOrderId, amountPaid, userEmail });

@@ -83,7 +83,17 @@ function CheckoutButton({ purchaseType, discountCode, className, children }) {
         console.log('Paddle Checkout.open payload:', payload);
 
         if (typeof window !== 'undefined' && (window as any).gtag) {
-            (window as any).gtag('event', 'checkout_start', { plan: purchaseType });
+            let gaClientId: string | null = null;
+            try {
+                const m = document.cookie.match(/_ga=GA[\d.]+\.(.+?)(?:;|$)/);
+                if (m) gaClientId = m[1].trim();
+            } catch { /* blocked */ }
+            (window as any).gtag('event', 'checkout_start', {
+                plan: purchaseType,
+                page_type: 'pricing',
+                user_id: user?.id || null,
+                anonymous_id: !user ? (gaClientId || null) : null,
+            });
         }
 
         try {

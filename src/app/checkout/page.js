@@ -76,10 +76,6 @@ function CheckoutContent() {
         } catch { /* blocked GA cookie — no-op */ }
 
         const toltReferral = window.tolt_referral;
-        if (typeof window !== 'undefined' && window.gtag) {
-            window.gtag('event', 'checkout_start', { plan });
-        }
-
         paddle.Checkout.open({
             settings: { displayMode: 'overlay', theme: 'light', locale: 'en' },
             items: [{ priceId: selected.paddlePriceId, quantity: 1 }],
