@@ -2,7 +2,7 @@ import Link from 'next/link';
 import ManuscriptModeClient from '@/components/ManuscriptModeClient';
 
 export const metadata = {
-    title: 'Free DOCX to EPUB Converter — Word to EPUB 3.0 | BookKraft AI',
+    title: 'Free DOCX to EPUB Converter — Word to EPUB | BookKraft AI',
     description: 'Convert your Word manuscript to a valid EPUB 3.0 free — chapters auto-detected, smart quotes and encoding fixed. No Calibre or Sigil. Free BookKraft account.',
     keywords: 'docx to epub free, word to epub converter, convert docx to epub, manuscript to epub, word to epub 3.0, epub builder free, free epub converter, word to epub no calibre',
     alternates: {
