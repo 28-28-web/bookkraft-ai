@@ -231,12 +231,12 @@ function BookPromoSection() {
           className="bk-promo-cover"
         />
         <div className="bk-promo-body">
-          <span className="bk-promo-badge">Free for Starter &amp; Pro members</span>
+          {/* TEMP: disabled during KDP Select term (Sep 7 – Dec 5 2026), re-enable after Dec 5 2026 */}
+          <span className="bk-promo-badge">Available on Amazon</span>
           <h2 className="bk-promo-title">Why Your Book Got Rejected</h2>
           <p className="bk-promo-subtitle">The EPUB &amp; KDP Formatting Guide for 2026</p>
-          <a href="/blog/why-your-book-got-rejected" className="bk-promo-cta">
-            Get Your Free Copy →
-          </a>
+          {/* TEMP: re-enable download CTA after Dec 5 2026: <a href="/blog/why-your-book-got-rejected" className="bk-promo-cta">Get Your Free Copy →</a> */}
+          <span style={{ display: 'inline-block', fontSize: 13, color: 'rgba(255,255,255,0.70)', fontStyle: 'italic', marginTop: 4 }}>Free download available after Dec 5, 2026</span>
         </div>
       </div>
     </section>
