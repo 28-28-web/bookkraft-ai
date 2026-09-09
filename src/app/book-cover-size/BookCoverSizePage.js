@@ -283,7 +283,9 @@ export default function BookCoverSizePage() {
           <Link href="/blog/why-your-book-got-rejected" style={{ color: '#9c7f35', textDecoration: 'none' }}>why your book got rejected</Link>
           {' '}for the full rejection checklist. Check cover dimensions and format before uploading with the{' '}
           <Link href="/tools/cover-checker" style={{ color: '#9c7f35', textDecoration: 'none' }}>Cover Checker</Link>
-          {' '}— free, no account needed.
+          {' '}— free, no account needed. For ebook interior format requirements — EPUB vs PDF vs MOBI and which platforms accept each — see the{' '}
+          <Link href="/blog/best-ebook-formats-epub-vs-pdf-vs-mobi" style={{ color: '#9c7f35', textDecoration: 'none' }}>ebook format guide</Link>
+          .
         </p>
 
         {/* CTA */}

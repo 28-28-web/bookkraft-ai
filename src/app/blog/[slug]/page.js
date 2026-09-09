@@ -90,6 +90,16 @@ export default async function BlogPostPage({ params }) {
     ...(post.feature_image && { image: post.feature_image }),
   };
 
+  const faqSchema = post.faqs?.length ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: post.faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    })),
+  } : null;
+
   return (
     <>
       <script
@@ -100,6 +110,12 @@ export default async function BlogPostPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
       <style>{`
         .gh-content figure { margin: 2em 0; }
         .gh-content img { max-width: 100%; height: auto; border-radius: 6px; }
