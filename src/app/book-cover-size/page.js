@@ -1,8 +1,8 @@
 import BookCoverSizePage from './BookCoverSizePage';
 
 export const metadata = {
-  title: 'Book Cover Size Guide 2026 — KDP, Apple Books, Kobo, B&N, D2D | BookKraft AI',
-  description: 'Book cover dimensions for every major retailer — updated 2026. Amazon KDP, Apple Books, Kobo, IngramSpark, Barnes & Noble Press, and Draft2Digital cover size requirements in one place.',
+  title: 'Book Cover Size Guide 2026 — All Retailers | BookKraft AI',
+  description: 'Book cover dimensions for KDP, Apple Books, Kobo, IngramSpark, B&N Press, and D2D — updated 2026. Get the exact pixel sizes before you upload.',
   alternates: {
     canonical: 'https://bookkraftai.com/book-cover-size',
   },

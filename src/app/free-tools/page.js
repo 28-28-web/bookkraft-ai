@@ -1,15 +1,15 @@
 import FreeToolsPage from './FreeToolsPage';
 
 export const metadata = {
-  title: 'Free eBook Formatting Tools — No Signup, No Credit Card | BookKraft AI',
-  description: 'Five free ebook formatting tools for indie authors: EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, and Manuscript-to-EPUB Converter. No signup, no credit card.',
+  title: '5 Free eBook Tools — No Signup or Credit Card | BookKraft AI',
+  description: 'Validate EPUBs, build metadata, check covers, and convert Word to EPUB — 5 free tools for indie authors. No signup, no credit card required.',
   keywords: 'free ebook formatting tools, free epub validator, book formatting tools, epub converter free, metadata builder, cover checker, word cleanup, kindle formatting free',
   alternates: {
     canonical: 'https://bookkraftai.com/free-tools',
   },
   openGraph: {
-    title: 'Free eBook Formatting Tools — No Signup | BookKraft AI',
-    description: 'Five free ebook formatting tools for indie authors: EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, and Manuscript-to-EPUB Converter. No signup, no credit card.',
+    title: '5 Free eBook Tools — No Signup or Credit Card | BookKraft AI',
+    description: 'Validate EPUBs, build metadata, check covers, and convert Word to EPUB — 5 free tools for indie authors. No signup, no credit card required.',
     siteName: 'BookKraft AI',
     type: 'website',
     url: 'https://bookkraftai.com/free-tools',
@@ -17,8 +17,8 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free eBook Formatting Tools — No Signup | BookKraft AI',
-    description: 'Five free ebook formatting tools for indie authors: EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, and Manuscript-to-EPUB Converter. No signup, no credit card.',
+    title: '5 Free eBook Tools — No Signup or Credit Card | BookKraft AI',
+    description: 'Validate EPUBs, build metadata, check covers, and convert Word to EPUB — 5 free tools for indie authors. No signup, no credit card required.',
   },
 };
 
