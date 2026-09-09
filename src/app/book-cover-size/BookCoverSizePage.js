@@ -68,6 +68,26 @@ const ebookCovers = [
     maxFileSize: '—',
     slug: 'ingramspark-print',
   },
+  {
+    platform: 'Barnes & Noble Press',
+    ideal: '1600 × 2560 px',
+    minimum: '750 × 1000 px',
+    ratio: '1.6:1 (height:width)',
+    format: 'JPEG or PNG',
+    colorMode: 'RGB',
+    maxFileSize: '2 MB',
+    slug: null,
+  },
+  {
+    platform: 'Draft2Digital',
+    ideal: '1600 × 2400 px',
+    minimum: '1400 × 2100 px',
+    ratio: '1.5:1 (height:width)',
+    format: 'JPEG or PNG',
+    colorMode: 'RGB',
+    maxFileSize: '—',
+    slug: null,
+  },
 ];
 
 const printCovers = [
@@ -102,16 +122,51 @@ const commonMistakes = [
 ];
 
 export default function BookCoverSizePage() {
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <main style={{ maxWidth: 880, margin: '0 auto', padding: '64px 20px', color: 'var(--ink, #1a1a1a)' }}>
-        <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(36px,5vw,56px)', fontWeight: 700, lineHeight: 1.1, marginBottom: 24 }}>
+        <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(36px,5vw,56px)', fontWeight: 700, lineHeight: 1.1, marginBottom: 12 }}>
           Book Cover Size Guide
         </h1>
+        <p style={{ fontSize: 13, opacity: 0.45, marginBottom: 28, marginTop: 0 }}>Last updated September 2026</p>
 
-        <p style={{ fontSize: 19, lineHeight: 1.6, marginBottom: 32, opacity: 0.9 }}>
+        <p style={{ fontSize: 19, lineHeight: 1.6, marginBottom: 28, opacity: 0.9 }}>
           Cover size requirements vary by retailer and by format — ebook covers and print covers have different dimension standards, color mode requirements, and file format rules. This page covers ebook cover sizes for every major retailer and the key differences for print. For full per-platform specifications, see the platform-specific pages linked below each table.
         </p>
+
+        {/* Aspect ratio diagram */}
+        <figure style={{ margin: '0 0 40px', padding: '20px 20px 16px', background: 'rgba(201,168,76,0.05)', borderRadius: 10, border: '1px solid rgba(201,168,76,0.18)' }}>
+          <figcaption style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', opacity: 0.45, marginBottom: 14 }}>
+            Ebook cover aspect ratio — correct vs. rejected
+          </figcaption>
+          <svg viewBox="0 0 280 165" style={{ width: '100%', maxWidth: 280, display: 'block' }} role="img" aria-label="Diagram comparing correct 1.6:1 portrait ebook cover (1600x2560px, accepted by Amazon KDP, Apple Books, Kobo) with incorrect square cover (1:1 ratio, rejected by Amazon KDP)">
+            {/* Correct: portrait 1.6:1 */}
+            <rect x="18" y="20" width="62" height="99" rx="2" fill="rgba(80,160,80,0.15)" stroke="#52a052" strokeWidth="1.5"/>
+            <text x="49" y="14" textAnchor="middle" fontSize="10" fill="#52a052" fontWeight="700">✓ CORRECT</text>
+            <text x="49" y="67" textAnchor="middle" fontSize="14" fill="#52a052" fontWeight="800">1.6:1</text>
+            <text x="49" y="83" textAnchor="middle" fontSize="9" fill="var(--mid,#888)">1600 × 2560 px</text>
+            <text x="49" y="133" textAnchor="middle" fontSize="9" fill="var(--mid,#888)">All major retailers</text>
+            {/* Divider */}
+            <line x1="122" y1="10" x2="122" y2="148" stroke="var(--border,#ddd)" strokeWidth="1" strokeDasharray="4,3"/>
+            {/* Wrong: square */}
+            <rect x="143" y="45" width="76" height="76" rx="2" fill="rgba(200,60,60,0.1)" stroke="#cc4444" strokeWidth="1.5"/>
+            <text x="181" y="38" textAnchor="middle" fontSize="10" fill="#cc4444" fontWeight="700">✗ REJECTED</text>
+            <text x="181" y="87" textAnchor="middle" fontSize="14" fill="#cc4444" fontWeight="800">1:1</text>
+            <text x="181" y="103" textAnchor="middle" fontSize="9" fill="var(--mid,#888)">Square cover</text>
+            <text x="181" y="133" textAnchor="middle" fontSize="9" fill="var(--mid,#888)">KDP rejects or letterboxes</text>
+          </svg>
+        </figure>
 
         {/* Ebook cover table */}
         <h2 style={{ fontSize: 26, fontWeight: 700, marginBottom: 16 }}>Ebook cover dimensions</h2>
@@ -222,6 +277,13 @@ export default function BookCoverSizePage() {
           . Cover errors inside EPUB files are listed in the{' '}
           <Link href="/epub-errors" style={{ color: '#9c7f35', textDecoration: 'none' }}>EPUB error reference</Link>
           .
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          If your cover was rejected by KDP or Apple Books, see{' '}
+          <Link href="/blog/why-your-book-got-rejected" style={{ color: '#9c7f35', textDecoration: 'none' }}>why your book got rejected</Link>
+          {' '}for the full rejection checklist. Check cover dimensions and format before uploading with the{' '}
+          <Link href="/tools/cover-checker" style={{ color: '#9c7f35', textDecoration: 'none' }}>Cover Checker</Link>
+          {' '}— free, no account needed.
         </p>
 
         {/* CTA */}
