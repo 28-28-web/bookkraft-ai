@@ -18,11 +18,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: `${block.title} — BookKraft AI`,
         description: block.social,
-        alternates: { canonical: `https://bookkraftai.com/B/${n}` },
+        alternates: { canonical: `https://bookkraftai.com/b/${n}` },
         openGraph: {
             title: `${block.title} — BookKraft AI`,
             description: block.social,
-            url: `https://bookkraftai.com/B/${n}`,
+            url: `https://bookkraftai.com/b/${n}`,
             siteName: 'BookKraft AI',
             type: 'website',
         },
@@ -226,7 +226,7 @@ export default async function BlockPage({ params }: Props) {
                     }}>
                         {block.id > 1 ? (
                             <Link
-                                href={`/B/${block.id - 1}`}
+                                href={`/b/${block.id - 1}`}
                                 style={{ color: 'var(--gold)', fontWeight: 600, fontSize: 14, textDecoration: 'none' }}
                             >
                                 ← B{block.id - 1}
@@ -234,7 +234,7 @@ export default async function BlockPage({ params }: Props) {
                         ) : <span />}
                         {block.id < blocksData.length ? (
                             <Link
-                                href={`/B/${block.id + 1}`}
+                                href={`/b/${block.id + 1}`}
                                 style={{ color: 'var(--gold)', fontWeight: 600, fontSize: 14, textDecoration: 'none' }}
                             >
                                 B{block.id + 1} →

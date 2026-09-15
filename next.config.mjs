@@ -40,10 +40,10 @@ const nextConfig = {
         destination: '/tools/kindle-format-fixer',
         permanent: true,
       },
-      // lowercase /b/:n → uppercase /B/:n
+      // uppercase /B/:n → canonical lowercase /b/:n
       {
-        source: '/b/:n',
-        destination: '/B/:n',
+        source: '/B/:n',
+        destination: '/b/:n',
         permanent: false,
       },
       {
