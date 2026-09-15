@@ -1,0 +1,802 @@
+[
+  {
+    "id": 1,
+    "title": "Manuscript hygiene",
+    "social": "Word hides what you actually typed. One shortcut shows every tab, double space and empty line.",
+    "keyword": "manuscript formatting checklist for kindle",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B1.mp3",
+    "pageUrl": "https://bookkraftai.com/B1"
+  },
+  {
+    "id": 2,
+    "title": "Choosing a book font",
+    "social": "One face for the body, one for headings. On a Kindle the reader can overrule you anyway.",
+    "keyword": "best fonts for kindle epub",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B2.mp3",
+    "pageUrl": "https://bookkraftai.com/B2"
+  },
+  {
+    "id": 3,
+    "title": "Margins and bleed",
+    "social": "The gutter is where the glue lives. A margin is not white space you're wasting.",
+    "keyword": "kdp print margin and bleed specs",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B3.mp3",
+    "pageUrl": "https://bookkraftai.com/B3"
+  },
+  {
+    "id": 4,
+    "title": "Page breaks, not Enter",
+    "social": "Tapping Enter to reach a new page is why blank screens turn up in the middle of a chapter.",
+    "keyword": "page break formatting errors epub",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B4.mp3",
+    "pageUrl": "https://bookkraftai.com/B4"
+  },
+  {
+    "id": 5,
+    "title": "Spacing and indents",
+    "social": "An indent and a blank line say the same thing. Doing both is how a page looks homemade.",
+    "keyword": "book line spacing and indentation rules",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B5.mp3",
+    "pageUrl": "https://bookkraftai.com/B5"
+  },
+  {
+    "id": 6,
+    "title": "Headers and footers",
+    "social": "Running heads and page numbers are a paper idea. A reflowing screen has no pages to number.",
+    "keyword": "how to add page numbers in word for kdp",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B6.mp3",
+    "pageUrl": "https://bookkraftai.com/B6"
+  },
+  {
+    "id": 7,
+    "title": "Print resolution",
+    "social": "Your photo was sharp. Then the document compressed it and the export did it again.",
+    "keyword": "kdp print book image resolution 300 dpi",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B7.mp3",
+    "pageUrl": "https://bookkraftai.com/B7"
+  },
+  {
+    "id": 8,
+    "title": "Drop caps",
+    "social": "A drop cap is a CSS float, not a picture. Ship it as an image and it stops being text.",
+    "keyword": "css drop caps epub standard",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B8.mp3",
+    "pageUrl": "https://bookkraftai.com/B8"
+  },
+  {
+    "id": 9,
+    "title": "Heading levels",
+    "social": "Big and bold is not a heading. The contents, the navigation and screen readers all read the style.",
+    "keyword": "html headings epub standards",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B9.mp3",
+    "pageUrl": "https://bookkraftai.com/B9"
+  },
+  {
+    "id": 10,
+    "title": "Links that work",
+    "social": "A link inside a book has to point at a bookmark. Point it at a page number and the font size breaks it.",
+    "keyword": "add hyperlinks to kindle book format",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B10.mp3",
+    "pageUrl": "https://bookkraftai.com/B10"
+  },
+  {
+    "id": 11,
+    "title": "Smart table design",
+    "social": "Five columns fit a page and fall off a phone. A table nobody can see is a table nobody reads.",
+    "keyword": "responsive table css for epub",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B11.mp3",
+    "pageUrl": "https://bookkraftai.com/B11"
+  },
+  {
+    "id": 12,
+    "title": "Bullets and lists",
+    "social": "A line that starts with a typed dash is a paragraph wearing a bullet's coat.",
+    "keyword": "custom bullet points css kindle",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B12.mp3",
+    "pageUrl": "https://bookkraftai.com/B12"
+  },
+  {
+    "id": 13,
+    "title": "Editing the AI out",
+    "social": "Same facts, same words, different rhythm. That is the whole edit.",
+    "keyword": "edit ai manuscript bypass ai detectors",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B13.mp3",
+    "pageUrl": "https://bookkraftai.com/B13"
+  },
+  {
+    "id": 14,
+    "title": "Title and copyright",
+    "social": "Opening straight into chapter one is what makes a book read like a draft.",
+    "keyword": "kindle title page copyright page template",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B14.mp3",
+    "pageUrl": "https://bookkraftai.com/B14"
+  },
+  {
+    "id": 15,
+    "title": "The print test read",
+    "social": "Three passes on paper, and the first one is not reading.",
+    "keyword": "draft manuscript check for printing",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B15.mp3",
+    "pageUrl": "https://bookkraftai.com/B15"
+  },
+  {
+    "id": 16,
+    "title": "Inside an EPUB",
+    "social": "An EPUB is a zip with rules about its first file. The manifest decides what exists.",
+    "keyword": "epub file structure explained",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B16.mp3",
+    "pageUrl": "https://bookkraftai.com/B16"
+  },
+  {
+    "id": 17,
+    "title": "The NCX file",
+    "social": "A contents page you typed is not the contents menu. The Kindle builds that from a file you never see.",
+    "keyword": "kindle table of contents ncx file",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B17.mp3",
+    "pageUrl": "https://bookkraftai.com/B17"
+  },
+  {
+    "id": 18,
+    "title": "Justified or ragged",
+    "social": "Kindle justifies reflowable text by default. In a narrow column with no hyphenation, that is where the rivers come from.",
+    "keyword": "kindle ebook justified or left aligned text",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B18.mp3",
+    "pageUrl": "https://bookkraftai.com/B18"
+  },
+  {
+    "id": 19,
+    "title": "Media queries",
+    "social": "A media query sees the screen width. It never sees the size the reader picked.",
+    "keyword": "css media queries kindle epub devices",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B19.mp3",
+    "pageUrl": "https://bookkraftai.com/B19"
+  },
+  {
+    "id": 20,
+    "title": "Diagrams as SVG",
+    "social": "A diagram is lines and labels, not photography. Ship it as lines and it stays sharp.",
+    "keyword": "ai svg diagram code generator",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B20.mp3",
+    "pageUrl": "https://bookkraftai.com/B20"
+  },
+  {
+    "id": 21,
+    "title": "EPUBCheck",
+    "social": "Your reader app forgives a broken EPUB. The store does not, and it will not tell you which line.",
+    "keyword": "epubcheck online validator tutorial",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B21.mp3",
+    "pageUrl": "https://bookkraftai.com/B21"
+  },
+  {
+    "id": 22,
+    "title": "The OPF metadata",
+    "social": "The shop's form fills your listing. This file fills the reader's library.",
+    "keyword": "modify opf metadata file epub",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B22.mp3",
+    "pageUrl": "https://bookkraftai.com/B22"
+  },
+  {
+    "id": 23,
+    "title": "Reflowable or fixed",
+    "social": "Reflowable text bends to the reader. Fixed layout keeps your page and takes their font size away.",
+    "keyword": "kindle reflowable vs fixed layout",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B23.mp3",
+    "pageUrl": "https://bookkraftai.com/B23"
+  },
+  {
+    "id": 24,
+    "title": "Colour on E Ink",
+    "social": "If colour is the only difference, an E Ink screen loses the difference.",
+    "keyword": "color contrast rules for e-ink kindle",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B24.mp3",
+    "pageUrl": "https://bookkraftai.com/B24"
+  },
+  {
+    "id": 25,
+    "title": "Collapsing margins",
+    "social": "24px below and 16px above does not make 40. It makes 24. Margins merge.",
+    "keyword": "css margin collapsing epub fix",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B25.mp3",
+    "pageUrl": "https://bookkraftai.com/B25"
+  },
+  {
+    "id": 26,
+    "title": "Font licences",
+    "social": "Paying for a font does not always buy the right to ship it inside a book you sell.",
+    "keyword": "how to embed fonts in epub legally",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B26.mp3",
+    "pageUrl": "https://bookkraftai.com/B26"
+  },
+  {
+    "id": 27,
+    "title": "Missing images",
+    "social": "A grey box where a picture should be is nearly always one capital letter, or a file still on your website.",
+    "keyword": "images not showing in epub solution",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B27.mp3",
+    "pageUrl": "https://bookkraftai.com/B27"
+  },
+  {
+    "id": 28,
+    "title": "The stylesheet",
+    "social": "A book stylesheet is mostly restraint: name the structure, set one gap, stop.",
+    "keyword": "bookkraftai css stylesheet kdp",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B28.mp3",
+    "pageUrl": "https://bookkraftai.com/B28"
+  },
+  {
+    "id": 29,
+    "title": "The cover image",
+    "social": "A cover sitting in the folder is not a cover. The manifest has to point at it.",
+    "keyword": "kdp cover image xml entry epub",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B29.mp3",
+    "pageUrl": "https://bookkraftai.com/B29"
+  },
+  {
+    "id": 30,
+    "title": "Kindle Previewer",
+    "social": "The app you opened the EPUB in is not a Kindle. Amazon's previewer is, and it is free.",
+    "keyword": "kindle previewer desktop tool guide",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B30.mp3",
+    "pageUrl": "https://bookkraftai.com/B30"
+  },
+  {
+    "id": 31,
+    "title": "Writing alt text",
+    "social": "Decorative images take an empty alt. Everything else takes one sentence saying what it tells you.",
+    "keyword": "how to write alt text for ebook images",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B31.mp3",
+    "pageUrl": "https://bookkraftai.com/B31"
+  },
+  {
+    "id": 32,
+    "title": "Special characters",
+    "social": "Symbols where an accent should be is an encoding bug. An empty box is a font bug. Different fixes.",
+    "keyword": "utf-8 encoding epub kindle errors",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B32.mp3",
+    "pageUrl": "https://bookkraftai.com/B32"
+  },
+  {
+    "id": 33,
+    "title": "Reader settings",
+    "social": "They set the size, the face and the theme. You set everything that matters.",
+    "keyword": "kindle e-reader font settings user view",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B33.mp3",
+    "pageUrl": "https://bookkraftai.com/B33"
+  },
+  {
+    "id": 34,
+    "title": "A perfect B5 page",
+    "social": "Margins decide the text block. The block decides how many characters land on a line.",
+    "keyword": "b5 book formatting css print",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B34.mp3",
+    "pageUrl": "https://bookkraftai.com/B34"
+  },
+  {
+    "id": 35,
+    "title": "The cleanup pass",
+    "social": "Four spans for one sentence is what an export looks like. None of them mean anything.",
+    "keyword": "remove span and class tags epub python",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B35.mp3",
+    "pageUrl": "https://bookkraftai.com/B35"
+  },
+  {
+    "id": 36,
+    "title": "The thumbnail test",
+    "social": "A shop is a grid of thumbnails. If the title can't be read there, nothing else gets a turn.",
+    "keyword": "kdp book cover thumbnail check",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B36.mp3",
+    "pageUrl": "https://bookkraftai.com/B36"
+  },
+  {
+    "id": 37,
+    "title": "Cover geometry",
+    "social": "A paperback cover is not a front. It is back, spine and front in one flat image sized to your page count.",
+    "keyword": "kdp cover size calculator templates",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B37.mp3",
+    "pageUrl": "https://bookkraftai.com/B37"
+  },
+  {
+    "id": 38,
+    "title": "Spine thickness maths",
+    "social": "Add twenty pages and the cover is the wrong size. The spine is page count times paper.",
+    "keyword": "kdp spine width math calculation",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B38.mp3",
+    "pageUrl": "https://bookkraftai.com/B38"
+  },
+  {
+    "id": 39,
+    "title": "The barcode safe zone",
+    "social": "Amazon prints a barcode on your back cover whether you left room for it or not.",
+    "keyword": "amazon barcode placement safety zone",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B39.mp3",
+    "pageUrl": "https://bookkraftai.com/B39"
+  },
+  {
+    "id": 40,
+    "title": "The print cover PDF",
+    "social": "A press is fussier than a screen: no bleed, no embedded fonts, no flattening, no book.",
+    "keyword": "export pdf for kdp print cover cmyk",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B40.mp3",
+    "pageUrl": "https://bookkraftai.com/B40"
+  },
+  {
+    "id": 41,
+    "title": "Mockups",
+    "social": "A mockup sells the book. The flat file is the book. Never let the two swap places.",
+    "keyword": "placeit mockups and graphics for kdp",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B41.mp3",
+    "pageUrl": "https://bookkraftai.com/B41"
+  },
+  {
+    "id": 42,
+    "title": "Prompting an AI cover",
+    "social": "An image model paints well and spells badly. Ask for the art, set the title yourself.",
+    "keyword": "generate book cover using chatgpt prompt",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B42.mp3",
+    "pageUrl": "https://bookkraftai.com/B42"
+  },
+  {
+    "id": 43,
+    "title": "A cover series",
+    "social": "A series is one design with a variable. Change that one thing, keep the rest.",
+    "keyword": "design book series cover consistency",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B43.mp3",
+    "pageUrl": "https://bookkraftai.com/B43"
+  },
+  {
+    "id": 44,
+    "title": "Letter art",
+    "social": "An ornamented letter has to be the whole picture, not decoration sprinkled round the type.",
+    "keyword": "floral letter designs for book cover",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B44.mp3",
+    "pageUrl": "https://bookkraftai.com/B44"
+  },
+  {
+    "id": 45,
+    "title": "Canva covers",
+    "social": "A template with the words changed is still the template everyone else picked.",
+    "keyword": "canva book cover designer tutorial",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B45.mp3",
+    "pageUrl": "https://bookkraftai.com/B45"
+  },
+  {
+    "id": 46,
+    "title": "Metadata mismatch",
+    "social": "A human compares your cover to your KDP form. A dropped subtitle is a rejection.",
+    "keyword": "kdp metadata mismatch rejection solution",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B46.mp3",
+    "pageUrl": "https://bookkraftai.com/B46"
+  },
+  {
+    "id": 47,
+    "title": "Out of margin",
+    "social": "The printable page is smaller than the paper, and the inside margin grows with the page count.",
+    "keyword": "fix out of margin errors kdp print",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B47.mp3",
+    "pageUrl": "https://bookkraftai.com/B47"
+  },
+  {
+    "id": 48,
+    "title": "Spine text",
+    "social": "A thin book's spine is a few millimetres wide. Print a name on it and the press puts it on your cover.",
+    "keyword": "kdp spine text minimum pages",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B48.mp3",
+    "pageUrl": "https://bookkraftai.com/B48"
+  },
+  {
+    "id": 49,
+    "title": "Low-resolution images",
+    "social": "Upscaling adds pixels, not detail. The warning clears and the print is still soft.",
+    "keyword": "upscale low resolution images kdp template",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B49.mp3",
+    "pageUrl": "https://bookkraftai.com/B49"
+  },
+  {
+    "id": 50,
+    "title": "Unembedded fonts",
+    "social": "Name a font in your PDF and the press shrugs. Send the font and it obeys.",
+    "keyword": "embedded fonts missing kdp pdf",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B50.mp3",
+    "pageUrl": "https://bookkraftai.com/B50"
+  },
+  {
+    "id": 51,
+    "title": "The copyright flag",
+    "social": "Amazon holding your book and asking you to prove the rights is a question, not a refusal. Silence is what kills it.",
+    "keyword": "kdp copyright verification email notice",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B51.mp3",
+    "pageUrl": "https://bookkraftai.com/B51"
+  },
+  {
+    "id": 52,
+    "title": "Wrong bleed settings",
+    "social": "A cut that lands a hair outside the trim leaves a white line down your page. Bleed is what stops it.",
+    "keyword": "fix bleed setting errors kdp upload",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B52.mp3",
+    "pageUrl": "https://bookkraftai.com/B52"
+  },
+  {
+    "id": 53,
+    "title": "The ISBN already used",
+    "social": "One ISBN is one format of one book. Move it to the hardcover and the upload stops dead.",
+    "keyword": "isbn already registered error kdp",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B53.mp3",
+    "pageUrl": "https://bookkraftai.com/B53"
+  },
+  {
+    "id": 54,
+    "title": "Blank pages",
+    "social": "A page can look empty and still hold something the printer counts. That is what gets flagged.",
+    "keyword": "kdp rejection empty pages in manuscript",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B54.mp3",
+    "pageUrl": "https://bookkraftai.com/B54"
+  },
+  {
+    "id": 55,
+    "title": "Cover size mismatch",
+    "social": "Your cover's width is decided by three things, and none of them is the artwork.",
+    "keyword": "fix cover size pdf mismatch on kdp",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B55.mp3",
+    "pageUrl": "https://bookkraftai.com/B55"
+  },
+  {
+    "id": 56,
+    "title": "The KDP dashboard",
+    "social": "Four tabs, and only one of them publishes anything. The rest report on it.",
+    "keyword": "amazon kdp dashboard overview beginners",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B56.mp3",
+    "pageUrl": "https://bookkraftai.com/B56"
+  },
+  {
+    "id": 57,
+    "title": "The launch previewer",
+    "social": "The previewer measures geometry and judges nothing. Clear it, then order the proof.",
+    "keyword": "kdp book previewer before submit",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B57.mp3",
+    "pageUrl": "https://bookkraftai.com/B57"
+  },
+  {
+    "id": 58,
+    "title": "Tax and bank setup",
+    "social": "The tax interview comes before the first sale. Skipped, it costs you the highest rate.",
+    "keyword": "kdp tax interview setup bangladesh",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B58.mp3",
+    "pageUrl": "https://bookkraftai.com/B58"
+  },
+  {
+    "id": 59,
+    "title": "Territories and rights",
+    "social": "Ticking worldwide is right until someone else holds the rights somewhere. Then it is a contract problem.",
+    "keyword": "kdp worldwide rights vs individual territories",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B59.mp3",
+    "pageUrl": "https://bookkraftai.com/B59"
+  },
+  {
+    "id": 60,
+    "title": "Expanded distribution",
+    "social": "Expanded distribution pays 40% instead of 60%. The wider shelf is real, and you buy it with royalty.",
+    "keyword": "kdp expanded distribution pros and cons",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B60.mp3",
+    "pageUrl": "https://bookkraftai.com/B60"
+  },
+  {
+    "id": 61,
+    "title": "Pricing: 8.99 or 9.99",
+    "social": "8.99 and 9.99 pay the same royalty rate. One step past 9.99 and it halves.",
+    "keyword": "kdp book pricing strategy 2026",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B61.mp3",
+    "pageUrl": "https://bookkraftai.com/B61"
+  },
+  {
+    "id": 62,
+    "title": "The 99-cent ending",
+    "social": "The last two digits of your price are a signal, not a strategy. The royalty difference is pennies.",
+    "keyword": "psychological pricing end in 99 cents",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B62.mp3",
+    "pageUrl": "https://bookkraftai.com/B62"
+  },
+  {
+    "id": 63,
+    "title": "A pre-order",
+    "social": "The date that binds you is the file deadline, not the release you announced.",
+    "keyword": "how to set up kindle ebook preorder",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B63.mp3",
+    "pageUrl": "https://bookkraftai.com/B63"
+  },
+  {
+    "id": 64,
+    "title": "Linking the editions",
+    "social": "Two listings split your reviews. Amazon merges them only when the title and author match exactly.",
+    "keyword": "link kindle ebook and paperback kdp",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B64.mp3",
+    "pageUrl": "https://bookkraftai.com/B64"
+  },
+  {
+    "id": 65,
+    "title": "What printing costs",
+    "social": "Royalty is a share of what is left after printing. Page count is the lever you control.",
+    "keyword": "kdp print cost calculator per book",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B65.mp3",
+    "pageUrl": "https://bookkraftai.com/B65"
+  },
+  {
+    "id": 66,
+    "title": "Screen readers",
+    "social": "A screen reader follows your file's structure, not your design. Bold text is silent to it.",
+    "keyword": "epub accessibility screen reader kindle",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B66.mp3",
+    "pageUrl": "https://bookkraftai.com/B66"
+  },
+  {
+    "id": 67,
+    "title": "The Accessibility Act",
+    "social": "Selling into the EU since June 2025 means the accessibility basics are law, not a nicety.",
+    "keyword": "eu accessibility act ebook compliance",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B67.mp3",
+    "pageUrl": "https://bookkraftai.com/B67"
+  },
+  {
+    "id": 68,
+    "title": "Right-to-left books",
+    "social": "Right-aligned text is not a right-to-left book. Direction is declared twice, in the file.",
+    "keyword": "rtl epub formatting arabic hebrew",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B68.mp3",
+    "pageUrl": "https://bookkraftai.com/B68"
+  },
+  {
+    "id": 69,
+    "title": "Bengali on Kindle",
+    "social": "A Bengali line is not letters in a row. The shaping lives in the font, so ship the font.",
+    "keyword": "bangla font kindle epub rendering",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B69.mp3",
+    "pageUrl": "https://bookkraftai.com/B69"
+  },
+  {
+    "id": 70,
+    "title": "Scrivener exports",
+    "social": "What you see while writing is not what Scrivener exports. Compile decides the book.",
+    "keyword": "scrivener to epub kindle export",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B70.mp3",
+    "pageUrl": "https://bookkraftai.com/B70"
+  },
+  {
+    "id": 71,
+    "title": "Vellum or by hand",
+    "social": "An app buys you an evening. Doing it yourself buys control that carries to the next book.",
+    "keyword": "vellum ebook formatting review",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B71.mp3",
+    "pageUrl": "https://bookkraftai.com/B71"
+  },
+  {
+    "id": 72,
+    "title": "Footnotes or endnotes",
+    "social": "A reflowing screen has no bottom of the page, so a footnote becomes a journey. Give it a way back.",
+    "keyword": "footnotes to endnotes epub conversion",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B72.mp3",
+    "pageUrl": "https://bookkraftai.com/B72"
+  },
+  {
+    "id": 73,
+    "title": "Multi-level contents",
+    "social": "Four levels of contents is a wall of indents nobody scrolls. Two is the useful depth.",
+    "keyword": "multi level toc epub kindle",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B73.mp3",
+    "pageUrl": "https://bookkraftai.com/B73"
+  },
+  {
+    "id": 74,
+    "title": "Device testing",
+    "social": "Your laptop is the one screen nobody will read the book on.",
+    "keyword": "kindle previewer device testing checklist",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B74.mp3",
+    "pageUrl": "https://bookkraftai.com/B74"
+  },
+  {
+    "id": 75,
+    "title": "Error codes",
+    "social": "Forty EPUBCheck lines are usually four faults. Fix the first one and half the list disappears.",
+    "keyword": "epubcheck error codes explained",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B75.mp3",
+    "pageUrl": "https://bookkraftai.com/B75"
+  },
+  {
+    "id": 76,
+    "title": "MOBI is dead",
+    "social": "Amazon stopped taking MOBI. If that is still your master file, it has nowhere left to go.",
+    "keyword": "convert mobi to epub3 kindle 2025",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B76.mp3",
+    "pageUrl": "https://bookkraftai.com/B76"
+  },
+  {
+    "id": 77,
+    "title": "Back matter",
+    "social": "Front matter is spent out of the free sample. The back of the book is the only free space you have.",
+    "keyword": "book back matter order self published",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B77.mp3",
+    "pageUrl": "https://bookkraftai.com/B77"
+  },
+  {
+    "id": 78,
+    "title": "Embedding a font",
+    "social": "Embedding puts your font in the file. The reader's device still gets a vote.",
+    "keyword": "embed custom font epub legally",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B78.mp3",
+    "pageUrl": "https://bookkraftai.com/B78"
+  },
+  {
+    "id": 79,
+    "title": "Poetry line breaks",
+    "social": "Where a line ends is the poem. A wrap that looks like a line break is a rewrite you did not make.",
+    "keyword": "poetry formatting epub line breaks",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B79.mp3",
+    "pageUrl": "https://bookkraftai.com/B79"
+  },
+  {
+    "id": 80,
+    "title": "Code blocks",
+    "social": "A phone gives your code about forty characters. Past that the indentation starts lying.",
+    "keyword": "code block formatting epub kindle",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B80.mp3",
+    "pageUrl": "https://bookkraftai.com/B80"
+  },
+  {
+    "id": 81,
+    "title": "Maths with MathML",
+    "social": "Text where you can, MathML where you must, a picture only as a last resort with the equation in its alt text.",
+    "keyword": "math equations epub kindle mathml",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B81.mp3",
+    "pageUrl": "https://bookkraftai.com/B81"
+  },
+  {
+    "id": 82,
+    "title": "Picture books",
+    "social": "Fixed layout keeps your spread and takes the reader's font size. It is a trade, not an upgrade.",
+    "keyword": "fixed layout epub childrens book",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B82.mp3",
+    "pageUrl": "https://bookkraftai.com/B82"
+  },
+  {
+    "id": 83,
+    "title": "Ingredient tables",
+    "social": "A four-column recipe loses its method column on a phone, and strands 200 on a line away from the flour.",
+    "keyword": "cookbook epub formatting ingredients table",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B83.mp3",
+    "pageUrl": "https://bookkraftai.com/B83"
+  },
+  {
+    "id": 84,
+    "title": "Workbooks",
+    "social": "An ebook has nowhere to write. Put the exercise on paper, or on a sheet they can print.",
+    "keyword": "interactive epub workbook fields",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B84.mp3",
+    "pageUrl": "https://bookkraftai.com/B84"
+  },
+  {
+    "id": 85,
+    "title": "DRM: on or off",
+    "social": "DRM is a lock on the file, not on the internet, and you only get to pick once.",
+    "keyword": "kdp drm vs no drm ebook",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B85.mp3",
+    "pageUrl": "https://bookkraftai.com/B85"
+  },
+  {
+    "id": 86,
+    "title": "Updating a book",
+    "social": "You can replace the file. You cannot replace the copy already on somebody's shelf.",
+    "keyword": "update published kindle book file",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B86.mp3",
+    "pageUrl": "https://bookkraftai.com/B86"
+  },
+  {
+    "id": 87,
+    "title": "A heavy EPUB file",
+    "social": "Pictures make an ebook heavy. One giant file makes it slow. Two different fixes.",
+    "keyword": "epub file size optimization large book",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B87.mp3",
+    "pageUrl": "https://bookkraftai.com/B87"
+  },
+  {
+    "id": 88,
+    "title": "ONIX metadata",
+    "social": "You rarely write ONIX by hand. You do decide what goes in it, in the form you already filled.",
+    "keyword": "onix metadata ebook explained",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B88.mp3",
+    "pageUrl": "https://bookkraftai.com/B88"
+  },
+  {
+    "id": 89,
+    "title": "Large print",
+    "social": "Large print is a second paperback with its own ISBN, not a bigger font in the same file.",
+    "keyword": "kdp large print book font size",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B89.mp3",
+    "pageUrl": "https://bookkraftai.com/B89"
+  },
+  {
+    "id": 90,
+    "title": "Choosing a trim size",
+    "social": "Trim size isn't taste. It sets the page count, the spine and your lowest price.",
+    "keyword": "kdp trim size formatting guide",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B90.mp3",
+    "pageUrl": "https://bookkraftai.com/B90"
+  },
+  {
+    "id": 91,
+    "title": "Pages and locations",
+    "social": "A location is a position in your file. Only a paper edition has a page 112.",
+    "keyword": "print page numbers vs ebook location",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B91.mp3",
+    "pageUrl": "https://bookkraftai.com/B91"
+  },
+  {
+    "id": 92,
+    "title": "Front matter",
+    "social": "Six pages of front matter means the free sample ends before your book begins.",
+    "keyword": "front matter template ebook genre",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B92.mp3",
+    "pageUrl": "https://bookkraftai.com/B92"
+  },
+  {
+    "id": 93,
+    "title": "Names and spelling",
+    "social": "Consistency is a list, not a memory. Keep it while you write, and search both spellings.",
+    "keyword": "manuscript consistency checker names",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B93.mp3",
+    "pageUrl": "https://bookkraftai.com/B93"
+  },
+  {
+    "id": 94,
+    "title": "Series formatting",
+    "social": "Book two is book one with the words swapped. Everything else belongs in a template.",
+    "keyword": "format book series consistent style",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B94.mp3",
+    "pageUrl": "https://bookkraftai.com/B94"
+  },
+  {
+    "id": 95,
+    "title": "Read-aloud",
+    "social": "A device reads any book for free. An overlay is your voice, and it has to be made.",
+    "keyword": "epub3 media overlay read aloud",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B95.mp3",
+    "pageUrl": "https://bookkraftai.com/B95"
+  },
+  {
+    "id": 96,
+    "title": "Glossary and index",
+    "social": "An index entry that still says page 112 is a dead end. Point it at the text instead.",
+    "keyword": "glossary index formatting epub",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B96.mp3",
+    "pageUrl": "https://bookkraftai.com/B96"
+  },
+  {
+    "id": 97,
+    "title": "Comics and manga",
+    "social": "A comic page on a phone is six thumbnails. The panel has to become the page.",
+    "keyword": "comic manga fixed layout epub kdp",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B97.mp3",
+    "pageUrl": "https://bookkraftai.com/B97"
+  },
+  {
+    "id": 98,
+    "title": "Dark mode",
+    "social": "A white box on a dark page is a lamp. Set only the colours you actually mean.",
+    "keyword": "dark mode epub css kindle",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B98.mp3",
+    "pageUrl": "https://bookkraftai.com/B98"
+  },
+  {
+    "id": 99,
+    "title": "Google Docs",
+    "social": "Docs makes a chapter title look like a chapter. A converter needs it to be one.",
+    "keyword": "google docs to epub kindle clean",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B99.mp3",
+    "pageUrl": "https://bookkraftai.com/B99"
+  },
+  {
+    "id": 100,
+    "title": "Before you upload",
+    "social": "None of it is new. It is the book you already made, checked in the order that finds things.",
+    "keyword": "ebook formatting qa checklist before kdp",
+    "audioUrl": "https://assets.bookkraftai.com/audio/opf/B100.mp3",
+    "pageUrl": "https://bookkraftai.com/B100"
+  }
+]

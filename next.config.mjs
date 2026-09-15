@@ -40,6 +40,12 @@ const nextConfig = {
         destination: '/tools/kindle-format-fixer',
         permanent: true,
       },
+      // lowercase /b/:n → uppercase /B/:n
+      {
+        source: '/b/:n',
+        destination: '/B/:n',
+        permanent: false,
+      },
       {
         source: '/metadata-builder',
         destination: '/tools/metadata-builder',
