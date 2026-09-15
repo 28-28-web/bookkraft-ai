@@ -45,6 +45,14 @@ const nextConfig = {
         destination: '/tools/metadata-builder',
         permanent: true,
       },
+      // The book prints BOOKKRAFTAI.COM/B1 (no slash). Source matching is not
+      // case-sensitive, so this also catches /b1. It cannot match /b/1 itself,
+      // which is what made the old /B/:n rule loop.
+      {
+        source: '/B:n(\\d{1,3})',
+        destination: '/b/:n',
+        permanent: false,
+      },
     ];
   },
   async headers() {
