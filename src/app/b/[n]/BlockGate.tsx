@@ -17,7 +17,12 @@ type Props = {
 export default function BlockGate({ blockId, blockLabel, audioUrl, social, prevId, nextId }: Props) {
     const { user, profile, loading } = useAuth() as {
         user: { id: string; created_at: string } | null;
-        profile: { is_lifetime?: boolean; has_logic_bundle?: boolean; has_full_access?: boolean } | null;
+        profile: {
+            is_lifetime?: boolean;
+            has_logic_bundle?: boolean;
+            has_full_access?: boolean;
+            promo_bundle_expires_at?: string | null;
+        } | null;
         loading: boolean;
     };
 
@@ -32,7 +37,8 @@ export default function BlockGate({ blockId, blockLabel, audioUrl, social, prevI
         );
     }
 
-    const hasPaidAccess = !!(profile?.is_lifetime || profile?.has_logic_bundle || profile?.has_full_access);
+    const hasPromoActive = !!(profile?.promo_bundle_expires_at && new Date(profile.promo_bundle_expires_at) > new Date());
+    const hasPaidAccess = !!(profile?.is_lifetime || profile?.has_logic_bundle || profile?.has_full_access || hasPromoActive);
     const isB1 = blockId === 1;
 
     if (!user) {

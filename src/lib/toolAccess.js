@@ -91,7 +91,7 @@ export async function checkToolAccess(toolSlug) {
 
         const { data: profile, error: profileError } = await supabase
             .from('users')
-            .select('credits_balance, has_logic_bundle, has_full_access, is_lifetime, is_admin')
+            .select('credits_balance, has_logic_bundle, has_full_access, is_lifetime, is_admin, promo_bundle_expires_at')
             .eq('id', user.id)
             .single();
 
@@ -112,9 +112,11 @@ export async function checkToolAccess(toolSlug) {
             return { allowed: true, user, profile };
         }
 
-        // Logic tools never touch credits — has_logic_bundle alone unlocks them.
+        // Logic tools: has_logic_bundle (paid) or an active promo grant.
+        const hasPromoActive = profile.promo_bundle_expires_at
+            && new Date(profile.promo_bundle_expires_at) > new Date();
         if (LOGIC_TOOLS.includes(toolSlug)) {
-            if (profile.has_logic_bundle) {
+            if (profile.has_logic_bundle || hasPromoActive) {
                 return { allowed: true, user, profile };
             }
             return denyResponse('bundle_required', 403, { purchase_url: '/pricing' });

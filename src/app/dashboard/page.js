@@ -10,6 +10,7 @@ import { TOOL_CATEGORIES, TOOL_CREDIT_COSTS, TOOL_RECOMMENDATIONS } from '@/lib/
 import Sidebar from '@/components/Sidebar';
 import HandbookDownloadCard from '@/components/HandbookDownloadCard';
 import RejectedBookCard from '@/components/RejectedBookCard';
+import PromoCodeInput from '@/components/PromoCodeInput';
 
 export default function DashboardPage() {
     const { user, profile, loading, refreshProfile } = useAuth();
@@ -177,6 +178,8 @@ export default function DashboardPage() {
                 <HandbookDownloadCard profile={profile} />
                 {/* Why Your Book Got Rejected: Lifetime immediate, Starter/Pro after 3 months, free CTA */}
                 <RejectedBookCard profile={profile} user={user} />
+                {/* Promo code redemption */}
+                <PromoCodeInput onSuccess={() => refreshProfile()} />
 
                 {/* ── My Books Section ── */}
                 <div style={{ marginBottom: 'var(--space-8)' }}>

@@ -232,7 +232,7 @@ function BookPromoSection() {
         />
         <div className="bk-promo-body">
           {/* TEMP: disabled during KDP Select term (Sep 7 – Dec 5 2026), re-enable after Dec 5 2026 */}
-          <span className="bk-promo-badge">Available on Amazon</span>
+          <a href="https://www.amazon.com/dp/B0HJ11BGQV" target="_blank" rel="noopener noreferrer" className="bk-promo-badge" style={{ textDecoration: 'none' }}>Available on Amazon ↗</a>
           <h2 className="bk-promo-title">Why Your Book Got Rejected</h2>
           <p className="bk-promo-subtitle">The EPUB &amp; KDP Formatting Guide for 2026</p>
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 4 }}>
