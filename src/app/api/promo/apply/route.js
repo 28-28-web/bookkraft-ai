@@ -20,6 +20,13 @@ export async function POST(request) {
         const admin = createAdminClient();
 
         step = 'fetch_promo';
+        // DEBUG: dump raw query result before .single() to see what DB returns
+        const { data: debugRows, error: debugError } = await admin
+            .from('promo_codes')
+            .select('*')
+            .eq('code', raw);
+        console.log('[promo debug]', JSON.stringify({ code: raw, rows: debugRows, error: debugError }));
+
         const { data: promo, error: promoError } = await admin
             .from('promo_codes')
             .select('id, plan, duration_months, max_uses, current_uses')
