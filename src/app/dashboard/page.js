@@ -177,7 +177,7 @@ export default function DashboardPage() {
                 {/* Handbook EPUB: full for Lifetime, sampler for Starter/Pro, CTA otherwise */}
                 <HandbookDownloadCard profile={profile} />
                 {/* Why Your Book Got Rejected: Lifetime immediate, Starter/Pro after 3 months, free CTA */}
-                <RejectedBookCard profile={profile} user={user} />
+                <RejectedBookCard />
                 {/* Promo code redemption */}
                 <PromoCodeInput onSuccess={() => refreshProfile()} />
 
