@@ -1,18 +1,14 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 
 // Apply a promo code for the signed-in user.
 //
-// Checks (in order):
-//   1. User is authenticated.
-//   2. Code exists and has remaining uses (current_uses < max_uses).
-//   3. User has not used this code before (unique constraint on user_promo_codes).
-//   4. Update users.promo_bundle_expires_at: extend from max(now, current expiry)
-//      by duration_months so stacked promos accumulate correctly.
-//   5. Insert user_promo_codes row (idempotency guard).
-//   6. Increment promo_codes.current_uses.
+// Uses service-role client for all DB ops so RLS does not block reads on
+// promo_codes or writes on user_promo_codes / users.
 export async function POST(request) {
     try {
+        // Auth: verify session via cookie client (RLS-respecting, anon key)
         const supabase = await createClient();
         const { data: { user }, error: authError } = await supabase.auth.getUser();
         if (authError || !user) {
@@ -25,8 +21,10 @@ export async function POST(request) {
             return NextResponse.json({ error: 'invalid_code' }, { status: 400 });
         }
 
+        const admin = createAdminClient();
+
         // 1. Fetch promo code
-        const { data: promo, error: promoError } = await supabase
+        const { data: promo, error: promoError } = await admin
             .from('promo_codes')
             .select('id, plan, duration_months, max_uses, current_uses')
             .eq('code', raw)
@@ -39,13 +37,12 @@ export async function POST(request) {
             return NextResponse.json({ error: 'code_exhausted' }, { status: 409 });
         }
 
-        // 2. Check user hasn't used it — attempt insert first (unique constraint is the guard)
-        const { error: usedError } = await supabase
+        // 2. Insert user_promo_codes — unique constraint catches double-use
+        const { error: usedError } = await admin
             .from('user_promo_codes')
             .insert({ user_id: user.id, code: raw });
 
         if (usedError) {
-            // unique_violation = 23505
             if (usedError.code === '23505') {
                 return NextResponse.json({ error: 'already_used' }, { status: 409 });
             }
@@ -53,7 +50,7 @@ export async function POST(request) {
         }
 
         // 3. Extend promo_bundle_expires_at from max(now, current expiry)
-        const { data: currentProfile } = await supabase
+        const { data: currentProfile } = await admin
             .from('users')
             .select('promo_bundle_expires_at')
             .eq('id', user.id)
@@ -66,7 +63,7 @@ export async function POST(request) {
         const newExpiry = new Date(base);
         newExpiry.setMonth(newExpiry.getMonth() + promo.duration_months);
 
-        const { error: updateError } = await supabase
+        const { error: updateError } = await admin
             .from('users')
             .update({ promo_bundle_expires_at: newExpiry.toISOString() })
             .eq('id', user.id);
@@ -74,7 +71,7 @@ export async function POST(request) {
         if (updateError) throw updateError;
 
         // 4. Increment current_uses
-        const { error: incrError } = await supabase
+        const { error: incrError } = await admin
             .from('promo_codes')
             .update({ current_uses: promo.current_uses + 1 })
             .eq('id', promo.id);
