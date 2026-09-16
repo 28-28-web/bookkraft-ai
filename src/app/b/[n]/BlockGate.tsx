@@ -15,7 +15,11 @@ type Props = {
 };
 
 export default function BlockGate({ blockId, blockLabel, audioUrl, social, prevId, nextId }: Props) {
-    const { user, profile, loading } = useAuth();
+    const { user, profile, loading } = useAuth() as {
+        user: { id: string; created_at: string } | null;
+        profile: { is_lifetime?: boolean; has_logic_bundle?: boolean; has_full_access?: boolean } | null;
+        loading: boolean;
+    };
 
     if (loading) {
         return (
