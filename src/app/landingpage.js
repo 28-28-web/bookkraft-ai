@@ -235,8 +235,13 @@ function BookPromoSection() {
           <span className="bk-promo-badge">Available on Amazon</span>
           <h2 className="bk-promo-title">Why Your Book Got Rejected</h2>
           <p className="bk-promo-subtitle">The EPUB &amp; KDP Formatting Guide for 2026</p>
-          {/* TEMP: re-enable download CTA after Dec 5 2026: <a href="/blog/why-your-book-got-rejected" className="bk-promo-cta">Get Your Free Copy →</a> */}
-          <span style={{ display: 'inline-block', fontSize: 13, color: 'rgba(255,255,255,0.70)', fontStyle: 'italic', marginTop: 4 }}>Free download available after Dec 5, 2026</span>
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 4 }}>
+            <a href="/blog/why-your-book-got-rejected" className="bk-promo-cta">Read the blog post →</a>
+            <a href="https://www.amazon.com/dp/B0HJ11BGQV" target="_blank" rel="noopener noreferrer"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.18)', color: '#fff', fontWeight: 700, fontSize: 14, padding: '11px 20px', borderRadius: 8, textDecoration: 'none' }}>
+              Buy on Amazon →
+            </a>
+          </div>
         </div>
       </div>
     </section>

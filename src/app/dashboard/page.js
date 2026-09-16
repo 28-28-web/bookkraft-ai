@@ -8,6 +8,8 @@ import { useProject } from '@/lib/ProjectContext';
 import { TOOLS } from '@/lib/tools';
 import { TOOL_CATEGORIES, TOOL_CREDIT_COSTS, TOOL_RECOMMENDATIONS } from '@/lib/constants';
 import Sidebar from '@/components/Sidebar';
+import HandbookDownloadCard from '@/components/HandbookDownloadCard';
+import RejectedBookCard from '@/components/RejectedBookCard';
 
 export default function DashboardPage() {
     const { user, profile, loading, refreshProfile } = useAuth();
@@ -170,6 +172,11 @@ export default function DashboardPage() {
                         </Link>
                     </div>
                 )}
+
+                {/* Handbook EPUB: full for Lifetime, sampler for Starter/Pro, CTA otherwise */}
+                <HandbookDownloadCard profile={profile} />
+                {/* Why Your Book Got Rejected: Lifetime immediate, Starter/Pro after 3 months, free CTA */}
+                <RejectedBookCard profile={profile} user={user} />
 
                 {/* ── My Books Section ── */}
                 <div style={{ marginBottom: 'var(--space-8)' }}>

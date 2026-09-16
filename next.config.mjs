@@ -1,6 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  // The handbook EPUBs are read from disk by their download route, which checks
+  // the user's plan first. They sit outside public/ so there is no static URL,
+  // and this makes the standalone build copy them next to the route.
+  outputFileTracingIncludes: {
+    '/api/downloads/handbook': ['./private/downloads/**/*'],
+  },
   trailingSlash: false,
   experimental: {
     optimizePackageImports: ['react', 'react-dom'],
