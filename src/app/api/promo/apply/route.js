@@ -2,13 +2,9 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 
-// Apply a promo code for the signed-in user.
-//
-// Uses service-role client for all DB ops so RLS does not block reads on
-// promo_codes or writes on user_promo_codes / users.
 export async function POST(request) {
+    let step = 'auth';
     try {
-        // Auth: verify session via cookie client (RLS-respecting, anon key)
         const supabase = await createClient();
         const { data: { user }, error: authError } = await supabase.auth.getUser();
         if (authError || !user) {
@@ -23,7 +19,7 @@ export async function POST(request) {
 
         const admin = createAdminClient();
 
-        // 1. Fetch promo code
+        step = 'fetch_promo';
         const { data: promo, error: promoError } = await admin
             .from('promo_codes')
             .select('id, plan, duration_months, max_uses, current_uses')
@@ -31,13 +27,14 @@ export async function POST(request) {
             .single();
 
         if (promoError || !promo) {
+            console.error('[promo] fetch_promo failed:', promoError);
             return NextResponse.json({ error: 'code_not_found' }, { status: 404 });
         }
         if (promo.current_uses >= promo.max_uses) {
             return NextResponse.json({ error: 'code_exhausted' }, { status: 409 });
         }
 
-        // 2. Insert user_promo_codes — unique constraint catches double-use
+        step = 'insert_user_promo';
         const { error: usedError } = await admin
             .from('user_promo_codes')
             .insert({ user_id: user.id, code: raw });
@@ -46,15 +43,21 @@ export async function POST(request) {
             if (usedError.code === '23505') {
                 return NextResponse.json({ error: 'already_used' }, { status: 409 });
             }
+            console.error('[promo] insert_user_promo failed:', usedError);
             throw usedError;
         }
 
-        // 3. Extend promo_bundle_expires_at from max(now, current expiry)
-        const { data: currentProfile } = await admin
+        step = 'fetch_profile';
+        const { data: currentProfile, error: profileError } = await admin
             .from('users')
             .select('promo_bundle_expires_at')
             .eq('id', user.id)
             .single();
+
+        if (profileError) {
+            console.error('[promo] fetch_profile failed:', profileError);
+            throw profileError;
+        }
 
         const base = currentProfile?.promo_bundle_expires_at
             ? new Date(Math.max(Date.now(), new Date(currentProfile.promo_bundle_expires_at).getTime()))
@@ -63,20 +66,27 @@ export async function POST(request) {
         const newExpiry = new Date(base);
         newExpiry.setMonth(newExpiry.getMonth() + promo.duration_months);
 
+        step = 'update_expiry';
         const { error: updateError } = await admin
             .from('users')
             .update({ promo_bundle_expires_at: newExpiry.toISOString() })
             .eq('id', user.id);
 
-        if (updateError) throw updateError;
+        if (updateError) {
+            console.error('[promo] update_expiry failed:', updateError);
+            throw updateError;
+        }
 
-        // 4. Increment current_uses
+        step = 'increment_uses';
         const { error: incrError } = await admin
             .from('promo_codes')
             .update({ current_uses: promo.current_uses + 1 })
             .eq('id', promo.id);
 
-        if (incrError) throw incrError;
+        if (incrError) {
+            console.error('[promo] increment_uses failed:', incrError);
+            throw incrError;
+        }
 
         return NextResponse.json({
             ok: true,
@@ -85,7 +95,7 @@ export async function POST(request) {
             duration_months: promo.duration_months,
         });
     } catch (err) {
-        console.error('promo apply failed:', err);
+        console.error(`[promo] FAILED at step=${step}:`, err?.message, err?.code, err?.details, err?.hint);
         return NextResponse.json({ error: 'server_error' }, { status: 500 });
     }
 }
