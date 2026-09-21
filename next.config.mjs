@@ -52,6 +52,17 @@ const nextConfig = {
         destination: '/tools/metadata-builder',
         permanent: true,
       },
+      // Malformed URLs crawled from bad links — send to homepage.
+      {
+        source: '/$',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/&',
+        destination: '/',
+        permanent: true,
+      },
       // The book prints BOOKKRAFTAI.COM/B1 (no slash). Source matching is not
       // case-sensitive, so this also catches /b1. It cannot match /b/1 itself,
       // which is what made the old /B/:n rule loop.
@@ -95,6 +106,10 @@ const nextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
+          },
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex',
           },
         ],
       },
