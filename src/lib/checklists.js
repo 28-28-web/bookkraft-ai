@@ -234,6 +234,319 @@ export const CHECKLISTS = [
       { type: 'alternative', slug: 'jutoh-alternative', label: 'Jutoh alternative for EPUB formatting' },
     ],
   },
+  {
+    slug: 'apple-books-pre-launch-checklist',
+    metaTitle: '18-Point Apple Books Pre-Launch Checklist — BookKraft AI',
+    metaDescription: 'Apple Books validation is the strictest of any store. This 18-point checklist covers EPUB 3 compliance, sRGB covers, ISBN scheme, and the nav.xhtml requirements Apple checks at submission.',
+    title: '18-Point Apple Books Pre-Launch Checklist',
+    intro: '<p>Apple Books runs the strictest automated validation of any major ebook store. A file that uploads to KDP without complaint can still be rejected by Apple Books Connect over color profiles, ISBN format, or EPUB 3 structure. This checklist covers the Apple-specific requirements that go beyond generic EPUB validation. Complete the general EPUB formatting checklist first, then work through these.</p>',
+    sections: [
+      {
+        heading: 'File & Structure',
+        items: [
+          'File is valid EPUB 3 — Apple Books requires EPUB 3, not EPUB 2',
+          'nav.xhtml present with a valid <nav epub:type="toc"> element',
+          'No EPUB 2 vestiges such as opf:role attributes in an EPUB 3 file',
+          'All XHTML chapter files are well-formed — no unclosed tags or unescaped ampersands',
+          'Zero EPUBCheck Error or Fatal results against the current specification',
+        ],
+      },
+      {
+        heading: 'Cover & Images',
+        items: [
+          'Cover image minimum 1400px × 2100px — higher than KDP\'s floor',
+          'Cover is RGB with an embedded sRGB IEC 61966-2.1 color profile, not CMYK',
+          'Cover declared with properties="cover-image" in the OPF manifest',
+          'All embedded images are JPEG or PNG in RGB, sized for screen',
+        ],
+      },
+      {
+        heading: 'Metadata',
+        items: [
+          'dc:identifier uses a valid ISBN with scheme="ISBN", or a UUID if no ISBN',
+          'dc:title and dc:creator populated and matching the cover',
+          'dc:language set to a valid BCP 47 code',
+          'Publication date present and correctly formatted',
+        ],
+      },
+      {
+        heading: 'Submission',
+        items: [
+          'File previewed in Apple Books on a Mac or iOS device before submission',
+          'Fixed-layout flag set correctly — only for image-heavy or picture books',
+          'Accessibility metadata included: alt text on informative images, empty alt on decorative',
+          'File size within Apple Books limits and images not excessively large',
+          'A fresh EPUBCheck run passed on the exact file being submitted',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Why does Apple Books reject a file that passed EPUBCheck?',
+        a: 'Apple validates against Apple-specific rules beyond EPUBCheck — particularly CMYK cover images, ISBN format (scheme="ISBN" required), and nav.xhtml structure. The three most common Apple-specific failures that pass EPUBCheck are CMYK covers, missing or wrongly formatted ISBNs, and nav.xhtml missing the epub:type attribute.',
+      },
+      {
+        q: 'Do I need an ISBN for Apple Books?',
+        a: 'Apple Books does not strictly require an ISBN — a UUID identifier is accepted — but if you do include an ISBN, it must be declared with scheme="ISBN" in the dc:identifier. A malformed ISBN declaration is a common rejection cause.',
+      },
+      {
+        q: 'How do I convert an EPUB 2 file to EPUB 3 for Apple Books?',
+        a: 'Regenerate the file from your source with a tool that outputs EPUB 3, or run it through an EPUB formatter that upgrades the structure and adds a nav.xhtml. Manually patching an EPUB 2 file to EPUB 3 usually leaves EPUB 2 vestiges that Apple\'s validator flags.',
+      },
+    ],
+    relatedTool: 'cover-checker',
+    related: [
+      { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+      { type: 'cover-requirement', slug: 'apple-books-ebook', label: 'Apple Books ebook cover requirements' },
+      { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
+      { type: 'epub-error', slug: 'opf-role-attribute-not-allowed', label: 'opf:role attribute not allowed (RSC-005)' },
+    ],
+  },
+  {
+    slug: 'print-book-pre-launch-checklist',
+    metaTitle: '16-Point Print Book Pre-Launch Checklist — BookKraft AI',
+    metaDescription: 'A print book pre-launch checklist for KDP Print and IngramSpark: PDF/X-1a export, CMYK, bleed, calculated spine width, embedded fonts, and interior margin checks before you submit.',
+    title: '16-Point Print Book Pre-Launch Checklist',
+    intro: '<p>Print books follow entirely different rules from ebooks — fixed pages, CMYK color, bleed, and a spine width calculated to your exact page count. This checklist covers the cover and interior requirements for KDP Print and IngramSpark. Prepare to IngramSpark\'s stricter standard and the file will also pass KDP Print.</p>',
+    sections: [
+      {
+        heading: 'Interior File',
+        items: [
+          'Interior exported as PDF at 300 DPI with all fonts fully embedded (not subsetted)',
+          'Trim size matches the size selected in the print dashboard exactly',
+          'Inside (gutter) margins wide enough for the page count so text isn\'t swallowed by the binding',
+          'No RGB images left in the interior — convert all to CMYK or grayscale',
+          'Page count is even — print books require an even final page count',
+        ],
+      },
+      {
+        heading: 'Cover File',
+        items: [
+          'Full-wrap cover as a single PDF: back cover, spine, and front cover',
+          'Exported as PDF/X-1a in CMYK color mode',
+          '0.125 inch (3.175mm) bleed on all outer edges',
+          'Spine width calculated from final page count and paper stock via the template generator',
+          'Spine text kept clear of the fold with adequate margin (thin spines may not allow spine text)',
+          'ISBN barcode area on the back cover, lower right, at 100% scale',
+        ],
+      },
+      {
+        heading: 'Proof & Submit',
+        items: [
+          'Fresh cover template downloaded after the final interior page count was set',
+          'Digital proof reviewed page by page for reflowed text or shifted images',
+          'A physical or online proof ordered and checked before approving distribution',
+          'Metadata (title, author, ISBN) consistent between cover, interior, and dashboard',
+          'No spot colors or PMS values — process CMYK only',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Why does my print cover keep getting rejected at preflight?',
+        a: 'The most common causes are an RGB or standard PDF instead of PDF/X-1a, an incorrect spine width from a stale template, missing bleed, or subsetted fonts. Check each of these against the cover section above before resubmitting.',
+      },
+      {
+        q: 'How is the spine width determined?',
+        a: 'Spine width is a function of page count and paper stock thickness. Use the print platform\'s cover template generator with your final page count and chosen paper — it outputs the exact spine width and canvas size. Any change to page count requires a new template.',
+      },
+      {
+        q: 'Can I reuse my ebook cover for the print edition?',
+        a: 'No. An ebook cover is a single RGB image of the front only. A print cover is a full-wrap CMYK PDF with back cover, spine, front, bleed, and a barcode area. The print cover must be built separately.',
+      },
+    ],
+    relatedTool: 'cover-checker',
+    related: [
+      { type: 'cover-requirement', slug: 'ingramspark-print', label: 'IngramSpark print book cover requirements' },
+      { type: 'platform-rejection', slug: 'ingram-spark', label: 'Why IngramSpark rejects books' },
+      { type: 'mistake', slug: 'print-formatting-mistakes', label: '5 print book formatting mistakes that get covers rejected' },
+      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
+    ],
+  },
+  {
+    slug: 'manuscript-cleanup-checklist',
+    metaTitle: '15-Point Manuscript Cleanup Checklist Before Formatting — BookKraft AI',
+    metaDescription: 'Clean your manuscript before you format it. This 15-point checklist covers double spaces, straight vs curly quotes, encoding artifacts, and the Word habits that break EPUB conversion.',
+    title: '15-Point Manuscript Cleanup Checklist Before Formatting',
+    intro: '<p>Most EPUB errors start life as habits in a Word document — double spaces, manual indents, empty paragraphs, and encoding artifacts that survive conversion and surface as validation errors or ugly rendering. Cleaning the manuscript before you format it prevents the majority of downstream problems. Work through this list on your source document first.</p>',
+    sections: [
+      {
+        heading: 'Spacing & Characters',
+        items: [
+          'Double spaces removed — find-and-replace two spaces with one throughout',
+          'Tabs and manual first-line indents removed — set indentation in the paragraph style instead',
+          'Runs of empty paragraphs deleted — use page breaks and CSS spacing, not blank lines',
+          'Straight quotes converted to curly quotes consistently, or left straight per house style — no mix',
+          'Em dashes and en dashes used correctly, not double hyphens',
+        ],
+      },
+      {
+        heading: 'Encoding & Symbols',
+        items: [
+          'File saved as UTF-8',
+          'Replacement characters (□) and mojibake strings (â€™) searched and fixed',
+          'Zero-width spaces (U+200B) and byte-order marks removed',
+          'Accented names and special symbols verified to display correctly',
+        ],
+      },
+      {
+        heading: 'Structure',
+        items: [
+          'Chapter titles styled as Heading 1, sub-sections as Heading 2 — not hand-formatted',
+          '"Page break before" set on the chapter heading style so each chapter starts fresh',
+          'Print-only elements removed: running headers, footers, and page numbers',
+          'References to physical page numbers ("see page 112") replaced with links',
+        ],
+      },
+      {
+        heading: 'Final Pass',
+        items: [
+          'Front matter and back matter complete and in the right order',
+          'Manuscript run through a cleanup tool to catch remaining artifacts before conversion',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Why clean the manuscript before formatting instead of fixing the EPUB later?',
+        a: 'Artifacts like double spaces, straight quotes, and encoding errors get baked into every chapter file when the manuscript is converted. Fixing them once at the source is far faster than hunting them down across dozens of XHTML files afterward, and it prevents validation errors before they exist.',
+      },
+      {
+        q: 'What is the fastest way to clean a Word manuscript?',
+        a: 'Run it through a dedicated cleanup tool that catches smart quotes, double spaces, dashes, and encoding artifacts in a single pass, then do a manual check of headings and special characters. This is much faster and more reliable than find-and-replace alone.',
+      },
+      {
+        q: 'Do I still need to clean the manuscript if I use a formatting tool?',
+        a: 'Yes. Formatting tools handle structure and conversion, but they generally preserve the text you give them. Garbage in, garbage out — a clean manuscript produces a clean EPUB, while a messy one carries its problems into the file.',
+      },
+    ],
+    relatedTool: 'kindle-format-fixer',
+    related: [
+      { type: 'mistake', slug: 'epub-formatting-mistakes', label: '10 EPUB formatting mistakes that cause rejection' },
+      { type: 'epub-error', slug: 'ghost-spacing-epub', label: 'Ghost spacing in e-reader previews' },
+      { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
+      { type: 'epub-error', slug: 'unescaped-ampersand-xhtml', label: 'Unescaped ampersand in XHTML' },
+    ],
+  },
+  {
+    slug: 'metadata-setup-checklist',
+    metaTitle: '14-Point Book Metadata Setup Checklist — BookKraft AI',
+    metaDescription: 'Set your book metadata up for discoverability and clean uploads. This 14-point checklist covers title matching, identifiers, language codes, keywords, categories, and description formatting.',
+    title: '14-Point Book Metadata Setup Checklist',
+    intro: '<p>Metadata decides whether your book uploads cleanly, displays correctly, and reaches the readers searching for it. It spans two places: the fields inside the EPUB file and the fields you fill in on the store dashboard. This checklist covers both so the file passes validation and the listing works for discovery.</p>',
+    sections: [
+      {
+        heading: 'In-File Metadata (content.opf)',
+        items: [
+          'dc:title populated and non-empty, matching the cover exactly',
+          'dc:creator populated with the author name',
+          'dc:language set to a valid BCP 47 code (e.g., en or en-US)',
+          'dc:identifier present — a valid ISBN-13 or a UUID',
+          'Package unique-identifier attribute points to the dc:identifier id by name',
+        ],
+      },
+      {
+        heading: 'Store Listing',
+        items: [
+          'Title and subtitle match the cover word for word, including order',
+          'Author name matches your existing Author Page to consolidate your profile',
+          '7 keyword slots filled with 3–5 word long-tail phrases, not single words',
+          '2 BISAC categories chosen at the most specific subcategory available',
+          'Series name and number set consistently if part of a series',
+        ],
+      },
+      {
+        heading: 'Description',
+        items: [
+          'Bold hook as the first line, above the "Read more" fold',
+          'Short paragraphs with spacing, and 3–5 benefit bullets',
+          'HTML formatting verified to render cleanly — no raw tags visible to readers',
+          'No keyword stuffing — discoverability handled by keywords and categories, not the description',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Where does metadata live — in the file or on the store?',
+        a: 'Both. The EPUB carries in-file metadata (title, author, language, identifier) that validators and reading systems read, and the store dashboard has its own listing metadata (keywords, categories, description). They should agree with each other, especially the title.',
+      },
+      {
+        q: 'How many keywords and categories should I set?',
+        a: 'KDP gives seven keyword slots and two BISAC categories. Fill all seven keyword slots with long-tail phrases readers actually search, and pick the two most specific subcategories rather than broad top-level ones.',
+      },
+      {
+        q: 'Can I edit metadata after publishing?',
+        a: 'Listing metadata — description, keywords, categories — can be edited in the dashboard after publication and updates within hours. In-file metadata requires re-uploading a corrected EPUB. The cover title must always continue to match the metadata title.',
+      },
+    ],
+    relatedTool: 'metadata-builder',
+    related: [
+      { type: 'mistake', slug: 'book-metadata-mistakes', label: '6 book metadata mistakes that hurt discoverability' },
+      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-048)' },
+      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
+      { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
+    ],
+  },
+  {
+    slug: 'book-launch-day-checklist',
+    metaTitle: '15-Point Book Launch Day Checklist — BookKraft AI',
+    metaDescription: 'A book launch day checklist that starts after the file passes validation: final listing checks, pricing, categories, review copies, and the first-week actions that build momentum.',
+    title: '15-Point Book Launch Day Checklist',
+    intro: '<p>Your file is validated and your metadata is set — now comes the launch. This checklist picks up where the technical work ends and covers the listing, pricing, and promotion steps that decide whether a book lands with momentum or silence. Work through it in the days around your publish date.</p>',
+    sections: [
+      {
+        heading: 'Final Listing Check',
+        items: [
+          'Cover title, subtitle, and author name match the metadata exactly, word for word',
+          'Description formatted with a bold hook, short paragraphs, and clean HTML — no raw tags visible',
+          'All 7 keyword slots filled with long-tail reader search phrases',
+          '2 most-specific BISAC categories selected, not broad top-level ones',
+          'Preview checked on phone, tablet, and e-reader in Kindle Previewer',
+        ],
+      },
+      {
+        heading: 'Pricing & Distribution',
+        items: [
+          'Launch price set, with any introductory discount scheduled and dated',
+          'KDP Select exclusivity decision made — confirm the book is not live elsewhere if enrolling',
+          'Territories and royalty rate (35% vs 70%) reviewed for each marketplace',
+          'Pre-order configured if launching later, or "publish now" confirmed',
+        ],
+      },
+      {
+        heading: 'Launch & First Week',
+        items: [
+          'Advance review copies sent to your early readers and street team',
+          'Author Central profile and Author Page updated with the new title',
+          'Launch announcement scheduled for your mailing list and social channels',
+          'Back matter links (Also By, mailing list CTA) confirmed working in the live file',
+          'A plan in place to request honest reviews from readers in the first two weeks',
+          'Sales dashboard checked 48 hours after launch for reporting or listing errors',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Should I launch at full price or with a discount?',
+        a: 'A time-limited introductory price (often 99 cents or free via KDP Select) can drive early downloads and reviews that improve visibility, then rise to full price. The right choice depends on your genre and whether you are running launch promotion to take advantage of the lower price.',
+      },
+      {
+        q: 'How important are reviews in the first week?',
+        a: 'Early reviews build credibility and feed Amazon\'s recommendation systems. Line up honest reviews from advance readers before launch, and make a clear ask to buyers in your back matter and mailing list. Never buy reviews — Amazon removes them and can penalize the account.',
+      },
+      {
+        q: 'Can I fix listing mistakes after launching?',
+        a: 'Yes. Description, keywords, categories, and price can all be edited in the dashboard after publication and update within hours. The cover and interior require re-uploading a corrected file. Check the live listing within 48 hours to catch anything that didn\'t save correctly.',
+      },
+    ],
+    relatedTool: 'kdp-keyword-finder',
+    related: [
+      { type: 'checklist', slug: 'metadata-setup-checklist', label: 'Book metadata setup checklist' },
+      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
+      { type: 'mistake', slug: 'book-metadata-mistakes', label: '6 book metadata mistakes that hurt discoverability' },
+      { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
+    ],
+  },
 ];
 
 export function getChecklistBySlug(slug) {

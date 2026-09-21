@@ -209,6 +209,276 @@ export const MISTAKES = [
       { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
     ],
   },
+  {
+    slug: 'book-metadata-mistakes',
+    metaTitle: '6 Book Metadata Mistakes That Hurt Discoverability — BookKraft AI',
+    metaDescription: 'Metadata is how readers and stores find your book. These 6 metadata mistakes — mismatched titles, empty identifier fields, and weak keywords — quietly cost sales and cause rejections.',
+    title: '6 Book Metadata Mistakes That Hurt Discoverability',
+    intro: "<p>Metadata is the invisible layer that tells stores and readers what your book is and who it's for. When it's wrong, the book either fails to upload, displays incorrectly, or never surfaces in the searches its readers actually run. These six metadata mistakes are the ones that quietly cost authors sales and, in some cases, trigger outright rejection.</p>",
+    mistakes: [
+      {
+        title: 'Cover title and metadata title that do not match',
+        description: "<p>KDP compares the title printed on your cover with the title typed into the publishing form. A missing subtitle word or a different word order is enough for KDP to hold the book during review. The two must match exactly, word for word, including series name and edition.</p>",
+        link: { type: 'platform-rejection', slug: 'amazon-kdp', label: 'KDP submission requirements — full guide' },
+      },
+      {
+        title: 'Empty or invalid dc:identifier',
+        description: "<p>Every EPUB needs a unique identifier in the <code>dc:identifier</code> field — a valid ISBN-13 or a UUID. When it is empty, or the package's unique-identifier attribute points at the wrong id, EPUBCheck throws OPF-048 and Apple Books rejects the file. A UUID is perfectly valid if you don't have an ISBN.</p>",
+        link: { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-048) — full guide' },
+      },
+      {
+        title: 'Missing dc:language or an invalid language code',
+        description: "<p>The <code>dc:language</code> field must contain a valid BCP 47 code such as <code>en</code> or <code>en-US</code>. A missing or malformed language tag causes validation warnings and can affect how stores categorize and display the book in regional storefronts.</p>",
+        link: { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB metadata checklist items' },
+      },
+      {
+        title: 'Filling keyword slots with single broad words',
+        description: "<p>KDP gives seven keyword slots. Filling them with single words like \"mystery\" or \"romance\" puts the book in competition with every title in those terms. Long-tail phrases of three to five words match how readers actually search and place the book in a narrower, more relevant result set.</p>",
+        link: { type: 'platform-rejection', slug: 'amazon-kdp', label: 'KDP keyword and category requirements' },
+      },
+      {
+        title: 'Cover image not declared as the cover in the manifest',
+        description: "<p>An embedded cover that lacks <code>properties=\"cover-image\"</code> in the OPF manifest uploads without error but appears as a gray box on the store page. The platform can't identify which image is the cover unless the manifest says so.</p>",
+        link: { type: 'epub-error', slug: 'cover-image-not-declared', label: 'Cover image not declared in OPF manifest — full guide' },
+      },
+    ],
+    faq: [
+      {
+        q: 'Do I need an ISBN to publish an ebook on KDP?',
+        a: 'No. KDP assigns a free ASIN to every Kindle ebook, and a UUID satisfies the EPUB spec\'s identifier requirement. An ISBN is only required for print books on some distribution channels. Use a UUID as urn:uuid: in dc:identifier if you don\'t have an ISBN.',
+      },
+      {
+        q: 'Why does my book not appear when I search its title on Amazon?',
+        a: 'New titles can take 24–72 hours to be indexed for search after going live. If the book still doesn\'t appear after that, check that the title metadata matches the cover, the categories are set, and the keywords reflect terms readers actually use.',
+      },
+      {
+        q: 'Can I change my metadata after publishing?',
+        a: 'Yes. Title, description, keywords, and categories can be edited in the KDP dashboard after publication, and changes typically propagate within a few hours. The cover title, however, must always continue to match the metadata title.',
+      },
+    ],
+    related: [
+      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-048)' },
+      { type: 'epub-error', slug: 'cover-image-not-declared', label: 'Cover image not declared in OPF manifest' },
+      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
+      { type: 'mistake', slug: 'kdp-formatting-mistakes', label: '7 KDP formatting mistakes indie authors make' },
+    ],
+  },
+  {
+    slug: 'kindle-toc-mistakes',
+    metaTitle: '5 Kindle Table of Contents Mistakes That Break Navigation — BookKraft AI',
+    metaDescription: 'A broken Kindle TOC gets books flagged at upload and frustrates readers. These 5 table of contents mistakes — hand-styled headings, stale NCX, page-number links — are the usual causes.',
+    title: '5 Kindle Table of Contents Mistakes That Break Navigation',
+    intro: "<p>A Kindle book has two tables of contents: the inline page readers see near the front, and the navigation TOC the device uses for its Go To menu. When either breaks, KDP can flag the file at upload and readers land in the wrong chapter. These five mistakes account for nearly every broken Kindle TOC.</p>",
+    mistakes: [
+      {
+        title: 'Chapter titles styled by hand instead of as headings',
+        description: "<p>Making a chapter title large and bold doesn't make it a heading. Kindle builds its navigation from real Heading 1 styles, not from text that merely looks like a heading. Without proper heading styles, the device has nothing to build a TOC from.</p>",
+        link: { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table — full guide' },
+      },
+      {
+        title: 'NCX navPoints out of sync with chapter files',
+        description: "<p>Reordering chapters after export without regenerating the NCX leaves navPoints pointing at the old sequence. The Go To menu then jumps readers to the wrong place, and KDP's review sometimes rejects the mismatch.</p>",
+        link: { type: 'epub-error', slug: 'toc-ncx-navpoint-mismatch', label: 'NCX navPoint mismatch — full guide' },
+      },
+      {
+        title: 'Inline TOC links pointing at page numbers',
+        description: "<p>Reflowable Kindle books have no fixed pages. An inline contents page that links to page numbers instead of chapter bookmarks does nothing when tapped. Every entry must link to a heading anchor.</p>",
+        link: { type: 'checklist', slug: 'epub-formatting-checklist', label: 'Structure & navigation checklist items' },
+      },
+      {
+        title: 'Duplicate heading ids across chapter files',
+        description: "<p>EPUB requires every id attribute to be unique across the whole book. When a converter copies the same heading id into every chapter, navigation links collide and resolve to the wrong target — and EPUBCheck flags the duplicates.</p>",
+        link: { type: 'epub-error', slug: 'duplicate-id-epub', label: 'Duplicate ID attribute errors — full guide' },
+      },
+      {
+        title: 'No nav.xhtml in an EPUB 3 file',
+        description: "<p>EPUB 3 files need a nav.xhtml document with a valid <code>&lt;nav epub:type=\"toc\"&gt;</code> element in addition to the NCX. Files that declare EPUB 3 but omit the nav document fail validation and can lose in-reader navigation.</p>",
+        link: { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Navigation document requirements — full guide' },
+      },
+    ],
+    faq: [
+      {
+        q: 'Why does KDP say "No TOC Found" when my book has a contents page?',
+        a: 'A visible contents page is the inline TOC. KDP\'s warning is about the navigation TOC — the NCX or nav.xhtml the device uses. You can have a perfect-looking contents page and still trigger the warning if the navigation file is missing or built from hand-styled headings rather than real Heading 1 styles.',
+      },
+      {
+        q: 'Do I need both an NCX and a nav.xhtml?',
+        a: 'For maximum compatibility, yes. EPUB 3 uses nav.xhtml, but including an NCX keeps older reading systems working. Most modern conversion tools generate both automatically when your headings are correctly styled.',
+      },
+      {
+        q: 'How do I test that my TOC works before uploading?',
+        a: 'Open the file in Kindle Previewer, tap Go To, and confirm every chapter jumps to the right place. Then tap each entry on the inline contents page. Running the file through an EPUB validator first clears duplicate ids and broken anchors that would break navigation.',
+      },
+    ],
+    related: [
+      { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table' },
+      { type: 'epub-error', slug: 'toc-ncx-navpoint-mismatch', label: 'NCX navPoint mismatch' },
+      { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
+      { type: 'mistake', slug: 'epub-formatting-mistakes', label: '10 EPUB formatting mistakes that cause rejection' },
+    ],
+  },
+  {
+    slug: 'ebook-cover-mistakes',
+    metaTitle: '5 Ebook Cover Mistakes That Get Files Rejected — BookKraft AI',
+    metaDescription: 'CMYK color, below-minimum dimensions, and missing manifest properties are the ebook cover mistakes that cause rejection or a gray placeholder on the store page. Here is how to avoid each.',
+    title: '5 Ebook Cover Mistakes That Get Files Rejected',
+    intro: "<p>A cover can be beautifully designed and still fail technical validation. Ebook cover problems are almost always about color mode, dimensions, or how the image is declared inside the file — not about the artwork. These five mistakes cause most cover rejections and gray-box store listings.</p>",
+    mistakes: [
+      {
+        title: 'Using a CMYK print cover for the ebook',
+        description: "<p>Print covers are built in CMYK at 300 DPI. Ebook platforms expect RGB and reject CMYK images — KDP's processor and Apple Books both fail on it. Export a separate RGB JPEG for the ebook rather than reusing the print file.</p>",
+        link: { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks — full guide' },
+      },
+      {
+        title: 'Cover below the minimum dimensions',
+        description: "<p>The old 500px minimum is outdated. KDP now requires at least 625×1000px, and Apple Books requires 1400×2100px. A cover sized for one store can fail another. Work at 1600×2560px to satisfy every major platform.</p>",
+        link: { type: 'checklist', slug: 'epub-formatting-checklist', label: 'Cover & images checklist items' },
+      },
+      {
+        title: 'Wrong aspect ratio',
+        description: "<p>A square or landscape cover gets stretched or letterboxed by a store's display templates. Ebook covers use a 1.6:1 height-to-width ratio (2:3 shape). Start from a canvas with that ratio so the cover fills the frame without distortion.</p>",
+        link: { type: 'platform-rejection', slug: 'amazon-kdp', label: 'KDP cover requirements — full guide' },
+      },
+      {
+        title: 'Cover image not declared with the cover-image property',
+        description: "<p>An embedded cover missing <code>properties=\"cover-image\"</code> in the OPF manifest uploads cleanly but appears as a gray box on the product page. The platform can't identify the cover without the manifest declaration.</p>",
+        link: { type: 'epub-error', slug: 'cover-image-not-declared', label: 'Cover image not declared in OPF manifest — full guide' },
+      },
+      {
+        title: 'Missing sRGB color profile',
+        description: "<p>Apple Books validates color profiles at the byte level. Saving as RGB is not the same as embedding an sRGB profile — export explicitly with sRGB IEC 61966-2.1, or the file can be rejected even though it looks correct on screen.</p>",
+        link: { type: 'platform-rejection', slug: 'apple-books', label: 'Apple Books cover validation — full guide' },
+      },
+    ],
+    faq: [
+      {
+        q: 'Can I use the same cover for KDP and Apple Books?',
+        a: 'Only if it already meets Apple\'s stricter requirements: at least 1400×2100px in RGB with an sRGB profile. A cover that passes KDP\'s 625×1000px minimum may fail Apple Books. Export once at 1600×2560px in sRGB and it works for both.',
+      },
+      {
+        q: 'My cover looks fine in Previewer but shows as gray on the product page — why?',
+        a: 'The image is embedded in the EPUB but not declared with properties="cover-image" in the OPF manifest. The file is physically present; the platform just can\'t identify it as the cover. Regenerate the EPUB with the cover correctly flagged.',
+      },
+      {
+        q: 'Does DPI matter for an ebook cover?',
+        a: 'No. DPI is a print concept with no meaning for screen images. What matters is the pixel dimension. A 1600×2560px image at 72 DPI contains exactly the same data as one at 300 DPI.',
+      },
+    ],
+    related: [
+      { type: 'epub-error', slug: 'cover-image-not-declared', label: 'Cover image not declared in OPF manifest' },
+      { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
+      { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+      { type: 'mistake', slug: 'kdp-formatting-mistakes', label: '7 KDP formatting mistakes indie authors make' },
+    ],
+  },
+  {
+    slug: 'print-formatting-mistakes',
+    metaTitle: '5 Print Book Formatting Mistakes That Get Covers Rejected — BookKraft AI',
+    metaDescription: 'Print book formatting is not ebook formatting. These 5 mistakes — RGB PDFs, wrong spine width, missing bleed, subsetted fonts — cause IngramSpark and KDP Print preflight failures.',
+    title: '5 Print Book Formatting Mistakes That Get Covers Rejected',
+    intro: "<p>Print formatting follows completely different rules from ebooks. A file that publishes fine as a Kindle book will fail print preflight, because print needs fixed pages, CMYK color, bleed, and a spine width calculated to the millimeter. These five mistakes cause most print cover and interior rejections.</p>",
+    mistakes: [
+      {
+        title: 'Submitting an RGB or standard PDF',
+        description: "<p>IngramSpark requires PDF/X-1a in CMYK; a standard RGB PDF fails preflight. Convert all colors to CMYK and export specifically as PDF/X-1a, not a general-purpose PDF, before submitting a print cover or interior.</p>",
+        link: { type: 'platform-rejection', slug: 'ingram-spark', label: 'Why IngramSpark rejects books — full guide' },
+      },
+      {
+        title: 'Incorrect spine width',
+        description: "<p>Spine width is calculated from page count and paper stock. Adding or removing pages after generating the template changes the spine, and a stale width causes a hard rejection. Regenerate the cover template with your final page count.</p>",
+        link: { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'Print preparation checklist items' },
+      },
+      {
+        title: 'Missing bleed on a full-wrap cover',
+        description: "<p>Print covers need 0.125 inch of bleed on every outer edge so trimming doesn't leave a white sliver. A cover built to exact trim size with no bleed will be rejected or printed with visible edges.</p>",
+        link: { type: 'platform-rejection', slug: 'ingram-spark', label: 'IngramSpark cover requirements — full guide' },
+      },
+      {
+        title: 'Fonts subsetted instead of fully embedded',
+        description: "<p>PDF/X-1a requires all fonts fully embedded, not subsetted. Subsetting embeds only the characters used, which is fine for screen PDFs but rejected by print preflight. Set font embedding to embed all in your export settings.</p>",
+        link: { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'File preparation checklist items' },
+      },
+      {
+        title: 'Reusing the ebook cover as a print cover',
+        description: "<p>An ebook cover is a single RGB image of the front only. A print cover is a full-wrap CMYK PDF containing back cover, spine, and front with bleed and a barcode area. They are different deliverables and can't be swapped.</p>",
+        link: { type: 'platform-rejection', slug: 'ingram-spark', label: 'IngramSpark print cover specs — full guide' },
+      },
+    ],
+    faq: [
+      {
+        q: 'Can I use a Canva PDF for my IngramSpark print cover?',
+        a: 'Only if it exports as PDF/X-1a with CMYK colors and fully embedded fonts. Most online tools export standard RGB PDFs, which fail preflight. Use a tool with a PDF/X-1a export option, or convert the file before submitting.',
+      },
+      {
+        q: 'How do I calculate my spine width?',
+        a: 'Use the print platform\'s cover template generator. Enter trim size, final page count, and paper stock, and it produces a template with the correct spine position marked. Download a fresh template any time the page count changes.',
+      },
+      {
+        q: 'Does KDP Print use the same requirements as IngramSpark?',
+        a: 'They are similar but not identical. Both need CMYK, bleed, and a correctly calculated spine, but KDP Print is more forgiving about PDF flavor while IngramSpark strictly requires PDF/X-1a. Prepare to IngramSpark\'s stricter standard and the file will also pass KDP Print.',
+      },
+    ],
+    related: [
+      { type: 'cover-requirement', slug: 'ingramspark-print', label: 'IngramSpark print book cover requirements' },
+      { type: 'platform-rejection', slug: 'ingram-spark', label: 'Why IngramSpark rejects books' },
+      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
+      { type: 'mistake', slug: 'ebook-cover-mistakes', label: '5 ebook cover mistakes that get files rejected' },
+    ],
+  },
+  {
+    slug: 'ebook-accessibility-mistakes',
+    metaTitle: '5 Ebook Accessibility Mistakes to Avoid — BookKraft AI',
+    metaDescription: 'EU accessibility rules for ebooks took effect in 2025 and KDP now asks about it. These 5 accessibility mistakes — missing alt text, no language tag, image-only text — are the ones to fix.',
+    title: '5 Ebook Accessibility Mistakes to Avoid',
+    intro: "<p>Accessibility is no longer optional. The European Accessibility Act's requirements for ebooks took effect in June 2025, and KDP now asks whether your images are accessible when you publish. Beyond compliance, accessible formatting means more readers can actually use your book. These five mistakes are the most common — and the most fixable.</p>",
+    mistakes: [
+      {
+        title: 'Images with no alt text',
+        description: "<p>Screen readers speak alt text aloud for readers who can't see an image. An informative image with no alt text is invisible to those readers, and stores increasingly flag it. Write one clear sentence describing what each meaningful image conveys.</p>",
+        link: { type: 'checklist', slug: 'epub-formatting-checklist', label: 'Cover & images checklist items' },
+      },
+      {
+        title: 'Decorative images without an empty alt attribute',
+        description: "<p>Purely decorative images should have an empty alt (<code>alt=\"\"</code>) so screen readers skip them. Leaving the attribute off entirely makes assistive tools announce the filename instead, which is noise for the reader.</p>",
+        link: { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'EPUB structure requirements — full guide' },
+      },
+      {
+        title: 'Text baked into images',
+        description: "<p>Chapter headings or quotes saved as image files can't be resized, searched, selected, or read aloud. Keep text as real text and use CSS for styling, so it remains accessible and reflowable on every device.</p>",
+        link: { type: 'mistake', slug: 'epub-formatting-mistakes', label: 'EPUB formatting mistakes — full guide' },
+      },
+      {
+        title: 'Missing or wrong language declaration',
+        description: "<p>The <code>dc:language</code> field and the <code>lang</code> attribute tell screen readers which pronunciation rules to use. A missing or incorrect language tag makes assistive technology mispronounce the entire book.</p>",
+        link: { type: 'checklist', slug: 'epub-formatting-checklist', label: 'Metadata checklist items' },
+      },
+      {
+        title: 'Heading levels used for visual size, not structure',
+        description: "<p>Screen reader users navigate by heading level. Skipping from Heading 1 to Heading 4 for a bigger look, or using headings for non-heading text, breaks that navigation. Use heading levels to reflect real document structure and style them with CSS.</p>",
+        link: { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Navigation and structure — full guide' },
+      },
+    ],
+    faq: [
+      {
+        q: 'Do I legally have to make my ebook accessible?',
+        a: 'If you sell to readers in the European Union, the European Accessibility Act\'s ebook requirements apply as of June 2025. Even where it is not legally required, KDP asks about image accessibility at publication, and accessible formatting expands your potential readership.',
+      },
+      {
+        q: 'What is the difference between decorative and informative images for alt text?',
+        a: 'An informative image conveys content the reader needs — a chart, a diagram, a photo that carries meaning — and needs descriptive alt text. A decorative image is purely visual, like a chapter ornament, and should have an empty alt so screen readers skip it.',
+      },
+      {
+        q: 'Does accessible formatting affect how my book looks to sighted readers?',
+        a: 'No. Alt text, language tags, and proper heading structure are invisible to sighted readers. Keeping text as real text rather than images actually improves the experience for everyone, since it reflows and resizes correctly.',
+      },
+    ],
+    related: [
+      { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
+      { type: 'mistake', slug: 'epub-formatting-mistakes', label: '10 EPUB formatting mistakes that cause rejection' },
+      { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table' },
+      { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
+    ],
+  },
 ];
 
 export function getMistakeBySlug(slug) {

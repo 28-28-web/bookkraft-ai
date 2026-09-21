@@ -166,6 +166,262 @@ export const COVER_REQUIREMENTS = [
       { type: 'cover-requirement', slug: 'apple-books-ebook', label: 'Apple Books ebook cover requirements' },
     ],
   },
+  {
+    slug: 'kobo-ebook',
+    platform: 'Kobo',
+    metaTitle: 'Kobo Ebook Cover Requirements — Size, Format, and Color Specs',
+    metaDescription: 'Kobo ebook cover requirements: minimum 1400px on the short side, ideal 1600 × 2560px, JPEG or PNG, RGB color mode. Covers below the minimum display poorly in the Kobo store.',
+    title: 'Kobo Ebook Cover Requirements',
+    intro: '<p>Kobo accepts ebook covers through its Kobo Writing Life platform and via aggregators like Draft2Digital. Its requirements sit between KDP\'s lenient floor and Apple\'s strict validation. The most common issues are covers below the recommended resolution and images carried over from a print CMYK workflow.</p>',
+    specs: [
+      { label: 'Minimum dimensions', value: '1400px on the shortest side' },
+      { label: 'Ideal dimensions', value: '1600px wide × 2560px tall' },
+      { label: 'Aspect ratio', value: '1.6:1 (height to width)' },
+      { label: 'File formats', value: 'JPEG or PNG' },
+      { label: 'Color mode', value: 'RGB' },
+      { label: 'Maximum file size', value: '2MB recommended for store display' },
+    ],
+    details: '<p>Kobo Writing Life recommends a cover of at least 1400px on the shortest side, with 1600 × 2560px as the ideal for sharp display across Kobo e-readers and the Kobo app. Covers must be RGB — as with every ebook platform, CMYK images from a print workflow should be re-exported as RGB. Kobo displays covers at relatively small sizes in its store grid, so a keep the file well-optimized, but do not sacrifice the underlying resolution, since Kobo\'s reading apps display the cover full-screen.</p><p>Kobo accepts both JPEG and PNG. JPEG at high quality is the standard choice and produces smaller files. The same 1600 × 2560px RGB JPEG that meets KDP and Apple Books requirements will also satisfy Kobo, which makes a single well-prepared cover portable across all three stores.</p>',
+    commonMistakes: [
+      {
+        title: 'Cover carried over from a CMYK print file',
+        description: 'As with every ebook store, Kobo expects RGB. A cover extracted from a print-ready CMYK PDF can display with shifted colors or be rejected. Export a separate RGB JPEG for the ebook.',
+      },
+      {
+        title: 'Low-resolution cover below 1400px',
+        description: 'A cover under 1400px on the short side looks soft on modern Kobo devices and in the app\'s full-screen view. Work at 1600 × 2560px so the cover stays sharp everywhere it appears.',
+      },
+      {
+        title: 'Wrong aspect ratio',
+        description: 'A square or non-standard shape gets cropped or letterboxed in Kobo\'s store grid. Use the standard 1.6:1 height-to-width ratio so the cover displays as intended.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Can I use my KDP cover for Kobo?',
+        a: 'Yes. A 1600 × 2560px RGB JPEG that meets KDP\'s requirements also satisfies Kobo. A single well-prepared RGB cover works across KDP, Apple Books, and Kobo, so you rarely need a Kobo-specific export.',
+      },
+      {
+        q: 'Does Kobo accept PNG covers?',
+        a: 'Yes. Kobo accepts both JPEG and PNG in RGB color mode. JPEG is more common and produces smaller files with no visible quality loss for photographic covers.',
+      },
+      {
+        q: 'Do I upload to Kobo directly or through an aggregator?',
+        a: 'Both are possible. Kobo Writing Life is Kobo\'s direct platform, and aggregators like Draft2Digital also distribute to Kobo. The cover requirements are the same either way — a compliant RGB cover works through any route.',
+      },
+    ],
+    relatedTool: 'cover-checker',
+    related: [
+      { type: 'cover-requirement', slug: 'amazon-kdp-ebook', label: 'Amazon KDP ebook cover requirements' },
+      { type: 'cover-requirement', slug: 'apple-books-ebook', label: 'Apple Books ebook cover requirements' },
+      { type: 'cover-requirement', slug: 'google-play-ebook', label: 'Google Play Books cover requirements' },
+    ],
+  },
+  {
+    slug: 'google-play-ebook',
+    platform: 'Google Play Books',
+    metaTitle: 'Google Play Books Cover Requirements — Size, Format, and File Specs',
+    metaDescription: 'Google Play Books cover requirements: minimum 1400px on the shortest side, JPEG or PNG, RGB color mode, under 2MB recommended. Google can also generate a cover from the EPUB if none is supplied.',
+    title: 'Google Play Books Cover Requirements',
+    intro: '<p>Google Play Books accepts ebook covers as a separate upload alongside the EPUB, and also reads the cover embedded inside the file. Its requirements are close to Kobo\'s, but Google\'s content pipeline is particular about image quality and will down-rank listings with low-resolution or distorted covers in its store.</p>',
+    specs: [
+      { label: 'Minimum dimensions', value: '1400px on the shortest side' },
+      { label: 'Ideal dimensions', value: '1600px wide × 2400px tall' },
+      { label: 'Aspect ratio', value: 'Between 1.5:1 and 1.6:1 (height to width)' },
+      { label: 'File formats', value: 'JPEG or PNG' },
+      { label: 'Color mode', value: 'RGB' },
+      { label: 'Maximum file size', value: '2MB recommended' },
+    ],
+    details: '<p>Google Play Books recommends a cover at least 1400px on the shortest side, in RGB, as JPEG or PNG. Google accepts a slightly wider range of aspect ratios than Apple (roughly 1.5:1 to 1.6:1), but a standard 1600 × 2560px cover sits safely inside that range. Google\'s system re-processes cover images for its store, so a clean, high-resolution source produces the best result across the web reader, Android, and iOS apps.</p><p>If no cover image is supplied, Google Play Books can generate one from the first page of the EPUB — but an auto-generated cover is almost never what you want for a store listing. Always supply a proper cover. As with all ebook platforms, use RGB, not CMYK, and confirm the embedded EPUB cover is declared with properties="cover-image" so it displays correctly in the reader.</p>',
+    commonMistakes: [
+      {
+        title: 'Relying on Google\'s auto-generated cover',
+        description: 'If you don\'t supply a cover, Google may generate one from the EPUB\'s first page. This looks unprofessional in the store. Always upload a proper cover image.',
+      },
+      {
+        title: 'CMYK color from a print workflow',
+        description: 'Google Play Books expects RGB. A CMYK cover can display with shifted colors after Google\'s processing. Export a dedicated RGB JPEG for the ebook.',
+      },
+      {
+        title: 'Cover not declared in the EPUB manifest',
+        description: 'Even when you upload a separate cover, the embedded EPUB cover should be declared with properties="cover-image" so it renders inside the Google reader. A missing declaration shows a blank where the cover belongs.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Does Google Play Books really generate a cover if I don\'t provide one?',
+        a: 'Yes, Google can auto-generate a placeholder cover from the EPUB\'s content, but it is not designed for marketing and looks generic in the store. Always supply your own cover image for a professional listing.',
+      },
+      {
+        q: 'What aspect ratio does Google Play Books prefer?',
+        a: 'Google accepts a range from roughly 1.5:1 to 1.6:1 height-to-width. A standard 1600 × 2560px cover (1.6:1) sits inside that range and also matches KDP, Apple Books, and Kobo, so one file works everywhere.',
+      },
+      {
+        q: 'Can I use one cover for Google Play, KDP, Apple, and Kobo?',
+        a: 'Yes. A 1600 × 2560px RGB JPEG meets the requirements of all four stores. Prepare one compliant cover and it uploads cleanly across every major platform.',
+      },
+    ],
+    relatedTool: 'cover-checker',
+    related: [
+      { type: 'cover-requirement', slug: 'kobo-ebook', label: 'Kobo ebook cover requirements' },
+      { type: 'cover-requirement', slug: 'amazon-kdp-ebook', label: 'Amazon KDP ebook cover requirements' },
+      { type: 'cover-requirement', slug: 'apple-books-ebook', label: 'Apple Books ebook cover requirements' },
+    ],
+  },
+  {
+    slug: 'barnes-noble-press-ebook',
+    platform: 'Barnes & Noble Press',
+    metaTitle: 'Barnes & Noble Press (Nook) Ebook Cover Requirements — Size and Format',
+    metaDescription: 'Barnes & Noble Press ebook cover requirements for Nook: minimum 1400px on the short side, ideal 1600 × 2560px, JPEG, RGB color mode. Covers must meet the minimum to pass B&N processing.',
+    title: 'Barnes & Noble Press (Nook) Ebook Cover Requirements',
+    intro: '<p>Barnes &amp; Noble Press distributes ebooks to the Nook store and the B&N reading apps. Its cover requirements are close to KDP\'s, but B&N processes cover images for its store grid and full-screen reader, so a low-resolution or wrongly shaped cover displays poorly. The most common issues are below-minimum resolution and CMYK color.</p>',
+    specs: [
+      { label: 'Minimum dimensions', value: '1400px on the shortest side' },
+      { label: 'Ideal dimensions', value: '1600px wide × 2560px tall' },
+      { label: 'Aspect ratio', value: '1.6:1 (height to width)' },
+      { label: 'File format', value: 'JPEG' },
+      { label: 'Color mode', value: 'RGB' },
+      { label: 'Maximum file size', value: '5MB' },
+    ],
+    details: '<p>Barnes &amp; Noble Press recommends a cover of at least 1400px on the shortest side, with 1600 × 2560px as the ideal, in RGB, as a JPEG. The standard 1.6:1 height-to-width ratio applies — a square or landscape image is cropped or letterboxed in the Nook store. B&N accepts JPEG as the primary cover format; a high-quality JPEG keeps the file size reasonable while preserving detail for the full-screen view.</p><p>As with every ebook platform, the cover must be RGB, not CMYK. Authors who publish print through B&N or another service and reuse the print cover file often hit color problems. Export a separate RGB JPEG for the Nook ebook, and confirm the embedded EPUB cover carries properties="cover-image" so it renders inside the B&N reader.</p>',
+    commonMistakes: [
+      {
+        title: 'Reusing a CMYK print cover',
+        description: 'B&N ebook covers must be RGB. A CMYK file from a print workflow can display with wrong colors or fail processing. Export a dedicated RGB JPEG for the Nook edition.',
+      },
+      {
+        title: 'Cover below 1400px on the short side',
+        description: 'A low-resolution cover looks soft in the Nook full-screen reader and store grid. Work at 1600 × 2560px so the cover stays crisp everywhere B&N displays it.',
+      },
+      {
+        title: 'Non-standard aspect ratio',
+        description: 'A cover that is not 1.6:1 gets cropped or letterboxed in the B&N store. Start from a 1600 × 2560px canvas to match the required shape.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Does Barnes & Noble Press accept PNG covers?',
+        a: 'JPEG is the recommended and most reliable cover format for B&N Press. If you have a PNG, export it as a high-quality RGB JPEG at 1600 × 2560px before uploading to avoid processing issues.',
+      },
+      {
+        q: 'Can I use my KDP cover for the Nook edition?',
+        a: 'Yes. A 1600 × 2560px RGB JPEG that meets KDP\'s requirements also satisfies Barnes & Noble Press. One well-prepared RGB cover works across KDP, Nook, Kobo, and Google Play.',
+      },
+      {
+        q: 'Why does my cover look fine locally but blurry in the Nook store?',
+        a: 'B&N re-processes cover images for its store display. Starting from a below-minimum or heavily compressed file produces a soft result after processing. Upload a sharp 1600 × 2560px source to get a clean store display.',
+      },
+    ],
+    relatedTool: 'cover-checker',
+    related: [
+      { type: 'cover-requirement', slug: 'amazon-kdp-ebook', label: 'Amazon KDP ebook cover requirements' },
+      { type: 'cover-requirement', slug: 'kobo-ebook', label: 'Kobo ebook cover requirements' },
+      { type: 'cover-requirement', slug: 'google-play-ebook', label: 'Google Play Books cover requirements' },
+    ],
+  },
+  {
+    slug: 'kdp-print-cover',
+    platform: 'Amazon KDP Print',
+    metaTitle: 'Amazon KDP Print Cover Requirements — PDF, Bleed, Spine, and Color Specs',
+    metaDescription: 'KDP Print paperback and hardcover cover requirements: single full-wrap PDF, CMYK or RGB, 300 DPI, 0.125in bleed, spine width from KDP\'s calculator, and barcode placeholder area.',
+    title: 'Amazon KDP Print Cover Requirements',
+    intro: '<p>KDP Print paperback and hardcover covers are full-wrap PDF files — back cover, spine, and front in a single document — and are prepared completely differently from the ebook cover image. The most common failures are an incorrect spine width, missing bleed, and reusing the ebook cover image. KDP provides a cover template and calculator that removes most of the guesswork.</p>',
+    specs: [
+      { label: 'File format', value: 'PDF (single full-wrap document)' },
+      { label: 'Resolution', value: '300 DPI' },
+      { label: 'Color mode', value: 'CMYK or RGB (CMYK recommended for print accuracy)' },
+      { label: 'Bleed', value: '0.125in (3.175mm) on all outer edges' },
+      { label: 'Spine width', value: 'From KDP\'s cover calculator, based on page count and paper' },
+      { label: 'Spine text', value: 'Allowed only above ~100 pages, kept clear of the fold' },
+      { label: 'Barcode area', value: 'Lower right of back cover left clear for KDP\'s barcode' },
+    ],
+    details: '<p>KDP Print requires a single PDF containing the entire wrap: back cover on the left, spine in the middle, and front cover on the right. The total canvas size depends on trim size, page count, and paper type — KDP\'s Cover Calculator produces the exact dimensions and a template with the spine and bleed marked. Building on that template is the most reliable way to pass processing on the first attempt.</p><p>KDP Print is more flexible than IngramSpark about color, accepting both CMYK and RGB, though CMYK gives the most predictable printed result. Bleed of 0.125in is required on all outer edges so trimming does not leave white slivers. Leave the lower-right area of the back cover clear for KDP\'s barcode, which it adds automatically. Spine text is only allowed once the page count is high enough (around 100 pages) for a spine wide enough to hold it — thinner books must leave the spine blank.</p>',
+    commonMistakes: [
+      {
+        title: 'Reusing the ebook cover image',
+        description: 'The ebook cover is a single front-only RGB image. KDP Print needs a full-wrap PDF with back cover, spine, and front, plus bleed and a barcode area. Build the print cover separately from KDP\'s template.',
+      },
+      {
+        title: 'Incorrect spine width',
+        description: 'Spine width depends on final page count and paper type. Generating the cover before the interior is finalized produces the wrong spine. Use KDP\'s Cover Calculator with the final page count, and regenerate if the count changes.',
+      },
+      {
+        title: 'No bleed or text too close to the trim edge',
+        description: 'Without 0.125in bleed, trimming can leave white edges. Keep important text and logos inside the safe margin, away from both the trim edge and the spine folds.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Does KDP Print require CMYK like IngramSpark?',
+        a: 'No. KDP Print accepts both CMYK and RGB PDFs, which makes it more forgiving than IngramSpark\'s strict PDF/X-1a CMYK requirement. CMYK is still recommended for the most predictable printed color, but an RGB PDF will process.',
+      },
+      {
+        q: 'When can I add text to the spine?',
+        a: 'KDP allows spine text only when the book has enough pages for a spine wide enough to hold it — generally around 100 pages or more. Below that threshold the spine must be left blank, since thin spines cannot print text reliably.',
+      },
+      {
+        q: 'How do I get the right cover dimensions for my book?',
+        a: 'Use KDP\'s Cover Calculator. Enter your trim size, page count, and paper type, and it outputs the exact full-wrap dimensions plus a template with spine and bleed marked. Build your cover on that template and regenerate it if the page count changes.',
+      },
+    ],
+    relatedTool: 'cover-checker',
+    related: [
+      { type: 'cover-requirement', slug: 'ingramspark-print', label: 'IngramSpark print book cover requirements' },
+      { type: 'cover-requirement', slug: 'amazon-kdp-ebook', label: 'Amazon KDP ebook cover requirements' },
+      { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
+    ],
+  },
+  {
+    slug: 'draft2digital-ebook',
+    platform: 'Draft2Digital',
+    metaTitle: 'Draft2Digital Ebook Cover Requirements — Size, Format, and Distribution Specs',
+    metaDescription: 'Draft2Digital ebook cover requirements: minimum 1400px on the short side, ideal 1600 × 2560px, JPEG or PNG, RGB. One compliant cover distributes to Apple, Kobo, B&N, and more.',
+    title: 'Draft2Digital Ebook Cover Requirements',
+    intro: '<p>Draft2Digital is an aggregator: you upload one file and it distributes to Apple Books, Kobo, Barnes &amp; Noble, and many other stores. Because your cover flows through to every one of those retailers, it has to meet the strictest requirement in the chain — effectively Apple Books\' standard. Getting the D2D cover right means it passes everywhere D2D sends it.</p>',
+    specs: [
+      { label: 'Minimum dimensions', value: '1400px on the shortest side' },
+      { label: 'Ideal dimensions', value: '1600px wide × 2560px tall' },
+      { label: 'Aspect ratio', value: '1.6:1 (height to width)' },
+      { label: 'File formats', value: 'JPEG or PNG' },
+      { label: 'Color mode', value: 'RGB with sRGB profile' },
+      { label: 'Maximum file size', value: '5MB' },
+    ],
+    details: '<p>Draft2Digital recommends a cover of at least 1400px on the shortest side, with 1600 × 2560px ideal, in RGB. Because D2D forwards your cover to Apple Books — the strictest validator — prepare the cover to Apple\'s standard: RGB with an embedded sRGB profile, at least 1400 × 2100px, no CMYK. A cover that would pass Apple Books directly will pass through D2D to every store in its network.</p><p>D2D accepts JPEG and PNG. A high-quality sRGB JPEG at 1600 × 2560px is the safest single file. Since the same cover reaches Apple, Kobo, B&N, and others, there is no benefit to targeting D2D\'s minimum — build to the ideal so the cover looks sharp on every store\'s full-screen reader.</p>',
+    commonMistakes: [
+      {
+        title: 'Building to D2D\'s minimum instead of Apple\'s standard',
+        description: 'D2D forwards covers to Apple Books, which is stricter. A cover that just meets D2D\'s floor can still be rejected downstream by Apple. Prepare to Apple\'s standard: sRGB, at least 1400 × 2100px, no CMYK.',
+      },
+      {
+        title: 'CMYK color mode',
+        description: 'Every store in D2D\'s network expects RGB. A CMYK cover fails or displays with shifted colors. Export a dedicated RGB/sRGB file for distribution.',
+      },
+      {
+        title: 'Missing sRGB profile',
+        description: 'Saving as RGB is not the same as embedding sRGB. Apple validates the profile at the byte level, so export explicitly with sRGB IEC 61966-2.1 to avoid a downstream rejection.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Why should I build my D2D cover to Apple Books\' standard?',
+        a: 'Draft2Digital distributes your cover to Apple Books among other stores, and Apple runs the strictest validation. If the cover meets Apple\'s requirements — sRGB, minimum 1400 × 2100px, no CMYK — it will pass through D2D to every retailer in the network.',
+      },
+      {
+        q: 'Can one cover serve D2D and a direct KDP upload?',
+        a: 'Yes. A 1600 × 2560px sRGB JPEG meets both Draft2Digital\'s distribution requirements and KDP\'s direct requirements. Prepare one compliant cover and use it for D2D distribution and your direct Amazon upload.',
+      },
+      {
+        q: 'Does Draft2Digital accept PNG covers?',
+        a: 'Yes, D2D accepts JPEG and PNG in RGB. A high-quality sRGB JPEG is the most portable choice since it satisfies every store in the network with a smaller file size.',
+      },
+    ],
+    relatedTool: 'cover-checker',
+    related: [
+      { type: 'cover-requirement', slug: 'apple-books-ebook', label: 'Apple Books ebook cover requirements' },
+      { type: 'cover-requirement', slug: 'kobo-ebook', label: 'Kobo ebook cover requirements' },
+      { type: 'cover-requirement', slug: 'barnes-noble-press-ebook', label: 'Barnes & Noble Press ebook cover requirements' },
+    ],
+  },
 ];
 
 export function getCoverRequirementBySlug(slug) {
