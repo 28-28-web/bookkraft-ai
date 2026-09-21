@@ -1,21 +1,12 @@
 import './globals.css';
 import Script from 'next/script';
-import dynamic from 'next/dynamic';
 import { Playfair_Display, DM_Sans, JetBrains_Mono, IBM_Plex_Mono } from 'next/font/google';
 import Navbar from '../components/Navbar';
 import { AuthProvider } from '../components/AuthProvider';
 import { ProjectProvider } from '../lib/ProjectContext';
 import { ToastProvider } from '../components/Toast';
 import CookieBanner from '../components/CookieBanner';
-
-const ChatAssistant = dynamic(() => import('../components/ChatAssistant'), {
-  ssr: false,
-  loading: () => null,
-});
-const NewsletterPopup = dynamic(() => import('../components/NewsletterPopup'), {
-  ssr: false,
-  loading: () => null,
-});
+import DynamicComponents from '../components/DynamicComponents';
 import { TOOLS } from '../lib/tools';
 import { FREE_TOOLS } from '../lib/constants';
 
@@ -180,8 +171,7 @@ export default function RootLayout({ children }) {
             <ToastProvider>
               <Navbar />
               {children}
-              <ChatAssistant />
-              <NewsletterPopup />
+              <DynamicComponents />
               <CookieBanner />
             </ToastProvider>
           </ProjectProvider>
