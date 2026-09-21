@@ -218,28 +218,55 @@ function EpubFaqSection({ epubFaqs }) {
 
 function BookPromoSection() {
   return (
-    <section className="bk-promo-section" aria-label="New book announcement">
-      <div className="bk-promo-card">
-        <Image
-          src="/images/blog/why-book-got-rejected-cover.png"
-          alt="Why Your Book Got Rejected — book cover"
-          width={120}
-          height={190}
-          className="bk-promo-cover"
-          priority
-          style={{ width: 'auto' }}
-        />
-        <div className="bk-promo-body">
-          {/* TEMP: disabled during KDP Select term (Sep 7 – Dec 5 2026), re-enable after Dec 5 2026 */}
-          <a href="https://www.amazon.com/dp/B0HJ11BGQV" target="_blank" rel="noopener noreferrer" className="bk-promo-badge" style={{ textDecoration: 'none' }}>Available on Amazon ↗</a>
-          <h2 className="bk-promo-title">Why Your Book Got Rejected</h2>
-          <p className="bk-promo-subtitle">The EPUB &amp; KDP Formatting Guide for 2026</p>
-          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 4 }}>
-            <a href="/blog/why-your-book-got-rejected" className="bk-promo-cta">Read the blog post →</a>
-            <a href="https://www.amazon.com/dp/B0HJ11BGQV" target="_blank" rel="noopener noreferrer"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.18)', color: '#fff', fontWeight: 700, fontSize: 14, padding: '11px 20px', borderRadius: 8, textDecoration: 'none' }}>
-              Buy on Amazon →
-            </a>
+    <section className="bk-promo-section" aria-label="Books by BookKraft AI">
+      <div className="bk-promo-grid">
+        {/* Card 1: Why Your Book Got Rejected (amber/gold) */}
+        <div className="bk-promo-card bk-promo-card--amber">
+          <Image
+            src="/images/blog/why-book-got-rejected-cover.png"
+            alt="Why Your Book Got Rejected — book cover"
+            width={120}
+            height={190}
+            className="bk-promo-cover"
+            priority
+            style={{ width: 'auto' }}
+          />
+          <div className="bk-promo-body">
+            {/* TEMP: disabled during KDP Select term (Sep 7 – Dec 5 2026), re-enable after Dec 5 2026 */}
+            <a href="https://www.amazon.com/dp/B0HJ11BGQV" target="_blank" rel="noopener noreferrer" className="bk-promo-badge" style={{ textDecoration: 'none' }}>Available on Amazon ↗</a>
+            <h2 className="bk-promo-title">Why Your Book Got Rejected</h2>
+            <p className="bk-promo-subtitle">The EPUB &amp; KDP Formatting Guide for 2026</p>
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 4 }}>
+              <a href="/blog/why-your-book-got-rejected" className="bk-promo-cta bk-promo-cta--amber">Read the blog post →</a>
+              <a href="https://www.amazon.com/dp/B0HJ11BGQV" target="_blank" rel="noopener noreferrer" className="bk-promo-cta-ghost">
+                Buy on Amazon →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Card 2: One Page, One Fix (navy) */}
+        <div className="bk-promo-card bk-promo-card--navy">
+          <Image
+            src="/blog/one-page-one-fix-mockup.png"
+            alt="One Page, One Fix — Kindle Formatting Handbook cover"
+            width={120}
+            height={190}
+            className="bk-promo-cover"
+            style={{ width: 'auto' }}
+          />
+          <div className="bk-promo-body">
+            <div className="bk-promo-offer">🎁 Buy this book → Get BookKraft AI Starter FREE ($19 value)</div>
+            <h2 className="bk-promo-title">One Page, One Fix</h2>
+            <p className="bk-promo-subtitle">100 Visual Fixes for EPUB, KDP &amp; Beyond</p>
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 4 }}>
+              <a href="https://www.amazon.com/dp/B0HJYTR6D" target="_blank" rel="noopener noreferrer" className="bk-promo-cta bk-promo-cta--navy">
+                Buy on Amazon →
+              </a>
+              <a href="/pricing" className="bk-promo-cta-ghost">
+                Claim Free Starter →
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -314,17 +341,27 @@ export default function LandingPage({ faqs, epubFaqs }) {
 
         /* Book Promo Section */
         .bk-promo-section { background: var(--white); border-bottom: 1px solid var(--border); padding: 40px 24px; }
-        .bk-promo-card { max-width: 860px; margin: 0 auto; background: linear-gradient(135deg, #c8870a 0%, #e8a020 40%, #d4900e 100%); border-radius: 22px; box-shadow: 0 8px 40px rgba(180,110,8,0.38), 0 2px 8px rgba(0,0,0,0.12); display: flex; align-items: center; gap: 32px; padding: 32px 40px; }
-        .bk-promo-cover { height: 190px; width: auto; border-radius: 6px; object-fit: cover; flex-shrink: 0; transform: rotate(-2.5deg); box-shadow: 0 12px 36px rgba(0,0,0,0.40), 0 3px 8px rgba(0,0,0,0.20); }
+        .bk-promo-grid { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .bk-promo-card { border-radius: 22px; display: flex; align-items: center; gap: 28px; padding: 28px 32px; }
+        .bk-promo-card--amber { background: linear-gradient(135deg, #c8870a 0%, #e8a020 40%, #d4900e 100%); box-shadow: 0 8px 40px rgba(180,110,8,0.38), 0 2px 8px rgba(0,0,0,0.12); }
+        .bk-promo-card--navy { background: linear-gradient(135deg, #1a2744 0%, #243358 40%, #1e2d4f 100%); box-shadow: 0 8px 40px rgba(20,40,90,0.45), 0 2px 8px rgba(0,0,0,0.18); }
+        .bk-promo-cover { height: 170px; width: auto; border-radius: 6px; object-fit: cover; flex-shrink: 0; transform: rotate(-2.5deg); box-shadow: 0 12px 36px rgba(0,0,0,0.40), 0 3px 8px rgba(0,0,0,0.20); }
         .bk-promo-body { flex: 1; min-width: 0; }
         .bk-promo-badge { display: inline-block; font-size: 10.5px; font-weight: 800; letter-spacing: 0.11em; text-transform: uppercase; color: #7a4a00; background: rgba(255,255,255,0.92); border-radius: 100px; padding: 4px 13px; margin-bottom: 12px; }
-        .bk-promo-title { font-family: var(--font-fraunces), Fraunces, serif; font-weight: 700; font-size: clamp(19px, 2.4vw, 25px); color: #fff; line-height: 1.2; margin: 0 0 6px; text-shadow: 0 1px 3px rgba(0,0,0,0.18); }
-        .bk-promo-subtitle { font-size: 14px; color: rgba(255,255,255,0.82); margin: 0 0 20px; line-height: 1.5; }
-        .bk-promo-cta { display: inline-flex; align-items: center; gap: 6px; background: #fff; color: #8a5500; font-weight: 800; font-size: 14px; padding: 11px 22px; border-radius: 8px; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 2px 10px rgba(0,0,0,0.18); }
+        .bk-promo-offer { font-size: 12.5px; font-weight: 700; color: #d4f7d0; background: rgba(80,200,90,0.18); border: 1px solid rgba(100,220,100,0.3); border-radius: 8px; padding: 9px 13px; margin-bottom: 14px; line-height: 1.4; }
+        .bk-promo-title { font-family: var(--font-fraunces), Fraunces, serif; font-weight: 700; font-size: clamp(17px, 1.8vw, 22px); color: #fff; line-height: 1.2; margin: 0 0 6px; text-shadow: 0 1px 3px rgba(0,0,0,0.18); }
+        .bk-promo-subtitle { font-size: 13px; color: rgba(255,255,255,0.82); margin: 0 0 16px; line-height: 1.5; }
+        .bk-promo-cta { display: inline-flex; align-items: center; gap: 6px; font-weight: 800; font-size: 14px; padding: 11px 22px; border-radius: 8px; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 2px 10px rgba(0,0,0,0.18); }
+        .bk-promo-cta--amber { background: #fff; color: #8a5500; }
+        .bk-promo-cta--navy { background: #fff; color: #1a2744; }
         .bk-promo-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.22); }
+        .bk-promo-cta-ghost { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.88); font-weight: 700; font-size: 14px; padding: 11px 18px; border-radius: 8px; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); }
+        @media (max-width: 860px) {
+          .bk-promo-grid { grid-template-columns: 1fr; }
+        }
         @media (max-width: 580px) {
-          .bk-promo-card { flex-direction: column; align-items: flex-start; gap: 20px; padding: 24px 22px; }
-          .bk-promo-cover { height: 140px; transform: rotate(-2deg); }
+          .bk-promo-card { flex-direction: column; align-items: flex-start; gap: 18px; padding: 22px 20px; }
+          .bk-promo-cover { height: 130px; transform: rotate(-2deg); }
         }
       `}</style>
 
