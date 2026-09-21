@@ -154,6 +154,36 @@ const TOOL_GROUPS = [
   },
 ];
 
+const RESOURCE_HUBS = [
+  { href: '/epub-errors', name: 'EPUB Errors', desc: 'Plain-English fixes for EPUBCheck, KDP, and Apple Books validation errors.' },
+  { href: '/platform-rejection', name: 'Platform Rejections', desc: 'Why KDP, Apple Books, Kobo, and IngramSpark reject ebooks — and how to fix it.' },
+  { href: '/alternatives', name: 'Alternatives', desc: 'How BookKraft compares to Vellum, Atticus, Calibre, and other formatting tools.' },
+  { href: '/checklist', name: 'Publishing Checklists', desc: 'Step-by-step pre-upload checklists for a clean submission on every store.' },
+  { href: '/cover-requirements', name: 'Cover Requirements', desc: 'Exact dimensions, color mode, and file specs for each publishing platform.' },
+  { href: '/kdp-keyword-guide', name: 'KDP Keyword Guide', desc: 'Amazon keyword research and category strategy to help your book get found.' },
+];
+
+function GuidesResourcesSection() {
+  return (
+    <section className="bk-tools-section" aria-labelledby="guidesHeading">
+      <div className="bk-tools-inner">
+        <p className="bk-tools-eyebrow">Guides &amp; resources</p>
+        <h2 className="bk-tools-h2" id="guidesHeading">Free EPUB &amp; KDP publishing guides</h2>
+        <div className="bk-tools-grid">
+          {RESOURCE_HUBS.map(({ href, name, desc }) => (
+            <a key={href} href={href} className="bk-tool-link">
+              <div className="bk-tool-card">
+                <span className="bk-tool-name">{name}</span>
+                <span className="bk-tool-desc">{desc}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ToolsDirectorySection() {
   return (
     <section className="bk-tools-section">
@@ -368,6 +398,7 @@ export default function LandingPage({ faqs, epubFaqs }) {
       <BookPromoSection />
       <HowItWorksSection />
       <ToolsDirectorySection />
+      <GuidesResourcesSection />
       <ProcessDiagramSection />
       <ScorecardSection />
       <TickerSection />

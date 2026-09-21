@@ -26,6 +26,15 @@ export default function Footer() {
                         <Link href="/tools" className="footer-link">Paid Tools</Link>
                     </div>
                     <div>
+                        <p className="footer-col-title">Resources</p>
+                        <Link href="/epub-errors" className="footer-link">EPUB Errors</Link>
+                        <Link href="/platform-rejection" className="footer-link">Platform Rejections</Link>
+                        <Link href="/alternatives" className="footer-link">Alternatives</Link>
+                        <Link href="/checklist" className="footer-link">Publishing Checklists</Link>
+                        <Link href="/cover-requirements" className="footer-link">Cover Requirements</Link>
+                        <Link href="/kdp-keyword-guide" className="footer-link">KDP Keyword Guide</Link>
+                    </div>
+                    <div>
                         <p className="footer-col-title">Company</p>
                         <Link href="/pricing" className="footer-link">Pricing</Link>
                         <a href="https://blog.bookkraftai.com" className="footer-link" target="_blank" rel="noopener noreferrer">Blog</a>
