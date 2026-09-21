@@ -159,7 +159,7 @@ function ToolsDirectorySection() {
     <section className="bk-tools-section">
       <div className="bk-tools-inner">
         <p className="bk-tools-eyebrow">All tools</p>
-        <h2 className="bk-tools-h2">16 tools for every stage of indie publishing</h2>
+        <h2 className="bk-tools-h2">EPUB Validator for KDP, Kindle Format Fixer &amp; More</h2>
 
         {TOOL_GROUPS.map(({ label, labelColor, tools }) => (
           <div key={label} className="bk-group" style={{ '--group-color': labelColor }}>
@@ -195,7 +195,7 @@ function EpubFaqSection({ epubFaqs }) {
     <section className="bk-efaq-section">
       <div className="bk-efaq-inner">
         <p className="bk-efaq-eyebrow">EPUB &amp; KDP questions</p>
-        <h2 className="bk-efaq-h2">Common questions from indie authors</h2>
+        <h2 className="bk-efaq-h2">EPUB Validator &amp; Kindle Formatting — Common Questions</h2>
         <ul className="bk-efaq-list">
           {epubFaqs.map(({ q, a }) => (
             <li key={q} className="bk-efaq-item">

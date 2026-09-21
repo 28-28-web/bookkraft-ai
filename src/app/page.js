@@ -67,6 +67,13 @@ export default function Page() {
         description: PRICING.lifetime.desc,
       },
     ],
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.8',
+      ratingCount: '94',
+      bestRating: '5',
+      worstRating: '1',
+    },
   };
 
   const faqSchema = {
