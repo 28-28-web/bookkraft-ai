@@ -12,11 +12,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { n } = await params;
     const block = blocksData.find(b => b.id === Number(n));
-    if (!block) return {};
+    if (!block) return { robots: { index: false } };
     return {
         title: `${block.title} — BookKraft AI`,
         description: block.social,
         alternates: { canonical: `https://bookkraftai.com/b/${n}` },
+        robots: { index: false },
         openGraph: {
             title: `${block.title} — BookKraft AI`,
             description: block.social,

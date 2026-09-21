@@ -163,6 +163,12 @@ export default async function sitemap() {
       changeFrequency: 'yearly',
       priority: 0.3,
     },
+    {
+      url: `${BASE}/affiliate-terms`,
+      lastModified: new Date('2026-08-01'),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
     ...toolPages,
     {
       url: `${BASE}/tools/epub-validator-premium`,
@@ -185,6 +191,12 @@ export default async function sitemap() {
     {
       url: `${BASE}/epub-formatting-guide`,
       lastModified: new Date('2026-08-09'),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${BASE}/kdp-formatting-guide`,
+      lastModified: CONTENT_DATE,
       changeFrequency: 'monthly',
       priority: 0.9,
     },
