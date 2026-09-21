@@ -1,13 +1,21 @@
 import './globals.css';
 import Script from 'next/script';
+import dynamic from 'next/dynamic';
 import { Playfair_Display, DM_Sans, JetBrains_Mono, IBM_Plex_Mono } from 'next/font/google';
 import Navbar from '../components/Navbar';
 import { AuthProvider } from '../components/AuthProvider';
 import { ProjectProvider } from '../lib/ProjectContext';
 import { ToastProvider } from '../components/Toast';
-import ChatAssistant from '../components/ChatAssistant';
-import NewsletterPopup from '../components/NewsletterPopup';
 import CookieBanner from '../components/CookieBanner';
+
+const ChatAssistant = dynamic(() => import('../components/ChatAssistant'), {
+  ssr: false,
+  loading: () => null,
+});
+const NewsletterPopup = dynamic(() => import('../components/NewsletterPopup'), {
+  ssr: false,
+  loading: () => null,
+});
 import { TOOLS } from '../lib/tools';
 import { FREE_TOOLS } from '../lib/constants';
 
