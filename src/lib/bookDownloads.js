@@ -25,21 +25,6 @@ export const REJECTED_BOOK = {
     },
 };
 
-// null = no access | 'locked' = paid/promo but 3-month wait not done | 'full' = serve file
-export function rejectedBookAccessFor(profile, userCreatedAt) {
-    if (!profile) return null;
-    if (profile.is_lifetime) return 'full';
-    const hasBundle = profile.has_logic_bundle || profile.has_full_access;
-    const hasPromo = profile.promo_bundle_expires_at
-        && new Date(profile.promo_bundle_expires_at) > new Date();
-    if (hasBundle || hasPromo) {
-        const unlock = new Date(userCreatedAt);
-        unlock.setMonth(unlock.getMonth() + 3);
-        return new Date() >= unlock ? 'full' : 'locked';
-    }
-    return null;
-}
-
 export function rejectedBookUnlockDate(userCreatedAt) {
     const d = new Date(userCreatedAt);
     d.setMonth(d.getMonth() + 3);
