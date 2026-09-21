@@ -4811,3 +4811,57 @@ body.cookie-consent-pending > div > iframe[style*="position:fixed"] {
   padding: 11px 24px;
   border-radius: 8px;
 }
+
+/* ── Promo announcement bar (homepage, above navbar) ─────────────────────── */
+:root { --promo-bar-h: 44px; }
+.promo-bar {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  min-height: var(--promo-bar-h);
+  background: #f59e0b;
+  color: #1a1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 6px 44px;
+  text-align: center;
+}
+.promo-bar-text {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.promo-bar-text strong { font-weight: 800; }
+.promo-bar-cta {
+  color: #1a1200;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  white-space: nowrap;
+}
+.promo-bar-close {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #1a1200;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.65;
+  padding: 6px;
+}
+.promo-bar-close:hover { opacity: 1; }
+/* Offset the sticky navbar below the bar while it is present. Higher
+   specificity than the .navbar { top: 0 !important } rules above. */
+body.has-promo-bar .navbar { top: var(--promo-bar-h) !important; }
+@media (max-width: 600px) {
+  :root { --promo-bar-h: 58px; }
+  .promo-bar { padding: 6px 38px; }
+  .promo-bar-text { font-size: 12px; }
+}

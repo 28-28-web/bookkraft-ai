@@ -13,19 +13,38 @@ export default function NewsletterPopup({ triggerType = 'default' }) {
         const dismissedAt = localStorage.getItem('bk_newsletter_dismissed_at');
         if (dismissedAt && Date.now() - Number(dismissedAt) < 14 * 24 * 60 * 60 * 1000) return;
         if (triggerType === 'manual') return;
+
+        const MIN_ON_PAGE_MS = 30000; // don't show in the first 30s
+        const startedAt = Date.now();
         let shown = false;
-        const show = () => {
+
+        function cleanup() {
+            document.removeEventListener('mouseout', handleMouseOut);
+            window.removeEventListener('scroll', handleScroll);
+        }
+        const trigger = () => {
             if (shown) return;
+            if (Date.now() - startedAt < MIN_ON_PAGE_MS) return;
             shown = true;
             setShow(true);
+            cleanup();
         };
-        const timer = setTimeout(show, 45000);
-        function handleScroll() {
-            const scrollPct = (window.scrollY + window.innerHeight) / document.body.scrollHeight;
-            if (scrollPct > 0.75) { show(); window.removeEventListener('scroll', handleScroll); }
+
+        // Desktop exit-intent: cursor leaves the viewport through the top edge.
+        function handleMouseOut(e) {
+            if (e.clientY <= 0 && !e.relatedTarget) trigger();
         }
+        // Mobile exit-intent proxy: a decisive scroll back up toward the top.
+        let lastY = window.scrollY;
+        function handleScroll() {
+            const y = window.scrollY;
+            if (y < lastY - 50) trigger();
+            lastY = y;
+        }
+
+        document.addEventListener('mouseout', handleMouseOut);
         window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => { clearTimeout(timer); window.removeEventListener('scroll', handleScroll); };
+        return cleanup;
     }, [triggerType]);
 
     useEffect(() => {
@@ -110,9 +129,9 @@ export default function NewsletterPopup({ triggerType = 'default' }) {
                         <h3 style={{
                             fontFamily: 'Georgia, serif', fontSize: '24px', fontWeight: 700,
                             color: '#F7F3EC', marginBottom: '8px', lineHeight: 1.3,
-                        }}>Get the Free 47-Point Kindle Formatting Checklist</h3>
+                        }}>Get 1 free formatting fix every week — straight to your inbox.</h3>
                         <p style={{ color: 'rgba(247,243,236,0.6)', marginBottom: '24px', fontSize: '14px' }}>
-                            Join 3,000+ authors. Straight to your inbox.
+                            Join 500+ indie authors. Unsubscribe anytime.
                         </p>
                         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                             <input
@@ -136,7 +155,7 @@ export default function NewsletterPopup({ triggerType = 'default' }) {
                                     fontSize: '14px', cursor: 'pointer', width: '100%',
                                 }}
                             >
-                                {status === 'loading' ? 'Sending...' : 'Send Me the Checklist →'}
+                                {status === 'loading' ? 'Sending...' : 'Send me the fixes →'}
                             </button>
                         </form>
                         {status === 'error' && (

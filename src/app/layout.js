@@ -2,6 +2,7 @@ import './globals.css';
 import Script from 'next/script';
 import { Playfair_Display, DM_Sans, JetBrains_Mono, IBM_Plex_Mono } from 'next/font/google';
 import Navbar from '../components/Navbar';
+import AnnouncementBar from '../components/AnnouncementBar';
 import { AuthProvider } from '../components/AuthProvider';
 import { ProjectProvider } from '../lib/ProjectContext';
 import { ToastProvider } from '../components/Toast';
@@ -169,6 +170,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <ProjectProvider>
             <ToastProvider>
+              <AnnouncementBar />
               <Navbar />
               {children}
               <DynamicComponents />
