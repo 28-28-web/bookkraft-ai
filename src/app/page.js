@@ -1,3 +1,4 @@
+import React from 'react';
 import HeroSection from '../components/HeroSection';
 import LandingPage from './landingpage';
 import { PRICING, FREE_TOOLS, HOME_FAQS, EPUB_KDP_FAQS } from '../lib/constants';
