@@ -79,10 +79,10 @@ export default function EpubValidator() {
                     checks.push({ name: 'Mimetype', status: 'pass', detail: 'Valid mimetype present.' });
                     passCount++;
                 } else {
-                    checks.push({ name: 'Mimetype', status: 'fail', detail: "KDP can't read your file type. Your EPUB is corrupted or was exported incorrectly.", fixLink: '/tools/kindle-format-fixer', fixTool: 'Kindle Format Fixer' });
+                    checks.push({ name: 'Mimetype', status: 'fail', detail: "KDP can't read your file type. Your EPUB is corrupted or was exported incorrectly.", fixLink: '/epub-errors/invalid-mimetype', fixTool: 'Fix Guide' });
                 }
             } else {
-                checks.push({ name: 'Mimetype', status: 'fail', detail: "KDP can't read your file type. Your EPUB is corrupted or was exported with wrong settings.", fixLink: '/tools/kindle-format-fixer', fixTool: 'Kindle Format Fixer' });
+                checks.push({ name: 'Mimetype', status: 'fail', detail: "KDP can't read your file type. Your EPUB is corrupted or was exported with wrong settings.", fixLink: '/epub-errors/invalid-mimetype', fixTool: 'Fix Guide' });
             }
 
             const container = zip.file('META-INF/container.xml');
@@ -119,7 +119,14 @@ export default function EpubValidator() {
                     if (!hasTitle) missing.push('title');
                     if (!hasLang) missing.push('language');
                     if (!hasId) missing.push('identifier');
-                    checks.push({ name: 'Required Metadata', status: 'fail', detail: `Missing ${missing.join(', ')} — KDP will reject uploads without complete metadata.`, fixLink: '/tools/metadata-builder', fixTool: 'Metadata Builder' });
+                    // Point at the specific error guide for the missing field;
+                    // identifier takes priority (highest search intent), then
+                    // language. Title-only falls back to the Metadata Builder tool.
+                    let metaFixLink = '/tools/metadata-builder';
+                    let metaFixTool = 'Metadata Builder';
+                    if (!hasId) { metaFixLink = '/epub-errors/unique-identifier-not-found'; metaFixTool = 'Fix Guide'; }
+                    else if (!hasLang) { metaFixLink = '/epub-errors/missing-language-declaration'; metaFixTool = 'Fix Guide'; }
+                    checks.push({ name: 'Required Metadata', status: 'fail', detail: `Missing ${missing.join(', ')} — KDP will reject uploads without complete metadata.`, fixLink: metaFixLink, fixTool: metaFixTool });
                 }
             } else {
                 checks.push({ name: 'Required Metadata', status: 'skip', detail: 'Skipped — OPF not found' });
@@ -152,7 +159,7 @@ export default function EpubValidator() {
                     checks.push({ name: 'Manifest Files', status: 'pass', detail: `All ${hrefMatches.length} manifest items found.` });
                     passCount++;
                 } else {
-                    checks.push({ name: 'Manifest Files', status: 'warn', detail: `${missing} files referenced in your EPUB are missing. This causes blank pages or broken images on Kindle.`, fixLink: '/tools/kindle-format-fixer', fixTool: 'Kindle Format Fixer' });
+                    checks.push({ name: 'Manifest Files', status: 'warn', detail: `${missing} files referenced in your EPUB are missing. This causes blank pages or broken images on Kindle.`, fixLink: '/epub-errors/missing-manifest-resource', fixTool: 'Fix Guide' });
                 }
             }
 
@@ -206,7 +213,7 @@ export default function EpubValidator() {
                     checks.push({ name: 'Navigation', status: 'pass', detail: `${hasNav ? 'EPUB3 nav' : ''}${hasNav && hasNcx ? ' + ' : ''}${hasNcx ? 'NCX' : ''} found.` });
                     passCount++;
                 } else {
-                    checks.push({ name: 'Navigation', status: 'warn', detail: "No table of contents found — readers can't jump between chapters on Kindle.", fixLink: '/tools/toc-generator', fixTool: 'TOC Generator' });
+                    checks.push({ name: 'Navigation', status: 'warn', detail: "No table of contents found — readers can't jump between chapters on Kindle.", fixLink: '/epub-errors/missing-nav-document', fixTool: 'Fix Guide' });
                 }
             }
 
@@ -216,7 +223,7 @@ export default function EpubValidator() {
                     checks.push({ name: 'Cover Image', status: 'pass', detail: 'Cover image referenced in metadata.' });
                     passCount++;
                 } else {
-                    checks.push({ name: 'Cover Image', status: 'warn', detail: 'No cover image detected — some stores require this for listing.' });
+                    checks.push({ name: 'Cover Image', status: 'warn', detail: 'No cover image detected — some stores require this for listing.', fixLink: '/epub-errors/cover-image-not-declared', fixTool: 'Fix Guide' });
                 }
             }
 
