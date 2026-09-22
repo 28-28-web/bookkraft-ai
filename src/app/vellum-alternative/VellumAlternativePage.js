@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: 'Does BookKraft AI produce the same output quality as Vellum?',
-    a: 'They do different jobs. BookKraft AI generates valid EPUB 3.0 files and Kindle-ready formatting that pass KDP, Apple Books, and Kobo validation — discrete tools (formatter, validator, TOC generator) rather than one all-in-one visual editor. Vellum handles the visual theme-based design layer that BookKraft AI doesn\'t attempt.',
+    a: 'They do different jobs. BookKraft AI generates valid EPUB 3 files and Kindle-ready formatting that pass KDP, Apple Books, and Kobo validation — discrete tools (formatter, validator, TOC generator) rather than one all-in-one visual editor. Vellum handles the visual theme-based design layer that BookKraft AI doesn\'t attempt.',
   },
   {
     q: 'Can I format a print book with BookKraft AI?',
@@ -82,7 +82,7 @@ export default function VellumAlternativePage() {
             <tbody>
               {[
                 ['Platform', 'Mac only', 'Any browser (Win / Linux / Chromebook)'],
-                ['EPUB 3.0 output', '✓', '✓'],
+                ['EPUB 3 output', '✓', '✓'],
                 ['Visual design themes', '30+ themes', '—'],
                 ['Print PDF output', '✓', '—'],
                 ['EPUB Validator', '—', '✓ Free'],

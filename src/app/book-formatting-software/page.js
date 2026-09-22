@@ -3,7 +3,7 @@ import BookFormattingSoftwarePage from './BookFormattingSoftwarePage';
 const faqs = [
   {
     q: 'What is the best book formatting software?',
-    a: "Depends on your platform and what you're formatting. Vellum produces the best-looking ebooks and print files but is Mac-only and costs $249.99. Atticus works on any browser, handles both ebook and print, and costs $147. Reedsy Book Editor is free but browser-only with limited export options. BookKraft AI is free for pre-flight work — manuscript cleanup, EPUB validation, metadata, and conversion — and runs on any platform. Most authors use two tools: one for formatting design (Vellum or Atticus) and one for validation and pre-flight (BookKraft AI).",
+    a: "Depends on your platform and what you're formatting. Vellum produces the best-looking ebooks and print files but is Mac-only and costs $199.99 for ebooks, or $249.99 for the Press edition with print. Atticus works on any browser, handles both ebook and print, and costs $147. Reedsy Book Editor is free but browser-only with limited export options. BookKraft AI is free for pre-flight work — manuscript cleanup, EPUB validation, metadata, and conversion — and runs on any platform. Most authors use two tools: one for formatting design (Vellum or Atticus) and one for validation and pre-flight (BookKraft AI).",
   },
   {
     q: 'Is Vellum worth it for Windows users?',

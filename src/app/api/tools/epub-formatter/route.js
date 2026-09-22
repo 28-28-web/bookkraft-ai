@@ -384,6 +384,7 @@ ${ncxNavPoints}
     <dc:creator>${escapeXml(author)}</dc:creator>
     <dc:language>${langCode}</dc:language>
     <dc:identifier id="bookid">${bookId}</dc:identifier>
+    <meta property="dcterms:modified">${new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')}</meta>
   </metadata>
   <manifest>
     <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>

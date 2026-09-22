@@ -49,7 +49,7 @@ export default function ManuscriptModeClient() {
                     </h2>
                     <p style={{ color: '#555', fontSize: 15, lineHeight: 1.6, marginBottom: 24, maxWidth: 400, margin: '0 auto 24px' }}>
                         Full Manuscript Mode is free with a BookKraft AI account.
-                        Upload your .docx or .txt and get a valid EPUB 3.0 in one step.
+                        Upload your .docx or .txt and get a valid EPUB 3 in one step.
                     </p>
                     <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
                         <a

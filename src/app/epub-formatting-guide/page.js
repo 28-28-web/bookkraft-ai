@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export const metadata = {
   title: 'EPUB Formatting Guide for Self-Publishers — BookKraft AI',
-  description: 'Complete EPUB formatting guide: manuscript cleanup, TOC, front matter, EPUB 3.0 generation, validation, and metadata for KDP, Apple Books, and IngramSpark.',
+  description: 'Complete EPUB formatting guide: manuscript cleanup, TOC, front matter, EPUB 3 generation, validation, and metadata for KDP, Apple Books, and IngramSpark.',
   alternates: {
     canonical: 'https://bookkraftai.com/epub-formatting-guide',
   },
@@ -10,12 +10,12 @@ export const metadata = {
 
 const faqs = [
   {
-    q: 'What is EPUB 3.0 and why does it matter for self-publishing?',
-    a: 'EPUB 3.0 is the current international standard for ebook files. Apple Books requires EPUB 3; KDP accepts both EPUB 2 and EPUB 3 but converts your file internally anyway. Building EPUB 3.0 from the start satisfies every major store and avoids compatibility issues that cause silent quality flags after upload.',
+    q: 'What is EPUB 3 and why does it matter for self-publishing?',
+    a: 'EPUB 3 is the current international standard for ebook files. Apple Books requires EPUB 3; KDP accepts both EPUB 2 and EPUB 3 but converts your file internally anyway. Building EPUB 3 from the start satisfies every major store and avoids compatibility issues that cause silent quality flags after upload.',
   },
   {
     q: 'Do I need to know coding to format an EPUB?',
-    a: 'No. EPUB files are ZIP archives containing HTML and CSS, but you do not need to write any code yourself. The tools on this page generate valid EPUB 3.0 files, clickable tables of contents, and EPUB-safe CSS from plain text or manuscript files — no coding or command-line access required.',
+    a: 'No. EPUB files are ZIP archives containing HTML and CSS, but you do not need to write any code yourself. The tools on this page generate valid EPUB 3 files, clickable tables of contents, and EPUB-safe CSS from plain text or manuscript files — no coding or command-line access required.',
   },
   {
     q: 'How long does it take to format an ebook from scratch?',
@@ -31,7 +31,7 @@ const faqs = [
   },
   {
     q: 'Can I use a Word document to create an ebook?',
-    a: 'Yes, but Word documents carry hidden formatting artifacts — smart quotes that encode incorrectly, double spaces, stacked blank paragraphs, and encoding issues — that cause problems after EPUB conversion. Running a cleanup pass before converting removes these artifacts. Word documents can be converted directly to EPUB 3.0 with the EPUB Formatter or Full Manuscript Mode tools.',
+    a: 'Yes, but Word documents carry hidden formatting artifacts — smart quotes that encode incorrectly, double spaces, stacked blank paragraphs, and encoding issues — that cause problems after EPUB conversion. Running a cleanup pass before converting removes these artifacts. Word documents can be converted directly to EPUB 3 with the EPUB Formatter or Full Manuscript Mode tools.',
   },
   {
     q: 'Which store has the strictest EPUB requirements?',
@@ -71,8 +71,8 @@ const steps = [
     ],
   },
   {
-    title: 'Generate a valid EPUB 3.0 file',
-    body: 'EPUB is the format Apple Books, IngramSpark, Kobo, and most other distributors require. Building a clean EPUB 3.0 from the start — with correct chapter structure, embedded metadata, a properly declared cover image, and a valid OPF manifest — is more reliable than letting any store handle conversion. Files built correctly at this stage pass validation without manual fixes.',
+    title: 'Generate a valid EPUB 3 file',
+    body: 'EPUB is the format Apple Books, IngramSpark, Kobo, and most other distributors require. Building a clean EPUB 3 from the start — with correct chapter structure, embedded metadata, a properly declared cover image, and a valid OPF manifest — is more reliable than letting any store handle conversion. Files built correctly at this stage pass validation without manual fixes.',
     tools: [
       { name: 'EPUB Formatter', href: '/tools/epub-formatter' },
     ],
@@ -107,7 +107,7 @@ const checklist = [
   'Table of Contents present, correctly structured, and clickable',
   'Front matter complete: title page, copyright page, dedication',
   'Back matter complete: author bio, Also By page, mailing list CTA',
-  'EPUB 3.0 file generated with correct OPF manifest and cover declaration',
+  'EPUB 3 file generated with correct OPF manifest and cover declaration',
   'EPUB validates with zero structural errors',
   'Cover image meets all platform dimension and file size requirements',
   'Metadata complete: title, author, language, BISAC category, 7 keywords, description',

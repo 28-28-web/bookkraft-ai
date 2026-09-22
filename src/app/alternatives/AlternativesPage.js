@@ -129,7 +129,7 @@ export default function AlternativesPage() {
             <tbody>
               {[
                 ['Platform', 'Mac only', 'Windows + Mac', 'Any browser'],
-                ['Price', '$249.99 ebook / $499.99 with print', '$147 one-time', `$19 one-time, or free for ${FREE_TOOLS.length} tools`],
+                ['Price', '$199.99 ebook / $249.99 with print', '$147 one-time', `$19 one-time, or free for ${FREE_TOOLS.length} tools`],
                 ['Formatting & design', '✓', '✓', '—'],
                 ['Print PDF output', '✓', '✓', '—'],
                 ['EPUB Validator', '—', '—', '✓ Free'],
@@ -149,6 +149,9 @@ export default function AlternativesPage() {
           </table>
           <p style={{ fontSize: 13, opacity: 0.6, marginTop: 10 }}>
             BookKraft AI handles pre-flight — not design. The two aren't in competition.
+          </p>
+          <p style={{ fontSize: 12, opacity: 0.5, marginTop: 4 }}>
+            Competitor prices verified September 2026.
           </p>
         </div>
 

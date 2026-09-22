@@ -40,7 +40,7 @@ const sections = [
   },
   {
     title: '4. Generate a valid EPUB file',
-    body: 'EPUB is the format every major platform other than straight Kindle prefers, and it is what KDP converts your file into internally either way. Building a clean EPUB 3.0 file from the start, with correct chapter breaks, embedded metadata, and a properly structured cover, avoids a lot of downstream rejection issues.',
+    body: 'EPUB is the format every major platform other than straight Kindle prefers, and it is what KDP converts your file into internally either way. Building a clean EPUB 3 file from the start, with correct chapter breaks, embedded metadata, and a properly structured cover, avoids a lot of downstream rejection issues.',
     tools: [{ name: 'EPUB Formatter', href: '/tools/epub-formatter' }],
   },
   {

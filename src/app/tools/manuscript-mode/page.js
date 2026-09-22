@@ -3,7 +3,7 @@ import ManuscriptModeClient from '@/components/ManuscriptModeClient';
 
 export const metadata = {
     title: 'Free DOCX to EPUB Converter — Word to EPUB | BookKraft AI',
-    description: 'Convert your Word manuscript to a valid EPUB 3.0 free — chapters auto-detected, smart quotes and encoding fixed. No Calibre or Sigil. Free BookKraft account.',
+    description: 'Convert your Word manuscript to a valid EPUB 3 free — chapters auto-detected, smart quotes and encoding fixed. No Calibre or Sigil. Free BookKraft account.',
     keywords: 'docx to epub free, word to epub converter, convert docx to epub, manuscript to epub, word to epub 3.0, epub builder free, free epub converter, word to epub no calibre',
     alternates: {
         canonical: 'https://bookkraftai.com/tools/manuscript-mode',
@@ -38,10 +38,10 @@ export default function ManuscriptModePage() {
                     </div>
                     <h1 style={{ color: 'var(--cream)', fontSize: 'var(--text-5xl)', marginBottom: 'var(--space-4)' }}>
                         DOCX to EPUB Converter<br />
-                        <em style={{ color: 'var(--gold)', fontWeight: 400 }}>Word to EPUB 3.0 in One Step.</em>
+                        <em style={{ color: 'var(--gold)', fontWeight: 400 }}>Word to EPUB 3 in One Step.</em>
                     </h1>
                     <p style={{ color: 'rgba(247,243,236,.65)', fontSize: '18px', maxWidth: 560, margin: '0 auto var(--space-8)' }}>
-                        Upload your .docx or .txt manuscript. Get a valid EPUB 3.0 — chapters detected,
+                        Upload your .docx or .txt manuscript. Get a valid EPUB 3 — chapters detected,
                         smart quotes fixed, encoding cleaned. No desktop software required.
                     </p>
                     <Link href="/login?redirect=/tools/manuscript-mode" className="btn btn-gold" style={{ textDecoration: 'none', fontSize: '18px', padding: '14px 32px' }}>
@@ -58,7 +58,7 @@ export default function ManuscriptModePage() {
                         {[
                             { step: '1', title: 'Upload your manuscript', desc: 'Drag and drop your .docx or .txt file. Up to 10 MB.' },
                             { step: '2', title: 'Enter book details', desc: 'Add your title, author name, and language. Select which formatting fixes to apply.' },
-                            { step: '3', title: 'Download your EPUB', desc: 'Click Generate EPUB — download a valid EPUB 3.0 file ready for KDP, Apple Books, or Kobo.' },
+                            { step: '3', title: 'Download your EPUB', desc: 'Click Generate EPUB — download a valid EPUB 3 file ready for KDP, Apple Books, or Kobo.' },
                         ].map((s) => (
                             <div key={s.step} style={{ background: 'var(--cream)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: 'var(--space-6)', textAlign: 'center' }}>
                                 <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--gold)', color: '#fff', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto var(--space-3)', fontSize: '15px' }}>{s.step}</div>
@@ -81,7 +81,7 @@ export default function ManuscriptModePage() {
                             { label: 'Encoding artifacts', desc: 'Mojibake (â€™ → \') and stray control characters removed' },
                             { label: 'Double spaces', desc: 'Consecutive spaces, tabs, and excess blank lines cleaned up' },
                             { label: 'Chapter detection', desc: 'Markdown headings, "Chapter N", and "PART N" patterns split into separate EPUB chapters' },
-                            { label: 'EPUB 3.0 structure', desc: 'Valid mimetype, container.xml, OPF, nav.xhtml, and toc.ncx — all generated automatically' },
+                            { label: 'EPUB 3 structure', desc: 'Valid mimetype, container.xml, OPF, nav.xhtml, and toc.ncx — all generated automatically' },
                         ].map((item, i) => (
                             <div key={i} style={{ background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: 'var(--space-5)' }}>
                                 <div style={{ fontWeight: 700, marginBottom: 'var(--space-2)', color: 'var(--ink)' }}>✓ {item.label}</div>
@@ -100,12 +100,12 @@ export default function ManuscriptModePage() {
                 <div className="container" style={{ maxWidth: '800px', margin: '0 auto', padding: '0 1rem' }}>
 
                     <h2>What Full Manuscript Mode Does</h2>
-                    <p>Full Manuscript Mode converts a .docx or .txt manuscript directly to a valid EPUB 3.0 file — no Calibre, no Sigil, no coding. The pipeline runs server-side:</p>
+                    <p>Full Manuscript Mode converts a .docx or .txt manuscript directly to a valid EPUB 3 file — no Calibre, no Sigil, no coding. The pipeline runs server-side:</p>
                     <ol>
                         <li><strong>Upload</strong> — accepts .docx (Word) or .txt files up to 10 MB.</li>
                         <li><strong>Format fixes</strong> — optional passes for smart quotes, em dashes, encoding artifacts, and double spaces.</li>
                         <li><strong>Chapter detection</strong> — Word heading styles (H1/H2/H3), &ldquo;Chapter N&rdquo;, &ldquo;PART N&rdquo;, and Markdown # headings each become a separate chapter file.</li>
-                        <li><strong>EPUB build</strong> — generates a complete EPUB 3.0: mimetype, container.xml, OPF manifest, nav.xhtml, toc.ncx, and individual chapter XHTML files.</li>
+                        <li><strong>EPUB build</strong> — generates a complete EPUB 3: mimetype, container.xml, OPF manifest, nav.xhtml, toc.ncx, and individual chapter XHTML files.</li>
                         <li><strong>Download</strong> — one .epub file, ready to upload to KDP, Apple Books, or Kobo.</li>
                     </ol>
                     <p>Bold, italic, and underline from your Word file carry through. What is not converted: images, tables, footnotes, and font-size or color changes.</p>
@@ -132,7 +132,7 @@ export default function ManuscriptModePage() {
                     <h2>Frequently Asked Questions</h2>
 
                     <h3>What file types does Full Manuscript Mode accept?</h3>
-                    <p>.docx (Microsoft Word) and .txt (plain text), up to 10 MB. EPUB and PDF are not accepted as input. The converter extracts text, detects chapters, and builds a valid EPUB 3.0.</p>
+                    <p>.docx (Microsoft Word) and .txt (plain text), up to 10 MB. EPUB and PDF are not accepted as input. The converter extracts text, detects chapters, and builds a valid EPUB 3.</p>
 
                     <h3>Is Full Manuscript Mode free?</h3>
                     <p>Yes. Full Manuscript Mode is free with a BookKraft AI account — no credit card or paid plan required.</p>
@@ -144,7 +144,7 @@ export default function ManuscriptModePage() {
                     <p>For .docx files: Word heading styles (Heading 1, 2, 3) and paragraphs matching &ldquo;Chapter N&rdquo; or &ldquo;PART I/II/III&rdquo; create chapter breaks. For .txt files: Markdown headings (# Title, ## Section) and the same text patterns are used.</p>
 
                     <h3>Is the EPUB output compatible with Amazon KDP?</h3>
-                    <p>The output is a valid EPUB 3.0 with correct structure. Run it through the <Link href="/tools/epub-validator" style={{ color: 'var(--gold)' }}>free EPUB Validator</Link> before submitting to any platform to confirm all structural checks pass.</p>
+                    <p>The output is a valid EPUB 3 with correct structure. Run it through the <Link href="/tools/epub-validator" style={{ color: 'var(--gold)' }}>free EPUB Validator</Link> before submitting to any platform to confirm all structural checks pass.</p>
 
                     <h3>Do I need Calibre or Sigil to convert my Word file to EPUB?</h3>
                     <p>No. The conversion runs server-side — no desktop software to install or configure. Upload your file, fill in book details, and download the EPUB.</p>
@@ -163,7 +163,7 @@ export default function ManuscriptModePage() {
                     <div style={{ marginTop: 'var(--space-12)', textAlign: 'center', padding: 'var(--space-8)', background: 'var(--ink)', borderRadius: 'var(--radius)', color: 'var(--cream)' }}>
                         <h3 style={{ color: 'var(--cream)', marginBottom: 'var(--space-3)' }}>Ready to convert your manuscript to EPUB?</h3>
                         <p style={{ color: 'rgba(247,243,236,.65)', maxWidth: 440, margin: '0 auto var(--space-6)', fontSize: 'var(--text-sm)' }}>
-                            Free, no Calibre needed. Upload your .docx or .txt and download a valid EPUB 3.0.
+                            Free, no Calibre needed. Upload your .docx or .txt and download a valid EPUB 3.
                         </p>
                         <Link href="/login?redirect=/tools/manuscript-mode" className="btn btn-gold" style={{ textDecoration: 'none' }}>
                             Convert DOCX to EPUB — Free
@@ -176,11 +176,11 @@ export default function ManuscriptModePage() {
                 '@context': 'https://schema.org',
                 '@type': 'FAQPage',
                 mainEntity: [
-                    { '@type': 'Question', name: 'What file types does Full Manuscript Mode accept?', acceptedAnswer: { '@type': 'Answer', text: '.docx (Microsoft Word) and .txt (plain text), up to 10 MB. EPUB and PDF are not accepted as input. The converter extracts text, detects chapters by heading pattern, and builds a valid EPUB 3.0.' } },
+                    { '@type': 'Question', name: 'What file types does Full Manuscript Mode accept?', acceptedAnswer: { '@type': 'Answer', text: '.docx (Microsoft Word) and .txt (plain text), up to 10 MB. EPUB and PDF are not accepted as input. The converter extracts text, detects chapters by heading pattern, and builds a valid EPUB 3.' } },
                     { '@type': 'Question', name: 'Is Full Manuscript Mode free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Full Manuscript Mode is free with a BookKraft AI account — no credit card or paid plan required.' } },
                     { '@type': 'Question', name: 'Will bold and italic from my Word file appear in the EPUB?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Bold, italic, and underline are preserved. Word heading styles (Heading 1, 2, 3) are detected as chapter breaks. Images, tables, footnotes, and font-size or color changes are not carried over.' } },
                     { '@type': 'Question', name: 'How does chapter detection work?', acceptedAnswer: { '@type': 'Answer', text: "For .docx files: Word heading styles (Heading 1, 2, 3) and paragraphs matching 'Chapter N' or 'PART I/II/III' create chapter breaks. For .txt files: Markdown headings (# Title, ## Section) and the same text patterns are used." } },
-                    { '@type': 'Question', name: 'Is the EPUB output compatible with Amazon KDP?', acceptedAnswer: { '@type': 'Answer', text: 'The output is a valid EPUB 3.0 with correct structure. Run it through the free EPUB Validator before submitting to any platform to confirm all structural checks pass.' } },
+                    { '@type': 'Question', name: 'Is the EPUB output compatible with Amazon KDP?', acceptedAnswer: { '@type': 'Answer', text: 'The output is a valid EPUB 3 with correct structure. Run it through the free EPUB Validator before submitting to any platform to confirm all structural checks pass.' } },
                     { '@type': 'Question', name: 'Do I need Calibre or Sigil to convert my Word file to EPUB?', acceptedAnswer: { '@type': 'Answer', text: 'No. The conversion runs server-side — no desktop software to install or configure. Upload your file, fill in book details, and download the EPUB.' } },
                 ],
             }) }} />

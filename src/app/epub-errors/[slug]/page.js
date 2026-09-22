@@ -99,7 +99,7 @@ export default async function EpubErrorPage({ params }) {
           <Link href="/epub-formatting-guide" className="link-gold">
             EPUB formatting guide
           </Link>{' '}
-          for the full workflow: manuscript cleanup, TOC, front matter, EPUB 3.0 generation, and validation.
+          for the full workflow: manuscript cleanup, TOC, front matter, EPUB 3 generation, and validation.
         </p>
 
         <RelatedLinks related={error.related} />

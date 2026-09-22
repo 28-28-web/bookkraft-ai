@@ -7,7 +7,7 @@ const faqs = [
   },
   {
     q: 'Which format should I submit to KDP — EPUB or MOBI?',
-    a: "EPUB. Amazon recommends EPUB 3.0 as the primary submission format. KDP converts the EPUB to its internal formats (AZW3/KFX) after upload — you don't need to produce MOBI or AZW3 files yourself. Submitting MOBI is still accepted but MOBI is the older format with fewer features. EPUB 3.0 gives KDP the cleanest input for its conversion pipeline.",
+    a: "EPUB. Amazon recommends EPUB 3 as the primary submission format. KDP converts the EPUB to its internal formats (AZW3/KFX) after upload — you don't need to produce MOBI or AZW3 files yourself. Submitting MOBI is still accepted but MOBI is the older format with fewer features. EPUB 3 gives KDP the cleanest input for its conversion pipeline.",
   },
   {
     q: 'Can Kindle read PDF files?',
@@ -19,11 +19,11 @@ const faqs = [
   },
   {
     q: 'Will my EPUB pass KDP validation?',
-    a: "KDP accepts EPUB 2.0 and EPUB 3.0 but has specific requirements: a cover image declared in the package manifest, a valid nav document (EPUB 3.0), no encrypted content, and images meeting minimum resolution thresholds. The free EPUB Validator checks for all of these before you upload — catching validation failures at submission costs time and can delay publishing.",
+    a: "KDP accepts EPUB 2 and EPUB 3 but has specific requirements: a cover image declared in the package manifest, a valid nav document (EPUB 3), no encrypted content, and images meeting minimum resolution thresholds. The free EPUB Validator checks for all of these before you upload — catching validation failures at submission costs time and can delay publishing.",
   },
   {
-    q: 'What is EPUB 3.0 vs EPUB 2.0?',
-    a: "EPUB 3.0 is the current standard. It's based on HTML5 and CSS3, requires a nav.xhtml navigation document, supports media overlays and accessibility metadata, and is required by Apple Books and Kobo. EPUB 2.0 uses older HTML 4 / XHTML 1.1 and an older NCX-based table of contents. KDP accepts both, but EPUB 3.0 produces better conversion output. BookKraft AI's EPUB Formatter outputs EPUB 3.0.",
+    q: 'What is EPUB 3 vs EPUB 2?',
+    a: "EPUB 3 is the current standard. It's based on HTML5 and CSS3, requires a nav.xhtml navigation document, supports media overlays and accessibility metadata, and is required by Apple Books and Kobo. EPUB 2 uses older HTML 4 / XHTML 1.1 and an older NCX-based table of contents. KDP accepts both, but EPUB 3 produces better conversion output. BookKraft AI's EPUB Formatter outputs EPUB 3.",
   },
   {
     q: 'Should I use EPUB or PDF for selling ebooks?',
@@ -37,16 +37,16 @@ const faqs = [
 
 const formats = [
   {
-    format: 'EPUB 3.0',
+    format: 'EPUB 3',
     producer: 'Industry standard',
     kindle: '✓ Native (2022+)',
     kdpSubmit: '✓ Recommended',
     appleBooks: '✓ Required',
     kobo: '✓ Required',
-    notes: 'Submit this to KDP. BookKraft AI outputs EPUB 3.0.',
+    notes: 'Submit this to KDP. BookKraft AI outputs EPUB 3.',
   },
   {
-    format: 'EPUB 2.0',
+    format: 'EPUB 2',
     producer: 'Older standard',
     kindle: '✓ Converted',
     kdpSubmit: '✓ Accepted',
@@ -140,7 +140,7 @@ export default function KindleEpubFormatPage() {
 
         <div style={{ padding: '20px 24px', background: 'rgba(201,168,76,0.08)', border: '2px solid rgba(201,168,76,0.35)', borderRadius: 10, marginBottom: 36 }}>
           <p style={{ fontSize: 18, lineHeight: 1.6, margin: 0, fontWeight: 500 }}>
-            <strong>Yes.</strong> Kindle devices and the Kindle app added native EPUB support in late 2022. For authors publishing on Amazon: KDP has accepted EPUB submissions for years and recommends EPUB 3.0 as the primary format for ebook publishing. You don&apos;t need to produce MOBI or AZW3 files — submit EPUB and KDP handles the conversion.
+            <strong>Yes.</strong> Kindle devices and the Kindle app added native EPUB support in late 2022. For authors publishing on Amazon: KDP has accepted EPUB submissions for years and recommends EPUB 3 as the primary format for ebook publishing. You don&apos;t need to produce MOBI or AZW3 files — submit EPUB and KDP handles the conversion.
           </p>
         </div>
 
@@ -170,10 +170,10 @@ export default function KindleEpubFormatPage() {
                   key={i}
                   style={{
                     borderBottom: '1px solid rgba(201,168,76,0.15)',
-                    background: r.format === 'EPUB 3.0' ? 'rgba(201,168,76,0.06)' : i % 2 === 0 ? 'transparent' : 'rgba(0,0,0,0.02)',
+                    background: r.format === 'EPUB 3' ? 'rgba(201,168,76,0.06)' : i % 2 === 0 ? 'transparent' : 'rgba(0,0,0,0.02)',
                   }}
                 >
-                  <td style={{ padding: '10px 14px', fontWeight: r.format === 'EPUB 3.0' ? 700 : 600, whiteSpace: 'nowrap' }}>{r.format}</td>
+                  <td style={{ padding: '10px 14px', fontWeight: r.format === 'EPUB 3' ? 700 : 600, whiteSpace: 'nowrap' }}>{r.format}</td>
                   <td style={{ padding: '10px 14px', opacity: 0.85 }}>{r.kindle}</td>
                   <td style={{ padding: '10px 14px', opacity: 0.85 }}>{r.kdpSubmit}</td>
                   <td style={{ padding: '10px 14px', opacity: 0.85 }}>{r.appleBooks}</td>
@@ -204,7 +204,7 @@ export default function KindleEpubFormatPage() {
           </li>
         </ul>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 32, opacity: 0.9 }}>
-          The practical implication: submit EPUB 3.0 to KDP. KDP converts it to AZW3 or KFX for delivery to readers. The quality of that conversion depends heavily on how clean your EPUB is — a valid, well-structured EPUB 3.0 file produces better Kindle output than a poorly structured one.
+          The practical implication: submit EPUB 3 to KDP. KDP converts it to AZW3 or KFX for delivery to readers. The quality of that conversion depends heavily on how clean your EPUB is — a valid, well-structured EPUB 3 file produces better Kindle output than a poorly structured one.
         </p>
 
         {/* EPUB vs PDF */}
@@ -248,9 +248,9 @@ export default function KindleEpubFormatPage() {
         {[
           {
             n: 1,
-            title: 'Prepare a valid EPUB 3.0 file',
+            title: 'Prepare a valid EPUB 3 file',
             href: '/tools/epub-formatter',
-            body: 'If converting from a Word document, use the EPUB Formatter to generate a valid EPUB 3.0 file with a correct nav document, clean CSS, and complete package metadata. KDP\'s conversion pipeline handles valid EPUBs cleanly — fixing validation errors after conversion produces worse output.',
+            body: 'If converting from a Word document, use the EPUB Formatter to generate a valid EPUB 3 file with a correct nav document, clean CSS, and complete package metadata. KDP\'s conversion pipeline handles valid EPUBs cleanly — fixing validation errors after conversion produces worse output.',
           },
           {
             n: 2,
@@ -319,7 +319,7 @@ export default function KindleEpubFormatPage() {
 
         {/* CTA */}
         <div style={{ marginTop: 48, padding: '28px 24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
-          <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Convert your manuscript to EPUB 3.0 — free.</p>
+          <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Convert your manuscript to EPUB 3 — free.</p>
           <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Upload a Word .docx file. Download a valid EPUB that passes KDP, Apple Books, and Kobo validation.</p>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link

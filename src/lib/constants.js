@@ -171,7 +171,7 @@ export const EPUB_KDP_FAQS = [
   },
   {
     q: 'How do I convert a Word document to EPUB without losing formatting?',
-    a: 'The key is to use proper styles in Word before you convert. Use Heading 1 for chapter titles, Heading 2 for subheadings, and Normal for body text. Avoid using tabs or spaces to indent paragraphs — use paragraph indent settings instead. Our Full Manuscript Mode converts your DOCX or TXT to EPUB 3.0 in one step. It detects chapters automatically and fixes the most common Word formatting problems.',
+    a: 'The key is to use proper styles in Word before you convert. Use Heading 1 for chapter titles, Heading 2 for subheadings, and Normal for body text. Avoid using tabs or spaces to indent paragraphs — use paragraph indent settings instead. Our Full Manuscript Mode converts your DOCX or TXT to EPUB 3 in one step. It detects chapters automatically and fixes the most common Word formatting problems.',
   },
   {
     q: 'What is EpubCheck and why should I use it?',

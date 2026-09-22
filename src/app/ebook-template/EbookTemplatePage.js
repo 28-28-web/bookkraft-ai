@@ -7,11 +7,11 @@ const faqs = [
   },
   {
     q: 'Why do Word ebook templates produce bad EPUBs?',
-    a: "Word ebook templates are formatted for how the document looks in Word, not for how EPUB retailers read structure. They don't include a nav document (required by EPUB 3.0 and Apple Books), they embed proprietary inline CSS that breaks on e-readers, and they often output EPUB 2.0 rather than the EPUB 3.0 that current retailers require. A template that looks correct in Word will still fail KDP and Apple Books validation.",
+    a: "Word ebook templates are formatted for how the document looks in Word, not for how EPUB retailers read structure. They don't include a nav document (required by EPUB 3 and Apple Books), they embed proprietary inline CSS that breaks on e-readers, and they often output EPUB 2 rather than the EPUB 3 that current retailers require. A template that looks correct in Word will still fail KDP and Apple Books validation.",
   },
   {
     q: 'Do I need a separate template for KDP and Apple Books?',
-    a: "No. EPUB 3.0 is the standard format accepted by Amazon KDP, Apple Books, Kobo, and IngramSpark. BookKraft AI outputs EPUB 3.0 regardless of where you plan to publish. Platform-specific differences (cover image specs, metadata fields, content requirements) are caught by the free EPUB Validator — not by using different templates.",
+    a: "No. EPUB 3 is the standard format accepted by Amazon KDP, Apple Books, Kobo, and IngramSpark. BookKraft AI outputs EPUB 3 regardless of where you plan to publish. Platform-specific differences (cover image specs, metadata fields, content requirements) are caught by the free EPUB Validator — not by using different templates.",
   },
   {
     q: 'What about Vellum or Atticus book templates?',
@@ -19,7 +19,7 @@ const faqs = [
   },
   {
     q: 'Can I use a Google Docs template to make an ebook?',
-    a: "Yes, with a conversion step. Format your Google Doc with Heading 1 for chapter titles, export as .docx (File → Download → Microsoft Word .docx), then upload to the EPUB Formatter. The formatter generates a valid EPUB 3.0 file. Google Docs has no built-in EPUB export — it would route through Word format anyway, so the conversion step is unavoidable.",
+    a: "Yes, with a conversion step. Format your Google Doc with Heading 1 for chapter titles, export as .docx (File → Download → Microsoft Word .docx), then upload to the EPUB Formatter. The formatter generates a valid EPUB 3 file. Google Docs has no built-in EPUB export — it would route through Word format anyway, so the conversion step is unavoidable.",
   },
   {
     q: 'What heading styles does the EPUB Formatter use to create chapters?',
@@ -37,7 +37,7 @@ const steps = [
   {
     n: '02',
     title: 'Upload to EPUB Formatter',
-    desc: 'Upload your .docx file. The formatter applies EPUB 3.0 structure — chapter breaks from Heading 1, nav document, clean CSS, correct package metadata.',
+    desc: 'Upload your .docx file. The formatter applies EPUB 3 structure — chapter breaks from Heading 1, nav document, clean CSS, correct package metadata.',
     highlight: true,
   },
   {
@@ -50,12 +50,12 @@ const steps = [
 
 const whyTemplatesFail = [
   {
-    problem: 'Word templates output EPUB 2.0',
-    detail: "Most downloadable ebook templates were built for older formatting tools. When exported through Word, they produce EPUB 2.0 files — the format Apple Books and Kobo reject in favor of EPUB 3.0.",
+    problem: 'Word templates output EPUB 2',
+    detail: "Most downloadable ebook templates were built for older formatting tools. When exported through Word, they produce EPUB 2 files — the format Apple Books and Kobo reject in favor of EPUB 3.",
   },
   {
     problem: 'No nav document is generated',
-    detail: 'EPUB 3.0 requires a nav.xhtml file — a clickable table of contents that links to each chapter. Word cannot generate this file. Apple Books rejects EPUBs that lack a conforming nav document.',
+    detail: 'EPUB 3 requires a nav.xhtml file — a clickable table of contents that links to each chapter. Word cannot generate this file. Apple Books rejects EPUBs that lack a conforming nav document.',
   },
   {
     problem: 'Inline CSS from Word styles breaks e-readers',
@@ -68,7 +68,7 @@ const whyTemplatesFail = [
 ];
 
 const comparisonRows = [
-  ['Output format', 'EPUB 2.0 (requires template setup)', 'EPUB 3.0 (generated automatically)'],
+  ['Output format', 'EPUB 2 (requires template setup)', 'EPUB 3 (generated automatically)'],
   ['Nav document', '— (not generated)', '✓ Auto-generated from Heading styles'],
   ['Chapter breaks', 'Manual page breaks', '✓ From Heading 1 style'],
   ['CSS', 'Inline Word styles', '✓ Clean external stylesheet'],
@@ -86,7 +86,7 @@ export default function EbookTemplatePage() {
         </h1>
 
         <p style={{ fontSize: 19, lineHeight: 1.6, marginBottom: 32, opacity: 0.9 }}>
-          Most downloadable ebook templates are Word .docx files — which means they share the same structural problem as any other Word document: they can&apos;t generate a valid EPUB 3.0 file on their own. Instead of starting from a template, BookKraft AI&apos;s EPUB Formatter converts your existing Word document into a valid EPUB 3.0 file that passes KDP, Apple Books, and Kobo validation automatically.
+          Most downloadable ebook templates are Word .docx files — which means they share the same structural problem as any other Word document: they can&apos;t generate a valid EPUB 3 file on their own. Instead of starting from a template, BookKraft AI&apos;s EPUB Formatter converts your existing Word document into a valid EPUB 3 file that passes KDP, Apple Books, and Kobo validation automatically.
         </p>
 
         {/* 3-step flow */}
@@ -189,7 +189,7 @@ export default function EbookTemplatePage() {
         {/* CTA */}
         <div style={{ marginTop: 48, padding: '28px 24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
           <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Format your ebook — free, no account needed.</p>
-          <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Upload a .docx file. Download EPUB 3.0. Passes KDP, Apple Books, and Kobo validation.</p>
+          <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Upload a .docx file. Download EPUB 3. Passes KDP, Apple Books, and Kobo validation.</p>
           <Link
             href="/tools/epub-formatter"
             style={{ display: 'inline-block', padding: '13px 30px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 16 }}

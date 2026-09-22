@@ -40,12 +40,12 @@ export default function Page() {
       {
         '@type': 'Question',
         name: 'Do these tools add a watermark to my files?',
-        acceptedAnswer: { '@type': 'Answer', text: 'No. None of the five tools add watermarks, attribution text, or BookKraft branding to output files. The EPUB you get back is a clean EPUB 3.0 file with your content only.' },
+        acceptedAnswer: { '@type': 'Answer', text: 'No. None of the five tools add watermarks, attribution text, or BookKraft branding to output files. The EPUB you get back is a clean EPUB 3 file with your content only.' },
       },
       {
         '@type': 'Question',
         name: 'What ebook format does Amazon KDP require?',
-        acceptedAnswer: { '@type': 'Answer', text: 'KDP accepts EPUB and DOCX. The recommended format is EPUB 3.0 — use the Full Manuscript Mode to convert your DOCX to EPUB and the EPUB Validator to check it before uploading.' },
+        acceptedAnswer: { '@type': 'Answer', text: 'KDP accepts EPUB and DOCX. The recommended format is EPUB 3 — use the Full Manuscript Mode to convert your DOCX to EPUB and the EPUB Validator to check it before uploading.' },
       },
       {
         '@type': 'Question',

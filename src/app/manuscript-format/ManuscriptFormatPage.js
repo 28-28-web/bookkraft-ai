@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     q: 'Can BookKraft AI fix manuscript formatting issues automatically?',
-    a: "The Manuscript Cleanup Checker catches and flags the most common formatting artifacts — double spaces, straight quotes where smart quotes should be, tab indents, multiple consecutive blank lines, and broken em dashes. It identifies what needs fixing so you can correct it in Word before converting. The EPUB Formatter then handles the structural conversion from a clean .docx to a valid EPUB 3.0 file.",
+    a: "The Manuscript Cleanup Checker catches and flags the most common formatting artifacts — double spaces, straight quotes where smart quotes should be, tab indents, multiple consecutive blank lines, and broken em dashes. It identifies what needs fixing so you can correct it in Word before converting. The EPUB Formatter then handles the structural conversion from a clean .docx to a valid EPUB 3 file.",
   },
 ];
 
@@ -144,7 +144,7 @@ export default function ManuscriptFormatPage() {
             n: 5,
             title: 'Upload to EPUB Formatter',
             href: '/tools/epub-formatter',
-            body: 'Upload the .docx file. The formatter converts to EPUB 3.0, maps Heading styles to chapters, generates the nav document, and outputs a file that passes epubcheck.',
+            body: 'Upload the .docx file. The formatter converts to EPUB 3, maps Heading styles to chapters, generates the nav document, and outputs a file that passes epubcheck.',
           },
         ].map((step) => (
           <div key={step.n} style={{ marginBottom: 24, paddingLeft: 16, borderLeft: '3px solid rgba(201,168,76,0.4)' }}>

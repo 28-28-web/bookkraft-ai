@@ -4,7 +4,7 @@ export const CHECKLISTS = [
     metaTitle: '22-Point EPUB Formatting Checklist Before Upload — BookKraft AI',
     metaDescription: 'Run through this 22-point EPUB formatting checklist before uploading to KDP, Apple Books, or Draft2Digital. Covers manuscript cleanup, structure, metadata, cover, and validation.',
     title: '22-Point EPUB Formatting Checklist Before Upload',
-    intro: '<p>A formatted EPUB that passes this checklist will pass technical validation on KDP, Apple Books, and Draft2Digital. The items are grouped by category — work through each section before uploading, even for re-uploads after minor changes. A file regenerated after a small edit can introduce new structural issues the original didn\'t have.</p>',
+    intro: '<p>A formatted EPUB that passes this checklist meets the technical requirements for KDP, Apple Books, and Draft2Digital. The items are grouped by category — work through each section before uploading, even for re-uploads after minor changes. A file regenerated after a small edit can introduce new structural issues the original didn\'t have.</p>',
     sections: [
       {
         heading: 'Manuscript & Content',

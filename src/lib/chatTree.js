@@ -49,7 +49,7 @@ export const CHAT_TREE = {
         ],
     },
     format_epub: {
-        message: "The EPUB Formatter builds a valid EPUB 3.0 file from your manuscript. It handles chapter structure, metadata, and cover image automatically.",
+        message: "The EPUB Formatter builds a valid EPUB 3 file from your manuscript. It handles chapter structure, metadata, and cover image automatically.",
         options: [
             { label: "Open EPUB Formatter ($1)", next: null, toolLink: "/tools/epub-formatter", toolPrice: "$1" },
             { label: "What's the difference between EPUB and Kindle?", next: "explain_formats" },

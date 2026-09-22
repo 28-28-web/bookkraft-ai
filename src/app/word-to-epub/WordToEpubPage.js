@@ -3,11 +3,11 @@ import Link from 'next/link';
 const faqs = [
   {
     q: 'Can I convert a Word document to EPUB for free?',
-    a: "Yes. BookKraft AI's EPUB Formatter is free with no account required. Upload your .docx file, and it outputs a valid EPUB 3.0 file that passes KDP, Apple Books, and Kobo validation.",
+    a: "Yes. BookKraft AI's EPUB Formatter is free with no account required. Upload your .docx file, and it outputs a valid EPUB 3 file that passes KDP, Apple Books, and Kobo validation.",
   },
   {
     q: 'Why does Word\'s built-in "Save as EPUB" produce broken files?',
-    a: "Word's EPUB export was designed for Microsoft's own ecosystem, not for ebook retailers. It generates EPUB 2.0 files with proprietary Word styling embedded as inline CSS, no proper nav document, and missing package metadata — all of which KDP and Apple Books flag as validation errors. A dedicated converter strips those artifacts and outputs EPUB 3.0 with clean structure.",
+    a: "Word's EPUB export was designed for Microsoft's own ecosystem, not for ebook retailers. It generates EPUB 2 files with proprietary Word styling embedded as inline CSS, no proper nav document, and missing package metadata — all of which KDP and Apple Books flag as validation errors. A dedicated converter strips those artifacts and outputs EPUB 3 with clean structure.",
   },
   {
     q: 'What Word formatting survives the EPUB conversion?',
@@ -19,7 +19,7 @@ const faqs = [
   },
   {
     q: 'Will the converted EPUB pass KDP validation?',
-    a: "BookKraft AI outputs EPUB 3.0 files that pass KDP's built-in EPUB validator and epubcheck. That said, KDP has additional content rules (image resolution, cover aspect ratio, font embedding) that are content-specific — the EPUB Validator in the free tools checks for those too.",
+    a: "BookKraft AI outputs EPUB 3 files that pass KDP's built-in EPUB validator and epubcheck. That said, KDP has additional content rules (image resolution, cover aspect ratio, font embedding) that are content-specific — the EPUB Validator in the free tools checks for those too.",
   },
   {
     q: 'Can I convert a .doc file (not .docx) to EPUB?',
@@ -29,12 +29,12 @@ const faqs = [
 
 const steps = [
   { n: '01', title: 'Write in Word', tool: 'Microsoft Word / Google Docs', desc: 'Draft using standard Heading styles (Heading 1 for chapter titles). Avoid manual formatting like tab indents or decorative fonts — these don\'t survive conversion cleanly.' },
-  { n: '02', title: 'Convert to EPUB', tool: 'BookKraft AI', desc: 'Upload your .docx file. The EPUB Formatter maps Word styles to EPUB 3.0 structure, strips proprietary formatting, and outputs a clean file that passes retailer validation.', highlight: true },
+  { n: '02', title: 'Convert to EPUB', tool: 'BookKraft AI', desc: 'Upload your .docx file. The EPUB Formatter maps Word styles to EPUB 3 structure, strips proprietary formatting, and outputs a clean file that passes retailer validation.', highlight: true },
   { n: '03', title: 'Upload to Retailers', tool: 'KDP / Apple Books / Kobo', desc: 'Submit the EPUB file directly to KDP, Apple Books, Kobo, or IngramSpark. No further conversion needed — the output is in the format each platform expects.' },
 ];
 
 const comparisonRows = [
-  ['Output format', 'EPUB 2.0 (outdated)', 'EPUB 3.0 (current standard)'],
+  ['Output format', 'EPUB 2 (outdated)', 'EPUB 3 (current standard)'],
   ['Nav document', '— (missing)', '✓ Required by Apple Books'],
   ['Package metadata', 'Incomplete', '✓ Full OPF metadata'],
   ['Inline CSS', 'Word-specific styles embedded', '✓ Clean semantic CSS'],
@@ -83,7 +83,7 @@ export default function WordToEpubPage() {
         </h1>
 
         <p style={{ fontSize: 19, lineHeight: 1.6, marginBottom: 32, opacity: 0.9 }}>
-          Word&apos;s built-in &ldquo;Save as EPUB&rdquo; option exists, but it produces EPUB 2.0 files with broken structure that KDP, Apple Books, and Kobo routinely reject. A dedicated Word-to-EPUB converter strips the proprietary Word formatting and outputs a valid EPUB 3.0 file — the format all major retailers actually require.
+          Word&apos;s built-in &ldquo;Save as EPUB&rdquo; option exists, but it produces EPUB 2 files with broken structure that KDP, Apple Books, and Kobo routinely reject. A dedicated Word-to-EPUB converter strips the proprietary Word formatting and outputs a valid EPUB 3 file — the format all major retailers actually require.
         </p>
 
         {/* 3-step flow */}
@@ -125,9 +125,9 @@ export default function WordToEpubPage() {
           Microsoft Word can export .epub files directly (File → Export → Create PDF/XPS → change format to .epub in some versions), but the result almost always fails retailer validation for three reasons:
         </p>
         <ul style={{ fontSize: 17, lineHeight: 1.9, opacity: 0.9, paddingLeft: 24, marginBottom: 24 }}>
-          <li><strong>It outputs EPUB 2.0, not EPUB 3.0.</strong> Apple Books and Kobo require EPUB 3.0. KDP accepts EPUB 2.0 but converts it internally, introducing additional errors in the process.</li>
+          <li><strong>It outputs EPUB 2, not EPUB 3.</strong> Apple Books and Kobo require EPUB 3. KDP accepts EPUB 2 but converts it internally, introducing additional errors in the process.</li>
           <li><strong>Word styles become inline CSS.</strong> Word&apos;s paragraph formatting, font references, and spacing values are embedded as inline style attributes on every element — not as a clean external stylesheet. This produces bloated, fragile files that break on some e-readers.</li>
-          <li><strong>The nav document is missing or malformed.</strong> EPUB 3.0 requires a nav.xhtml file with a clickable table of contents. Word&apos;s exporter either omits it or produces a non-conforming version that fails epubcheck.</li>
+          <li><strong>The nav document is missing or malformed.</strong> EPUB 3 requires a nav.xhtml file with a clickable table of contents. Word&apos;s exporter either omits it or produces a non-conforming version that fails epubcheck.</li>
         </ul>
 
         {/* Comparison table */}
@@ -184,7 +184,7 @@ export default function WordToEpubPage() {
             n: 4,
             title: 'Upload to the EPUB Formatter',
             href: '/tools/epub-formatter',
-            body: 'Upload your .docx file. The formatter converts the document to EPUB 3.0, maps Heading styles to chapter breaks, generates a nav document, and outputs a file that passes epubcheck.',
+            body: 'Upload your .docx file. The formatter converts the document to EPUB 3, maps Heading styles to chapter breaks, generates a nav document, and outputs a file that passes epubcheck.',
           },
           {
             n: 5,
@@ -257,7 +257,7 @@ export default function WordToEpubPage() {
         {/* CTA */}
         <div style={{ marginTop: 48, padding: '28px 24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
           <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Convert your Word document to EPUB — free, no account needed.</p>
-          <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>EPUB 3.0 output. Passes KDP, Apple Books, and Kobo validation.</p>
+          <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>EPUB 3 output. Passes KDP, Apple Books, and Kobo validation.</p>
           <Link
             href="/tools/epub-formatter"
             style={{ display: 'inline-block', padding: '13px 30px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 16 }}

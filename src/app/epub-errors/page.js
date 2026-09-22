@@ -93,7 +93,7 @@ export default function EpubErrorsIndexPage() {
             <Link href="/epub-formatting-guide" style={{ color: 'var(--gold, #c9a84c)', textDecoration: 'none' }}>
               EPUB formatting guide
             </Link>{' '}
-            walks through every step — manuscript cleanup, TOC generation, CSS, front matter, EPUB 3.0 generation, and validation — with a tool for each one.
+            walks through every step — manuscript cleanup, TOC generation, CSS, front matter, EPUB 3 generation, and validation — with a tool for each one.
           </p>
           <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.65, marginBottom: 0 }}>
             Before uploading, run through the{' '}

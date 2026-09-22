@@ -404,7 +404,7 @@ export const COVER_REQUIREMENTS = [
     faq: [
       {
         q: 'Why should I build my D2D cover to Apple Books\' standard?',
-        a: 'Draft2Digital distributes your cover to Apple Books among other stores, and Apple runs the strictest validation. If the cover meets Apple\'s requirements — sRGB, minimum 1400 × 2100px, no CMYK — it will pass through D2D to every retailer in the network.',
+        a: 'Draft2Digital distributes your cover to Apple Books among other stores, and Apple runs the strictest validation. If the cover meets Apple\'s requirements — sRGB, minimum 1400 × 2100px, no CMYK — it meets D2D\'s requirements for distribution to every retailer in the network.',
       },
       {
         q: 'Can one cover serve D2D and a direct KDP upload?',

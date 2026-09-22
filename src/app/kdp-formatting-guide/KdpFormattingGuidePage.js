@@ -51,7 +51,7 @@ const faqSchema = {
             name: 'What is the difference between EPUB Formatter and Full Manuscript Mode?',
             acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'EPUB Formatter takes pasted text and generates a valid EPUB 3.0 — works for any source manuscript regardless of format. Full Manuscript Mode accepts .docx or .txt file uploads, runs automatic formatting fixes (smart quotes, em dashes, encoding artifacts) before building the EPUB. If you are uploading from Word, Full Manuscript Mode handles both the cleanup and the EPUB generation in one step.',
+                text: 'EPUB Formatter takes pasted text and generates a valid EPUB 3 — works for any source manuscript regardless of format. Full Manuscript Mode accepts .docx or .txt file uploads, runs automatic formatting fixes (smart quotes, em dashes, encoding artifacts) before building the EPUB. If you are uploading from Word, Full Manuscript Mode handles both the cleanup and the EPUB generation in one step.',
             },
         },
         {
@@ -160,7 +160,7 @@ const faqs = [
     },
     {
         q: 'What is the difference between EPUB Formatter and Full Manuscript Mode?',
-        a: 'EPUB Formatter takes pasted text and generates a valid EPUB 3.0 — works for any source manuscript. Full Manuscript Mode accepts .docx or .txt file uploads, runs automatic formatting fixes before building the EPUB. If you are uploading from Word, Full Manuscript Mode handles both cleanup and EPUB generation in one step.',
+        a: 'EPUB Formatter takes pasted text and generates a valid EPUB 3 — works for any source manuscript. Full Manuscript Mode accepts .docx or .txt file uploads, runs automatic formatting fixes before building the EPUB. If you are uploading from Word, Full Manuscript Mode handles both cleanup and EPUB generation in one step.',
     },
     {
         q: 'How do I fix common EPUB errors before uploading to KDP?',
@@ -241,7 +241,7 @@ export default function KdpFormattingGuidePage() {
                         <li><strong>Chapter XHTML files</strong> — each chapter as a separate .xhtml file, declared in the manifest and ordered in the spine.</li>
                     </ul>
                     <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
-                        <Link href="/tools/epub-formatter" style={LINK_STYLE}>EPUB Formatter</Link> generates a valid EPUB 3.0 from pasted manuscript text — no Calibre, no Sigil, included in the Starter plan. <Link href="/tools/manuscript-mode" style={LINK_STYLE}>Full Manuscript Mode</Link> accepts .docx or .txt uploads and runs formatting fixes before building the EPUB (free, no signup). After generating, run the free <Link href="/tools/epub-validator" style={LINK_STYLE}>EPUB Validator</Link> to confirm all structural checks pass before uploading.
+                        <Link href="/tools/epub-formatter" style={LINK_STYLE}>EPUB Formatter</Link> generates a valid EPUB 3 from pasted manuscript text — no Calibre, no Sigil, included in the Starter plan. <Link href="/tools/manuscript-mode" style={LINK_STYLE}>Full Manuscript Mode</Link> accepts .docx or .txt uploads and runs formatting fixes before building the EPUB (free, no signup). After generating, run the free <Link href="/tools/epub-validator" style={LINK_STYLE}>EPUB Validator</Link> to confirm all structural checks pass before uploading.
                     </p>
                 </Section>
 

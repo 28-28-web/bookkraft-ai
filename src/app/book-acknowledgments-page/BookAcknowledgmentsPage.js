@@ -239,7 +239,7 @@ export default function BookAcknowledgmentsPage() {
 
       {/* CTA */}
       <div style={{ padding: '28px 24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center', marginTop: 40 }}>
-        <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Convert your complete manuscript — acknowledgments included — to EPUB 3.0.</p>
+        <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Convert your complete manuscript — acknowledgments included — to EPUB 3.</p>
         <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Full Manuscript Mode accepts .docx or .txt and outputs a valid, store-ready EPUB. Upload the whole book — front matter, body, acknowledgments — and get a clean file back. Free — no signup.</p>
         <Link
           href="/tools/manuscript-mode"

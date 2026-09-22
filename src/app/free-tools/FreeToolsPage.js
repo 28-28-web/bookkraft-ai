@@ -132,9 +132,9 @@ const TOOL_CARDS = [
   {
     name: 'Full Manuscript Mode',
     href: '/tools/manuscript-mode',
-    desc: 'Upload your .docx or .txt and get a valid EPUB 3.0 back in one step — bold, italic, underline preserved, chapter detection, smart quotes, and em dashes included.',
+    desc: 'Upload your .docx or .txt and get a valid EPUB 3 back in one step — bold, italic, underline preserved, chapter detection, smart quotes, and em dashes included.',
     fileType: '.docx, .txt',
-    thumbAlt: 'DOCX manuscript file converting to a valid EPUB 3.0 file format in one step',
+    thumbAlt: 'DOCX manuscript file converting to a valid EPUB 3 file format in one step',
     Thumb: ManuscriptThumb,
   },
 ];
@@ -253,7 +253,7 @@ export default function FreeToolsPage() {
           <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             {[
               { href: '/tools/word-cleanup', label: 'Word Cleanup Checker', detail: 'Scan your .docx for double spaces, straight quotes, and stacked blank paragraphs. Fix issues in the original file before conversion — easier to clean before than after.' },
-              { href: '/tools/manuscript-mode', label: 'Full Manuscript Mode', detail: 'Upload the cleaned .docx and download a valid EPUB 3.0 — chapter detection, smart quotes, and em dashes handled automatically. No Calibre, no Sigil.' },
+              { href: '/tools/manuscript-mode', label: 'Full Manuscript Mode', detail: 'Upload the cleaned .docx and download a valid EPUB 3 — chapter detection, smart quotes, and em dashes handled automatically. No Calibre, no Sigil.' },
               { href: '/tools/epub-validator', label: 'EPUB Validator', detail: 'Upload the EPUB and verify every structural check passes: mimetype, OPF, spine, navigation, image refs, and CSS. Get exact fixes for any error found.' },
               { href: '/tools/metadata-builder', label: 'Metadata Builder', detail: 'Fill one form and get formatted metadata for KDP, Apple Books, IngramSpark, and Draft2Digital — copy-paste ready for each platform\'s publisher portal.' },
               { href: '/tools/cover-checker', label: 'Cover Checker', detail: 'Upload your cover image and verify pixel dimensions, aspect ratio, DPI, and file size against Amazon KDP, Apple Books, and Kobo requirements before you upload anywhere.' },
@@ -366,7 +366,7 @@ export default function FreeToolsPage() {
           <h2>Pre-Publication Ebook Checklist — 5 Steps, 5 Tools</h2>
           <ol>
             <li><strong>Clean your manuscript.</strong> Run the <a href="/tools/word-cleanup" style={{ color: 'var(--gold)' }}>Word Cleanup Checker</a> on your .docx file before anything else. It catches double spaces, straight quotes, stacked blank lines, and em-dash problems — the issues formatters charge extra to fix.</li>
-            <li><strong>Convert to EPUB.</strong> Use <a href="/tools/manuscript-mode" style={{ color: 'var(--gold)' }}>Full Manuscript Mode</a> to convert your cleaned .docx to a valid EPUB 3.0. Bold, italic, chapter breaks, and smart quotes are preserved automatically.</li>
+            <li><strong>Convert to EPUB.</strong> Use <a href="/tools/manuscript-mode" style={{ color: 'var(--gold)' }}>Full Manuscript Mode</a> to convert your cleaned .docx to a valid EPUB 3. Bold, italic, chapter breaks, and smart quotes are preserved automatically.</li>
             <li><strong>Validate the EPUB.</strong> Upload the converted file to the <a href="/tools/epub-validator" style={{ color: 'var(--gold)' }}>EPUB Validator</a>. It checks mimetype, container, OPF, spine, manifest, images, fonts, and navigation — and shows specific fixes for any errors found.</li>
             <li><strong>Build your metadata.</strong> Use the <a href="/tools/metadata-builder" style={{ color: 'var(--gold)' }}>Metadata Builder</a> to generate formatted metadata for KDP, Apple Books, IngramSpark, and Draft2Digital in one pass. Download as a text file to paste into each platform&apos;s publisher portal.</li>
             <li><strong>Check your cover.</strong> Before uploading to any store, run your cover file through the <a href="/tools/cover-checker" style={{ color: 'var(--gold)' }}>Cover Checker</a>. It verifies dimensions, DPI, file size, aspect ratio, and format against the requirements for KDP, Apple Books, Kobo, and IngramSpark.</li>
@@ -379,13 +379,13 @@ export default function FreeToolsPage() {
           <h2>Frequently Asked Questions</h2>
 
           <h3>Do these tools add a watermark to my files?</h3>
-          <p>No. None of the five tools add watermarks, attribution text, or BookKraft branding to your output. The EPUB you get back from the converter is a clean EPUB 3.0 file with your content and nothing else. Same for metadata output, cover reports, and cleanup reports — they are purely your content.</p>
+          <p>No. None of the five tools add watermarks, attribution text, or BookKraft branding to your output. The EPUB you get back from the converter is a clean EPUB 3 file with your content and nothing else. Same for metadata output, cover reports, and cleanup reports — they are purely your content.</p>
 
           <h3>Do I need to create an account?</h3>
           <p>Four tools need no account: EPUB Validator, Metadata Builder, Cover Checker, and Word Cleanup Checker. Full Manuscript Mode (DOCX to EPUB) requires a free BookKraft account. No credit card required for any free tool.</p>
 
           <h3>What ebook format does Amazon KDP require?</h3>
-          <p>KDP accepts EPUB and DOCX. The recommended format is EPUB 3.0 — use the <a href="/tools/manuscript-mode" style={{ color: 'var(--gold)' }}>DOCX to EPUB converter</a> to generate it and the <a href="/tools/epub-validator" style={{ color: 'var(--gold)' }}>EPUB Validator</a> to check it before uploading.</p>
+          <p>KDP accepts EPUB and DOCX. The recommended format is EPUB 3 — use the <a href="/tools/manuscript-mode" style={{ color: 'var(--gold)' }}>DOCX to EPUB converter</a> to generate it and the <a href="/tools/epub-validator" style={{ color: 'var(--gold)' }}>EPUB Validator</a> to check it before uploading.</p>
 
           <h3>Are these tools really free, or is there a catch?</h3>
           <p>No catch. The four no-account tools are free with no usage limit. Full Manuscript Mode is also free with a BookKraft account. No payment required to access any free tool.</p>

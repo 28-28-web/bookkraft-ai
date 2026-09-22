@@ -252,7 +252,7 @@ export default function ChapterBreaksEpubPage() {
         {/* CTA */}
         <div style={{ padding: '28px 24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
           <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Convert your Word manuscript to a split-chapter EPUB — free.</p>
-          <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Upload a .docx or .txt file. Chapter detection splits on Word heading styles and Chapter N patterns automatically. Valid EPUB 3.0 output.</p>
+          <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Upload a .docx or .txt file. Chapter detection splits on Word heading styles and Chapter N patterns automatically. Valid EPUB 3 output.</p>
           <Link
             href="/tools/manuscript-mode"
             style={{ display: 'inline-block', padding: '13px 30px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 16 }}

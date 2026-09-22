@@ -5,7 +5,7 @@ const tools = [
     name: 'BookKraft AI',
     platform: 'Any browser',
     price: 'Free tools + $19/mo Starter',
-    output: 'EPUB 3.0, Kindle',
+    output: 'EPUB 3, Kindle',
     printSupport: '—',
     bestFor: 'Manuscript cleanup, EPUB validation, metadata, pre-flight before Vellum or Atticus',
     isBookKraft: true,
@@ -13,8 +13,8 @@ const tools = [
   {
     name: 'Vellum',
     platform: 'Mac only',
-    price: '$249.99 (one-time)',
-    output: 'EPUB 3.0, MOBI, print PDF',
+    price: '$199.99 ebook / $249.99 print (one-time)',
+    output: 'EPUB 3, MOBI, print PDF',
     printSupport: '✓',
     bestFor: 'Visual design themes, high-quality print formatting',
     isBookKraft: false,
@@ -23,7 +23,7 @@ const tools = [
     name: 'Atticus',
     platform: 'Any browser / desktop',
     price: '$147 (one-time)',
-    output: 'EPUB 3.0, print PDF',
+    output: 'EPUB 3, print PDF',
     printSupport: '✓',
     bestFor: 'Cross-platform Vellum alternative, ebook + print in one tool',
     isBookKraft: false,
@@ -153,7 +153,7 @@ export default function BookFormattingSoftwarePage({ faqs }) {
         </p>
         <ul style={{ fontSize: 17, lineHeight: 1.9, opacity: 0.9, paddingLeft: 24, marginBottom: 24 }}>
           <li><strong>Before formatting:</strong> Manuscript Cleanup catches double spaces, smart quote errors, and encoding artifacts that cause formatting errors downstream.</li>
-          <li><strong>EPUB conversion:</strong> The EPUB Formatter converts Word .docx files to valid EPUB 3.0 — Heading 1 becomes chapter breaks, a nav document is generated, and clean CSS replaces Word inline styles.</li>
+          <li><strong>EPUB conversion:</strong> The EPUB Formatter converts Word .docx files to valid EPUB 3 — Heading 1 becomes chapter breaks, a nav document is generated, and clean CSS replaces Word inline styles.</li>
           <li><strong>After formatting:</strong> The EPUB Validator catches KDP, Apple Books, and Kobo-specific errors before you hit a rejection email.</li>
           <li><strong>Metadata and TOC:</strong> The Metadata Builder and TOC Generator produce correctly structured metadata and navigation for the completed file.</li>
         </ul>

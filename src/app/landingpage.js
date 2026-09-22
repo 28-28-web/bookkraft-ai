@@ -9,7 +9,7 @@ import FAQSection from '../components/FAQSection';
 const TICKER_ITEMS = [
   '<strong>@alex_rivera</strong>: "The interface is clean and does exactly what it promises"',
   '<strong>@januine_dev</strong>: "Cleans up Word export mess in minutes"',
-  '<strong>@januine_dev</strong>: "Makes a real EPUB 3.0 that KDP accepts"',
+  '<strong>@januine_dev</strong>: "Makes a real EPUB 3 that KDP accepts"',
   '<strong>@januine_dev</strong>: "Two free tools, no signup. Best formatting money I\'ve spent"',
   '<strong>@alex_rivera</strong>: "Really appreciate how well it\'s put together. Nice work by the team"',
 ];
@@ -64,7 +64,7 @@ const HOW_STEPS = [
       </svg>
     ),
     label: 'Publish with confidence',
-    detail: 'Upload knowing your file will pass platform review',
+    detail: 'Catch technical publishing problems before you upload',
   },
 ];
 
@@ -125,7 +125,7 @@ const TOOL_GROUPS = [
       { slug: 'epub-validator',  name: 'EPUB Validator',        desc: 'Check your EPUB against KDP, Apple Books, and IngramSpark rules. Catches structure errors, bad metadata, and spine problems. Runs in your browser — no Java needed.' },
       { slug: 'word-cleanup',    name: 'Word Cleanup Checker',  desc: 'Upload your .docx and see every formatting problem before you convert. Flags double spaces, straight quotes, and stacked blank lines in seconds.' },
       { slug: 'cover-checker',   name: 'Cover Checker',         desc: 'Find out if your cover will be rejected before you upload. Checks pixel size, aspect ratio, and file format for KDP and Apple Books.' },
-      { slug: 'manuscript-mode', name: 'Full Manuscript Mode',  desc: 'Convert a DOCX or TXT file to EPUB 3.0 in one step. Finds chapters on its own. Fixes smart quotes and em dashes. Ready to upload to any store.' },
+      { slug: 'manuscript-mode', name: 'Full Manuscript Mode',  desc: 'Convert a DOCX or TXT file to EPUB 3 in one step. Finds chapters on its own. Fixes smart quotes and em dashes. Ready to upload to any store.' },
       { slug: 'metadata-builder',name: 'Book Metadata Builder', desc: 'Build your book metadata for KDP, IngramSpark, and EPUB in one place. Get the right BISAC codes, keyword fields, and pricing — all correctly formatted.' },
     ],
   },
@@ -134,7 +134,7 @@ const TOOL_GROUPS = [
     labelColor: '#b8962e',
     tools: [
       { slug: 'kindle-format-fixer',    name: 'Kindle Format Fixer',    desc: 'Fix eight common Kindle formatting problems in your browser. Cleans smart quotes, em dashes, double spaces, and tab indents from Word exports. No upload needed.' },
-      { slug: 'epub-formatter',         name: 'EPUB Formatter',          desc: 'Turn your manuscript into a clean EPUB 3.0 file. Add chapters, metadata, a cover, and inline images. Paste your text and the formatter handles the rest.' },
+      { slug: 'epub-formatter',         name: 'EPUB Formatter',          desc: 'Turn your manuscript into a clean EPUB 3 file. Add chapters, metadata, a cover, and inline images. Paste your text and the formatter handles the rest.' },
       { slug: 'toc-generator',          name: 'TOC Generator',           desc: 'Paste your chapter headings and get a working table of contents. Choose Kindle HTML, EPUB3 nav.xhtml, or NCX format. Works with H1, H2, and H3 headings.' },
       { slug: 'front-matter-generator', name: 'Front Matter Generator',  desc: 'Create your title page, copyright page, and disclaimer in seconds. Formatted for KDP. Handles pen names, optional ISBN, and common disclaimer types.' },
       { slug: 'css-snippet-generator',  name: 'CSS Snippet Generator',   desc: 'Get CSS for drop caps, scene breaks, blockquotes, and more. Copy, paste, done. Live preview included. Tested on Kindle KFX, Apple Books, and Kobo.' },
@@ -638,7 +638,7 @@ function ManuscriptBanner() {
           lineHeight: 1.2,
           fontFamily: "'Playfair Display', serif",
         }}>
-          Convert Word DOCX to EPUB 3.0 — One Step, No Calibre
+          Convert Word DOCX to EPUB 3 — One Step, No Calibre
         </h2>
         <p style={{
           color: 'rgba(255,255,255,0.6)',
@@ -646,7 +646,7 @@ function ManuscriptBanner() {
           marginBottom: 28,
           lineHeight: 1.6,
         }}>
-          Upload your .docx or .txt file. We detect chapters, clean formatting errors, and generate a valid EPUB 3.0 file in one step. No Calibre. No Sigil. No coding.
+          Upload your .docx or .txt file. We detect chapters, clean formatting errors, and generate a valid EPUB 3 file in one step. No Calibre. No Sigil. No coding.
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link
@@ -679,11 +679,11 @@ function ManuscriptBanner() {
               display: 'inline-block',
             }}
           >
-            Validate EPUB 3.0 Files
+            Validate EPUB 3 Files
           </Link>
         </div>
         <div style={{ marginTop: 20, color: 'rgba(255,255,255,0.35)', fontSize: 13 }}>
-          Works with .docx and .txt · Chapter detection included · EPUB 3.0 output
+          Works with .docx and .txt · Chapter detection included · EPUB 3 output
         </div>
       </div>
     </section>

@@ -211,7 +211,7 @@ export default function ReflowableVsFixedLayoutPage() {
         {/* CTA */}
         <div style={{ padding: '28px 24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
           <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Build a valid reflowable EPUB — free, no Calibre needed.</p>
-          <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Paste your manuscript or upload a .docx file. Valid EPUB 3.0 output with correct structure, metadata, and navigation.</p>
+          <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Paste your manuscript or upload a .docx file. Valid EPUB 3 output with correct structure, metadata, and navigation.</p>
           <Link
             href="/tools/epub-formatter"
             style={{ display: 'inline-block', padding: '13px 30px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 16 }}

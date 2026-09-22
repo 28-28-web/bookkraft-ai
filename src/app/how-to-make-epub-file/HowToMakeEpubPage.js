@@ -19,11 +19,11 @@ const faqs = [
   },
   {
     q: 'Will my EPUB pass Amazon KDP validation?',
-    a: "BookKraft AI outputs EPUB 3.0 files that pass KDP's EPUB validator and epubcheck. KDP also has content requirements (cover image, image resolution, font embedding) that are manuscript-specific — run the free EPUB Validator to check for those before uploading.",
+    a: "BookKraft AI outputs EPUB 3 files that pass KDP's EPUB validator and epubcheck. KDP also has content requirements (cover image, image resolution, font embedding) that are manuscript-specific — run the free EPUB Validator to check for those before uploading.",
   },
   {
     q: 'What\'s the difference between EPUB 2 and EPUB 3?',
-    a: 'EPUB 3 is the current standard, required by Apple Books and Kobo. EPUB 2 is the older format — it still works on most e-readers but lacks support for modern HTML5 features, proper nav documents, and accessibility metadata. BookKraft AI outputs EPUB 3.0.',
+    a: 'EPUB 3 is the current standard, required by Apple Books and Kobo. EPUB 2 is the older format — it still works on most e-readers but lacks support for modern HTML5 features, proper nav documents, and accessibility metadata. BookKraft AI outputs EPUB 3.',
   },
 ];
 
@@ -31,7 +31,7 @@ const options = [
   {
     n: '01',
     title: 'Convert from a Word Document',
-    desc: 'If your manuscript is in Microsoft Word or Google Docs, this is the fastest path. Export as .docx, upload to the EPUB Formatter, and download a valid EPUB 3.0 file in under a minute.',
+    desc: 'If your manuscript is in Microsoft Word or Google Docs, this is the fastest path. Export as .docx, upload to the EPUB Formatter, and download a valid EPUB 3 file in under a minute.',
     href: '/word-to-epub',
     linkLabel: 'Full Word to EPUB guide →',
     highlight: true,
@@ -56,7 +56,7 @@ const options = [
 
 const whatGoesInEpub = [
   { item: 'content.opf', desc: 'Package document — lists every file in the book and its metadata (title, author, language, ISBN, cover image declaration).' },
-  { item: 'nav.xhtml', desc: 'Navigation document — the clickable table of contents. Required by EPUB 3.0. Apple Books rejects files without it.' },
+  { item: 'nav.xhtml', desc: 'Navigation document — the clickable table of contents. Required by EPUB 3. Apple Books rejects files without it.' },
   { item: 'chapter-01.xhtml…', desc: 'One XHTML file per chapter (or section). Content must be valid HTML5, not Word HTML or Google Docs HTML.' },
   { item: 'stylesheet.css', desc: 'A single external CSS file that controls text styling, margins, and spacing across all chapters.' },
   { item: 'images/', desc: 'Cover image and any inline images. Cover must be declared as a cover-image item in the OPF manifest.' },
@@ -242,7 +242,7 @@ export default function HowToMakeEpubPage() {
         </h1>
 
         <p style={{ fontSize: 19, lineHeight: 1.6, marginBottom: 32, opacity: 0.9 }}>
-          An EPUB file is what every major ebook retailer — Apple Books, Kobo, IngramSpark, and Amazon KDP — actually wants. Most authors write in Word or Google Docs, which means the first step is converting that manuscript into a valid EPUB 3.0 file. Here&apos;s how, from the simplest path to the most hands-on.
+          An EPUB file is what every major ebook retailer — Apple Books, Kobo, IngramSpark, and Amazon KDP — actually wants. Most authors write in Word or Google Docs, which means the first step is converting that manuscript into a valid EPUB 3 file. Here&apos;s how, from the simplest path to the most hands-on.
         </p>
 
         {/* Three options */}
@@ -339,7 +339,7 @@ export default function HowToMakeEpubPage() {
             n: 3,
             title: 'Upload to the EPUB Formatter',
             href: '/tools/epub-formatter',
-            body: 'Upload the .docx file. The formatter outputs a valid EPUB 3.0 file with a proper nav document, clean CSS, and correct package metadata.',
+            body: 'Upload the .docx file. The formatter outputs a valid EPUB 3 file with a proper nav document, clean CSS, and correct package metadata.',
           },
           {
             n: 4,
@@ -481,7 +481,7 @@ export default function HowToMakeEpubPage() {
         {/* CTA */}
         <div style={{ marginTop: 48, padding: '28px 24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
           <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Make your EPUB file — free, no account needed.</p>
-          <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Upload a .docx file. Download EPUB 3.0. Passes retailer validation.</p>
+          <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Upload a .docx file. Download EPUB 3. Passes retailer validation.</p>
           <Link
             href="/tools/epub-formatter"
             style={{ display: 'inline-block', padding: '13px 30px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 16 }}
