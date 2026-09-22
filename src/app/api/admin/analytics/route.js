@@ -76,11 +76,28 @@ export async function GET() {
              limit 15`
         );
 
+        // Top referral sources (from ?ref=), last 30 days. referral_source is
+        // auto-attached to every event, so distinct session/user gives visitors,
+        // and filtered counts give tool_starts and checkouts per partner.
+        const { rows: referralSources } = await db.query(
+            `select event_data->>'referral_source' as source,
+                    count(distinct coalesce(user_id::text, session_id))::int   as visitors,
+                    count(*) filter (where event_name = 'tool_start')::int      as tool_starts,
+                    count(*) filter (where event_name = 'checkout_started')::int as checkouts
+             from events
+             where created_at > now() - interval '30 days'
+               and event_data->>'referral_source' is not null
+             group by 1
+             order by visitors desc
+             limit 20`
+        );
+
         return NextResponse.json({
             counts,
             funnel,
             emailCapture: { emailN, reportN, rate: reportN > 0 ? +(emailN / reportN * 100).toFixed(1) : 0 },
             topTools,
+            referralSources,
         });
     } catch (err) {
         console.error('Admin analytics load failed:', err.message);

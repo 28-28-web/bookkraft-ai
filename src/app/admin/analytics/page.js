@@ -115,6 +115,25 @@ export default function AdminAnalyticsPage() {
                             )}
                         </div>
 
+                        {/* Top referral sources */}
+                        <h3 style={{ marginBottom: 'var(--space-4)' }}>Top referral sources (30 days)</h3>
+                        <div className="admin-table" style={{ marginBottom: 'var(--space-8)' }}>
+                            <div className="admin-table-row header">
+                                <span>Source (?ref=)</span><span>Visitors</span><span>Tool starts</span><span>Checkouts</span>
+                            </div>
+                            {(data.referralSources || []).map((r, i) => (
+                                <div className="admin-table-row" key={i}>
+                                    <span style={{ fontSize: 'var(--text-sm)' }}>{r.source}</span>
+                                    <span style={{ fontWeight: 600 }}>{r.visitors.toLocaleString()}</span>
+                                    <span>{r.tool_starts.toLocaleString()}</span>
+                                    <span style={{ color: 'var(--gold)', fontWeight: 600 }}>{r.checkouts.toLocaleString()}</span>
+                                </div>
+                            ))}
+                            {(!data.referralSources || data.referralSources.length === 0) && (
+                                <p style={{ padding: 'var(--space-4)', color: 'var(--mid)' }}>No referral traffic yet.</p>
+                            )}
+                        </div>
+
                         {/* All event counts */}
                         <h3 style={{ marginBottom: 'var(--space-4)' }}>Event counts</h3>
                         <div className="admin-table">
