@@ -6,6 +6,9 @@ import ValidationBadge from './ValidationBadge';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { TOOLS } from '@/lib/tools';
 import { useLoadingSteps } from '@/hooks/useLoadingSteps';
+import { track } from '@/lib/analytics';
+
+const TOOL = 'epub-validator';
 
 const EPUB_VAL_STEPS = [
     { text: 'Reading EPUB...', ms: 1000 },
@@ -33,6 +36,16 @@ export default function EpubValidator() {
         }
     }, []);
 
+    useEffect(() => {
+        if (!results) return;
+        track('report_completed', {
+            tool: TOOL,
+            pass_count: results.passCount,
+            total: results.total,
+            issue_count: results.total - results.passCount,
+        });
+    }, [results]);
+
     const fileSizeRange = (bytes) => {
         if (!bytes) return 'unknown';
         if (bytes < 1024 * 1024) return '0-1MB';
@@ -45,6 +58,8 @@ export default function EpubValidator() {
         setLoading(true);
         setResults(null);
         setFileError(null);
+
+        track('tool_start', { tool: TOOL, file_size_range: fileSizeRange(epubFile.size) });
 
         if (typeof window !== 'undefined' && window.gtag) {
             window.gtag('event', 'tool_start', { tool_name: 'epub_validator' });
@@ -213,6 +228,8 @@ export default function EpubValidator() {
                 checks.push({ name: 'File Size', status: 'fail', detail: `${sizeMB} MB exceeds KDP 650 MB limit. Compress images or split into volumes.` });
             }
 
+            track('file_processed', { tool: TOOL, issue_count: checks.length - passCount, pass_count: passCount, total: checks.length });
+
             if (typeof window !== 'undefined' && window.gtag) {
                 window.gtag('event', 'epub_validated', { issue_count: checks.length - passCount });
                 window.gtag('event', 'file_upload_success', { tool_name: 'epub_validator', file_type: 'epub', file_size_range: fileSizeRange(epubFile.size) });
@@ -267,6 +284,8 @@ export default function EpubValidator() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, source_tool: 'epub-validator', issue_count: failCount + warnCount }),
         }).catch(() => {});
+
+        track('email_report', { tool: TOOL, issue_count: failCount + warnCount });
 
         if (typeof window !== 'undefined' && window.gtag) {
             window.gtag('event', 'email_captured', { tool_name: 'epub_validator' });
@@ -365,7 +384,7 @@ export default function EpubValidator() {
                                     {' '}found. BookKraft Pro auto-fixes all of them in under 2 minutes.
                                 </p>
 
-                                <a href="/signup?plan=pro" style={{ display: 'block', background: '#C9933A', color: '#fff', padding: '13px', borderRadius: '8px', textDecoration: 'none', fontWeight: 700, fontSize: '1rem', textAlign: 'center', marginBottom: '16px' }}>
+                                <a href="/signup?plan=pro" onClick={() => track('fix_clicked', { tool: TOOL, fix_type: 'auto_fix_all', issue_count: failCount + warnCount })} style={{ display: 'block', background: '#C9933A', color: '#fff', padding: '13px', borderRadius: '8px', textDecoration: 'none', fontWeight: 700, fontSize: '1rem', textAlign: 'center', marginBottom: '16px' }}>
                                     🔧 Auto-Fix All — Start Free Trial
                                 </a>
 
@@ -374,7 +393,7 @@ export default function EpubValidator() {
                                         <p style={{ fontSize: '0.82rem', color: '#9ca3af', marginBottom: '10px' }}>Or fix step by step:</p>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                             {fixChain.map((item, i) => (
-                                                <a key={i} href={item.fixLink} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.07)', borderRadius: '7px', padding: '10px 14px', textDecoration: 'none', color: '#fff', fontSize: '0.88rem', fontWeight: 500 }}>
+                                                <a key={i} href={item.fixLink} onClick={() => track('fix_clicked', { tool: TOOL, fix_tool: item.fixTool, issue: item.name })} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.07)', borderRadius: '7px', padding: '10px 14px', textDecoration: 'none', color: '#fff', fontSize: '0.88rem', fontWeight: 500 }}>
                                                     <span style={{ background: '#C9933A', borderRadius: '50%', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700, flexShrink: 0 }}>{i + 1}</span>
                                                     {item.name} issue → <span style={{ color: '#C9933A', marginLeft: 'auto' }}>Open {item.fixTool} →</span>
                                                 </a>
@@ -411,7 +430,7 @@ export default function EpubValidator() {
                                         <strong>{c.name}</strong>
                                         <p>{c.detail}</p>
                                         {c.fixLink && (
-                                            <a href={c.fixLink} style={{ display: 'inline-block', marginTop: '8px', color: '#b8860b', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none' }}>
+                                            <a href={c.fixLink} onClick={() => track('fix_clicked', { tool: TOOL, fix_tool: c.fixTool, issue: c.name })} style={{ display: 'inline-block', marginTop: '8px', color: '#b8860b', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none' }}>
                                                 → Fix this with {c.fixTool}
                                             </a>
                                         )}

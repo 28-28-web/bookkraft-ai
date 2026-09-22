@@ -4,6 +4,9 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import ToolResultsCTA from '@/components/ToolResultsCTA';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
+import { track } from '@/lib/analytics';
+
+const TOOL = 'cover-checker';
 
 const faqs = [
   {
@@ -170,6 +173,10 @@ export default function CoverCheckerPage() {
     }
   }, []);
 
+  useEffect(() => {
+    if (dims) track('report_completed', { tool: TOOL });
+  }, [dims]);
+
   const handleFile = (file) => {
     if (!file) return;
     if (!file.type.startsWith('image/')) {
@@ -181,6 +188,7 @@ export default function CoverCheckerPage() {
       setError('File too large to check — try an image under 55MB.');
       return;
     }
+    track('tool_start', { tool: TOOL });
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'tool_start', { tool_name: 'cover_checker' });
     }
@@ -197,6 +205,7 @@ export default function CoverCheckerPage() {
       const apple = checkApple(w, h);
       const issueCount = [...kdp.checks, ...apple.checks].filter((c) => !c.pass).length;
       const status = kdp.status === 'pass' && apple.status === 'pass' ? 'pass' : 'fail';
+      track('file_processed', { tool: TOOL, status, issue_count: issueCount });
       if (typeof window !== 'undefined' && window.gtag) {
         window.gtag('event', 'result_view', { tool_name: 'cover_checker', status });
         window.gtag('event', 'tool_complete', { tool_name: 'cover_checker', issue_count: issueCount });

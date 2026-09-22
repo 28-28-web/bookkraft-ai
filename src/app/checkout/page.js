@@ -8,6 +8,7 @@ import { useAuth } from '@/components/AuthProvider';
 import { PRICING, PADDLE_PRICE_IDS } from '@/lib/constants';
 import Footer from '@/components/Footer';
 import { usePaddle } from '@/app/hooks/usePaddle';
+import { track } from '@/lib/analytics';
 
 export default function CheckoutPage() {
     return (
@@ -74,6 +75,8 @@ function CheckoutContent() {
             const m = document.cookie.match(/_ga=GA[\d.]+\.(.+?)(?:;|$)/);
             if (m) gaClientId = m[1].trim();
         } catch { /* blocked GA cookie — no-op */ }
+
+        track('checkout_started', { plan: selected.purchaseType, source: 'checkout_page' });
 
         const toltReferral = window.tolt_referral;
         paddle.Checkout.open({

@@ -2,6 +2,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '@/components/AuthProvider';
 import { useLoadingSteps } from '@/hooks/useLoadingSteps';
+import { track } from '@/lib/analytics';
+
+const TOOL = 'manuscript-mode';
 
 const MODE_STEPS = [
     { text: 'Uploading...', ms: 2000 },
@@ -121,6 +124,7 @@ export default function ManuscriptModeClient() {
             return;
         }
 
+        track('tool_start', { tool: TOOL });
         gtag('event', 'tool_start', { tool_name: 'manuscript_mode' });
         gtag('event', 'file_upload_start', { tool_name: 'manuscript_mode', file_size_kb: Math.round(file.size / 1024) });
 
@@ -177,6 +181,8 @@ export default function ManuscriptModeClient() {
                 wordCount: wordCount ? Number(wordCount).toLocaleString() : '?',
             });
             setStatus('done');
+            track('file_processed', { tool: TOOL, status: 'success', chapters: chaptersFound ? Number(chaptersFound) : null });
+            track('report_completed', { tool: TOOL });
             gtag('event', 'file_upload_success', { tool_name: 'manuscript_mode' });
             gtag('event', 'tool_complete', { tool_name: 'manuscript_mode', chapters: chaptersFound });
             gtag('event', 'result_view', { tool_name: 'manuscript_mode' });

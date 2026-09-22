@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { processPaddlePurchase } from '@/lib/db/purchases';
 import { getPool } from '@/lib/db/pool';
+import { logEvent } from '@/lib/events';
 import { BrevoClient } from '@getbrevo/brevo';
 import { fireGA4Event } from '@/lib/ga4';
 
@@ -439,6 +440,18 @@ export async function POST(request) {
                 },
             });
             void sendPurchaseNotification({ userId, purchaseType, paddleOrderId, amountPaid, userEmail });
+
+            // Funnel event — server-side only, spoof-resistant. Best-effort:
+            // never fail the webhook over an analytics write.
+            try {
+                await logEvent({
+                    eventName: 'purchase',
+                    userId,
+                    eventData: { plan: purchaseType, amount: amountPaid, paddle_order_id: paddleOrderId },
+                });
+            } catch (e) {
+                console.warn('purchase event log failed:', e.message);
+            }
         }
 
         return NextResponse.json({

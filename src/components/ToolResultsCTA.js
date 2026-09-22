@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { track } from '@/lib/analytics';
 
 export default function ToolResultsCTA({ toolSlug, subjectNoun = 'file', issueCount, fixTool }) {
     const [email, setEmail] = useState('');
@@ -34,6 +35,7 @@ export default function ToolResultsCTA({ toolSlug, subjectNoun = 'file', issueCo
                 setSubmitting(false);
                 return;
             }
+            track('email_report', { tool: toolSlug, issue_count: issueCount || 0 });
             if (typeof window !== 'undefined' && window.gtag) {
                 window.gtag('event', 'email_captured', { tool_name: toolSlug, issue_count: issueCount || 0 });
             }
@@ -127,7 +129,7 @@ export default function ToolResultsCTA({ toolSlug, subjectNoun = 'file', issueCo
                             ? `${fixTool.label} fixes these issues for you.`
                             : 'Unlock every BookKraft tool to fix issues like these.'}
                     </p>
-                    <a href={fixHref} style={{ display: 'block', textAlign: 'center', background: '#C9933A', color: '#1a1a1a', padding: '10px 16px', borderRadius: 8, fontWeight: 700, fontSize: '0.88rem', textDecoration: 'none' }}>
+                    <a href={fixHref} onClick={() => track('fix_clicked', { tool: toolSlug, fix_tool: fixTool?.slug || 'pricing', issue_count: issueCount || 0 })} style={{ display: 'block', textAlign: 'center', background: '#C9933A', color: '#1a1a1a', padding: '10px 16px', borderRadius: 8, fontWeight: 700, fontSize: '0.88rem', textDecoration: 'none' }}>
                         {fixLabel}
                     </a>
                 </div>

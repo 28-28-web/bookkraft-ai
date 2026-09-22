@@ -6,6 +6,7 @@ import { useState, Suspense, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { usePaddle } from '@/app/hooks/usePaddle';
 import { useAuth } from '@/components/AuthProvider';
+import { track } from '@/lib/analytics';
 
 const CHECKOUT_WATCHDOG_MS = 5000;
 
@@ -105,6 +106,8 @@ function CheckoutButton({ purchaseType, discountCode, className, children }) {
                 anonymous_id: !user ? (gaClientId || null) : null,
             });
         }
+
+        track('checkout_started', { plan: purchaseType, source: 'pricing' });
 
         try {
             paddle.Checkout.open(payload);
