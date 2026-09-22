@@ -7,7 +7,7 @@ import { useAuth } from '@/components/AuthProvider';
 import Sidebar from '@/components/Sidebar';
 
 export default function AdminPage() {
-    const { profile, loading: authLoading } = useAuth();
+    const { user, profile, loading: authLoading } = useAuth();
     const router = useRouter();
     const [stats, setStats] = useState({
         totalUsers: '—', totalRevenue: '—', fullAccessUsers: '—', creditsSold: '—',
@@ -18,11 +18,12 @@ export default function AdminPage() {
     const [loadError, setLoadError] = useState('');
 
     useEffect(() => {
-        if (!authLoading) {
-            if (!profile?.is_admin) { router.push('/dashboard'); return; }
-            loadAdminData();
-        }
-    }, [authLoading, profile]);
+        if (authLoading) return;               // auth still resolving
+        if (!user) { router.push('/dashboard'); return; }
+        if (profile === null) return;          // profile still loading — wait, don't redirect yet
+        if (!profile.is_admin) { router.push('/dashboard'); return; }
+        loadAdminData();
+    }, [authLoading, user, profile]);
 
     // The real access control is server-side in /api/admin/data (verifies
     // is_admin before reading anything, over the direct Postgres

@@ -15,17 +15,18 @@ const STEP_LABELS = {
 };
 
 export default function AdminAnalyticsPage() {
-    const { profile, loading: authLoading } = useAuth();
+    const { user, profile, loading: authLoading } = useAuth();
     const router = useRouter();
     const [data, setData] = useState(null);
     const [loadError, setLoadError] = useState('');
 
     useEffect(() => {
-        if (!authLoading) {
-            if (!profile?.is_admin) { router.push('/dashboard'); return; }
-            load();
-        }
-    }, [authLoading, profile]);
+        if (authLoading) return;               // auth still resolving
+        if (!user) { router.push('/dashboard'); return; }
+        if (profile === null) return;          // profile still loading — wait, don't redirect yet
+        if (!profile.is_admin) { router.push('/dashboard'); return; }
+        load();
+    }, [authLoading, user, profile]);
 
     // Real access control is server-side in /api/admin/analytics (verifies
     // is_admin before reading, over the direct Postgres connection). The
