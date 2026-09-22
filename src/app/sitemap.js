@@ -52,7 +52,10 @@ export default async function sitemap() {
     priority,
   }));
 
-  const posts = getLocalPosts();
+  // Slugs merged into common-epub-validation-errors and 301-redirected in
+  // next.config.mjs — kept on disk for reference but excluded from the sitemap.
+  const REDIRECTED_POSTS = new Set(['fix-epub-errors-kdp', 'kdp-rejecting-epub-fix']);
+  const posts = getLocalPosts().filter((post) => !REDIRECTED_POSTS.has(post.slug));
   const blogPostPages = posts.map((post) => ({
     url: `${BASE}/blog/${post.slug}`,
     lastModified: new Date(post.published_at),

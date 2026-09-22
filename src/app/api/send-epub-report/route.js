@@ -39,7 +39,7 @@ export async function POST(req) {
   </a>
 
   <p style="margin-top: 16px;">
-    <a href="https://bookkraftai.com/blog/kdp-rejecting-epub-fix"
+    <a href="https://bookkraftai.com/blog/common-epub-validation-errors"
        style="color: #b8860b; text-decoration: none; font-size: 14px;">
       Why is KDP rejecting my EPUB? Read the guide →
     </a>

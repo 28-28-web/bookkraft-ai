@@ -52,6 +52,17 @@ const nextConfig = {
         destination: '/tools/metadata-builder',
         permanent: true,
       },
+      // Consolidated blog posts — merged into common-epub-validation-errors.
+      {
+        source: '/blog/fix-epub-errors-kdp',
+        destination: '/blog/common-epub-validation-errors',
+        permanent: true,
+      },
+      {
+        source: '/blog/kdp-rejecting-epub-fix',
+        destination: '/blog/common-epub-validation-errors',
+        permanent: true,
+      },
       // Malformed URLs crawled from bad links — send to homepage.
       {
         source: '/$',

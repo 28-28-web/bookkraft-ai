@@ -384,7 +384,7 @@ export default function EpubValidator() {
                                 )}
 
                                 <p style={{ fontSize: '0.78rem', color: '#6b7280', marginTop: '14px', textAlign: 'center' }}>
-                                    <a href="/blog/kdp-rejecting-epub-fix" style={{ color: '#9ca3af' }}>Why is KDP rejecting my EPUB? Read the guide →</a>
+                                    <a href="/blog/common-epub-validation-errors" style={{ color: '#9ca3af' }}>Why is KDP rejecting my EPUB? Read the guide →</a>
                                 </p>
                             </div>
                         )}
