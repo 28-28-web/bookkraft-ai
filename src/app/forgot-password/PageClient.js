@@ -10,6 +10,8 @@ import { createBrowserClient } from '@supabase/ssr';
 
 import Footer from '@/components/Footer';
 
+import Turnstile, { TURNSTILE_ENABLED } from '@/components/Turnstile';
+
 
 
 function ForgotPasswordPageClient() {
@@ -21,6 +23,12 @@ function ForgotPasswordPageClient() {
     const [error, setError] = useState('');
 
     const [loading, setLoading] = useState(false);
+
+    const [captchaToken, setCaptchaToken] = useState('');
+
+    const [captchaKey, setCaptchaKey] = useState(0);
+
+    const resetCaptcha = () => { setCaptchaToken(''); setCaptchaKey((k) => k + 1); };
 
 
 
@@ -42,6 +50,8 @@ function ForgotPasswordPageClient() {
 
         if (!email) { setError('Please enter your email address.'); return; }
 
+        if (TURNSTILE_ENABLED && !captchaToken) { setError('Please complete the CAPTCHA below.'); return; }
+
 
 
         setLoading(true);
@@ -52,6 +62,8 @@ function ForgotPasswordPageClient() {
 
                 redirectTo: `https://bookkraftai.com/account`,
 
+                captchaToken: captchaToken || undefined,
+
             });
 
             if (resetError) throw resetError;
@@ -61,6 +73,8 @@ function ForgotPasswordPageClient() {
         } catch (err) {
 
             setError(err.message || 'Something went wrong. Please try again.');
+
+            resetCaptcha();
 
         } finally {
 
@@ -109,6 +123,8 @@ function ForgotPasswordPageClient() {
                                 </div>
 
                                 {error && <p style={{ color: 'var(--rust)', fontSize: 'var(--text-sm)', marginBottom: 'var(--space-4)' }}>{error}</p>}
+
+                                <Turnstile key={captchaKey} onVerify={setCaptchaToken} onExpire={resetCaptcha} onError={() => { resetCaptcha(); setError('CAPTCHA check failed — please try again.'); }} />
 
                                 <button type="submit" className="btn btn-gold btn-full" disabled={loading}>
 

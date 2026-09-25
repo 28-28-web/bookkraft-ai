@@ -14,6 +14,8 @@ import { createClient } from '@/lib/supabase/client';
 
 import { useToast } from '@/components/Toast';
 
+import Turnstile, { TURNSTILE_ENABLED } from '@/components/Turnstile';
+
 
 
 function LoginContent() {
@@ -27,6 +29,12 @@ function LoginContent() {
     const [loading, setLoading] = useState(false);
 
     const [magicLinkSent, setMagicLinkSent] = useState(false);
+
+    const [captchaToken, setCaptchaToken] = useState('');
+
+    const [captchaKey, setCaptchaKey] = useState(0);
+
+    const resetCaptcha = () => { setCaptchaToken(''); setCaptchaKey((k) => k + 1); };
 
     const router = useRouter();
 
@@ -52,13 +60,15 @@ function LoginContent() {
 
         if (!email || !password) { setError('Please fill in all fields.'); return; }
 
+        if (TURNSTILE_ENABLED && !captchaToken) { setError('Please complete the CAPTCHA below.'); return; }
+
 
 
         setLoading(true);
 
         try {
 
-            const { data, error: loginError } = await supabase.auth.signInWithPassword({ email, password });
+            const { data, error: loginError } = await supabase.auth.signInWithPassword({ email, password, options: { captchaToken: captchaToken || undefined } });
 
             if (loginError) throw loginError;
 
@@ -70,6 +80,8 @@ function LoginContent() {
         } catch (err) {
 
             setError(err.message || 'Login failed. Please check your credentials.');
+
+            resetCaptcha();
 
         } finally {
 
@@ -121,6 +133,8 @@ function LoginContent() {
 
         if (!email) { setError('Enter your email address first.'); return; }
 
+        if (TURNSTILE_ENABLED && !captchaToken) { setError('Please complete the CAPTCHA below.'); return; }
+
         setError('');
 
         setLoading(true);
@@ -131,7 +145,7 @@ function LoginContent() {
 
                 email,
 
-                options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(redirectTo)}` }
+                options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(redirectTo)}`, captchaToken: captchaToken || undefined }
 
             });
 
@@ -142,6 +156,8 @@ function LoginContent() {
         } catch (err) {
 
             setError(err.message || 'Failed to send magic link.');
+
+            resetCaptcha();
 
         } finally {
 
@@ -238,6 +254,8 @@ function LoginContent() {
                             value={password} onChange={(e) => setPassword(e.target.value)} />
 
                     </div>
+
+                    <Turnstile key={captchaKey} onVerify={setCaptchaToken} onExpire={resetCaptcha} onError={() => { resetCaptcha(); setError('CAPTCHA check failed — please try again.'); }} />
 
                     <button className="btn btn-primary btn-full" type="submit" disabled={loading}>
 

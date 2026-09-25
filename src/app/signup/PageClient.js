@@ -12,6 +12,8 @@ import { createClient } from '@/lib/supabase/client';
 
 import { useToast } from '@/components/Toast';
 
+import Turnstile, { TURNSTILE_ENABLED } from '@/components/Turnstile';
+
 
 
 function SignupPageClient() {
@@ -25,6 +27,12 @@ function SignupPageClient() {
     const [success, setSuccess] = useState('');
 
     const [loading, setLoading] = useState(false);
+
+    const [captchaToken, setCaptchaToken] = useState('');
+
+    const [captchaKey, setCaptchaKey] = useState(0);
+
+    const resetCaptcha = () => { setCaptchaToken(''); setCaptchaKey((k) => k + 1); };
 
     const router = useRouter();
 
@@ -53,6 +61,8 @@ function SignupPageClient() {
 
         if (password.length < 8) { setError('Password must be at least 8 characters.'); return; }
 
+        if (TURNSTILE_ENABLED && !captchaToken) { setError('Please complete the CAPTCHA below.'); return; }
+
 
 
         setLoading(true);
@@ -65,7 +75,7 @@ function SignupPageClient() {
 
                 password,
 
-                options: { emailRedirectTo: `https://bookkraftai.com/auth/callback?next=/onboarding` }
+                options: { emailRedirectTo: `https://bookkraftai.com/auth/callback?next=/onboarding`, captchaToken: captchaToken || undefined }
 
             });
 
@@ -104,6 +114,8 @@ function SignupPageClient() {
         } catch (err) {
 
             setError(err.message || 'Signup failed. Please try again.');
+
+            resetCaptcha();
 
         } finally {
 
@@ -204,6 +216,8 @@ function SignupPageClient() {
                         )}
 
                     </div>
+
+                    <Turnstile key={captchaKey} onVerify={setCaptchaToken} onExpire={resetCaptcha} onError={() => { resetCaptcha(); setError('CAPTCHA check failed — please try again.'); }} />
 
                     <button className="btn btn-primary btn-full" type="submit" disabled={loading}>
 
