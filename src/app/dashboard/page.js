@@ -181,6 +181,23 @@ export default function DashboardPage() {
                 {/* Promo code redemption */}
                 <PromoCodeInput onSuccess={() => refreshProfile()} />
 
+                {/* Full Readiness Report entry */}
+                <Link href="/dashboard/readiness" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <div style={{
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--space-4)',
+                        padding: 'var(--space-4)', marginBottom: 'var(--space-6)',
+                        background: 'var(--gold-light)', border: '1px solid var(--border)', borderRadius: 'var(--radius)',
+                    }}>
+                        <div>
+                            <h3 style={{ fontSize: 'var(--text-base)', fontWeight: 700, marginBottom: '2px' }}>Full Readiness Report</h3>
+                            <p style={{ margin: 0, fontSize: 'var(--text-sm)', color: 'var(--mid)' }}>
+                                Combine your EPUB and cover into one readiness score.
+                            </p>
+                        </div>
+                        <span style={{ fontSize: 'var(--text-sm)', color: 'var(--gold)', fontWeight: 600, whiteSpace: 'nowrap' }}>Open &#8594;</span>
+                    </div>
+                </Link>
+
                 {/* ── My Books Section ── */}
                 <div style={{ marginBottom: 'var(--space-8)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-4)' }}>
