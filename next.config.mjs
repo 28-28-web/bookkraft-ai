@@ -101,10 +101,10 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.paddle.com https://www.googletagmanager.com https://static.cloudflareinsights.com https://www.clarity.ms https://scripts.clarity.ms https://public.profitwell.com https://files.tlt-cdn.com https://cdn.jsdelivr.net",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.paddle.com https://www.googletagmanager.com https://static.cloudflareinsights.com https://www.clarity.ms https://scripts.clarity.ms https://public.profitwell.com https://files.tlt-cdn.com https://cdn.jsdelivr.net https://challenges.cloudflare.com",
               "connect-src 'self' https://api.paddle.com https://sandbox-api.paddle.com https://cdn.paddle.com https://*.supabase.co https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://www.google.com https://static.cloudflareinsights.com https://*.clarity.ms https://public.profitwell.com https://files.tlt-cdn.com https://api.tolt.io",
               "media-src 'self' https://assets.bookkraftai.com",
-              "frame-src 'self' https://paddle.com https://*.paddle.com",
+              "frame-src 'self' https://paddle.com https://*.paddle.com https://challenges.cloudflare.com",
               "img-src 'self' data: https: blob:",
               "style-src 'self' 'unsafe-inline' https://cdn.paddle.com",
             ].join('; '),
