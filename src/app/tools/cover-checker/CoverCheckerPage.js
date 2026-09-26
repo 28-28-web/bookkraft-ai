@@ -5,6 +5,7 @@ import Link from 'next/link';
 import ToolResultsCTA from '@/components/ToolResultsCTA';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { track } from '@/lib/analytics';
+import { checkKDP, checkApple } from '@/lib/coverChecks';
 
 const TOOL = 'cover-checker';
 
@@ -43,78 +44,6 @@ const faqs = [
   },
 ];
 
-
-const KDP_MIN_WIDTH = 625;
-const KDP_MIN_HEIGHT = 1000;
-const KDP_MAX_FILE_SIZE_MB = 50;
-const KDP_RECOMMENDED_LONG_SIDE = 2560;
-const KDP_RATIO = 1.6;
-const KDP_RATIO_TOLERANCE = 0.08;
-const APPLE_MIN_SHORT_SIDE = 1400;
-
-function checkKDP(width, height, fileType, fileSizeMB) {
-  const longSide = Math.max(width, height);
-  const shortSide = Math.min(width, height);
-  const ratio = longSide / shortSide;
-  const isPortrait = height >= width;
-
-  const checks = [];
-
-  checks.push({
-    label: 'Format',
-    pass: fileType === 'image/jpeg' || fileType === 'image/jpg',
-    detail: fileType === 'image/jpeg' || fileType === 'image/jpg'
-      ? 'JPEG — accepted'
-      : `${fileType.replace('image/', '').toUpperCase()} — KDP requires JPEG, not PNG`,
-  });
-
-  checks.push({
-    label: 'Orientation',
-    pass: isPortrait,
-    detail: isPortrait ? 'Portrait — correct' : 'Landscape or square — covers must be portrait',
-  });
-
-  checks.push({
-    label: 'Minimum size',
-    pass: width >= KDP_MIN_WIDTH && height >= KDP_MIN_HEIGHT,
-    detail: `${width}×${height}px — minimum is ${KDP_MIN_WIDTH}×${KDP_MIN_HEIGHT}px (width and height checked independently)`,
-  });
-
-  checks.push({
-    label: 'Recommended size',
-    pass: longSide >= KDP_RECOMMENDED_LONG_SIDE,
-    detail: longSide >= KDP_RECOMMENDED_LONG_SIDE
-      ? `${longSide}px — meets the ${KDP_RECOMMENDED_LONG_SIDE}px recommendation`
-      : `${longSide}px — below the ${KDP_RECOMMENDED_LONG_SIDE}px recommendation, may look soft on high-res screens`,
-    warning: longSide < KDP_RECOMMENDED_LONG_SIDE && width >= KDP_MIN_WIDTH && height >= KDP_MIN_HEIGHT,
-  });
-  checks.push({
-    label: 'Aspect ratio',
-    pass: Math.abs(ratio - KDP_RATIO) <= KDP_RATIO_TOLERANCE,
-    detail: `${ratio.toFixed(2)}:1 — ideal is ${KDP_RATIO}:1`,
-  });
-
-  if (fileSizeMB !== undefined) {
-    checks.push({
-      label: 'File size',
-      pass: fileSizeMB <= KDP_MAX_FILE_SIZE_MB,
-      detail: `${fileSizeMB.toFixed(2)}MB — KDP limit is ${KDP_MAX_FILE_SIZE_MB}MB`,
-    });
-  }
-
-  const hardFails = checks.filter(c => !c.pass && !c.warning).length;
-  return { checks, status: hardFails === 0 ? 'pass' : 'fail' };
-}
-
-function checkApple(width, height) {
-  const shortSide = Math.min(width, height);
-  const checks = [{
-    label: 'Minimum width',
-    pass: shortSide >= APPLE_MIN_SHORT_SIDE,
-    detail: `${shortSide}px shortest side — minimum is ${APPLE_MIN_SHORT_SIDE}px`,
-  }];
-  return { checks, status: checks[0].pass ? 'pass' : 'fail' };
-}
 
 function StatusPill({ status }) {
   const styles = {
