@@ -1,11 +1,37 @@
 import { NextResponse } from 'next/server';
 import { callClaude } from '@/lib/toolAccess';
+import { rateLimit } from '@/lib/rateLimit';
+import { FREE_SAMPLE_RATE_LIMIT } from '@/lib/constants';
+
+const MAX_TEXT_CHARS = 10000; // only ~4000 are analyzed; blocks huge payloads
+const HOUR_MS = 60 * 60 * 1000;
+
+// Trust cf-connecting-ip and x-real-ip first; x-forwarded-for last because a
+// client can forge it.
+function getClientIp(request) {
+  return request.headers.get('cf-connecting-ip')
+    || request.headers.get('x-real-ip')
+    || (request.headers.get('x-forwarded-for') || '').split(',')[0].trim()
+    || 'unknown';
+}
 
 export async function POST(req) {
   try {
     const { text } = await req.json();
     if (!text || text.trim().length < 100) {
       return NextResponse.json({ error: 'Please provide at least 100 characters.' }, { status: 400 });
+    }
+    if (text.length > MAX_TEXT_CHARS) {
+      return NextResponse.json({ error: 'text_too_long', message: 'That text is too long — paste up to 10,000 characters.' }, { status: 400 });
+    }
+
+    const ip = getClientIp(req);
+    const rl = rateLimit(`publishing-score:${ip}`, FREE_SAMPLE_RATE_LIMIT, HOUR_MS);
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: 'rate_limited', message: "You've reached the free limit. Create a free account for more checks." },
+        { status: 429, headers: { 'Retry-After': String(rl.retryAfterSec) } }
+      );
     }
     const template = {total:0,categories:[
       {id:'formatting_cleanliness',label:'Formatting Cleanliness',score:0,max:20,status:'good',insight:'sentence here',tool:'Kindle Format Fixer',toolUrl:'/tools/kindle-format-fixer'},

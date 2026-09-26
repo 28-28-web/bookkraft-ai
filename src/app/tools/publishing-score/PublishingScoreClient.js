@@ -82,7 +82,7 @@ export default function PublishingScoreClient({ children }) {
         body: JSON.stringify({ text }),
       });
       const data = await res.json();
-      if (data.error) throw new Error(data.error);
+      if (!res.ok || data.error) throw new Error(data.message || data.error || 'Something went wrong. Please try again.');
       if (typeof window !== 'undefined' && window.gtag) {
         window.gtag('event', 'tool_complete', { tool_name: 'publishing_score', score: data.total });
       }
