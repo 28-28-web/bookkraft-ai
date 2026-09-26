@@ -14,6 +14,8 @@ import { useToast } from '@/components/Toast';
 
 import Turnstile, { TURNSTILE_ENABLED } from '@/components/Turnstile';
 
+import { track } from '@/lib/analytics';
+
 
 
 function SignupPageClient() {
@@ -91,6 +93,7 @@ function SignupPageClient() {
 
                 // Auto-confirmed, go to onboarding
 
+                track('account_created', { method: 'email' });
                 if (typeof window !== 'undefined' && window.gtag) {
                     window.gtag('event', 'sign_up', { method: 'email' });
                 }
@@ -101,6 +104,7 @@ function SignupPageClient() {
 
             } else {
 
+                track('account_created', { method: 'email' });
                 if (typeof window !== 'undefined' && window.gtag) {
                     window.gtag('event', 'sign_up', { method: 'email' });
                 }

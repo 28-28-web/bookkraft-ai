@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { useAuth } from '@/components/AuthProvider';
 import { useRouter } from 'next/navigation';
 import { useLoadingSteps } from '@/hooks/useLoadingSteps';
+import { track } from '@/lib/analytics';
 
 const EPUB_PREMIUM_STEPS = [
     { text: 'Reading EPUB...', ms: 1500 },
@@ -53,6 +54,7 @@ export default function EpubValidatorPremium() {
         setFileError(null);
         setCreditError(null);
 
+        track('tool_start', { tool: 'epub-validator-premium', file_size_range: fileSizeRange(epubFile.size) });
         if (typeof window !== 'undefined' && window.gtag) {
             window.gtag('event', 'tool_start', { tool_name: 'epub_validator_premium' });
             window.gtag('event', 'file_upload_start', { tool_name: 'epub_validator_premium', file_type: 'epub', file_size_range: fileSizeRange(epubFile.size) });
@@ -312,6 +314,7 @@ export default function EpubValidatorPremium() {
                 window.gtag('event', 'file_upload_success', { tool_name: 'epub_validator_premium', file_type: 'epub', file_size_range: fileSizeRange(epubFile.size) });
                 window.gtag('event', 'tool_complete', { tool_name: 'epub_validator_premium', issue_count: checks.length - passCount });
             }
+            track('report_completed', { tool: 'epub-validator-premium', issue_count: checks.length - passCount, pass_count: passCount, total: checks.length });
 
             // Show deterministic results immediately; AI store report loads in background
             setLoading(false);

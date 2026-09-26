@@ -4,7 +4,7 @@ const tools = [
   {
     name: 'BookKraft AI',
     platform: 'Any browser',
-    price: 'Free tools + $19/mo Starter',
+    price: 'Free tools + $19 Starter (one-time)',
     output: 'EPUB 3, Kindle',
     printSupport: '—',
     bestFor: 'Manuscript cleanup, EPUB validation, metadata, pre-flight before Vellum or Atticus',

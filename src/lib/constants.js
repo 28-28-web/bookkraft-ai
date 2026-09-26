@@ -36,13 +36,12 @@ export const FREE_SAMPLE_TOOLS = ['manuscript-cleanup', 'style-sheet-auditor'];
 export const FREE_SAMPLE_WORD_LIMIT = 500;
 export const FREE_SAMPLE_RATE_LIMIT = 5; // per hour
 
-// Paddle price IDs. Starter and Pro are new — real IDs not created yet.
-// checked at boot (src/instrumentation.js) and logs a loud warning if either
-// is still a placeholder, so this can't accidentally ship wired to nothing.
+// Paddle price IDs — all live in the Paddle account. instrumentation.js
+// checks these at boot and logs a loud warning if any is still a placeholder.
 export const PADDLE_PRICE_IDS = {
     starter: 'pri_01kyczmfdrd14fzb4c78nwxr5m',
     pro: 'pri_01kyczy2vcrjaf688cz1exwwxz',
-    lifetime: 'pri_01km8ymm2eyk4tyjgm3p5x6bar', // unchanged — do not touch
+    lifetime: 'pri_01km8ymm2eyk4tyjgm3p5x6bar',
 };
 
 // Phase 3 pricing — Free tier expanded, paid tiers collapsed to Starter/Pro/Lifetime.

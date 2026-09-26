@@ -5,6 +5,7 @@ import UpsellBanner from '@/components/UpsellBanner';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { TOOLS } from '@/lib/tools';
 import { useLoadingSteps } from '@/hooks/useLoadingSteps';
+import { track } from '@/lib/analytics';
 
 const META_STEPS = [
     { text: 'Reading EPUB...', ms: 800 },
@@ -149,10 +150,12 @@ export default function MetadataBuilder() {
     const handleGenerate = (e) => {
         e.preventDefault();
         if (!form.title && !form.authors) return;
+        track('tool_start', { tool: 'metadata-builder' });
         if (typeof window !== 'undefined' && window.gtag) {
             window.gtag('event', 'tool_complete', { tool_name: 'metadata_builder', issue_count: failCount + warnCount });
         }
         setShowReport(true);
+        track('report_completed', { tool: 'metadata-builder', issue_count: failCount + warnCount });
     };
 
     const handleEmailSubmit = async (e) => {

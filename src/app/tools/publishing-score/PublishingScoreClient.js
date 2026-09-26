@@ -4,6 +4,7 @@ import ScoreCard from './ScoreCard';
 import UpsellBanner from '@/components/UpsellBanner';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { TOOLS } from '@/lib/tools';
+import { track } from '@/lib/analytics';
 
 export default function PublishingScoreClient({ children }) {
   const [text, setText] = useState('');
@@ -70,6 +71,7 @@ export default function PublishingScoreClient({ children }) {
 
   const analyze = async () => {
     if (!text.trim()) return;
+    track('tool_start', { tool: 'publishing-score' });
     setLoading(true);
     setError('');
     setResult(null);
@@ -85,6 +87,7 @@ export default function PublishingScoreClient({ children }) {
         window.gtag('event', 'tool_complete', { tool_name: 'publishing_score', score: data.total });
       }
       setResult(data);
+      track('report_completed', { tool: 'publishing-score', score: data.total });
     } catch (err) {
       setError(err.message || 'Something went wrong. Please try again.');
     } finally {

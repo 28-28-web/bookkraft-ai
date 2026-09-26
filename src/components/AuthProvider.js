@@ -3,6 +3,13 @@
 import { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { TOOL_CREDIT_COSTS } from '@/lib/toolCosts';
+import { TOOLS } from '@/lib/tools';
+
+// Free-tool set — single source of truth is lib/tools.js (t.free), the same
+// derivation the server uses in lib/toolAccess.js. Access-neutral: client
+// checkToolAccess only decides non-free tools (ToolPageClient short-circuits
+// free tools via tool.free before this list is consulted).
+const FREE_TOOLS = TOOLS.filter((t) => t.free).map((t) => t.slug);
 
 const AuthContext = createContext({});
 
@@ -51,7 +58,7 @@ export function AuthProvider({ children }) {
     }
 
     function checkToolAccess(toolSlug) {
-        const freeTools = ['epub-validator', 'metadata-builder'];
+        const freeTools = FREE_TOOLS;
         if (freeTools.includes(toolSlug)) return true;
         if (!profile) return false;
         if (profile.has_full_access || profile.is_lifetime) return true;
@@ -80,7 +87,7 @@ export function AuthProvider({ children }) {
     }
 
     function getToolAccessState(toolSlug) {
-        const freeTools = ['epub-validator', 'metadata-builder'];
+        const freeTools = FREE_TOOLS;
         if (freeTools.includes(toolSlug)) return 'free';
         if (!profile) return 'locked';
         if (profile.has_full_access || profile.is_lifetime) return 'full_access';

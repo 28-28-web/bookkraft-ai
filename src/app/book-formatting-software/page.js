@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     q: 'Can I format an ebook for free?',
-    a: "Yes. Reedsy Book Editor is free and exports EPUB. BookKraft AI's pre-flight tools — EPUB Validator, Word Manuscript Cleanup Checker, and Publishing Readiness Score — are free with no account required. Full formatting tools (EPUB Formatter, TOC Generator, and AI tools) are included in the Starter plan at $19/mo. Neither free tier offers the visual design themes that Vellum and Atticus provide.",
+    a: "Yes. Reedsy Book Editor is free and exports EPUB. BookKraft AI's pre-flight tools — EPUB Validator, Word Manuscript Cleanup Checker, and Publishing Readiness Score — are free with no account required. Full formatting tools (EPUB Formatter, TOC Generator, and AI tools) are included in the Starter plan at $19, a one-time payment. Neither free tier offers the visual design themes that Vellum and Atticus provide.",
   },
   {
     q: 'Does Calibre produce good EPUB files?',
