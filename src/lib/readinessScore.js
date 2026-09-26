@@ -4,7 +4,7 @@
 
 // Section weights (design doc). Only the sections actually present count toward
 // the overall, so weights renormalize automatically when some are absent.
-export const SECTION_WEIGHTS = { epub: 40, cover: 20 };
+export const SECTION_WEIGHTS = { epub: 40, metadata: 25, cover: 20, word: 15 };
 
 export function sectionScore(statuses) {
   const countable = statuses.filter((s) => s !== 'skip');
@@ -27,4 +27,9 @@ export function overallScore(sections) {
 export function coverStatus(check) {
   if (check.warning) return 'warn';
   return check.pass ? 'pass' : 'fail';
+}
+
+// Word tool emits 'warning'; the shared vocab uses 'warn'.
+export function wordStatus(status) {
+  return status === 'warning' ? 'warn' : status;
 }
