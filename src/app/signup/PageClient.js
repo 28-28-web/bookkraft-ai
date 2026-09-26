@@ -161,7 +161,7 @@ function SignupPageClient() {
 
                 <h2>Create your account</h2>
 
-                <p>Join 2,400+ authors using BookKraft to write better books, faster.</p>
+                <p>Join 300+ indie authors in the BookKraft community.</p>
 
                 {error && <div className="auth-error">{error}</div>}
 
