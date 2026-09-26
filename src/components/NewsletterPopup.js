@@ -131,7 +131,7 @@ export default function NewsletterPopup({ triggerType = 'default' }) {
                             color: '#F7F3EC', marginBottom: '8px', lineHeight: 1.3,
                         }}>Get 1 free formatting fix every week — straight to your inbox.</h3>
                         <p style={{ color: 'rgba(247,243,236,0.6)', marginBottom: '24px', fontSize: '14px' }}>
-                            Join 500+ indie authors. Unsubscribe anytime.
+                            Join 300+ indie authors in the BookKraft community. Unsubscribe anytime.
                         </p>
                         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                             <input

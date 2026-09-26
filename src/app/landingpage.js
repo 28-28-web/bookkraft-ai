@@ -6,13 +6,9 @@ import FAQSection from '../components/FAQSection';
 
 // ─── DATA ────────────────────────────────────────────────────────────
 
-const TICKER_ITEMS = [
-  '<strong>@alex_rivera</strong>: "The interface is clean and does exactly what it promises"',
-  '<strong>@januine_dev</strong>: "Cleans up Word export mess in minutes"',
-  '<strong>@januine_dev</strong>: "Makes a real EPUB 3 that KDP accepts"',
-  '<strong>@januine_dev</strong>: "Two free tools, no signup. Best formatting money I\'ve spent"',
-  '<strong>@alex_rivera</strong>: "Really appreciate how well it\'s put together. Nice work by the team"',
-];
+// Real testimonials only. Empty until we have verified reviews to show —
+// TickerSection renders nothing while this is empty.
+const TICKER_ITEMS = [];
 
 const PLATFORMS = [
   'Amazon KDP','Apple Books','Barnes & Noble','Kobo',
@@ -581,6 +577,7 @@ function ProcessDiagramSection() {
 }
 
 function TickerSection() {
+  if (TICKER_ITEMS.length === 0) return null;
   const doubled = [...TICKER_ITEMS, ...TICKER_ITEMS];
   return (
     <div
