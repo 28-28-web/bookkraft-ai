@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     q: 'Can I format a print book with BookKraft AI?',
-    a: 'BookKraft AI focuses on ebook formatting and pre-flight checks (EPUB, Kindle/KFX, MOBI). It does not generate print-ready PDFs — that\'s Vellum\'s job, and one more reason the two work well together rather than as competitors.',
+    a: 'BookKraft AI focuses on ebook formatting and pre-flight checks for EPUB and Kindle output. It does not generate print-ready PDFs — that\'s Vellum\'s job, and one more reason the two work well together rather than as competitors.',
   },
   {
     q: 'Can BookKraft AI export the same visual themes as Vellum?',

@@ -3,7 +3,7 @@ import Link from 'next/link';
 const faqs = [
   {
     q: 'Can I convert a Word document to EPUB for free?',
-    a: "Yes. BookKraft AI's EPUB Formatter is free with no account required. Upload your .docx file, and it outputs a valid EPUB 3 file that passes KDP, Apple Books, and Kobo validation.",
+    a: "Yes. BookKraft AI's Full Manuscript Mode converts your .docx to a valid EPUB 3 file for free (with a free account). It outputs a clean file structured for KDP, Apple Books, and Kobo.",
   },
   {
     q: 'Why does Word\'s built-in "Save as EPUB" produce broken files?',

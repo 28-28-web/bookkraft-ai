@@ -477,7 +477,7 @@ export const TOOLS = [
         slug: 'manuscript-mode',
         name: 'Full Manuscript Mode',
         category: 'formatting',
-        desc: 'Free one-step DOCX or TXT to EPUB 3 converter. Detects chapters, fixes smart quotes, em dashes, and encoding artifacts, and generates a valid EPUB — no Calibre, no Sigil, no signup.',
+        desc: 'Free one-step DOCX or TXT to EPUB 3 converter. Detects chapters, fixes smart quotes, em dashes, and encoding artifacts, and generates a valid EPUB — no Calibre, no Sigil. Free with a free BookKraft account.',
         accessType: 'free',
         creditCost: 0,
         free: true,

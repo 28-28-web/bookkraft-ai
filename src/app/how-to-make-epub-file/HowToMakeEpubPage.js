@@ -286,7 +286,7 @@ export default function HowToMakeEpubPage() {
           Calibre is the right tool when you already have an ebook in one format and need it in another. Sigil is right when you need to hand-edit EPUB internals — repairing a specific broken tag, or adjusting CSS precisely. An online converter is right when you are starting from a manuscript and want a clean, valid file without installing anything.
         </p>
         <p style={P_STYLE}>
-          Whichever route you take, the output still has to pass the same checks — run it through the free{' '}
+          Whichever route you take, the output still has to pass EPUB validation — run it through the free{' '}
           <Link href="/tools/epub-validator" style={INLINE_LINK}>EPUB Validator</Link>
           {' '}before uploading. For the wider workflow around the file itself — metadata, front and back matter, cover requirements — see the{' '}
           <Link href="/epub-formatting-guide" style={INLINE_LINK}>EPUB formatting guide</Link>.

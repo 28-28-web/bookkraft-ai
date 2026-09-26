@@ -109,7 +109,7 @@ export const CHECKLISTS = [
       {
         heading: 'Content Review',
         items: [
-          'AI-generated content declaration completed in KDP\'s content guidelines section if any AI tools were used in writing or editing',
+          'AI-generated content (text, images, or translations created by AI) disclosed in KDP\'s content guidelines section — AI-assisted editing does not require disclosure',
           'No URLs linking to Amazon competitor storefronts embedded in the book content',
           'Content is sufficiently differentiated from any existing ASIN on Amazon, including your own prior editions',
           'Back matter "Also by" links point to your Amazon Author Page or Amazon ASINs, not external sites',
@@ -144,7 +144,7 @@ export const CHECKLISTS = [
       },
       {
         q: 'Will my book be rejected if I don\'t declare AI-generated content?',
-        a: "KDP's AI-generated content policy requires disclosure when AI tools were used to create text, images, or translations. KDP reserves the right to remove undisclosed AI content, and repeated violations can result in account suspension. If any AI tools were involved in writing or editing — including AI writing assistants, not just full-generation tools — complete the disclosure.",
+        a: "KDP requires you to disclose AI-generated content — text, images, or translations created by an AI tool — when you publish or republish. AI-assisted content, where you wrote the work yourself and used AI to edit or refine it, does not require disclosure. KDP reserves the right to remove undisclosed AI-generated content, and repeated violations can affect your account. When in doubt, disclose. Last verified: Sep 2026.",
       },
     ],
     relatedTool: 'epub-validator',

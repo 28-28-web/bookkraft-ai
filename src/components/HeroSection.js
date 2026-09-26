@@ -18,11 +18,11 @@ export default function HeroSection() {
           fontSize: 'clamp(30px, 4.2vw, 50px)', lineHeight: 1.1, letterSpacing: '-0.01em',
           color: '#ffffff', maxWidth: 820, margin: '0 0 22px',
         }}>
-          Free EPUB &amp; Kindle Formatting Tools for KDP Authors
+          Check Your Book Before KDP Does.
         </h1>
 
-        <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.65)', maxWidth: 520, margin: '0 0 36px', lineHeight: 1.5 }}>
-          Format, validate, clean and prepare your ebook before publishing.
+        <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.65)', maxWidth: 560, margin: '0 0 36px', lineHeight: 1.5 }}>
+          Free EPUB &amp; Kindle preflight tools for KDP authors. Find and fix formatting, cover and metadata problems before you upload.
         </p>
 
         <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -30,7 +30,7 @@ export default function HeroSection() {
             background: '#ffffff', color: '#23262d', fontWeight: 600, fontSize: '15.5px',
             padding: '14px 26px', borderRadius: 7, textDecoration: 'none', display: 'inline-block',
             boxShadow: '0 10px 24px -8px rgba(0,0,0,0.5)',
-          }}>Check My Book — Free →</a>
+          }}>Run a Free Preflight Check →</a>
           <a href="/free-tools" style={{
             color: '#ffffff', fontSize: 15, padding: '14px 4px',
             background: 'none', opacity: 0.75, textDecoration: 'underline',

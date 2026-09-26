@@ -235,7 +235,7 @@ export const CHAT_TREE = {
         ],
     },
     explain_formats: {
-        message: "Kindle (MOBI/KFX) only works on Amazon devices and apps. EPUB works everywhere else — Apple Books, Kobo, Nook, libraries. If you're only on Amazon, use Kindle. If you want to be everywhere, you need both.",
+        message: "For Amazon, upload EPUB (KDP no longer takes MOBI) — Amazon converts it to its Kindle format on delivery. The same EPUB also works everywhere else — Apple Books, Kobo, Nook, libraries. One clean EPUB covers all of them.",
         options: [
             { label: "I want Kindle only", next: "format_kindle_q2" },
             { label: "I want EPUB", next: "format_epub" },

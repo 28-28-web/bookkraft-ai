@@ -104,11 +104,11 @@ export const FAQS = [
     },
     {
         q: "What's the difference between EPUB and Kindle format?",
-        a: 'Kindle (MOBI/KFX) works on Amazon devices only. EPUB works everywhere else (Apple Books, Kobo, Barnes & Noble). Our tools support both.',
+        a: 'For Amazon, you upload EPUB, DOCX, or KPF — KDP no longer accepts MOBI and converts your file to its Kindle format (KFX) for delivery. The same EPUB also works everywhere else (Apple Books, Kobo, Barnes & Noble). Last verified: Sep 2026.',
     },
     {
         q: 'Do the free tools actually work without signing up?',
-        a: 'Yes. EPUB Validator, Metadata Builder, Cover Checker, Word Manuscript Cleanup Checker, and Full Manuscript Mode all work immediately — no account, no email, no credit card. Just open and use.',
+        a: 'Four tools — EPUB Validator, Metadata Builder, Cover Checker, and Word Manuscript Cleanup Checker — work with no account, no email, no credit card. Just open and use. Full Manuscript Mode (DOCX→EPUB) is also free, but needs a free account so we can process and deliver your file.',
     },
     {
         q: 'How do credits work?',
@@ -136,7 +136,7 @@ export const FAQS = [
     },
     {
         q: 'Do I need an account for the paid tools?',
-        a: `You need an account to use paid tools so we can track your credits and tool access. But the ${FREE_TOOLS.length} free tools (EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, Full Manuscript Mode) never require an account.`,
+        a: 'You need an account for paid tools so we can track your credits and access. Four free tools — EPUB Validator, Metadata Builder, Cover Checker, and Word Cleanup Checker — need no account at all. Full Manuscript Mode (DOCX→EPUB) is free too, with a free account.',
     },
 ];
 
@@ -175,7 +175,7 @@ export const EPUB_KDP_FAQS = [
   },
   {
     q: 'What is EpubCheck and why should I use it?',
-    a: 'EpubCheck is the official EPUB validation tool. It checks your file against the EPUB standard and lists every error. KDP and Apple Books both run EpubCheck automatically when you upload. If your file fails, it gets rejected. Our EPUB Validator runs the same checks in your browser with no Java install. Fix errors before you upload and avoid the back-and-forth rejection cycle.',
+    a: 'EpubCheck is the official EPUB validation tool. It checks your file against the EPUB standard and lists every error. KDP and Apple Books both run EpubCheck automatically when you upload. If your file fails, it gets rejected. Our EPUB Validator checks common structural issues relevant to KDP publishing, in your browser with no Java install. Fix errors before you upload and avoid the back-and-forth rejection cycle. Last verified: Sep 2026.',
   },
   {
     q: "What's the difference between free and paid EPUB formatting tools?",

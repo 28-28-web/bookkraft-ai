@@ -3,7 +3,7 @@ import Link from 'next/link';
 const faqs = [
   {
     q: 'Does Kindle support EPUB?',
-    a: "Yes. Amazon added native EPUB support in late 2022 via a firmware update for Kindle devices and a Kindle app update. Before that, Kindle only supported its own formats (MOBI, AZW3, KFX). The change means readers can now send EPUB files to their Kindle via Send to Kindle without conversion. For authors, KDP has accepted EPUB submissions for years — this was always the recommended format for publishing to Amazon.",
+    a: "Yes. Amazon accepts EPUB through Send to Kindle and converts it to the Kindle format for delivery — you no longer need to make a MOBI yourself. Before Send to Kindle added EPUB in 2022, readers had to convert files manually. For authors, KDP has accepted EPUB submissions for years, and it's the recommended format for publishing to Amazon.",
   },
   {
     q: 'Which format should I submit to KDP — EPUB or MOBI?',
@@ -31,7 +31,7 @@ const faqs = [
   },
   {
     q: 'Can I send an EPUB to my Kindle directly?',
-    a: "Yes. Use Amazon's Send to Kindle service (sendtokindle.com or the desktop app) — upload the EPUB and it delivers to your registered Kindle devices and apps. You can also transfer EPUB files via USB to Kindle devices running firmware 5.16.2 or later, which added native EPUB reading without conversion.",
+    a: "Yes. Use Amazon's Send to Kindle service (sendtokindle.com or the desktop app) — upload the EPUB and Amazon converts it to the Kindle format and delivers it to your registered devices and apps. You can also transfer EPUB files via USB to recent Kindle devices, which handle the conversion on the device.",
   },
 ];
 
@@ -140,7 +140,7 @@ export default function KindleEpubFormatPage() {
 
         <div style={{ padding: '20px 24px', background: 'rgba(201,168,76,0.08)', border: '2px solid rgba(201,168,76,0.35)', borderRadius: 10, marginBottom: 36 }}>
           <p style={{ fontSize: 18, lineHeight: 1.6, margin: 0, fontWeight: 500 }}>
-            <strong>Yes.</strong> Kindle devices and the Kindle app added native EPUB support in late 2022. For authors publishing on Amazon: KDP has accepted EPUB submissions for years and recommends EPUB 3 as the primary format for ebook publishing. You don&apos;t need to produce MOBI or AZW3 files — submit EPUB and KDP handles the conversion.
+            <strong>Yes.</strong> Amazon accepts EPUB through KDP and Send to Kindle, then converts it for Kindle delivery. For authors publishing on Amazon: KDP has accepted EPUB submissions for years and recommends EPUB 3 as the primary format for ebook publishing. You don&apos;t need to produce MOBI or AZW3 files — submit EPUB and KDP handles the conversion.
           </p>
         </div>
 
