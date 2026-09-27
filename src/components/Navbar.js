@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
 
 export default function Navbar() {
-  const { user, profile } = useAuth();
+  const { user, profile, loading } = useAuth();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -200,7 +200,15 @@ export default function Navbar() {
 
           {/* Right actions */}
           <div className="nav-actions">
-            {user ? (
+            {loading ? (
+              /* Auth not resolved yet (Supabase client is deferred). Show a
+                 neutral, invisible slot instead of "Sign In" so logged-in users
+                 never see a Sign-in→credits flicker. Uses nav-signin so it is
+                 hidden on mobile (≤1024px) like the real button. */
+              <span className="nav-signin" aria-hidden="true" style={{ opacity: 0, pointerEvents: 'none' }}>
+                Sign In
+              </span>
+            ) : user ? (
               <>
                 {profile && !profile.is_lifetime && (
                   <Link href="/pricing#credits" className="credit-chip-v2">

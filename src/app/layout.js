@@ -39,8 +39,11 @@ const dmSans = localFont({
   ],
   variable: '--font-dm-sans',
   display: 'swap',
-  // Body text, not LCP. No preload needed.
-  preload: false,
+  // Body text renders above the fold (hero paragraph, nav links), so preload
+  // it to remove the CSS→font chain delay on FCP. Single instance keeps all
+  // weights under one family (--font-dm-sans); splitting would break 500/700
+  // fallback into faux-bold.
+  preload: true,
 });
 
 const jetbrainsMono = localFont({

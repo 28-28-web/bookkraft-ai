@@ -1,7 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState, useMemo } from 'react';
-import { createClient } from '@/lib/supabase/client';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { TOOL_CREDIT_COSTS } from '@/lib/toolCosts';
 import { TOOLS } from '@/lib/tools';
 
@@ -21,8 +20,40 @@ export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [supabase, setSupabase] = useState(null);
 
-    const supabase = useMemo(() => createClient(), []);
+    // Defer the Supabase browser client (~49 KB gz) off the initial bundle:
+    // dynamic-import it once the browser is idle so it never competes with the
+    // homepage LCP. `loading` stays true until the client resolves and the
+    // first auth event fires — so the nav shows a neutral slot (no
+    // Sign-in→credits flicker) and tool pages keep their spinner instead of
+    // flashing a premature "Sign in to use" lock.
+    useEffect(() => {
+        let cancelled = false;
+        const boot = () =>
+            import('@/lib/supabase/client')
+                .then((m) => {
+                    if (!cancelled) setSupabase(m.createClient());
+                })
+                .catch((err) => {
+                    // Chunk failed to load — don't strand the UI in `loading`
+                    // forever; fall back to the signed-out state.
+                    console.error('Supabase client load failed:', err);
+                    if (!cancelled) setLoading(false);
+                });
+        const idle =
+            typeof window !== 'undefined' && 'requestIdleCallback' in window
+                ? window.requestIdleCallback(boot, { timeout: 2000 })
+                : setTimeout(boot, 0);
+        return () => {
+            cancelled = true;
+            if (typeof window !== 'undefined' && 'cancelIdleCallback' in window) {
+                window.cancelIdleCallback(idle);
+            } else {
+                clearTimeout(idle);
+            }
+        };
+    }, []);
 
     const FALLBACK_PROFILE = {
         credits_balance: 0,
@@ -33,6 +64,7 @@ export function AuthProvider({ children }) {
     };
 
     async function loadProfile(userId) {
+        if (!supabase) return;
         const timeout = new Promise((_, reject) =>
             setTimeout(() => reject(new Error('profile_timeout')), 10_000)
         );
@@ -108,6 +140,7 @@ export function AuthProvider({ children }) {
     }
 
     useEffect(() => {
+        if (!supabase) return;
         const { data: { subscription } } = supabase.auth.onAuthStateChange(
             (event, session) => {
                 if (session?.user) {
@@ -125,10 +158,10 @@ export function AuthProvider({ children }) {
         return () => {
             subscription.unsubscribe();
         };
-    }, []);
+    }, [supabase]);
 
     const signOut = async () => {
-        await supabase.auth.signOut({ scope: 'local' });
+        if (supabase) await supabase.auth.signOut({ scope: 'local' });
         setUser(null);
         setProfile(null);
     };
