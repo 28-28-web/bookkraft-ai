@@ -133,7 +133,7 @@ export async function checkToolAccess(toolSlug) {
                 credits_needed: cost,
                 credits_balance: profile.credits_balance ?? 0,
                 purchase_url: '/pricing',
-                message: `This tool costs ${cost} credit(s). You have ${profile.credits_balance ?? 0}.`,
+                message: `This tool needs ${cost} credit(s); you have ${profile.credits_balance ?? 0}. Free tools don't use credits. See plans at /pricing.`,
             });
         }
 

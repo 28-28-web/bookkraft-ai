@@ -150,7 +150,7 @@ export default function JobRunner({ toolSlug, text, buildRequestBody, disabled, 
 function errorMessage(data) {
     switch (data.error) {
         case 'insufficient_credits':
-            return `This run needs ${data.credits_needed} credits — you have ${data.credits_balance}.`;
+            return `This run needs ${data.credits_needed} credits — you have ${data.credits_balance}. Free tools don't use credits. See plans at /pricing.`;
         case 'concurrent_limit':
             return 'You already have 3 runs in progress. Wait for one to finish before starting another.';
         case 'daily_word_limit':

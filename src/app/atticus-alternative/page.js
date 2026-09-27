@@ -69,6 +69,41 @@ export default function AtticusAlternativePage() {
           ))}
         </div>
 
+        {/* Comparison table */}
+        <div style={{ overflowX: 'auto', marginBottom: 48, marginTop: 8 }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15 }}>
+            <thead>
+              <tr style={{ background: 'rgba(201,168,76,0.1)', borderBottom: '2px solid rgba(201,168,76,0.3)' }}>
+                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700 }}>Feature</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700 }}>Atticus</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700 }}>BookKraft AI</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['Price', '$147', `$19 / $49 / $149 — or free for ${FREE_TOOLS.length} tools`],
+                ['One-time or subscription', 'One-time', 'One-time'],
+                ['Runs on', 'Windows / Mac / Linux / Chromebook (browser)', 'Any browser'],
+                ['Formatting & design', '✓', '—'],
+                ['Print PDF output', '✓', '—'],
+                ['EPUB Validator', '—', '✓ Free'],
+                ['Metadata Builder', 'Basic', '✓ Free'],
+                ['AI manuscript cleanup', '—', '✓'],
+              ].map(([feat, atticus, bk], i) => (
+                <tr key={i} style={{ borderBottom: '1px solid rgba(201,168,76,0.15)', background: i % 2 === 0 ? 'transparent' : 'rgba(0,0,0,0.02)' }}>
+                  <td style={{ padding: '10px 16px', fontWeight: 600 }}>{feat}</td>
+                  <td style={{ padding: '10px 16px', opacity: 0.8 }}>{atticus}</td>
+                  <td style={{ padding: '10px 16px', opacity: 0.8 }}>{bk}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p style={{ fontSize: 12, opacity: 0.55, marginTop: 10 }}>
+            Atticus price verified 2026-09-27 from the official{' '}
+            <a href="https://www.atticus.io/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>Atticus site</a>. BookKraft pricing is one-time, no subscription.
+          </p>
+        </div>
+
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           Why authors search for an Atticus alternative — and what they usually need instead
         </h2>

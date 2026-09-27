@@ -344,6 +344,13 @@ export default function CoverCheckerPage() {
             </p>
 
             <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, color: '#fff', fontWeight: 700, marginBottom: 14 }}>
+              Who this cover checker is for
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.7, marginBottom: 24 }}>
+              Self-publishing authors checking a cover meets KDP or Apple Books pixel, ratio, and format rules before upload. Anyone whose cover was rejected for being too small or the wrong dimensions. Free, in your browser, no account.
+            </p>
+
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, color: '#fff', fontWeight: 700, marginBottom: 14 }}>
               Frequently asked questions
             </h2>
             <div role="list">

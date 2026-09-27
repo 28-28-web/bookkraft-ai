@@ -407,7 +407,7 @@ function CreditStrip() {
           fontSize: '0.78rem', color: '#c09a4a', fontFamily: 'monospace',
           fontWeight: 600, textDecoration: 'none', letterSpacing: '0.02em',
         }}>
-          Sign up for 3 free credits →
+          Sign up for 5 free credits →
         </Link>
       </div>
     );

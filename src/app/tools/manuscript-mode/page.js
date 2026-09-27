@@ -110,6 +110,9 @@ export default function ManuscriptModePage() {
                     </ol>
                     <p>Bold, italic, and underline from your Word file carry through. What is not converted: images, tables, footnotes, and font-size or color changes.</p>
 
+                    <h2>Who Full Manuscript Mode Is For</h2>
+                    <p>Authors turning a finished Word or TXT manuscript into a valid EPUB 3 without installing Calibre or Sigil. First-timers who need chapters auto-detected and Word artifacts fixed in one step. Free with a free BookKraft account.</p>
+
                     <h2>Common Manuscript Formatting Issues This Fixes</h2>
                     <p>Word and Google Docs exports leave formatting debris that breaks EPUB readers and KDP validation. All four fixes are optional toggles:</p>
                     <ul>

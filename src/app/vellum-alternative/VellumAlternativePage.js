@@ -89,7 +89,7 @@ export default function VellumAlternativePage() {
                 ['Metadata Builder', '—', '✓ Free'],
                 ['Word manuscript cleanup', '—', '✓ Free'],
                 ['DOCX to EPUB converter', '—', '✓ Free'],
-                ['Price', '$199.99 one-time', 'Free tools + from $19'],
+                ['Price', '$199.99 ebook / $249.99 +print (one-time)', '$19 / $49 / $149 one-time, or free tools'],
               ].map(([feat, vellum, bk], i) => (
                 <tr key={i} style={{ borderBottom: '1px solid rgba(201,168,76,0.15)', background: i % 2 === 0 ? 'transparent' : 'rgba(0,0,0,0.02)' }}>
                   <td style={{ padding: '10px 16px', fontWeight: 600 }}>{feat}</td>
@@ -99,6 +99,10 @@ export default function VellumAlternativePage() {
               ))}
             </tbody>
           </table>
+          <p style={{ fontSize: 12, opacity: 0.55, marginTop: 10 }}>
+            Vellum price verified 2026-09-27 from the official{' '}
+            <a href="https://store.vellum.pub/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>Vellum store</a>. BookKraft pricing is one-time, no subscription.
+          </p>
         </div>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>

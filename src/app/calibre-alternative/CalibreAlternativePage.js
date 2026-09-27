@@ -57,7 +57,7 @@ export default function CalibreAlternativePage() {
             <tbody>
               {[
                 ['Platform', 'Windows, Mac, Linux (desktop install)', 'Any browser — no install needed'],
-                ['Price', 'Free', `$19 one-time, or free for ${FREE_TOOLS.length} tools`],
+                ['Price', 'Free (open source)', `$19 / $49 / $149 one-time, or free for ${FREE_TOOLS.length} tools`],
                 ['Setup time', '200MB+ download, steep learning curve', 'Open browser and start — no setup'],
                 ['Built for', 'Managing large ebook libraries', 'Formatting single books for KDP/EPUB'],
                 ['EPUB validation', 'Basic built-in check', 'Free dedicated validator — no signup'],
@@ -73,6 +73,10 @@ export default function CalibreAlternativePage() {
               ))}
             </tbody>
           </table>
+          <p style={{ fontSize: 12, opacity: 0.55, marginTop: 10 }}>
+            Calibre is free and open source, verified 2026-09-27 from{' '}
+            <a href="https://calibre-ebook.com/download" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>calibre-ebook.com</a>. BookKraft pricing is one-time, no subscription.
+          </p>
         </div>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>

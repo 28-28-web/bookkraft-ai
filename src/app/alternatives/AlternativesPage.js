@@ -129,7 +129,7 @@ export default function AlternativesPage() {
             <tbody>
               {[
                 ['Platform', 'Mac only', 'Windows + Mac', 'Any browser'],
-                ['Price', '$199.99 ebook / $249.99 with print', '$147 one-time', `$19 one-time, or free for ${FREE_TOOLS.length} tools`],
+                ['Price', '$199.99 ebook / $249.99 with print (one-time)', '$147 (one-time)', `$19 / $49 / $149 one-time — or free for ${FREE_TOOLS.length} tools`],
                 ['Formatting & design', '✓', '✓', '—'],
                 ['Print PDF output', '✓', '✓', '—'],
                 ['EPUB Validator', '—', '—', '✓ Free'],
@@ -151,7 +151,9 @@ export default function AlternativesPage() {
             BookKraft AI handles pre-flight — not design. The two aren't in competition.
           </p>
           <p style={{ fontSize: 12, opacity: 0.5, marginTop: 4 }}>
-            Competitor prices verified September 2026.
+            Competitor prices verified 2026-09-27 from official sites:{' '}
+            <a href="https://store.vellum.pub/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>Vellum</a>,{' '}
+            <a href="https://www.atticus.io/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>Atticus</a>. BookKraft pricing is one-time, no subscription.
           </p>
         </div>
 

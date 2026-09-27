@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { TOOLS } from '@/lib/tools';
 
 export default function UpsellBanner({ toolName = 'this tool' }) {
   const [dismissed, setDismissed] = useState(false);
@@ -41,7 +42,7 @@ export default function UpsellBanner({ toolName = 'this tool' }) {
           Liked {toolName}?
         </p>
         <p style={{ color: 'rgba(247,243,236,0.75)', fontSize: 14, lineHeight: 1.5, margin: 0 }}>
-          Get all 12 professional tools — formatting, keywords, metadata, cleanup and more.
+          Get all {TOOLS.length} tools — formatting, keywords, metadata, cleanup and more.
           <strong style={{ color: 'var(--cream, #f7f3ec)' }}> One-time payment. No subscription.</strong>
         </p>
       </div>
