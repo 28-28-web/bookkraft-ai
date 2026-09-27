@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { logEvent } from '@/lib/events';
 
 function getClientIp(request) {
     const forwarded = request.headers.get('x-forwarded-for');
@@ -39,6 +40,9 @@ export async function POST(request) {
             const status = data?.error === 'rate_limited' ? 429 : 400;
             return NextResponse.json(data, { status });
         }
+
+        // Funnel event — server-side only, spoof-resistant. Fire-and-forget.
+        logEvent({ eventName: 'lead_captured', eventData: { source: source_tool } }).catch(() => {});
 
         try {
             const brevoKey = process.env.BREVO_API_KEY_TWO;

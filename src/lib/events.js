@@ -18,10 +18,17 @@ export const EVENT_NAMES = new Set([
     'checkout_started',
     'purchase',
     'repeat_session',
+    'account_created',
+    'readiness_started',
+    'readiness_completed',
+    'readiness_cta_click',
+    'lead_captured',
 ]);
 
-// Events a browser is allowed to send to /api/track. `purchase` is excluded
-// on purpose: it must be spoof-resistant and comes only from the webhook.
+// Events a browser is allowed to send to /api/track. `purchase` and
+// `lead_captured` are excluded on purpose: they must be spoof-resistant and
+// are logged server-side only (purchase from the webhook, lead_captured from
+// the lead/newsletter routes).
 export const CLIENT_EVENTS = new Set([
     'tool_start',
     'file_processed',
@@ -29,6 +36,10 @@ export const CLIENT_EVENTS = new Set([
     'fix_clicked',
     'email_report',
     'checkout_started',
+    'account_created',
+    'readiness_started',
+    'readiness_completed',
+    'readiness_cta_click',
 ]);
 
 export async function logEvent({ eventName, userId = null, sessionId = null, eventData = null, pageUrl = null }) {
