@@ -120,7 +120,7 @@ export default function Page() {
     <main style={{ maxWidth: 880, margin: '0 auto', padding: '64px 20px', color: 'var(--ink, #1a1a1a)' }}>
 
       {/* Hero */}
-      <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(36px,5vw,56px)', fontWeight: 700, lineHeight: 1.1, marginBottom: 24 }}>
+      <h1 style={{ fontFamily: "var(--font-playfair),serif", fontSize: 'clamp(36px,5vw,56px)', fontWeight: 700, lineHeight: 1.1, marginBottom: 24 }}>
         EPUB Formatting Guide for Self-Publishers
       </h1>
       <p style={{ fontSize: 19, lineHeight: 1.6, marginBottom: 16, opacity: 0.9 }}>

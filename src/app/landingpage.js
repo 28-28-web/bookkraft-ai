@@ -633,7 +633,7 @@ function ManuscriptBanner() {
           fontWeight: 800,
           marginBottom: 12,
           lineHeight: 1.2,
-          fontFamily: "'Playfair Display', serif",
+          fontFamily: "var(--font-playfair), serif",
         }}>
           Convert Word DOCX to EPUB 3 — One Step, No Calibre
         </h2>

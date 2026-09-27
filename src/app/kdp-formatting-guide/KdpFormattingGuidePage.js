@@ -180,7 +180,7 @@ export default function KdpFormattingGuidePage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
             />
             <main style={{ maxWidth: 880, margin: '0 auto', padding: '64px 20px', color: 'var(--ink, #1a1a1a)' }}>
-                <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(32px,5vw,52px)', fontWeight: 700, lineHeight: 1.1, marginBottom: 20 }}>
+                <h1 style={{ fontFamily: "var(--font-playfair),serif", fontSize: 'clamp(32px,5vw,52px)', fontWeight: 700, lineHeight: 1.1, marginBottom: 20 }}>
                     The Complete KDP Formatting Guide
                 </h1>
 

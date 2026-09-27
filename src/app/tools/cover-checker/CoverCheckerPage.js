@@ -56,7 +56,7 @@ function StatusPill({ status }) {
     <span style={{
       display: 'inline-flex', alignItems: 'center', gap: 6,
       background: s.bg, border: `1px solid ${s.border}`, color: s.color,
-      fontFamily: "'JetBrains Mono', monospace", fontSize: 12, fontWeight: 600,
+      fontFamily: "var(--font-jetbrains), monospace", fontSize: 12, fontWeight: 600,
       padding: '4px 10px', borderRadius: 6, letterSpacing: '0.05em',
     }}>
       {s.label}
@@ -79,7 +79,7 @@ function CheckRow({ check }) {
       }}>{icon}</span>
       <div>
         <div style={{ color: '#fff', fontSize: 13, fontWeight: 600 }}>{check.label}</div>
-        <div style={{ color: 'rgba(255,255,255,0.55)', fontSize: 12, fontFamily: "'JetBrains Mono', monospace", marginTop: 2 }}>
+        <div style={{ color: 'rgba(255,255,255,0.55)', fontSize: 12, fontFamily: "var(--font-jetbrains), monospace", marginTop: 2 }}>
           {check.detail}
         </div>
       </div>
@@ -172,7 +172,7 @@ export default function CoverCheckerPage() {
               Free Tool — No Signup
             </span>
             <h1 style={{
-              fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px,5vw,48px)',
+              fontFamily: "var(--font-playfair), serif", fontSize: 'clamp(32px,5vw,48px)',
               fontWeight: 700, color: '#fff', lineHeight: 1.15, marginBottom: 14,
             }}>
               Book Cover Dimensions Checker — KDP & Apple Books
@@ -259,7 +259,7 @@ export default function CoverCheckerPage() {
                 <div>
                   <p style={{ color: '#fff', fontSize: 13, fontWeight: 600, marginBottom: 4, wordBreak: 'break-all' }}>{fileName}</p>
                   <p style={{
-                    fontFamily: "'JetBrains Mono', monospace", color: '#C9933A',
+                    fontFamily: "var(--font-jetbrains), monospace", color: '#C9933A',
                     fontSize: 18, fontWeight: 600, marginBottom: 4,
                   }}>
                     {dims.width} × {dims.height}px
@@ -336,21 +336,21 @@ export default function CoverCheckerPage() {
           )}
 
           <div style={{ marginTop: 64, color: 'rgba(255,255,255,0.7)' }}>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, color: '#fff', fontWeight: 700, marginBottom: 14 }}>
+            <h2 style={{ fontFamily: "var(--font-playfair), serif", fontSize: 24, color: '#fff', fontWeight: 700, marginBottom: 14 }}>
               KDP and Apple Books cover requirements
             </h2>
             <p style={{ fontSize: 15, lineHeight: 1.7, marginBottom: 24 }}>
               Amazon recommends 2560 × 1600 pixels for Kindle ebook covers, a 1.6:1 ratio, saved as JPEG. The minimum is 625px wide × 1000px tall — below that, covers will not display on Amazon at all. Covers below 2560px on the longest side often look soft on high-resolution Kindle devices. Apple Books requires a minimum of 1400 pixels on the shortest side. This tool checks your cover against both sets of requirements before you upload it anywhere, entirely in your browser.
             </p>
 
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, color: '#fff', fontWeight: 700, marginBottom: 14 }}>
+            <h2 style={{ fontFamily: "var(--font-playfair), serif", fontSize: 24, color: '#fff', fontWeight: 700, marginBottom: 14 }}>
               Who this cover checker is for
             </h2>
             <p style={{ fontSize: 15, lineHeight: 1.7, marginBottom: 24 }}>
               Self-publishing authors checking a cover meets KDP or Apple Books pixel, ratio, and format rules before upload. Anyone whose cover was rejected for being too small or the wrong dimensions. Free, in your browser, no account.
             </p>
 
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, color: '#fff', fontWeight: 700, marginBottom: 14 }}>
+            <h2 style={{ fontFamily: "var(--font-playfair), serif", fontSize: 24, color: '#fff', fontWeight: 700, marginBottom: 14 }}>
               Frequently asked questions
             </h2>
             <div role="list">

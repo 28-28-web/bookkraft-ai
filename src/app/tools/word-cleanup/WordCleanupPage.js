@@ -19,7 +19,7 @@ function StatusPill({ status }) {
     <span style={{
       display: 'inline-flex', alignItems: 'center', gap: 6,
       background: s.bg, border: `1px solid ${s.border}`, color: s.color,
-      fontFamily: "'JetBrains Mono', monospace", fontSize: 12, fontWeight: 600,
+      fontFamily: "var(--font-jetbrains), monospace", fontSize: 12, fontWeight: 600,
       padding: '4px 10px', borderRadius: 6, letterSpacing: '0.05em',
     }}>
       {s.label}
@@ -103,7 +103,7 @@ export default function WordCleanupPage({ children, faqItems = [] }) {
   return (
     <>
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '48px 20px 0' }}>
-        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px,4vw,40px)', marginBottom: 12 }}>
+        <h1 style={{ fontFamily: "var(--font-playfair), serif", fontSize: 'clamp(28px,4vw,40px)', marginBottom: 12 }}>
           Reformat Your Word Manuscript — Free Cleanup Checker
         </h1>
         <p style={{ fontSize: 17, color: 'var(--text-secondary, #666)', marginBottom: 32 }}>
