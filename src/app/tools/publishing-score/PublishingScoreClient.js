@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import ScoreCard from './ScoreCard';
 import UpsellBanner from '@/components/UpsellBanner';
+import ReadinessReportCTA from '@/components/ReadinessReportCTA';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { TOOLS } from '@/lib/tools';
 import { track } from '@/lib/analytics';
@@ -190,6 +191,7 @@ export default function PublishingScoreClient({ children }) {
             </a>
           </div>
 
+          <ReadinessReportCTA sourceTool="publishing-score" />
           <UpsellBanner toolName="Publishing Score" />
         </>
       )}

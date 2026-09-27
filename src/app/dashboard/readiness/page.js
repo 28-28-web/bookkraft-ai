@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
+import { track } from '@/lib/analytics';
 import Sidebar from '@/components/Sidebar';
 import { runEpubChecks } from '@/lib/epubChecks';
 import { checkKDP, checkApple } from '@/lib/coverChecks';
@@ -69,6 +70,10 @@ export default function ReadinessReportPage() {
     const [docxName, setDocxName] = useState('');
     const [busy, setBusy] = useState(false);
     const [error, setError] = useState('');
+    const startedRef = useRef(false);   // readiness_started fires once
+    const completedRef = useRef(false); // readiness_completed fires once
+    const [saved, setSaved] = useState(false);
+    const [saving, setSaving] = useState(false);
 
     useEffect(() => {
         if (!loading) return;
@@ -76,10 +81,34 @@ export default function ReadinessReportPage() {
         return () => clearTimeout(t);
     }, [loading]);
 
-    // Gate: no free account → send to sign up.
+    // Gate: no free account → sign up, then return here (login honours the same
+    // ?redirect for existing accounts + Google). A `redirect` param never sets
+    // the referral key, so partner attribution is untouched.
     useEffect(() => {
-        if ((!loading || loadingTimedOut) && !user) router.replace('/signup');
+        if ((!loading || loadingTimedOut) && !user) {
+            router.replace('/signup?redirect=' + encodeURIComponent('/dashboard/readiness'));
+        }
     }, [loading, loadingTimedOut, user, router]);
+
+    // readiness_completed: fire once when the report first computes. Recomputed
+    // from state here (not the render-body consts) so it can live above the
+    // early returns without breaking hook order.
+    useEffect(() => {
+        if (!epub || completedRef.current) return;
+        const es = sectionScore(epub.checks.map((c) => c.status));
+        const ms = sectionScore(buildMetadataChecks(meta).map((c) => c.status));
+        const cs = cover ? sectionScore(cover.checks.map(coverStatus)) : null;
+        const ws = word ? sectionScore(word.checks.map((c) => wordStatus(c.status))) : null;
+        const ov = overallScore([
+            { score: es, weight: SECTION_WEIGHTS.epub },
+            { score: ms, weight: SECTION_WEIGHTS.metadata },
+            { score: cs, weight: SECTION_WEIGHTS.cover },
+            { score: ws, weight: SECTION_WEIGHTS.word },
+        ]);
+        if (ov == null) return;
+        completedRef.current = true;
+        track('readiness_completed', { score: ov, epub: es, metadata: ms, cover: cs, word: ws });
+    }, [epub, meta, cover, word]);
 
     if (loading && !loadingTimedOut) {
         return (
@@ -94,6 +123,7 @@ export default function ReadinessReportPage() {
         if (!file) return;
         if (!file.name.toLowerCase().endsWith('.epub')) { setError('Please upload a .epub file.'); return; }
         setError('');
+        if (!startedRef.current) { startedRef.current = true; track('readiness_started'); }
         setBusy(true);
         try {
             const JSZip = (await import('jszip')).default;
@@ -168,6 +198,34 @@ export default function ReadinessReportPage() {
         .concat(word ? ['manuscript'] : [])
         .join(' + ');
 
+    // Save the report to the user's history (existing `history` table; output is
+    // a plain-text summary so the /history preview + copy work unchanged).
+    const saveReport = async () => {
+        setSaving(true);
+        const line = (label, s) => `${label}: ${s != null ? `${s}/100` : 'Not assessed'}`;
+        const summary = [
+            'Publishing Readiness Report',
+            `Overall: ${overall}/100 (${bandLabel(overall)})`,
+            line('EPUB structure', epubSectionScore),
+            line('KDP listing details', metaSectionScore),
+            line('Cover', coverSectionScore),
+            line('Manuscript hygiene', wordSectionScore),
+        ].join('\n');
+        try {
+            const res = await fetch('/api/history', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    tool_slug: 'readiness-report',
+                    inputs: { overall, epub: epubSectionScore, metadata: metaSectionScore, cover: coverSectionScore, word: wordSectionScore },
+                    output: summary,
+                }),
+            });
+            if (res.ok) setSaved(true);
+        } catch { /* save is best-effort — never block the report */ }
+        setSaving(false);
+    };
+
     return (
         <div className="app-layout">
             <Sidebar />
@@ -206,6 +264,13 @@ export default function ReadinessReportPage() {
                             <p style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '10px' }}>
                                 Based on {presentSummary}. This is a readiness check, not a guarantee of acceptance.
                             </p>
+                            <button
+                                onClick={saveReport}
+                                disabled={saving || saved}
+                                style={{ marginTop: '14px', background: 'rgba(255,255,255,0.15)', color: '#fff', border: '1px solid rgba(255,255,255,0.4)', padding: '8px 18px', borderRadius: '8px', fontWeight: 600, fontSize: '0.85rem', cursor: saved ? 'default' : 'pointer' }}
+                            >
+                                {saved ? '✓ Saved to your history' : saving ? 'Saving…' : 'Save to my history'}
+                            </button>
                         </div>
 
                         {/* EPUB section */}
@@ -311,6 +376,22 @@ export default function ReadinessReportPage() {
                             )}
                             {word && <p style={{ fontSize: '0.8rem', color: '#aaa', marginTop: '10px' }}>Scanned {docxName} — {word.wordCount.toLocaleString()} words. This scan reports issues only; it does not modify your file.</p>}
                         </SectionCard>
+
+                        {/* Pro upsell — deeper EPUB scan */}
+                        <div style={{ background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2410 100%)', borderRadius: '12px', padding: '24px', marginTop: '8px' }}>
+                            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
+                                <div style={{ fontSize: '2rem', flexShrink: 0 }}>🔬</div>
+                                <div style={{ flex: 1 }}>
+                                    <h3 style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>Want a deeper EPUB scan?</h3>
+                                    <p style={{ color: '#d1d5db', fontSize: '0.88rem', marginBottom: '16px', lineHeight: 1.5 }}>
+                                        EPUB Validator Premium checks ghost spacing, duplicate IDs, OPF manifest cross-check and cover dimensions — plus a store-specific report for KDP, Apple Books and Google Play.
+                                    </p>
+                                    <a href="/tools/epub-validator-premium" onClick={() => track('fix_clicked', { tool: 'readiness-report', fix_tool: 'epub-validator-premium' })} style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>
+                                        Run Pro Scan — 3 Credits →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </>
                 )}
             </main>

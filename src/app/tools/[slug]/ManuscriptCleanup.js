@@ -15,6 +15,7 @@ import LivePreview from '@/components/LivePreview';
 import FileUploader from '@/components/FileUploader';
 import JobRunner from '@/components/JobRunner';
 import ToolResultsCTA from '@/components/ToolResultsCTA';
+import ReadinessReportCTA from '@/components/ReadinessReportCTA';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 
 export default function ManuscriptCleanup() {
@@ -249,6 +250,7 @@ export default function ManuscriptCleanup() {
                             beforeHtml={`<p>${input.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>`}
                             afterHtml={result.cleaned_text ? `<p>${result.cleaned_text.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>` : ''}
                         />
+                        <ReadinessReportCTA sourceTool="manuscript-cleanup" />
                         <ToolResultsCTA
                             toolSlug="manuscript-cleanup"
                             subjectNoun="manuscript"

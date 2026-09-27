@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import ToolResultsCTA from '@/components/ToolResultsCTA';
+import ReadinessReportCTA from '@/components/ReadinessReportCTA';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { track } from '@/lib/analytics';
 import { checkKDP, checkApple } from '@/lib/coverChecks';
@@ -306,6 +307,8 @@ export default function CoverCheckerPage() {
               </div>
             </div>
           )}
+
+          {dims && <ReadinessReportCTA sourceTool="cover-checker" />}
 
           {dims && (
             <ToolResultsCTA

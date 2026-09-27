@@ -297,7 +297,7 @@ function LoginContent() {
 
 
 
-                <p className="auth-switch">No account yet? <Link href="/signup">Sign up free</Link></p>
+                <p className="auth-switch">No account yet? <Link href={searchParams.get('redirect') ? `/signup?redirect=${encodeURIComponent(searchParams.get('redirect'))}` : '/signup'}>Sign up free</Link></p>
 
                 <p className="auth-switch" style={{ marginTop: '.5rem' }}>
 

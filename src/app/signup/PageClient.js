@@ -47,6 +47,20 @@ function SignupPageClient() {
         return new URLSearchParams(window.location.search).get('plan') || null;
     });
 
+    // Optional post-signup destination (e.g. the gated Readiness report). Only
+    // accept a local path — never an absolute/protocol-relative URL — so this
+    // can't be turned into an open redirect. Defaults to /onboarding.
+    const [pendingRedirect] = useState(() => {
+        if (typeof window === 'undefined') return null;
+        const r = new URLSearchParams(window.location.search).get('redirect');
+        return r && r.startsWith('/') && !r.startsWith('//') ? r : null;
+    });
+    // Always run onboarding (it saves profile fields), but carry the final
+    // destination so onboarding lands the user there instead of the dashboard.
+    const nextPath = pendingRedirect
+        ? `/onboarding?redirect=${encodeURIComponent(pendingRedirect)}`
+        : '/onboarding';
+
 
 
     const handleSignup = async (e) => {
@@ -77,7 +91,7 @@ function SignupPageClient() {
 
                 password,
 
-                options: { emailRedirectTo: `https://bookkraftai.com/auth/callback?next=/onboarding`, captchaToken: captchaToken || undefined }
+                options: { emailRedirectTo: `https://bookkraftai.com/auth/callback?next=${encodeURIComponent(nextPath)}`, captchaToken: captchaToken || undefined }
 
             });
 
@@ -100,7 +114,7 @@ function SignupPageClient() {
                 if (pendingPlan) {
                     try { localStorage.setItem('bk_pending_plan', pendingPlan); } catch {}
                 }
-                router.push('/onboarding');
+                router.push(nextPath);
 
             } else {
 
@@ -143,7 +157,7 @@ function SignupPageClient() {
 
                 provider: 'google',
 
-                options: { redirectTo: `${window.location.origin}/auth/callback?next=/onboarding` }
+                options: { redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}` }
 
             });
 
@@ -239,7 +253,7 @@ function SignupPageClient() {
 
                 </button>
 
-                <p className="auth-switch">Already have an account? <Link href="/login">Sign in</Link></p>
+                <p className="auth-switch">Already have an account? <Link href={pendingRedirect ? `/login?redirect=${encodeURIComponent(pendingRedirect)}` : '/login'}>Sign in</Link></p>
 
             </div>
 

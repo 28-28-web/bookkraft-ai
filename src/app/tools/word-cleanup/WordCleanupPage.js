@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import ToolResultsCTA from '@/components/ToolResultsCTA';
+import ReadinessReportCTA from '@/components/ReadinessReportCTA';
 import { track } from '@/lib/analytics';
 import { scanDocx } from '@/lib/wordChecks';
 
@@ -188,6 +189,8 @@ export default function WordCleanupPage({ children, faqItems = [] }) {
             <p style={{ marginTop: 20, fontSize: 13, color: '#888' }}>
               This scan reports issues only — it does not modify your file.
             </p>
+
+            <ReadinessReportCTA sourceTool="word-cleanup" />
 
             <ToolResultsCTA
               toolSlug="word-cleanup"

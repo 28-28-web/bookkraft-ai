@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import UpsellBanner from '@/components/UpsellBanner';
+import ReadinessReportCTA from '@/components/ReadinessReportCTA';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { TOOLS } from '@/lib/tools';
 import { useLoadingSteps } from '@/hooks/useLoadingSteps';
@@ -366,6 +367,7 @@ export default function MetadataBuilder() {
                         <a href="/signup?plan=starter" style={{ display: 'inline-block', background: '#1a1a1a', color: '#fff', padding: '11px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.95rem' }}>Get Starter — $19</a>
                     </div>
                 </div>
+                <ReadinessReportCTA sourceTool="metadata-builder" />
                 <UpsellBanner toolName="Metadata Builder" />
             </>
         )}

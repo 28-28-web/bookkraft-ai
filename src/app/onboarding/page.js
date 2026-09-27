@@ -14,6 +14,13 @@ export default function OnboardingPage() {
     const [step, setStep] = useState(0);
     const [answers, setAnswers] = useState({});
     const [pendingPlan, setPendingPlan] = useState(null);
+    // Optional post-onboarding destination (e.g. the gated Readiness report),
+    // passed by signup. Local paths only — never an open redirect.
+    const [pendingRedirect] = useState(() => {
+        if (typeof window === 'undefined') return null;
+        const r = new URLSearchParams(window.location.search).get('redirect');
+        return r && r.startsWith('/') && !r.startsWith('//') ? r : null;
+    });
 
     const showRecommendations = step === ONBOARD_STEPS.length;
 
@@ -56,7 +63,13 @@ export default function OnboardingPage() {
             } catch (err) {
                 console.error('Failed to save onboarding:', err);
             } finally {
-                setStep(step + 1);
+                // Profile fields are now saved. If signup carried a destination,
+                // go straight there — unless a plan checkout is pending, which
+                // takes priority and is handled on the recommendations step.
+                let hasPlan = false;
+                try { hasPlan = !!localStorage.getItem('bk_pending_plan'); } catch {}
+                if (pendingRedirect && !hasPlan) router.replace(pendingRedirect);
+                else setStep(step + 1);
             }
         } else {
             setStep(step + 1);

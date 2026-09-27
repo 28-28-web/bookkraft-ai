@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import UpsellBanner from '@/components/UpsellBanner';
+import ReadinessReportCTA from '@/components/ReadinessReportCTA';
 import ValidationBadge from './ValidationBadge';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { TOOLS } from '@/lib/tools';
@@ -346,6 +347,7 @@ export default function EpubValidator() {
                         </div>
                     </div>
 
+                    <ReadinessReportCTA sourceTool="epub-validator" />
                     <UpsellBanner toolName="EPUB Validator" />
                 </>
             )}

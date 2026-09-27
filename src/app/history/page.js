@@ -7,6 +7,9 @@ import { useToast } from '@/components/Toast';
 import Sidebar from '@/components/Sidebar';
 import { TOOLS } from '@/lib/tools';
 
+// Friendly names for history entries whose slug is not a TOOLS page.
+const EXTRA_TOOL_NAMES = { 'readiness-report': 'Publishing Readiness Report' };
+
 export default function HistoryPage() {
     const { user, loading: authLoading } = useAuth();
     const { showToast } = useToast();
@@ -25,7 +28,8 @@ export default function HistoryPage() {
                 const data = await res.json();
                 setHistory(data.map((h) => ({
                     ...h,
-                    tool_name: TOOLS.find((t) => t.id === h.tool_slug)?.name || h.tool_slug
+                    // readiness-report isn't in TOOLS (it's a dashboard feature, not a tool page).
+                    tool_name: EXTRA_TOOL_NAMES[h.tool_slug] || TOOLS.find((t) => t.id === h.tool_slug)?.name || h.tool_slug
                 })));
             }
         } catch (err) {
