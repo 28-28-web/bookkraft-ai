@@ -137,12 +137,12 @@ const TOOL_GROUPS = [
     ],
   },
   {
-    label: 'AI tools — credit per run',
+    label: 'AI tools — uses credits',
     labelColor: '#7b68c8',
     tools: [
-      { slug: 'manuscript-cleanup',    name: 'Manuscript Cleanup',       desc: 'AI finds errors that spell check misses. Catches dialogue punctuation problems, words repeated too close together, and clichés. Works on any length. 1 credit.' },
-      { slug: 'print-to-digital',      name: 'Print-to-Digital Adapter', desc: 'Convert a print manuscript to eBook format. Fixes page references, footnotes, and running headers so they work on Kindle and EPUB. 1 credit per run.' },
-      { slug: 'style-sheet-auditor',   name: 'Style Sheet Auditor',      desc: 'AI checks your whole manuscript for consistency. Finds character name variations, spelling differences, and mismatched punctuation patterns. 1 credit.' },
+      { slug: 'manuscript-cleanup',    name: 'Manuscript Cleanup',       desc: 'AI finds errors that spell check misses. Catches dialogue punctuation problems, words repeated too close together, and clichés. Works on any length. 1 credit per 10,000 words.' },
+      { slug: 'print-to-digital',      name: 'Print-to-Digital Adapter', desc: 'Convert a print manuscript to eBook format. Fixes page references, footnotes, and running headers so they work on Kindle and EPUB. 1 credit per 10,000 words.' },
+      { slug: 'style-sheet-auditor',   name: 'Style Sheet Auditor',      desc: 'AI checks your whole manuscript for consistency. Finds character name variations, spelling differences, and mismatched punctuation patterns. 1 credit per 10,000 words.' },
       { slug: 'kdp-keyword-finder',    name: 'KDP Keyword Finder',       desc: 'Get 7 Amazon keyword phrases written for your genre. Each comes with a competition level and ranking estimate. Includes category path suggestions. 2 credits.' },
       { slug: 'back-matter-generator', name: 'Back Matter Generator',    desc: 'AI writes all six back matter sections for you. Author bio, Also By page, reader sign-up, and more. Ready for KDP and EPUB. 3 credits.' },
       { slug: 'epub-validator-premium',name: 'EPUB Validator Pro',        desc: 'Deep EPUB scan for hard-to-find problems. Checks duplicate IDs, ghost spacing, and manifest errors. Gives a pass/fail report for KDP, Apple Books, and Google Play. 3 credits.' },

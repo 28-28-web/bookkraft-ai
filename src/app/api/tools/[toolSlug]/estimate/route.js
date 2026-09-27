@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { estimateJob } from '@/lib/ai/jobs';
-
-const CHUNKED_TOOLS = ['manuscript-cleanup', 'print-to-digital', 'style-sheet-auditor'];
+import { CHUNKED_TOOLS } from '@/lib/constants';
 
 export async function POST(request, { params }) {
     const { toolSlug } = await params;

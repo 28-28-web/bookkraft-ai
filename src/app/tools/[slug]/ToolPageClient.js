@@ -5,6 +5,7 @@ import { getToolBySlug } from '@/lib/tools';
 import { useAuth } from '@/components/AuthProvider';
 import Sidebar from '@/components/Sidebar';
 import Link from 'next/link';
+import { CHUNKED_TOOLS } from '@/lib/constants';
 
 import KindleFormatFixer from './KindleFormatFixer';
 import EpubFormatter from './EpubFormatter';
@@ -111,7 +112,7 @@ export default function ToolPage({ params, faqItems = [], children }) {
     const resolvedParams = use(params);
     const slug = resolvedParams.slug;
     const tool = getToolBySlug(slug);
-    const { user, checkToolAccess, loading } = useAuth();
+    const { user, profile, checkToolAccess, loading } = useAuth();
 
     if (!tool) {
         return (
@@ -157,6 +158,31 @@ export default function ToolPage({ params, faqItems = [], children }) {
         const bundleName = 'Starter';
         const bundlePrice = '19';
         const checkoutPlan = 'starter';
+        const isAiTool = tool.accessType === 'ai';
+        const balance = profile?.credits_balance || 0;
+
+        // Three lock states, distinguished so the copy matches the real reason:
+        //   • signed-out — sign in, or buy the plan
+        //   • signed-in AI (credit) tool — out of credits, send to /pricing
+        //   • signed-in logic tool — needs the bundle, which runs logic tools at
+        //     zero credit cost (lib/tools.js creditCost:0; lib/toolAccess.js logic
+        //     access never touches credits_balance).
+        let lockHeading, lockNote, primaryCta;
+        if (!user) {
+            lockHeading = `Sign in to use ${tool.name}`;
+            lockNote = `Everything below explains what ${tool.name} does. To run it, sign in — or get the ${bundleName} for $${bundlePrice}, a one-time payment you keep forever.`;
+            primaryCta = { href: `/checkout?plan=${checkoutPlan}`, label: `Get ${bundleName} — $${bundlePrice} →` };
+        } else if (isAiTool) {
+            lockHeading = 'Not enough credits';
+            lockNote = CHUNKED_TOOLS.includes(slug)
+                ? `You have ${balance} credit(s). ${tool.name} uses ${tool.creditCost} credit${tool.creditCost === 1 ? '' : 's'} per 10,000 words.`
+                : `You have ${balance} credit(s). ${tool.name} uses ${tool.creditCost} per run.`;
+            primaryCta = { href: '/pricing', label: 'Get more credits' };
+        } else {
+            lockHeading = `This tool requires the ${bundleName} plan`;
+            lockNote = `${bundleName} plan — unlimited use. This tool never uses credits.`;
+            primaryCta = { href: `/checkout?plan=${checkoutPlan}`, label: `Get ${bundleName} — $${bundlePrice} →` };
+        }
 
         return (
             <div className="app-layout">
@@ -166,20 +192,16 @@ export default function ToolPage({ params, faqItems = [], children }) {
                         <ToolHeader tool={tool} user={user} />
                         <div className="tool-locked-card">
                             <div className="tool-locked-icon">🔒</div>
-                            <h3>{user ? `This tool requires the ${bundleName}` : `Sign in to use ${tool.name}`}</h3>
-                            <p>
-                                {user
-                                    ? `Unlock ${tool.name} with the ${bundleName} for $${bundlePrice} — one-time payment, use it forever.`
-                                    : `Everything below explains what ${tool.name} does. To run it, sign in — or get the ${bundleName} for $${bundlePrice}, a one-time payment you keep forever.`}
-                            </p>
+                            <h3>{lockHeading}</h3>
+                            <p>{lockNote}</p>
                             <div className="tool-locked-actions">
                                 {!user && (
                                     <Link href={`/login?redirect=/tools/${slug}`} className="btn btn-primary" style={{ textDecoration: 'none' }}>
                                         Sign in →
                                     </Link>
                                 )}
-                                <Link href={`/checkout?plan=${checkoutPlan}`} className="btn btn-gold" style={{ textDecoration: 'none' }}>
-                                    Get {bundleName} — ${bundlePrice} →
+                                <Link href={primaryCta.href} className="btn btn-gold" style={{ textDecoration: 'none' }}>
+                                    {primaryCta.label}
                                 </Link>
                             </div>
                         </div>

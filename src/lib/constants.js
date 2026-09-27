@@ -9,6 +9,11 @@ export const FREE_TOOLS = TOOLS.filter((t) => t.free).map((t) => t.slug);
 export const LOGIC_TOOLS = TOOLS.filter((t) => t.accessType === 'logic').map((t) => t.slug);
 export const AI_TOOLS = TOOLS.filter((t) => t.accessType === 'ai').map((t) => t.slug);
 
+// Chunked long-manuscript AI tools — billed per 10k words via the job
+// pipeline, not a flat run cost. Single source; imported by the estimate/
+// jobs API routes and the tool lock card so the list can't drift.
+export const CHUNKED_TOOLS = ['manuscript-cleanup', 'print-to-digital', 'style-sheet-auditor'];
+
 export const TOOL_CATEGORIES = [
     { id: 'all', label: 'All Tools' },
     { id: 'formatting', label: 'Formatting' },

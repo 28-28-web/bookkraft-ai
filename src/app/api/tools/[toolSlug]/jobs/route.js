@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createJob } from '@/lib/ai/jobs';
-
-const CHUNKED_TOOLS = ['manuscript-cleanup', 'print-to-digital', 'style-sheet-auditor'];
+import { CHUNKED_TOOLS } from '@/lib/constants';
 
 function buildMeta(toolSlug, body) {
     if (toolSlug === 'manuscript-cleanup') {
