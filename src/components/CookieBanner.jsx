@@ -1,5 +1,16 @@
 'use client'
 import { useState, useEffect } from 'react'
+
+const CLARITY_ID = 'x0dccfshyj'
+function loadClarity() {
+  if (typeof window === 'undefined' || window.clarity) return
+  ;(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", CLARITY_ID)
+}
+
 export default function CookieBanner() {
   const [show, setShow] = useState(false)
   useEffect(() => {
@@ -8,7 +19,11 @@ export default function CookieBanner() {
       setShow(true)
     } else if (consent === 'granted') {
       updateConsent('granted')
+      loadClarity()
       if (window.clarity) window.clarity('consent')
+    } else {
+      // returning 'denied' user — re-assert denial (analytics default is 'granted' outside EEA)
+      updateConsent('denied')
     }
   }, [])
 
@@ -21,19 +36,20 @@ export default function CookieBanner() {
     return () => document.body.classList.remove('cookie-consent-pending')
   }, [show])
   const updateConsent = (value) => {
+    // No ads on this site, so only analytics_storage is ever toggled.
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('consent', 'update', {
         analytics_storage: value,
-        ad_storage: value,
-        ad_user_data: value,
-        ad_personalization: value,
       })
     }
   }
   const handle = (value) => {
     localStorage.setItem('bk_cookie_consent', value)
     updateConsent(value)
-    if (value === 'granted' && window.clarity) window.clarity('consent')
+    if (value === 'granted') {
+      loadClarity()
+      if (window.clarity) window.clarity('consent')
+    }
     setShow(false)
   }
   if (!show) return null
