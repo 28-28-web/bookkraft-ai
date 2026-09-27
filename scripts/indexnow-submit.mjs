@@ -46,6 +46,14 @@ async function main() {
     const args = process.argv.slice(2);
     const explicit = args.filter((a) => !a.startsWith('--'));
 
+    // The automatic postbuild run passes --auto. Gate ONLY that path on
+    // INDEXNOW_ENABLED so local builds never ping. A manual `npm run indexnow`
+    // (with or without explicit URLs) has no --auto and always runs.
+    if (args.includes('--auto') && process.env.INDEXNOW_ENABLED !== 'true') {
+        console.log('[indexnow] auto run skipped — INDEXNOW_ENABLED not "true". Set it only in the production build env.');
+        return;
+    }
+
     let urls;
     if (explicit.length > 0) {
         urls = explicit;

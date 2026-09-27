@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "node scripts/indexnow-submit.mjs",
+    "postbuild": "node scripts/indexnow-submit.mjs --auto",
     "start": "next start",
     "lint": "eslint",
     "content-check": "node scripts/content-check.mjs",
