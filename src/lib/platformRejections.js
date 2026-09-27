@@ -2,9 +2,9 @@ export const PLATFORM_REJECTIONS = [
   {
     slug: 'amazon-kdp',
     platform: 'Amazon KDP',
-    metaTitle: 'Why Amazon KDP Rejects Ebooks — Most Common Reasons',
+    metaTitle: 'KDP Rejected Your EPUB? Why Amazon KDP Rejects Ebooks & How to Fix It',
     metaDescription: "KDP rejected your ebook? Here are the most common reasons Amazon KDP rejects EPUB and DOCX files — from validation errors and metadata issues to content policy flags — and how to fix each one.",
-    intro: '<p>Amazon KDP rejects ebooks for two distinct reasons: structural EPUB errors that fail the automated upload check immediately, and content policy flags that trigger a human review queue with a 1–5 business day delay. Which category caught your submission determines where to look — EPUBCheck failures surface as upload errors the moment the file is submitted, while content flags arrive as review emails after the book is queued.</p>',
+    intro: '<p><strong>KDP rejected your EPUB? Start here.</strong> These seven structural issues are common causes of upload problems. Open any item for the step-by-step fix:</p><ol><li><strong>Broken or missing navigation (NCX / nav.xhtml)</strong> — <a href="/epub-errors/missing-ncx-navigation">missing NCX navigation</a></li><li><strong>Missing metadata (title, language, identifier)</strong> — <a href="/epub-errors/missing-dc-identifier">missing dc:identifier</a></li><li><strong>Cover not declared in the OPF manifest</strong> — <a href="/epub-errors/cover-image-not-declared">cover image not declared</a></li><li><strong>Unsupported images (EMF/WMF)</strong> — <a href="/epub-errors/emf-image-fallback">EMF image fallback</a></li><li><strong>Embedded font license or format</strong> — <a href="/epub-errors/font-link-validation">font link validation</a></li><li><strong>A file referenced but not in the manifest</strong> — <a href="/epub-errors/missing-manifest-resource">missing manifest resource</a></li><li><strong>Malformed OPF or XHTML structure</strong> — <a href="/epub-errors/invalid-opf-structure">invalid OPF structure</a></li></ol><p>Each reason is explained in full below.</p><p>Amazon KDP rejects or delays ebooks for two broad reasons: structural EPUB errors caught during the automated upload check, and content or quality flags handled during KDP\'s review. Structural errors are flagged when you submit the file; content reviews are part of the normal publishing window, which KDP lists as up to three business days for most titles (up to 10 business days for low-content books) in its <a href="https://kdp.amazon.com/en_US/help/topic/G202173620" target="_blank" rel="noopener nofollow">publishing timelines</a>.</p>',
     topReasons: [
       {
         title: 'EPUB validation failures',
@@ -39,7 +39,7 @@ export const PLATFORM_REJECTIONS = [
       },
       {
         q: 'How long does KDP take to review a flagged book?',
-        a: 'Automated upload rejections are immediate. Content policy reviews typically take 1–5 business days. If your book has been in review for more than 7 days, KDP support can provide a status update.',
+        a: 'Structural upload errors are flagged when you submit the file. For most titles, KDP lists a publishing/review window of up to three business days (up to 10 business days for low-content books). If your book has been in review noticeably longer than that, KDP support can provide a status update.',
       },
       {
         q: 'Can I upload a DOCX instead of EPUB to avoid validation errors?',

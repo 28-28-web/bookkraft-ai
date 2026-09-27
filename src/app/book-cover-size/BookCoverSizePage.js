@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: 'What are the minimum cover dimensions for Amazon KDP?',
-    a: "Amazon KDP's current minimum is 625 × 1000 pixels. The often-cited 500px minimum is outdated — KDP updated its requirements. Covers below 625 × 1000px are rejected or display poorly on high-DPI screens. Always design at the ideal 1600 × 2560px and export down if needed.",
+    a: "KDP's stated minimum is 1000 pixels in height × 625 pixels in width, with an ideal of 2560 × 1600px (KDP Help: 'What criteria does my eBook's cover image need to meet?'). KDP's Cover Image Guidelines separately note that covers with less than 500 pixels on the shortest side are not displayed on the Amazon website. Design at 1600 × 2560px to stay well above both thresholds and stay sharp on high-DPI screens.",
   },
 ];
 
@@ -109,7 +109,7 @@ const commonMistakes = [
   },
   {
     mistake: 'Cover below minimum dimensions',
-    detail: 'The 500px minimum cited by older guides is outdated. KDP\'s current minimum is 625 × 1000px. Covers below this threshold are rejected or display at poor quality on retina screens. Always design at 1600 × 2560px.',
+    detail: 'KDP\'s stated minimum is 1000 × 625px (height × width); the ideal is 2560 × 1600px. KDP\'s Cover Image Guidelines note that covers with fewer than 500 pixels on the shortest side are not displayed on the website. Design at 1600 × 2560px so the cover stays sharp on high-DPI screens.',
   },
   {
     mistake: 'Wrong aspect ratio',
@@ -202,8 +202,15 @@ export default function BookCoverSizePage() {
             </tbody>
           </table>
         </div>
-        <p style={{ fontSize: 14, opacity: 0.65, marginBottom: 40, fontStyle: 'italic' }}>
+        <p style={{ fontSize: 14, opacity: 0.65, marginBottom: 8, fontStyle: 'italic' }}>
           Use 1600 × 2560 px JPEG in RGB for all platforms — it meets every retailer&apos;s minimum and ideal requirements.
+        </p>
+        <p style={{ fontSize: 13, opacity: 0.6, marginBottom: 40 }}>
+          KDP figures verified from KDP Help:{' '}
+          <a href="https://kdp.amazon.com/en_US/help/topic/G200645690" target="_blank" rel="noopener nofollow" style={{ color: '#9c7f35' }}>eBook cover criteria</a>
+          {' and '}
+          <a href="https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX" target="_blank" rel="noopener nofollow" style={{ color: '#9c7f35' }}>Cover Image Guidelines</a>
+          . Last verified September 27, 2026.
         </p>
 
         {/* Print cover note */}
@@ -290,13 +297,13 @@ export default function BookCoverSizePage() {
 
         {/* CTA */}
         <div style={{ marginTop: 48, padding: '28px 24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
-          <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Catch cover errors before submission — free EPUB Validator.</p>
-          <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Checks cover declaration, aspect ratio, and format compliance for KDP, Apple Books, and Kobo.</p>
+          <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Check your cover size and format before uploading — free Cover Checker.</p>
+          <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Checks dimensions, aspect ratio, color mode, and format against KDP, Apple Books, and Kobo requirements.</p>
           <Link
-            href="/tools/epub-validator"
+            href="/tools/cover-checker"
             style={{ display: 'inline-block', padding: '13px 30px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 16 }}
           >
-            Open EPUB Validator →
+            Open Cover Checker →
           </Link>
         </div>
       </main>

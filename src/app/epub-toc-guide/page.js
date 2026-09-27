@@ -33,6 +33,14 @@ const faqs = [
     q: 'Does BookKraft\'s TOC Generator output both nav.xhtml and toc.ncx?',
     a: 'Yes. The TOC Generator outputs Kindle HTML format (for direct manuscript insertion), EPUB 3 nav.xhtml, and NCX XML (toc.ncx) — all three from one set of chapter headings. You get both navigation files in the correct format for each platform.',
   },
+  {
+    q: 'Why is my Kindle table of contents greyed out or not showing in the Go To menu?',
+    a: 'A greyed-out or missing Go To → Table of Contents entry almost always means the EPUB has no recognized logical navigation — either nav.xhtml is missing its nav element with epub:type="toc", or the toc.ncx referenced in the OPF spine is absent. Kindle builds the Go To menu from that navigation document; with nothing valid to read, the menu item is disabled. Confirm nav.xhtml exists with a nav epub:type="toc" element and that the spine\'s toc attribute points to a real NCX item.',
+  },
+  {
+    q: 'My Kindle TOC jumps to the wrong chapter — how do I fix it?',
+    a: 'Wrong-destination jumps mean a navigation entry points to the wrong file or anchor, or the entries are out of order. Amazon requires NCX entries to follow the same order as the book (the Chapter 2 link must not precede Chapter 1). Check that each nav.xhtml link and each toc.ncx content src points to the correct chapter file, that any anchors exist in the target files, and that playOrder in the NCX matches reading order.',
+  },
 ];
 
 export default function EpubTocGuidePage() {
@@ -232,6 +240,30 @@ export default function EpubTocGuidePage() {
           </Link>
           {' '}before uploading to any platform to catch navigation errors before the store sees them.
         </p>
+
+        {/* Symptom-first troubleshooting */}
+        <h2 style={{ fontSize: 22, fontWeight: 700, color: 'var(--ink)', marginBottom: 12 }}>
+          Kindle table of contents not working?
+        </h2>
+        <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
+          If your table of contents does not appear, is greyed out in the Go To menu, or jumps to the wrong place, the cause is almost always in one of the two navigation files. The most common cases:
+        </p>
+        <ul style={{ fontSize: 16, lineHeight: 1.9, color: 'var(--ink)', paddingLeft: '1.4em', marginBottom: 16, opacity: 0.9 }}>
+          <li><strong>No TOC in the Go To menu / greyed out</strong> — nav.xhtml is missing its <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>{'<nav epub:type="toc">'}</code> element, or the toc.ncx named in the OPF spine is absent. See <Link href="/epub-errors/missing-ncx-navigation" style={{ color: '#9c7f35', textDecoration: 'none' }}>missing NCX navigation</Link>.</li>
+          <li><strong>Entries jump to the wrong chapter</strong> — a nav link or NCX <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>content src</code> points to the wrong file or a missing anchor. See <Link href="/epub-errors/toc-ncx-navpoint-mismatch" style={{ color: '#9c7f35', textDecoration: 'none' }}>NCX navPoint mismatch</Link>.</li>
+          <li><strong>Chapters out of order</strong> — KDP requires NCX entries in book order (Chapter 2 must not precede Chapter 1). Re-order the navPoints and playOrder to match the spine.</li>
+          <li><strong>TOC page shows but is not clickable</strong> — the in-book TOC entries must be real HTML links, not plain text, for readers to navigate.</li>
+        </ul>
+        <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 20, opacity: 0.9 }}>
+          KDP&apos;s <a href="https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N" target="_blank" rel="noopener nofollow" style={{ color: '#9c7f35' }}>Navigation Guidelines</a> require a logical table of contents (NCX or the EPUB 3 nav element) with links in the same order as the book. <em>Last verified September 27, 2026.</em>
+        </p>
+        <div style={{ padding: '20px 22px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 10, marginBottom: 48 }}>
+          <p style={{ fontSize: 15, fontWeight: 600, marginBottom: 6 }}>Not sure which file is broken? Check it in seconds.</p>
+          <p style={{ fontSize: 14, opacity: 0.75, marginBottom: 14 }}>The free EPUB Validator flags missing nav.xhtml, absent toc.ncx, and broken navigation references before KDP sees the file.</p>
+          <Link href="/tools/epub-validator" style={{ display: 'inline-block', padding: '11px 24px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 15 }}>
+            Validate Your EPUB Free →
+          </Link>
+        </div>
 
         {/* FAQ */}
         <h2 style={{ fontSize: 22, fontWeight: 700, color: 'var(--ink)', marginBottom: 16 }}>

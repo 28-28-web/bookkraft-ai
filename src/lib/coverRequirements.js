@@ -15,7 +15,7 @@ export const COVER_REQUIREMENTS = [
       { label: 'Color mode', value: 'RGB' },
       { label: 'Maximum file size', value: '50MB' },
     ],
-    details: '<p>KDP states a minimum of 625px wide by 1000px tall, but recommends the ideal of 1600px × 2560px for the sharpest display across Kindle devices and the Kindle app. The 1.6:1 height-to-width aspect ratio is required — covers with a significantly different ratio will be stretched or cropped to fit KDP\'s display templates. Images must be in RGB color mode; CMYK images are rejected by KDP\'s image processor even though CMYK is standard for print covers. The maximum file size is 50MB, though standard cover images are well under 5MB in practice.</p><p>KDP accepts JPEG and TIFF. PNG is not listed as an accepted format in the current official specification — authors using PNG covers from design tools should convert to JPEG before including the image in their EPUB package.</p>',
+    details: '<p>KDP states a minimum of 625px wide by 1000px tall, but recommends the ideal of 1600px × 2560px for the sharpest display across Kindle devices and the Kindle app. The 1.6:1 height-to-width aspect ratio is required — covers with a significantly different ratio will be stretched or cropped to fit KDP\'s display templates. Images must be in RGB color mode; CMYK images are rejected by KDP\'s image processor even though CMYK is standard for print covers. The maximum file size is 50MB, though standard cover images are well under 5MB in practice.</p><p>KDP accepts JPEG and TIFF. PNG is not listed as an accepted format in the current official specification — authors using PNG covers from design tools should convert to JPEG before including the image in their EPUB package.</p><p>KDP\'s Cover Image Guidelines also note that covers with fewer than 500 pixels on the shortest side are not displayed on the Amazon website. Figures verified from KDP Help — <a href="https://kdp.amazon.com/en_US/help/topic/G200645690" target="_blank" rel="noopener nofollow">eBook cover criteria (G200645690)</a> and <a href="https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX" target="_blank" rel="noopener nofollow">Cover Image Guidelines</a>. Last verified September 27, 2026.</p>',
     commonMistakes: [
       {
         title: 'Using a print cover directly',
@@ -23,7 +23,7 @@ export const COVER_REQUIREMENTS = [
       },
       {
         title: 'Dimensions below the minimum',
-        description: 'The 500px minimum cited by some older tools and blog posts is outdated. KDP\'s current official minimum is 625px wide × 1000px tall. Covers below this threshold are rejected or display at poor quality on high-DPI screens.',
+        description: 'KDP\'s official minimum is 625px wide × 1000px tall (KDP Help topic G200645690); the ideal is 1600 × 2560px. KDP\'s Cover Image Guidelines note that covers with fewer than 500 pixels on the shortest side are not displayed on the website. Design at 1600 × 2560px so the cover stays sharp on high-DPI screens.',
       },
       {
         title: 'Wrong aspect ratio',
