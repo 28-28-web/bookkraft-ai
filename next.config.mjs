@@ -63,6 +63,12 @@ const nextConfig = {
         destination: '/blog/common-epub-validation-errors',
         permanent: true,
       },
+      // Cannibalizing duplicate — merged into the comprehensive EPUB vs PDF vs MOBI post.
+      {
+        source: '/blog/epub-vs-mobi-vs-pdf-kdp',
+        destination: '/blog/best-ebook-formats-epub-vs-pdf-vs-mobi',
+        permanent: true,
+      },
       // Malformed URLs crawled from bad links — send to homepage.
       {
         source: '/$',
