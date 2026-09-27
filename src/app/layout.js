@@ -1,6 +1,6 @@
 import './globals.css';
 import Script from 'next/script';
-import { Playfair_Display, DM_Sans, JetBrains_Mono, IBM_Plex_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
 import Navbar from '../components/Navbar';
 import AnnouncementBar from '../components/AnnouncementBar';
 import { AuthProvider } from '../components/AuthProvider';
@@ -13,38 +13,53 @@ import { FREE_TOOLS } from '../lib/constants';
 
 const TOOL_COUNT_DESC = `${TOOLS.length} eBook formatting tools. EPUB validation, Kindle formatting, metadata builder, style auditor, and more. ${FREE_TOOLS.length} free tools — no signup needed.`;
 
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  style: ['normal', 'italic'],
+// Self-hosted (next/font/local) — woff2 in ./fonts, OFL licensed. Same weights,
+// styles, CSS variable names, and display values as the previous next/font/google
+// setup, so the rendered output is unchanged.
+const playfair = localFont({
+  src: [
+    { path: './fonts/playfair-display-latin-400-normal.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/playfair-display-latin-700-normal.woff2', weight: '700', style: 'normal' },
+    { path: './fonts/playfair-display-latin-400-italic.woff2', weight: '400', style: 'italic' },
+    { path: './fonts/playfair-display-latin-700-italic.woff2', weight: '700', style: 'italic' },
+  ],
   variable: '--font-playfair',
   display: 'swap',
   // Content page H1–H4 LCP font. No preload — Fraunces owns the single
   // preload slot on homepage; content pages benefit from swap over optional.
   preload: false,
+  adjustFontFallback: 'Times New Roman',
 });
 
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
+const dmSans = localFont({
+  src: [
+    { path: './fonts/dm-sans-latin-400-normal.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/dm-sans-latin-500-normal.woff2', weight: '500', style: 'normal' },
+    { path: './fonts/dm-sans-latin-700-normal.woff2', weight: '700', style: 'normal' },
+  ],
   variable: '--font-dm-sans',
   display: 'swap',
   // Body text, not LCP. No preload needed.
   preload: false,
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500'],
+const jetbrainsMono = localFont({
+  src: [
+    { path: './fonts/jetbrains-mono-latin-400-normal.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/jetbrains-mono-latin-500-normal.woff2', weight: '500', style: 'normal' },
+  ],
   variable: '--font-jetbrains',
   display: 'swap',
   preload: false,
 });
 
 
-const ibmPlexMono = IBM_Plex_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
+const ibmPlexMono = localFont({
+  src: [
+    { path: './fonts/ibm-plex-mono-latin-400-normal.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/ibm-plex-mono-latin-500-normal.woff2', weight: '500', style: 'normal' },
+    { path: './fonts/ibm-plex-mono-latin-600-normal.woff2', weight: '600', style: 'normal' },
+  ],
   variable: '--font-ibm-mono',
   display: 'optional',
   preload: false,
