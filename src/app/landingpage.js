@@ -283,15 +283,15 @@ function BookPromoSection() {
           />
           <div className="bk-promo-body">
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(247,243,236,0.55)', marginBottom: 6 }}>One Page, One Fix series</div>
-            <div className="bk-promo-offer">🎁 Buy this book → Get BookKraft AI Starter FREE ($19 value)</div>
+            <div className="bk-promo-offer">🎁 Buy this book → Get 2 months of BookKraft AI Starter free</div>
             <h2 className="bk-promo-title">Why Does My Kindle Book Look Wrong?</h2>
             <p className="bk-promo-subtitle">100 Quick Fixes for EPUB &amp; KDP</p>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 4 }}>
               <a href="https://www.amazon.com/dp/B0HJY1TR6D" target="_blank" rel="noopener noreferrer" className="bk-promo-cta bk-promo-cta--navy">
                 Buy on Amazon →
               </a>
-              <a href="/pricing" className="bk-promo-cta-ghost">
-                Claim Free Starter →
+              <a href="/dashboard" className="bk-promo-cta-ghost">
+                Claim 2 Months of Starter →
               </a>
             </div>
           </div>

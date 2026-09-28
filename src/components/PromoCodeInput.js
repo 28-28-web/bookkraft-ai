@@ -39,7 +39,7 @@ export default function PromoCodeInput({ onSuccess }) {
             const until = new Date(data.expires_at).toLocaleDateString('en-GB', {
                 day: 'numeric', month: 'short', year: 'numeric',
             });
-            setMessage(`Starter access activated until ${until}.`);
+            setMessage(`${data.duration_months} months of Starter access activated, free until ${until}.`);
             if (onSuccess) onSuccess(data);
         } catch {
             setStatus('error');
@@ -58,7 +58,7 @@ export default function PromoCodeInput({ onSuccess }) {
             borderRadius: 'var(--radius)',
         }}>
             <p style={{ margin: '0 0 12px', fontSize: 'var(--text-sm)', fontWeight: 600, color: 'var(--ink)' }}>
-                Have a promo code?
+                Have a code from the book? Enter it for 2 months of Starter free.
             </p>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                 <input

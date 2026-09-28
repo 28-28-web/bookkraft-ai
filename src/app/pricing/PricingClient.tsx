@@ -246,7 +246,7 @@ function PricingContent() {
                             lineHeight: 1.5,
                         }}>
                             <strong style={{ color: 'var(--gold)' }}>Try before you buy:</strong>{' '}
-                            Every AI tool runs a free 500-word sample on your own text — no credits charged, no account needed.
+                            Manuscript Cleanup and Style Sheet Auditor each run a free 500-word sample on your own text — no credits charged, no account needed.
                         </div>
 
                         {/* What do you need? */}

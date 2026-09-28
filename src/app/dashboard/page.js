@@ -63,7 +63,9 @@ export default function DashboardPage() {
         if (tool.free) return 'free';
         if (profile?.is_lifetime || profile?.has_full_access) return 'full_access';
         if (tool.accessType === 'logic') {
-            return profile?.has_logic_bundle ? 'logic_owned' : 'logic_locked';
+            const promoActive = profile?.promo_bundle_expires_at
+                && new Date(profile.promo_bundle_expires_at) > new Date();
+            return profile?.has_logic_bundle || promoActive ? 'logic_owned' : 'logic_locked';
         }
         const cost = TOOL_CREDIT_COSTS[tool.slug] || 0;
         const balance = profile?.credits_balance || 0;
@@ -176,7 +178,7 @@ export default function DashboardPage() {
 
                 {/* Handbook EPUB: full for Lifetime, sampler for Starter/Pro, CTA otherwise */}
                 <HandbookDownloadCard profile={profile} />
-                {/* Why Your Book Got Rejected: Lifetime immediate, Starter/Pro after 3 months, free CTA */}
+                {/* Why Your Book Got Rejected: Amazon link for everyone (no in-app download) */}
                 <RejectedBookCard />
                 {/* Promo code redemption */}
                 <PromoCodeInput onSuccess={() => refreshProfile()} />
