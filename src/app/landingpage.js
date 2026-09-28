@@ -287,7 +287,7 @@ function BookPromoSection() {
             <h2 className="bk-promo-title">Why Does My Kindle Book Look Wrong?</h2>
             <p className="bk-promo-subtitle">100 Quick Fixes for EPUB &amp; KDP</p>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 4 }}>
-              <a href="https://www.amazon.com/dp/B0HJYTR6D" target="_blank" rel="noopener noreferrer" className="bk-promo-cta bk-promo-cta--navy">
+              <a href="https://www.amazon.com/dp/B0HJY1TR6D" target="_blank" rel="noopener noreferrer" className="bk-promo-cta bk-promo-cta--navy">
                 Buy on Amazon →
               </a>
               <a href="/pricing" className="bk-promo-cta-ghost">
