@@ -271,20 +271,21 @@ function BookPromoSection() {
           </div>
         </div>
 
-        {/* Card 2: One Page, One Fix (navy) */}
+        {/* Card 2: Why Does My Kindle Book Look Wrong? (navy) */}
         <div className="bk-promo-card bk-promo-card--navy">
           <Image
-            src="/blog/one-page-one-fix-mockup.png"
-            alt="One Page, One Fix — Kindle Formatting Handbook cover"
+            src="/blog/why-does-my-kindle-book-look-wrong-cover.webp"
+            alt="Why Does My Kindle Book Look Wrong? — Kindle formatting handbook cover"
             width={120}
             height={190}
             className="bk-promo-cover"
             style={{ width: 'auto' }}
           />
           <div className="bk-promo-body">
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(247,243,236,0.55)', marginBottom: 6 }}>One Page, One Fix series</div>
             <div className="bk-promo-offer">🎁 Buy this book → Get BookKraft AI Starter FREE ($19 value)</div>
-            <h2 className="bk-promo-title">One Page, One Fix</h2>
-            <p className="bk-promo-subtitle">100 Visual Fixes for EPUB, KDP &amp; Beyond</p>
+            <h2 className="bk-promo-title">Why Does My Kindle Book Look Wrong?</h2>
+            <p className="bk-promo-subtitle">100 Quick Fixes for EPUB &amp; KDP</p>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 4 }}>
               <a href="https://www.amazon.com/dp/B0HJYTR6D" target="_blank" rel="noopener noreferrer" className="bk-promo-cta bk-promo-cta--navy">
                 Buy on Amazon →

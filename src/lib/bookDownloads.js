@@ -1,4 +1,4 @@
-// "One Page, One Fix: The Kindle Formatting Handbook" — which EPUB a plan gets.
+// "Why Does My Kindle Book Look Wrong?" — which EPUB a plan gets.
 //
 // Shared by the download route (which enforces it) and the dashboard card
 // (which only decides what to show). The route is the only thing that serves
@@ -32,7 +32,7 @@ export function rejectedBookUnlockDate(userCreatedAt) {
 }
 
 export const HANDBOOK = {
-    title: 'One Page, One Fix: The Kindle Formatting Handbook',
+    title: 'Why Does My Kindle Book Look Wrong?',
     route: '/api/downloads/handbook',
     editions: {
         full: {
