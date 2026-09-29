@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { logEvent } from '@/lib/events';
+import { isValidEmail } from '@/lib/email';
 
 function getClientIp(request) {
     const forwarded = request.headers.get('x-forwarded-for');
@@ -10,9 +11,10 @@ function getClientIp(request) {
 
 export async function POST(request) {
     try {
-        const { email, source_tool, issue_count } = await request.json();
+        const { email: rawEmail, source_tool, issue_count } = await request.json();
+        const email = typeof rawEmail === 'string' ? rawEmail.trim() : '';
 
-        if (!email || typeof email !== 'string' || !email.includes('@')) {
+        if (!isValidEmail(email)) {
             return NextResponse.json({ ok: false, error: 'invalid_email' }, { status: 400 });
         }
         if (!source_tool || typeof source_tool !== 'string') {

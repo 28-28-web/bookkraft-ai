@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server';
 import { logEvent } from '@/lib/events';
+import { isValidEmail } from '@/lib/email';
 
 export async function POST(request) {
     try {
-        const { email } = await request.json();
-        if (!email || !email.includes('@')) {
-            return NextResponse.json({ success: false, message: 'Please enter a valid email address.' }, { status: 400 });
+        const body = await request.json();
+        const email = typeof body.email === 'string' ? body.email.trim() : '';
+        if (!isValidEmail(email)) {
+            return NextResponse.json({ success: false, message: 'Please enter a valid email address, like name@example.com.' }, { status: 400 });
         }
 
         const apiKey = process.env.BREVO_API_KEY;

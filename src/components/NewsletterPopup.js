@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { isValidEmail } from '@/lib/email';
 
 export default function NewsletterPopup({ triggerType = 'default' }) {
     const [show, setShow] = useState(false);
@@ -60,6 +61,11 @@ export default function NewsletterPopup({ triggerType = 'default' }) {
     async function handleSubmit(e) {
         e.preventDefault();
         if (!email) return;
+        if (!isValidEmail(email.trim())) {
+            setStatus('error');
+            setMessage('Please enter a valid email address, like name@example.com.');
+            return;
+        }
         setStatus('loading');
         try {
             const res = await fetch('/api/newsletter/subscribe', {
