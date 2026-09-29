@@ -39,7 +39,13 @@ export async function POST(request) {
         if (res.status === 204 || res.status === 400) {
             // 204 = existing contact updated (updateEnabled), 400 = likely
             // duplicate. Already on the list either way, no lead_captured event.
-            return NextResponse.json({ success: true, message: "You're already on the list. Watch your inbox for the weekly fix." });
+            // Brevo automation only fires on new list additions, so hand over
+            // the checklist directly instead of promising an email.
+            return NextResponse.json({
+                success: true,
+                message: "You're already subscribed. Here's your checklist:",
+                checklistUrl: '/kdp-preflight-checklist.pdf',
+            });
         }
 
         const errBody = await res.text();

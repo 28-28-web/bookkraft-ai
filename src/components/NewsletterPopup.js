@@ -7,6 +7,7 @@ export default function NewsletterPopup({ triggerType = 'default' }) {
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState(null);
     const [message, setMessage] = useState('');
+    const [checklistUrl, setChecklistUrl] = useState(null);
 
     useEffect(() => {
         if (localStorage.getItem('bk_newsletter_done')) return;
@@ -70,8 +71,10 @@ export default function NewsletterPopup({ triggerType = 'default' }) {
             if (data.success) {
                 setStatus('success');
                 setMessage(data.message);
+                setChecklistUrl(data.checklistUrl || null);
                 localStorage.setItem('bk_newsletter_done', 'true');
-                setTimeout(() => setShow(false), 3000);
+                // Keep it open when there's a link to click.
+                if (!data.checklistUrl) setTimeout(() => setShow(false), 3000);
             } else {
                 setStatus('error');
                 setMessage(data.message || 'Something went wrong.');
@@ -123,6 +126,12 @@ export default function NewsletterPopup({ triggerType = 'default' }) {
                             margin: '0 auto 16px',
                         }}>✓</div>
                         <p style={{ color: '#F7F3EC' }}>{message}</p>
+                        {checklistUrl && (
+                            <a href={checklistUrl} target="_blank" rel="noopener"
+                                style={{ color: '#C9933A', fontWeight: 600, display: 'inline-block', marginTop: '8px' }}>
+                                Download the KDP Preflight Checklist (PDF) →
+                            </a>
+                        )}
                     </div>
                 ) : (
                     <>
