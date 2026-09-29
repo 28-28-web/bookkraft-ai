@@ -142,6 +142,7 @@ export const MISTAKES = [
       { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
       { type: 'epub-error', slug: 'ghost-spacing-epub', label: 'Ghost spacing in e-reader previews' },
       { type: 'epub-error', slug: 'toc-ncx-navpoint-mismatch', label: 'NCX navPoint mismatch errors' },
+      { type: 'guide', slug: 'kdp-quality-issues', label: 'KDP quality issues and quality notices' },
     ],
   },
   {
@@ -261,6 +262,7 @@ export const MISTAKES = [
       { type: 'epub-error', slug: 'cover-image-not-declared', label: 'Cover image not declared in OPF manifest' },
       { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
       { type: 'mistake', slug: 'kdp-formatting-mistakes', label: '7 KDP formatting mistakes indie authors make' },
+      { type: 'guide', slug: 'kdp-quality-issues', label: 'KDP quality issues and quality notices' },
     ],
   },
   {

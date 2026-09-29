@@ -25,6 +25,10 @@ const TYPE_CONFIG = {
     href: (slug) => `/${slug}`,
     heading: 'Tool comparisons',
   },
+  guide: {
+    href: (slug) => `/${slug}`,
+    heading: 'KDP guides',
+  },
   'cover-requirement': {
     href: (slug) => `/cover-requirements/${slug}`,
     heading: 'Cover requirements',

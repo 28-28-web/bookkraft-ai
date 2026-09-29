@@ -155,6 +155,7 @@ export const CHECKLISTS = [
       { type: 'epub-error', slug: 'cover-image-not-declared', label: 'Cover image not declared in OPF manifest' },
       { type: 'alternative', slug: 'scrivener-alternative', label: 'Scrivener alternative for ebook production' },
       { type: 'mistake', slug: 'kdp-formatting-mistakes', label: '7 KDP formatting mistakes indie authors make' },
+      { type: 'guide', slug: 'kdp-quality-issues', label: 'KDP quality issues and quality notices' },
     ],
   },
   {

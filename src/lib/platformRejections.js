@@ -12,7 +12,7 @@ export const PLATFORM_REJECTIONS = [
       },
       {
         title: 'Oversized or unsupported images',
-        description: "KDP enforces a total file size limit. Images larger than their display size waste space and push files over the limit. KDP requires images to be JPG or GIF inside the EPUB — PNG images work on most platforms but can occasionally trigger processing errors in KDP's conversion pipeline.",
+        description: "KDP enforces a total file size limit. Images larger than their display size waste space and push files over the limit. KDP's help pages say images should be JPEG or PNG only, and that Kindle devices and apps do not support TIFF, multi-frame GIFs, or images with transparent areas.",
       },
       {
         title: 'Missing or incomplete metadata',
@@ -31,7 +31,7 @@ export const PLATFORM_REJECTIONS = [
         description: "Uploading a book with the same or very similar content to an existing ASIN — including your own — can trigger a quality flag. This is common when authors upload a second edition without clearly differentiating the title and content, or when a free preview is uploaded separately as a full book.",
       },
     ],
-    howToFix: "<ol><li>Validate your EPUB with EPUBCheck or BookKraft's free EPUB Validator before uploading — fix all Critical and Error-level issues, not just warnings.</li><li>Run your file through the Kindle Previewer desktop app after upload to confirm the converted Kindle version renders correctly before publishing.</li><li>Check all metadata fields in content.opf: dc:title, dc:creator, dc:language (BCP 47 code), and dc:identifier (ISBN or unique ID).</li><li>If blocked by a content policy flag, check the rejection email for the specific guideline reference and review the KDP Content Guidelines before resubmitting.</li></ol>",
+    howToFix: "<ol><li>Validate your EPUB with EPUBCheck or BookKraft's free EPUB Validator before uploading — fix all Critical and Error-level issues, not just warnings.</li><li>Run your file through the Kindle Previewer desktop app after upload to confirm the converted Kindle version renders correctly before publishing.</li><li>Check all metadata fields in content.opf: dc:title, dc:creator, dc:language (BCP 47 code), and dc:identifier (ISBN or unique ID).</li><li>Save images as JPEG or PNG with no transparent areas. KDP says images should be \"in .JPEG and .PNG format only\" (<a href=\"https://kdp.amazon.com/help?topicId=G202124410\" target=\"_blank\" rel=\"noopener nofollow\">Troubleshooting File Conversion Errors</a>) and that Kindle does not support \"TIFF, multi-frame GIFs, or images with transparent areas\" (<a href=\"https://kdp.amazon.com/en_US/help/topic/G75V4YX5X8GRGXWV\" target=\"_blank\" rel=\"noopener nofollow\">Image Guidelines – Reflowable</a>).</li><li>If blocked by a content policy flag, check the rejection email for the specific guideline reference and review the KDP Content Guidelines before resubmitting.</li></ol><p>Book passed upload but was rejected in review, or got a quality notice after going live? See <a href=\"/kdp-quality-issues\">every KDP quality issue and how to fix it</a>.</p>",
     faq: [
       {
         q: 'Does KDP accept EPUB 3 files?',
@@ -54,6 +54,7 @@ export const PLATFORM_REJECTIONS = [
       { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
       { type: 'mistake', slug: 'kdp-formatting-mistakes', label: '7 KDP formatting mistakes indie authors make' },
       { type: 'cover-requirement', slug: 'amazon-kdp-ebook', label: 'Amazon KDP ebook cover size requirements' },
+      { type: 'guide', slug: 'kdp-quality-issues', label: 'KDP quality issues and quality notices' },
     ],
   },
   {
