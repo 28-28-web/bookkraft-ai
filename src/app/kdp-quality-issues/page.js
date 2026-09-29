@@ -17,6 +17,7 @@ const KDP = {
   status: 'https://kdp.amazon.com/en_US/help/topic/G200627450',
   conversion: 'https://kdp.amazon.com/help?topicId=G202124410',
   cover: 'https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX',
+  coverCriteria: 'https://kdp.amazon.com/en_US/help/topic/G200645690',
   publicDomain: 'https://kdp.amazon.com/en_US/help/topic/G200743940',
 };
 
@@ -63,7 +64,6 @@ const REASONS = [
   },
   {
     title: 'Metadata issues',
-    severity: 'Affects buying decisions',
     cause: 'The title, subtitle, author or series on your cover doesn’t match what you typed in KDP. Or the title has extra keywords, “bestselling” or “free” in it. Or the description has URLs, email addresses or review quotes. Or your keywords and categories don’t match the book.',
     fix: 'Make every field match the cover and the file exactly. Keep title plus subtitle under 200 characters. Remove anything KDP’s metadata guidelines forbid.',
     tools: [
@@ -74,7 +74,7 @@ const REASONS = [
     title: 'Cover issues',
     severity: 'Distracting',
     cause: 'The cover is blurry, has extra white margins, is missing, or includes promotional text.',
-    fix: 'Upload a new cover at 2,560 × 1,600 px, RGB, as a JPEG. Don’t stretch a small image to fit, because that makes it blurrier.',
+    fix: 'Upload a new cover at 1,600 × 2,560 px (width × height), RGB, as a JPEG or TIFF. Don’t stretch a small image to fit, because that makes it blurrier.',
     tools: [
       { href: '/tools/cover-checker', label: 'Cover Checker', note: 'Free. Checks size, ratio, colour profile and format.' },
     ],
@@ -105,7 +105,7 @@ const REASONS = [
     cause: 'A table is cut off at the bottom of the screen at font size 3, or a table is used for layout rather than real data.',
     fix: 'Split big tables into smaller ones. KDP suggests no more than 5 columns and 50 rows. Use tables only for tabular data.',
     tools: [],
-    toolNote: 'Check tables at several font sizes in Kindle Previewer.',
+    toolNote: 'None. Check tables at several font sizes in Kindle Previewer.',
   },
   {
     title: 'Images',
@@ -265,9 +265,11 @@ export default function KdpQualityIssuesPage() {
               <p style={{ fontWeight: 700, fontSize: 16, marginBottom: 4, color: 'var(--ink)' }}>
                 {i + 1}. {r.title}
               </p>
-              <p style={{ fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--mid)', marginBottom: 10 }}>
-                {r.severity}
-              </p>
+              {r.severity && (
+                <p style={{ fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--mid)', marginBottom: 10 }}>
+                  {r.severity}
+                </p>
+              )}
               <p style={muted}><strong style={{ color: 'var(--ink)' }}>Why it happens:</strong> {r.cause}</p>
               <p style={muted}><strong style={{ color: 'var(--ink)' }}>Fix:</strong> {r.fix}</p>
               <p style={{ ...muted, margin: 0 }}>
@@ -336,6 +338,7 @@ export default function KdpQualityIssuesPage() {
           <li><Ext href={KDP.status}>Book Status</Ext></li>
           <li><Ext href={KDP.conversion}>Troubleshooting File Conversion Errors</Ext></li>
           <li><Ext href={KDP.cover}>Cover Image Guidelines</Ext></li>
+          <li><Ext href={KDP.coverCriteria}>What criteria does my eBook’s cover image need to meet?</Ext></li>
           <li><Ext href={KDP.publicDomain}>Publishing Public Domain Content</Ext></li>
         </ul>
 
