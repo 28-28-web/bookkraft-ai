@@ -36,9 +36,10 @@ export async function POST(request) {
             logEvent({ eventName: 'lead_captured', eventData: { source: 'newsletter' } }).catch(() => {});
             return NextResponse.json({ success: true, message: 'Checklist sent to your inbox!' });
         }
-        if (res.status === 400) {
-            // Likely duplicate — already on the list, no lead_captured event.
-            return NextResponse.json({ success: true, message: "You're already subscribed — resending the checklist!" });
+        if (res.status === 204 || res.status === 400) {
+            // 204 = existing contact updated (updateEnabled), 400 = likely
+            // duplicate. Already on the list either way, no lead_captured event.
+            return NextResponse.json({ success: true, message: "You're already on the list. Watch your inbox for the weekly fix." });
         }
 
         const errBody = await res.text();
