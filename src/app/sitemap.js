@@ -312,6 +312,12 @@ export default async function sitemap() {
       priority: 0.8,
     },
     {
+      url: `${BASE}/kdp-quality-issues`,
+      lastModified: new Date('2026-09-30'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${BASE}/manuscript-format`,
       lastModified: CONTENT_DATE,
       changeFrequency: 'monthly',
