@@ -97,7 +97,9 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=0, s-maxage=86400, must-revalidate',
+            // No edge caching of HTML: a cached page points at the previous build's
+            // chunks, which 404 after deploy. Next's own ISR cache still serves fast.
+            value: 'public, max-age=0, must-revalidate',
           },
           {
             key: 'Referrer-Policy',
