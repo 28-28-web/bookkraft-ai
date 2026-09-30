@@ -1,5 +1,4 @@
-import fs from 'fs';
-import path from 'path';
+import { getListedPosts, postLastModified } from '@/lib/ghost';
 import { EPUB_ERRORS } from '@/lib/epubErrors';
 import { PLATFORM_REJECTIONS } from '@/lib/platformRejections';
 import { VS_ALTERNATIVES } from '@/lib/vsAlternatives';
@@ -14,20 +13,6 @@ const BASE = 'https://bookkraftai.com';
 // vsAlternatives.js, checklists.js, or mistakes.js change meaningfully — a stale date
 // here undermines the freshness signal Google uses from lastModified.
 const CONTENT_DATE = new Date('2026-09-01');
-
-function getLocalPosts() {
-  const dir = path.join(process.cwd(), 'src', 'content', 'blog');
-  try {
-    return fs.readdirSync(dir)
-      .filter((f) => f.endsWith('.json'))
-      .map((f) => {
-        const raw = fs.readFileSync(path.join(dir, f), 'utf-8');
-        return JSON.parse(raw);
-      });
-  } catch {
-    return [];
-  }
-}
 
 export default async function sitemap() {
   const tools = [
@@ -52,13 +37,10 @@ export default async function sitemap() {
     priority,
   }));
 
-  // Slugs merged into common-epub-validation-errors and 301-redirected in
-  // next.config.mjs — kept on disk for reference but excluded from the sitemap.
-  const REDIRECTED_POSTS = new Set(['fix-epub-errors-kdp', 'kdp-rejecting-epub-fix']);
-  const posts = getLocalPosts().filter((post) => !REDIRECTED_POSTS.has(post.slug));
+  const posts = await getListedPosts();
   const blogPostPages = posts.map((post) => ({
     url: `${BASE}/blog/${post.slug}`,
-    lastModified: new Date(post.published_at),
+    lastModified: postLastModified(post),
     changeFrequency: 'monthly',
     priority: 0.7,
   }));

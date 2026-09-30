@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getAllPosts, formatDate } from '@/lib/ghost';
+import { getListedPosts, formatDate } from '@/lib/ghost';
 import Footer from '@/components/Footer';
 
 export const metadata = {
@@ -16,7 +16,7 @@ export const metadata = {
 };
 
 export default async function BlogIndexPage() {
-  const posts = await getAllPosts();
+  const posts = await getListedPosts();
 
   return (
     <>
