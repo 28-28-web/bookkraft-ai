@@ -5,7 +5,11 @@ import { useState } from 'react';
 // Click-to-load YouTube embed: only a thumbnail and a button ship with the
 // page. The iframe (from youtube-nocookie.com) mounts after the click, so no
 // YouTube script, iframe or cookie loads until the visitor asks for it.
-export default function YouTubeFacade({ id, title }) {
+//
+// thumb/thumbSrcSet/thumbSizes: optional self-hosted thumbnail (default is
+// YouTube's maxresdefault). priority: set when the video sits in the first
+// screen, so the thumbnail loads eagerly at high priority instead of lazily.
+export default function YouTubeFacade({ id, title, thumb, thumbSrcSet, thumbSizes, priority = false }) {
   const [playing, setPlaying] = useState(false);
 
   return (
@@ -19,13 +23,16 @@ export default function YouTubeFacade({ id, title }) {
         />
       ) : (
         <button type="button" onClick={() => setPlaying(true)} aria-label={`Play video: ${title}`}>
-          {/* eslint-disable-next-line @next/next/no-img-element -- external thumbnail, lazy, fixed 16:9 box */}
+          {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized thumbnails in a fixed 16:9 box */}
           <img
-            src={`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`}
+            src={thumb ?? `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`}
+            srcSet={thumbSrcSet}
+            sizes={thumbSizes}
             alt=""
             width="1280"
             height="720"
-            loading="lazy"
+            loading={priority ? 'eager' : 'lazy'}
+            fetchPriority={priority ? 'high' : undefined}
             decoding="async"
           />
           <span className="video-facade-play" aria-hidden="true">

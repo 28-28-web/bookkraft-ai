@@ -27,7 +27,7 @@ export const epubCheckVideoSchema = {
   '@type': 'VideoObject',
   name: 'KDP Sent Your Book Back? Check Your EPUB File First (Free)',
   description: 'KDP sent your book back? Often the problem is the file, not your writing. This short video shows how to check your EPUB with BookKraft AI’s free EPUB Validator. It runs in your browser, needs no signup, and explains problems in plain English.',
-  thumbnailUrl: `https://i.ytimg.com/vi/${EPUB_CHECK_VIDEO_ID}/maxresdefault.jpg`,
+  thumbnailUrl: 'https://bookkraftai.com/images/video-thumb-1280.webp',
   uploadDate: '2026-09-30T11:18:23-07:00',
   duration: 'PT1M15S',
   embedUrl: `https://www.youtube.com/embed/${EPUB_CHECK_VIDEO_ID}`,

@@ -308,7 +308,14 @@ export default function KdpQualityIssuesPage() {
         </div>
 
         <h2 style={h2}>Watch: check your EPUB before you resubmit</h2>
-        <YouTubeFacade id={EPUB_CHECK_VIDEO_ID} title="KDP sent your book back? Check your EPUB file first" />
+        {/* sizes: .content-page is 700px border-box with 24px side padding → 652px max. */}
+        <YouTubeFacade
+          id={EPUB_CHECK_VIDEO_ID}
+          title="KDP sent your book back? Check your EPUB file first"
+          thumb="/images/video-thumb-1280.webp"
+          thumbSrcSet="/images/video-thumb-640.webp 640w, /images/video-thumb-960.webp 960w, /images/video-thumb-1280.webp 1280w"
+          thumbSizes="(max-width: 700px) calc(100vw - 48px), 652px"
+        />
         <p style={{ ...muted, marginBottom: 40 }}>
           Try it on your own file with the <Link href="/tools/epub-validator" className="link-gold">free EPUB Validator</Link>. No signup.
         </p>
