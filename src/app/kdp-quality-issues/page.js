@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Footer from '@/components/Footer';
-import { buildBreadcrumbSchema } from '@/lib/seo';
+import YouTubeFacade from '@/components/YouTubeFacade';
+import { buildBreadcrumbSchema, EPUB_CHECK_VIDEO_ID, epubCheckVideoSchema } from '@/lib/seo';
 
 export const metadata = {
   title: 'KDP Quality Issues: Why Your Book Was Flagged & How to Fix',
@@ -202,6 +203,7 @@ export default function KdpQualityIssuesPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(epubCheckVideoSchema) }} />
       <main className="content-page">
 
         <nav aria-label="Breadcrumb" style={{ fontSize: 13, color: 'var(--mid)', marginBottom: 32 }}>
@@ -304,6 +306,12 @@ export default function KdpQualityIssuesPage() {
             See the Starter Plan →
           </Link>
         </div>
+
+        <h2 style={h2}>Watch: check your EPUB before you resubmit</h2>
+        <YouTubeFacade id={EPUB_CHECK_VIDEO_ID} title="KDP sent your book back? Check your EPUB file first" />
+        <p style={{ ...muted, marginBottom: 40 }}>
+          Try it on your own file with the <Link href="/tools/epub-validator" className="link-gold">free EPUB Validator</Link>. No signup.
+        </p>
 
         <h2 style={h2}>After you fix it</h2>
         <ol style={{ ...body, paddingLeft: 20 }}>
