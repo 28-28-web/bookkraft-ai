@@ -1,8 +1,8 @@
 import AlternativesPage from './AlternativesPage';
 
 export const metadata = {
-  title: 'Vellum & Atticus Alternative for Windows — BookKraft AI',
-  description: 'Browser-based Vellum and Atticus alternative for Windows — EPUB validation, manuscript cleanup, and metadata in any browser, no install. Free tools included.',
+  title: 'Book Formatting Tool Alternatives: Vellum, Atticus, Calibre & More — BookKraft AI',
+  description: 'How BookKraft AI fits alongside Vellum, Atticus, Calibre, Sigil, Jutoh, Scrivener, Reedsy and Draft2Digital: a browser-based pre-flight step before your formatter.',
   alternates: {
     canonical: 'https://bookkraftai.com/alternatives',
   },

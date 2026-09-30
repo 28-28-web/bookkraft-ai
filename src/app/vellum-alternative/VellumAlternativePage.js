@@ -109,7 +109,9 @@ export default function VellumAlternativePage() {
           Why Vellum doesn&apos;t work on Windows
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
-          Vellum is built using macOS-only frameworks — Apple&apos;s AppKit and native Mac APIs that have no Windows equivalent. It isn&apos;t a licensing decision. The software literally cannot run outside of macOS. Wine, emulators, and cloud Mac services like MacinCloud can technically host it, but each adds cost, lag, and setup overhead that Mac users never deal with.
+          Vellum is Mac-only software. The one workaround{' '}
+          <a href="https://help.vellum.pub/guides/using-on-windows/" target="_blank" rel="noopener noreferrer" style={{ color: '#9c7f35', textDecoration: 'none' }}>Vellum&apos;s own help page</a>
+          {' '}describes for Windows users is renting a Mac in the cloud through MacinCloud and connecting to it from your PC. That adds a rental cost and a remote-desktop step that Mac users never deal with.
         </p>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 32, opacity: 0.9 }}>
           So most Windows authors either skip Vellum entirely or borrow Mac access just for the formatting step. BookKraft AI doesn&apos;t change that — but it handles the steps that happen before formatting, which means less time needed in Vellum when you get there.
@@ -119,7 +121,7 @@ export default function VellumAlternativePage() {
           Why Windows authors search for a Vellum alternative
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
-          Vellum has been Mac-only since launch. Windows authors are usually pointed toward renting a Mac in the cloud or running macOS in a virtual machine, both of which add cost and complexity Mac users never deal with just to reach Vellum's design step.
+          Vellum only runs on a Mac. Renting a cloud Mac adds cost and complexity just to reach Vellum&apos;s design step.
         </p>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
           BookKraft AI doesn't solve that platform problem by replacing Vellum's design tools — it solves a different, earlier problem: getting your manuscript clean, validated, and metadata-complete on any platform, before design even starts. If you do have Mac access for Vellum, running BookKraft AI first still saves you a cleanup pass; if you don't, BookKraft AI plus KDP's own tools gets a properly formatted book published without ever needing a Mac.
@@ -203,7 +205,11 @@ export default function VellumAlternativePage() {
           <Link href="/book-formatting-software" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             Book formatting software
           </Link>
-          {' '}covers the full landscape — desktop apps, online tools, and browser-based converters.
+          {' '}covers the full landscape — desktop apps, online tools, and browser-based converters — or see{' '}
+          <Link href="/alternatives" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            how BookKraft AI compares with every tool
+          </Link>
+          .
         </p>
 
         <div style={{ marginTop: 48, padding: '24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>

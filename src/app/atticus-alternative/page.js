@@ -86,8 +86,6 @@ export default function AtticusAlternativePage() {
                 ['Runs on', 'Windows / Mac / Linux / Chromebook (browser)', 'Any browser'],
                 ['Formatting & design', '✓', '—'],
                 ['Print PDF output', '✓', '—'],
-                ['EPUB Validator', '—', '✓ Free'],
-                ['Metadata Builder', 'Basic', '✓ Free'],
                 ['AI manuscript cleanup', '—', '✓'],
               ].map(([feat, atticus, bk], i) => (
                 <tr key={i} style={{ borderBottom: '1px solid rgba(201,168,76,0.15)', background: i % 2 === 0 ? 'transparent' : 'rgba(0,0,0,0.02)' }}>
@@ -119,6 +117,10 @@ export default function AtticusAlternativePage() {
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
           {TOOLS.length} tools covering the full pre-flight workflow: Kindle Format Fixer, EPUB Formatter, TOC Generator, Front Matter Generator, Back Matter Generator, CSS Snippet Generator, EPUB Validator, EPUB Validator Pro, Style Sheet Auditor, Print-to-Digital Adapter, Metadata Builder, KDP Keyword Finder, AI-powered Manuscript Cleanup, Word Manuscript Cleanup Checker, Cover Checker, and Full Manuscript Mode. {FREE_TOOLS.length} tools are free with no signup required.
+        </p>
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
+          Comparing other tools? See{' '}
+          <Link href="/alternatives" style={{ color: '#9c7f35', textDecoration: 'none' }}>how BookKraft AI compares with every tool</Link>.
         </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
