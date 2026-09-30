@@ -11,8 +11,8 @@ export const VS_ALTERNATIVES = [
         description: "Sigil is a desktop application that requires installation and a matching Qt runtime. BookKraft AI tools run entirely in the browser — upload your file, get results, download the fixed version. No Java, no Qt, no version conflicts.",
       },
       {
-        title: 'Validation against the current spec',
-        description: "Sigil ships with FlightCrew for validation, an older tool that misses errors EPUBCheck 5.x catches. BookKraft's EPUB Validator runs the current EPUBCheck specification and surfaces errors in plain English rather than raw XML schema messages.",
+        title: 'Plain-English structural checks',
+        description: "BookKraft's EPUB Validator runs 11 structural checks (package, manifest, required metadata, spine, navigation, cover declaration and more) and explains each problem in plain English. It doesn't run the full EPUBCheck specification, so for a complete check, run EPUBCheck as well.",
       },
       {
         title: 'Automated fixes instead of manual edits',
@@ -26,7 +26,6 @@ export const VS_ALTERNATIVES = [
     comparison: [
       { feature: 'Platform', them: 'Desktop (Windows, Mac, Linux)', us: 'Browser (any device)' },
       { feature: 'Installation', them: 'Required (Qt runtime)', us: 'None' },
-      { feature: 'EPUB validation', them: 'FlightCrew (older spec)', us: 'EPUBCheck 5.x (current)' },
       { feature: 'Manual OPF editing', them: 'Yes — required for many fixes', us: 'Automated' },
       { feature: 'DOCX import', them: 'No', us: 'Yes (EPUB Formatter)' },
       { feature: 'Price', them: 'Free (open source)', us: 'Free tools + paid AI tools' },
@@ -42,7 +41,7 @@ export const VS_ALTERNATIVES = [
       },
       {
         q: 'Can I validate EPUB 3 files with BookKraft?',
-        a: 'Yes — the EPUB Validator handles both EPUB 2 and EPUB 3 against the current EPUBCheck specification.',
+        a: 'Yes. The EPUB Validator checks EPUB 3 files (nav.xhtml) and EPUB 2 files (toc.ncx). It runs 11 structural checks, not the full EPUBCheck specification.',
       },
     ],
     relatedTool: 'epub-validator',
@@ -57,11 +56,11 @@ export const VS_ALTERNATIVES = [
     tool: 'Jutoh',
     metaTitle: 'Best Jutoh Alternative for EPUB Formatting — BookKraft AI',
     metaDescription: "Considering a Jutoh alternative? BookKraft AI offers browser-based EPUB formatting, validation, and metadata tools with no purchase, no license key, and no desktop install required.",
-    intro: "<p>Jutoh requires a license purchase (£35–44) before you can export a full EPUB, plus a desktop install and a project file system to keep in sync with your manuscript. BookKraft AI covers the same core outcomes — EPUB formatting, validation, and metadata — as a browser tool with free entry-level access: no purchase required before you see results, no project files, no installation.</p>",
+    intro: "<p>Jutoh is a desktop app for Windows, Mac and Linux. The full version is a one-time purchase of $45 (Standard) or $90 (Plus), excluding VAT (<a href=\"https://www.jutoh.com/buy.html\" target=\"_blank\" rel=\"noopener noreferrer\">Jutoh pricing</a>); the free demo is limited to 20 documents and adds a “CREATED BY JUTOH” line to generated chapters (<a href=\"https://www.jutoh.com/kb/html/section-0023.html\" target=\"_blank\" rel=\"noopener noreferrer\">Jutoh demo restrictions</a>). BookKraft AI covers the same core outcomes — EPUB formatting, validation, and metadata — as a browser tool with free entry-level access: no purchase required before you see results, no installation.</p>",
     whySwitch: [
       {
         title: 'No upfront purchase',
-        description: "Jutoh requires a license purchase (£35–£44 depending on version) before you can export a full EPUB. BookKraft's free tools — EPUB Validator, Manuscript Cleanup, Metadata Builder — work without payment or signup. Paid AI tools require credits, but the core validation and formatting tools are free.",
+        description: "Jutoh's full version costs $45 (Standard) or $90 (Plus) one-time, excluding VAT, and its demo is limited to 20 documents. BookKraft's free tools — EPUB Validator, Word Cleanup Checker, Metadata Builder — work without payment or signup. Paid AI tools require credits, but the core validation and formatting tools are free.",
       },
       {
         title: 'No project file system',
@@ -69,19 +68,19 @@ export const VS_ALTERNATIVES = [
       },
       {
         title: 'Works on any device',
-        description: "Jutoh is a Windows and Mac desktop application. BookKraft runs in any browser, including tablets and Chromebooks, without installation.",
+        description: "Jutoh is a desktop application for Windows, Mac and Linux. BookKraft runs in any browser, including tablets and Chromebooks, without installation.",
       },
       {
-        title: 'Simpler validation output',
-        description: "Jutoh includes its own EPUB validation but surfaces errors in Jutoh's own format. BookKraft's validator provides EPUBCheck-standard error codes with plain-English explanations, making it easier to cross-reference against platform submission guidelines.",
+        title: 'A second check that runs in the browser',
+        description: "Jutoh has its own built-in Check feature for ePub files. BookKraft's EPUB Validator runs 11 structural checks (package, manifest, required metadata, spine, navigation, cover declaration and more) and explains each problem in plain English. It doesn't run the full EPUBCheck specification, so for a complete check, run EPUBCheck as well.",
       },
     ],
     comparison: [
-      { feature: 'Platform', them: 'Desktop (Windows, Mac)', us: 'Browser (any device)' },
-      { feature: 'Cost to start', them: '£35–44 license required', us: 'Free tools, no payment required' },
+      { feature: 'Platform', them: 'Desktop (Windows, Mac, Linux)', us: 'Browser (any device)' },
+      { feature: 'Cost', them: '$45 Standard / $90 Plus, one-time (excl. VAT)', us: 'Free tools, no payment required' },
       { feature: 'Project files', them: 'Yes (.juth project system)', us: 'No — upload any file directly' },
       { feature: 'EPUB export', them: 'Yes', us: 'Yes (EPUB Formatter)' },
-      { feature: 'EPUB validation', them: 'Built-in (proprietary)', us: 'EPUBCheck 5.x (industry standard)' },
+      { feature: 'EPUB validation', them: 'Built-in Check feature', us: '11 structural checks' },
       { feature: 'Kindle output', them: 'Yes (via KindleGen)', us: 'Via Kindle Format Fixer' },
     ],
     faq: [
@@ -91,7 +90,7 @@ export const VS_ALTERNATIVES = [
       },
       {
         q: 'I already own Jutoh. Is there a reason to also use BookKraft?',
-        a: "The main complementary use is validation: BookKraft's EPUB Validator runs EPUBCheck 5.x against your Jutoh-generated EPUB to catch issues before you submit to platforms. Think of it as a pre-flight check regardless of what tool produced the EPUB.",
+        a: "The main complementary use is validation: BookKraft's EPUB Validator runs its 11 structural checks against your Jutoh-generated EPUB to catch issues before you submit to platforms. Think of it as a pre-flight check regardless of what tool produced the EPUB.",
       },
     ],
     relatedTool: 'epub-formatter',
@@ -113,8 +112,8 @@ export const VS_ALTERNATIVES = [
         description: "Scrivener's EPUB compile is a general-purpose converter designed for manuscripts, not fine-tuned for ebook platform requirements. Common outputs include duplicate IDs, ghost spacing from empty paragraph tags, and CSS conflicts. BookKraft's tools identify and fix these automatically.",
       },
       {
-        title: 'Validation against current platform requirements',
-        description: "Scrivener doesn't validate its compile output against EPUBCheck. BookKraft's EPUB Validator runs EPUBCheck 5.x, matching what Apple Books, Kobo, and D2D run when you submit. Catching validation failures before upload saves rejection round-trips.",
+        title: 'Structural checks before upload',
+        description: "BookKraft's EPUB Validator runs 11 structural checks (package, manifest, required metadata, spine, navigation, cover declaration and more) and explains each problem in plain English. It doesn't run the full EPUBCheck specification, so for a complete check, run EPUBCheck as well. Catching structural failures before upload saves rejection round-trips.",
       },
       {
         title: 'Metadata you control',
@@ -127,8 +126,7 @@ export const VS_ALTERNATIVES = [
     ],
     comparison: [
       { feature: 'Primary purpose', them: 'Writing & manuscript management', us: 'EPUB validation & formatting' },
-      { feature: 'EPUB output quality', them: 'Variable (compile template dependent)', us: 'Validated against EPUBCheck 5.x' },
-      { feature: 'EPUBCheck validation', them: 'None built-in', us: 'Yes (free, no signup)' },
+      { feature: 'EPUB output quality', them: 'Variable (compile template dependent)', us: 'Checked by 11 structural checks' },
       { feature: 'Ghost spacing fix', them: 'Manual (compile template edit)', us: 'Automated' },
       { feature: 'OPF metadata editing', them: 'Limited (compile panel only)', us: 'Full field access (Metadata Builder)' },
       { feature: 'Platform', them: 'Desktop (Mac, Windows)', us: 'Browser (any device)' },
@@ -161,12 +159,12 @@ export const VS_ALTERNATIVES = [
     slug: 'reedsy-alternative',
     tool: 'Reedsy Book Editor',
     metaTitle: 'Reedsy Book Editor Alternative — BookKraft AI',
-    metaDescription: "Using Reedsy Book Editor but hitting validation errors or Apple Books rejections on export? BookKraft AI adds EPUBCheck validation, metadata control, and structural fixes that Reedsy's export doesn't provide.",
-    intro: "<p>Reedsy Book Editor produces visually polished EPUB output but doesn't run EPUBCheck validation before export — the file passes Reedsy's preview but can fail Apple Books Connect and Kobo Writing Life on structural metadata, nav.xhtml compliance, or attribute issues Reedsy's renderer doesn't expose. BookKraft is the validation and structural-fix layer Reedsy authors need before platform submission, not a replacement for the formatting step Reedsy handles well.</p>",
+    metaDescription: "Using Reedsy Book Editor but hitting validation errors or Apple Books rejections on export? BookKraft AI adds structural checks, metadata control, and fixes for your exported EPUB before you upload it.",
+    intro: "<p>Reedsy's book editor exports EPUB 3 and print-ready PDF files (<a href=\"https://reedsy.com/studio/format-a-book/\" target=\"_blank\" rel=\"noopener noreferrer\">Reedsy Studio</a>). BookKraft is a separate check to run on that export before platform submission — structural checks, metadata review and fixes — not a replacement for the formatting step Reedsy handles well.</p>",
     whySwitch: [
       {
-        title: 'EPUBCheck validation before you upload',
-        description: "Reedsy's Book Editor doesn't run EPUBCheck on its export. The EPUB it produces is designed for visual rendering, but Apple Books Connect and Kobo Writing Life run EPUBCheck validation on submission. A Reedsy-exported EPUB can fail platform validation on metadata fields, nav.xhtml structure, or attribute compliance that Reedsy's own preview doesn't expose. BookKraft's EPUB Validator runs the current EPUBCheck specification against any EPUB and surfaces issues in plain English before you hit the platform submission screen.",
+        title: 'Structural checks before you upload',
+        description: "Run the EPUB you export from Reedsy through BookKraft before you submit it. BookKraft's EPUB Validator runs 11 structural checks (package, manifest, required metadata, spine, navigation, cover declaration and more) and explains each problem in plain English. It doesn't run the full EPUBCheck specification, so for a complete check, run EPUBCheck as well.",
       },
       {
         title: 'Metadata you can inspect and edit',
@@ -184,7 +182,6 @@ export const VS_ALTERNATIVES = [
     comparison: [
       { feature: 'Primary purpose', them: 'Manuscript formatting (fiction-optimized)', us: 'EPUB validation & structural fixing' },
       { feature: 'EPUB export', them: 'Yes (from manuscript)', us: 'Yes (from DOCX) + fixes existing EPUBs' },
-      { feature: 'EPUBCheck validation', them: 'Not included', us: 'Yes (free, EPUBCheck 5.x)' },
       { feature: 'OPF metadata editing', them: 'Via book setup form (limited fields)', us: 'Full field access (Metadata Builder)' },
       { feature: 'Platform', them: 'Browser (any device)', us: 'Browser (any device)' },
       { feature: 'Print PDF output', them: 'Yes', us: 'No' },
@@ -217,19 +214,19 @@ export const VS_ALTERNATIVES = [
     tool: "Draft2Digital Book Builder",
     metaTitle: "Draft2Digital Book Builder Alternative — BookKraft AI",
     metaDescription: "D2D's Book Builder formats your DOCX for distribution but the intermediate EPUB is invisible. BookKraft AI validates before D2D converts, catching structural issues before they become retailer rejections.",
-    intro: "<p>D2D Book Builder converts your DOCX after you submit — the intermediate EPUB it creates is invisible to you before it's delivered to retailers. If D2D's conversion introduces ghost spacing, broken navigation, or CSS that fails Kobo's renderer, you find out from a reader complaint or a post-delivery platform flag, not a pre-upload check. BookKraft adds the validation step D2D Book Builder doesn't include: convert to EPUB, validate against EPUBCheck, fix issues, then upload the validated EPUB directly to D2D.</p>",
+    intro: "<p>D2D Book Builder converts your DOCX after you submit — the intermediate EPUB it creates is invisible to you before it's delivered to retailers. If D2D's conversion introduces ghost spacing, broken navigation, or CSS that fails Kobo's renderer, you find out from a reader complaint or a post-delivery platform flag, not a pre-upload check. BookKraft adds the validation step D2D Book Builder doesn't include: convert to EPUB, run BookKraft's structural checks, fix issues, then upload the checked EPUB directly to D2D.</p>",
     whySwitch: [
       {
         title: 'Validate before D2D converts',
-        description: "When you upload a DOCX to D2D Book Builder, D2D's conversion runs on their servers after submission — you can't inspect or validate the EPUB D2D creates before it's delivered to retailers. BookKraft's workflow alternative: convert your DOCX to EPUB using BookKraft's EPUB Formatter, validate it against EPUBCheck, fix any issues, then upload the validated EPUB directly to D2D. This bypasses D2D's conversion entirely while keeping D2D as your distributor.",
+        description: "When you upload a DOCX to D2D Book Builder, D2D's conversion runs on their servers after submission — you can't inspect or validate the EPUB D2D creates before it's delivered to retailers. BookKraft's workflow alternative: convert your DOCX to EPUB using BookKraft's EPUB Formatter, run it through the EPUB Validator, fix any issues, then upload the validated EPUB directly to D2D. This bypasses D2D's conversion entirely while keeping D2D as your distributor.",
       },
       {
         title: 'See and fix the output before distribution',
         description: "D2D Book Builder produces retailer-specific outputs that aren't available for download as a standalone EPUB before distribution. If D2D's conversion creates ghost spacing from empty paragraph tags, inconsistent chapter heading styles, or CSS that breaks on Kobo's Nickel renderer, there's no pre-distribution step to catch it. BookKraft produces an EPUB you can inspect, run through EPUBCheck, preview in Calibre and Kindle Previewer, and fix before any retailer receives it.",
       },
       {
-        title: 'EPUBCheck compliance, not just rendering quality',
-        description: "D2D Book Builder is optimized to produce output that looks correct in reading apps — it's not validated against EPUBCheck before distribution. Apple Books runs EPUBCheck on every submission and rejects files with structural errors. If D2D's conversion of your DOCX produces an EPUBCheck failure, Apple Books will reject the version D2D delivers, and you may not discover which structural issue caused it. BookKraft's EPUB Validator surfaces EPUBCheck issues in plain English before the file leaves your control.",
+        title: 'Check the file before it leaves your control',
+        description: "D2D Book Builder is optimized to produce output that looks correct in reading apps — it's not validated against EPUBCheck before distribution. Apple Books runs EPUBCheck on every submission and rejects files with structural errors. If D2D's conversion of your DOCX produces an EPUBCheck failure, Apple Books will reject the version D2D delivers, and you may not discover which structural issue caused it. BookKraft's EPUB Validator runs 11 structural checks (package, manifest, required metadata, spine, navigation, cover declaration and more) and explains each problem in plain English. It doesn't run the full EPUBCheck specification, so for a complete check, run EPUBCheck as well.",
       },
       {
         title: 'Full metadata control',
@@ -239,7 +236,6 @@ export const VS_ALTERNATIVES = [
     comparison: [
       { feature: 'Workflow position', them: 'Integrated with D2D distribution', us: 'Pre-submission validation + formatting' },
       { feature: 'EPUB you can inspect', them: 'No — conversion is internal', us: 'Yes — download and review before upload' },
-      { feature: 'EPUBCheck validation', them: 'Not run pre-distribution', us: 'Yes (free, current spec)' },
       { feature: 'Output visibility', them: 'Retailer-delivered only', us: 'Full EPUB download' },
       { feature: 'OPF metadata editing', them: 'Via D2D setup form', us: 'Full field access (Metadata Builder)' },
       { feature: 'Distribution network', them: 'Yes (40+ retailers)', us: 'No — use your existing distributor' },

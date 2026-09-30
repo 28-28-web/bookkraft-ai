@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: 'Does BookKraft AI produce the same output quality as Vellum?',
-    a: 'They do different jobs. BookKraft AI generates valid EPUB 3 files and Kindle-ready formatting that pass KDP, Apple Books, and Kobo validation — discrete tools (formatter, validator, TOC generator) rather than one all-in-one visual editor. Vellum handles the visual theme-based design layer that BookKraft AI doesn\'t attempt.',
+    a: 'They do different jobs. BookKraft AI is a set of discrete tools (formatter, validator, TOC generator) that produce and check EPUB 3 files, rather than one all-in-one visual editor. It catches common structural problems but can\'t guarantee that KDP, Apple Books, or Kobo will accept a book. Vellum handles the visual theme-based design layer that BookKraft AI doesn\'t attempt.',
   },
   {
     q: 'Can I format a print book with BookKraft AI?',
@@ -83,12 +83,8 @@ export default function VellumAlternativePage() {
               {[
                 ['Platform', 'Mac only', 'Any browser (Win / Linux / Chromebook)'],
                 ['EPUB 3 output', '✓', '✓'],
-                ['Visual design themes', '30+ themes', '—'],
-                ['Print PDF output', '✓', '—'],
-                ['EPUB Validator', '—', '✓ Free'],
-                ['Metadata Builder', '—', '✓ Free'],
-                ['Word manuscript cleanup', '—', '✓ Free'],
-                ['DOCX to EPUB converter', '—', '✓ Free'],
+                ['Visual design themes', '✓ (Book Styles)', '—'],
+                ['Print PDF output', '✓ (PDF/X-1a)', '—'],
                 ['Price', '$199.99 ebook / $249.99 +print (one-time)', '$19 / $49 / $149 one-time, or free tools'],
               ].map(([feat, vellum, bk], i) => (
                 <tr key={i} style={{ borderBottom: '1px solid rgba(201,168,76,0.15)', background: i % 2 === 0 ? 'transparent' : 'rgba(0,0,0,0.02)' }}>
@@ -101,7 +97,8 @@ export default function VellumAlternativePage() {
           </table>
           <p style={{ fontSize: 12, opacity: 0.55, marginTop: 10 }}>
             Vellum price verified 2026-09-27 from the official{' '}
-            <a href="https://store.vellum.pub/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>Vellum store</a>. BookKraft pricing is one-time, no subscription.
+            <a href="https://store.vellum.pub/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>Vellum store</a>; features from{' '}
+            <a href="https://vellum.pub/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>vellum.pub</a>. BookKraft&apos;s EPUB Validator, Metadata Builder and Word Cleanup Checker are free. BookKraft pricing is one-time, no subscription.
           </p>
         </div>
 
@@ -162,7 +159,7 @@ export default function VellumAlternativePage() {
             n: 5,
             title: 'Validate your EPUB',
             href: '/tools/epub-validator',
-            body: "If you're exporting from Vellum and uploading to Apple Books or Kobo, run the EPUB Validator on the output before submitting. Vellum's exports are generally clean, but Apple Books has strict validation that catches edge cases Vellum doesn't test for.",
+            body: "If you're exporting from Vellum and uploading to Apple Books or Kobo, you can run the EPUB Validator on the output as a quick structural check before submitting.",
           },
           {
             n: 6,

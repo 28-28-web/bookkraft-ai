@@ -21,11 +21,11 @@ const faqs = [
   },
   {
     q: 'Does BookKraft AI have AI-powered tools like manuscript cleanup?',
-    a: 'Yes. BookKraft AI includes AI-powered Manuscript Cleanup, a Style Sheet Auditor, and a Print-to-Digital Adapter — any length, full novels included. Atticus does not currently offer AI-assisted editing tools.',
+    a: 'Yes. BookKraft AI includes AI-powered Manuscript Cleanup, a Style Sheet Auditor, and a Print-to-Digital Adapter — any length, full novels included.',
   },
   {
-    q: 'Do I need to install Atticus or BookKraft AI?',
-    a: `Atticus runs in the browser with limited offline functionality. BookKraft AI runs entirely in the browser with no install at all, and ${FREE_TOOLS.length} tools — EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, and Full Manuscript Mode — are free with no signup required.`,
+    q: 'Do I need to install BookKraft AI?',
+    a: `No. BookKraft AI runs entirely in the browser with no install at all, and ${FREE_TOOLS.length} tools — EPUB Validator, Metadata Builder, Cover Checker, Word Cleanup Checker, and Full Manuscript Mode — are free with no signup required.`,
   },
 ];
 
@@ -86,7 +86,6 @@ export default function AtticusAlternativePage() {
                 ['Runs on', 'Windows / Mac / Linux / Chromebook (browser)', 'Any browser'],
                 ['Formatting & design', '✓', '—'],
                 ['Print PDF output', '✓', '—'],
-                ['AI manuscript cleanup', '—', '✓'],
               ].map(([feat, atticus, bk], i) => (
                 <tr key={i} style={{ borderBottom: '1px solid rgba(201,168,76,0.15)', background: i % 2 === 0 ? 'transparent' : 'rgba(0,0,0,0.02)' }}>
                   <td style={{ padding: '10px 16px', fontWeight: 600 }}>{feat}</td>
