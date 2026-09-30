@@ -101,8 +101,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable}`}>
       <head>
 
-        {/* Fraunces self-hosted — preloads immediately at HTML-parse, before CSS resolves */}
-        <link rel="preload" href="/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        {/* Fraunces is preloaded per page (/, /faq, /b/[n]), not here — most pages never use it. */}
 
         {/* ── GA4 Consent Mode v2 ── */}
         <script dangerouslySetInnerHTML={{ __html: `

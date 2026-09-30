@@ -1,4 +1,5 @@
 import React from 'react';
+import { preload } from 'react-dom';
 import Link from 'next/link';
 import HeroSection from '../components/HeroSection';
 import YouTubeFacade from '../components/YouTubeFacade';
@@ -32,6 +33,9 @@ export const metadata = {
 };
 
 export default function Page() {
+  // Hero H1 font. Preloaded here, not in the root layout, so other pages skip it.
+  preload('/fonts/fraunces-latin.woff2', { as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' });
+
   const softwareSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',

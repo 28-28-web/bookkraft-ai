@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { preload } from 'react-dom';
 import type { Metadata } from 'next';
 import blocksData from '@/content/blocks-data.json';
 import BlockGate from './BlockGate';
@@ -32,6 +33,9 @@ export default async function BlockPage({ params }: Props) {
     const { n } = await params;
     const block = blocksData.find(b => b.id === Number(n));
     if (!block) notFound();
+
+    // Heading font. Preloaded here, not in the root layout, so other pages skip it.
+    preload('/fonts/fraunces-latin.woff2', { as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' });
 
     const blockLabel = `B${block.id}`;
 

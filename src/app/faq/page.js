@@ -1,3 +1,4 @@
+import { preload } from 'react-dom';
 import FaqPage from './FaqPage';
 import { FAQ_PAGE_FAQS } from '@/lib/constants';
 
@@ -23,6 +24,8 @@ export const metadata = {
 };
 
 export default function Page() {
+  // H1 font. Preloaded here, not in the root layout, so other pages skip it.
+  preload('/fonts/fraunces-latin.woff2', { as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' });
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
