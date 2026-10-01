@@ -1,5 +1,10 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
+
+// Routes where the banner sits in the page flow instead of floating, so it
+// can never cover content (the post-payment survey on /welcome).
+const INLINE_ROUTES = new Set(['/welcome'])
 
 const CLARITY_ID = 'x0dccfshyj'
 function loadClarity() {
@@ -13,6 +18,7 @@ function loadClarity() {
 
 export default function CookieBanner() {
   const [show, setShow] = useState(false)
+  const inline = INLINE_ROUTES.has(usePathname())
   useEffect(() => {
     const consent = localStorage.getItem('bk_cookie_consent')
     if (!consent) {
@@ -28,13 +34,13 @@ export default function CookieBanner() {
   }, [])
 
   useEffect(() => {
-    if (show) {
+    if (show && !inline) {
       document.body.classList.add('cookie-consent-pending')
     } else {
       document.body.classList.remove('cookie-consent-pending')
     }
     return () => document.body.classList.remove('cookie-consent-pending')
-  }, [show])
+  }, [show, inline])
   const updateConsent = (value) => {
     // No ads on this site, so only analytics_storage is ever toggled.
     if (typeof window !== 'undefined' && window.gtag) {
@@ -55,11 +61,9 @@ export default function CookieBanner() {
   if (!show) return null
   return (
     <div style={{
-      position: 'fixed',
-      bottom: '24px',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      zIndex: 2147483647,
+      ...(inline
+        ? { position: 'relative', margin: '24px auto 104px' } // bottom room so the chat button can't sit on Accept/Decline
+        : { position: 'fixed', bottom: '24px', left: '50%', transform: 'translateX(-50%)', zIndex: 2147483647 }),
       background: '#1c1c1c',
       color: '#fff',
       padding: '14px 20px',

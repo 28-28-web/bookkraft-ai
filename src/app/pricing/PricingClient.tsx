@@ -90,6 +90,7 @@ function CheckoutButton({ purchaseType, discountCode, className, children }) {
                 ...(toltReferral ? { tolt_referral: toltReferral } : {}),
             },
             customer: { email: user.email },
+            settings: { successUrl: `${window.location.origin}/welcome?plan=${purchaseType}` },
         };
         console.log('Paddle Checkout.open payload:', payload);
 

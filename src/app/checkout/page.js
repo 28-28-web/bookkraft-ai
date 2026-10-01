@@ -80,7 +80,10 @@ function CheckoutContent() {
 
         const toltReferral = window.tolt_referral;
         paddle.Checkout.open({
-            settings: { displayMode: 'overlay', theme: 'light', locale: 'en' },
+            settings: {
+                displayMode: 'overlay', theme: 'light', locale: 'en',
+                successUrl: `${window.location.origin}/welcome?plan=${selected.purchaseType}`,
+            },
             items: [{ priceId: selected.paddlePriceId, quantity: 1 }],
             ...(discountCode ? { discountCode } : {}),
             customData: {
