@@ -26,7 +26,8 @@ export async function generateMetadata({ params }) {
   // Most meta_title values already end with the brand, so appending it
   // unconditionally produced "... | BookKraft AI — BookKraft AI" and pushed
   // titles past 90 characters, well beyond what Google renders.
-  const brandedTitle = /bookkraft ai\s*$/i.test(title) ? title : `${title} — BookKraft AI`;
+  const seoTitle = post.meta_title || title;
+  const brandedTitle = /bookkraft ai\s*$/i.test(seoTitle) ? seoTitle : `${seoTitle} — BookKraft AI`;
 
   return {
     title: brandedTitle,
