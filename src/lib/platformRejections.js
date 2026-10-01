@@ -202,7 +202,7 @@ export const PLATFORM_REJECTIONS = [
       },
       {
         q: 'Why does my book show as Processing for several days?',
-        a: "Extended processing almost always means the KEPUB conversion stalled on a structural element in your EPUB. Kobo's system doesn't automatically notify you of conversion failures — it just stops processing. Contact KWL support if a book has been in Processing status for more than 72 hours and request the conversion error log.",
+        a: "Extended processing almost always means the KEPUB conversion stalled on a structural element in your EPUB. Kobo's system doesn't automatically notify you of conversion failures — it just stops processing. Contact KWL support if a book stays in Processing status for more than a few days and request the conversion error log.",
       },
     ],
     relatedTool: 'epub-validator',

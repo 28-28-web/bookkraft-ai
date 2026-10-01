@@ -35,7 +35,7 @@ const faqs = [
   },
   {
     q: 'How do I check if Amazon has indexed my KDP keywords?',
-    a: "Search Amazon for the exact keyword phrase you submitted — type it into Amazon's book search bar. If your book appears in results, the keyword is indexed. If it doesn't appear, either the keyword hasn't propagated yet (allow 24–72 hours after publishing or updating), or Amazon didn't index that phrase. Narrow the search by adding your author name or a distinctive title word to confirm your book's rank for that phrase. There's no official Amazon tool for keyword indexation — this manual search method is the standard approach authors use.",
+    a: "Search Amazon for the exact keyword phrase you submitted — type it into Amazon's book search bar. If your book appears in results, the keyword is indexed. If it doesn't appear, either the keyword hasn't propagated yet (allow up to 3 business days for a new book, or up to 72 hours after a keyword update), or Amazon didn't index that phrase. Narrow the search by adding your author name or a distinctive title word to confirm your book's rank for that phrase. There's no official Amazon tool for keyword indexation — this manual search method is the standard approach authors use.",
   },
 ];
 
@@ -99,7 +99,7 @@ const kdpSteps = [
   {
     n: 5,
     title: 'Save and republish',
-    body: "Click Save and Continue. If the book is already published, keyword changes go live after KDP processes the update — typically within 24–72 hours. Changes don't require a new review cycle for most edits.",
+    body: "Click Save and Continue. If the book is already published, keyword changes go live after KDP processes the update, which can take up to 72 hours. Changes don't require a new review cycle for most edits.",
   },
 ];
 

@@ -41,7 +41,7 @@ const faqs = [
   },
   {
     q: 'Can I update my KDP description after the book is published?',
-    a: "Yes. You can edit your book description at any time from the KDP dashboard. Changes typically take 24–72 hours to appear on the Amazon product page. Updating your description does not affect your book's publication status or require re-review of the book file.",
+    a: "Yes. You can edit your book description at any time from the KDP dashboard. Changes can take up to 72 hours to appear on the Amazon product page. Updating your description does not affect your book's publication status or require re-review of the book file.",
   },
 ];
 

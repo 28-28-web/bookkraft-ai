@@ -271,7 +271,7 @@ export default function KindleEpubFormatPage() {
           {
             n: 5,
             title: 'Publish',
-            body: "Once KDP's validator passes and the preview looks correct, submit. KDP typically makes the book available within 24–72 hours after publishing approval. Keyword and category changes made at this step take effect within the same window.",
+            body: "Once KDP's validator passes and the preview looks correct, submit. KDP says a new ebook takes up to 3 business days to go live after you publish. Keyword and category changes made at this step take effect within the same window.",
           },
         ].map((step) => (
           <div key={step.n} style={{ marginBottom: 24, paddingLeft: 16, borderLeft: '3px solid rgba(201,168,76,0.4)' }}>

@@ -38,7 +38,7 @@ export const KDP_GUIDE_ARTICLES = [
     faq: [
       {
         q: 'How long does it take for new KDP keywords to take effect?',
-        a: "KDP typically processes keyword changes within 24–72 hours of saving. Full indexing — where your book appears in search results for new queries — can take up to a week. If you're not seeing the expected discovery after 7 days, check that no phrases contain banned terms, which Amazon silently strips.",
+        a: "Keyword changes can take up to 72 hours to appear on Amazon. Full indexing — where your book appears in search results for new queries — can take up to a week. If you're not seeing the expected discovery after 7 days, check that no phrases contain banned terms, which Amazon silently strips.",
       },
       {
         q: 'Can I test different keywords to see which perform better?',
@@ -195,7 +195,7 @@ export const KDP_GUIDE_ARTICLES = [
 <h2>The 10-Category Maximum — How to Reach It</h2>
 <p>The process has two stages:</p>
 <p><strong>Stage 1: Select 2 categories during upload.</strong> Use the KDP category picker to select your 2 most important categories before publishing. Choose the ones where your target readers are most likely to browse and where immediate placement matters most — these are the only categories active when your book first goes live.</p>
-<p><strong>Stage 2: Request up to 8 more through KDP support.</strong> After your book is live (typically within 24–72 hours of publishing), contact KDP support through Amazon's help system. Provide your ASIN and the full category path text for each additional category you want. KDP support can add both categories that appear in the standard picker and ghost categories that don't. Processing takes 3–5 business days.</p>
+<p><strong>Stage 2: Request up to 8 more through KDP support.</strong> After your book is live (up to 3 business days after you publish), contact KDP support through Amazon's help system. Provide your ASIN and the full category path text for each additional category you want. KDP support can add both categories that appear in the standard picker and ghost categories that don't. Processing takes 3–5 business days.</p>
 <p>You don't have to request all 8 additional slots at once. You can add categories over time as you identify new relevant paths by browsing comparable books' product pages.</p>
 
 <h2>What Counts as a Category vs. a Sub-Category Path</h2>

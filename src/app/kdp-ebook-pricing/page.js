@@ -47,7 +47,7 @@ const faqs = [
   },
   {
     q: 'Can I change my KDP price after publishing?',
-    a: 'Yes. You can update your list price at any time in the KDP dashboard without republishing the ebook. Price changes typically take effect within 24–72 hours on Amazon. Other retailers receiving the book through Expanded Distribution may take longer to reflect the change. This makes price testing practical — you can run a promotional price, then return to your standard price without any file changes or re-review.',
+    a: 'Yes. You can update your list price at any time in the KDP dashboard without republishing the ebook. Price changes take about 24 hours to show on Amazon. Other retailers receiving the book through Expanded Distribution may take longer to reflect the change. This makes price testing practical — you can run a promotional price, then return to your standard price without any file changes or re-review.',
   },
   {
     q: 'Does being in Kindle Unlimited affect my pricing strategy?',
@@ -180,7 +180,7 @@ export default function KdpEbookPricingPage() {
           Price testing
         </h2>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
-          KDP allows price changes at any time without republishing the ebook. Price changes typically take effect within 24–72 hours on Amazon. This makes systematic price testing practical: set a price for 30–60 days, record units sold and revenue, then change the price and compare.
+          KDP allows price changes at any time without republishing the ebook. Price changes take about 24 hours to show on Amazon. This makes systematic price testing practical: set a price for 30–60 days, record units sold and revenue, then change the price and compare.
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 48, opacity: 0.9 }}>
           Meaningful price tests need enough volume to be statistically interpretable — a book selling 5 units per month will not produce comparable data between price points within a reasonable timeframe. For higher-volume books, comparing 60-day periods at different price points is a practical test. Also factor in external variables: seasonal demand, promotions you ran, and changes to your also-bought recommendations from other sources.

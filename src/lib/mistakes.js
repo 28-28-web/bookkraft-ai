@@ -250,7 +250,7 @@ export const MISTAKES = [
       },
       {
         q: 'Why does my book not appear when I search its title on Amazon?',
-        a: 'New titles can take 24–72 hours to be indexed for search after going live. If the book still doesn\'t appear after that, check that the title metadata matches the cover, the categories are set, and the keywords reflect terms readers actually use.',
+        a: 'New titles can take a few days to show up in Amazon search after going live. If the book still doesn\'t appear after that, check that the title metadata matches the cover, the categories are set, and the keywords reflect terms readers actually use.',
       },
       {
         q: 'Can I change my metadata after publishing?',

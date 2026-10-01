@@ -46,8 +46,8 @@ const comparisonRows = [
   },
   {
     feature: 'Time to go live',
-    ebook: 'Typically within 24–72 hours of submission',
-    print: 'Typically 5–7 business days for paperback; hardcover may take longer',
+    ebook: 'Up to 3 business days after you publish',
+    print: 'Paperback detail pages appear in up to 72 hours on Amazon.com and up to 5 days on other marketplaces',
   },
 ];
 
