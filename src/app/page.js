@@ -1,9 +1,7 @@
 import React from 'react';
 import { preload } from 'react-dom';
-import Link from 'next/link';
 import HeroSection from '../components/HeroSection';
-import YouTubeFacade from '../components/YouTubeFacade';
-import { EPUB_CHECK_VIDEO_ID, epubCheckVideoSchema } from '../lib/seo';
+import { epubCheckVideoSchema } from '../lib/seo';
 import LandingPage from './landingpage';
 import { PRICING, FREE_TOOLS, HOME_FAQS, EPUB_KDP_FAQS } from '../lib/constants';
 import { TOOLS } from '../lib/tools';
@@ -101,30 +99,6 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(epubCheckVideoSchema) }}
       />
       <HeroSection />
-      <section style={{ background: 'var(--ink)', padding: '0 0 56px' }} aria-labelledby="homeVideoHeading">
-        <div style={{ maxWidth: 760, margin: '0 auto', padding: '0 28px' }}>
-          <h2 id="homeVideoHeading" style={{
-            fontFamily: 'var(--font-fraunces), Fraunces, serif', fontWeight: 500,
-            fontSize: 'clamp(22px, 2.6vw, 28px)', lineHeight: 1.2,
-            color: '#ffffff', margin: '0 0 18px',
-          }}>
-            See how it works in 75 seconds
-          </h2>
-          {/* The thumbnail is the homepage LCP element: self-hosted, eager, high priority.
-              sizes: 28px side padding in a 760px column → 704px max. */}
-          <YouTubeFacade
-            id={EPUB_CHECK_VIDEO_ID}
-            title="KDP sent your book back? Check your EPUB file first"
-            thumb="/images/video-thumb-1280.webp"
-            thumbSrcSet="/images/video-thumb-640.webp 640w, /images/video-thumb-960.webp 960w, /images/video-thumb-1280.webp 1280w"
-            thumbSizes="(max-width: 760px) calc(100vw - 56px), 704px"
-            priority
-          />
-          <p style={{ fontSize: 15, lineHeight: 1.6, color: 'rgba(255,255,255,0.75)', margin: 0 }}>
-            Try it on your own file with the <Link href="/tools/epub-validator" className="link-gold">free EPUB Validator</Link>. No signup.
-          </p>
-        </div>
-      </section>
       <LandingPage faqs={HOME_FAQS} epubFaqs={EPUB_KDP_FAQS} />
     </>
   );
