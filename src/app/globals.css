@@ -732,6 +732,10 @@ pre {
 .main-content {
     margin-left: 240px;
     flex: 1;
+    /* Flex items default to min-width: auto and grow to fit their widest
+       content, so a table inside an overflow-x: auto wrapper widened the
+       whole page on phones instead of scrolling. 0 lets the wrapper scroll. */
+    min-width: 0;
     padding: var(--space-8) var(--space-8) var(--space-16);
 }
 

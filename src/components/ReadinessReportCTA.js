@@ -27,7 +27,9 @@ export default function ReadinessReportCTA({ sourceTool }) {
                 style={{
                     display: 'inline-block', background: '#C9933A', color: '#fff',
                     padding: '10px 20px', borderRadius: 8, fontWeight: 700,
-                    fontSize: '0.88rem', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0,
+                    // Free to wrap: a nowrap label is ~377px wide and forced the
+                    // whole tool page wider than a 390px phone screen.
+                    fontSize: '0.88rem', textDecoration: 'none', textAlign: 'center',
                 }}
             >
                 Get your Full Readiness Report — free account →
