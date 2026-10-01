@@ -6,6 +6,7 @@ import { AuthProvider } from '../components/AuthProvider';
 import { ProjectProvider } from '../lib/ProjectContext';
 import { ToastProvider } from '../components/Toast';
 import CookieBanner from '../components/CookieBanner';
+import ToltScript from '../components/ToltScript';
 import DynamicComponents from '../components/DynamicComponents';
 import { TOOLS } from '../lib/tools';
 import { FREE_TOOLS } from '../lib/constants';
@@ -131,12 +132,7 @@ export default function RootLayout({ children }) {
           gtag('config', 'G-H0G0L2F9ZF');
         `}</Script>
 
-        {/* ── Tolt affiliate tracking ── */}
-        <Script
-          src="https://files.tlt-cdn.com/tlt.js"
-          data-tolt="pk_mLNuSRb6fKgNANwUVumQGKQb"
-          strategy="lazyOnload"
-        />
+        {/* Tolt affiliate tracking: loaded only where needed, see components/ToltScript */}
 
         {/* Microsoft Clarity moved to CookieBanner — loads only after consent granted */}
 
@@ -188,6 +184,7 @@ export default function RootLayout({ children }) {
               {children}
               <DynamicComponents />
               <CookieBanner />
+              <ToltScript />
             </ToastProvider>
           </ProjectProvider>
         </AuthProvider>
