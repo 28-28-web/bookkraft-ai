@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ChecklistOptin from '@/components/ChecklistOptin';
 
 export const metadata = {
   title: 'EPUB Formatting Guide for Self-Publishers — BookKraft AI',
@@ -193,6 +194,8 @@ export default function Page() {
           </div>
         ))}
       </div>
+
+      <ChecklistOptin source="checklist-epub-formatting-guide" style={{ margin: '0 0 56px' }} />
 
       {/* Print-to-digital callout */}
       <div
@@ -406,6 +409,7 @@ export default function Page() {
         </Link>
       </div>
 
+      <ChecklistOptin source="checklist-epub-formatting-guide" variant="full" />
     </main>
   );
 }

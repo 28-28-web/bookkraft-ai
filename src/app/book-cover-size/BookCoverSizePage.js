@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ChecklistOptin from '@/components/ChecklistOptin';
 
 const faqs = [
   {
@@ -213,6 +214,8 @@ export default function BookCoverSizePage() {
           . Last verified September 27, 2026.
         </p>
 
+        <ChecklistOptin source="checklist-book-cover-size" />
+
         {/* Print cover note */}
         <h2 style={{ fontSize: 26, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>Print cover dimensions</h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
@@ -306,6 +309,7 @@ export default function BookCoverSizePage() {
             Open Cover Checker →
           </Link>
         </div>
+        <ChecklistOptin source="checklist-book-cover-size" variant="full" />
       </main>
     </>
   );

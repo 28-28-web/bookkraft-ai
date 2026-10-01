@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ChecklistOptin from '@/components/ChecklistOptin';
 
 const faqs = [
   {
@@ -272,6 +273,8 @@ export default function HowToMakeEpubPage() {
           ))}
         </div>
 
+        <ChecklistOptin source="checklist-how-to-make-epub-file" />
+
         {/* Quick decision table */}
         <h2 style={H2_STYLE}>Which tool should you use?</h2>
         <p style={P_STYLE}>
@@ -489,6 +492,7 @@ export default function HowToMakeEpubPage() {
             Open EPUB Formatter →
           </Link>
         </div>
+        <ChecklistOptin source="checklist-how-to-make-epub-file" variant="full" />
       </main>
     </>
   );

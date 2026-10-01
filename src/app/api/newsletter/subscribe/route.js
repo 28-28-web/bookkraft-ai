@@ -9,6 +9,14 @@ export async function POST(request) {
         if (!isValidEmail(email)) {
             return NextResponse.json({ success: false, message: 'Please enter a valid email address, like name@example.com.' }, { status: 400 });
         }
+        // Honeypot from ChecklistOptin: people never see the field, bots fill it.
+        // Answer like a success so the bot learns nothing; add no contact.
+        if (typeof body.company === 'string' && body.company.trim()) {
+            return NextResponse.json({ success: true, isNew: false, message: "You're already subscribed. Here's your checklist:", checklistUrl: '/kdp-preflight-checklist.pdf' });
+        }
+        // Optional form id (e.g. "checklist-kdp-formatting-guide"), stored in
+        // Brevo SOURCE_TOOL. Last touch: a later form overwrites it.
+        const source = typeof body.source === 'string' && /^[a-z0-9-]{1,64}$/.test(body.source) ? body.source : null;
 
         const apiKey = process.env.BREVO_API_KEY;
         const listId = parseInt(process.env.BREVO_LIST_ID || '0', 10);
@@ -29,14 +37,15 @@ export async function POST(request) {
                 email,
                 listIds: [listId],
                 updateEnabled: true,
+                ...(source ? { attributes: { SOURCE_TOOL: source } } : {}),
             }),
         });
 
         if (res.status === 201) {
             // New subscription only — 400 (duplicate) must not fire, or the
             // count inflates on repeat submits from the same person.
-            logEvent({ eventName: 'lead_captured', eventData: { source: 'newsletter' } }).catch(() => {});
-            return NextResponse.json({ success: true, message: 'Checklist sent to your inbox!' });
+            logEvent({ eventName: 'lead_captured', eventData: { source: source || 'newsletter' } }).catch(() => {});
+            return NextResponse.json({ success: true, isNew: true, message: 'Checklist sent to your inbox!' });
         }
         if (res.status === 204 || res.status === 400) {
             // 204 = existing contact updated (updateEnabled), 400 = likely
@@ -45,6 +54,7 @@ export async function POST(request) {
             // the checklist directly instead of promising an email.
             return NextResponse.json({
                 success: true,
+                isNew: false,
                 message: "You're already subscribed. Here's your checklist:",
                 checklistUrl: '/kdp-preflight-checklist.pdf',
             });

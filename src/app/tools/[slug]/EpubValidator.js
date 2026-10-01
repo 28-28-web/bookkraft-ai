@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from 'react';
 import UpsellBanner from '@/components/UpsellBanner';
 import ReadinessReportCTA from '@/components/ReadinessReportCTA';
 import ValidationBadge from './ValidationBadge';
+import { isValidEmail } from '@/lib/email';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { TOOLS } from '@/lib/tools';
 import { useLoadingSteps } from '@/hooks/useLoadingSteps';
@@ -30,6 +31,7 @@ export default function EpubValidator() {
     const [name, setName] = useState('');
     const [emailError, setEmailError] = useState('');
     const [emailSent, setEmailSent] = useState(false);
+    const [company, setCompany] = useState(''); // honeypot
     const stepText = useLoadingSteps(EPUB_VAL_STEPS, loading);
 
     useEffect(() => {
@@ -113,11 +115,21 @@ export default function EpubValidator() {
 
     const handleEmailSubmit = async (e) => {
         e.preventDefault();
-        if (!email || !email.includes('@')) {
+        if (!isValidEmail(email.trim())) {
             setEmailError('Please enter a valid email address.');
             return;
         }
         setEmailError('');
+
+        // Also add them to the newsletter list (welcome automation sends the
+        // KDP Preflight Checklist). Runs alongside the report; never blocks it.
+        fetch('/api/newsletter/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email.trim(), source: 'validator-results', company }),
+        }).catch(() => {});
+        // Same flag NewsletterPopup checks, so the exit-intent popup never shows.
+        try { localStorage.setItem('bk_newsletter_done', 'true'); } catch {}
 
         await fetch('/api/send-epub-report', {
             method: 'POST',
@@ -134,7 +146,7 @@ export default function EpubValidator() {
         track('email_report', { tool: TOOL, issue_count: failCount + warnCount });
 
         if (typeof window !== 'undefined' && window.gtag) {
-            window.gtag('event', 'email_captured', { tool_name: 'epub_validator' });
+            window.gtag('event', 'email_captured', { tool_name: 'epub_validator', source: 'validator-results' });
         }
 
         setEmailSent(true);
@@ -289,9 +301,10 @@ export default function EpubValidator() {
                         <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '24px', marginTop: '24px' }}>
                             {!emailSent ? (
                                 <>
-                                    <p style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '4px' }}>📬 Want a copy of this report?</p>
-                                    <p style={{ color: '#6b7280', fontSize: '0.88rem', marginBottom: '16px' }}>We'll email it to you so you can fix issues at your own pace. No spam.</p>
+                                    <p style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '16px' }}>📬 Email me this report + the free KDP Preflight Checklist</p>
                                     <form onSubmit={handleEmailSubmit} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                                        {/* Honeypot: off-screen, skipped by keyboard and screen readers; bots fill it. */}
+                                        <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" value={company} onChange={(e) => setCompany(e.target.value)} style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, opacity: 0 }} />
                                         <input
                                             type="text"
                                             placeholder="First name (optional)"
@@ -308,15 +321,27 @@ export default function EpubValidator() {
                                             style={{ padding: '10px 14px', border: `1px solid ${emailError ? '#fca5a5' : '#d1d5db'}`, borderRadius: '8px', fontSize: '0.9rem', outline: 'none', flex: '2', minWidth: '180px' }}
                                         />
                                         <button type="submit" style={{ background: '#1a1a1a', color: '#fff', padding: '10px 20px', borderRadius: '8px', fontWeight: 600, fontSize: '0.9rem', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap' }}>
-                                            Send Report
+                                            Send report + checklist
                                         </button>
                                     </form>
                                     {emailError && <p style={{ color: '#c53030', fontSize: '0.85rem', marginTop: '6px' }}>{emailError}</p>}
+                                    <p style={{ color: '#6b7280', fontSize: '0.8rem', marginTop: '10px', marginBottom: 0 }}>
+                                        You&apos;ll also get one Kindle fix a week. Unsubscribe anytime.{' '}
+                                        <a href="/privacy" style={{ color: '#6b7280', textDecoration: 'underline' }}>Privacy policy</a>
+                                    </p>
                                 </>
                             ) : (
-                                <p style={{ color: '#166534', fontWeight: 600, fontSize: '0.95rem', textAlign: 'center' }}>
-                                    📬 Report sent to <strong>{email}</strong> — check your inbox.
-                                </p>
+                                <div style={{ textAlign: 'center' }}>
+                                    <p style={{ color: '#166534', fontWeight: 600, fontSize: '0.95rem', marginBottom: '8px' }}>
+                                        📬 Report sent to <strong>{email}</strong> — check your inbox.
+                                    </p>
+                                    <p style={{ fontSize: '0.9rem', margin: 0 }}>
+                                        No need to wait:{' '}
+                                        <a href="/kdp-preflight-checklist.pdf" target="_blank" rel="noopener" style={{ color: '#b8860b', fontWeight: 600 }}>
+                                            Download the KDP Preflight Checklist (PDF) →
+                                        </a>
+                                    </p>
+                                </div>
                             )}
                         </div>
                     </div>

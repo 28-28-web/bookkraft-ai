@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import ChecklistOptin from '@/components/ChecklistOptin';
 
 const faqSchema = {
     '@context': 'https://schema.org',
@@ -197,6 +198,8 @@ export default function KdpFormattingGuidePage() {
                         The formatting workflow has four phases: <strong>prepare</strong> (clean the manuscript, build TOC and front/back matter), <strong>build</strong> (generate a valid EPUB file), <strong>validate</strong> (confirm the file passes structural checks), and <strong>publish</strong> (complete metadata, categories, and keyword fields before submitting). Skipping any phase means fixing problems after KDP or Apple Books rejects the file — which takes longer than getting it right before upload.
                     </p>
                 </Section>
+
+                <ChecklistOptin source="checklist-kdp-formatting-guide" />
 
                 {/* ── 2. MANUSCRIPT FORMATTING ── */}
                 <Section
@@ -481,6 +484,7 @@ export default function KdpFormattingGuidePage() {
                         Validate Your EPUB →
                     </Link>
                 </div>
+                <ChecklistOptin source="checklist-kdp-formatting-guide" variant="full" />
             </main>
         </>
     );

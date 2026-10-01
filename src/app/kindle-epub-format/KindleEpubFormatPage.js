@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ChecklistOptin from '@/components/ChecklistOptin';
 
 const faqs = [
   {
@@ -185,6 +186,8 @@ export default function KindleEpubFormatPage() {
           </table>
         </div>
 
+        <ChecklistOptin source="checklist-kindle-epub-format" style={{ margin: '32px 0 0' }} />
+
         {/* Kindle format history */}
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
           EPUB vs MOBI vs KFX — what Kindle actually uses
@@ -336,6 +339,7 @@ export default function KindleEpubFormatPage() {
             </Link>
           </div>
         </div>
+        <ChecklistOptin source="checklist-kindle-epub-format" variant="full" />
       </main>
     </>
   );

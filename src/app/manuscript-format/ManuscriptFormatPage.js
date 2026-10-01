@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ChecklistOptin from '@/components/ChecklistOptin';
 
 const faqs = [
   {
@@ -109,6 +110,8 @@ export default function ManuscriptFormatPage() {
           </table>
         </div>
 
+        <ChecklistOptin source="checklist-manuscript-format" />
+
         {/* Prep steps */}
         <h2 style={{ fontSize: 26, fontWeight: 700, marginTop: 48, marginBottom: 8 }}>
           How to prepare your manuscript for EPUB conversion
@@ -205,6 +208,7 @@ export default function ManuscriptFormatPage() {
             Open Manuscript Cleanup Checker →
           </Link>
         </div>
+        <ChecklistOptin source="checklist-manuscript-format" variant="full" />
       </main>
     </>
   );
