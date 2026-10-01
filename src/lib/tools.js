@@ -368,7 +368,7 @@ export const TOOLS = [
         slug: 'epub-validator',
         name: 'EPUB Validator',
         category: 'quality',
-        desc: 'Free online EPUB validator and checker — check your EPUB for KDP, Apple Books & IngramSpark errors before you upload. No Java, no install, runs in your browser.',
+        desc: 'Free online EPUB validator and EPUB checker. Drop in your .epub and see structure, metadata and navigation errors before KDP or Apple Books does. No Java, no signup.',
         seoTitle: 'Free EPUB Validator & Checker Online — Check EPUB for KDP',
         h1: 'Free EPUB Validator & Checker Online',
         intro: 'Validate your EPUB online — no Java, no installs, runs entirely in your browser. Drop your .epub file and get a pass/fail result for every structural check in seconds.',
