@@ -1,5 +1,49 @@
+import { PHASE_PRODUCTION_BUILD } from 'next/constants.js';
+
+// NEXT_PUBLIC_* values are inlined into the client bundle at build time. A
+// missing one doesn't error, it ships as `undefined` and breaks at runtime
+// (that's how checkout broke on Coolify). Fail the production build instead.
+// Optional by design, so not listed: NEXT_PUBLIC_TURNSTILE_SITE_KEY (widget
+// hides without it) and NEXT_PUBLIC_PADDLE_PRICE_HEADSHOT_* (/credits shows
+// "not available"). GA and Clarity IDs are hardcoded, not env.
+const REQUIRED_PUBLIC_ENV = [
+  'NEXT_PUBLIC_SUPABASE_URL',
+  'NEXT_PUBLIC_SUPABASE_ANON_KEY',
+  'NEXT_PUBLIC_PADDLE_CLIENT_TOKEN',
+  'NEXT_PUBLIC_PADDLE_ENVIRONMENT',
+];
+
+function checkPublicEnv() {
+  const env = (k) => process.env[k]?.trim();
+  const errors = REQUIRED_PUBLIC_ENV.filter((k) => !env(k)).map((k) => `${k} is missing or empty`);
+
+  const url = env('NEXT_PUBLIC_SUPABASE_URL');
+  if (url && !/^https:\/\/\S+$/.test(url)) errors.push('NEXT_PUBLIC_SUPABASE_URL must be an https:// URL');
+
+  const paddleEnv = env('NEXT_PUBLIC_PADDLE_ENVIRONMENT');
+  const token = env('NEXT_PUBLIC_PADDLE_CLIENT_TOKEN');
+  if (paddleEnv && !['sandbox', 'production'].includes(paddleEnv)) {
+    errors.push(`NEXT_PUBLIC_PADDLE_ENVIRONMENT must be "sandbox" or "production" (got "${paddleEnv}")`);
+  } else if (paddleEnv && token) {
+    // Paddle client-side tokens are prefixed live_ (production) or test_ (sandbox);
+    // this also catches placeholder values like "your_token_here".
+    const prefix = paddleEnv === 'production' ? 'live_' : 'test_';
+    if (!token.startsWith(prefix)) {
+      errors.push(`NEXT_PUBLIC_PADDLE_CLIENT_TOKEN must start with "${prefix}" when NEXT_PUBLIC_PADDLE_ENVIRONMENT is "${paddleEnv}"`);
+    }
+  }
+
+  if (errors.length) {
+    throw new Error(
+      `\n\nBuild stopped: required public environment variables are not set correctly.\n` +
+      errors.map((e) => `  - ${e}`).join('\n') +
+      `\n\nNEXT_PUBLIC_* values are baked in at build time. In Coolify, set them as build-time variables, then redeploy.\n`
+    );
+  }
+}
+
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+export const nextConfig = { // named export: src/lib/ghost.js reads redirects()
   output: 'standalone',
   // The handbook EPUBs are read from disk by their download route, which checks
   // the user's plan first. They sit outside public/ so there is no static URL,
@@ -176,4 +220,7 @@ const nextConfig = {
     ];
   },
 };
-export default nextConfig;
+export default function config(phase) {
+  if (phase === PHASE_PRODUCTION_BUILD) checkPublicEnv();
+  return nextConfig;
+}

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import nextConfig from '../../next.config.mjs';
+import { nextConfig } from '../../next.config.mjs';
 
 const POSTS_DIR = path.join(process.cwd(), 'src', 'content', 'blog');
 
