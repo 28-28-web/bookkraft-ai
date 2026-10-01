@@ -136,23 +136,43 @@ export default function ChecklistOptin({ source, variant = 'compact', style }) {
                 <div
                     style={{ gridArea: '1 / 1', visibility: done ? 'visible' : 'hidden', alignSelf: 'center' }}
                     aria-hidden={!done}
-                    aria-live="polite"
                 >
-                    {done && (
-                        <>
-                            <p style={{ fontSize: full ? 20 : 17, fontWeight: 700, lineHeight: 1.3, margin: '0 0 8px' }}>
-                                {isNew ? 'Check your inbox, the checklist and your first fix are on the way.' : "You're already subscribed."}
+                    {/* Always rendered (hidden until done) so the box reserves
+                        this height from the start; only the text depends on state. */}
+                    <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+                        <span aria-hidden="true" style={{
+                            flex: '0 0 auto', width: 36, height: 36, borderRadius: '50%',
+                            background: '#c9a84c', color: '#1a1a1a', fontSize: 20, fontWeight: 700,
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        }}>✓</span>
+                        <div style={{ minWidth: 0 }}>
+                            {/* Both headings share one cell so the longer one always
+                                reserves the height, new or existing contact. */}
+                            <p style={{ display: 'grid', fontSize: full ? 20 : 17, fontWeight: 700, lineHeight: 1.3, margin: '0 0 8px' }}>
+                                <span style={{ gridArea: '1 / 1', visibility: isNew ? 'visible' : 'hidden' }}>
+                                    Check your inbox, the checklist and your first fix are on the way.
+                                </span>
+                                <span style={{ gridArea: '1 / 1', visibility: isNew ? 'hidden' : 'visible' }}>
+                                    You&apos;re already subscribed.
+                                </span>
                             </p>
-                            <p style={{ fontSize: 15, lineHeight: 1.6, margin: 0 }}>
+                            <p style={{ fontSize: 15, lineHeight: 1.6, margin: '0 0 8px' }}>
                                 No need to wait:{' '}
-                                <a href={CHECKLIST_URL} target="_blank" rel="noopener" style={{ color: '#9c7f35', fontWeight: 700 }}>
+                                <a href={CHECKLIST_URL} target="_blank" rel="noopener" tabIndex={done ? 0 : -1} style={{ color: '#9c7f35', fontWeight: 700 }}>
                                     Download the KDP Preflight Checklist (PDF) →
                                 </a>
                             </p>
-                        </>
-                    )}
+                            {full && <p style={{ fontSize: 13, fontWeight: 700, opacity: 0.7, margin: '0 0 2px' }}>What&apos;s inside</p>}
+                            <ul style={{ margin: 0, paddingLeft: 20, fontSize: 14, lineHeight: 1.6, listStyle: 'disc' }}>
+                                {BULLETS.map((b) => <li key={b}>{b}</li>)}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <p role="status" style={SR_ONLY}>
+                {done ? (isNew ? 'Subscribed. Check your inbox; the checklist download link is below.' : "You're already subscribed. The checklist download link is below.") : ''}
+            </p>
         </aside>
     );
 }
