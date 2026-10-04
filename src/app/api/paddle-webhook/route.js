@@ -293,6 +293,7 @@ export async function POST(request) {
             const errorCode = body.data?.payments?.[0]?.error_code || null;
             await fireGA4Event({
                 clientId: customData.gaClientId ?? null,
+                sessionId: customData.gaSessionId ?? null,
                 userId: userId || null,
                 eventName: 'payment_failed',
                 params: {
@@ -314,6 +315,7 @@ export async function POST(request) {
         const rawTotal = body.data?.details?.totals?.total;
         console.log(`[GA4-diag] paddleOrderId=${paddleOrderId} purchaseType=${purchaseType} rawTotal=${rawTotal} grandTotal=${body.data?.details?.totals?.grand_total}`);
         const amountPaid = parseFloat(rawTotal || '0') / 100;
+        const currency = body.data?.currency_code || 'USD';
 
         if (!paddleOrderId) {
             console.error('Paddle webhook: missing transaction id');
@@ -369,14 +371,16 @@ export async function POST(request) {
             const artBody = await artRes.json().catch(() => ({}));
             console.log(`Paddle webhook: headshot credits granted — ${creditsToAdd} credits → ${userEmail}`, artBody);
 
+            // No user_id: headshot buyers have no bookkraftai account, and the
+            // email is PII, which GA4 forbids.
             await fireGA4Event({
                 clientId: customData.gaClientId ?? null,
-                userId: userEmail,
+                sessionId: customData.gaSessionId ?? null,
                 eventName: 'purchase',
                 params: {
                     transaction_id: paddleOrderId,
                     value: amountPaid,
-                    currency: 'USD',
+                    currency,
                     items: [{ item_id: purchaseType, item_name: purchaseType, price: amountPaid, quantity: 1 }],
                 },
             });
@@ -418,17 +422,19 @@ export async function POST(request) {
         if (!result.alreadyProcessed) {
             await fireGA4Event({
                 clientId: customData.gaClientId ?? null,
+                sessionId: customData.gaSessionId ?? null,
                 userId,
                 eventName: 'purchase',
                 params: {
                     transaction_id: paddleOrderId,
                     value: amountPaid,
-                    currency: 'USD',
+                    currency,
                     items: [{ item_id: purchaseType, item_name: purchaseType, price: amountPaid, quantity: 1 }],
                 },
             });
             await fireGA4Event({
                 clientId: customData.gaClientId ?? null,
+                sessionId: customData.gaSessionId ?? null,
                 userId,
                 eventName: 'payment_success',
                 params: {
@@ -436,7 +442,7 @@ export async function POST(request) {
                     page_type: 'checkout',
                     transaction_id: paddleOrderId,
                     value: amountPaid,
-                    currency: 'USD',
+                    currency,
                 },
             });
             void sendPurchaseNotification({ userId, purchaseType, paddleOrderId, amountPaid, userEmail });

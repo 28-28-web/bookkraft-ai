@@ -119,9 +119,8 @@ function SignupPageClient() {
             } else {
 
                 track('account_created', { method: 'email' });
-                if (typeof window !== 'undefined' && window.gtag) {
-                    window.gtag('event', 'sign_up', { method: 'email' });
-                }
+                // No gtag sign_up here: the confirmation link lands on
+                // /auth/callback?next=/onboarding, which fires sign_up server-side.
                 if (pendingPlan) {
                     try { localStorage.setItem('bk_pending_plan', pendingPlan); } catch {}
                 }

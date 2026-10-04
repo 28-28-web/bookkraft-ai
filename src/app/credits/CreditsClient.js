@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { usePaddle } from '@/app/hooks/usePaddle';
+import { getGaIds } from '@/lib/analytics';
 
 const CHECKOUT_WATCHDOG_MS = 5000;
 
@@ -41,7 +42,7 @@ export default function CreditsClient({ plan, credits, priceLabel, priceId, user
 
     const payload = {
       items: [{ priceId, quantity: 1 }],
-      customData: { purchaseType: plan, userEmail },
+      customData: { purchaseType: plan, userEmail, ...getGaIds() },
       customer: { email: userEmail },
       settings: {
         successUrl: `https://artrating.art/credits?success=true`,

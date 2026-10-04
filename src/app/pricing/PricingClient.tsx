@@ -6,7 +6,7 @@ import { useState, Suspense, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { usePaddle } from '@/app/hooks/usePaddle';
 import { useAuth } from '@/components/AuthProvider';
-import { track } from '@/lib/analytics';
+import { track, getGaIds, getReferral } from '@/lib/analytics';
 
 const CHECKOUT_WATCHDOG_MS = 5000;
 
@@ -88,6 +88,8 @@ function CheckoutButton({ purchaseType, discountCode, className, children }) {
                 userId: user.id,
                 purchaseType: purchaseType,
                 ...(toltReferral ? { tolt_referral: toltReferral } : {}),
+                ...getGaIds(),
+                ...(getReferral() ? { referralSource: getReferral() } : {}),
             },
             customer: { email: user.email },
             settings: { successUrl: `${window.location.origin}/welcome?plan=${purchaseType}` },
