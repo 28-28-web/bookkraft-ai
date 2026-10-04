@@ -15,6 +15,7 @@
     "start": "next start",
     "lint": "eslint",
     "content-check": "node scripts/content-check.mjs",
+    "sitemap-audit": "node scripts/sitemap-audit.mjs",
     "indexnow": "node scripts/indexnow-submit.mjs"
   },
   "dependencies": {

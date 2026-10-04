@@ -113,6 +113,14 @@ export const nextConfig = { // named export: src/lib/ghost.js reads redirects()
         destination: '/blog/best-ebook-formats-epub-vs-pdf-vs-mobi',
         permanent: true,
       },
+      // Legacy Ghost sub-sitemaps. Nothing links to them; Google may still
+      // have them from the Ghost era. Redirect (not 410) so fetches resolve to
+      // a valid sitemap instead of logging "Couldn't fetch" errors in GSC.
+      {
+        source: '/sitemap-:kind(posts|pages|tags|authors).xml',
+        destination: '/sitemap.xml',
+        permanent: true,
+      },
       // Malformed URLs crawled from bad links — send to homepage.
       {
         source: '/$',
