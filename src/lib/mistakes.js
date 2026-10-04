@@ -142,6 +142,7 @@ export const MISTAKES = [
       { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
       { type: 'epub-error', slug: 'ghost-spacing-epub', label: 'Ghost spacing in e-reader previews' },
       { type: 'epub-error', slug: 'toc-ncx-navpoint-mismatch', label: 'NCX navPoint mismatch errors' },
+      { type: 'blog', slug: 'kindle-formatting-mistakes', label: 'Kindle formatting mistakes in Word: 10 fixes before KDP upload' },
       { type: 'guide', slug: 'kdp-quality-issues', label: 'KDP quality issues and quality notices' },
     ],
   },
@@ -328,17 +329,17 @@ export const MISTAKES = [
     mistakes: [
       {
         title: 'Using a CMYK print cover for the ebook',
-        description: "<p>Print covers are built in CMYK at 300 DPI. Ebook platforms expect RGB and reject CMYK images — KDP's processor and Apple Books both fail on it. Export a separate RGB JPEG for the ebook rather than reusing the print file.</p>",
+        description: "<p>Print covers are built in CMYK at 300 DPI. Ebook platforms expect RGB and reject CMYK images — KDP's processor and Apple Books both fail on it. Export a separate RGB JPEG for the ebook rather than reusing the print file. Don't pull the image out of a print-ready PDF either: start from your design file and export fresh in RGB.</p>",
         link: { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks — full guide' },
       },
       {
         title: 'Cover below the minimum dimensions',
-        description: "<p>The old 500px minimum is outdated. KDP now requires at least 625×1000px, and Apple Books requires 1400×2100px. A cover sized for one store can fail another. Work at 1600×2560px to satisfy every major platform.</p>",
+        description: "<p>The old 500px minimum is outdated. KDP now requires at least 625×1000px, and Apple Books requires 1400×2100px. A cover sized for one store can fail another. Work at 1600×2560px to satisfy every major platform. The free <a href=\"/tools/cover-checker\">Cover Checker</a> flags wrong dimensions, CMYK color mode, and unsupported formats before you upload.</p>",
         link: { type: 'checklist', slug: 'epub-formatting-checklist', label: 'Cover & images checklist items' },
       },
       {
         title: 'Wrong aspect ratio',
-        description: "<p>A square or landscape cover gets stretched or letterboxed by a store's display templates. Ebook covers use a 1.6:1 height-to-width ratio (2:3 shape). Start from a canvas with that ratio so the cover fills the frame without distortion.</p>",
+        description: "<p>A square or landscape cover gets stretched or letterboxed by a store's display templates. Ebook covers use a 1.6:1 height-to-width ratio (a 5:8 shape). Start from a canvas with that ratio so the cover fills the frame without distortion.</p>",
         link: { type: 'platform-rejection', slug: 'amazon-kdp', label: 'KDP cover requirements — full guide' },
       },
       {
@@ -362,6 +363,14 @@ export const MISTAKES = [
         a: 'The image is embedded in the EPUB but not declared with properties="cover-image" in the OPF manifest. The file is physically present; the platform just can\'t identify it as the cover. Regenerate the EPUB with the cover correctly flagged.',
       },
       {
+        q: 'What file format and size does KDP accept for an ebook cover?',
+        a: "KDP's eBook cover requirements page asks for a TIFF or JPEG file under 50MB, in RGB color. The ideal size is 2,560 × 1,600 pixels (height × width), the minimum is 1,000 × 625 pixels, and the ideal height-to-width ratio is at least 1.6:1.",
+      },
+      {
+        q: 'Does the text on my cover have to match my KDP details?',
+        a: "Yes. KDP's Metadata Guidelines say the title, subtitle, author name, and series information on your cover should match the corresponding metadata fields. Type them into KDP exactly as they appear on the cover before you publish.",
+      },
+      {
         q: 'Does DPI matter for an ebook cover?',
         a: 'No. DPI is a print concept with no meaning for screen images. What matters is the pixel dimension. A 1600×2560px image at 72 DPI contains exactly the same data as one at 300 DPI.',
       },
@@ -371,6 +380,7 @@ export const MISTAKES = [
       { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
       { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
       { type: 'mistake', slug: 'kdp-formatting-mistakes', label: '7 KDP formatting mistakes indie authors make' },
+      { type: 'cover-requirement', slug: 'amazon-kdp-ebook', label: 'Amazon KDP ebook cover requirements' },
     ],
   },
   {

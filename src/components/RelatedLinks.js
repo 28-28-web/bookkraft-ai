@@ -33,6 +33,10 @@ const TYPE_CONFIG = {
     href: (slug) => `/cover-requirements/${slug}`,
     heading: 'Cover requirements',
   },
+  blog: {
+    href: (slug) => `/blog/${slug}`,
+    heading: 'From the blog',
+  },
 };
 
 export default function RelatedLinks({ related }) {

@@ -347,7 +347,10 @@ export default function CoverCheckerPage() {
               Who this cover checker is for
             </h2>
             <p style={{ fontSize: 15, lineHeight: 1.7, marginBottom: 24 }}>
-              Self-publishing authors checking a cover meets KDP or Apple Books pixel, ratio, and format rules before upload. Anyone whose cover was rejected for being too small or the wrong dimensions. Free, in your browser, no account.
+              Self-publishing authors checking a cover meets KDP or Apple Books pixel, ratio, and format rules before upload. Anyone whose cover was rejected for being too small or the wrong dimensions. Free, in your browser, no account. For the other reasons covers fail, see the{' '}
+              <Link href="/mistakes/ebook-cover-mistakes" style={{ color: '#C9933A', textDecoration: 'underline' }}>
+                ebook cover mistakes that get files rejected
+              </Link>.
             </p>
 
             <h2 style={{ fontFamily: "var(--font-playfair), serif", fontSize: 24, color: '#fff', fontWeight: 700, marginBottom: 14 }}>

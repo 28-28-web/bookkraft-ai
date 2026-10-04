@@ -50,6 +50,7 @@ export const COVER_REQUIREMENTS = [
       { type: 'epub-error', slug: 'cover-image-not-declared', label: 'Cover image not declared in OPF manifest' },
       { type: 'cover-requirement', slug: 'apple-books-ebook', label: 'Apple Books ebook cover requirements' },
       { type: 'guide', slug: 'kdp-quality-issues', label: 'KDP quality issues and quality notices' },
+      { type: 'mistake', slug: 'ebook-cover-mistakes', label: '5 ebook cover mistakes that get files rejected' },
     ],
   },
   {

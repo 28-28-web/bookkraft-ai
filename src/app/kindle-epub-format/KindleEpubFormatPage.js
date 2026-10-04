@@ -317,6 +317,14 @@ export default function KindleEpubFormatPage() {
           <Link href="/ebook-template" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             ebook template
           </Link>
+          . Before you upload, check your Word file for the{' '}
+          <Link href="/blog/kindle-formatting-mistakes" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            Kindle formatting mistakes that get books sent back
+          </Link>
+          . Not sure whether your book should reflow or keep fixed pages? See{' '}
+          <Link href="/reflowable-vs-fixed-layout-epub" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            reflowable vs fixed-layout EPUB
+          </Link>
           .
         </p>
 

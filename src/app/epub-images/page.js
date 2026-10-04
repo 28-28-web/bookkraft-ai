@@ -237,7 +237,11 @@ export default function EpubImagesPage() {
           <Link href="/epub-errors" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             EPUB error reference
           </Link>
-          .
+          . If your book is mostly images, such as a picture book or comic, read{' '}
+          <Link href="/reflowable-vs-fixed-layout-epub" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            reflowable vs fixed-layout EPUB
+          </Link>
+          {' '}before you build it.
         </p>
 
         {/* CTA */}

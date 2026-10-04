@@ -38,7 +38,7 @@ export const KDP_GUIDE_ARTICLES = [
     faq: [
       {
         q: 'How long does it take for new KDP keywords to take effect?',
-        a: "Keyword changes can take up to 72 hours to appear on Amazon. Full indexing — where your book appears in search results for new queries — can take up to a week. If you're not seeing the expected discovery after 7 days, check that no phrases contain banned terms, which Amazon silently strips.",
+        a: "KDP's Timelines help page says keyword updates can take 72 hours to appear. If you still aren't seeing the expected discovery after that, check that no phrase uses terms KDP asks you to avoid in keywords.",
       },
       {
         q: 'Can I test different keywords to see which perform better?',
@@ -151,7 +151,7 @@ export const KDP_GUIDE_ARTICLES = [
 <li>The full category paths you want added, written exactly as they appear in Amazon's browse breadcrumb — not abbreviations or approximate names</li>
 </ul>
 <p>Example: "Please add my book [ASIN] to the following categories: Books &gt; Mystery, Thriller &amp; Suspense &gt; Mystery &gt; Amateur Sleuths; Books &gt; Mystery, Thriller &amp; Suspense &gt; Mystery &gt; Cozy &gt; Culinary. These categories are not available in the standard publisher interface."</p>
-<p>KDP support typically processes these requests within 3–5 business days. Confirm placement by checking your book's product page — new categories appear in the BSR section when added successfully.</p>
+<p>Confirm placement by checking your book's product page — new categories appear in the BSR section when added successfully.</p>
 
 <h2>How Many Ghost Categories to Request</h2>
 <p>KDP allows up to 10 categories total per book (the 2 selected during upload plus up to 8 more through support). Whether to request all 8 additional slots depends on genuine fit — Amazon expects the categories you request to match your book's actual content.</p>
@@ -161,7 +161,7 @@ export const KDP_GUIDE_ARTICLES = [
     faq: [
       {
         q: 'How long does KDP support take to add ghost categories?',
-        a: "KDP support typically processes category requests within 3–5 business days, though it can take longer during peak publishing periods. Once processed, new categories appear in the Best Sellers Rank section of your book's product page — that's how to confirm they were added successfully.",
+        a: "KDP doesn't publish a processing time for support requests. Once processed, new categories appear in the Best Sellers Rank section of your book's product page — that's how to confirm they were added successfully.",
       },
       {
         q: 'Can any book be placed in any ghost category?',
@@ -195,7 +195,7 @@ export const KDP_GUIDE_ARTICLES = [
 <h2>The 10-Category Maximum — How to Reach It</h2>
 <p>The process has two stages:</p>
 <p><strong>Stage 1: Select 2 categories during upload.</strong> Use the KDP category picker to select your 2 most important categories before publishing. Choose the ones where your target readers are most likely to browse and where immediate placement matters most — these are the only categories active when your book first goes live.</p>
-<p><strong>Stage 2: Request up to 8 more through KDP support.</strong> After your book is live (up to 3 business days after you publish), contact KDP support through Amazon's help system. Provide your ASIN and the full category path text for each additional category you want. KDP support can add both categories that appear in the standard picker and ghost categories that don't. Processing takes 3–5 business days.</p>
+<p><strong>Stage 2: Request up to 8 more through KDP support.</strong> After your book is live (up to 3 business days after you publish), contact KDP support through Amazon's help system. Provide your ASIN and the full category path text for each additional category you want. KDP support can add both categories that appear in the standard picker and ghost categories that don't.</p>
 <p>You don't have to request all 8 additional slots at once. You can add categories over time as you identify new relevant paths by browsing comparable books' product pages.</p>
 
 <h2>What Counts as a Category vs. a Sub-Category Path</h2>
@@ -230,7 +230,7 @@ export const KDP_GUIDE_ARTICLES = [
       },
       {
         q: 'Does it matter which 2 categories I pick during upload?',
-        a: "Yes. The 2 categories selected during upload are active immediately when your book goes live. Additional categories added through KDP support take 3–5 days to process. Choose your 2 upload categories to be the highest-priority ones — where your target readers are most likely to browse and where immediate placement from launch day matters most.",
+        a: "Yes. The 2 categories selected during upload are active immediately when your book goes live. Choose your 2 upload categories to be the highest-priority ones — where your target readers are most likely to browse and where immediate placement from launch day matters most.",
       },
       {
         q: 'How often can I change my categories?',

@@ -262,6 +262,13 @@ export default function BookCoverSizePage() {
             <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.85, margin: 0 }}>{item.detail}</p>
           </div>
         ))}
+        <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 24, opacity: 0.9 }}>
+          For how to fix each one, including the sRGB color profile Apple Books checks, see{' '}
+          <Link href="/mistakes/ebook-cover-mistakes" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            ebook cover mistakes that get files rejected
+          </Link>
+          .
+        </p>
 
         {/* FAQ */}
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 56, marginBottom: 16 }}>

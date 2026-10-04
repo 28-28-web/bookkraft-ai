@@ -114,6 +114,12 @@ export const nextConfig = { // named export: src/lib/ghost.js reads redirects()
         destination: '/blog/best-ebook-formats-epub-vs-pdf-vs-mobi',
         permanent: true,
       },
+      // Duplicate of the cover mistakes page — unique content merged there.
+      {
+        source: '/blog/kdp-cover-requirements-mistakes',
+        destination: '/mistakes/ebook-cover-mistakes',
+        permanent: true,
+      },
       // Legacy Ghost sub-sitemaps. Nothing links to them; Google may still
       // have them from the Ghost era. Redirect (not 410) so fetches resolve to
       // a valid sitemap instead of logging "Couldn't fetch" errors in GSC.
