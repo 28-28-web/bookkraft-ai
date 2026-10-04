@@ -37,7 +37,7 @@ export default function Footer() {
                     <div>
                         <p className="footer-col-title">Company</p>
                         <Link href="/pricing" className="footer-link">Pricing</Link>
-                        <a href="https://blog.bookkraftai.com" className="footer-link" target="_blank" rel="noopener noreferrer">Blog</a>
+                        <Link href="/blog" className="footer-link">Blog</Link>
                         <Link href="/contact" className="footer-link">Contact</Link>
                         <Link href="/faq" className="footer-link">FAQ</Link>
                         <Link href="/privacy" className="footer-link">Privacy Policy</Link>

@@ -75,6 +75,29 @@ export const nextConfig = { // named export: src/lib/ghost.js reads redirects()
           destination: 'https://bookkraftai.com/:path*',
           permanent: true,
         },
+        // Old Ghost blog (blog.bookkraftai.com) → per-post 301s. INACTIVE:
+        // today Cloudflare 301s that whole host to /blog before Next sees it.
+        // Prefer a Cloudflare Bulk Redirect list for the per-post map: Ghost
+        // URLs end in "/" and Next strips the slash BEFORE these rules run,
+        // so here /old-slug/ is 2 hops (tested). Only use this block if the
+        // host is pointed at this app. Keep it ABOVE the http→https rule, or
+        // http://blog.… hops to https://bookkraftai.com/<path> first. Always
+        // point at the FINAL URL (a merged post → its merge target).
+        // Specific rules first, catch-all last.
+        // ...[
+        //   ['/old-ghost-slug', '/blog/new-slug'],
+        // ].map(([source, destination]) => ({
+        //   source,
+        //   has: [{ type: 'host', value: 'blog.bookkraftai.com' }],
+        //   destination: `https://bookkraftai.com${destination}`,
+        //   permanent: true,
+        // })),
+        // {
+        //   source: '/:path*',
+        //   has: [{ type: 'host', value: 'blog.bookkraftai.com' }],
+        //   destination: 'https://bookkraftai.com/blog',
+        //   permanent: true,
+        // },
         {
          source: '/:path*',
          has: [{ type: 'header', key: 'x-forwarded-proto', value: 'http' }],
@@ -111,17 +134,6 @@ export const nextConfig = { // named export: src/lib/ghost.js reads redirects()
       {
         source: '/blog/epub-vs-mobi-vs-pdf-kdp',
         destination: '/blog/best-ebook-formats-epub-vs-pdf-vs-mobi',
-        permanent: true,
-      },
-      // Malformed URLs crawled from bad links — send to homepage.
-      {
-        source: '/$',
-        destination: '/',
-        permanent: true,
-      },
-      {
-        source: '/&',
-        destination: '/',
         permanent: true,
       },
       // The book prints BOOKKRAFTAI.COM/B1 (no slash). Source matching is not
