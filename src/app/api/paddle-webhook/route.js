@@ -371,10 +371,11 @@ export async function POST(request) {
             const artBody = await artRes.json().catch(() => ({}));
             console.log(`Paddle webhook: headshot credits granted — ${creditsToAdd} credits → ${userEmail}`, artBody);
 
+            // No user_id: headshot buyers have no bookkraftai account, and the
+            // email is PII, which GA4 forbids.
             await fireGA4Event({
                 clientId: customData.gaClientId ?? null,
                 sessionId: customData.gaSessionId ?? null,
-                userId: userEmail,
                 eventName: 'purchase',
                 params: {
                     transaction_id: paddleOrderId,
