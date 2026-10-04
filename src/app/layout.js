@@ -21,7 +21,6 @@ const playfair = localFont({
     { path: './fonts/playfair-display-latin-400-normal.woff2', weight: '400', style: 'normal' },
     { path: './fonts/playfair-display-latin-700-normal.woff2', weight: '700', style: 'normal' },
     { path: './fonts/playfair-display-latin-400-italic.woff2', weight: '400', style: 'italic' },
-    { path: './fonts/playfair-display-latin-700-italic.woff2', weight: '700', style: 'italic' },
   ],
   variable: '--font-playfair',
   display: 'swap',

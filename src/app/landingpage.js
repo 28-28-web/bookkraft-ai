@@ -327,10 +327,6 @@ export default function LandingPage({ faqs, epubFaqs }) {
   return (
     <>
       <style>{`
-        @keyframes bkFadeUp {
-          from { opacity:0; transform:translateY(14px); }
-          to   { opacity:1; transform:translateY(0); }
-        }
         @keyframes bkTicker {
           from { transform:translateX(0); }
           to   { transform:translateX(-50%); }

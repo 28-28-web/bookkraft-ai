@@ -65,7 +65,7 @@ export default function Footer() {
                     </p>
                     <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
                         <a href="https://www.producthunt.com/products/book-kraft-ai?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-bookkraft-ai" target="_blank" rel="noopener noreferrer">
-                            <img alt="BookKraft AI - AI-powered EPUB and Kindle formatting for indie authors | Product Hunt" width={250} height={54} src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1220281&theme=dark&t=1786991332060" style={{ height: '36px', width: 'auto' }} />
+                            <img alt="BookKraft AI - AI-powered EPUB and Kindle formatting for indie authors | Product Hunt" width={250} height={54} loading="lazy" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1220281&theme=dark&t=1786991332060" style={{ height: '36px', width: 'auto' }} />
                         </a>
                         <a
                             href="https://codetrendy.com/?utm_source=partner-site&utm_medium=badge"
@@ -80,7 +80,7 @@ export default function Footer() {
                                 background: 'rgba(255,255,255,0.03)',
                             }}
                         >
-                            <img src="https://codetrendy.com/favicon.ico" alt="CodeTrendy logo" width={14} height={14}
+                            <img src="https://codetrendy.com/favicon.ico" alt="CodeTrendy logo" width={14} height={14} loading="lazy"
                                 style={{ display: 'block', opacity: 0.8 }} />
                             <span style={{ color: 'rgba(247,243,236,0.45)', fontWeight: 500 }}>Listed on</span>
                             <span style={{ color: 'var(--gold)', fontWeight: 700 }}>CodeTrendy</span>

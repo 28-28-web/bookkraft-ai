@@ -62,7 +62,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`navbar navbar-interactive ${scrolled ? 'scrolled' : ''}`}
+        className={`navbar ${scrolled ? 'scrolled' : ''}`}
         role="navigation"
         aria-label="Main navigation"
       >
