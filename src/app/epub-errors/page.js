@@ -95,12 +95,18 @@ export default function EpubErrorsIndexPage() {
             </Link>{' '}
             walks through every step — manuscript cleanup, TOC generation, CSS, front matter, EPUB 3 generation, and validation — with a tool for each one.
           </p>
-          <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.65, marginBottom: 0 }}>
+          <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.65, marginBottom: 8 }}>
             Before uploading, run through the{' '}
             <Link href="/checklist" style={{ color: 'var(--gold, #c9a84c)', textDecoration: 'none' }}>
               pre-upload publishing checklist
             </Link>
             {' '}— a single-page list covering every step from file structure to platform-specific submission requirements.
+          </p>
+          <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.65, marginBottom: 0 }}>
+            For a longer walkthrough of the errors KDP and EPUBCheck report most often, read{' '}
+            <Link href="/blog/common-epub-validation-errors" style={{ color: 'var(--gold, #c9a84c)', textDecoration: 'none' }}>
+              common EPUB validation errors and how to fix them
+            </Link>.
           </p>
         </div>
 
