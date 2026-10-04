@@ -75,6 +75,7 @@ export const nextConfig = { // named export: src/lib/ghost.js reads redirects()
           destination: 'https://bookkraftai.com/:path*',
           permanent: true,
         },
+        // blog.bookkraftai.com → /blog is a Cloudflare 301 rule, not handled here.
         {
          source: '/:path*',
          has: [{ type: 'header', key: 'x-forwarded-proto', value: 'http' }],
@@ -119,17 +120,6 @@ export const nextConfig = { // named export: src/lib/ghost.js reads redirects()
       {
         source: '/sitemap-:kind(posts|pages|tags|authors).xml',
         destination: '/sitemap.xml',
-        permanent: true,
-      },
-      // Malformed URLs crawled from bad links — send to homepage.
-      {
-        source: '/$',
-        destination: '/',
-        permanent: true,
-      },
-      {
-        source: '/&',
-        destination: '/',
         permanent: true,
       },
       // The book prints BOOKKRAFTAI.COM/B1 (no slash). Source matching is not
