@@ -8,7 +8,7 @@ import { useAuth } from '@/components/AuthProvider';
 import { PRICING, PADDLE_PRICE_IDS } from '@/lib/constants';
 import Footer from '@/components/Footer';
 import { usePaddle } from '@/app/hooks/usePaddle';
-import { track } from '@/lib/analytics';
+import { track, getGaIds, getReferral } from '@/lib/analytics';
 
 export default function CheckoutPage() {
     return (
@@ -66,15 +66,10 @@ function CheckoutContent() {
             return;
         }
 
-        // Read GA4 client_id from the _ga cookie so the server-side
-        // Measurement Protocol purchase event can be attributed to this
-        // browser session. Cookie format: _ga=GA1.1.{client_id}
-        // Silently absent when GA is blocked — checkout proceeds normally.
-        let gaClientId = null;
-        try {
-            const m = document.cookie.match(/_ga=GA[\d.]+\.(.+?)(?:;|$)/);
-            if (m) gaClientId = m[1].trim();
-        } catch { /* blocked GA cookie — no-op */ }
+        // GA4 client/session ids for the server-side purchase event.
+        // Absent when GA is blocked — checkout proceeds normally.
+        const gaIds = getGaIds();
+        const referralSource = getReferral();
 
         track('checkout_started', { plan: selected.purchaseType, source: 'checkout_page' });
 
@@ -92,7 +87,8 @@ function CheckoutContent() {
                 creditsToAdd: selected.creditsToAdd,
                 userEmail: user.email,
                 ...(toltReferral ? { tolt_referral: toltReferral } : {}),
-                ...(gaClientId ? { gaClientId } : {}),
+                ...gaIds,
+                ...(referralSource ? { referralSource } : {}),
             },
             customer: { email: user.email },
         });

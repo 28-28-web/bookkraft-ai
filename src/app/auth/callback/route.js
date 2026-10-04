@@ -77,7 +77,7 @@ export async function GET(request) {
             if (!error) {
                 try {
                     const gaCookie = cookieStore.get('_ga')?.value;
-                    let gaClientId = `${Math.floor(Math.random() * 1e9)}.${Math.floor(Date.now() / 1000)}`;
+                    let gaClientId = null; // fireGA4Event warns and falls back to a random id
                     if (gaCookie) {
                         const m = gaCookie.match(/^GA\d+\.\d+\.(.+)$/);
                         if (m) gaClientId = m[1];

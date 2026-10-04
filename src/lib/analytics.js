@@ -65,6 +65,35 @@ export function getReferral() {
     }
 }
 
+// GA4 cookie ids, passed to Paddle customData so the server-side Measurement
+// Protocol purchase joins the browser session. Without both, GA4 reports the
+// purchase as (not set) / Unassigned.
+//   _ga             GA1.1.<client_id>         client_id is "<rand>.<ts>"
+//   _ga_H0G0L2F9ZF  GS1.1.<session_id>.<n>... (legacy) or GS2.1.s<session_id>$o...
+// The suffix must match the gtag config id in app/layout.js.
+export function getGaIds() {
+    const ids = {};
+    if (typeof document === 'undefined') return ids;
+    try {
+        const cid = document.cookie.match(/(?:^|;\s*)_ga=GA\d+\.\d+\.([^;]+)/);
+        if (cid) ids.gaClientId = cid[1].trim();
+        const sid = document.cookie.match(/(?:^|;\s*)_ga_H0G0L2F9ZF=GS\d+\.\d+\.s?(\d+)/);
+        if (sid) ids.gaSessionId = sid[1];
+    } catch {
+        // blocked cookies — checkout proceeds unattributed
+    }
+    return ids;
+}
+
+// Internal funnel name → GA4 event name. Only these are mirrored to gtag; the
+// internal events table keeps its own names.
+const GA4_EVENT_NAMES = {
+    tool_start: 'tool_started',
+    file_processed: 'file_uploaded',
+    report_completed: 'tool_completed',
+    checkout_started: 'checkout_started',
+};
+
 export function track(eventName, data) {
     if (typeof window === 'undefined') return;
     try {
@@ -73,6 +102,9 @@ export function track(eventName, data) {
         const eventData = { ...(data || {}) };
         const ref = getReferral();
         if (ref && !eventData.referral_source) eventData.referral_source = ref;
+
+        const gaName = GA4_EVENT_NAMES[eventName];
+        if (gaName && window.gtag) window.gtag('event', gaName, eventData);
 
         const payload = JSON.stringify({
             event_name: eventName,
