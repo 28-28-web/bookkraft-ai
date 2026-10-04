@@ -13,11 +13,11 @@ const TOOL = 'cover-checker';
 const faqs = [
   {
     q: 'What size should my KDP ebook cover be?',
-    a: 'Amazon recommends 2560 × 1600 pixels for Kindle covers, a 1.6:1 height-to-width ratio. The minimum is 625px wide × 1000px tall — covers below that will not display on Amazon. Anything below the recommended size will also look soft on high-resolution screens.',
+    a: 'KDP\'s eBook cover requirements give ideal dimensions of 2,560 pixels tall × 1,600 pixels wide, an ideal height-to-width ratio of at least 1.6:1, and a minimum of 1,000 pixels tall × 625 pixels wide, as a TIFF or JPEG file. Anything below the ideal size can look soft on high-resolution screens.',
   },
   {
     q: 'Does KDP accept PNG covers?',
-    a: 'No. KDP requires JPEG format for ebook covers. PNG files are not accepted, even if the dimensions are correct.',
+    a: 'KDP\'s eBook cover requirements list TIFF or JPEG files. PNG is not on that list, so export your cover as a JPEG or TIFF before uploading, even if the dimensions are correct.',
   },
   {
     q: 'What size does Apple Books require?',
@@ -29,7 +29,7 @@ const faqs = [
   },
   {
     q: 'What is the maximum file size KDP accepts for covers?',
-    a: 'KDP accepts cover image files up to 50 MB. In practice, a JPEG cover at 2560 × 1600px saved at high quality is typically 2–8 MB — well within the limit. If your file is over 50 MB, re-export at a lower JPEG quality setting (85–90 is sufficient for print-level sharpness).',
+    a: 'KDP\'s eBook cover requirements say the cover image must be less than 50MB. In practice, a JPEG cover at 2560 × 1600px saved at high quality is typically 2–8 MB — well within the limit. If your file is over 50 MB, re-export at a lower JPEG quality setting (85–90 is sufficient for print-level sharpness).',
   },
   {
     q: 'Does my cover need to be RGB or can it be CMYK?',
@@ -340,7 +340,9 @@ export default function CoverCheckerPage() {
               KDP and Apple Books cover requirements
             </h2>
             <p style={{ fontSize: 15, lineHeight: 1.7, marginBottom: 24 }}>
-              Amazon recommends 2560 × 1600 pixels for Kindle ebook covers, a 1.6:1 ratio, saved as JPEG. The minimum is 625px wide × 1000px tall — below that, covers will not display on Amazon at all. Covers below 2560px on the longest side often look soft on high-resolution Kindle devices. Apple Books requires a minimum of 1400 pixels on the shortest side. This tool checks your cover against both sets of requirements before you upload it anywhere, entirely in your browser.
+              KDP&apos;s{' '}
+              <a href="https://kdp.amazon.com/en_US/help/topic/G200645690" target="_blank" rel="noopener nofollow" style={{ color: '#C9933A', textDecoration: 'underline' }}>eBook cover requirements</a>{' '}
+              give ideal dimensions of 2,560 pixels tall × 1,600 pixels wide, an ideal height-to-width ratio of at least 1.6:1, and a minimum of 1,000 pixels tall × 625 pixels wide. The file must be a TIFF or JPEG under 50MB, in RGB color. Covers below 2560px on the longest side often look soft on high-resolution Kindle devices. Apple Books requires a minimum of 1400 pixels on the shortest side. This tool checks your cover against both sets of requirements before you upload it anywhere, entirely in your browser.
             </p>
 
             <h2 style={{ fontFamily: "var(--font-playfair), serif", fontSize: 24, color: '#fff', fontWeight: 700, marginBottom: 14 }}>

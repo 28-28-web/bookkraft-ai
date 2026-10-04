@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 export const metadata = {
   title: 'KDP Keyword Guide — Backend Keywords, Banned Terms & Categories | BookKraft AI',
   description:
-    'Practical guides on KDP keyword research: how to write phrases that get found, how ghost categories work, and how to diagnose why your keywords are underperforming.',
+    'Practical guides on KDP keyword research: how to write phrases that get found, how KDP\'s 3-category limit works, and how to diagnose why your keywords are underperforming.',
   alternates: { canonical: 'https://bookkraftai.com/kdp-keyword-guide' },
   robots: 'index, follow',
 };
@@ -26,7 +26,7 @@ export default function KdpKeywordGuideIndexPage() {
         </h1>
         <p style={{ fontSize: 16, color: 'var(--mid)', lineHeight: 1.7, marginBottom: 32 }}>
           Practical guides on Amazon KDP keyword research — how to write phrases that get your book found,
-          how ghost categories work, and how to diagnose why your current keywords are underperforming.
+          how KDP&apos;s 3-category limit works, and how to diagnose why your current keywords are underperforming.
         </p>
 
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 20, opacity: 0.9 }}>
@@ -119,7 +119,7 @@ export default function KdpKeywordGuideIndexPage() {
         </div>
 
         <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--mid)', marginTop: 32, marginBottom: 40 }}>
-          For KDP browse category selection — including ghost categories and the keyword-category gating system — see the{' '}
+          For choosing your 3 KDP categories and how they work with your keywords, see the{' '}
           <Link href="/kdp-category-keywords" style={{ color: 'var(--gold)', textDecoration: 'none' }}>
             KDP category keywords guide
           </Link>

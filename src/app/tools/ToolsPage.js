@@ -375,7 +375,7 @@ const TOOLS = [
   {
     slug: 'kdp-keyword-finder',
     name: 'KDP Keyword Finder',
-    desc: 'Generate long-tail Amazon keyword phrases and ghost category paths formatted for KDP\'s 7 backend keyword fields.',
+    desc: 'Generate long-tail Amazon keyword phrases for KDP\'s 7 backend keyword fields, plus suggested category paths.',
     badge: '2 credits', badgeType: 'ai',
     Thumb: KdpKeywordThumb,
   },

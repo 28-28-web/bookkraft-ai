@@ -7,12 +7,12 @@ export const KDP_GUIDE_ARTICLES = [
     title: "Why Your KDP Keywords Aren't Ranking — 5 Mistakes to Fix",
     body: `<h2>Your 7 Keyword Slots Are the Algorithm's Only Direct Input From You</h2>
 <p>Amazon's search algorithm can't read your synopsis or interpret your cover design. It reads your title, subtitle, and the 7 keyword fields you enter when publishing — and that's the primary signal it uses to decide which search queries your book appears in.</p>
-<p>Your title and subtitle get indexed automatically. Everything else you're hoping the algorithm picks up — the mood, the tropes, the target audience — it will only find if you put it in the keyword slots. Those 7 fields, each up to 50 characters, are your only direct line to the algorithm. Most authors fill them in fifteen minutes during upload and never revisit them. That's the root of most keyword underperformance.</p>
+<p>Your title and subtitle get indexed automatically. Everything else you're hoping the algorithm picks up — the mood, the tropes, the target audience — it will only find if you put it in the keyword slots. Those 7 keyword boxes are your only direct line to the algorithm. Most authors fill them in fifteen minutes during upload and never revisit them. That's the root of most keyword underperformance.</p>
 
 <h2>Mistake 1: Using Single Words Instead of Complete Phrases</h2>
 <p>The most common keyword mistake is entering single words — "mystery," "thriller," "fantasy" — instead of complete phrases.</p>
 <p>Single words put you against every book in the genre. "Mystery" returns tens of thousands of results. "Cozy mystery with a female detective small town" returns a far smaller pool — and it matches the actual query a reader types when they know what they're looking for.</p>
-<p>Real readers type phrases. Amazon's autocomplete exists because people type conversational queries, not index keywords. The suggestions themselves — "cozy mystery bakery," "psychological thriller unreliable narrator" — are real phrases buyers searched frequently enough for Amazon to surface. Each slot is 50 characters: use all of it as one complete phrase, not a list of three words separated by commas.</p>
+<p>Real readers type phrases. Amazon's autocomplete exists because people type conversational queries, not index keywords. The suggestions themselves — "cozy mystery bakery," "psychological thriller unreliable narrator" — are real phrases buyers searched frequently enough for Amazon to surface. Use each slot for one complete phrase, up to the character limit KDP shows in the field, not a list of three words separated by commas.</p>
 
 <h2>Mistake 2: Repeating Words Already in Your Title</h2>
 <p>Amazon already indexes your title and subtitle and uses them for search matching. If your book is called <em>The Bakery Detective</em>, entering "bakery" or "detective" in a keyword slot duplicates a signal Amazon already has — and wastes one of your seven slots on coverage you didn't need to add.</p>
@@ -34,7 +34,7 @@ export const KDP_GUIDE_ARTICLES = [
 
 <h2>What to Do Instead</h2>
 <p>The most reliable starting point is Amazon's own autocomplete. Type your genre plus a space and a letter into Amazon's book search — every autocomplete suggestion is a real phrase real buyers typed in high enough volume for Amazon to surface it. Work through the alphabet for your genre. This takes 20–30 minutes and gives you validated phrases directly from the source.</p>
-<p>If you want that research done automatically — tailored to your specific book's genre, comparable titles, target reader, and themes, with banned terms filtered out and ghost category paths included — the <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> generates 7 complete phrases within the 50-character limit in one run.</p>`,
+<p>If you want that research done automatically — tailored to your specific book's genre, comparable titles, target reader, and themes, with banned terms filtered out and category suggestions included — the <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> generates 7 complete phrases in one run.</p>`,
     faq: [
       {
         q: 'How long does it take for new KDP keywords to take effect?',
@@ -96,7 +96,7 @@ export const KDP_GUIDE_ARTICLES = [
 <li>"James Patterson style" → "fast-paced legal thriller government conspiracy"</li>
 <li>"Mystery" alone → "cozy mystery female amateur sleuth English village"</li>
 </ul>
-<p>If you want 7 phrases already filtered against Amazon's prohibited terms list, the <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> filters out prohibited terms before returning results — you get 7 clean, specific phrases formatted within KDP's 50-character fields.</p>`,
+<p>If you want 7 phrases already filtered against Amazon's prohibited terms list, the <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> filters out prohibited terms before returning results — you get 7 clean, specific phrases ready to paste into KDP's keyword fields.</p>`,
     faq: [
       {
         q: 'Will Amazon tell me if a keyword was removed for violating policy?',
@@ -122,119 +122,122 @@ export const KDP_GUIDE_ARTICLES = [
   },
   {
     slug: 'how-to-find-amazon-ghost-categories',
-    metaTitle: 'How to Find Amazon Ghost Categories for Your Book | BookKraft AI',
+    metaTitle: 'Amazon Ghost Categories — What KDP\'s 3-Category Rule Means | BookKraft AI',
     metaDescription:
-      "Ghost categories exist in Amazon's browse tree but don't appear in the KDP publisher interface. Here's how to find them and request placement through KDP support.",
-    title: "How to Find Amazon Ghost Categories for Your Book",
-    body: `<h2>What Ghost Categories Actually Are</h2>
-<p>Amazon's book browse tree contains thousands of category paths. The categories you see in the KDP publisher interface during upload — the picker where you select your 2 categories — show only a subset of what's in that tree. The rest exist in Amazon's public browse structure, are reachable by readers clicking through the hierarchy, and have books already listed in them. But you can't select them during upload because they don't appear in the picker.</p>
-<p>These are ghost categories. The name comes from the fact that they're visible from the outside — readers can find and browse them — but invisible during the publishing workflow. The only way to get your book into one is to contact KDP support after publishing with your ASIN and the exact category path.</p>
-<p>Ghost categories tend to have less competition for two reasons: most authors don't know they exist, and the friction of emailing KDP support filters out everyone who doesn't know the process. A category with 200 books requires a far lower sales rank to reach #1 Bestseller than a category with 20,000.</p>
+      "Ghost categories are Amazon browse categories you can't pick in KDP. KDP's current help pages describe no way to request them. Here's what KDP says to do instead.",
+    title: 'Amazon Ghost Categories — What KDP\'s 3-Category Rule Means',
+    body: `<h2>What Authors Mean by Ghost Categories</h2>
+<p>"Ghost categories" is an author-community term, not a KDP one. It describes category paths you can see on Amazon — in a comparable book's Best Sellers Rank list, for example — that don't appear in the list you choose from when you set up a book in KDP.</p>
+<p>Older guides, including an earlier version of this page, told authors to email KDP support with their ASIN and the exact category path to be placed in these categories. KDP's current <a href="https://kdp.amazon.com/en_US/help/topic/G200652170" target="_blank" rel="noopener nofollow" style="color:var(--gold,#c9a84c);text-decoration:none">Categories help page</a> doesn't describe that route. It says: "As an author, you can select 3 categories when creating a book in KDP." Those 3 are chosen in KDP itself.</p>
 
-<h2>How to Find Ghost Categories</h2>
-<p>The most reliable method is browsing Amazon's live category tree through comparable books:</p>
-<p><strong>Step 1: Find a comparable book.</strong> Search for a book closely similar to yours — same genre, similar themes, similar target audience. Open its product page and scroll down to the "Best Sellers Rank" section near the bottom of the page.</p>
-<p><strong>Step 2: Read its full category list.</strong> Under the BSR section, Amazon lists every category the book currently ranks in. Each category name is a clickable link. A book placed in ghost categories will show category paths you've never seen in the KDP publisher interface.</p>
-<p><strong>Step 3: Click through unfamiliar paths.</strong> If you see a category you don't recognize from the upload picker, click it. Browse the books inside and check the competition level — how many books are listed, what their BSR numbers look like, whether any have a #1 Bestseller badge at a rank that seems achievable.</p>
-<p><strong>Step 4: Capture the full breadcrumb path.</strong> Navigate to the category page. At the top of the page you'll see a breadcrumb: "Books &gt; Mystery, Thriller &amp; Suspense &gt; Mystery &gt; Amateur Sleuths." Write down the complete path exactly as it appears — that precise text is what you'll send to KDP support.</p>
-
-<h2>Common Ghost Categories by Genre</h2>
-<p>Ghost categories appear in every genre, but some are more commonly unknown than others:</p>
-<p><strong>Fiction ghost categories often include:</strong> highly specific cozy mystery sub-genres (crafting, cats, bakeries, holidays), niche romance sub-categories (workplace romance, sports romance, military romance), literary fiction broken down by region or theme, and historical fiction organized by specific time period and geography.</p>
-<p><strong>Nonfiction ghost categories often include:</strong> professional categories broken down by strategy or approach (real estate by investment type, parenting by child age range or specific need), hobby categories organized by discipline (specific fiber arts, instrument types), and regional or cultural nonfiction that doesn't surface in the standard picker.</p>
-<p>The best source for ghost categories relevant to your specific book is always comparable titles — books with similar audiences, already ranked in multiple categories, whose full category lists you can read from their product pages.</p>
-
-<h2>How to Request Ghost Categories From KDP Support</h2>
-<p>After your book is live, contact KDP support through Amazon's help system. The request should be concise and include exactly:</p>
+<h2>What KDP's Categories Page Says Now</h2>
+<p>Everything in this list comes from KDP's <a href="https://kdp.amazon.com/en_US/help/topic/G200652170" target="_blank" rel="noopener nofollow" style="color:var(--gold,#c9a84c);text-decoration:none">Categories help page</a>:</p>
 <ul>
-<li>Your book's ASIN (found on your KDP dashboard or the Amazon product page URL)</li>
-<li>The full category paths you want added, written exactly as they appear in Amazon's browse breadcrumb — not abbreviations or approximate names</li>
+<li>You can select 3 categories when you create a book in KDP. Together with your keywords, they tell Amazon where to "shelve" your book.</li>
+<li>If a new category is added to Amazon's store and you can't find it in KDP, you may need to wait until KDP's options are updated. In the meantime, KDP suggests picking the closest matching category available.</li>
+<li>If you're not finding a specific category for your book, you can use keywords to help Amazon decide how to shelve it.</li>
+<li>Some categories aren't available for every format (ebook, paperback, comic), and categories differ between marketplaces such as Amazon.com and Amazon.co.jp.</li>
+<li>The KDP Support Team can't give you specific recommendations or strategies for picking categories.</li>
 </ul>
-<p>Example: "Please add my book [ASIN] to the following categories: Books &gt; Mystery, Thriller &amp; Suspense &gt; Mystery &gt; Amateur Sleuths; Books &gt; Mystery, Thriller &amp; Suspense &gt; Mystery &gt; Cozy &gt; Culinary. These categories are not available in the standard publisher interface."</p>
-<p>Confirm placement by checking your book's product page — new categories appear in the BSR section when added successfully.</p>
 
-<h2>How Many Ghost Categories to Request</h2>
-<p>KDP allows up to 10 categories total per book (the 2 selected during upload plus up to 8 more through support). Whether to request all 8 additional slots depends on genuine fit — Amazon expects the categories you request to match your book's actual content.</p>
-<p>Request categories where your book genuinely belongs and where you can realistically rank. A book placed in a mismatched category generates poor engagement from readers who browse to it, which sends negative signals back to Amazon's algorithm. Better to hold 6–7 well-fitted categories than 10 where 3 are stretches.</p>
-<p>The <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> outputs full category paths — including ghost categories matched to your book's genre and themes — formatted as the exact path text you paste into a KDP support request, with a rationale for each recommendation so you can evaluate fit before requesting.</p>
-<p>For a complete reference on KDP category strategy — how browse categories interact with backend keywords, how to request ghost categories via support, and how to evaluate category fit — see the <a href="/kdp-category-keywords" style="color:var(--gold,#c9a84c);text-decoration:none">KDP category keywords guide</a>.</p>`,
+<h2>What to Do Instead of Requesting a Ghost Category</h2>
+<p><strong>1. Pick the closest match in KDP's list.</strong> This is KDP's own advice when the category you want isn't offered. Look for the most specific path in the KDP list that still describes your book accurately.</p>
+<p><strong>2. Put the specific angle in your keywords.</strong> If the niche you wanted — a sub-genre, trope, or setting — has no category in KDP, move it into your seven keyword phrases. KDP says keywords "are often more specific and help readers find your book when they search for something unique."</p>
+<p><strong>3. Choose for your primary marketplace and format.</strong> Categories differ by marketplace and format, so check the list for the marketplace you selected as primary, and for each format you publish.</p>
+
+<h2>How to Research Categories Through Comparable Books</h2>
+<p>KDP's first tip for choosing categories is to research your genre: "See where similar books are categorized and determine if your book fits there." A practical way to do that:</p>
+<p><strong>Step 1: Find a comparable book.</strong> Search for a book closely similar to yours — same genre, similar themes, similar target reader. Open its product page and scroll to the "Best Sellers Rank" section.</p>
+<p><strong>Step 2: Read its category list.</strong> Amazon lists the categories the book currently ranks in, and each one is a link.</p>
+<p><strong>Step 3: Click through.</strong> Browse the books inside each category. Note which paths fit your book and how crowded they look.</p>
+<p><strong>Step 4: Compare against KDP's list.</strong> When you set up or edit your book, look for those paths — or the closest match — in KDP's category list, and choose your 3 from there.</p>
+
+<h2>Changing Your Categories Later</h2>
+<p>You can change categories any time from your Bookshelf: open <strong>Edit details</strong>, go to the Categories section, remove a category if you already have three, pick the new one, and submit. KDP says it can take up to 72 hours for your book to display in its new categories, and that it reviews category changes and does not tolerate categorization that misleads readers.</p>
+<p>The <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> suggests category paths and keyword phrases for your book. Check each suggested path against the list KDP offers you before choosing. For how categories and keywords work together, see the <a href="/kdp-category-keywords" style="color:var(--gold,#c9a84c);text-decoration:none">KDP category keywords guide</a>.</p>`,
     faq: [
       {
-        q: 'How long does KDP support take to add ghost categories?',
-        a: "KDP doesn't publish a processing time for support requests. Once processed, new categories appear in the Best Sellers Rank section of your book's product page — that's how to confirm they were added successfully.",
+        q: 'Can I still email KDP support to add ghost categories?',
+        a: "KDP's current Categories help page doesn't describe any way to request categories by contacting support. It says you select 3 categories in KDP, and that the KDP Support Team can't give specific recommendations or strategies for picking categories.",
       },
       {
-        q: 'Can any book be placed in any ghost category?',
-        a: "No. KDP reserves the right to decline category placements that don't match the book's content. Authors who place books in unrelated categories to gain an easy bestseller rank risk having those categories removed and their account flagged for category manipulation.",
+        q: "What if the category I want isn't in KDP's list?",
+        a: "KDP's Categories page says that if a new category is added to Amazon's store and you can't find it in KDP, you may need to wait until KDP's options are updated, and suggests picking the closest matching category in the meantime. It also suggests using keywords when you can't find a specific category.",
       },
       {
-        q: 'What if KDP support declines my category request?',
-        a: "If support declines a category, they'll usually explain why — content mismatch is the most common reason. Try requesting alternative categories that still fit your book. If you believe the rejection was an error, you can follow up with more context about why the category is relevant to your content.",
+        q: 'How long until my book shows in a new category?',
+        a: "KDP's Categories page says it can take up to 72 hours for your book to display in new categories.",
       },
       {
-        q: 'Do ghost categories affect BSR the same way standard categories do?',
-        a: "Yes. BSR is calculated per category, and placement in a ghost category generates a BSR in that category exactly the same way standard categories do. A ghost category with fewer competing books means a lower sales volume is needed to reach a high rank — that's the core strategic advantage.",
-      },
-      {
-        q: 'Do I need to re-request categories after updating my book?',
-        a: "No. Categories stay attached to the ASIN unless you or KDP removes them. Updating your manuscript, cover, or metadata doesn't reset your category placements. If your book changes genre significantly, you may want to contact support to swap out categories that no longer reflect the updated positioning.",
+        q: 'Why did one of my categories change or disappear?',
+        a: "KDP's Categories page lists several reasons: Amazon updates its categories from time to time, books flagged for sexually explicit content are removed from categories such as Children's and Young Adult, and KDP may remove or change a category that isn't related to the book's content.",
       },
     ],
   },
   {
     slug: 'kdp-category-limit',
-    metaTitle: 'KDP Category Limit — How Many Categories Can You Actually Choose | BookKraft AI',
+    metaTitle: 'KDP Category Limit — How Many Categories Can You Choose? | BookKraft AI',
     metaDescription:
-      "KDP lets you pick 2 categories during upload, but the real limit is 10. Here's how to request additional categories through KDP support and how to choose which ones to target.",
-    title: 'KDP Category Limit — How Many Categories Can You Actually Choose',
-    body: `<h2>The 2-Category Limit During Upload — and Why It's Not the Real Limit</h2>
-<p>When you upload a book on KDP, the publishing interface lets you browse and select 2 categories before submitting. Most authors accept this as the full limit. It isn't.</p>
-<p>Amazon's actual policy allows up to 10 categories per book. The 2-category restriction is the limit of the upload interface — not the limit of the system. The remaining 8 slots are accessible by emailing KDP support after your book is live, with your ASIN and the category paths you want added. This is a published, supported process. It's not a workaround or a policy grey area.</p>
-<p>The reason most authors never reach 10 categories: the additional slots require a manual request, and knowing the process exists is the prerequisite. Authors who discover and use it have access to browse paths, bestseller rankings, and "Customers also bought" chains that authors capped at 2 categories don't.</p>
+      "KDP lets you select 3 categories per book. Here's what KDP's help pages say about choosing, changing, and losing categories, and how to pick your 3.",
+    title: 'KDP Category Limit — How Many Categories Can You Choose?',
+    body: `<h2>The Limit: 3 Categories per Book</h2>
+<p>KDP's <a href="https://kdp.amazon.com/en_US/help/topic/G200652170" target="_blank" rel="noopener nofollow" style="color:var(--gold,#c9a84c);text-decoration:none">Categories help page</a> says: "As an author, you can select 3 categories when creating a book in KDP." KDP's <a href="https://kdp.amazon.com/en_US/help/topic/G201097560" target="_blank" rel="noopener nofollow" style="color:var(--gold,#c9a84c);text-decoration:none">Metadata Guidelines</a> say the same thing: during title setup, you choose up to three categories from a list based on your primary audience and marketplace.</p>
+<p>You may still see older advice that KDP lets you pick 2 categories at upload and request up to 8 more from KDP support, for 10 in total. KDP's current help pages don't describe that process. An earlier version of this page repeated it; it has been corrected.</p>
 
-<h2>The 10-Category Maximum — How to Reach It</h2>
-<p>The process has two stages:</p>
-<p><strong>Stage 1: Select 2 categories during upload.</strong> Use the KDP category picker to select your 2 most important categories before publishing. Choose the ones where your target readers are most likely to browse and where immediate placement matters most — these are the only categories active when your book first goes live.</p>
-<p><strong>Stage 2: Request up to 8 more through KDP support.</strong> After your book is live (up to 3 business days after you publish), contact KDP support through Amazon's help system. Provide your ASIN and the full category path text for each additional category you want. KDP support can add both categories that appear in the standard picker and ghost categories that don't.</p>
-<p>You don't have to request all 8 additional slots at once. You can add categories over time as you identify new relevant paths by browsing comparable books' product pages.</p>
+<h2>How to Add or Change Your Categories</h2>
+<p>KDP's Categories page gives these steps:</p>
+<ol>
+<li>Go to your Bookshelf and click the ellipsis (...) next to the book.</li>
+<li>Select <strong>Edit details</strong>.</li>
+<li>On the Details tab, review your Primary Audience and Primary Marketplace before choosing categories.</li>
+<li>In the Categories section, select <strong>Edit categories</strong> or <strong>Choose categories</strong>.</li>
+<li>If you already have three categories, click <strong>Remove</strong> next to the one you want to replace.</li>
+<li>Pick your new categories, then save and submit your book.</li>
+</ol>
+<p>It can take up to 72 hours for your book to display in its new categories. KDP reviews category changes and says it does not tolerate categorization that misleads readers.</p>
 
-<h2>What Counts as a Category vs. a Sub-Category Path</h2>
-<p>Amazon's browse tree is hierarchical. A "category" in the context of the 10-category limit means a full path to a leaf node — the most specific level available in the browse tree.</p>
-<p>For example, "Books &gt; Mystery, Thriller &amp; Suspense &gt; Mystery &gt; Cozy &gt; Culinary Cozy Mysteries" counts as one category placement. The intermediate levels — "Mystery, Thriller &amp; Suspense," "Mystery," "Cozy" — aren't separate category slots. Your placement at the leaf node implies presence in all parent nodes above it; Amazon handles that automatically.</p>
-<p>This means all 10 of your categories should be specific leaf-level paths. Requesting "Books &gt; Mystery" as one of your 10 wastes a slot on a parent node your leaf-level placements already cover.</p>
+<h2>Why a Category Can Change or Stop Showing</h2>
+<p>KDP's Categories page lists the common causes:</p>
+<ul>
+<li>Fewer than 72 hours have passed since the update was published.</li>
+<li>Amazon has updated its categories, which can change your book's categories.</li>
+<li>The book is flagged as containing sexually explicit images or titles, which removes it from categories such as Children's and Young Adult.</li>
+<li>The category isn't related to the book's content, in which case KDP may remove or change it.</li>
+</ul>
 
-<h2>How to Choose Which Categories to Request</h2>
-<p>Category selection balances two competing factors: reach and winnability.</p>
-<p><strong>Reach</strong> means choosing categories where your target readers actually browse. A high-traffic category with 50,000 competing books gives you visibility in a crowded space — hard to rank, but the audience is real.</p>
-<p><strong>Winnability</strong> means choosing categories where your book can realistically achieve a visible rank. A category with 800 books where a BSR of 20,000 puts you in the top 50 is more valuable than a massive category where the same BSR puts you at position 15,000.</p>
-<p>The ideal mix is categories that are highly relevant to your book (ensuring the readers who find you are actually your audience) and where your competition level is low enough to rank visibly. Ghost categories — those not accessible through the standard picker — often offer this combination because most competing authors never request them.</p>
-<p>To find candidates, browse comparable books' product pages and read their full category list in the "Best Sellers Rank" section. Any path you've never seen in the KDP picker is a potential ghost category worth evaluating.</p>
+<h2>Formats and Marketplaces</h2>
+<p>Some categories aren't available for every format — ebook, paperback, or comic — and categories differ between marketplaces such as Amazon.com and Amazon.co.jp. KDP suggests focusing on your primary marketplace and picking the best-matching category between formats when you need to.</p>
 
-<h2>Categories and Keywords — How They Work Together</h2>
-<p>Categories control browse placement — which browse paths lead to your book. Backend keyword slots control search placement — which queries surface your book. Amazon uses both signals together, and some categories are keyword-gated: specific phrases in your backend keyword fields signal to Amazon that your book belongs in a particular category, supplementing the formal placement request.</p>
-<p>This means keyword optimization and category optimization should be done together. Once your categories are set, make sure your backend keyword phrases reinforce the same genre, trope, and audience signals your category placements establish. A mismatch between your categories and keywords can reduce how much browse traffic you actually capture from category placement.</p>
-<p>The <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> generates both: 7 keyword phrases for your backend fields and full category paths — including ghost categories — with the exact text for a KDP support request, so keyword and category signals align from the start.</p>
-<p>For a deeper look at category strategy — ghost category discovery, how keyword-category gating works, and maximizing your 10-category limit — see the <a href="/kdp-category-keywords" style="color:var(--gold,#c9a84c);text-decoration:none">KDP category keywords guide</a>.</p>`,
+<h2>How to Choose Your 3 Categories</h2>
+<p>KDP's own tips are to research your genre and see where similar books are categorized, pick categories that accurately describe your book, and "aim for categories that are popular enough to have reader interest, but not so broad (or specific) that your book gets lost."</p>
+<p>In practice — this part is our advice, not KDP policy — that balance comes down to two questions for each candidate category:</p>
+<p><strong>Reach:</strong> do your target readers actually browse here? A large category gives visibility in a crowded space — hard to rank, but the audience is real.</p>
+<p><strong>Winnability:</strong> can your book realistically reach a visible rank here? A smaller, well-fitting category can show your book to more of the right readers than a huge one where it sits far down the list.</p>
+<p>To find candidates, open comparable books' product pages and read the categories listed in their "Best Sellers Rank" section, then look for those paths — or the closest match — in KDP's list. See <a href="/kdp-keyword-guide/how-to-find-amazon-ghost-categories" style="color:var(--gold,#c9a84c);text-decoration:none">what to do when a category isn't in KDP's list</a>.</p>
+
+<h2>Categories and Keywords Work Together</h2>
+<p>KDP says categories, "along with keywords you select, tell Amazon where to 'shelve' your book," and that if you can't find a specific category, keywords can help Amazon decide how to shelve it. So choose your 3 categories and your seven keyword phrases together, and make them describe the same book: the same genre, tropes, and reader.</p>
+<p>The <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> suggests both keyword phrases and category paths for your book; check each path against the list KDP offers you. For more on how the two fit together, see the <a href="/kdp-category-keywords" style="color:var(--gold,#c9a84c);text-decoration:none">KDP category keywords guide</a>.</p>`,
     faq: [
       {
-        q: 'Can I request more than 10 categories?',
-        a: "No. Amazon's policy caps books at 10 categories total. KDP support will not add categories beyond that limit. If you want to change which 10 categories you're in, you can request removals and substitutions — categories aren't permanently locked to a book.",
+        q: 'Can I have more than 3 categories?',
+        a: "KDP's Categories page and Metadata Guidelines both describe choosing 3 categories in KDP. Neither describes a way to add more, by contacting support or otherwise.",
       },
       {
-        q: "Can I remove a category I'm already in?",
-        a: "Yes. Contact KDP support with your ASIN and the category path you want removed. This is useful if you've been placed in a category that's no longer relevant, or if you want to swap one placement for a better-fit option within your 10-category limit.",
+        q: 'Can I change my categories after publishing?',
+        a: "Yes. Open Edit details for the book on your Bookshelf, change the categories in the Categories section, and submit. KDP says it can take up to 72 hours for the book to display in its new categories.",
       },
       {
-        q: 'Does having more categories improve my BSR?',
-        a: "Each category generates its own separate BSR. Being in 10 categories gives you 10 BSR rankings — each of which can display a #1 Bestseller badge at different rank thresholds. The underlying sales data is the same; only the category context changes how that rank is expressed. More relevant categories also means more browse paths that can lead readers to your product page.",
+        q: 'Are categories the same for my ebook and paperback?',
+        a: "Not always. KDP says some categories aren't available for every format, and categories also differ between marketplaces. It suggests focusing on your primary marketplace and picking the best-matching category between formats when needed.",
       },
       {
-        q: 'Does it matter which 2 categories I pick during upload?',
-        a: "Yes. The 2 categories selected during upload are active immediately when your book goes live. Choose your 2 upload categories to be the highest-priority ones — where your target readers are most likely to browse and where immediate placement from launch day matters most.",
+        q: 'Can KDP support choose my categories for me?',
+        a: "No. KDP's Categories page says: \"The KDP Support Team cannot give you specific recommendations or strategies for picking book categories.\"",
       },
       {
-        q: 'How often can I change my categories?',
-        a: "There's no stated limit on how often you can contact KDP support to modify categories. In practice, frequent changes reduce the time your book spends accumulating rank signals in any single category. Establish your core category set at launch, then adjust only when there's a clear strategic reason — a better-fit ghost category you've identified, or a category that's generating no traffic.",
+        q: 'What happens if I pick a category that doesn\'t fit my book?',
+        a: "KDP says that if an unrelated category is selected, it may remove or change the category. Its Metadata Guidelines also say it does not tolerate selecting categories to mislead or manipulate customers.",
       },
     ],
   },
@@ -246,7 +249,7 @@ export const KDP_GUIDE_ARTICLES = [
     title: 'KDP Backend Keywords vs Amazon Search Terms — What\'s the Difference',
     body: `<h2>Backend Keywords: What They Are and Where You Enter Them</h2>
 <p>When you publish a book on KDP, the publishing workflow includes a "Keywords" step with 7 fields. These are backend keywords — called "backend" because they're not visible to readers on your product page. Readers never see them. They exist purely as metadata that Amazon's search index uses to determine when to surface your book in search results.</p>
-<p>Each field accepts up to 50 characters. Amazon treats each field as a phrase unit — what you enter functions as a search phrase that readers might type, not as a bag of individual words. A reader doesn't need to type your exact phrase to trigger a match; Amazon has natural language flexibility. But phrases that closely mirror actual reader search behavior will match more reliably than abstract keyword strings.</p>
+<p>KDP's <a href="https://kdp.amazon.com/en_US/help/topic/G201298500" target="_blank" rel="noopener nofollow" style="color:var(--gold,#c9a84c);text-decoration:none">keywords help page</a> asks you to "keep an eye on the character limit in the text field" rather than giving a number, so check the counter in the field as you type. Amazon treats each field as a phrase unit — what you enter functions as a search phrase that readers might type, not as a bag of individual words. A reader doesn't need to type your exact phrase to trigger a match; Amazon has natural language flexibility. But phrases that closely mirror actual reader search behavior will match more reliably than abstract keyword strings.</p>
 
 <h2>Amazon Search Terms: Where They Come From</h2>
 <p>"Search terms" is Amazon's broader concept — the full set of signals Amazon uses to determine what searches your book is relevant for. Your backend keyword fields are one direct input into that set, but not the only one.</p>
@@ -274,9 +277,9 @@ export const KDP_GUIDE_ARTICLES = [
 <p>Since backend keywords are your primary direct control, optimize them for phrases your title and description don't already cover:</p>
 <p><strong>Don't repeat title words.</strong> Amazon already indexes these — backend slots spent on them add no new coverage.</p>
 <p><strong>Match reader search phrase patterns for your genre.</strong> Fiction readers search by trope, setting, and sub-genre ("enemies to lovers slow burn contemporary"). Nonfiction readers search by problem and outcome ("how to start a business with no money beginners"). Match the query structure your genre's readers actually use, not how you'd describe the book to another author.</p>
-<p><strong>Use the full 50 characters.</strong> "Enemies to lovers billionaire fake engagement romance" is more valuable than "romance fiction contemporary" — it's specific, it's a complete phrase, and it matches how readers who want that exact book search.</p>
+<p><strong>Use the space the field gives you.</strong> "Enemies to lovers billionaire fake engagement romance" is more valuable than "romance fiction contemporary" — it's specific, it's a complete phrase, and it matches how readers who want that exact book search.</p>
 <p><strong>Revisit every 60–90 days.</strong> As behavioral data accumulates, you'll have better information about which signals are working. KDP's Traffic Diagnostics report shows organic page views — the clearest proxy for keyword-driven discovery.</p>
-<p>If you want 7 phrases already structured for reader search behavior in your specific genre — formatted within the 50-character limit and filtered for Amazon's prohibited terms — the <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> generates them from your book's genre, comparable titles, target reader, and themes.</p>`,
+<p>If you want 7 phrases already structured for reader search behavior in your specific genre — filtered for Amazon's prohibited terms — the <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> generates them from your book's genre, comparable titles, target reader, and themes.</p>`,
     faq: [
       {
         q: 'Are "backend keywords" and "search terms" the same thing on KDP?',
@@ -296,7 +299,7 @@ export const KDP_GUIDE_ARTICLES = [
       },
       {
         q: 'How many words can I put in each KDP keyword field?',
-        a: 'Each field allows up to 50 characters including spaces — there\'s no word limit, only the character limit. A phrase like "slow burn enemies to lovers college setting" is 42 characters and 8 words; "psychological thriller unreliable narrator memory" is 49 characters and 5 words. Maximize characters with a phrase that closely mirrors real reader search behavior for your genre.',
+        a: 'KDP\'s keywords help page doesn\'t set a word count. It asks for up to seven keywords or short phrases and tells you to "keep an eye on the character limit in the text field," so check the counter in the field as you type. A phrase like "slow burn enemies to lovers college setting" is 43 characters and 7 words; "psychological thriller unreliable narrator memory" is 49 characters and 5 words. Use the space for a phrase that closely mirrors how readers in your genre search.',
       },
     ],
   },
