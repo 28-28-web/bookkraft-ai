@@ -117,6 +117,10 @@ export default async function CoverRequirementsPage({ params }) {
           ))}
         </div>
 
+        <p style={{ fontSize: 14, color: 'var(--mid)', margin: '-28px 0 40px' }}>
+          Comparing platforms? See the <Link href="/book-cover-size" className="link-gold">book cover size guide</Link> for every store side by side.
+        </p>
+
         <h2 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: 10, color: 'var(--ink)' }}>
           Detailed requirements
         </h2>
@@ -155,10 +159,10 @@ export default async function CoverRequirementsPage({ params }) {
 
         <div className="info-card">
           <p style={{ fontWeight: 700, fontSize: 16, marginBottom: 6, color: 'var(--ink)' }}>
-            Check your cover against {req.platform} requirements
+            Check your ebook cover against KDP and Apple Books rules
           </p>
           <p style={{ fontSize: 14, color: 'var(--mid)', marginBottom: 16, lineHeight: 1.6 }}>
-            The free Cover Checker validates dimensions, color mode, and file format against publishing platform requirements — no signup required.
+            The free Cover Checker tests format, orientation, minimum and recommended size, aspect ratio and file size against KDP&apos;s ebook cover rules, and the shortest side against Apple Books&apos; 1400px minimum — no signup required.
           </p>
           <Link href="/tools/cover-checker" className="btn btn-gold btn-cta">
             Check Your Cover Free →
