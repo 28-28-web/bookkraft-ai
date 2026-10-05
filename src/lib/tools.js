@@ -371,7 +371,7 @@ export const TOOLS = [
         desc: 'Free EPUB validator and EPUB checker. Find structure, metadata and navigation errors before KDP or Apple Books does. No Java, no signup.',
         seoTitle: 'Free EPUB Validator Online — Check EPUB Errors for KDP',
         h1: 'Free EPUB Validator Online',
-        intro: 'Upload your EPUB and check formatting, structure and KDP compatibility.',
+        intro: 'Choose your EPUB and check formatting, structure and KDP compatibility.',
         accessType: 'free',
         creditCost: 0,
         free: true,

@@ -4,7 +4,7 @@ _Last updated: 2026-08-24_
 
 > Browser-based EPUB formatting, validation, and metadata tools for self-published authors publishing to KDP, Apple Books, Kobo, and Draft2Digital.
 
-BookKraft AI helps indie authors prepare ebook files for platform submission — including free EPUB validation against EPUBCheck 5.x, metadata editing, manuscript cleanup, and structured content guides covering EPUB errors, platform rejection causes, formatting mistakes, and publishing checklists. Output is compatible with Amazon KDP, Apple Books, Barnes & Noble, Kobo, Draft2Digital, Smashwords, OverDrive, Tolino, and Scribd.
+BookKraft AI helps indie authors prepare ebook files for platform submission — including a free EPUB validator that runs 11 structural checks in the browser, metadata editing, manuscript cleanup, and structured content guides covering EPUB errors, platform rejection causes, formatting mistakes, and publishing checklists. Output is compatible with Amazon KDP, Apple Books, Barnes & Noble, Kobo, Draft2Digital, Smashwords, OverDrive, Tolino, and Scribd.
 
 ## Core facts
 
@@ -27,7 +27,7 @@ BookKraft AI helps indie authors prepare ebook files for platform submission —
 
 ## Free Tools (No Account Required)
 
-- [EPUB Validator](https://bookkraftai.com/tools/epub-validator): Validates EPUB 2/3 against current EPUBCheck spec with plain-English error explanations. No signup.
+- [EPUB Validator](https://bookkraftai.com/tools/epub-validator): Free EPUB validator that runs 11 structural checks in the browser on EPUB 2/3 files, with plain-English error explanations. No signup.
 - [Metadata Builder](https://bookkraftai.com/tools/metadata-builder): Inspect and edit all OPF metadata fields — dc:title, dc:creator, dc:identifier, dc:language.
 - [Cover Checker](https://bookkraftai.com/tools/cover-checker): Validates cover image dimensions, color profile, and format against KDP, Apple Books, and Kobo requirements.
 - [Word Cleanup Checker](https://bookkraftai.com/tools/word-cleanup): Scans a manuscript for formatting habits from Word or Google Docs that cause EPUB conversion problems.
