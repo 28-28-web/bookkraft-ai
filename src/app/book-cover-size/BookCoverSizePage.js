@@ -116,7 +116,7 @@ export default function BookCoverSizePage() {
         <p style={{ fontSize: 13, opacity: 0.45, marginBottom: 28, marginTop: 0 }}>Last updated October 2026</p>
 
         <p style={{ fontSize: 19, lineHeight: 1.6, marginBottom: 28, opacity: 0.9 }}>
-          Cover size requirements vary by retailer and by format — ebook covers and print covers have different dimension standards, color mode requirements, and file format rules. This page covers cover sizes for every major retailer, ebook and print. Each section links to the full specifications for that platform and to the platform&apos;s own help page.
+          Cover size requirements vary by retailer and by format — ebook covers and print covers have different dimension standards, color mode requirements, and file format rules. This page lists book cover dimensions for every major retailer, ebook and print. Each section links to the full specifications for that platform and to the platform&apos;s own help page.
         </p>
 
         {/* Platform sections — read from coverRequirements.js */}

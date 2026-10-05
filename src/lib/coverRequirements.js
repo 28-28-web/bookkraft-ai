@@ -318,7 +318,7 @@ export const COVER_REQUIREMENTS = [
     metaTitle: 'KDP Cover Size & Requirements 2026 — Bleed, Spine & PDF Specs',
     metaDescription: 'KDP print cover size and requirements: one full-wrap PDF, 0.125in bleed, spine width from KDP\'s calculator, spine text at 79+ pages, 300 DPI, CMYK.',
     title: 'Amazon KDP Print Cover Requirements',
-    intro: '<p>KDP Print paperback covers are full-wrap PDF files — back cover, spine, and front in a single document — and are prepared completely differently from the ebook cover image. The most common failures are an incorrect spine width, missing bleed, and reusing the ebook cover image. KDP provides a cover template and calculator that removes most of the guesswork. Hardcover covers follow a separate KDP spec that uses a wrap instead of bleed.</p>',
+    intro: '<p>KDP paperback covers are full-wrap PDF files — back cover, spine, and front in a single document — and are prepared completely differently from the ebook cover image. The most common failures are an incorrect spine width, missing bleed, and reusing the ebook cover image. KDP provides a cover template and calculator that removes most of the guesswork. Hardcover covers follow a separate KDP spec that uses a wrap instead of bleed.</p>',
     specs: [
       { key: 'format', verified: true, label: 'File format', value: 'PDF (single full-wrap document)' },
       { key: 'resolution', verified: true, label: 'Resolution', value: '300 DPI' },
@@ -328,11 +328,11 @@ export const COVER_REQUIREMENTS = [
       { verified: true, label: 'Spine text', value: 'Only on books with at least 79 pages, kept clear of the fold' },
       { verified: true, label: 'Barcode area', value: 'Lower right of back cover left clear for KDP\'s barcode' },
     ],
-    details: '<p>KDP Print requires a single PDF containing the entire wrap: back cover on the left, spine in the middle, and front cover on the right. The total canvas size depends on trim size, page count, and paper type — KDP\'s Cover Calculator produces the exact dimensions and a template with the spine and bleed marked. Building on that template is the most reliable way to pass processing on the first attempt.</p><p>KDP\'s cover guidelines ask for images in CMYK and recommend against mixing color spaces in one file. Bleed of 0.125in is required on all outer edges so trimming does not leave white slivers. Leave the lower-right area of the back cover clear for KDP\'s barcode, which it adds automatically. Spine text is only allowed once the page count is high enough (at least 79 pages) for a spine wide enough to hold it — thinner books must leave the spine blank.</p>',
+    details: '<p>KDP requires a single PDF containing the entire paperback wrap: back cover on the left, spine in the middle, and front cover on the right. The total canvas size depends on trim size, page count, and paper type — KDP\'s Cover Calculator produces the exact dimensions and a template with the spine and bleed marked. Building on that template is the most reliable way to pass processing on the first attempt.</p><p>KDP\'s cover guidelines ask for images in CMYK and recommend against mixing color spaces in one file. Bleed of 0.125in is required on all outer edges so trimming does not leave white slivers. Leave the lower-right area of the back cover clear for KDP\'s barcode, which it adds automatically. Spine text is only allowed once the page count is high enough (at least 79 pages) for a spine wide enough to hold it — thinner books must leave the spine blank.</p>',
     commonMistakes: [
       {
         title: 'Reusing the ebook cover image',
-        description: 'The ebook cover is a single front-only RGB image. KDP Print needs a full-wrap PDF with back cover, spine, and front, plus bleed and a barcode area. Build the print cover separately from KDP\'s template.',
+        description: 'The ebook cover is a single front-only RGB image. A KDP paperback needs a full-wrap PDF with back cover, spine, and front, plus bleed and a barcode area. Build the print cover separately from KDP\'s template.',
       },
       {
         title: 'Incorrect spine width',
@@ -358,7 +358,7 @@ export const COVER_REQUIREMENTS = [
       },
     ],
     quickAnswer: [
-      { label: 'Cover size', value: 'Trim size plus spine and bleed. Width = 0.125in + back cover + spine + front cover + 0.125in; height = trim height + 0.25in. KDP\'s cover calculator gives the exact numbers.' },
+      { label: 'Cover dimensions', value: 'Trim size plus spine and bleed. Width = 0.125in + back cover + spine + front cover + 0.125in; height = trim height + 0.25in. KDP\'s cover calculator gives the exact numbers.' },
       { label: 'Bleed', value: '0.125in (3.175mm) on all outer edges' },
       { label: 'Spine', value: 'Width from KDP\'s cover calculator (page count and paper type). Spine text only on books with at least 79 pages.' },
       { label: 'Resolution', value: '300 DPI' },

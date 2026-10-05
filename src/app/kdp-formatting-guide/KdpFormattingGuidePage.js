@@ -512,7 +512,7 @@ export default function KdpFormattingGuidePage() {
                 <p style={{ fontSize: 16, lineHeight: 1.75, marginTop: 40, marginBottom: 24, opacity: 0.88 }}>
                     This guide covers ebook (Kindle) formatting specifically. If you are also publishing a print edition — or deciding whether to publish both — see the{' '}
                     <Link href="/kdp-print-vs-digital" style={LINK_STYLE}>KDP print vs digital guide</Link>{' '}
-                    for the file format, ISBN, royalty, and distribution differences between KDP ebook and KDP Print.
+                    for the file format, ISBN, royalty, and distribution differences between a Kindle ebook and a KDP paperback.
                 </p>
 
                 <RelatedLinks related={[
