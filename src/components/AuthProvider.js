@@ -1,16 +1,11 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { TOOL_CREDIT_COSTS } from '@/lib/toolCosts';
-import { TOOLS } from '@/lib/tools';
 
-// Free-tool set — single source of truth is lib/tools.js (t.free), the same
-// derivation the server uses in lib/toolAccess.js. Access-neutral: client
-// checkToolAccess only decides non-free tools (ToolPageClient short-circuits
-// free tools via tool.free before this list is consulted).
-const FREE_TOOLS = TOOLS.filter((t) => t.free).map((t) => t.slug);
-
-const AuthContext = createContext({});
+// Session only (user/profile/loading). It wraps every page, so it must stay
+// light: tool-access helpers need lib/tools.js (~28 KB gz) and live in
+// ToolAccessProvider, mounted by the (app) route group layout.
+export const AuthContext = createContext({});
 
 export function useAuth() {
     return useContext(AuthContext);
@@ -89,56 +84,6 @@ export function AuthProvider({ children }) {
         if (user) await loadProfile(user.id);
     }
 
-    function checkToolAccess(toolSlug) {
-        const freeTools = FREE_TOOLS;
-        if (freeTools.includes(toolSlug)) return true;
-        if (!profile) return false;
-        if (profile.has_full_access || profile.is_lifetime) return true;
-
-        const logicTools = [
-            'kindle-format-fixer', 'epub-formatter', 'toc-generator',
-            'front-matter-generator', 'css-snippet-generator',
-        ];
-        if (logicTools.includes(toolSlug)) {
-            return profile.has_logic_bundle === true;
-        }
-
-        const cost = TOOL_CREDIT_COSTS[toolSlug];
-        if (cost) {
-            return (profile.credits_balance || 0) >= cost;
-        }
-        return false;
-    }
-
-    function hasCredits(toolSlug) {
-        if (!profile) return false;
-        if (profile.is_lifetime) return true;
-        const cost = TOOL_CREDIT_COSTS[toolSlug];
-        if (!cost) return true;
-        return (profile.credits_balance || 0) >= cost;
-    }
-
-    function getToolAccessState(toolSlug) {
-        const freeTools = FREE_TOOLS;
-        if (freeTools.includes(toolSlug)) return 'free';
-        if (!profile) return 'locked';
-        if (profile.has_full_access || profile.is_lifetime) return 'full_access';
-
-        const logicTools = [
-            'kindle-format-fixer', 'epub-formatter', 'toc-generator',
-            'front-matter-generator', 'css-snippet-generator',
-        ];
-        if (logicTools.includes(toolSlug)) {
-            return profile.has_logic_bundle ? 'logic_owned' : 'logic_locked';
-        }
-
-        const cost = TOOL_CREDIT_COSTS[toolSlug];
-        if (cost) {
-            return (profile.credits_balance || 0) >= cost ? 'ai_enough' : 'ai_short';
-        }
-        return 'locked';
-    }
-
     useEffect(() => {
         if (!supabase) return;
         const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -169,8 +114,7 @@ export function AuthProvider({ children }) {
     return (
         <AuthContext.Provider value={{
             user, profile, loading, signOut,
-            refreshProfile, checkToolAccess, hasCredits,
-            getToolAccessState, supabase,
+            refreshProfile, supabase,
         }}>
             {children}
         </AuthContext.Provider>

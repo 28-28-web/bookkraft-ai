@@ -3,7 +3,6 @@ import Script from 'next/script';
 import localFont from 'next/font/local';
 import Navbar from '../components/Navbar';
 import { AuthProvider } from '../components/AuthProvider';
-import { ProjectProvider } from '../lib/ProjectContext';
 import { ToastProvider } from '../components/Toast';
 import CookieBanner from '../components/CookieBanner';
 import ToltScript from '../components/ToltScript';
@@ -30,19 +29,30 @@ const playfair = localFont({
   adjustFontFallback: 'Times New Roman',
 });
 
+// DM Sans is split in two instances only so that 400 alone is preloaded:
+// body text (hero paragraph = homepage LCP) needs it at first paint, while
+// 500/700 load normally from the CSS.
 const dmSans = localFont({
+  src: [{ path: './fonts/dm-sans-latin-400-normal.woff2', weight: '400', style: 'normal' }],
+  variable: '--font-dm-sans',
+  display: 'swap',
+  preload: true,
+});
+
+// 500/700 join the family above: next/font names a family after its JS
+// variable ("dmSans", which --font-dm-sans points at). Separate families
+// would make the browser fake bold from the 400 face. Renaming `dmSans`
+// means updating this value.
+const dmSansHeavy = localFont({
   src: [
-    { path: './fonts/dm-sans-latin-400-normal.woff2', weight: '400', style: 'normal' },
     { path: './fonts/dm-sans-latin-500-normal.woff2', weight: '500', style: 'normal' },
     { path: './fonts/dm-sans-latin-700-normal.woff2', weight: '700', style: 'normal' },
   ],
-  variable: '--font-dm-sans',
+  declarations: [{ prop: 'font-family', value: 'dmSans' }],
+  variable: '--font-dm-sans-heavy', // unused; keeps this instance's @font-face in the CSS
   display: 'swap',
-  // Body text renders above the fold (hero paragraph, nav links), so preload
-  // it to remove the CSS→font chain delay on FCP. Single instance keeps all
-  // weights under one family (--font-dm-sans); splitting would break 500/700
-  // fallback into faux-bold.
-  preload: true,
+  preload: false,
+  adjustFontFallback: false, // dmSans already defines the fallback metrics
 });
 
 const jetbrainsMono = localFont({
@@ -98,7 +108,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${dmSansHeavy.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable}`}>
       <head>
 
         {/* Fraunces is preloaded per page (/, /faq, /b/[n]), not here — most pages never use it. */}
@@ -176,16 +186,16 @@ export default function RootLayout({ children }) {
           }}
         />
 
+        {/* Session only. Tool-access helpers and ProjectProvider live in the
+            (app) route group layout so marketing pages don't ship them. */}
         <AuthProvider>
-          <ProjectProvider>
-            <ToastProvider>
-              <Navbar />
-              {children}
-              <DynamicComponents />
-              <CookieBanner />
-              <ToltScript />
-            </ToastProvider>
-          </ProjectProvider>
+          <ToastProvider>
+            <Navbar />
+            {children}
+            <DynamicComponents />
+            <CookieBanner />
+            <ToltScript />
+          </ToastProvider>
         </AuthProvider>
 
       </body>
