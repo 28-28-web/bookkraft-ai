@@ -328,7 +328,7 @@ export const CHECKLISTS = [
           '0.125 inch (3.175mm) bleed on all outer edges',
           'Spine width calculated from final page count and paper stock via the template generator',
           'Spine text kept clear of the fold with adequate margin (thin spines may not allow spine text)',
-          'ISBN barcode area on the back cover, lower right, at 100% scale',
+          'ISBN barcode on the back cover on a white box, not resized',
         ],
       },
       {
