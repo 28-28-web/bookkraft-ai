@@ -91,7 +91,7 @@ export default function ChapterBreaksEpubPage() {
           Two levels of chapter structure
         </h2>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
-          Authors coming from word processors often think of a chapter break as a heading — press Enter, type "Chapter 2", and the reader sees a new chapter. In EPUB, the concept splits into two separate things: the file structure (which XHTML files exist in the archive) and the heading structure (which h1/h2 elements are inside those files). The file structure controls actual page breaks; the heading structure controls TOC labels.
+          Authors coming from word processors often think of a chapter break as a heading — press Enter, type &quot;Chapter 2&quot;, and the reader sees a new chapter. In EPUB, the concept splits into two separate things: the file structure (which XHTML files exist in the archive) and the heading structure (which h1/h2 elements are inside those files). The file structure controls actual page breaks; the heading structure controls TOC labels.
         </p>
         <div style={{ overflowX: 'auto', marginBottom: 48 }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
@@ -173,7 +173,7 @@ export default function ChapterBreaksEpubPage() {
           {' '}for the nested nav.xhtml format.
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 48, opacity: 0.9 }}>
-          One common mistake: using Bold + large font-size to style a chapter title instead of the h1 element. Bold text styled to look like a heading does not create a TOC entry. TOC generators — including BookKraft's — detect h1/h2/h3 elements, not visual styling. The chapter title must use a real heading element.
+          One common mistake: using Bold + large font-size to style a chapter title instead of the h1 element. Bold text styled to look like a heading does not create a TOC entry. TOC generators — including BookKraft&apos;s — detect h1/h2/h3 elements, not visual styling. The chapter title must use a real heading element.
         </p>
 
         {/* CSS page breaks */}

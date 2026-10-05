@@ -141,7 +141,7 @@ export default function EpubFontsPage() {
           Fonts in EPUB Files
         </h1>
         <p style={{ fontSize: 17, color: 'var(--mid)', lineHeight: 1.7, marginBottom: 48 }}>
-          Embedding a font in an EPUB places the font file inside the archive so reading systems use it by default. Whether to embed — and which fonts to choose — depends on your book's genre, layout complexity, and your readers' devices. This guide covers the embed-or-not decision, font licensing, recommended typefaces for ebook reading, and how to declare fonts in the OPF manifest. For the CSS <code style={{ fontFamily: 'monospace', fontSize: 14 }}>@font-face</code> syntax that connects a declared font to your stylesheet, see the{' '}
+          Embedding a font in an EPUB places the font file inside the archive so reading systems use it by default. Whether to embed — and which fonts to choose — depends on your book&apos;s genre, layout complexity, and your readers&apos; devices. This guide covers the embed-or-not decision, font licensing, recommended typefaces for ebook reading, and how to declare fonts in the OPF manifest. For the CSS <code style={{ fontFamily: 'monospace', fontSize: 14 }}>@font-face</code> syntax that connects a declared font to your stylesheet, see the{' '}
           <Link href="/epub-css-for-ebooks" style={LINK}>EPUB CSS for ebooks guide</Link>.
         </p>
 
@@ -150,7 +150,7 @@ export default function EpubFontsPage() {
           Should you embed fonts?
         </h2>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
-          Embedding is not always the right choice. System fonts — the defaults built into Kindle, Apple Books, and Kobo devices — are optimized for their respective screens and are familiar to readers. Embedding adds file size and complexity. The decision depends on what you're publishing:
+          Embedding is not always the right choice. System fonts — the defaults built into Kindle, Apple Books, and Kobo devices — are optimized for their respective screens and are familiar to readers. Embedding adds file size and complexity. The decision depends on what you&apos;re publishing:
         </p>
         <div style={{ overflowX: 'auto', marginBottom: 48 }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
@@ -206,7 +206,7 @@ export default function EpubFontsPage() {
           Recommended fonts for ebook reading
         </h2>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
-          The best ebook fonts have generous x-height (legibility at small sizes), open apertures (letters that don't close up at low resolutions), and good spacing for reading long text. All of the following are available under OFL and safe to embed:
+          The best ebook fonts have generous x-height (legibility at small sizes), open apertures (letters that don&apos;t close up at low resolutions), and good spacing for reading long text. All of the following are available under OFL and safe to embed:
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 8, opacity: 0.9 }}>
           <strong>Serif — for body text in fiction and narrative non-fiction:</strong>

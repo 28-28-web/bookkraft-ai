@@ -239,13 +239,13 @@ export default function BookFrontMatterPage() {
       <div style={{ background: 'rgba(201,168,76,0.06)', border: '1px solid rgba(201,168,76,0.2)', borderRadius: 10, padding: '20px 24px', fontFamily: 'monospace', fontSize: 14, lineHeight: 2, marginBottom: 16, overflowX: 'auto' }}>
         <div>titlepage.xhtml</div>
         <div>copyright.xhtml</div>
-        <div>dedication.xhtml <span style={{ opacity: 0.5, fontFamily: 'inherit' }}>// optional</span></div>
+        <div>dedication.xhtml <span style={{ opacity: 0.5, fontFamily: 'inherit' }}>{'// optional'}</span></div>
         <div>toc.xhtml</div>
         <div>chapter01.xhtml</div>
         <div>chapter02.xhtml</div>
         <div style={{ opacity: 0.5 }}>...</div>
         <div>about-author.xhtml</div>
-        <div>also-by.xhtml <span style={{ opacity: 0.5, fontFamily: 'inherit' }}>// optional</span></div>
+        <div>also-by.xhtml <span style={{ opacity: 0.5, fontFamily: 'inherit' }}>{'// optional'}</span></div>
       </div>
       <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.85, marginBottom: 48 }}>
         The NCX and NAV documents (for table of contents navigation) reference the chapter files. Front and back matter files are listed in the spine but not in the NCX/NAV unless you want readers to be able to navigate directly to them. For full EPUB file requirements and structure, see the{' '}

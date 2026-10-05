@@ -107,7 +107,7 @@ export default function EpubTocGuidePage() {
           nav.xhtml format (EPUB 3)
         </h2>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
-          The nav.xhtml file is a complete XHTML document. The TOC itself lives inside a <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>{'<nav epub:type="toc">'}</code> element. Each chapter is an <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>{'<li>'}</code> containing a link to the chapter's XHTML file:
+          The nav.xhtml file is a complete XHTML document. The TOC itself lives inside a <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>{'<nav epub:type="toc">'}</code> element. Each chapter is an <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>{'<li>'}</code> containing a link to the chapter&apos;s XHTML file:
         </p>
         <pre style={{ background: 'var(--cream)', border: '1px solid var(--border)', borderRadius: 8, padding: '16px 20px', fontSize: 13, lineHeight: 1.65, overflowX: 'auto', marginBottom: 16, fontFamily: 'monospace' }}>
           <code>{`<?xml version="1.0" encoding="utf-8"?>
@@ -130,7 +130,7 @@ export default function EpubTocGuidePage() {
 </html>`}</code>
         </pre>
         <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.65, marginBottom: 48 }}>
-          The <code style={{ fontFamily: 'monospace', fontSize: 13, background: 'var(--cream)', padding: '1px 4px', borderRadius: 3 }}>epub:type="toc"</code> attribute on the <code style={{ fontFamily: 'monospace', fontSize: 13, background: 'var(--cream)', padding: '1px 4px', borderRadius: 3 }}>{'<nav>'}</code> element is required — it signals to reading systems that this element is the table of contents. Without it, the nav.xhtml file exists but may not be recognized as navigation.
+          The <code style={{ fontFamily: 'monospace', fontSize: 13, background: 'var(--cream)', padding: '1px 4px', borderRadius: 3 }}>epub:type=&quot;toc&quot;</code> attribute on the <code style={{ fontFamily: 'monospace', fontSize: 13, background: 'var(--cream)', padding: '1px 4px', borderRadius: 3 }}>{'<nav>'}</code> element is required — it signals to reading systems that this element is the table of contents. Without it, the nav.xhtml file exists but may not be recognized as navigation.
         </p>
 
         {/* toc.ncx format */}
@@ -138,7 +138,7 @@ export default function EpubTocGuidePage() {
           toc.ncx format (EPUB 2 / backward compatibility)
         </h2>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
-          The toc.ncx file uses a different XML structure. Each chapter is a <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>{'<navPoint>'}</code> element with a sequential <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>playOrder</code> attribute. The <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>dtb:uid</code> meta value should match the book's unique identifier from the OPF:
+          The toc.ncx file uses a different XML structure. Each chapter is a <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>{'<navPoint>'}</code> element with a sequential <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>playOrder</code> attribute. The <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>dtb:uid</code> meta value should match the book&apos;s unique identifier from the OPF:
         </p>
         <pre style={{ background: 'var(--cream)', border: '1px solid var(--border)', borderRadius: 8, padding: '16px 20px', fontSize: 13, lineHeight: 1.65, overflowX: 'auto', marginBottom: 48, fontFamily: 'monospace' }}>
           <code>{`<?xml version="1.0" encoding="utf-8"?>
@@ -203,7 +203,7 @@ export default function EpubTocGuidePage() {
           OPF manifest declarations
         </h2>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
-          Both navigation files must be declared in the OPF manifest. nav.xhtml requires the <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>properties="nav"</code> attribute so reading systems can locate it:
+          Both navigation files must be declared in the OPF manifest. nav.xhtml requires the <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>properties=&quot;nav&quot;</code> attribute so reading systems can locate it:
         </p>
         <pre style={{ background: 'var(--cream)', border: '1px solid var(--border)', borderRadius: 8, padding: '16px 20px', fontSize: 13, lineHeight: 1.65, overflowX: 'auto', marginBottom: 16, fontFamily: 'monospace' }}>
           <code>{`<!-- In content.opf, inside <manifest> -->
