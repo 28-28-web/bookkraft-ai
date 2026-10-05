@@ -119,7 +119,7 @@ export const CHECKLISTS = [
         heading: 'Publishing Setup',
         items: [
           'KDP Select enrollment decision made — KDP Select requires 90-day exclusivity to Amazon, blocking D2D and direct distribution',
-          'Pricing reviewed using KDP\'s Pricing Support tool to confirm royalty rate (70% royalty requires $2.99–$9.99 list price in most markets)',
+          'Pricing reviewed using KDP\'s Pricing Support tool to confirm royalty rate (70% royalty requires a $2.99–$12.99 list price on Amazon.com)',
           'Territory rights set correctly: Worldwide if you own global rights, specific territories if rights are limited',
           'Print edition (paperback/hardcover) set up separately if applicable — print interiors require a PDF, not an EPUB',
         ],
