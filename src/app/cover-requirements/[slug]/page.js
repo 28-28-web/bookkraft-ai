@@ -4,6 +4,7 @@ import { COVER_REQUIREMENTS, getCoverRequirementBySlug } from '@/lib/coverRequir
 import Footer from '@/components/Footer';
 import { buildBreadcrumbSchema } from '@/lib/seo';
 import RelatedLinks from '@/components/RelatedLinks';
+import CoverQuickAnswer from '@/components/CoverQuickAnswer';
 
 export const dynamicParams = false;
 
@@ -40,7 +41,7 @@ export default async function CoverRequirementsPage({ params }) {
     headline: req.metaTitle,
     description: req.metaDescription,
     datePublished: '2026-08-24',
-    dateModified: '2026-08-24',
+    dateModified: req.dateModified || '2026-08-24',
     author: {
       '@type': 'Organization',
       name: 'BookKraft AI',
@@ -90,6 +91,8 @@ export default async function CoverRequirementsPage({ params }) {
           style={{ fontSize: 16, lineHeight: 1.75, marginBottom: 32, color: 'var(--ink)' }}
           dangerouslySetInnerHTML={{ __html: req.intro }}
         />
+
+        <CoverQuickAnswer items={req.quickAnswer} platform={req.platform} />
 
         <h2 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: 12, color: 'var(--ink)' }}>
           Specifications at a glance
