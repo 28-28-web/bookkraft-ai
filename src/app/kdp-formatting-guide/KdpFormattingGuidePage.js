@@ -372,7 +372,7 @@ export default function KdpFormattingGuidePage() {
                     tools={[TOOL_LINKS.kindleFormatFixer]}
                 >
                     <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
-                        Kindle books are delivered in Amazon&apos;s KFX format. You never submit KFX directly — KDP converts your uploaded EPUB or Word document. What you control is how clean the source file is before conversion.
+                        Kindle books are delivered in Amazon&apos;s KFX format. You never submit KFX directly — KDP converts your uploaded EPUB, Word or KPF file. What you control is how clean the source file is before conversion.
                     </p>
                     <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
                         <li><strong>Reflowable vs fixed layout.</strong> Reflowable lets text adapt to any screen size and font setting. Fixed layout locks the page design — useful for illustrated children&apos;s books but it breaks on small screens and large-text accessibility settings. For prose and most non-fiction, use reflowable.</li>

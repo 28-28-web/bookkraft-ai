@@ -11,7 +11,7 @@ export const metadata = {
 const comparisonRows = [
   {
     feature: 'File format submitted',
-    ebook: 'EPUB or Word DOCX',
+    ebook: 'EPUB, Word (DOC/DOCX) or KPF',
     print: 'PDF (interior) + PDF or JPG (cover)',
   },
   {
