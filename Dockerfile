@@ -29,6 +29,8 @@ RUN adduser --system --uid 1001 nextjs
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# Coolify post-deployment command: node scripts/purge-cache.mjs
+COPY --from=builder --chown=nextjs:nodejs /app/scripts/purge-cache.mjs ./scripts/purge-cache.mjs
 
 USER nextjs
 EXPOSE 3000

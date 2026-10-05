@@ -145,9 +145,11 @@ export const nextConfig = { // named export: src/lib/ghost.js reads redirects()
         headers: [
           {
             key: 'Cache-Control',
-            // No edge caching of HTML: a cached page points at the previous build's
-            // chunks, which 404 after deploy. Next's own ISR cache still serves fast.
-            value: 'public, max-age=0, must-revalidate',
+            // Marketing HTML: Cloudflare's cache rule uses this as the edge TTL.
+            // Kept short because a cached page points at the previous build's
+            // chunks, which 404 after deploy (that's why s-maxage=86400 was
+            // dropped). Browsers always revalidate. App/API paths override below.
+            value: 'public, max-age=0, s-maxage=300, must-revalidate',
           },
           {
             key: 'Referrer-Policy',
@@ -217,9 +219,13 @@ export const nextConfig = { // named export: src/lib/ghost.js reads redirects()
       },
       {
         // Must come AFTER the /(.*) catch-all so it wins the Cache-Control key.
-        // OAuth codes are single-use — no caching at any layer.
-        source: '/auth/callback',
-        headers: [{ key: 'Cache-Control', value: 'no-store' }],
+        // User, app, auth and API paths: no caching at any layer, whether or not
+        // the Cloudflare cache rule excludes them. /login and /signup run the
+        // session proxy (signed-in redirect, refreshed cookies); OAuth codes on
+        // /auth/callback are single-use. Route handlers can't override this:
+        // Next skips a handler's Cache-Control when config already set one.
+        source: '/:p(dashboard|account|history|credits|onboarding|admin|api|checkout|auth|login|signup|welcome|forgot-password)/:path*',
+        headers: [{ key: 'Cache-Control', value: 'private, no-store' }],
       },
     ];
   },
