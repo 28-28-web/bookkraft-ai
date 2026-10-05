@@ -2,7 +2,7 @@ import KindleEpubFormatPage from './KindleEpubFormatPage';
 
 export const metadata = {
   title: 'Does Kindle Support EPUB? Kindle Format Guide for Authors | BookKraft AI',
-  description: 'Yes — Kindle supports EPUB since 2022. How Kindle formats work (EPUB, AZW3, MOBI, KFX), which format to submit to KDP, and why EPUB beats PDF for ebook publishing.',
+  description: 'Yes, Kindle reads EPUB. What to upload to KDP (EPUB, Word or KPF), what Kindle uses internally (KFX, AZW3), why MOBI is retired, and EPUB vs PDF.',
   alternates: {
     canonical: 'https://bookkraftai.com/kindle-epub-format',
   },

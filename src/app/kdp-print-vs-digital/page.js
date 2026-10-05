@@ -165,8 +165,8 @@ export default function KdpPrintVsDigitalPage() {
           File format requirements
         </h2>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
-          Ebook submissions accept EPUB or Word DOCX. KDP converts DOCX internally, though submitting a properly formatted EPUB gives you more control over the final output. For a reference on EPUB structure for Kindle, see the{' '}
-          <Link href="/kindle-epub-format" style={LINK}>Kindle EPUB format guide</Link>.
+          KDP ebook uploads accept EPUB, Word (DOC/DOCX) and KPF files from Kindle Create, among other formats. KDP converts DOCX internally, though submitting a properly formatted EPUB gives you more control over the final output. For the full list, see{' '}
+          <Link href="/kindle-epub-format" style={LINK}>which ebook file to upload to KDP</Link>.
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 48, opacity: 0.9 }}>
           Print submissions require two PDF files: the interior (all pages, correct trim size, no crop marks) and the cover (front, spine, and back with bleed). KDP provides a cover template calculator that generates exact dimensions once you enter your page count and paper type — use it, because spine width depends on page count and paper, and an off-width cover PDF will be rejected.
@@ -224,7 +224,7 @@ export default function KdpPrintVsDigitalPage() {
           <Link href="/kdp-ebook-pricing" style={LINK}>KDP ebook pricing guide</Link>.
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 48, opacity: 0.9 }}>
-          KDP print royalties are calculated as list price minus printing cost minus distribution fee. The printing cost is determined by page count, paper type, and trim size. The distribution fee differs between standard Amazon sales and Expanded Distribution sales. KDP's royalty calculator in the dashboard accepts your page count and trim size and shows your royalty per sale at different price points — use it before committing to a price.
+          KDP print royalties are calculated as list price minus printing cost minus distribution fee. The printing cost is determined by page count, paper type, and trim size. The distribution fee differs between standard Amazon sales and Expanded Distribution sales. KDP&apos;s royalty calculator in the dashboard accepts your page count and trim size and shows your royalty per sale at different price points — use it before committing to a price.
         </p>
 
         {/* KDP Select */}

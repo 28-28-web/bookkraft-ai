@@ -301,7 +301,7 @@ export default function BookCoverSizePage() {
           {' '}for the full rejection checklist. Check cover dimensions and format before uploading with the{' '}
           <Link href="/tools/cover-checker" style={LINK}>Cover Checker</Link>
           {' '}— free, no account needed. For ebook interior format requirements — EPUB vs PDF vs MOBI and which platforms accept each — see the{' '}
-          <Link href="/blog/best-ebook-formats-epub-vs-pdf-vs-mobi" style={LINK}>ebook format guide</Link>
+          <Link href="/blog/best-ebook-formats-epub-vs-pdf-vs-mobi" style={LINK}>EPUB vs PDF vs MOBI comparison</Link>
           .
         </p>
 

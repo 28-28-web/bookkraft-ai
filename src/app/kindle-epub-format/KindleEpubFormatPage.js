@@ -4,15 +4,15 @@ import ChecklistOptin from '@/components/ChecklistOptin';
 const faqs = [
   {
     q: 'Does Kindle support EPUB?',
-    a: "Yes. Amazon accepts EPUB through Send to Kindle and converts it to the Kindle format for delivery — you no longer need to make a MOBI yourself. Before Send to Kindle added EPUB in 2022, readers had to convert files manually. For authors, KDP has accepted EPUB submissions for years, and it's the recommended format for publishing to Amazon.",
+    a: "Yes. Amazon accepts EPUB through Send to Kindle and converts it to the Kindle format for delivery — you no longer need to make a MOBI yourself. Before Send to Kindle added EPUB in 2022, readers had to convert files manually. For authors, EPUB is one of the formats KDP accepts for publishing to Amazon, along with Word (DOC/DOCX) and KPF files from Kindle Create.",
   },
   {
     q: 'Which format should I submit to KDP — EPUB or MOBI?',
-    a: "EPUB. Amazon recommends EPUB 3 as the primary submission format. KDP converts the EPUB to its internal formats (AZW3/KFX) after upload — you don't need to produce MOBI or AZW3 files yourself. Submitting MOBI is still accepted but MOBI is the older format with fewer features. EPUB 3 gives KDP the cleanest input for its conversion pipeline.",
+    a: "EPUB, not MOBI. KDP no longer accepts MOBI: it ended MOBI support for reflowable ebooks on August 1, 2021 and for fixed-layout ebooks on March 18, 2025. Besides EPUB, KDP also accepts Word (DOC/DOCX) and KPF files from Kindle Create. KDP converts your upload to its internal formats (AZW3/KFX), so you don't need to produce MOBI, AZW3 or KFX files yourself.",
   },
   {
     q: 'Can Kindle read PDF files?',
-    a: "Yes — readers can send PDF files to their Kindle via the Send to Kindle service or USB transfer. But PDF on Kindle is a poor reading experience: the fixed-page layout doesn't reflow to the screen size, small text stays small, and font-size adjustments have no effect. For authors: never submit a PDF to KDP as your ebook file. KDP accepts PDFs for print interior layouts, not for ebook distribution. Always submit EPUB for ebooks.",
+    a: "Yes — readers can send PDF files to their Kindle via the Send to Kindle service or USB transfer. But PDF on Kindle is a poor reading experience: the fixed-page layout doesn't reflow to the screen size, small text stays small, and font-size adjustments have no effect. For authors: KDP lists PDF only as an additional ebook format, for some languages. Its suggested formats are EPUB, Word (DOC/DOCX) and KPF, which give readers reflowable text.",
   },
   {
     q: 'What is the difference between MOBI, AZW3, and KFX?',
@@ -20,15 +20,15 @@ const faqs = [
   },
   {
     q: 'Will my EPUB pass KDP validation?',
-    a: "KDP accepts EPUB 2 and EPUB 3 but has specific requirements: a cover image declared in the package manifest, a valid nav document (EPUB 3), no encrypted content, and images meeting minimum resolution thresholds. The free EPUB Validator checks for all of these before you upload — catching validation failures at submission costs time and can delay publishing.",
+    a: "KDP supports EPUB files that meet the specifications in its Kindle Publishing Guidelines, and recommends validating the file with Kindle Previewer before you upload. As an extra check, the free EPUB Validator runs 11 structural checks in your browser, including the cover declaration and navigation.",
   },
   {
     q: 'What is EPUB 3 vs EPUB 2?',
-    a: "EPUB 3 is the current standard. It's based on HTML5 and CSS3, requires a nav.xhtml navigation document, supports media overlays and accessibility metadata, and is required by Apple Books and Kobo. EPUB 2 uses older HTML 4 / XHTML 1.1 and an older NCX-based table of contents. KDP accepts both, but EPUB 3 produces better conversion output. BookKraft AI's EPUB Formatter outputs EPUB 3.",
+    a: "EPUB 3 is the current standard. It's based on HTML5 and CSS3, requires a nav.xhtml navigation document, supports media overlays and accessibility metadata, and is the only version Apple's current Books Asset Guide covers. EPUB 2 uses older HTML 4 / XHTML 1.1 and an older NCX-based table of contents. KDP supports EPUB files that meet its Kindle Publishing Guidelines. BookKraft AI's EPUB Formatter outputs EPUB 3.",
   },
   {
     q: 'Should I use EPUB or PDF for selling ebooks?',
-    a: "EPUB for selling through retailers (Amazon KDP, Apple Books, Kobo, IngramSpark). These platforms require EPUB — PDF submissions are rejected or accepted only for print interiors. PDF is appropriate if you're selling directly from your own website as a downloadable file and your content benefits from a fixed layout (heavily designed books, workbooks, visual guides). For standard novels and nonfiction, EPUB is the correct format for distribution everywhere.",
+    a: "EPUB for selling through retailers (Amazon KDP, Apple Books, Kobo, IngramSpark). These platforms take EPUB for ebooks (KDP also takes Word and KPF files). PDF isn't a Kobo or Draft2Digital ebook format, and KDP accepts it only for some languages. PDF is appropriate if you're selling directly from your own website as a downloadable file and your content benefits from a fixed layout (heavily designed books, workbooks, visual guides). For standard novels and nonfiction, EPUB is the correct format for distribution everywhere.",
   },
   {
     q: 'Can I send an EPUB to my Kindle directly?',
@@ -41,25 +41,43 @@ const formats = [
     format: 'EPUB 3',
     producer: 'Industry standard',
     kindle: '✓ Native (2022+)',
-    kdpSubmit: '✓ Recommended',
-    appleBooks: '✓ Required',
-    kobo: '✓ Required',
+    kdpSubmit: '✓ Suggested format',
+    appleBooks: '✓ Covered by Apple\'s asset guide',
+    kobo: '✓ ePub accepted',
     notes: 'Submit this to KDP. BookKraft AI outputs EPUB 3.',
   },
   {
     format: 'EPUB 2',
     producer: 'Older standard',
     kindle: '✓ Converted',
-    kdpSubmit: '✓ Accepted',
-    appleBooks: '⚠ Often rejected',
-    kobo: '⚠ Often rejected',
-    notes: 'Still accepted by KDP but produces lower-quality conversion. Avoid for new books.',
+    kdpSubmit: '✓ EPUB accepted',
+    appleBooks: '— Not in Apple\'s current guide',
+    kobo: '✓ ePub accepted',
+    notes: 'Older EPUB version. Apple\'s current asset guide covers EPUB 3 only, so use EPUB 3 for new books.',
+  },
+  {
+    format: 'Word (DOC/DOCX)',
+    producer: 'Microsoft Word',
+    kindle: '—',
+    kdpSubmit: '✓ Suggested format',
+    appleBooks: '—',
+    kobo: '✓ Converted to ePub',
+    notes: 'KDP converts it for Kindle. Complex formatting may not convert well; check the result in Kindle Previewer.',
+  },
+  {
+    format: 'KPF',
+    producer: 'Amazon Kindle Create',
+    kindle: '—',
+    kdpSubmit: '✓ Suggested format',
+    appleBooks: '—',
+    kobo: '—',
+    notes: 'Kindle Package Format, made with Amazon\'s free Kindle Create tool. Amazon-only.',
   },
   {
     format: 'AZW3 / KF8',
     producer: 'Amazon',
     kindle: '✓ Native',
-    kdpSubmit: '✓ Accepted',
+    kdpSubmit: '✗ Not a KDP upload format',
     appleBooks: '—',
     kobo: '—',
     notes: 'Amazon\'s HTML5-based format. KDP generates this from your EPUB — no need to produce it yourself.',
@@ -68,10 +86,10 @@ const formats = [
     format: 'MOBI',
     producer: 'Amazon (legacy)',
     kindle: '✓ Native',
-    kdpSubmit: '✓ Accepted',
+    kdpSubmit: '✗ No longer accepted',
     appleBooks: '—',
     kobo: '—',
-    notes: 'Older format, limited CSS support. Accepted but not recommended for new submissions.',
+    notes: 'Retired. KDP ended MOBI uploads for reflowable ebooks on August 1, 2021 and for fixed-layout ebooks on March 18, 2025.',
   },
   {
     format: 'KFX',
@@ -86,9 +104,9 @@ const formats = [
     format: 'PDF',
     producer: 'Any',
     kindle: '⚠ Fixed layout only',
-    kdpSubmit: '✗ Print interior only',
-    appleBooks: '✗',
-    kobo: '✗',
+    kdpSubmit: '⚠ Some languages only; not a suggested format',
+    appleBooks: '—',
+    kobo: '✗ Not a Kobo upload format',
     notes: 'Not suitable for ebook distribution. Fixed layout breaks reflow on all screen sizes.',
   },
 ];
@@ -96,8 +114,8 @@ const formats = [
 const epubVsPdf = [
   {
     aspect: 'Retailer distribution',
-    epub: '✓ KDP, Apple Books, Kobo, IngramSpark all require EPUB',
-    pdf: '✗ Rejected by all major ebook retailers',
+    epub: '✓ Accepted by KDP, Apple Books, Kobo and IngramSpark',
+    pdf: '⚠ Google Play accepts it; KDP only in some languages; not a Kobo or Draft2Digital ebook format',
   },
   {
     aspect: 'Font size adjustment',
@@ -141,12 +159,13 @@ export default function KindleEpubFormatPage() {
 
         <div style={{ padding: '20px 24px', background: 'rgba(201,168,76,0.08)', border: '2px solid rgba(201,168,76,0.35)', borderRadius: 10, marginBottom: 36 }}>
           <p style={{ fontSize: 18, lineHeight: 1.6, margin: 0, fontWeight: 500 }}>
-            <strong>Yes.</strong> Amazon accepts EPUB through KDP and Send to Kindle, then converts it for Kindle delivery. For authors publishing on Amazon: KDP has accepted EPUB submissions for years and recommends EPUB 3 as the primary format for ebook publishing. You don&apos;t need to produce MOBI or AZW3 files — submit EPUB and KDP handles the conversion.
+            <strong>Yes.</strong> Amazon accepts EPUB through KDP and Send to Kindle, then converts it for Kindle delivery. For authors publishing on Amazon: KDP accepts EPUB, Word (DOC/DOCX) and KPF files made with Kindle Create, among other formats. It no longer accepts MOBI. You don&apos;t need to produce MOBI, AZW3 or KFX files — KDP handles the conversion.
           </p>
         </div>
 
         <p style={{ fontSize: 19, lineHeight: 1.6, marginBottom: 32, opacity: 0.9 }}>
-          This guide covers how Kindle formats work, which format to submit when publishing on KDP, and why EPUB beats PDF for ebook distribution — with a comparison table of every format Kindle reads.
+          This guide is about Kindle and KDP specifically: which file to upload to KDP, how Kindle formats work, and why EPUB beats PDF on Kindle — with a table of every format Kindle reads. For a general comparison across all stores and devices, see{' '}
+          <Link href="/blog/best-ebook-formats-epub-vs-pdf-vs-mobi" style={{ color: '#9c7f35', textDecoration: 'none' }}>EPUB vs PDF vs MOBI: ebook formats compared</Link>.
         </p>
 
         {/* Format comparison table */}
@@ -190,14 +209,14 @@ export default function KindleEpubFormatPage() {
 
         {/* Kindle format history */}
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
-          EPUB vs MOBI vs KFX — what Kindle actually uses
+          MOBI, AZW3 and KFX — what Kindle actually uses
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
           Kindle has used three main formats over its history. As an author, you only need to know which one to submit — KDP handles the rest.
         </p>
         <ul style={{ fontSize: 17, lineHeight: 1.9, opacity: 0.9, paddingLeft: 24, marginBottom: 24 }}>
           <li>
-            <strong>MOBI</strong> — Kindle&apos;s original format (2007). Based on the PalmDOC standard, limited CSS support, widely compatible with all Kindle generations. Still accepted by KDP but now the oldest and least capable of the three.
+            <strong>MOBI</strong> — Kindle&apos;s original format (2007). Based on the PalmDOC standard, limited CSS support, widely compatible with all Kindle generations. KDP no longer accepts MOBI uploads: support ended August 1, 2021 for reflowable ebooks and March 18, 2025 for fixed-layout.
           </li>
           <li>
             <strong>AZW3 (KF8)</strong> — Replaced MOBI as Kindle&apos;s primary format around 2011. HTML5 and CSS3 support, better typography and layout control. KDP generates AZW3 from your EPUB submission.
@@ -212,10 +231,10 @@ export default function KindleEpubFormatPage() {
 
         {/* EPUB vs PDF */}
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
-          EPUB vs PDF for ebook publishing
+          EPUB vs PDF for Kindle and KDP
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 20, opacity: 0.9 }}>
-          PDF is not a viable ebook format for retail distribution. The comparison:
+          PDF has limited retail support for ebooks: KDP accepts it only for some languages, and Kobo and Draft2Digital don&apos;t take it as an ebook format. The comparison:
         </p>
         <div style={{ overflowX: 'auto', marginBottom: 48 }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15 }}>
@@ -238,7 +257,7 @@ export default function KindleEpubFormatPage() {
           </table>
         </div>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 40, opacity: 0.9 }}>
-          PDF has one legitimate ebook use case: direct download sales from your own website for content where exact visual layout matters — heavily designed workbooks, graphic-heavy guides, formatted planners. For standard novels, memoir, and most nonfiction, EPUB is the correct format for everywhere that matters.
+          PDF makes most sense where exact visual layout matters, for example direct download sales from your own website — heavily designed workbooks, graphic-heavy guides, formatted planners. For standard novels, memoir, and most nonfiction, EPUB is the correct format for everywhere that matters.
         </p>
 
         {/* How to submit EPUB to KDP */}

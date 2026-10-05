@@ -360,7 +360,7 @@ export default function KdpFormattingGuidePage() {
                         <li><strong>Chapter XHTML files</strong> — each chapter as a separate .xhtml file, declared in the manifest and ordered in the spine.</li>
                     </ul>
                     <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
-                        <Link href="/tools/epub-formatter" style={LINK_STYLE}>EPUB Formatter</Link> generates a valid EPUB 3 from pasted manuscript text — no Calibre, no Sigil, included in the Starter plan. <Link href="/tools/manuscript-mode" style={LINK_STYLE}>Full Manuscript Mode</Link> accepts .docx or .txt uploads and runs formatting fixes before building the EPUB (free, no signup). After generating, run the free <Link href="/tools/epub-validator" style={LINK_STYLE}>EPUB Validator</Link> to confirm all structural checks pass before uploading. Wondering which format Kindle takes? See <Link href="/kindle-epub-format" style={LINK_STYLE}>does Kindle support EPUB</Link>.
+                        <Link href="/tools/epub-formatter" style={LINK_STYLE}>EPUB Formatter</Link> generates a valid EPUB 3 from pasted manuscript text — no Calibre, no Sigil, included in the Starter plan. <Link href="/tools/manuscript-mode" style={LINK_STYLE}>Full Manuscript Mode</Link> accepts .docx or .txt uploads and runs formatting fixes before building the EPUB (free, no signup). After generating, run the free <Link href="/tools/epub-validator" style={LINK_STYLE}>EPUB Validator</Link> to confirm all structural checks pass before uploading. Not sure which file to send? See <Link href="/kindle-epub-format" style={LINK_STYLE}>which file to upload to KDP</Link>.
                     </p>
                 </Section>
 
