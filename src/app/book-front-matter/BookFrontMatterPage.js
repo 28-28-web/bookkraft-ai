@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import RelatedLinks from '@/components/RelatedLinks';
 
 const frontMatterElements = [
   {
@@ -299,6 +300,7 @@ export default function BookFrontMatterPage() {
           Open Full Manuscript Mode →
         </Link>
       </div>
+      <RelatedLinks related={[{type: 'guide', slug: 'kdp-formatting-guide', label: 'formatting a book for Kindle on KDP'}]} />
     </main>
   );
 }

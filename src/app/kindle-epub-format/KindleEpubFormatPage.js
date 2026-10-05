@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import RelatedLinks from '@/components/RelatedLinks';
 import ChecklistOptin from '@/components/ChecklistOptin';
 
 const faqs = [
@@ -366,6 +367,7 @@ export default function KindleEpubFormatPage() {
             </Link>
           </div>
         </div>
+        <RelatedLinks related={[{type: 'guide', slug: 'kdp-formatting-guide', label: 'the complete KDP formatting guide'}]} />
         <ChecklistOptin source="checklist-kindle-epub-format" variant="full" />
       </main>
     </>

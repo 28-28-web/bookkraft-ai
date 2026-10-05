@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import RelatedLinks from '@/components/RelatedLinks';
 import Footer from '@/components/Footer';
 
 export const metadata = {
@@ -268,6 +269,7 @@ export default function ChapterBreaksEpubPage() {
           </p>
         </div>
 
+        <RelatedLinks related={[{type: 'guide', slug: 'kdp-formatting-guide', label: 'KDP formatting guide for Kindle and ebooks'}]} />
       </main>
       <Footer />
     </>

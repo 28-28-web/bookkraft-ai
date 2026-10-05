@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import ChecklistOptin from '@/components/ChecklistOptin';
+import RelatedLinks from '@/components/RelatedLinks';
 
 const faqSchema = {
     '@context': 'https://schema.org',
@@ -512,6 +513,11 @@ export default function KdpFormattingGuidePage() {
                     <Link href="/kdp-print-vs-digital" style={LINK_STYLE}>KDP print vs digital guide</Link>{' '}
                     for the file format, ISBN, royalty, and distribution differences between KDP ebook and KDP Print.
                 </p>
+
+                <RelatedLinks related={[
+                    { type: 'guide', slug: 'book-front-matter', label: 'front matter and back matter, in order' },
+                    { type: 'blog', slug: 'kindle-formatting-mistakes', label: 'Kindle formatting mistakes to fix in Word' },
+                ]} />
 
                 {/* ── CTA ── */}
                 <div style={{ marginTop: 48, padding: '24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>

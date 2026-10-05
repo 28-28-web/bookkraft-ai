@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import RelatedLinks from '@/components/RelatedLinks';
 import Footer from '@/components/Footer';
 
 export const metadata = {
@@ -306,6 +307,7 @@ export default function EpubFontsPage() {
           </Link>
         </div>
 
+        <RelatedLinks related={[{type: 'tool', slug: 'epub-validator', label: 'EPUB Validator — checks that embedded font files are present'}]} />
       </main>
       <Footer />
     </>

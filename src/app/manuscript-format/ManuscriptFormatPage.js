@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import RelatedLinks from '@/components/RelatedLinks';
 import ChecklistOptin from '@/components/ChecklistOptin';
 
 const faqs = [
@@ -208,6 +209,7 @@ export default function ManuscriptFormatPage() {
             Open Manuscript Cleanup Checker →
           </Link>
         </div>
+        <RelatedLinks related={[{type: 'guide', slug: 'kdp-formatting-guide', label: 'formatting your book for KDP, step by step'}]} />
         <ChecklistOptin source="checklist-manuscript-format" variant="full" />
       </main>
     </>

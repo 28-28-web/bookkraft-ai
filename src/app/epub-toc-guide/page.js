@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import RelatedLinks from '@/components/RelatedLinks';
 import Footer from '@/components/Footer';
 
 export const metadata = {
@@ -324,6 +325,7 @@ export default function EpubTocGuidePage() {
           </Link>
         </div>
 
+        <RelatedLinks related={[{type: 'guide', slug: 'kdp-formatting-guide', label: 'where the TOC fits in KDP formatting'}]} />
       </main>
       <Footer />
     </>

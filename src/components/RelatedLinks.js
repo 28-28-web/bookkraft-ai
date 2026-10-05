@@ -37,6 +37,10 @@ const TYPE_CONFIG = {
     href: (slug) => `/blog/${slug}`,
     heading: 'From the blog',
   },
+  tool: {
+    href: (slug) => `/tools/${slug}`,
+    heading: 'Free tool',
+  },
 };
 
 export default function RelatedLinks({ related }) {
