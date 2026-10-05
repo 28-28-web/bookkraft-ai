@@ -322,6 +322,12 @@ export const MISTAKES = [
   },
   {
     slug: 'ebook-cover-mistakes',
+    cta: {
+      href: '/tools/cover-checker',
+      heading: 'Check your cover before upload',
+      text: 'The free Cover Checker tests format, orientation, size, aspect ratio and file size against KDP\'s ebook cover rules, and the shortest side against Apple Books\' 1400px minimum.',
+      label: 'Check your cover before upload',
+    },
     metaTitle: '5 Ebook Cover Mistakes That Get Files Rejected — BookKraft AI',
     metaDescription: 'CMYK color, below-minimum dimensions, and missing manifest properties are the ebook cover mistakes that cause rejection or a gray placeholder on the store page. Here is how to avoid each.',
     title: '5 Ebook Cover Mistakes That Get Files Rejected',

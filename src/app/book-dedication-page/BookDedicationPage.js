@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import TrackedLink from '@/components/TrackedLink';
 
 const dedicationTypes = [
   {
@@ -180,12 +181,12 @@ export default function BookDedicationPage() {
       <div style={{ margin: '48px 0', padding: '28px 24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
         <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Generate your dedication page with the rest of your front matter.</p>
         <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Title page, copyright page, dedication, and disclaimer — formatted for KDP in one step. Your dedication text goes in, properly placed XHTML comes out.</p>
-        <Link
+        <TrackedLink
           href="/tools/front-matter-generator"
           style={{ display: 'inline-block', padding: '13px 30px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 16 }}
         >
           Open Front Matter Generator →
-        </Link>
+        </TrackedLink>
       </div>
 
       {/* FAQ */}

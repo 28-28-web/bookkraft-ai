@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import { buildBreadcrumbSchema } from '@/lib/seo';
 import RelatedLinks from '@/components/RelatedLinks';
 import CoverQuickAnswer from '@/components/CoverQuickAnswer';
+import TrackedLink from '@/components/TrackedLink';
 
 export const dynamicParams = false;
 
@@ -93,7 +94,6 @@ export default async function CoverRequirementsPage({ params }) {
         />
 
         <CoverQuickAnswer items={req.quickAnswer} platform={req.platform} cta={req.quickAnswerCta} />
-
         <h2 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: 12, color: 'var(--ink)' }}>
           Specifications at a glance
         </h2>
@@ -157,17 +157,20 @@ export default async function CoverRequirementsPage({ params }) {
           </>
         )}
 
-        <div className="info-card">
-          <p style={{ fontWeight: 700, fontSize: 16, marginBottom: 6, color: 'var(--ink)' }}>
-            Check your ebook cover against KDP and Apple Books rules
-          </p>
-          <p style={{ fontSize: 14, color: 'var(--mid)', marginBottom: 16, lineHeight: 1.6 }}>
-            The free Cover Checker tests format, orientation, minimum and recommended size, aspect ratio and file size against KDP&apos;s ebook cover rules, and the shortest side against Apple Books&apos; 1400px minimum — no signup required.
-          </p>
-          <Link href="/tools/cover-checker" className="btn btn-gold btn-cta">
-            Check Your Cover Free →
-          </Link>
-        </div>
+        {/* The Cover Checker tests ebook covers only, so print entries skip it. */}
+        {req.kind !== 'print' && (
+          <div className="info-card">
+            <p style={{ fontWeight: 700, fontSize: 16, marginBottom: 6, color: 'var(--ink)' }}>
+              Check your ebook cover against KDP and Apple Books rules
+            </p>
+            <p style={{ fontSize: 14, color: 'var(--mid)', marginBottom: 16, lineHeight: 1.6 }}>
+              The free Cover Checker tests format, orientation, minimum and recommended size, aspect ratio and file size against KDP&apos;s ebook cover rules, and the shortest side against Apple Books&apos; 1400px minimum — no signup required.
+            </p>
+            <TrackedLink href="/tools/cover-checker" className="btn btn-gold btn-cta">
+              Check Your Cover Free →
+            </TrackedLink>
+          </div>
+        )}
 
         <RelatedLinks related={req.related} />
 

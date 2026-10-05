@@ -4,6 +4,7 @@ import { MISTAKES, getMistakeBySlug } from '@/lib/mistakes';
 import Footer from '@/components/Footer';
 import { buildBreadcrumbSchema } from '@/lib/seo';
 import RelatedLinks from '@/components/RelatedLinks';
+import TrackedLink from '@/components/TrackedLink';
 
 export const dynamicParams = false;
 
@@ -74,7 +75,6 @@ export default async function MistakePage({ params }) {
           style={{ fontSize: 16, lineHeight: 1.75, marginBottom: 40, color: 'var(--ink)' }}
           dangerouslySetInnerHTML={{ __html: mistake.intro }}
         />
-
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
           {mistake.mistakes.map((item, i) => {
             const linkHref = TYPE_HREF[item.link?.type]?.(item.link?.slug);
@@ -124,14 +124,14 @@ export default async function MistakePage({ params }) {
 
         <div className="info-card">
           <p style={{ fontWeight: 700, fontSize: 16, marginBottom: 6, color: 'var(--ink)' }}>
-            Validate your EPUB before submitting
+            {mistake.cta?.heading ?? 'Validate your EPUB before submitting'}
           </p>
           <p style={{ fontSize: 14, color: 'var(--mid)', marginBottom: 16, lineHeight: 1.6 }}>
-            The free EPUB Validator catches the structural, metadata, and navigation errors covered above — before they become platform rejections. No signup required.
+            {mistake.cta?.text ?? 'The free EPUB Validator catches the structural, metadata, and navigation errors covered above — before they become platform rejections. No signup required.'}
           </p>
-          <Link href="/tools/epub-validator" className="btn btn-gold btn-cta">
-            Validate Your EPUB Free →
-          </Link>
+          <TrackedLink href={mistake.cta?.href ?? '/tools/epub-validator'} className="btn btn-gold btn-cta">
+            {mistake.cta ? `${mistake.cta.label} →` : 'Validate Your EPUB Free →'}
+          </TrackedLink>
         </div>
 
         <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.7 }}>

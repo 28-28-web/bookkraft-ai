@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllPosts, getPostBySlug, sanitizeGhostHtml, formatDate } from '@/lib/ghost';
 import Footer from '@/components/Footer';
+import CtaClickTracker from '@/components/CtaClickTracker';
 import { buildBreadcrumbSchema } from '@/lib/seo';
 
 const AUTHOR_PAGES = { Fateh: '/author/fateh' };
@@ -242,6 +243,7 @@ export default async function BlogPostPage({ params }) {
             className="gh-content"
             dangerouslySetInnerHTML={{ __html: safeHtml }}
           />
+          <CtaClickTracker />
 
           {/* Tags */}
           {post.tags?.length > 0 && (

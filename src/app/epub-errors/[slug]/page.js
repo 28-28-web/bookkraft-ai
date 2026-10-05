@@ -4,6 +4,7 @@ import { EPUB_ERRORS, getErrorBySlug } from '@/lib/epubErrors';
 import Footer from '@/components/Footer';
 import { buildBreadcrumbSchema } from '@/lib/seo';
 import RelatedLinks from '@/components/RelatedLinks';
+import TrackedLink from '@/components/TrackedLink';
 
 export async function generateStaticParams() {
   return EPUB_ERRORS.map(e => ({ slug: e.slug }));
@@ -64,7 +65,6 @@ export default async function EpubErrorPage({ params }) {
           style={{ fontSize: 16, lineHeight: 1.75, marginBottom: 32, color: 'var(--ink)' }}
           dangerouslySetInnerHTML={{ __html: error.cause }}
         />
-
         {/* Fix steps */}
         <h2 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: 12, color: 'var(--ink)' }}>How to fix it</h2>
         <div
@@ -89,9 +89,9 @@ export default async function EpubErrorPage({ params }) {
           <p style={{ fontSize: 14, color: 'var(--mid)', marginBottom: 16, lineHeight: 1.6 }}>
             The free EPUB Validator catches structure, metadata, and navigation errors — no signup, no Java, runs in the browser.
           </p>
-          <Link href="/tools/epub-validator" className="btn btn-gold btn-cta">
+          <TrackedLink href="/tools/epub-validator" className="btn btn-gold btn-cta">
             Validate Your EPUB Free →
-          </Link>
+          </TrackedLink>
         </div>
 
         <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.7 }}>

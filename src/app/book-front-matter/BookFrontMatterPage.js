@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import TrackedLink from '@/components/TrackedLink';
 import RelatedLinks from '@/components/RelatedLinks';
 
 const frontMatterElements = [
@@ -189,12 +190,12 @@ export default function BookFrontMatterPage() {
       <div style={{ margin: '40px 0 56px', padding: '24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
         <p style={{ fontSize: 17, marginBottom: 6, fontWeight: 600 }}>Generate your full front matter block — title page, copyright page, dedication, and disclaimer.</p>
         <p style={{ fontSize: 14, opacity: 0.7, marginBottom: 16 }}>Formatted for KDP. Handles pen names and optional ISBNs. Output ready to paste into your manuscript.</p>
-        <Link
+        <TrackedLink
           href="/tools/front-matter-generator"
           style={{ display: 'inline-block', padding: '12px 28px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 15 }}
         >
           Open Front Matter Generator →
-        </Link>
+        </TrackedLink>
       </div>
 
       {/* Back matter */}

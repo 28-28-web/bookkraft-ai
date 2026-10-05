@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import ChecklistOptin from '@/components/ChecklistOptin';
+import TrackedLink from '@/components/TrackedLink';
 import { COVER_REQUIREMENTS } from '@/lib/coverRequirements';
 
 // Platform order on the hub. Specs and table cells come from coverRequirements.js;
@@ -150,9 +151,9 @@ export default function BookCoverSizePage() {
 
         <div style={{ margin: '0 0 40px', padding: '18px 20px', borderRadius: 10, background: 'rgba(201,168,76,0.08)', display: 'flex', gap: 16, alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}>
           <p style={{ margin: 0, fontSize: 16, fontWeight: 600 }}>Check your ebook cover against KDP and Apple Books rules.</p>
-          <Link href="/tools/cover-checker" style={{ display: 'inline-block', padding: '10px 22px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 15 }}>
-            Check your cover free →
-          </Link>
+          <TrackedLink href="/tools/cover-checker" style={{ display: 'inline-block', padding: '10px 22px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 15 }}>
+            Check your cover before upload →
+          </TrackedLink>
         </div>
 
         {/* Aspect ratio diagram */}
@@ -309,12 +310,12 @@ export default function BookCoverSizePage() {
         <div style={{ marginTop: 48, padding: '28px 24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
           <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Check your cover size and format before uploading — free Cover Checker.</p>
           <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Checks format, orientation, minimum and recommended size, aspect ratio and file size against KDP&apos;s ebook cover rules, and the shortest side against Apple Books&apos; 1400px minimum.</p>
-          <Link
+          <TrackedLink
             href="/tools/cover-checker"
             style={{ display: 'inline-block', padding: '13px 30px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 16 }}
           >
             Open Cover Checker →
-          </Link>
+          </TrackedLink>
         </div>
         <ChecklistOptin source="checklist-book-cover-size" variant="full" />
       </main>

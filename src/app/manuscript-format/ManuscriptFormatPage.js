@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import TrackedLink from '@/components/TrackedLink';
+import ToolCta from '@/components/ToolCta';
 import RelatedLinks from '@/components/RelatedLinks';
 import ChecklistOptin from '@/components/ChecklistOptin';
 
@@ -87,6 +89,13 @@ export default function ManuscriptFormatPage() {
         <p style={{ fontSize: 19, lineHeight: 1.6, marginBottom: 32, opacity: 0.9 }}>
           Ebook manuscript format is different from the traditional double-spaced format used for literary agent submissions. The goal here is a Word document that converts cleanly to EPUB — with proper chapter structure, correct paragraph indentation, and no formatting artifacts that break e-reader rendering. These are the standards for KDP, Apple Books, Kobo, and IngramSpark.
         </p>
+
+        <ToolCta
+          href="/tools/kindle-format-fixer"
+          label="Prepare your manuscript"
+          text="The Kindle Format Fixer cleans a Word export in one pass: smart quotes, em dashes, double spaces, tab indents and encoding artifacts. Included in the Starter and Pro plans."
+          style={{ margin: '-8px 0 40px' }}
+        />
 
         {/* Standards table */}
         <h2 style={{ fontSize: 26, fontWeight: 700, marginBottom: 16 }}>Ebook manuscript formatting standards</h2>
@@ -202,12 +211,12 @@ export default function ManuscriptFormatPage() {
         <div style={{ marginTop: 48, padding: '28px 24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
           <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Check your manuscript before converting — free.</p>
           <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Catch formatting artifacts that cause EPUB errors. No account required.</p>
-          <Link
+          <TrackedLink
             href="/tools/manuscript-cleanup"
             style={{ display: 'inline-block', padding: '13px 30px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 16 }}
           >
             Open Manuscript Cleanup Checker →
-          </Link>
+          </TrackedLink>
         </div>
         <RelatedLinks related={[{type: 'guide', slug: 'kdp-formatting-guide', label: 'formatting your book for KDP, step by step'}]} />
         <ChecklistOptin source="checklist-manuscript-format" variant="full" />

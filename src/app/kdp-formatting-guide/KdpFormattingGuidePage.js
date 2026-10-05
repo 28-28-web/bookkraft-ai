@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import TrackedLink from '@/components/TrackedLink';
 import ChecklistOptin from '@/components/ChecklistOptin';
 import RelatedLinks from '@/components/RelatedLinks';
 
@@ -99,7 +100,7 @@ function ToolCta({ tools }) {
     return (
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 16 }}>
             {tools.map((t) => (
-                <Link
+                <TrackedLink
                     key={t.href}
                     href={t.href}
                     style={{
@@ -120,7 +121,7 @@ function ToolCta({ tools }) {
                     {t.note && (
                         <span style={{ fontSize: 11, opacity: 0.7, fontWeight: 400 }}>({t.note})</span>
                     )}
-                </Link>
+                </TrackedLink>
             ))}
         </div>
     );
@@ -522,9 +523,9 @@ export default function KdpFormattingGuidePage() {
                 {/* ── CTA ── */}
                 <div style={{ marginTop: 48, padding: '24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
                     <p style={{ fontSize: 17, marginBottom: 16, fontWeight: 500 }}>Start with the free EPUB Validator — no signup, no Java, runs in your browser.</p>
-                    <Link href="/tools/epub-validator" style={{ display: 'inline-block', padding: '12px 28px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 600, textDecoration: 'none', fontSize: 16 }}>
+                    <TrackedLink href="/tools/epub-validator" style={{ display: 'inline-block', padding: '12px 28px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 600, textDecoration: 'none', fontSize: 16 }}>
                         Validate Your EPUB →
-                    </Link>
+                    </TrackedLink>
                 </div>
                 <ChecklistOptin source="checklist-kdp-formatting-guide" variant="full" />
             </main>

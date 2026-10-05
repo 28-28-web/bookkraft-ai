@@ -22,6 +22,7 @@ export const EVENT_NAMES = new Set([
     'readiness_started',
     'readiness_completed',
     'readiness_cta_click',
+    'cta_click',
     'lead_captured',
 ]);
 
@@ -40,6 +41,7 @@ export const CLIENT_EVENTS = new Set([
     'readiness_started',
     'readiness_completed',
     'readiness_cta_click',
+    'cta_click',
 ]);
 
 export async function logEvent({ eventName, userId = null, sessionId = null, eventData = null, pageUrl = null }) {
