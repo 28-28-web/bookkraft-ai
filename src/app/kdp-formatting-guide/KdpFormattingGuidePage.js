@@ -291,7 +291,7 @@ export default function KdpFormattingGuidePage() {
                     </p>
                     <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
                         <li><strong>EPUB3 nav.xhtml.</strong> The primary TOC lives in a navigation document marked with <code>epub:type=&quot;toc&quot;</code> on the <code>&lt;nav&gt;</code> element. Each entry points to a chapter heading via a relative link inside the EPUB package.</li>
-                        <li><strong>NCX fallback.</strong> Older Kindle devices rely on a <code>toc.ncx</code> file. Include both nav.xhtml and toc.ncx for backward compatibility. An NCX is optional in EPUB 3; some authors add one for older EPUB 2 reading systems.</li>
+                        <li><strong>NCX fallback.</strong> An NCX (<code>toc.ncx</code>) is optional in EPUB 3; some authors include one alongside the nav document for older EPUB 2 reading systems.</li>
                         <li><strong>Navigation TOC.</strong> A proper navigation TOC is required. Kindle uses it for navigation, so readers can jump between chapters. Declare nav.xhtml in the OPF manifest with <code>properties=&quot;nav&quot;</code>.</li>
                     </ul>
                     <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
@@ -395,7 +395,7 @@ export default function KdpFormattingGuidePage() {
                     </p>
                     <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
                         <li><strong>dc:title</strong> — the book title, matching the title on the cover and in the KDP listing.</li>
-                        <li><strong>dc:creator</strong> — the author name. Multiple <code>dc:creator</code> elements are allowed for co-authored works. In EPUB3, an <code>opf:role</code> attribute specifies the contributor relationship using MARC relator codes.</li>
+                        <li><strong>dc:creator</strong> — the author name. Multiple <code>dc:creator</code> elements are allowed for co-authored works. The <code>opf:role</code> attribute is the EPUB 2 form; in EPUB 3 the role is set with <code>&lt;meta refines=&quot;#id&quot; property=&quot;role&quot;&gt;</code>, using MARC relator codes.</li>
                         <li><strong>dc:language</strong> — the primary language as a BCP 47 tag: <code>en</code> for English, <code>en-US</code> for American English, <code>fr</code> for French. This affects how reading systems handle hyphenation, text-to-speech, and search indexing.</li>
                         <li><strong>dc:identifier</strong> — a unique identifier, typically the ISBN. Must match the identifier referenced by the package element&apos;s <code>unique-identifier</code> attribute, or the EPUB fails spec validation.</li>
                         <li><strong>BISAC subject codes.</strong> BISAC is a standard subject classification. Other retailers and distributors use it. KDP does not: you choose your categories in the KDP dashboard.</li>
