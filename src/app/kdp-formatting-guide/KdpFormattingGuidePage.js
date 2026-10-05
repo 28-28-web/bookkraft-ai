@@ -12,7 +12,7 @@ const faqSchema = {
             name: 'What file format does KDP require for ebooks?',
             acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'KDP accepts EPUB and Word (.docx) files. EPUB is the recommended format — it gives you full control over structure, styling, and metadata. KDP converts your upload internally to KFX for delivery. PDFs are not supported for reflowable ebooks. MOBI upload was discontinued in 2022.',
+                text: 'KDP\'s suggested formats are EPUB, Word (DOC/DOCX) and KPF files from Kindle Create. KDP lists PDF only as an additional ebook format, for some languages. EPUB gives you full control over structure, styling, and metadata. KDP converts your upload internally to KFX for delivery. KDP no longer accepts MOBI: it ended MOBI support for reflowable ebooks on August 1, 2021 and for fixed-layout ebooks on March 18, 2025.',
             },
         },
         {
@@ -141,7 +141,7 @@ function Section({ number, h2, children, tools, last }) {
 const faqs = [
     {
         q: 'What file format does KDP require for ebooks?',
-        a: 'KDP accepts EPUB and Word (.docx) files. EPUB is the recommended format — it gives you full control over structure, styling, and metadata. KDP converts your upload internally to KFX for delivery. PDFs are not supported for reflowable ebooks. MOBI upload was discontinued in 2022.',
+        a: 'KDP\'s suggested formats are EPUB, Word (DOC/DOCX) and KPF files from Kindle Create. KDP lists PDF only as an additional ebook format, for some languages. EPUB gives you full control over structure, styling, and metadata. KDP converts your upload internally to KFX for delivery. KDP no longer accepts MOBI: it ended MOBI support for reflowable ebooks on August 1, 2021 and for fixed-layout ebooks on March 18, 2025.',
     },
     {
         q: 'Do I need to validate my EPUB before uploading to KDP?',

@@ -226,7 +226,7 @@ export const VS_ALTERNATIVES = [
       },
       {
         title: 'Check the file before it leaves your control',
-        description: "D2D Book Builder is optimized to produce output that looks correct in reading apps — it's not validated against EPUBCheck before distribution. Apple Books runs EPUBCheck on every submission and rejects files with structural errors. If D2D's conversion of your DOCX produces an EPUBCheck failure, Apple Books will reject the version D2D delivers, and you may not discover which structural issue caused it. BookKraft's EPUB Validator runs 11 structural checks (package, manifest, required metadata, spine, navigation, cover declaration and more) and explains each problem in plain English. It doesn't run the full EPUBCheck specification, so for a complete check, run EPUBCheck as well.",
+        description: "D2D Book Builder is optimized to produce output that looks correct in reading apps. Draft2Digital's knowledge base says it validates all user-uploaded EPUBs with Epubcheck, automatically tries to repair common problems, and marks files it can't repair as \"Invalid Epub\". Apple Books runs EPUBCheck on every submission and rejects files with structural errors. If D2D's conversion of your DOCX produces an EPUBCheck failure, Apple Books will reject the version D2D delivers, and you may not discover which structural issue caused it. BookKraft's EPUB Validator runs 11 structural checks (package, manifest, required metadata, spine, navigation, cover declaration and more) and explains each problem in plain English. It doesn't run the full EPUBCheck specification, so for a complete check, run EPUBCheck as well.",
       },
       {
         title: 'Full metadata control',
