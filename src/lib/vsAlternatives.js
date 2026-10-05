@@ -214,7 +214,7 @@ export const VS_ALTERNATIVES = [
     tool: "Draft2Digital Book Builder",
     metaTitle: "Draft2Digital Book Builder Alternative — BookKraft AI",
     metaDescription: "D2D's Book Builder formats your DOCX for distribution but the intermediate EPUB is invisible. BookKraft AI validates before D2D converts, catching structural issues before they become retailer rejections.",
-    intro: "<p>D2D Book Builder converts your DOCX after you submit — the intermediate EPUB it creates is invisible to you before it's delivered to retailers. If D2D's conversion introduces ghost spacing, broken navigation, or CSS that fails Kobo's renderer, you find out from a reader complaint or a post-delivery platform flag, not a pre-upload check. With BookKraft you can check the file yourself first: convert to EPUB, run BookKraft's structural checks, fix issues, then upload the checked EPUB directly to D2D.</p>",
+    intro: "<p>D2D Book Builder converts your DOCX after you upload it. Draft2Digital's knowledge base says it shows a live preview of the ebook conversion and offers free file downloads of your book. With BookKraft you can check the file yourself first: convert to EPUB, run BookKraft's structural checks, fix issues, then upload the checked EPUB directly to D2D.</p>",
     whySwitch: [
       {
         title: 'Validate before D2D converts',
