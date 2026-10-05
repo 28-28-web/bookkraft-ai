@@ -231,6 +231,9 @@ export default async function BlogPostPage({ params }) {
                 : <span>{author.name}</span>
             )}
             <time dateTime={post.published_at}>{formatDate(post.published_at)}</time>
+            {post.updated_at && formatDate(post.updated_at) !== formatDate(post.published_at) && (
+              <span>Updated <time dateTime={post.updated_at}>{formatDate(post.updated_at)}</time></span>
+            )}
             {post.reading_time && <span>{post.reading_time} min read</span>}
           </div>
 
