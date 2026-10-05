@@ -28,7 +28,7 @@ const faqSchema = {
             name: 'How do I create a clickable Table of Contents for Kindle?',
             acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'A Kindle-compatible TOC requires a nav.xhtml navigation document (EPUB3) and a toc.ncx file for older devices (EPUB2 fallback). Both must be declared in the OPF manifest and the nav must appear in the spine reading order. KDP will reject books where the TOC is declared only in the manifest but not in the spine.',
+                text: 'A Kindle-compatible TOC requires a nav.xhtml navigation document (EPUB3) and a toc.ncx file for older devices (EPUB2 fallback). Both must be declared in the OPF manifest. A proper navigation TOC is required, and Kindle uses it for navigation.',
             },
         },
         {
@@ -36,7 +36,7 @@ const faqSchema = {
             name: 'What metadata is required for KDP EPUB uploads?',
             acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'The EPUB spec requires dc:title, dc:creator, dc:language (as a BCP 47 tag such as "en"), and dc:identifier. KDP additionally requires a complete book description, BISAC category, and 7 keyword fields. Missing metadata fields can delay approval or reduce discoverability.',
+                text: 'The EPUB spec requires dc:title, dc:creator, dc:language (as a BCP 47 tag such as "en"), and dc:identifier. In the KDP dashboard you also add a book description and choose categories. KDP uses its own categories, not BISAC codes. Keywords are optional: you can add up to 7.',
             },
         },
         {
@@ -149,11 +149,11 @@ const faqs = [
     },
     {
         q: 'How do I create a clickable Table of Contents for Kindle?',
-        a: 'A Kindle-compatible TOC requires a nav.xhtml navigation document (EPUB3) and a toc.ncx file for older devices (EPUB2 fallback). Both must be declared in the OPF manifest and the nav must appear in the spine reading order. KDP will reject books where the TOC is declared only in the manifest but not in the spine.',
+        a: 'A Kindle-compatible TOC requires a nav.xhtml navigation document (EPUB3) and a toc.ncx file for older devices (EPUB2 fallback). Both must be declared in the OPF manifest. A proper navigation TOC is required, and Kindle uses it for navigation.',
     },
     {
         q: 'What metadata is required for KDP EPUB uploads?',
-        a: 'The EPUB spec requires dc:title, dc:creator, dc:language (as a BCP 47 tag such as "en"), and dc:identifier. KDP additionally requires a complete book description, BISAC category, and 7 keyword fields. Missing metadata fields can delay approval or reduce discoverability.',
+        a: 'The EPUB spec requires dc:title, dc:creator, dc:language (as a BCP 47 tag such as "en"), and dc:identifier. In the KDP dashboard you also add a book description and choose categories. KDP uses its own categories, not BISAC codes. Keywords are optional: you can add up to 7.',
     },
     {
         q: 'Why does my ebook look broken after converting from Word?',
@@ -182,15 +182,15 @@ export default function KdpFormattingGuidePage() {
             />
             <main style={{ maxWidth: 880, margin: '0 auto', padding: '64px 20px', color: 'var(--ink, #1a1a1a)' }}>
                 <h1 style={{ fontFamily: "var(--font-playfair),serif", fontSize: 'clamp(32px,5vw,52px)', fontWeight: 700, lineHeight: 1.1, marginBottom: 20 }}>
-                    The Complete KDP Formatting Guide
+                    KDP Formatting Guide for Kindle &amp; eBooks
                 </h1>
 
                 <p style={{ fontSize: 18, lineHeight: 1.65, marginBottom: 48, opacity: 0.88 }}>
-                    Formatting a book for Amazon KDP involves twelve distinct steps — from manuscript cleanup through EPUB structure, Kindle-specific requirements, metadata, validation, and a final pre-upload checklist. This guide covers every step with the specific rules KDP, Apple Books, and Kobo enforce, and links to the right tool for each one. New to the platform? Start with <Link href="/blog/what-is-amazon-kdp-guide-for-new-authors" style={LINK_STYLE}>what Amazon KDP is</Link> for how publishing and royalties work first.
+                    This KDP formatting guide shows you how to format your book for Kindle, one step at a time. It covers manuscript preparation, headings, paragraphs, chapter breaks, the table of contents, images, EPUB, validation and a final upload checklist. Each step links to a tool that does the job. New to the platform? Start with <Link href="/blog/what-is-amazon-kdp-guide-for-new-authors" style={LINK_STYLE}>what Amazon KDP is</Link> for how publishing and royalties work first.
                 </p>
 
                 {/* ── 1. OVERVIEW ── */}
-                <Section number="Section 1" h2="KDP ebook formatting — what the process actually involves">
+                <Section number="Section 1" h2="KDP formatting — what the process actually involves">
                     <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
                         Most authors expect to write a book, convert it to EPUB, and upload it. The actual process has more steps — and the ones that get skipped are the ones that cause rejections. KDP enforces structural rules that are invisible in Word or Google Docs but become critical once the file is converted and delivered to a reader.
                     </p>
@@ -201,76 +201,88 @@ export default function KdpFormattingGuidePage() {
 
                 <ChecklistOptin source="checklist-kdp-formatting-guide" />
 
-                {/* ── 2. MANUSCRIPT FORMATTING ── */}
+                {/* ── 2. MANUSCRIPT PREPARATION ── */}
                 <Section
                     number="Section 2"
-                    h2="Manuscript formatting — cleaning up before you convert"
-                    tools={[TOOL_LINKS.wordCleanup, TOOL_LINKS.manuscriptCleanup]}
+                    h2="Manuscript preparation — clean up before you convert"
+                    tools={[TOOL_LINKS.wordCleanup, TOOL_LINKS.manuscriptCleanup, TOOL_LINKS.frontMatter]}
                 >
                     <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
                         Word and Google Docs store text in ways that break when converted to reflowable ebook formats. The problems are invisible in your editor but show up in the final EPUB: straight quotes instead of curly typographic quotes, double spaces after periods, Tab-based paragraph indentation that produces double-indentation on some Kindle devices, encoding artifacts (<code>â€™</code> instead of an apostrophe), and stacked blank paragraphs used as visual spacing that EPUB converters interpret inconsistently.
                     </p>
                     <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
-                        Four rules fix the most common structural problems before conversion:
+                        Two rules matter before you convert. Indents and spacing have their own section below.
+                    </p>
+                    <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
+                        <li><strong>Remove double spaces</strong> — they look bad in some EPUB readers.</li>
+                        <li><strong>Avoid character-level formatting overrides</strong> — formatting applied via Ctrl+B is stored differently from style-based formatting and may not survive EPUB conversion cleanly on all devices.</li>
+                    </ul>
+                    <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
+                        The <Link href="/tools/word-cleanup" style={LINK_STYLE}>Word Manuscript Cleanup Checker</Link> scans your .docx for double spaces, straight quotes, stacked blank paragraphs, and stray formatting — free, no signup. For prose-level cleanup (dialogue punctuation errors, repeated words, clichés), the <Link href="/tools/manuscript-cleanup" style={LINK_STYLE}>Manuscript Cleanup</Link> tool runs AI analysis on any length manuscript, with a free 500-word sample run available first.
+                    </p>
+                    <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
+                        Add your front matter before you convert, too. The <Link href="/tools/front-matter-generator" style={LINK_STYLE}>Front Matter Generator</Link> builds the title page, copyright page, dedication and disclaimer. For spacing, indentation and font standards, see the <Link href="/manuscript-format" style={LINK_STYLE}>ebook manuscript format guide</Link>.
+                    </p>
+                </Section>
+
+                {/* ── 3. HEADINGS ── */}
+                <Section
+                    number="Section 3"
+                    h2="Headings — how to format chapter titles for Kindle"
+                    tools={[TOOL_LINKS.tocGenerator]}
+                >
+                    <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
+                        Kindle formatting starts with headings. Converters and TOC tools find your chapters by their heading style. If a chapter title is not styled as a heading, it can be missed.
+                    </p>
+                    <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
+                        <li><strong>Use real heading styles.</strong> In Word, apply Heading 1 to every chapter title. Use Heading 2 for sections inside a chapter. Do not fake a heading with bold, large body text.</li>
+                        <li><strong>Consistent heading style.</strong> Use one heading style for every chapter opener — H1, H2, or a styled paragraph — and keep the format identical throughout. Mixing &ldquo;Chapter One&rdquo;, &ldquo;Chapter 1&rdquo;, and bare numerals across chapters breaks automated TOC generators and looks inconsistent in quality review.</li>
+                    </ul>
+                    <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
+                        Once your headings are set, the <Link href="/tools/toc-generator" style={LINK_STYLE}>TOC Generator</Link> can build the table of contents from them.
+                    </p>
+                </Section>
+
+                {/* ── 4. PARAGRAPHS ── */}
+                <Section
+                    number="Section 4"
+                    h2="Paragraphs — indents and spacing"
+                    tools={[TOOL_LINKS.kindleFormatFixer]}
+                >
+                    <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
+                        Paragraph formatting is where most Word files go wrong. Set indents and spacing with styles. Never set them with the Tab key, the spacebar or extra Returns.
                     </p>
                     <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
                         <li><strong>Use paragraph styles for spacing</strong> — not blank lines between paragraphs or double Return presses. EPUB converters interpret stacked blank paragraphs as ghost spacing that creates inconsistent gaps across devices.</li>
                         <li><strong>Set first-line indentation in CSS</strong> — not with Tab or spacebar. Tab-indented paragraphs produce double-indentation on some Kindle models.</li>
-                        <li><strong>Remove double spaces</strong> — visible in some EPUB readers and can trigger KDP&apos;s automated quality review.</li>
-                        <li><strong>Avoid character-level formatting overrides</strong> — formatting applied via Ctrl+B is stored differently from style-based formatting and may not survive EPUB conversion cleanly on all devices.</li>
+                        <li><strong>First paragraph after a heading.</strong> Publishing convention is no indent on the first paragraph of a chapter (after the heading) and a first-line indent on all subsequent paragraphs. This is set in CSS (<code>{'p.first { text-indent: 0; }'}</code>), not by manually removing indentation in the document.</li>
                     </ul>
                     <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
-                        The <Link href="/tools/word-cleanup" style={LINK_STYLE}>Word Manuscript Cleanup Checker</Link> scans your .docx for double spaces, straight quotes, stacked blank paragraphs, and stray formatting — free, no signup. For prose-level cleanup (dialogue punctuation errors, repeated words, clichés), the <Link href="/tools/manuscript-cleanup" style={LINK_STYLE}>Manuscript Cleanup</Link> tool runs AI analysis on any length manuscript, with a free 500-word sample run available first.
+                        The <Link href="/tools/kindle-format-fixer" style={LINK_STYLE}>Kindle Format Fixer</Link> converts tab indents to paragraph indents. It also removes double spaces and double blank lines in the same pass. Included in the Starter plan.
                     </p>
                 </Section>
 
-                {/* ── 3. EPUB ── */}
-                <Section
-                    number="Section 3"
-                    h2="EPUB — format overview and why KDP depends on it"
-                    tools={[TOOL_LINKS.epubFormatter, TOOL_LINKS.manuscriptMode, TOOL_LINKS.epubValidator]}
-                >
-                    <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
-                        EPUB (Electronic Publication) is the standard container format for reflowable ebooks — used natively by Apple Books, Kobo, and Google Play. KDP also uses it internally: even if you upload a Word document, KDP converts it to EPUB before converting again to its proprietary KFX format for delivery. Uploading a clean, correctly structured EPUB gives you control over what that intermediate file looks like, reducing conversion errors.
-                    </p>
-                    <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
-                        An EPUB file is a ZIP archive with a required internal structure:
-                    </p>
-                    <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
-                        <li><strong>mimetype</strong> — must be the first file in the archive, stored uncompressed, containing exactly <code>application/epub+zip</code>.</li>
-                        <li><strong>META-INF/container.xml</strong> — declares the path to the OPF package document. Without it, no reading system can open the file.</li>
-                        <li><strong>OPF package document</strong> — lists every file in the EPUB (manifest) and the reading order (spine).</li>
-                        <li><strong>nav.xhtml</strong> — the EPUB3 navigation document, containing the table of contents. Must appear in both the manifest and the spine.</li>
-                        <li><strong>Chapter XHTML files</strong> — each chapter as a separate .xhtml file, declared in the manifest and ordered in the spine.</li>
-                    </ul>
-                    <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
-                        <Link href="/tools/epub-formatter" style={LINK_STYLE}>EPUB Formatter</Link> generates a valid EPUB 3 from pasted manuscript text — no Calibre, no Sigil, included in the Starter plan. <Link href="/tools/manuscript-mode" style={LINK_STYLE}>Full Manuscript Mode</Link> accepts .docx or .txt uploads and runs formatting fixes before building the EPUB (free, no signup). After generating, run the free <Link href="/tools/epub-validator" style={LINK_STYLE}>EPUB Validator</Link> to confirm all structural checks pass before uploading.
-                    </p>
-                </Section>
-
-                {/* ── 4. KINDLE ── */}
-                <Section
-                    number="Section 4"
-                    h2="Kindle-specific formatting requirements"
-                    tools={[TOOL_LINKS.kindleFormatFixer]}
-                >
-                    <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
-                        Kindle books are delivered in Amazon&apos;s KFX format. You never submit KFX directly — KDP converts your uploaded EPUB or Word document. What you control is how clean the source file is before conversion.
-                    </p>
-                    <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
-                        <li><strong>Reflowable vs fixed layout.</strong> Reflowable lets text adapt to any screen size and font setting. Fixed layout locks the page design — useful for illustrated children&apos;s books but it breaks on small screens and large-text accessibility settings. For prose and most non-fiction, use reflowable.</li>
-                        <li><strong>MOBI format is deprecated.</strong> Amazon stopped accepting .mobi uploads in 2022. Submit EPUB or Word.</li>
-                        <li><strong>Enhanced Typesetting.</strong> Amazon applies improved hyphenation, kerning, and justification automatically on supported devices when your book meets its requirements. Books with clean EPUB CSS are more likely to qualify; heavy inline styles or image-based text typically disqualify the book. Amazon determines eligibility — there is no manual opt-in.</li>
-                        <li><strong>Test with Kindle Previewer.</strong> Amazon&apos;s free Kindle Previewer simulates how your book renders across Kindle devices before upload. Run your EPUB through validation first, then test in Previewer — Previewer surfaces layout issues that validators don&apos;t catch (images, tables, drop cap rendering on older firmware).</li>
-                    </ul>
-                    <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
-                        The most common source of Kindle formatting problems is the Word export: straight quotes, double hyphens, double spaces, and encoding artifacts that render incorrectly after KDP&apos;s conversion. <Link href="/tools/kindle-format-fixer" style={LINK_STYLE}>Kindle Format Fixer</Link> catches and corrects all eight common Word export issues in a single pass, included in the Starter plan.
-                    </p>
-                </Section>
-
-                {/* ── 5. TOC ── */}
+                {/* ── 5. CHAPTER BREAKS ── */}
                 <Section
                     number="Section 5"
+                    h2="Chapter breaks — new pages and scene breaks"
+                    tools={[TOOL_LINKS.cssSnippet, TOOL_LINKS.manuscriptCleanup]}
+                >
+                    <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
+                        Chapter formatting does not have a single required format — but it must be consistent across every chapter. Inconsistency is what readers and quality reviewers notice first.
+                    </p>
+                    <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
+                        <li><strong>Scene breaks.</strong> The standard for marking a scene break within a chapter is three asterisks (<code>***</code>), a hash (<code>#</code>), or a decorative ornament. Plain blank lines are unreliable — EPUB converters often collapse them or flag them as ghost spacing. Whatever marker you choose, use it in every scene break in the book.</li>
+                        <li><strong>Page breaks via CSS, not blank lines.</strong> Each new chapter should open on a fresh page via CSS (<code>break-before: page</code>), not by pressing Return multiple times. Stacked empty paragraphs collapse differently across devices and sometimes disappear entirely in conversion.</li>
+                    </ul>
+                    <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
+                        <Link href="/tools/css-snippet-generator" style={LINK_STYLE}>CSS Snippet Generator</Link> outputs page break rules, scene break styles, and drop cap CSS with live previews. <Link href="/tools/manuscript-cleanup" style={LINK_STYLE}>Manuscript Cleanup</Link> flags inconsistent heading formats and stacked paragraph breaks before they reach the converter — 1 credit per run, free 500-word sample. For how chapters map to files and the spine, see <Link href="/chapter-breaks-epub" style={LINK_STYLE}>chapter breaks in EPUB</Link>.
+                    </p>
+                </Section>
+
+                {/* ── 6. TOC ── */}
+                <Section
+                    number="Section 6"
                     h2="Table of contents — KDP requirements and structure"
                     tools={[TOOL_LINKS.tocGenerator]}
                 >
@@ -280,16 +292,16 @@ export default function KdpFormattingGuidePage() {
                     <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
                         <li><strong>EPUB3 nav.xhtml.</strong> The primary TOC lives in a navigation document marked with <code>epub:type=&quot;toc&quot;</code> on the <code>&lt;nav&gt;</code> element. Each entry points to a chapter heading via a relative link inside the EPUB package.</li>
                         <li><strong>NCX fallback.</strong> Older Kindle devices rely on a <code>toc.ncx</code> file. Include both nav.xhtml and toc.ncx for backward compatibility. Omitting the NCX causes navigation to fail on older firmware.</li>
-                        <li><strong>Spine position.</strong> KDP requires the TOC to appear in the EPUB spine before the first chapter — it must be a navigable location, not just a structural element declared in the manifest. A TOC in the manifest but absent from the spine can pass validation and still trigger KDP quality review.</li>
+                        <li><strong>Navigation TOC.</strong> A proper navigation TOC is required. Kindle uses it for navigation, so readers can jump between chapters. Declare nav.xhtml in the OPF manifest with <code>properties=&quot;nav&quot;</code>.</li>
                     </ul>
                     <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
-                        <Link href="/tools/toc-generator" style={LINK_STYLE}>TOC Generator</Link> outputs correctly structured Kindle HTML, EPUB3 nav.xhtml, and NCX XML from your chapter headings — paste your manuscript or just your headings, select output format, and copy the result. Included in the Starter plan.
+                        <Link href="/tools/toc-generator" style={LINK_STYLE}>TOC Generator</Link> outputs correctly structured Kindle HTML, EPUB3 nav.xhtml, and NCX XML from your chapter headings — paste your manuscript or just your headings, select output format, and copy the result. Included in the Starter plan. For full nav.xhtml and toc.ncx examples, see the <Link href="/epub-toc-guide" style={LINK_STYLE}>EPUB table of contents guide</Link>.
                     </p>
                 </Section>
 
-                {/* ── 6. IMAGES ── */}
+                {/* ── 7. IMAGES ── */}
                 <Section
-                    number="Section 6"
+                    number="Section 7"
                     h2="Image formatting and resolution requirements"
                     tools={[TOOL_LINKS.coverChecker]}
                 >
@@ -308,9 +320,9 @@ export default function KdpFormattingGuidePage() {
                     </p>
                 </Section>
 
-                {/* ── 7. FONTS ── */}
+                {/* ── 8. FONTS ── */}
                 <Section
-                    number="Section 7"
+                    number="Section 8"
                     h2="Font selection and embedding for ebooks"
                     tools={[TOOL_LINKS.cssSnippet]}
                 >
@@ -318,7 +330,7 @@ export default function KdpFormattingGuidePage() {
                         Font choice in ebooks is different from print. Most EPUB readers — including Kindle — let users switch to their preferred reading font at any time. Font selection matters most for the fallback when no user override is active, and for custom fonts you embed in the EPUB package.
                     </p>
                     <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
-                        <li><strong>Safe system font stacks.</strong> If you do not embed a custom font, the device uses its built-in default. Declaring an explicit <code>font-family</code> stack makes the fallback intentional. Common stacks: <code>Georgia, 'Times New Roman', serif</code> for fiction body text; <code>Helvetica, Arial, sans-serif</code> for non-fiction with heavy structure.</li>
+                        <li><strong>Safe system font stacks.</strong> If you do not embed a custom font, the device uses its built-in default. Declaring an explicit <code>font-family</code> stack makes the fallback intentional. Common stacks: <code>Georgia, &apos;Times New Roman&apos;, serif</code> for fiction body text; <code>Helvetica, Arial, sans-serif</code> for non-fiction with heavy structure.</li>
                         <li><strong>Serif vs sans-serif.</strong> Long-form prose traditionally uses a serif face — serifs assist horizontal tracking across lines on screen. Sans-serif works for shorter text, callouts, and non-fiction that reads in chunks. Pick one for body text and apply it consistently.</li>
                         <li><strong>Embedding custom fonts.</strong> A font embedded in the EPUB appears as &ldquo;Publisher Font&rdquo; in Kindle&apos;s font menu. Embedded fonts must be declared in the manifest and referenced via a CSS <code>@font-face</code> rule. Only embed fonts whose license permits EPUB redistribution — most commercial font licenses do not include it without a separate ebook license. Free fonts from Google Fonts generally permit embedding.</li>
                         <li><strong>Drop caps and chapter openers.</strong> Drop caps require <code>::first-letter</code> with <code>float: left</code> and matching line-height. Not all readers render them identically — test in Kindle Previewer before using them as a visual anchor in every chapter.</li>
@@ -328,29 +340,53 @@ export default function KdpFormattingGuidePage() {
                     </p>
                 </Section>
 
-                {/* ── 8. CHAPTER FORMATTING ── */}
+                {/* ── 9. EPUB ── */}
                 <Section
-                    number="Section 8"
-                    h2="Chapter formatting — headings, scene breaks, and page breaks"
-                    tools={[TOOL_LINKS.cssSnippet, TOOL_LINKS.manuscriptCleanup]}
+                    number="Section 9"
+                    h2="EPUB — format overview and why KDP depends on it"
+                    tools={[TOOL_LINKS.epubFormatter, TOOL_LINKS.manuscriptMode, TOOL_LINKS.epubValidator]}
                 >
                     <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
-                        Chapter formatting does not have a single required format — but it must be consistent across every chapter. Inconsistency is what readers and quality reviewers notice first.
+                        EPUB (Electronic Publication) is the standard container format for reflowable ebooks — used natively by Apple Books, Kobo, and Google Play. KDP also uses it internally: even if you upload a Word document, KDP converts it to EPUB before converting again to its proprietary KFX format for delivery. Uploading a clean, correctly structured EPUB gives you control over what that intermediate file looks like, reducing conversion errors.
+                    </p>
+                    <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
+                        An EPUB file is a ZIP archive with a required internal structure:
                     </p>
                     <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
-                        <li><strong>Consistent heading style.</strong> Use one heading style for every chapter opener — H1, H2, or a styled paragraph — and keep the format identical throughout. Mixing &ldquo;Chapter One&rdquo;, &ldquo;Chapter 1&rdquo;, and bare numerals across chapters breaks automated TOC generators and looks inconsistent in quality review.</li>
-                        <li><strong>Scene breaks.</strong> The standard for marking a scene break within a chapter is three asterisks (<code>***</code>), a hash (<code>#</code>), or a decorative ornament. Plain blank lines are unreliable — EPUB converters often collapse them or flag them as ghost spacing. Whatever marker you choose, use it in every scene break in the book.</li>
-                        <li><strong>Page breaks via CSS, not blank lines.</strong> Each new chapter should open on a fresh page via CSS (<code>break-before: page</code>), not by pressing Return multiple times. Stacked empty paragraphs collapse differently across devices and sometimes disappear entirely in conversion.</li>
-                        <li><strong>First paragraph after a heading.</strong> Publishing convention is no indent on the first paragraph of a chapter (after the heading) and a first-line indent on all subsequent paragraphs. This is set in CSS (<code>{'p.first { text-indent: 0; }'}</code>), not by manually removing indentation in the document.</li>
+                        <li><strong>mimetype</strong> — must be the first file in the archive, stored uncompressed, containing exactly <code>application/epub+zip</code>.</li>
+                        <li><strong>META-INF/container.xml</strong> — declares the path to the OPF package document. Without it, no reading system can open the file.</li>
+                        <li><strong>OPF package document</strong> — lists every file in the EPUB (manifest) and the reading order (spine).</li>
+                        <li><strong>nav.xhtml</strong> — the EPUB3 navigation document, containing the table of contents. Declared in the manifest with <code>properties=&quot;nav&quot;</code>.</li>
+                        <li><strong>Chapter XHTML files</strong> — each chapter as a separate .xhtml file, declared in the manifest and ordered in the spine.</li>
                     </ul>
                     <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
-                        <Link href="/tools/css-snippet-generator" style={LINK_STYLE}>CSS Snippet Generator</Link> outputs page break rules, scene break styles, and drop cap CSS with live previews. <Link href="/tools/manuscript-cleanup" style={LINK_STYLE}>Manuscript Cleanup</Link> flags inconsistent heading formats and stacked paragraph breaks before they reach the converter — 1 credit per run, free 500-word sample.
+                        <Link href="/tools/epub-formatter" style={LINK_STYLE}>EPUB Formatter</Link> generates a valid EPUB 3 from pasted manuscript text — no Calibre, no Sigil, included in the Starter plan. <Link href="/tools/manuscript-mode" style={LINK_STYLE}>Full Manuscript Mode</Link> accepts .docx or .txt uploads and runs formatting fixes before building the EPUB (free, no signup). After generating, run the free <Link href="/tools/epub-validator" style={LINK_STYLE}>EPUB Validator</Link> to confirm all structural checks pass before uploading. Wondering which format Kindle takes? See <Link href="/kindle-epub-format" style={LINK_STYLE}>does Kindle support EPUB</Link>.
                     </p>
                 </Section>
 
-                {/* ── 9. METADATA ── */}
+                {/* ── 10. KINDLE ── */}
                 <Section
-                    number="Section 9"
+                    number="Section 10"
+                    h2="Kindle-specific formatting requirements"
+                    tools={[TOOL_LINKS.kindleFormatFixer]}
+                >
+                    <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
+                        Kindle books are delivered in Amazon&apos;s KFX format. You never submit KFX directly — KDP converts your uploaded EPUB or Word document. What you control is how clean the source file is before conversion.
+                    </p>
+                    <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
+                        <li><strong>Reflowable vs fixed layout.</strong> Reflowable lets text adapt to any screen size and font setting. Fixed layout locks the page design — useful for illustrated children&apos;s books but it breaks on small screens and large-text accessibility settings. For prose and most non-fiction, use reflowable.</li>
+                        <li><strong>MOBI format is deprecated.</strong> Amazon stopped accepting .mobi uploads in 2022. Submit EPUB or Word.</li>
+                        <li><strong>Enhanced Typesetting.</strong> Amazon applies improved hyphenation, kerning, and justification automatically on supported devices when your book meets its requirements. Books with clean EPUB CSS are more likely to qualify; heavy inline styles or image-based text typically disqualify the book. Amazon determines eligibility — there is no manual opt-in.</li>
+                        <li><strong>Test with Kindle Previewer.</strong> Amazon&apos;s free Kindle Previewer simulates how your book renders across Kindle devices before upload. Run your EPUB through validation first, then test in Previewer — Previewer surfaces layout issues that validators don&apos;t catch (images, tables, drop cap rendering on older firmware).</li>
+                    </ul>
+                    <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
+                        The most common source of Kindle formatting problems is the Word export: straight quotes, double hyphens, double spaces, and encoding artifacts that render incorrectly after KDP&apos;s conversion. <Link href="/tools/kindle-format-fixer" style={LINK_STYLE}>Kindle Format Fixer</Link> catches and corrects all eight common Word export issues in a single pass, included in the Starter plan.
+                    </p>
+                </Section>
+
+                {/* ── 11. METADATA ── */}
+                <Section
+                    number="Section 11"
                     h2="Metadata — what KDP requires and how to format it"
                     tools={[TOOL_LINKS.metadataBuilder, TOOL_LINKS.kdpKeywordFinder]}
                 >
@@ -362,23 +398,23 @@ export default function KdpFormattingGuidePage() {
                         <li><strong>dc:creator</strong> — the author name. Multiple <code>dc:creator</code> elements are allowed for co-authored works. In EPUB3, an <code>opf:role</code> attribute specifies the contributor relationship using MARC relator codes.</li>
                         <li><strong>dc:language</strong> — the primary language as a BCP 47 tag: <code>en</code> for English, <code>en-US</code> for American English, <code>fr</code> for French. This affects how reading systems handle hyphenation, text-to-speech, and search indexing.</li>
                         <li><strong>dc:identifier</strong> — a unique identifier, typically the ISBN. Must match the identifier referenced by the package element&apos;s <code>unique-identifier</code> attribute, or the EPUB fails spec validation.</li>
-                        <li><strong>BISAC subject codes.</strong> BISAC codes classify books by genre and subject, and form the basis of KDP&apos;s category assignment. Adding <code>dc:subject</code> elements with BISAC codes and matching them to your KDP categories improves discoverability.</li>
-                        <li><strong>7 KDP keyword fields.</strong> Amazon gives you 7 keyword fields, each up to 50 characters. Use each slot as a complete phrase matching specific reader queries — not a list of single words.</li>
+                        <li><strong>BISAC subject codes.</strong> BISAC is a standard subject classification. Other retailers and distributors use it. KDP does not: you choose your categories in the KDP dashboard.</li>
+                        <li><strong>7 KDP keyword fields.</strong> KDP lets you add up to 7 keywords or short phrases. Use each box for a phrase a reader might search for — not a list of single words.</li>
                         <li><strong>Book description.</strong> The description field on your KDP product page accepts HTML formatting — bold, italic, lists, and headings. For the character limit, supported tags, and a copywriting structure, see the <Link href="/kdp-book-description" style={LINK_STYLE}>KDP book description guide</Link>.</li>
                     </ul>
                     <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
-                        <Link href="/tools/metadata-builder" style={LINK_STYLE}>Metadata Builder</Link> fills all four required Dublin Core fields and generates formatted output for KDP, IngramSpark, Draft2Digital, and EPUB OPF — free, no account required. <Link href="/tools/kdp-keyword-finder" style={LINK_STYLE}>KDP Keyword & Category Finder</Link> generates 7 long-tail keyword phrases tailored to your genre and comparable titles, plus ghost category paths — 2 credits per run.
+                        <Link href="/tools/metadata-builder" style={LINK_STYLE}>Metadata Builder</Link> fills all four required Dublin Core fields and generates formatted output for KDP, IngramSpark, Draft2Digital, and EPUB OPF — free, no account required. <Link href="/tools/kdp-keyword-finder" style={LINK_STYLE}>KDP Keyword & Category Finder</Link> suggests 7 long-tail keyword phrases tailored to your genre and comparable titles, plus category paths to choose from — 2 credits per run. KDP lets you select up to 3 categories.
                     </p>
                 </Section>
 
-                {/* ── 10. VALIDATION ── */}
+                {/* ── 12. VALIDATION ── */}
                 <Section
-                    number="Section 10"
+                    number="Section 12"
                     h2="Validation — why it matters and what it checks"
                     tools={[TOOL_LINKS.epubValidator, TOOL_LINKS.epubValidatorPro]}
                 >
                     <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
-                        KDP&apos;s upload error messages are deliberately vague. A file can be rejected with &ldquo;We found issues with your file&rdquo; and no further detail. Running validation before submission tells you exactly what KDP&apos;s preprocessor will flag — container structure, required metadata, spine order, cover image declaration — so you can fix it before any store sees the file.
+                        KDP&apos;s upload error messages are often vague. A file can be rejected with &ldquo;We found issues with your file&rdquo; and no further detail. Validating first finds structural problems — container structure, required metadata, spine order, cover image declaration — so you can fix them before any store sees the file.
                     </p>
                     <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
                         The three major stores have different strictness levels:
@@ -389,13 +425,13 @@ export default function KdpFormattingGuidePage() {
                         <li><strong>IngramSpark</strong> — sits between the two, with clearer rejection messages but stricter compliance requirements than KDP.</li>
                     </ul>
                     <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
-                        The free <Link href="/tools/epub-validator" style={LINK_STYLE}>online EPUB Validator</Link> checks all 11 structural requirements — mimetype, container, OPF, metadata, spine, navigation, cover reference, image and CSS references, file size — in your browser, with plain-English error messages and fix links. Free, no signup. For deeper checks (ghost spacing, duplicate IDs, OPF manifest completeness, store-specific pass/fail reports for KDP, Apple Books, and Google Play), <Link href="/tools/epub-validator-premium" style={LINK_STYLE}>EPUB Validator Pro</Link> runs a full scan — 3 credits per run.
+                        The free <Link href="/tools/epub-validator" style={LINK_STYLE}>online EPUB Validator</Link> runs 11 structural checks in your browser — mimetype, container, OPF package, required metadata, spine, manifest files, navigation, cover image, embedded fonts, EMF/WMF images and file size — with plain-English error messages and fix links. Free, no signup. It does not check the XML inside chapter files; for a full specification check, run EPUBCheck as well. For deeper checks (ghost spacing, duplicate IDs, OPF manifest completeness, store-specific pass/fail reports for KDP, Apple Books, and Google Play), <Link href="/tools/epub-validator-premium" style={LINK_STYLE}>EPUB Validator Pro</Link> runs a full scan — 3 credits per run.
                     </p>
                 </Section>
 
-                {/* ── 11. COMMON ERRORS ── */}
+                {/* ── 13. COMMON ERRORS ── */}
                 <Section
-                    number="Section 11"
+                    number="Section 13"
                     h2="Common KDP formatting errors — and how to fix them"
                 >
                     <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
@@ -426,8 +462,8 @@ export default function KdpFormattingGuidePage() {
                     </p>
                 </Section>
 
-                {/* ── 12. FINAL CHECKLIST ── */}
-                <Section number="Section 12" h2="Final KDP formatting checklist" last>
+                {/* ── 14. KDP UPLOAD CHECKLIST ── */}
+                <Section number="Section 14" h2="KDP upload checklist" last>
                     <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 16, opacity: 0.88 }}>
                         Before uploading to KDP, Apple Books, or Kobo, confirm each item:
                     </p>
@@ -436,13 +472,13 @@ export default function KdpFormattingGuidePage() {
                             { text: 'Manuscript cleaned — no double spaces, straight quotes, Tab indents, or encoding artifacts', tool: TOOL_LINKS.wordCleanup },
                             { text: 'Prose consistency checked — dialogue punctuation, repeated words, style drift', tool: TOOL_LINKS.manuscriptCleanup },
                             { text: 'EPUB file generated with correct mimetype, container.xml, OPF, and chapter structure', tool: TOOL_LINKS.epubFormatter },
-                            { text: 'Clickable Table of Contents present — nav.xhtml in manifest and spine, NCX fallback included', tool: TOOL_LINKS.tocGenerator },
+                            { text: 'Clickable Table of Contents present — nav.xhtml declared in the manifest, NCX fallback included', tool: TOOL_LINKS.tocGenerator },
                             { text: 'Front matter complete — title page, copyright page, dedication', tool: TOOL_LINKS.frontMatter },
                             { text: 'Back matter complete — author bio, Also By, mailing list CTA', tool: TOOL_LINKS.backMatter },
                             { text: 'EPUB validates with zero structural errors', tool: TOOL_LINKS.epubValidator },
                             { text: 'Cover image: JPEG or PNG, RGB color mode, dimensions meet KDP requirements', tool: TOOL_LINKS.coverChecker },
-                            { text: 'Metadata complete: dc:title, dc:creator, dc:language, dc:identifier, BISAC category, 7 keywords', tool: TOOL_LINKS.metadataBuilder },
-                            { text: 'KDP keyword phrases: 7 complete phrases using all 50 characters, no banned terms', tool: TOOL_LINKS.kdpKeywordFinder },
+                            { text: 'Metadata complete: dc:title, dc:creator, dc:language, dc:identifier in the EPUB; description, categories and optional keywords (up to 7) in KDP', tool: TOOL_LINKS.metadataBuilder },
+                            { text: 'KDP keywords: up to 7 phrases a reader would search for, following KDP keyword guidelines', tool: TOOL_LINKS.kdpKeywordFinder },
                             { text: 'File previewed in Kindle Previewer on at least one device size', tool: null },
                         ].map((item, i) => (
                             <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, marginBottom: 12, fontSize: 15, lineHeight: 1.55, opacity: 0.88 }}>
