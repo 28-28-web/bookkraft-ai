@@ -291,7 +291,7 @@ export default function KdpFormattingGuidePage() {
                     </p>
                     <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
                         <li><strong>EPUB3 nav.xhtml.</strong> The primary TOC lives in a navigation document marked with <code>epub:type=&quot;toc&quot;</code> on the <code>&lt;nav&gt;</code> element. Each entry points to a chapter heading via a relative link inside the EPUB package.</li>
-                        <li><strong>NCX fallback.</strong> Older Kindle devices rely on a <code>toc.ncx</code> file. Include both nav.xhtml and toc.ncx for backward compatibility. Omitting the NCX causes navigation to fail on older firmware.</li>
+                        <li><strong>NCX fallback.</strong> Older Kindle devices rely on a <code>toc.ncx</code> file. Include both nav.xhtml and toc.ncx for backward compatibility. An NCX is optional in EPUB 3; some authors add one for older EPUB 2 reading systems.</li>
                         <li><strong>Navigation TOC.</strong> A proper navigation TOC is required. Kindle uses it for navigation, so readers can jump between chapters. Declare nav.xhtml in the OPF manifest with <code>properties=&quot;nav&quot;</code>.</li>
                     </ul>
                     <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
@@ -391,7 +391,7 @@ export default function KdpFormattingGuidePage() {
                     tools={[TOOL_LINKS.metadataBuilder, TOOL_LINKS.kdpKeywordFinder]}
                 >
                     <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
-                        Every EPUB package must include four required Dublin Core metadata fields in the OPF document. These are EPUB spec requirements — not just KDP requirements.
+                        The EPUB specification requires only three Dublin Core fields in the OPF document: dc:title, dc:identifier and dc:language. dc:creator is recommended, not required. These are EPUB spec rules — not just KDP rules.
                     </p>
                     <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
                         <li><strong>dc:title</strong> — the book title, matching the title on the cover and in the KDP listing.</li>
@@ -403,7 +403,7 @@ export default function KdpFormattingGuidePage() {
                         <li><strong>Book description.</strong> The description field on your KDP product page accepts HTML formatting — bold, italic, lists, and headings. For the character limit, supported tags, and a copywriting structure, see the <Link href="/kdp-book-description" style={LINK_STYLE}>KDP book description guide</Link>.</li>
                     </ul>
                     <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
-                        <Link href="/tools/metadata-builder" style={LINK_STYLE}>Metadata Builder</Link> fills all four required Dublin Core fields and generates formatted output for KDP, IngramSpark, Draft2Digital, and EPUB OPF — free, no account required. <Link href="/tools/kdp-keyword-finder" style={LINK_STYLE}>KDP Keyword & Category Finder</Link> suggests 7 long-tail keyword phrases tailored to your genre and comparable titles, plus category paths to choose from — 2 credits per run. KDP lets you select up to 3 categories.
+                        <Link href="/tools/metadata-builder" style={LINK_STYLE}>Metadata Builder</Link> fills the three required Dublin Core fields plus dc:creator and generates formatted output for KDP, IngramSpark, Draft2Digital, and EPUB OPF — free, no account required. <Link href="/tools/kdp-keyword-finder" style={LINK_STYLE}>KDP Keyword & Category Finder</Link> suggests 7 long-tail keyword phrases tailored to your genre and comparable titles, plus category paths to choose from — 2 credits per run. KDP lets you select up to 3 categories.
                     </p>
                 </Section>
 
