@@ -92,7 +92,7 @@ export default async function CoverRequirementsPage({ params }) {
           dangerouslySetInnerHTML={{ __html: req.intro }}
         />
 
-        <CoverQuickAnswer items={req.quickAnswer} platform={req.platform} />
+        <CoverQuickAnswer items={req.quickAnswer} platform={req.platform} cta={req.quickAnswerCta} />
 
         <h2 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: 12, color: 'var(--ink)' }}>
           Specifications at a glance

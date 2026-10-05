@@ -365,6 +365,7 @@ export const COVER_REQUIREMENTS = [
       { label: 'PDF', value: 'One PDF with back cover, spine and front cover' },
       { label: 'Color space', value: 'CMYK recommended; avoid mixing color spaces' },
     ],
+    quickAnswerCta: { href: 'https://kdp.amazon.com/en_US/cover-calculator', label: 'Get your exact cover size from KDP\'s cover calculator' },
     relatedTool: 'cover-checker',
     related: [
       { type: 'cover-requirement', slug: 'ingramspark-print', label: 'IngramSpark print book cover requirements' },

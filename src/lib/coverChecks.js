@@ -10,6 +10,11 @@ export const KDP_RATIO = 1.6;
 export const KDP_RATIO_TOLERANCE = 0.08;
 export const APPLE_MIN_SHORT_SIDE = 1400;
 
+// KDP accepts JPEG or TIFF (KDP Help G200645690). Most browsers can't decode
+// TIFF, so when one fails to load we show this note instead of an error.
+export const TIFF_NOTE = 'KDP accepts TIFF. To check size here, export a JPEG copy.';
+export const isTiff = (file) => file.type === 'image/tiff' || /\.tiff?$/i.test(file.name);
+
 export function checkKDP(width, height, fileType, fileSizeMB) {
   const longSide = Math.max(width, height);
   const shortSide = Math.min(width, height);
@@ -18,12 +23,16 @@ export function checkKDP(width, height, fileType, fileSizeMB) {
 
   const checks = [];
 
+  const isJpeg = fileType === 'image/jpeg' || fileType === 'image/jpg';
+  const isTiffType = fileType === 'image/tiff';
   checks.push({
     label: 'Format',
-    pass: fileType === 'image/jpeg' || fileType === 'image/jpg',
-    detail: fileType === 'image/jpeg' || fileType === 'image/jpg'
+    pass: isJpeg || isTiffType,
+    detail: isJpeg
       ? 'JPEG — accepted'
-      : `${fileType.replace('image/', '').toUpperCase()} — KDP requires JPEG, not PNG`,
+      : isTiffType
+        ? 'TIFF — accepted'
+        : `${fileType.replace('image/', '').toUpperCase()} — KDP accepts JPEG or TIFF`,
   });
 
   checks.push({

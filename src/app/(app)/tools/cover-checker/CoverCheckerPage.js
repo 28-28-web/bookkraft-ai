@@ -6,7 +6,7 @@ import ToolResultsCTA from '@/components/ToolResultsCTA';
 import ReadinessReportCTA from '@/components/ReadinessReportCTA';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { track } from '@/lib/analytics';
-import { checkKDP, checkApple } from '@/lib/coverChecks';
+import { checkKDP, checkApple, isTiff, TIFF_NOTE } from '@/lib/coverChecks';
 
 const TOOL = 'cover-checker';
 
@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     q: 'Does my cover need to be RGB or can it be CMYK?',
-    a: 'RGB (specifically sRGB) is required for all ebook covers on KDP and Apple Books. CMYK is a print color space — it will cause colors to display incorrectly on screen and may cause your cover to be rejected. If you designed in CMYK for a print edition, convert to sRGB before exporting the ebook cover.',
+    a: 'RGB. KDP\'s Cover Image Guidelines say to use RGB as the color profile when saving your cover image files, because Kindle does not support CMYK. KDP\'s cover criteria also ask you to save the image without color separation. If you designed in CMYK for a print edition, convert to RGB before exporting the ebook cover.',
   },
   {
     q: 'My aspect ratio flagged a warning — how close does the ratio need to be?',
@@ -94,6 +94,7 @@ export default function CoverCheckerPage() {
   const [fileSizeMB, setFileSizeMB] = useState(null);
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState('');
+  const [note, setNote] = useState('');
   const [openFaq, setOpenFaq] = useState(null);
   const inputRef = useRef(null);
 
@@ -114,6 +115,7 @@ export default function CoverCheckerPage() {
       return;
     }
     setError('');
+    setNote('');
     if (file.size > 55 * 1024 * 1024) {
       setError('File too large to check — try an image under 55MB.');
       return;
@@ -143,7 +145,12 @@ export default function CoverCheckerPage() {
       setDims({ width: w, height: h });
       setImage(url);
     };
-    img.onerror = () => setError('Could not read this image file.');
+    img.onerror = () => {
+      if (!isTiff(file)) return setError('Could not read this image file.');
+      setDims(null);
+      setImage(null);
+      setNote(TIFF_NOTE);
+    };
     img.src = url;
   };
 
@@ -154,6 +161,7 @@ export default function CoverCheckerPage() {
     setFileName('');
     setFileSizeMB(null);
     setError('');
+    setNote('');
   };
 
   const kdpResult = dims ? checkKDP(dims.width, dims.height, fileType, fileSizeMB) : null;
@@ -236,6 +244,7 @@ export default function CoverCheckerPage() {
                   onChange={(e) => handleFile(e.target.files?.[0])}
                 />
                 {error && <p style={{ color: '#FF6B5B', fontSize: 13, marginTop: 16 }}>{error}</p>}
+                {note && <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, marginTop: 16 }}>{note}</p>}
               </>
             ) : (
               <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,160px) 1fr', gap: 24, alignItems: 'center', textAlign: 'left' }}>

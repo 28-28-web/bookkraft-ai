@@ -16,7 +16,7 @@ export default function Page() {
     url: 'https://bookkraftai.com/tools/cover-checker',
     applicationCategory: 'UtilitiesApplication',
     operatingSystem: 'Web Browser',
-    description: 'Free cover image validator that checks minimum dimensions, color profile (RGB/sRGB), and file format against KDP, Apple Books, and Kobo requirements. No signup required.',
+    description: 'Free ebook cover checker: tests format, orientation, size, aspect ratio and file size against KDP\'s ebook cover rules, and the shortest side against Apple Books\' 1400px minimum. No signup required.',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   };
 

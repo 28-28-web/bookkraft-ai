@@ -2,11 +2,12 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 import { track } from '@/lib/analytics';
 import Sidebar from '@/components/Sidebar';
 import { runEpubChecks } from '@/lib/epubChecks';
-import { checkKDP, checkApple } from '@/lib/coverChecks';
+import { checkKDP, checkApple, isTiff, TIFF_NOTE } from '@/lib/coverChecks';
 import { buildMetadataChecks, extractMetadataFromZip } from '@/lib/metadataChecks';
 import { scanDocx } from '@/lib/wordChecks';
 import { sectionScore, overallScore, coverStatus, wordStatus, SECTION_WEIGHTS } from '@/lib/readinessScore';
@@ -70,6 +71,7 @@ export default function ReadinessReportPage() {
     const [docxName, setDocxName] = useState('');
     const [busy, setBusy] = useState(false);
     const [error, setError] = useState('');
+    const [coverNote, setCoverNote] = useState('');
     const startedRef = useRef(false);   // readiness_started fires once
     const completedRef = useRef(false); // readiness_completed fires once
     const [saved, setSaved] = useState(false);
@@ -150,6 +152,7 @@ export default function ReadinessReportPage() {
         if (!file) return;
         if (!file.type.startsWith('image/')) { setError('Cover must be an image file.'); return; }
         setError('');
+        setCoverNote('');
         const url = URL.createObjectURL(file);
         const img = new window.Image();
         img.onload = () => {
@@ -159,7 +162,11 @@ export default function ReadinessReportPage() {
             setCover({ checks: [...kdp.checks, ...apple.checks] });
             URL.revokeObjectURL(url);
         };
-        img.onerror = () => { setError('Could not read this image.'); URL.revokeObjectURL(url); };
+        img.onerror = () => {
+            if (isTiff(file)) { setCover(null); setCoverNote(TIFF_NOTE); }
+            else setError('Could not read this image.');
+            URL.revokeObjectURL(url);
+        };
         img.src = url;
     };
 
@@ -253,6 +260,7 @@ export default function ReadinessReportPage() {
 
                 {busy && <div className="loading-state"><div className="spinner" /> Checking...</div>}
                 {error && <p style={{ color: 'var(--rust)', fontSize: '0.9rem', marginBottom: '16px' }}>{error}</p>}
+                {coverNote && <p style={{ color: 'var(--mid)', fontSize: '0.9rem', marginBottom: '16px' }}>{coverNote}</p>}
 
                 {overall != null && (
                     <>
@@ -386,9 +394,9 @@ export default function ReadinessReportPage() {
                                     <p style={{ color: '#d1d5db', fontSize: '0.88rem', marginBottom: '16px', lineHeight: 1.5 }}>
                                         EPUB Validator Premium checks ghost spacing, duplicate IDs, OPF manifest cross-check and cover dimensions — plus a store-specific report for KDP, Apple Books and Google Play.
                                     </p>
-                                    <a href="/tools/epub-validator-premium" onClick={() => track('fix_clicked', { tool: 'readiness-report', fix_tool: 'epub-validator-premium' })} style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>
+                                    <Link href="/tools/epub-validator-premium" onClick={() => track('fix_clicked', { tool: 'readiness-report', fix_tool: 'epub-validator-premium' })} style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>
                                         Run Pro Scan — 3 Credits →
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

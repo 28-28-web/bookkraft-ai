@@ -1,10 +1,14 @@
 import Link from 'next/link';
 
+const DEFAULT_CTA = { href: '/tools/cover-checker', label: 'Check your cover before upload' };
+
 // Server-rendered quick-answer box for cover requirement pages. A page opts in
 // by giving its coverRequirements.js entry a `quickAnswer` array of
-// { label, value } rows.
-export default function CoverQuickAnswer({ items, platform }) {
+// { label, value } rows. `cta` overrides the button (e.g. print covers, which
+// the ebook-only Cover Checker can't test); external hrefs open in a new tab.
+export default function CoverQuickAnswer({ items, platform, cta = DEFAULT_CTA }) {
   if (!items?.length) return null;
+  const external = /^https?:\/\//.test(cta.href);
   return (
     <section
       aria-labelledby="cover-quick-answer"
@@ -21,9 +25,15 @@ export default function CoverQuickAnswer({ items, platform }) {
           </div>
         ))}
       </dl>
-      <Link href="/tools/cover-checker" className="btn btn-gold btn-cta">
-        Check your cover before upload →
-      </Link>
+      {external ? (
+        <a href={cta.href} target="_blank" rel="noopener nofollow" className="btn btn-gold btn-cta">
+          {cta.label} →
+        </a>
+      ) : (
+        <Link href={cta.href} className="btn btn-gold btn-cta">
+          {cta.label} →
+        </Link>
+      )}
     </section>
   );
 }
