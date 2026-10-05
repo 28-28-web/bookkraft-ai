@@ -375,7 +375,7 @@ export default function KdpFormattingGuidePage() {
                     </p>
                     <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
                         <li><strong>Reflowable vs fixed layout.</strong> Reflowable lets text adapt to any screen size and font setting. Fixed layout locks the page design — useful for illustrated children&apos;s books but it breaks on small screens and large-text accessibility settings. For prose and most non-fiction, use reflowable.</li>
-                        <li><strong>MOBI format is deprecated.</strong> Amazon stopped accepting .mobi uploads in 2022. Submit EPUB or Word.</li>
+                        <li><strong>MOBI format is deprecated.</strong> KDP stopped accepting MOBI for reflowable ebooks on August 1, 2021 and for fixed-layout ebooks on March 18, 2025. Submit EPUB or Word.</li>
                         <li><strong>Enhanced Typesetting.</strong> Amazon applies improved hyphenation, kerning, and justification automatically on supported devices when your book meets its requirements. Books with clean EPUB CSS are more likely to qualify; heavy inline styles or image-based text typically disqualify the book. Amazon determines eligibility — there is no manual opt-in.</li>
                         <li><strong>Test with Kindle Previewer.</strong> Amazon&apos;s free Kindle Previewer simulates how your book renders across Kindle devices before upload. Run your EPUB through validation first, then test in Previewer — Previewer surfaces layout issues that validators don&apos;t catch (images, tables, drop cap rendering on older firmware).</li>
                     </ul>
