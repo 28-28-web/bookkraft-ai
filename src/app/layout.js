@@ -110,6 +110,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${dmSansHeavy.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable}`}>
       <head>
+        {/* Next 308s repeated slashes itself, but in production the proxy in
+            front collapses //tools/x to /tools/x before Next sees it, so the
+            page renders at //tools/x. The app router then calls
+            history.replaceState('//tools/x'), which the browser reads as
+            https://tools/x (cross-origin) and throws. Fix the URL before
+            hydration. */}
+        <script dangerouslySetInnerHTML={{ __html: `if(/\\/\\/+/.test(location.pathname))location.replace(location.pathname.replace(/\\/\\/+/g,'/')+location.search+location.hash)` }} />
 
         {/* Fraunces is preloaded per page (/, /faq, /b/[n]), not here — most pages never use it. */}
 
