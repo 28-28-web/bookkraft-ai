@@ -222,6 +222,54 @@ export default function EpubValidator() {
                             </p>
                         </div>
 
+                        {/* Email capture */}
+                        <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '16px 20px', marginBottom: '20px' }}>
+                            {!emailSent ? (
+                                <>
+                                    <p style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '10px' }}>📬 Email me this report + the free KDP Preflight Checklist</p>
+                                    <form onSubmit={handleEmailSubmit} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                                        {/* Honeypot: off-screen, skipped by keyboard and screen readers; bots fill it. */}
+                                        <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" value={company} onChange={(e) => setCompany(e.target.value)} style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, opacity: 0 }} />
+                                        <input
+                                            type="text"
+                                            placeholder="First name (optional)"
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                            style={{ padding: '10px 14px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '0.9rem', outline: 'none', flex: '1', minWidth: '140px' }}
+                                        />
+                                        <input
+                                            type="email"
+                                            placeholder="Your email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            required
+                                            style={{ padding: '10px 14px', border: `1px solid ${emailError ? '#fca5a5' : '#d1d5db'}`, borderRadius: '8px', fontSize: '0.9rem', outline: 'none', flex: '2', minWidth: '180px' }}
+                                        />
+                                        <button type="submit" style={{ background: '#1a1a1a', color: '#fff', padding: '10px 20px', borderRadius: '8px', fontWeight: 600, fontSize: '0.9rem', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                                            Send report + checklist
+                                        </button>
+                                    </form>
+                                    {emailError && <p style={{ color: '#c53030', fontSize: '0.85rem', marginTop: '6px' }}>{emailError}</p>}
+                                    <p style={{ color: '#6b7280', fontSize: '0.8rem', marginTop: '10px', marginBottom: 0 }}>
+                                        You&apos;ll also get one Kindle fix a week. Unsubscribe anytime.{' '}
+                                        <a href="/privacy" style={{ color: '#6b7280', textDecoration: 'underline' }}>Privacy policy</a>
+                                    </p>
+                                </>
+                            ) : (
+                                <div style={{ textAlign: 'center' }}>
+                                    <p style={{ color: '#166534', fontWeight: 600, fontSize: '0.95rem', marginBottom: '8px' }}>
+                                        📬 Report sent to <strong>{email}</strong> — check your inbox.
+                                    </p>
+                                    <p style={{ fontSize: '0.9rem', margin: 0 }}>
+                                        No need to wait:{' '}
+                                        <a href="/kdp-preflight-checklist.pdf" target="_blank" rel="noopener" style={{ color: '#b8860b', fontWeight: 600 }}>
+                                            Download the KDP Preflight Checklist (PDF) →
+                                        </a>
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+
                         {/* Issues block */}
                         {hasIssues && (
                             <div style={{ background: '#1a1a1a', color: '#fff', borderRadius: '12px', padding: '24px', marginBottom: '20px' }}>
@@ -288,54 +336,6 @@ export default function EpubValidator() {
                                     </div>
                                 </div>
                             ))}
-                        </div>
-
-                        {/* Email capture */}
-                        <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '24px', marginTop: '24px' }}>
-                            {!emailSent ? (
-                                <>
-                                    <p style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '16px' }}>📬 Email me this report + the free KDP Preflight Checklist</p>
-                                    <form onSubmit={handleEmailSubmit} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                                        {/* Honeypot: off-screen, skipped by keyboard and screen readers; bots fill it. */}
-                                        <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" value={company} onChange={(e) => setCompany(e.target.value)} style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, opacity: 0 }} />
-                                        <input
-                                            type="text"
-                                            placeholder="First name (optional)"
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
-                                            style={{ padding: '10px 14px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '0.9rem', outline: 'none', flex: '1', minWidth: '140px' }}
-                                        />
-                                        <input
-                                            type="email"
-                                            placeholder="Your email"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            required
-                                            style={{ padding: '10px 14px', border: `1px solid ${emailError ? '#fca5a5' : '#d1d5db'}`, borderRadius: '8px', fontSize: '0.9rem', outline: 'none', flex: '2', minWidth: '180px' }}
-                                        />
-                                        <button type="submit" style={{ background: '#1a1a1a', color: '#fff', padding: '10px 20px', borderRadius: '8px', fontWeight: 600, fontSize: '0.9rem', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap' }}>
-                                            Send report + checklist
-                                        </button>
-                                    </form>
-                                    {emailError && <p style={{ color: '#c53030', fontSize: '0.85rem', marginTop: '6px' }}>{emailError}</p>}
-                                    <p style={{ color: '#6b7280', fontSize: '0.8rem', marginTop: '10px', marginBottom: 0 }}>
-                                        You&apos;ll also get one Kindle fix a week. Unsubscribe anytime.{' '}
-                                        <a href="/privacy" style={{ color: '#6b7280', textDecoration: 'underline' }}>Privacy policy</a>
-                                    </p>
-                                </>
-                            ) : (
-                                <div style={{ textAlign: 'center' }}>
-                                    <p style={{ color: '#166534', fontWeight: 600, fontSize: '0.95rem', marginBottom: '8px' }}>
-                                        📬 Report sent to <strong>{email}</strong> — check your inbox.
-                                    </p>
-                                    <p style={{ fontSize: '0.9rem', margin: 0 }}>
-                                        No need to wait:{' '}
-                                        <a href="/kdp-preflight-checklist.pdf" target="_blank" rel="noopener" style={{ color: '#b8860b', fontWeight: 600 }}>
-                                            Download the KDP Preflight Checklist (PDF) →
-                                        </a>
-                                    </p>
-                                </div>
-                            )}
                         </div>
                     </div>
 
