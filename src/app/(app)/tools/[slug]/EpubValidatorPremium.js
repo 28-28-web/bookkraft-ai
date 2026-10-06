@@ -304,6 +304,7 @@ export default function EpubValidatorPremium() {
             }
 
             const passCount = checks.filter(c => c.status === 'pass').length;
+            track('file_processed', { tool: 'epub-validator-premium', issue_count: checks.length - passCount, pass_count: passCount, total: checks.length });
 
             if (typeof window !== 'undefined' && window.gtag) {
                 window.gtag('event', 'epub_premium_validated', {

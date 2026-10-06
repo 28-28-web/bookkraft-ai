@@ -60,6 +60,7 @@ export default function PublishingScoreClient({ children }) {
           return;
         }
         setText(extractedText.slice(0, 6000));
+        track('file_processed', { tool: 'publishing-score', status: 'success' });
       } catch (err) {
         setError('Could not read EPUB file. Try pasting your text directly.');
       }
@@ -67,6 +68,7 @@ export default function PublishingScoreClient({ children }) {
       const fileText = await file.text();
       const stripped = fileText.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
       setText(stripped.slice(0, 6000));
+      track('file_processed', { tool: 'publishing-score', status: 'success' });
     }
   };
 

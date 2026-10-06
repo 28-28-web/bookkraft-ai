@@ -79,6 +79,7 @@ export default function MetadataBuilder() {
                 series: meta.series || f.series,
                 seriesVolume: meta.seriesVolume || f.seriesVolume,
             }));
+            track('file_processed', { tool: 'metadata-builder', status: 'success' });
             if (typeof window !== 'undefined' && window.gtag) {
                 window.gtag('event', 'file_upload_success', { tool_name: 'metadata_builder', file_type: 'epub', file_size_range: fileSizeRange(file.size) });
             }
