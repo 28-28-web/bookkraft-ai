@@ -79,10 +79,7 @@ export default function MetadataBuilder() {
                 series: meta.series || f.series,
                 seriesVolume: meta.seriesVolume || f.seriesVolume,
             }));
-            track('file_processed', { tool: 'metadata-builder', status: 'success' });
-            if (typeof window !== 'undefined' && window.gtag) {
-                window.gtag('event', 'file_upload_success', { tool_name: 'metadata_builder', file_type: 'epub', file_size_range: fileSizeRange(file.size) });
-            }
+            track('file_processed', { tool: 'metadata-builder', status: 'success', file_type: 'epub', file_size_range: fileSizeRange(file.size) });
         } catch (err) {
             console.error('EPUB extract error:', err);
             if (typeof window !== 'undefined' && window.gtag) {
@@ -124,9 +121,6 @@ export default function MetadataBuilder() {
         e.preventDefault();
         if (!form.title && !form.authors) return;
         track('tool_start', { tool: 'metadata-builder' });
-        if (typeof window !== 'undefined' && window.gtag) {
-            window.gtag('event', 'tool_complete', { tool_name: 'metadata_builder', issue_count: failCount + warnCount });
-        }
         setShowReport(true);
         track('report_completed', { tool: 'metadata-builder', issue_count: failCount + warnCount });
     };

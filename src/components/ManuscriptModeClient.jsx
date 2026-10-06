@@ -125,7 +125,6 @@ export default function ManuscriptModeClient() {
         }
 
         track('tool_start', { tool: TOOL });
-        gtag('event', 'tool_start', { tool_name: 'manuscript_mode' });
         gtag('event', 'file_upload_start', { tool_name: 'manuscript_mode', file_size_kb: Math.round(file.size / 1024) });
 
         setStatus('processing');
@@ -182,10 +181,7 @@ export default function ManuscriptModeClient() {
             });
             setStatus('done');
             track('file_processed', { tool: TOOL, status: 'success', chapters: chaptersFound ? Number(chaptersFound) : null });
-            track('report_completed', { tool: TOOL });
-            gtag('event', 'file_upload_success', { tool_name: 'manuscript_mode' });
-            gtag('event', 'tool_complete', { tool_name: 'manuscript_mode', chapters: chaptersFound });
-            gtag('event', 'result_view', { tool_name: 'manuscript_mode' });
+            track('report_completed', { tool: TOOL, chapters: chaptersFound ? Number(chaptersFound) : null });
 
         } catch {
             setErrorMsg('Could not reach the server — check your connection and try again.');

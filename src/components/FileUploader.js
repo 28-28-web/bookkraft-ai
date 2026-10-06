@@ -3,6 +3,7 @@
 import { useState, useCallback } from 'react';
 import { CHAPTER_BOUNDARY_MARKER } from '@/lib/ai/chunker';
 import { useLoadingSteps } from '@/hooks/useLoadingSteps';
+import { track } from '@/lib/analytics';
 
 const FILE_STEPS = [
     { text: 'Reading file...', ms: 800 },
@@ -80,11 +81,11 @@ export default function FileUploader({ onTextExtracted, accept = '.docx,.txt', l
 
                 const plainText = htmlToPlainText(html);
                 onTextExtracted(plainText, html);
-                gtag('event', 'file_upload_success', { tool_name: toolName, file_type: 'docx', file_size_range: fileSizeRange(file.size) });
+                track('file_processed', { tool: toolName.replace(/_/g, '-'), file_type: 'docx', file_size_range: fileSizeRange(file.size) });
             } else if (file.name.endsWith('.txt') || file.type === 'text/plain') {
                 const text = await file.text();
                 onTextExtracted(text, null);
-                gtag('event', 'file_upload_success', { tool_name: toolName, file_type: 'txt', file_size_range: fileSizeRange(file.size) });
+                track('file_processed', { tool: toolName.replace(/_/g, '-'), file_type: 'txt', file_size_range: fileSizeRange(file.size) });
             } else {
                 const ext = file.name.split('.').pop().toLowerCase();
                 setError(`"${ext}" files aren't supported. Please upload a .docx or .txt file.`);

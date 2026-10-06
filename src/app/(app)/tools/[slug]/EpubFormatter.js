@@ -3,6 +3,9 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { useProject } from '@/lib/ProjectContext';
 import { useLoadingSteps } from '@/hooks/useLoadingSteps';
+import { track } from '@/lib/analytics';
+
+const TOOL = 'epub-formatter';
 
 const FORMATTER_STEPS = [
     { text: 'Uploading...', ms: 1500 },
@@ -58,14 +61,11 @@ export default function EpubFormatter() {
 
     const updateField = (key, value) => setForm((f) => ({ ...f, [key]: value }));
 
-    const gtag = (...args) => {
-        if (typeof window !== 'undefined' && window.gtag) window.gtag(...args);
-    };
 
     const handleSubmit = async () => {
         if (!manuscript.trim()) return;
 
-        gtag('event', 'tool_start', { tool_name: 'epub_formatter' });
+        track('tool_start', { tool: TOOL });
 
         setLoading(true);
         setError('');
@@ -115,7 +115,7 @@ export default function EpubFormatter() {
             URL.revokeObjectURL(url);
 
             setSuccess(`✓ ${filename} generated! Check your downloads folder.`);
-            gtag('event', 'tool_complete', { tool_name: 'epub_formatter' });
+            track('report_completed', { tool: TOOL });
         } catch {
             setError('Could not reach the server — check your connection and try again.');
         } finally {

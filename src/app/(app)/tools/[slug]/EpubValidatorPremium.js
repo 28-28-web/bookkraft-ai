@@ -56,7 +56,6 @@ export default function EpubValidatorPremium() {
 
         track('tool_start', { tool: 'epub-validator-premium', file_size_range: fileSizeRange(epubFile.size) });
         if (typeof window !== 'undefined' && window.gtag) {
-            window.gtag('event', 'tool_start', { tool_name: 'epub_validator_premium' });
             window.gtag('event', 'file_upload_start', { tool_name: 'epub_validator_premium', file_type: 'epub', file_size_range: fileSizeRange(epubFile.size) });
         }
 
@@ -304,18 +303,8 @@ export default function EpubValidatorPremium() {
             }
 
             const passCount = checks.filter(c => c.status === 'pass').length;
-            track('file_processed', { tool: 'epub-validator-premium', issue_count: checks.length - passCount, pass_count: passCount, total: checks.length });
-
-            if (typeof window !== 'undefined' && window.gtag) {
-                window.gtag('event', 'epub_premium_validated', {
-                    issue_count: checks.length - passCount,
-                    ghost_tags: totalGhostTags,
-                    duplicate_ids: totalDuplicates,
-                });
-                window.gtag('event', 'file_upload_success', { tool_name: 'epub_validator_premium', file_type: 'epub', file_size_range: fileSizeRange(epubFile.size) });
-                window.gtag('event', 'tool_complete', { tool_name: 'epub_validator_premium', issue_count: checks.length - passCount });
-            }
-            track('report_completed', { tool: 'epub-validator-premium', issue_count: checks.length - passCount, pass_count: passCount, total: checks.length });
+            track('file_processed', { tool: 'epub-validator-premium', issue_count: checks.length - passCount, pass_count: passCount, total: checks.length, file_type: 'epub', file_size_range: fileSizeRange(epubFile.size) });
+            track('report_completed', { tool: 'epub-validator-premium', issue_count: checks.length - passCount, pass_count: passCount, total: checks.length, ghost_tags: totalGhostTags, duplicate_ids: totalDuplicates });
 
             // Show deterministic results immediately; AI store report loads in background
             setLoading(false);

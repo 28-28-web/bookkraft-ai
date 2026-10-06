@@ -432,19 +432,6 @@ export async function POST(request) {
                     items: [{ item_id: purchaseType, item_name: purchaseType, price: amountPaid, quantity: 1 }],
                 },
             });
-            await fireGA4Event({
-                clientId: customData.gaClientId ?? null,
-                sessionId: customData.gaSessionId ?? null,
-                userId,
-                eventName: 'payment_success',
-                params: {
-                    plan: purchaseType,
-                    page_type: 'checkout',
-                    transaction_id: paddleOrderId,
-                    value: amountPaid,
-                    currency,
-                },
-            });
             void sendPurchaseNotification({ userId, purchaseType, paddleOrderId, amountPaid, userEmail });
 
             // Funnel event — server-side only, spoof-resistant. Best-effort:

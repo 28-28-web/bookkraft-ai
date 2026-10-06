@@ -37,17 +37,7 @@ function CheckoutButton({ purchaseType, discountCode, className, children }) {
         }
 
         if (typeof window !== 'undefined' && (window as any).gtag) {
-            let gaClientId: string | null = null;
-            try {
-                const m = document.cookie.match(/_ga=GA[\d.]+\.(.+?)(?:;|$)/);
-                if (m) gaClientId = m[1].trim();
-            } catch { /* blocked */ }
-            (window as any).gtag('event', 'pricing_cta_click', {
-                plan: purchaseType,
-                page_type: 'pricing',
-                user_id: user?.id || null,
-                anonymous_id: !user ? (gaClientId || null) : null,
-            });
+            (window as any).gtag('event', 'pricing_cta_click', { plan: purchaseType, page_type: 'pricing' });
         }
 
         if (!user) {
@@ -149,16 +139,7 @@ function PricingContent() {
 
     useEffect(() => {
         if (typeof window !== 'undefined' && (window as any).gtag) {
-            let gaClientId: string | null = null;
-            try {
-                const m = document.cookie.match(/_ga=GA[\d.]+\.(.+?)(?:;|$)/);
-                if (m) gaClientId = m[1].trim();
-            } catch { /* blocked */ }
-            (window as any).gtag('event', 'pricing_view', {
-                page_type: 'pricing',
-                user_id: user?.id || null,
-                anonymous_id: !user ? (gaClientId || null) : null,
-            });
+            (window as any).gtag('event', 'pricing_view', { page_type: 'pricing' });
         }
     }, []);
 

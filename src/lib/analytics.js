@@ -104,7 +104,8 @@ export function track(eventName, data) {
         if (ref && !eventData.referral_source) eventData.referral_source = ref;
 
         const gaName = GA4_EVENT_NAMES[eventName];
-        if (gaName && window.gtag) window.gtag('event', gaName, eventData);
+        // tool_name keeps the old gtag dimension (epub_validator); `tool` is the dashed slug.
+        if (gaName && window.gtag) window.gtag('event', gaName, eventData.tool ? { tool_name: eventData.tool.replace(/-/g, '_'), ...eventData } : eventData);
 
         const payload = JSON.stringify({
             event_name: eventName,

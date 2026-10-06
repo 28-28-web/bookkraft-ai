@@ -66,7 +66,6 @@ export default function EpubValidator() {
         track('tool_start', { tool: TOOL, file_size_range: fileSizeRange(epubFile.size) });
 
         if (typeof window !== 'undefined' && window.gtag) {
-            window.gtag('event', 'tool_start', { tool_name: 'epub_validator' });
             window.gtag('event', 'file_upload_start', { tool_name: 'epub_validator', file_type: 'epub', file_size_range: fileSizeRange(epubFile.size) });
         }
 
@@ -76,13 +75,7 @@ export default function EpubValidator() {
             const { checks, passCount, total } = await runEpubChecks(zip, epubFile.size);
             const sizeMB = (epubFile.size / 1024 / 1024).toFixed(1);
 
-            track('file_processed', { tool: TOOL, issue_count: total - passCount, pass_count: passCount, total });
-
-            if (typeof window !== 'undefined' && window.gtag) {
-                window.gtag('event', 'epub_validated', { issue_count: total - passCount });
-                window.gtag('event', 'file_upload_success', { tool_name: 'epub_validator', file_type: 'epub', file_size_range: fileSizeRange(epubFile.size) });
-                window.gtag('event', 'tool_complete', { tool_name: 'epub_validator', issue_count: total - passCount });
-            }
+            track('file_processed', { tool: TOOL, issue_count: total - passCount, pass_count: passCount, total, file_type: 'epub', file_size_range: fileSizeRange(epubFile.size) });
 
             setResults({ checks, passCount, total, filename: epubFile.name, sizeMB, hasErrors: passCount < total });
 

@@ -104,10 +104,6 @@ export default function CoverCheckerPage() {
     }
   }, []);
 
-  useEffect(() => {
-    if (dims) track('report_completed', { tool: TOOL });
-  }, [dims]);
-
   const handleFile = (file) => {
     if (!file) return;
     if (!file.type.startsWith('image/')) {
@@ -121,9 +117,6 @@ export default function CoverCheckerPage() {
       return;
     }
     track('tool_start', { tool: TOOL });
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'tool_start', { tool_name: 'cover_checker' });
-    }
     setFileType(file.type);
     setFileName(file.name);
     setFileSizeMB(file.size / (1024 * 1024));
@@ -138,10 +131,7 @@ export default function CoverCheckerPage() {
       const issueCount = [...kdp.checks, ...apple.checks].filter((c) => !c.pass).length;
       const status = kdp.status === 'pass' && apple.status === 'pass' ? 'pass' : 'fail';
       track('file_processed', { tool: TOOL, status, issue_count: issueCount });
-      if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', 'result_view', { tool_name: 'cover_checker', status });
-        window.gtag('event', 'tool_complete', { tool_name: 'cover_checker', issue_count: issueCount });
-      }
+      track('report_completed', { tool: TOOL, status, issue_count: issueCount });
       setDims({ width: w, height: h });
       setImage(url);
     };

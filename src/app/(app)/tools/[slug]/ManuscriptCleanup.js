@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useLoadingSteps } from '@/hooks/useLoadingSteps';
+import { track } from '@/lib/analytics';
+
+const TOOL = 'manuscript-cleanup';
 
 const CLEANUP_STEPS = [
     { text: 'Analyzing text...', ms: 1500 },
@@ -46,14 +49,10 @@ export default function ManuscriptCleanup() {
         }
     }, [currentProject?.id]);
 
-    const gtag = (...args) => {
-        if (typeof window !== 'undefined' && window.gtag) window.gtag(...args);
-    };
-
     const handleSampleSubmit = async () => {
         if (!input.trim()) return;
 
-        gtag('event', 'tool_start', { tool_name: 'manuscript_cleanup', mode: 'sample' });
+        track('tool_start', { tool: TOOL, mode: 'sample' });
 
         setLoading(true);
         setError('');
@@ -74,8 +73,7 @@ export default function ManuscriptCleanup() {
                 return;
             }
             setResult({ ...data.data, isSample: data.isSample, wordsProcessed: data.wordsProcessed });
-            gtag('event', 'tool_complete', { tool_name: 'manuscript_cleanup', mode: 'sample' });
-            gtag('event', 'result_view', { tool_name: 'manuscript_cleanup', mode: 'sample' });
+            track('report_completed', { tool: TOOL, mode: 'sample' });
         } catch {
             setError('Could not reach the server — check your connection and try again.');
         } finally {
@@ -85,8 +83,7 @@ export default function ManuscriptCleanup() {
 
     const handleFullResult = async (merged, meta) => {
         setResult({ ...merged, isSample: false, wordsProcessed: meta.wordCount, partial: meta.status === 'partial', creditsCharged: meta.creditsCharged });
-        gtag('event', 'tool_complete', { tool_name: 'manuscript_cleanup', mode: 'full', words_processed: meta.wordCount });
-        gtag('event', 'result_view', { tool_name: 'manuscript_cleanup', mode: 'full' });
+        track('report_completed', { tool: TOOL, mode: 'full', words_processed: meta.wordCount });
         await refreshProfile();
     };
 

@@ -57,9 +57,9 @@ export default function WordCleanupPage({ children, faqItems = [] }) {
       track('report_completed', {
         tool: TOOL,
         status: result.overallStatus,
+        overall_status: result.overallStatus,
         issue_count: result.checks.filter((c) => c.status !== 'pass').length,
       });
-      gtag('event', 'result_view', { tool_name: 'word_cleanup', overall_status: result.overallStatus });
     }
   }, [result]);
 
@@ -67,7 +67,6 @@ export default function WordCleanupPage({ children, faqItems = [] }) {
     if (!file) return;
 
     track('tool_start', { tool: TOOL, file_size_range: fileSizeRange(file.size) });
-    gtag('event', 'tool_start', { tool_name: 'word_cleanup' });
     gtag('event', 'file_upload_start', { tool_name: 'word_cleanup', file_size_range: fileSizeRange(file.size) });
 
     if (!file.name.toLowerCase().endsWith('.docx')) {
@@ -86,8 +85,6 @@ export default function WordCleanupPage({ children, faqItems = [] }) {
       const scan = await scanDocx(file);
       setResult(scan);
       track('file_processed', { tool: TOOL, status: scan.overallStatus, issue_count: scan.checks.filter((c) => c.status !== 'pass').length });
-      gtag('event', 'file_upload_success', { tool_name: 'word_cleanup' });
-      gtag('event', 'tool_complete', { tool_name: 'word_cleanup', overall_status: scan.overallStatus });
     } catch (err) {
       const msg = err.message?.includes('word/document.xml')
         ? "We couldn't read this file. Make sure it's a valid .docx — older .doc files must be re-saved first."

@@ -86,9 +86,6 @@ export default function PublishingScoreClient({ children }) {
       });
       const data = await res.json();
       if (!res.ok || data.error) throw new Error(data.message || data.error || 'Something went wrong. Please try again.');
-      if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', 'tool_complete', { tool_name: 'publishing_score', score: data.total });
-      }
       setResult(data);
       track('report_completed', { tool: 'publishing-score', score: data.total });
     } catch (err) {
