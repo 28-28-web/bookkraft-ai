@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { usePaddle } from '@/app/hooks/usePaddle';
-import { getGaIds } from '@/lib/analytics';
+import { track, getGaIds } from '@/lib/analytics';
 
 const CHECKOUT_WATCHDOG_MS = 5000;
 
@@ -48,6 +48,8 @@ export default function CreditsClient({ plan, credits, priceLabel, priceId, user
         successUrl: `https://artrating.art/credits?success=true`,
       },
     };
+
+    track('checkout_started', { plan, source: 'credits' });
 
     try {
       paddle.Checkout.open(payload);

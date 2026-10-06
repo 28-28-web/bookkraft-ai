@@ -82,6 +82,13 @@ export const nextConfig = { // named export: src/lib/ghost.js reads redirects()
          destination: 'https://bookkraftai.com/:path*',
          permanent: true,
        },
+      // //tools/x served 200 as a duplicate of /tools/x. Collapse to one slash.
+      // :path+ not :path*, which also matches "/" and redirects the homepage to itself.
+      {
+        source: '//:path+',
+        destination: '/:path*',
+        permanent: true,
+      },
       {
         source: '/epub-validator',
         destination: '/tools/epub-validator',

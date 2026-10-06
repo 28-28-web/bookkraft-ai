@@ -47,8 +47,11 @@ export async function POST(req) {
       maxTokens: 1000,
       toolSlug: 'publishing-score',
     });
-    const parsed = result;
-    return NextResponse.json(parsed);
+    // toolUrl is rendered as an href, so take it from the template, never from
+    // the model's output (it can return a malformed or off-site URL).
+    const urls = Object.fromEntries(template.categories.map((c) => [c.id, c.toolUrl]));
+    for (const c of result?.categories || []) c.toolUrl = urls[c.id] || null;
+    return NextResponse.json(result);
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: 'Analysis failed. Please try again.' }, { status: 500 });
