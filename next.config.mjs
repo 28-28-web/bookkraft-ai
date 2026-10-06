@@ -42,6 +42,28 @@ function checkPublicEnv() {
   }
 }
 
+// Old Ghost blog. Cloudflare 301s blog.bookkraftai.com/<path> to
+// /old-blog/<path> with the trailing slash removed (Next strips a trailing
+// slash with its own 308 before these rules run, which would add a hop).
+// Each rule sends the old URL straight to its final page.
+const OLD_BLOG = {
+  'fix-epub-errors-kdp': '/blog/common-epub-validation-errors',
+  'kdp-rejecting-epub-fix': '/blog/common-epub-validation-errors',
+  'how-to-format-an-ebook-for-free-in-2026': '/blog/how-to-format-an-ebook-for-free-in-2026',
+  'kdp-no-toc-found-fix': '/blog/kdp-no-toc-found-fix',
+  'what-is-bookkraft-ai-and-why-we-built-it': '/blog/what-is-bookkraft-ai-and-why-we-built-it',
+  'best-ebook-formats-epub-vs-pdf-vs-mobi': '/blog/best-ebook-formats-epub-vs-pdf-vs-mobi',
+  'ghost-spacing-opf-errors-epub-fix': '/blog/ghost-spacing-opf-errors-epub-fix',
+  'about': '/blog/what-is-bookkraft-ai-and-why-we-built-it', // no /about page
+  'privacy-policy': '/privacy',
+  'terms-of-service': '/terms',
+};
+const oldBlogRedirects = [
+  ...Object.entries(OLD_BLOG).map(([slug, destination]) => ({ source: `/old-blog/${slug}`, destination, permanent: true })),
+  { source: '/old-blog', destination: '/blog', permanent: true },
+  { source: '/old-blog/:path*', destination: '/blog', permanent: true },
+];
+
 /** @type {import('next').NextConfig} */
 export const nextConfig = { // named export: src/lib/ghost.js reads redirects()
   output: 'standalone',
@@ -82,6 +104,7 @@ export const nextConfig = { // named export: src/lib/ghost.js reads redirects()
          destination: 'https://bookkraftai.com/:path*',
          permanent: true,
        },
+      ...oldBlogRedirects,
       {
         source: '/epub-validator',
         destination: '/tools/epub-validator',
