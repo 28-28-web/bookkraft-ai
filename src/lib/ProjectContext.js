@@ -3,7 +3,9 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/components/AuthProvider';
 
-const ProjectContext = createContext({});
+// Default for consumers outside ProjectProvider (Sidebar → ProjectSelector on
+// /account, /history, /upgrade, /admin): no projects, so the selector hides.
+const ProjectContext = createContext({ projects: [] });
 
 export function ProjectProvider({ children }) {
     const { user } = useAuth();
