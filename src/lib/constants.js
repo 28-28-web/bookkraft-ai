@@ -171,7 +171,7 @@ export const EPUB_KDP_FAQS = [
   },
   {
     q: 'What cover image size does KDP require?',
-    a: 'KDP requires a cover that is at least 2,560 × 1,600 pixels. The ideal ratio is 1.6:1 (height to width). The file must be a JPEG or TIFF, under 50 MB. A cover smaller than these requirements gets rejected before your book goes live. Apple Books requires a minimum of 2,400 × 1,600 pixels. Our Cover Checker verifies your image against all platform requirements before you upload.',
+    a: 'KDP\'s ideal ebook cover size is 2,560 × 1,600 pixels (height × width), and the minimum is 1,000 × 625 pixels. The ideal ratio is 1.6:1 (height to width). The file must be a JPEG or TIFF, under 50 MB. Apple Books asks for at least 1,400 pixels on the shorter side. Our Cover Checker tests your image against KDP\'s ebook cover rules and Apple\'s 1,400px minimum.',
   },
   {
     q: 'How do I convert a Word document to EPUB without losing formatting?',

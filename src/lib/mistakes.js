@@ -329,40 +329,40 @@ export const MISTAKES = [
       label: 'Check your cover before upload',
     },
     metaTitle: '5 Ebook Cover Mistakes That Get Files Rejected — BookKraft AI',
-    metaDescription: 'CMYK color, below-minimum dimensions, and missing manifest properties are the ebook cover mistakes that cause rejection or a gray placeholder on the store page. Here is how to avoid each.',
+    metaDescription: 'CMYK color, below-minimum dimensions, and missing manifest properties are ebook cover mistakes that can cause rejection or a gray placeholder on the store page. Here is how to avoid each.',
     title: '5 Ebook Cover Mistakes That Get Files Rejected',
-    intro: "<p>A cover can be beautifully designed and still fail technical validation. Ebook cover problems are almost always about color mode, dimensions, or how the image is declared inside the file — not about the artwork. These five mistakes cause most cover rejections and gray-box store listings.</p>",
+    intro: "<p>A cover can be beautifully designed and still fail technical validation. Ebook cover problems are almost always about color mode, dimensions, or how the image is declared inside the file — not about the artwork. These five mistakes can get a cover rejected or leave a gray box in store listings.</p>",
     mistakes: [
       {
         title: 'Using a CMYK print cover for the ebook',
-        description: "<p>Print covers are built in CMYK at 300 DPI. Ebook platforms expect RGB and reject CMYK images — KDP's processor and Apple Books both fail on it. Export a separate RGB JPEG for the ebook rather than reusing the print file. Don't pull the image out of a print-ready PDF either: start from your design file and export fresh in RGB.</p>",
+        description: "<p>Print covers are built in CMYK at 300 DPI. KDP says Kindle doesn't support CMYK, and Apple Books asks for RGB. Export a separate RGB JPEG for the ebook rather than reusing the print file. Don't pull the image out of a print-ready PDF either: start from your design file and export fresh in RGB.</p>",
         link: { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks — full guide' },
       },
       {
         title: 'Cover below the minimum dimensions',
-        description: "<p>The old 500px minimum is outdated. KDP now requires at least 625×1000px, and Apple Books requires 1400×2100px. A cover sized for one store can fail another. Work at 1600×2560px to satisfy every major platform. The free <a href=\"/tools/cover-checker\">Cover Checker</a> flags wrong dimensions, CMYK color mode, and unsupported formats before you upload.</p>",
+        description: "<p>KDP's minimum is 625×1000px, and Apple Books asks for at least 1400px on the shorter side. A cover sized for one store can fail another. KDP's ideal size, 1600×2560px, meets both. The free <a href=\"/tools/cover-checker\">Cover Checker</a> flags sizes and formats KDP doesn't accept, and checks Apple's 1400px minimum.</p>",
         link: { type: 'checklist', slug: 'epub-formatting-checklist', label: 'Cover & images checklist items' },
       },
       {
         title: 'Wrong aspect ratio',
-        description: "<p>A square or landscape cover gets stretched or letterboxed by a store's display templates. Ebook covers use a 1.6:1 height-to-width ratio (a 5:8 shape). Start from a canvas with that ratio so the cover fills the frame without distortion.</p>",
+        description: "<p>A square or landscape cover can be stretched or letterboxed by a store's display templates. KDP's ideal height-to-width ratio is 1.6:1 (a 5:8 shape). Start from a canvas with that ratio so the cover fills the frame without distortion.</p>",
         link: { type: 'platform-rejection', slug: 'amazon-kdp', label: 'KDP cover requirements — full guide' },
       },
       {
         title: 'Cover image not declared with the cover-image property',
-        description: "<p>An embedded cover missing <code>properties=\"cover-image\"</code> in the OPF manifest uploads cleanly but appears as a gray box on the product page. The platform can't identify the cover without the manifest declaration.</p>",
+        description: "<p>An embedded cover missing <code>properties=\"cover-image\"</code> in the OPF manifest can upload cleanly but show as a gray box. The platform can't identify the cover without the manifest declaration.</p>",
         link: { type: 'epub-error', slug: 'cover-image-not-declared', label: 'Cover image not declared in OPF manifest — full guide' },
       },
       {
-        title: 'Missing sRGB color profile',
-        description: "<p>Apple Books validates color profiles at the byte level. Saving as RGB is not the same as embedding an sRGB profile — export explicitly with sRGB IEC 61966-2.1, or the file can be rejected even though it looks correct on screen.</p>",
+        title: 'No embedded color profile',
+        description: "<p>Apple's guide asks for RGB but doesn't name a color profile. Embedding sRGB IEC 61966-2.1 on export is a common choice and can help colors display as intended.</p>",
         link: { type: 'platform-rejection', slug: 'apple-books', label: 'Apple Books cover validation — full guide' },
       },
     ],
     faq: [
       {
         q: 'Can I use the same cover for KDP and Apple Books?',
-        a: 'Only if it already meets Apple\'s stricter requirements: at least 1400×2100px in RGB with an sRGB profile. A cover that passes KDP\'s 625×1000px minimum may fail Apple Books. Export once at 1600×2560px in sRGB and it works for both.',
+        a: 'Only if it meets Apple\'s higher size floor: at least 1400px on the shorter side, in RGB. A cover that passes KDP\'s 625×1000px minimum may fail Apple Books. A 1600×2560px RGB cover works for both.',
       },
       {
         q: 'My cover looks fine in Previewer but shows as gray on the product page — why?',

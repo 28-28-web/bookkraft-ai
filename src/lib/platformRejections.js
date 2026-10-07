@@ -66,7 +66,7 @@ export const PLATFORM_REJECTIONS = [
     topReasons: [
       {
         title: 'Strict EPUB validation (EPUBCheck failures)',
-        description: "Apple Books checks files on upload and rejects files with structural errors. Apple is one of the only major platforms to reject on warnings in some cases. Any structural defect — broken spine, missing manifest resource, invalid OPF attribute — will block the upload. Apple also checks HTML validity inside content files, not just OPF structure.",
+        description: "Apple Books checks files on upload and rejects files with structural errors. Any structural defect — broken spine, missing manifest resource, invalid OPF attribute — will block the upload. Apple also checks HTML validity inside content files, not just OPF structure.",
       },
       {
         title: 'Missing or invalid ISBN',
@@ -74,7 +74,7 @@ export const PLATFORM_REJECTIONS = [
       },
       {
         title: 'Image DPI and color profile issues',
-        description: "Apple Books requires cover images to be at minimum 1400×2100 pixels, RGB color mode, sRGB color profile. CMYK images — common when covers are designed for print — are rejected. Images embedded in the book body must be in web-safe formats (JPG, PNG, GIF) with correct MIME types declared in the manifest.",
+        description: "Apple Books asks for cover art in RGB color mode, at least 1400 pixels on the shorter side. CMYK images, common when covers are designed for print, don't meet that rule. Images embedded in the book body must be in web-safe formats (JPG, PNG, GIF) with correct MIME types declared in the manifest.",
       },
       {
         title: 'Fixed-layout EPUB errors',
@@ -89,7 +89,7 @@ export const PLATFORM_REJECTIONS = [
         description: "Apple Books has content guidelines covering explicit content, depictions of minors, and specific content categories. Books must also include accurate rights and territory declarations. Submitting a book for worldwide distribution when rights are territory-limited causes a rights conflict rejection.",
       },
     ],
-    howToFix: '<ol><li>Validate your EPUB with EPUBCheck 5.x and fix every error — Apple does not accept EPUBs with unresolved errors.</li><li>Confirm your ISBN is entered correctly in content.opf as a dc:identifier element with scheme="ISBN".</li><li>Check your cover image: export as JPG or PNG in RGB/sRGB color mode at minimum 1400×2100px before embedding.</li><li>For EPUB 3 files, verify nav.xhtml exists, is listed in the manifest with properties="nav", and contains a valid <code>&lt;nav epub:type="toc"&gt;</code> element.</li><li>Re-submit through Apple Books Connect — the rejection email includes specific error codes traceable to EPUBCheck documentation.</li></ol>',
+    howToFix: '<ol><li>Validate your EPUB with EPUBCheck 5.x and fix every error — Apple does not accept EPUBs with unresolved errors.</li><li>Confirm your ISBN is entered correctly in content.opf as a dc:identifier element with scheme="ISBN".</li><li>Check your cover image: export as JPG or PNG in RGB color mode, at least 1400px on the shorter side, before embedding.</li><li>For EPUB 3 files, verify nav.xhtml exists, is listed in the manifest with properties="nav", and contains a valid <code>&lt;nav epub:type="toc"&gt;</code> element.</li><li>Re-submit through Apple Books Connect — the rejection email includes specific error codes traceable to EPUBCheck documentation.</li></ol>',
     faq: [
       {
         q: 'Does Apple Books accept EPUB 2?',

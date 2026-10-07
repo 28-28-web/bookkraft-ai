@@ -37,7 +37,7 @@ const faqs = [
   },
   {
     q: 'My aspect ratio flagged a warning — how close does the ratio need to be?',
-    a: "This tool uses a tolerance of ±0.08 around KDP's 1.6:1 recommended ratio (height ÷ width). A ratio between 1.52 and 1.68 passes. Outside that range the tool flags a warning, but KDP will still accept the cover as long as it meets minimum dimensions — it just may not display optimally in search results and on product pages where covers are shown at a fixed ratio.",
+    a: "This tool uses a tolerance of ±0.08 around KDP's ideal 1.6:1 ratio (height ÷ width). A ratio between 1.52 and 1.68 passes; outside that range the tool shows a warning. KDP calls 1.6:1 the ideal ratio. A cover with a different ratio may not fill the space stores show it in.",
   },
   {
     q: 'Is the cover size the same for KDP print books?',
@@ -341,7 +341,7 @@ export default function CoverCheckerPage() {
             <p style={{ fontSize: 15, lineHeight: 1.7, marginBottom: 24 }}>
               KDP&apos;s{' '}
               <a href="https://kdp.amazon.com/en_US/help/topic/G200645690" target="_blank" rel="noopener nofollow" style={{ color: '#C9933A', textDecoration: 'underline' }}>eBook cover requirements</a>{' '}
-              give ideal dimensions of 2,560 pixels tall × 1,600 pixels wide, an ideal height-to-width ratio of at least 1.6:1, and a minimum of 1,000 pixels tall × 625 pixels wide. The file must be a TIFF or JPEG under 50MB, in RGB color. Covers below 2560px on the longest side often look soft on high-resolution Kindle devices. Apple Books requires a minimum of 1400 pixels on the shortest side. This tool checks your cover against both sets of requirements before you upload it anywhere, entirely in your browser.
+              give ideal dimensions of 2,560 pixels tall × 1,600 pixels wide, an ideal height-to-width ratio of at least 1.6:1, and a minimum of 1,000 pixels tall × 625 pixels wide. The file must be a TIFF or JPEG under 50MB, in RGB color. Covers below 2560px on the longest side may look soft on high-resolution screens. Apple Books requires a minimum of 1400 pixels on the shortest side. This tool checks your cover against both sets of requirements before you upload it anywhere, entirely in your browser.
             </p>
 
             <h2 style={{ fontFamily: "var(--font-playfair), serif", fontSize: 24, color: '#fff', fontWeight: 700, marginBottom: 14 }}>

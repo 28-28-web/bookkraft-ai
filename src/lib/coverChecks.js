@@ -55,10 +55,13 @@ export function checkKDP(width, height, fileType, fileSizeMB) {
       : `${longSide}px — below the ${KDP_RECOMMENDED_LONG_SIDE}px recommendation, may look soft on high-res screens`,
     warning: longSide < KDP_RECOMMENDED_LONG_SIDE && width >= KDP_MIN_WIDTH && height >= KDP_MIN_HEIGHT,
   });
+  // KDP calls 1.6:1 "ideal", not required, so an off ratio warns instead of failing.
+  const ratioOk = Math.abs(ratio - KDP_RATIO) <= KDP_RATIO_TOLERANCE;
   checks.push({
     label: 'Aspect ratio',
-    pass: Math.abs(ratio - KDP_RATIO) <= KDP_RATIO_TOLERANCE,
+    pass: ratioOk,
     detail: `${ratio.toFixed(2)}:1 — ideal is ${KDP_RATIO}:1`,
+    warning: !ratioOk,
   });
 
   if (fileSizeMB !== undefined) {
