@@ -72,6 +72,37 @@ export function fixHref(fix, tool) {
     return fix.href || `/tools/${fix.slug}?ref=${tool}`;
 }
 
+export function toolName(slug) {
+    return TOOLS.find((t) => t.slug === slug)?.name || slug;
+}
+
+// Plan for the "Fix these N issues" CTA: the paid tool that fixes the most
+// failed checks, a free tool as a second option, and the checks neither
+// covers. With no tool at all (e.g. covers) the primary is the guide that
+// covers the most checks.
+export function planFixAll(tool, checks) {
+    const best = (kind) => {
+        const byTarget = new Map();
+        for (const check of checks) {
+            for (const fix of fixesFor(tool, check)) {
+                if (fix.kind !== kind) continue;
+                const key = fix.slug || fix.href;
+                const entry = byTarget.get(key) || { fix, covered: [] };
+                if (!entry.covered.includes(check)) entry.covered.push(check);
+                byTarget.set(key, entry);
+            }
+        }
+        // Ties keep the first one found, i.e. the fix for the earliest failed check.
+        return [...byTarget.values()].reduce((a, b) => (!a || b.covered.length > a.covered.length ? b : a), null);
+    };
+    const paid = best('paid');
+    const free = best('free');
+    const primary = paid || free || best('guide');
+    const secondary = paid ? free : null;
+    const handled = new Set([...(primary?.covered || []), ...(secondary?.covered || [])]);
+    return { primary, secondary, unhandled: checks.filter((c) => !handled.has(c)) };
+}
+
 // These three charge per 10,000 words (see calculateCreditCost in toolAccess.js).
 const PER_10K = new Set(['manuscript-cleanup', 'print-to-digital', 'style-sheet-auditor']);
 

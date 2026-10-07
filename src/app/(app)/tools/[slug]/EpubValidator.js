@@ -4,13 +4,15 @@ import { useState, useCallback, useEffect } from 'react';
 import UpsellBanner from '@/components/UpsellBanner';
 import ReadinessReportCTA from '@/components/ReadinessReportCTA';
 import ValidationBadge from './ValidationBadge';
-import { isValidEmail } from '@/lib/email';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { TOOLS } from '@/lib/tools';
 import { useLoadingSteps } from '@/hooks/useLoadingSteps';
 import { track } from '@/lib/analytics';
 import { runEpubChecks } from '@/lib/epubChecks';
 import FixLinks from '@/components/FixLinks';
+import FixAllCta from '@/components/FixAllCta';
+import ResultEmailCapture from '@/components/ResultEmailCapture';
+import Link from 'next/link';
 import { fixesFor, fixHref } from '@/lib/fixMap';
 
 const TOOL = 'epub-validator';
@@ -29,11 +31,6 @@ export default function EpubValidator() {
     const [dragOver, setDragOver] = useState(false);
     const [fileError, setFileError] = useState(null);
 
-    const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [emailSent, setEmailSent] = useState(false);
-    const [company, setCompany] = useState(''); // honeypot
     const stepText = useLoadingSteps(EPUB_VAL_STEPS, loading);
 
     useEffect(() => {
@@ -108,20 +105,14 @@ export default function EpubValidator() {
         validate(f);
     };
 
-    const handleEmailSubmit = async (e) => {
-        e.preventDefault();
-        if (!isValidEmail(email.trim())) {
-            setEmailError('Please enter a valid email address.');
-            return;
-        }
-        setEmailError('');
-
+    // Endpoints for the email box; ResultEmailCapture validates and logs the events.
+    const sendReport = async ({ email, name, company }) => {
         // Also add them to the newsletter list (welcome automation sends the
         // KDP Preflight Checklist). Runs alongside the report; never blocks it.
         fetch('/api/newsletter/subscribe', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: email.trim(), source: 'validator-results', company }),
+            body: JSON.stringify({ email, source: 'validator-results', company }),
         }).catch(() => {});
         // Same flag NewsletterPopup checks, so the exit-intent popup never shows.
         try { localStorage.setItem('bk_newsletter_done', 'true'); } catch {}
@@ -137,14 +128,6 @@ export default function EpubValidator() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, source_tool: 'epub-validator', issue_count: failCount + warnCount }),
         }).catch(() => {});
-
-        track('email_report', { tool: TOOL, issue_count: failCount + warnCount });
-
-        if (typeof window !== 'undefined' && window.gtag) {
-            window.gtag('event', 'email_captured', { tool_name: 'epub_validator', source: 'validator-results' });
-        }
-
-        setEmailSent(true);
     };
 
     const statusIcon = (s) => ({ pass: '✅', fail: '❌', warn: '⚠️', skip: '⏭️' }[s] || '❓');
@@ -226,53 +209,35 @@ export default function EpubValidator() {
                             </p>
                         </div>
 
+                        <FixAllCta
+                            tool={TOOL}
+                            failedChecks={results.checks.filter(c => c.status === 'fail' || c.status === 'warn').map(c => c.name)}
+                            eventExtra={{ fix_type: 'auto_fix_all' }}
+                        />
+
                         {/* Email capture */}
-                        <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '16px 20px', marginBottom: '20px' }}>
-                            {!emailSent ? (
+                        <ResultEmailCapture
+                            tool={TOOL}
+                            issueCount={failCount + warnCount}
+                            gtagParams={{ tool_name: 'epub_validator', source: 'validator-results' }}
+                            heading="📬 Email me this report + the free KDP Preflight Checklist"
+                            buttonLabel="Send report + checklist"
+                            showName
+                            honeypot
+                            onSubmit={sendReport}
+                            footnote={<>You&apos;ll also get one Kindle fix a week. Unsubscribe anytime.{' '}<Link href="/privacy" style={{ color: 'inherit', textDecoration: 'underline' }}>Privacy policy</Link></>}
+                            renderSuccess={(email) => (
                                 <>
-                                    <p style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '10px' }}>📬 Email me this report + the free KDP Preflight Checklist</p>
-                                    <form onSubmit={handleEmailSubmit} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                                        {/* Honeypot: off-screen, skipped by keyboard and screen readers; bots fill it. */}
-                                        <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" value={company} onChange={(e) => setCompany(e.target.value)} style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, opacity: 0 }} />
-                                        <input
-                                            type="text"
-                                            placeholder="First name (optional)"
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
-                                            style={{ padding: '10px 14px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '0.9rem', outline: 'none', flex: '1', minWidth: '140px' }}
-                                        />
-                                        <input
-                                            type="email"
-                                            placeholder="Your email"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            required
-                                            style={{ padding: '10px 14px', border: `1px solid ${emailError ? '#fca5a5' : '#d1d5db'}`, borderRadius: '8px', fontSize: '0.9rem', outline: 'none', flex: '2', minWidth: '180px' }}
-                                        />
-                                        <button type="submit" style={{ background: '#1a1a1a', color: '#fff', padding: '10px 20px', borderRadius: '8px', fontWeight: 600, fontSize: '0.9rem', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap' }}>
-                                            Send report + checklist
-                                        </button>
-                                    </form>
-                                    {emailError && <p style={{ color: '#c53030', fontSize: '0.85rem', marginTop: '6px' }}>{emailError}</p>}
-                                    <p style={{ color: '#6b7280', fontSize: '0.8rem', marginTop: '10px', marginBottom: 0 }}>
-                                        You&apos;ll also get one Kindle fix a week. Unsubscribe anytime.{' '}
-                                        <a href="/privacy" style={{ color: '#6b7280', textDecoration: 'underline' }}>Privacy policy</a>
-                                    </p>
-                                </>
-                            ) : (
-                                <div style={{ textAlign: 'center' }}>
-                                    <p style={{ color: '#166534', fontWeight: 600, fontSize: '0.95rem', marginBottom: '8px' }}>
-                                        📬 Report sent to <strong>{email}</strong> — check your inbox.
-                                    </p>
-                                    <p style={{ fontSize: '0.9rem', margin: 0 }}>
+                                    <p style={{ marginBottom: '8px' }}>📬 Report sent to <strong>{email}</strong> — check your inbox.</p>
+                                    <p style={{ fontSize: '0.9rem', margin: 0, fontWeight: 400, color: '#1a1a1a' }}>
                                         No need to wait:{' '}
                                         <a href="/kdp-preflight-checklist.pdf" target="_blank" rel="noopener" style={{ color: '#b8860b', fontWeight: 600 }}>
                                             Download the KDP Preflight Checklist (PDF) →
                                         </a>
                                     </p>
-                                </div>
+                                </>
                             )}
-                        </div>
+                        />
 
                         {/* Issues block */}
                         {hasIssues && (
@@ -284,12 +249,8 @@ export default function EpubValidator() {
                                     {failCount > 0 && `${failCount} critical ${failCount === 1 ? 'issue' : 'issues'}`}
                                     {failCount > 0 && warnCount > 0 && ' + '}
                                     {warnCount > 0 && `${warnCount} ${warnCount === 1 ? 'warning' : 'warnings'}`}
-                                    {' '}found. The BookKraft formatting tools can fix several of these; the steps below show where to fix each one.
+                                    {' '}found. The steps below show where to fix each one.
                                 </p>
-
-                                <a href="/signup?plan=starter" onClick={() => track('fix_clicked', { tool: TOOL, fix_type: 'auto_fix_all', issue_count: failCount + warnCount })} style={{ display: 'block', background: '#C9933A', color: '#fff', padding: '13px', borderRadius: '8px', textDecoration: 'none', fontWeight: 700, fontSize: '1rem', textAlign: 'center', marginBottom: '16px' }}>
-                                    🔧 Get the fix tools — Starter, $19 one-time
-                                </a>
 
                                 {fixChain.length > 0 && (
                                     <>

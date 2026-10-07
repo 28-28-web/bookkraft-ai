@@ -2,12 +2,13 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import ToolResultsCTA from '@/components/ToolResultsCTA';
 import ReadinessReportCTA from '@/components/ReadinessReportCTA';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { track } from '@/lib/analytics';
 import { checkKDP, checkApple, isTiff, TIFF_NOTE } from '@/lib/coverChecks';
 import FixLinks from '@/components/FixLinks';
+import FixAllCta from '@/components/FixAllCta';
+import ResultEmailCapture, { submitLead, TIPS_FOOTNOTE } from '@/components/ResultEmailCapture';
 
 const TOOL = 'cover-checker';
 
@@ -284,6 +285,30 @@ export default function CoverCheckerPage() {
           </div>
 
           {dims && (
+            <FixAllCta
+              tool={TOOL}
+              failedChecks={[...kdpResult.checks, ...appleResult.checks].filter((c) => !c.pass).map((c) => c.label)}
+              dark
+            />
+          )}
+
+          {dims && (
+            <div style={{ marginTop: 16 }}>
+              <ResultEmailCapture
+                tool={TOOL}
+                issueCount={[...kdpResult.checks, ...appleResult.checks].filter((c) => !c.pass).length}
+                gtagParams={{ tool_name: TOOL, issue_count: [...kdpResult.checks, ...appleResult.checks].filter((c) => !c.pass).length }}
+                heading="📬 Get publishing tips by email"
+                subtext="Occasional tips and product updates. No spam."
+                buttonLabel="Sign up"
+                footnote={TIPS_FOOTNOTE}
+                onSubmit={({ email }) => submitLead({ email, tool: TOOL, issueCount: [...kdpResult.checks, ...appleResult.checks].filter((c) => !c.pass).length })}
+                dark
+              />
+            </div>
+          )}
+
+          {dims && (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16, marginTop: 24 }}>
               <div style={{
                 background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
@@ -311,13 +336,6 @@ export default function CoverCheckerPage() {
 
           {dims && <ReadinessReportCTA sourceTool="cover-checker" />}
 
-          {dims && (
-            <ToolResultsCTA
-              toolSlug="cover-checker"
-              subjectNoun="cover"
-              issueCount={[...kdpResult.checks, ...appleResult.checks].filter((c) => !c.pass).length}
-            />
-          )}
 
           {dims && (
             <div style={{

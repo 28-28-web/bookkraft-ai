@@ -1,98 +1,40 @@
 'use client';
 
-import { useState } from 'react';
 import { track } from '@/lib/analytics';
+import ResultEmailCapture, { submitLead, TIPS_FOOTNOTE } from '@/components/ResultEmailCapture';
 
+// Email sign-up + fix link box. The free checkers now use ResultEmailCapture
+// and FixAllCta directly; this is kept for Manuscript Cleanup.
 export default function ToolResultsCTA({ toolSlug, subjectNoun = 'file', issueCount, fixTool }) {
-    const [email, setEmail] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [submitting, setSubmitting] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
-
     const hasIssues = issueCount > 0;
-
-    const submitLead = async (e) => {
-        e.preventDefault();
-        if (!email || !email.includes('@')) {
-            setEmailError('Please enter a valid email address.');
-            return;
-        }
-        setEmailError('');
-        setSubmitting(true);
-        try {
-            const res = await fetch('/api/leads', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, source_tool: toolSlug, issue_count: issueCount || 0 }),
-            });
-            const data = await res.json();
-            if (!res.ok || !data.ok) {
-                setEmailError(
-                    data.error === 'rate_limited'
-                        ? 'Too many requests — try again in a bit.'
-                        : 'Something went wrong. Please try again.'
-                );
-                setSubmitting(false);
-                return;
-            }
-            track('email_report', { tool: toolSlug, issue_count: issueCount || 0 });
-            if (typeof window !== 'undefined' && window.gtag) {
-                window.gtag('event', 'email_captured', { tool_name: toolSlug, issue_count: issueCount || 0 });
-            }
-            setSubmitted(true);
-        } catch {
-            setEmailError('Network error. Please try again.');
-        } finally {
-            setSubmitting(false);
-        }
-    };
+    // /api/leads only saves the address; it does not email a report, so the
+    // copy below must not promise one.
+    const emailBox = (props) => (
+        <ResultEmailCapture
+            tool={toolSlug}
+            issueCount={issueCount || 0}
+            gtagParams={{ tool_name: toolSlug, issue_count: issueCount || 0 }}
+            footnote={TIPS_FOOTNOTE}
+            onSubmit={({ email }) => submitLead({ email, tool: toolSlug, issueCount: issueCount || 0 })}
+            bare
+            {...props}
+        />
+    );
 
     const fixHref = fixTool
         ? `/tools/${fixTool.slug}?ref=${toolSlug}&issues=${issueCount || 0}`
         : `/pricing?ref=${toolSlug}&issues=${issueCount || 0}`;
     const fixLabel = fixTool ? `Open ${fixTool.label} →` : 'See plans →';
 
-    // /api/leads only saves the address; it does not email a report, so the
-    // copy below must not promise one.
-    const gdprLine = (
-        <p style={{ fontSize: 12, color: '#9ca3af', marginTop: 10 }}>
-            We use this to send occasional tips and product updates. Unsubscribe anytime — see our{' '}
-            <a href="/privacy" style={{ color: '#9ca3af', textDecoration: 'underline' }}>Privacy Policy</a>.
-        </p>
-    );
-
-    if (submitted) {
-        return (
-            <div style={{ background: '#f0fdf4', border: '1px solid #86efac', borderRadius: 12, padding: 24, marginTop: 24, textAlign: 'center' }}>
-                <p style={{ color: '#166534', fontWeight: 600, fontSize: '0.95rem' }}>
-                    📬 Thanks — <strong>{email}</strong> is on the list.
-                </p>
-            </div>
-        );
-    }
-
     if (!hasIssues) {
         return (
             <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 12, padding: 24, marginTop: 24, textAlign: 'center' }}>
                 <p style={{ fontWeight: 700, fontSize: '1rem', marginBottom: 6, color: '#166534' }}>✅ Your {subjectNoun} looks clean.</p>
-                <p style={{ color: '#6b7280', fontSize: '0.88rem', marginBottom: 16 }}>
-                    Want to know when we ship new free tools? Leave your email — no spam, unsubscribe anytime.
-                </p>
-                <form onSubmit={submitLead} style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
-                    <input
-                        type="email"
-                        placeholder="you@email.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        style={{ padding: '10px 14px', border: `1px solid ${emailError ? '#fca5a5' : '#d1d5db'}`, borderRadius: 8, fontSize: '0.9rem', outline: 'none', flex: '1', minWidth: 220, maxWidth: 320 }}
-                    />
-                    <button type="submit" disabled={submitting} style={{ background: '#1a1a1a', color: '#fff', padding: '10px 20px', borderRadius: 8, fontWeight: 600, fontSize: '0.9rem', border: 'none', cursor: submitting ? 'default' : 'pointer', whiteSpace: 'nowrap', opacity: submitting ? 0.6 : 1 }}>
-                        {submitting ? 'Sending…' : 'Notify Me'}
-                    </button>
-                </form>
-                {emailError && <p style={{ color: '#c53030', fontSize: '0.85rem', marginTop: 6 }}>{emailError}</p>}
-                {gdprLine}
+                {emailBox({
+                    heading: 'Want to know when we ship new free tools?',
+                    subtext: 'Leave your email — no spam, unsubscribe anytime.',
+                    buttonLabel: 'Notify Me',
+                })}
             </div>
         );
     }
@@ -105,23 +47,12 @@ export default function ToolResultsCTA({ toolSlug, subjectNoun = 'file', issueCo
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16 }}>
                 <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: 10, padding: 18 }}>
-                    <p style={{ fontWeight: 600, fontSize: '0.9rem', marginBottom: 4 }}>📬 Get publishing tips by email</p>
-                    <p style={{ color: '#9ca3af', fontSize: '0.82rem', marginBottom: 14 }}>Occasional tips and product updates. No spam.</p>
-                    <form onSubmit={submitLead} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                        <input
-                            type="email"
-                            placeholder="you@email.com"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            style={{ padding: '10px 14px', border: `1px solid ${emailError ? '#fca5a5' : 'rgba(255,255,255,0.2)'}`, borderRadius: 8, fontSize: '0.9rem', outline: 'none', background: 'rgba(255,255,255,0.05)', color: '#fff' }}
-                        />
-                        <button type="submit" disabled={submitting} style={{ background: '#C9933A', color: '#1a1a1a', padding: '10px 16px', borderRadius: 8, fontWeight: 700, fontSize: '0.88rem', border: 'none', cursor: submitting ? 'default' : 'pointer', opacity: submitting ? 0.6 : 1 }}>
-                            {submitting ? 'Sending…' : 'Sign up'}
-                        </button>
-                    </form>
-                    {emailError && <p style={{ color: '#fca5a5', fontSize: '0.82rem', marginTop: 6 }}>{emailError}</p>}
-                    {gdprLine}
+                    {emailBox({
+                        heading: '📬 Get publishing tips by email',
+                        subtext: 'Occasional tips and product updates. No spam.',
+                        buttonLabel: 'Sign up',
+                        dark: true,
+                    })}
                 </div>
 
                 <div style={{ background: 'rgba(201,147,58,0.12)', border: '1px solid rgba(201,147,58,0.35)', borderRadius: 10, padding: 18, display: 'flex', flexDirection: 'column' }}>

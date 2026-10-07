@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import ScoreCard from './ScoreCard';
+import ResultEmailCapture from '@/components/ResultEmailCapture';
 import UpsellBanner from '@/components/UpsellBanner';
 import ReadinessReportCTA from '@/components/ReadinessReportCTA';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
@@ -12,10 +13,6 @@ export default function PublishingScoreClient({ children }) {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [emailSent, setEmailSent] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.gtag) {
@@ -95,22 +92,13 @@ export default function PublishingScoreClient({ children }) {
     }
   };
 
-  const handleEmailSubmit = async (e) => {
-    e.preventDefault();
-    if (!email || !email.includes('@')) {
-      setEmailError('Please enter a valid email address.');
-      return;
-    }
-    setEmailError('');
+  // Endpoint for the email box; ResultEmailCapture validates and logs the events.
+  const sendReport = async ({ email, name }) => {
     await fetch('/api/send-publishing-score', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, name, result }),
     });
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'email_captured', { tool_name: 'publishing_score' });
-    }
-    setEmailSent(true);
   };
 
   return (
@@ -160,27 +148,23 @@ export default function PublishingScoreClient({ children }) {
 
       {result && (
         <>
-          <ScoreCard data={result} />
+          <ScoreCard
+            data={result}
+            emailBox={
+              <ResultEmailCapture
+                tool="publishing-score"
+                issueCount={result.categories.filter((c) => c.status !== 'good').length}
+                gtagParams={{ tool_name: 'publishing_score' }}
+                heading="📬 Want a copy of your score?"
+                subtext="We'll email your full report so you can review it later. No spam."
+                buttonLabel="Send Report"
+                showName
+                onSubmit={sendReport}
+                renderSuccess={(email) => <>📬 Report sent to <strong>{email}</strong> — check your inbox.</>}
+              />
+            }
+          />
 
-          {/* Soft email capture */}
-          <div style={{background:'#f9fafb',border:'1px solid #e5e7eb',borderRadius:'12px',padding:'24px',margin:'20px 0'}}>
-            {!emailSent ? (
-              <>
-                <p style={{fontWeight:600,fontSize:'0.95rem',marginBottom:'4px'}}>📬 Want a copy of your score?</p>
-                <p style={{color:'#6b7280',fontSize:'0.88rem',marginBottom:'16px'}}>We'll email your full report so you can review it later. No spam.</p>
-                <form onSubmit={handleEmailSubmit} style={{display:'flex',gap:'8px',flexWrap:'wrap'}}>
-                  <input type="text" placeholder="First name (optional)" value={name} onChange={(e) => setName(e.target.value)} style={{padding:'10px 14px',border:'1px solid #d1d5db',borderRadius:'8px',fontSize:'0.9rem',outline:'none',flex:'1',minWidth:'140px'}} />
-                  <input type="email" placeholder="Your email" value={email} onChange={(e) => setEmail(e.target.value)} required style={{padding:'10px 14px',border:`1px solid ${emailError ? '#fca5a5' : '#d1d5db'}`,borderRadius:'8px',fontSize:'0.9rem',outline:'none',flex:'2',minWidth:'180px'}} />
-                  <button type="submit" style={{background:'#2D6A4F',color:'#fff',padding:'10px 20px',borderRadius:'8px',fontWeight:600,fontSize:'0.9rem',border:'none',cursor:'pointer',whiteSpace:'nowrap'}}>Send Report</button>
-                </form>
-                {emailError && <p style={{color:'#c53030',fontSize:'0.85rem',marginTop:'6px'}}>{emailError}</p>}
-              </>
-            ) : (
-              <p style={{color:'#166534',fontWeight:600,fontSize:'0.95rem',textAlign:'center'}}>
-                📬 Report sent to <strong>{email}</strong> — check your inbox.
-              </p>
-            )}
-          </div>
 
           <div style={{background:'#faf9f7',border:'2px solid #C9933A',borderRadius:'12px',padding:'20px',margin:'20px 0',textAlign:'center'}}>
             <p style={{fontWeight:600,marginBottom:'4px',fontSize:'0.95rem'}}>Want the tools that fix these?</p>

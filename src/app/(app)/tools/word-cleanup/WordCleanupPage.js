@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import ToolResultsCTA from '@/components/ToolResultsCTA';
 import ReadinessReportCTA from '@/components/ReadinessReportCTA';
 import { track } from '@/lib/analytics';
 import { scanDocx } from '@/lib/wordChecks';
 import FixLinks from '@/components/FixLinks';
+import FixAllCta from '@/components/FixAllCta';
+import ResultEmailCapture, { submitLead, TIPS_FOOTNOTE } from '@/components/ResultEmailCapture';
 
 const TOOL = 'word-cleanup';
 
@@ -169,6 +170,19 @@ export default function WordCleanupPage({ children, faqItems = [] }) {
               <StatusPill status={result.overallStatus} />
             </div>
 
+            <FixAllCta tool={TOOL} failedChecks={result.checks.filter((c) => c.status !== 'pass').map((c) => c.label)} />
+
+            <ResultEmailCapture
+              tool={TOOL}
+              issueCount={result.checks.filter((c) => c.status !== 'pass').length}
+              gtagParams={{ tool_name: TOOL, issue_count: result.checks.filter((c) => c.status !== 'pass').length }}
+              heading="📬 Get publishing tips by email"
+              subtext="Occasional tips and product updates. No spam."
+              buttonLabel="Sign up"
+              footnote={TIPS_FOOTNOTE}
+              onSubmit={({ email }) => submitLead({ email, tool: TOOL, issueCount: result.checks.filter((c) => c.status !== 'pass').length })}
+            />
+
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {result.checks.map((c) => (
                 <div key={c.label} style={{
@@ -191,12 +205,6 @@ export default function WordCleanupPage({ children, faqItems = [] }) {
 
             <ReadinessReportCTA sourceTool="word-cleanup" />
 
-            <ToolResultsCTA
-              toolSlug="word-cleanup"
-              subjectNoun="manuscript"
-              issueCount={result.checks.filter((c) => c.status !== 'pass').length}
-              fixTool={{ slug: 'manuscript-cleanup', label: 'AI Manuscript Cleanup' }}
-            />
           </div>
         )}
       </div>

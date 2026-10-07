@@ -9,6 +9,8 @@ import { useLoadingSteps } from '@/hooks/useLoadingSteps';
 import { track } from '@/lib/analytics';
 import { buildMetadataChecks, extractMetadataFromZip } from '@/lib/metadataChecks';
 import FixLinks from '@/components/FixLinks';
+import FixAllCta from '@/components/FixAllCta';
+import ResultEmailCapture from '@/components/ResultEmailCapture';
 
 const META_STEPS = [
     { text: 'Reading EPUB...', ms: 800 },
@@ -28,10 +30,6 @@ export default function MetadataBuilder() {
     const tabs = ['KDP', 'IngramSpark', 'Draft2Digital', 'EPUB OPF'];
 
     const [showReport, setShowReport] = useState(false);
-    const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [emailSent, setEmailSent] = useState(false);
     const [dragOver, setDragOver] = useState(false);
     const [extracting, setExtracting] = useState(false);
     const [extractError, setExtractError] = useState(null);
@@ -126,13 +124,8 @@ export default function MetadataBuilder() {
         track('report_completed', { tool: 'metadata-builder', issue_count: failCount + warnCount });
     };
 
-    const handleEmailSubmit = async (e) => {
-        e.preventDefault();
-        if (!email || !email.includes('@')) {
-            setEmailError('Please enter a valid email address.');
-            return;
-        }
-        setEmailError('');
+    // Endpoints for the email box; ResultEmailCapture validates and logs the events.
+    const sendReport = async ({ email, name }) => {
         await fetch('/api/send-metadata-report', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -144,11 +137,6 @@ export default function MetadataBuilder() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, source_tool: 'metadata-builder', issue_count: failCount }),
         }).catch(() => {});
-
-        if (typeof window !== 'undefined' && window.gtag) {
-            window.gtag('event', 'email_captured', { tool_name: 'metadata_builder' });
-        }
-        setEmailSent(true);
     };
 
     const statusIcon = (s) => ({ pass: '✅', fail: '❌', warn: '⚠️' }[s] || '❓');
@@ -263,6 +251,20 @@ export default function MetadataBuilder() {
                         </p>
                     </div>
 
+                    <FixAllCta tool="metadata-builder" failedChecks={checks.filter(c => c.status === 'fail' || c.status === 'warn').map(c => c.name)} />
+
+                    <ResultEmailCapture
+                        tool="metadata-builder"
+                        issueCount={failCount + warnCount}
+                        gtagParams={{ tool_name: 'metadata_builder' }}
+                        heading="📬 Want a copy of this report?"
+                        subtext="We'll email your metadata report and formatted output. No spam."
+                        buttonLabel="Send Report"
+                        showName
+                        onSubmit={sendReport}
+                        renderSuccess={(email) => <>📬 Report sent to <strong>{email}</strong> — check your inbox.</>}
+                    />
+
                     {hasIssues && (
                         <div style={{ background: '#1a1a1a', color: '#fff', borderRadius: '12px', padding: '24px', marginBottom: '20px' }}>
                             <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
@@ -338,25 +340,6 @@ export default function MetadataBuilder() {
                         </div>
                     )}
 
-                    {/* Soft email capture */}
-                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '24px', marginBottom: '16px' }}>
-                        {!emailSent ? (
-                            <>
-                                <p style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '4px' }}>📬 Want a copy of this report?</p>
-                                <p style={{ color: '#6b7280', fontSize: '0.88rem', marginBottom: '16px' }}>We'll email your metadata report and formatted output. No spam.</p>
-                                <form onSubmit={handleEmailSubmit} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                                    <input type="text" placeholder="First name (optional)" value={name} onChange={(e) => setName(e.target.value)} style={{ padding: '10px 14px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '0.9rem', outline: 'none', flex: '1', minWidth: '140px' }} />
-                                    <input type="email" placeholder="Your email" value={email} onChange={(e) => setEmail(e.target.value)} required style={{ padding: '10px 14px', border: `1px solid ${emailError ? '#fca5a5' : '#d1d5db'}`, borderRadius: '8px', fontSize: '0.9rem', outline: 'none', flex: '2', minWidth: '180px' }} />
-                                    <button type="submit" style={{ background: '#1a1a1a', color: '#fff', padding: '10px 20px', borderRadius: '8px', fontWeight: 600, fontSize: '0.9rem', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap' }}>Send Report</button>
-                                </form>
-                                {emailError && <p style={{ color: '#c53030', fontSize: '0.85rem', marginTop: '6px' }}>{emailError}</p>}
-                            </>
-                        ) : (
-                            <p style={{ color: '#166534', fontWeight: 600, fontSize: '0.95rem', textAlign: 'center' }}>
-                                📬 Report sent to <strong>{email}</strong> — check your inbox.
-                            </p>
-                        )}
-                    </div>
 
                     <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '10px', padding: '20px', textAlign: 'center' }}>
                         <p style={{ fontWeight: 600, marginBottom: '4px', fontSize: '0.95rem' }}>Liked this tool?</p>

@@ -1,7 +1,8 @@
 import CategoryRow from './CategoryRow';
 import { track } from '@/lib/analytics';
+import FixAllCta from '@/components/FixAllCta';
 
-export default function ScoreCard({ data }) {
+export default function ScoreCard({ data, emailBox }) {
   const { total, categories } = data;
   const label = total >= 85 ? 'Almost Publish-Ready' : total >= 65 ? 'Good Progress' : total >= 40 ? 'Needs Some Work' : 'Not Ready Yet';
   const bg = total >= 85 ? '#2D6A4F' : total >= 65 ? '#52796F' : total >= 40 ? '#B5541A' : '#922B21';
@@ -15,6 +16,10 @@ export default function ScoreCard({ data }) {
         <div style={{marginTop:'16px',background:'rgba(255,255,255,0.2)',borderRadius:'999px',height:'10px',maxWidth:'280px',margin:'16px auto 0'}}>
           <div style={{background:'#fff',borderRadius:'999px',height:'10px',width:total+'%',transition:'width 1s'}} />
         </div>
+      </div>
+      <div style={{padding:'0 24px'}}>
+        <FixAllCta tool="publishing-score" failedChecks={categories.filter((cat) => cat.status !== 'good').map((cat) => cat.id)} />
+        {emailBox && <div style={{marginTop:'16px'}}>{emailBox}</div>}
       </div>
       <div>
         {categories.map((cat) => (
