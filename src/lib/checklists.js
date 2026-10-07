@@ -161,7 +161,7 @@ export const CHECKLISTS = [
   {
     slug: 'apple-books-submission-checklist',
     metaTitle: '21-Point Apple Books Submission Checklist — BookKraft AI',
-    metaDescription: 'Apple Books has the strictest EPUB validation of any major platform. This 21-point checklist covers EPUBCheck compliance, ISBN requirements, cover color profiles, nav.xhtml structure, and rights declarations.',
+    metaDescription: 'Apple Books upload checklist. These 21 points cover EPUBCheck compliance, ISBN requirements, cover color profiles, nav.xhtml structure, and rights declarations.',
     title: '21-Point Apple Books Submission Checklist',
     intro: '<p>Use this list as a pre-submission gate, not a post-rejection diagnostic. Work through each category before opening Apple Books Connect — most items in the File Validation and Navigation sections belong in your file-preparation workflow, not on the upload screen. The cover color mode check and the ISBN format in content.opf are the two Apple-specific requirements most commonly overlooked by authors publishing to KDP first and Apple Books second.</p>',
     sections: [
@@ -188,9 +188,9 @@ export const CHECKLISTS = [
       {
         heading: 'Cover File',
         items: [
-          'Export cover image at minimum 1400×2100 pixels — Apple\'s intake system measures pixel dimensions and rejects any cover below this floor',
+          'Export the cover at least 1400 pixels on the shorter side — Apple\'s minimum for cover art',
           'Save as JPG or PNG in RGB color mode — CMYK output from print-production workflows is one of the most frequent Apple-specific rejection causes',
-          'Embed an sRGB color profile in the cover file — tools such as Affinity Publisher default to document profiles other than sRGB on export',
+          'Save the cover in RGB. Apple names no color profile; embedding sRGB is a common choice — tools such as Affinity Publisher default to document profiles other than sRGB on export',
           'Confirm body images are JPG, PNG, or GIF and that each has a matching MIME type declaration in the OPF manifest',
         ],
       },
@@ -238,9 +238,9 @@ export const CHECKLISTS = [
   {
     slug: 'apple-books-pre-launch-checklist',
     metaTitle: '18-Point Apple Books Pre-Launch Checklist — BookKraft AI',
-    metaDescription: 'Apple Books validation is the strictest of any store. This 18-point checklist covers EPUB 3 compliance, sRGB covers, ISBN scheme, and the nav.xhtml requirements Apple checks at submission.',
+    metaDescription: 'Apple Books upload checklist. These 18 points cover EPUB 3 compliance, RGB covers, ISBN scheme, and the nav.xhtml requirements Apple checks at submission.',
     title: '18-Point Apple Books Pre-Launch Checklist',
-    intro: '<p>Apple Books runs the strictest automated validation of any major ebook store. A file that uploads to KDP without complaint can still be rejected by Apple Books Connect over color profiles, ISBN format, or EPUB 3 structure. This checklist covers the Apple-specific requirements that go beyond generic EPUB validation. Complete the general EPUB formatting checklist first, then work through these.</p>',
+    intro: '<p>A file that uploads to KDP without complaint can still be rejected by Apple Books Connect over cover color mode, ISBN format, or EPUB 3 structure. This checklist covers the Apple-specific requirements that go beyond generic EPUB validation. Complete the general EPUB formatting checklist first, then work through these.</p>',
     sections: [
       {
         heading: 'File & Structure',
@@ -256,7 +256,7 @@ export const CHECKLISTS = [
         heading: 'Cover & Images',
         items: [
           'Cover image minimum 1400px × 2100px — higher than KDP\'s floor',
-          'Cover is RGB with an embedded sRGB IEC 61966-2.1 color profile, not CMYK',
+          'Cover is RGB, not CMYK',
           'Cover declared with properties="cover-image" in the OPF manifest',
           'All embedded images are JPEG or PNG in RGB, sized for screen',
         ],

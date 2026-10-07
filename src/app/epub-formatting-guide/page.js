@@ -35,8 +35,8 @@ const faqs = [
     a: 'Yes, but Word documents carry hidden formatting artifacts — smart quotes that encode incorrectly, double spaces, stacked blank paragraphs, and encoding issues — that cause problems after EPUB conversion. Running a cleanup pass before converting removes these artifacts. Word documents can be converted directly to EPUB 3 with the EPUB Formatter or Full Manuscript Mode tools.',
   },
   {
-    q: 'Which store has the strictest EPUB requirements?',
-    a: 'Apple Books is the strictest. It requires EPUB 3, rejects files with invalid XML, and checks image quality and font embedding. KDP is the most lenient — it accepts EPUB 2 and EPUB 3, tolerates some malformed XML, and sometimes auto-corrects minor issues. IngramSpark sits between them, requiring standard EPUB 3 compliance but providing clearer rejection messages than KDP.',
+    q: 'How do EPUB requirements differ between stores?',
+    a: 'Apple Books requires EPUB 3, rejects files with invalid XML, and checks image quality and font embedding. KDP accepts EPUB 2 and EPUB 3, tolerates some malformed XML, and sometimes auto-corrects minor issues. IngramSpark requires standard EPUB 3 compliance and provides clearer rejection messages than KDP.',
   },
 ];
 
@@ -261,7 +261,7 @@ export default function Page() {
             <tr style={{ borderBottom: '1px solid rgba(0,0,0,0.07)', background: 'rgba(0,0,0,0.02)' }}>
               <td style={{ padding: '12px 16px', fontWeight: 600 }}>Apple Books</td>
               <td style={{ padding: '12px 16px', lineHeight: 1.5 }}>EPUB 3 required</td>
-              <td style={{ padding: '12px 16px', lineHeight: 1.5 }}>Strictest — rejects invalid XML, checks image quality and font embedding</td>
+              <td style={{ padding: '12px 16px', lineHeight: 1.5 }}>Rejects invalid XML, checks image quality and font embedding</td>
               <td style={{ padding: '12px 16px', lineHeight: 1.5 }}>Specific rejection reasons provided</td>
             </tr>
             <tr>

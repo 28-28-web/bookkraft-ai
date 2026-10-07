@@ -350,7 +350,7 @@ export const COVER_REQUIREMENTS = [
       },
       {
         q: 'When can I add text to the spine?',
-        a: 'KDP allows spine text only when the book has enough pages for a spine wide enough to hold it — at least 79 pages, according to KDP. Below that the spine must be left blank; KDP rejects covers with spine text on books under 79 pages.',
+        a: 'KDP says spine text needs at least 79 pages, so the spine is wide enough to hold it. Below that, leave the spine text off.',
       },
       {
         q: 'How do I get the right cover dimensions for my book?',

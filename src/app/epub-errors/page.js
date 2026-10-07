@@ -61,7 +61,7 @@ export default function EpubErrorsIndexPage() {
           Errors by store
         </h2>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
-          KDP is the most lenient: it accepts some malformed XML and auto-corrects minor issues, but its rejection messages are often vague (&ldquo;We found issues with your file&rdquo;) without specifying which check failed. Apple Books is the strictest: it requires EPUB 3, rejects invalid XML, and checks font embedding and image quality. IngramSpark sits between them — it requires standard EPUB 3 compliance and provides clearer rejection messages than KDP.
+          KDP accepts some malformed XML and auto-corrects minor issues, but its rejection messages are often vague (&ldquo;We found issues with your file&rdquo;) without specifying which check failed. Apple Books requires EPUB 3, rejects invalid XML, and checks font embedding and image quality. IngramSpark requires standard EPUB 3 compliance and provides clearer rejection messages than KDP.
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 48, opacity: 0.9 }}>
           A file that passes validation passes all three stores. The errors below are the ones most likely to cause a rejection on at least one platform even when the others accepted the file.

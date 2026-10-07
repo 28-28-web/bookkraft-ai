@@ -62,7 +62,7 @@ export const PLATFORM_REJECTIONS = [
     platform: 'Apple Books',
     metaTitle: 'Why Apple Books Rejects Ebooks — Common Rejection Reasons',
     metaDescription: "Apple Books rejected your EPUB? Apple's validation is stricter than most platforms. Here are the most common Apple Books rejection reasons and how to fix them before resubmitting.",
-    intro: "<p>Apple Books (distributed through Apple Books Connect) has the strictest EPUB validation requirements of any major ebook platform. Apple runs a full EPUBCheck pass and additionally validates against Apple-specific schema rules. A file that passes KDP upload can still fail Apple Books validation — and Apple's rejection emails often include specific EPUBCheck error codes, which makes diagnosis more straightforward than on other platforms.</p>",
+    intro: "<p>Apple Books (distributed through Apple Books Connect) checks files on upload. A file that passes KDP upload can still fail Apple Books validation.</p>",
     topReasons: [
       {
         title: 'Strict EPUB validation (EPUBCheck failures)',
@@ -89,7 +89,7 @@ export const PLATFORM_REJECTIONS = [
         description: "Apple Books has content guidelines covering explicit content, depictions of minors, and specific content categories. Books must also include accurate rights and territory declarations. Submitting a book for worldwide distribution when rights are territory-limited causes a rights conflict rejection.",
       },
     ],
-    howToFix: '<ol><li>Validate your EPUB with EPUBCheck 5.x and fix every error — Apple does not accept EPUBs with unresolved errors.</li><li>Confirm your ISBN is entered correctly in content.opf as a dc:identifier element with scheme="ISBN".</li><li>Check your cover image: export as JPG or PNG in RGB color mode, at least 1400px on the shorter side, before embedding.</li><li>For EPUB 3 files, verify nav.xhtml exists, is listed in the manifest with properties="nav", and contains a valid <code>&lt;nav epub:type="toc"&gt;</code> element.</li><li>Re-submit through Apple Books Connect — the rejection email includes specific error codes traceable to EPUBCheck documentation.</li></ol>',
+    howToFix: '<ol><li>Validate your EPUB with EPUBCheck 5.x and fix every error before you submit.</li><li>Confirm your ISBN is entered correctly in content.opf as a dc:identifier element with scheme="ISBN".</li><li>Check your cover image: export as JPG or PNG in RGB color mode, at least 1400px on the shorter side, before embedding.</li><li>For EPUB 3 files, verify nav.xhtml exists, is listed in the manifest with properties="nav", and contains a valid <code>&lt;nav epub:type="toc"&gt;</code> element.</li><li>Re-submit through Apple Books Connect.</li></ol>',
     faq: [
       {
         q: 'Does Apple Books accept EPUB 2?',
@@ -217,11 +217,11 @@ export const PLATFORM_REJECTIONS = [
     slug: 'google-play-books',
     platform: 'Google Play Books',
     metaTitle: 'Why Google Play Books Rejects Ebooks — Partner Center Requirements',
-    metaDescription: "Google Play Books rejected your ebook? Google has the strictest content policy of any major platform and ISBN requirements that differ from KDP. Here's what to check and fix before resubmitting.",
-    intro: "<p>Google Play Books Partner Center has the strictest content policy of any major ebook retailer and applies validation and pricing rules that differ from every other platform. Unlike KDP, which reviews contested content and sometimes approves it after human evaluation, Google Play rejections in restricted content categories are typically final with no appeal route. The ISBN requirement, price-matching behavior, and Google-specific EPUB validation also catch authors who've published to KDP and Apple Books without issue.</p>",
+    metaDescription: "Google Play Books rejected your ebook? Google has its own content policy and ISBN requirements that differ from KDP. Here's what to check and fix before resubmitting.",
+    intro: "<p>Google Play Books Partner Center has its own content policy and applies validation and pricing rules that differ from every other platform. Unlike KDP, which reviews contested content and sometimes approves it after human evaluation, Google Play rejections in restricted content categories are typically final with no appeal route. The ISBN requirement, price-matching behavior, and Google-specific EPUB validation also catch authors who've published to KDP and Apple Books without issue.</p>",
     topReasons: [
       {
-        title: 'Strictest content policy of any major ebook platform',
+        title: 'Content policy',
         description: "Google Play Books rejects content categories that KDP, Apple Books, and Kobo accept — including explicit sexual content of any kind (there is no adult-opt-in process as there is on KDP), certain dark fiction sub-genres, and content that triggers Google's automated moderation classifiers. If your content falls into a restricted category, resubmission produces the same outcome. Google Play is simply not a viable distribution channel for those content types.",
       },
       {
@@ -331,7 +331,7 @@ export const PLATFORM_REJECTIONS = [
       },
       {
         title: 'Spine width mismatch between cover PDF and page count',
-        description: "The spine width of the cover PDF must precisely match IngramSpark's calculation for your title's page count on your chosen paper stock. IngramSpark provides a cover template generator that outputs the exact spine width — but authors who design their cover early in the production process and revise the interior manuscript afterward end up with a cover built for the wrong page count. Even a difference of a few pages shifts the spine width enough to trigger a rejection, and Ingram cross-checks the submitted cover's spine dimensions against the interior page count on file.",
+        description: "The spine width of the cover PDF must precisely match IngramSpark's calculation for your title's page count on your chosen paper stock. IngramSpark provides a cover template generator that outputs the exact spine width — but authors who design their cover early in the production process and revise the interior manuscript afterward end up with a cover built for the wrong page count. Even a few pages change the spine width, which can get the cover rejected.",
       },
       {
         title: 'Fonts not embedded in the interior PDF',

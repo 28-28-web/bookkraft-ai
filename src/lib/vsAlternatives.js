@@ -218,11 +218,11 @@ export const VS_ALTERNATIVES = [
     whySwitch: [
       {
         title: 'Validate before D2D converts',
-        description: "When you upload a DOCX to D2D Book Builder, D2D's conversion runs on their servers after submission — you can't inspect or validate the EPUB D2D creates before it's delivered to retailers. BookKraft's workflow alternative: convert your DOCX to EPUB using BookKraft's EPUB Formatter, run it through the EPUB Validator, fix any issues, then upload the validated EPUB directly to D2D. This bypasses D2D's conversion entirely while keeping D2D as your distributor.",
+        description: "When you upload a DOCX to D2D Book Builder, D2D converts it on their servers. D2D shows a live preview and offers file downloads. If you'd rather check the EPUB yourself first, BookKraft's workflow is: convert your DOCX to EPUB using BookKraft's EPUB Formatter, run it through the EPUB Validator, fix any issues, then upload the validated EPUB directly to D2D. This bypasses D2D's conversion entirely while keeping D2D as your distributor.",
       },
       {
         title: 'See and fix the output before distribution',
-        description: "D2D Book Builder produces retailer-specific outputs that aren't available for download as a standalone EPUB before distribution. If D2D's conversion creates ghost spacing from empty paragraph tags, inconsistent chapter heading styles, or CSS that breaks on Kobo's Nickel renderer, there's no pre-distribution step to catch it. BookKraft produces an EPUB you can inspect, run through EPUBCheck, preview in Calibre and Kindle Previewer, and fix before any retailer receives it.",
+        description: "D2D shows a live preview of its conversion and offers free file downloads. Building the EPUB yourself gives you one more option: BookKraft produces an EPUB you can inspect, run through EPUBCheck, preview in Calibre and Kindle Previewer, and fix before any retailer receives it.",
       },
       {
         title: 'Check the file before it leaves your control',
@@ -230,13 +230,12 @@ export const VS_ALTERNATIVES = [
       },
       {
         title: 'Full metadata control',
-        description: "D2D Book Builder generates OPF metadata from what you enter in D2D's book setup screens. You can't inspect the raw OPF it produces, verify the unique-identifier cross-reference, or add metadata fields D2D's form doesn't expose — series information, subject codes, dc:publisher. BookKraft's Metadata Builder provides direct access to all OPF fields and exports a corrected EPUB with complete metadata.",
+        description: "D2D Book Builder generates OPF metadata from what you enter in D2D's book setup screens. BookKraft's Metadata Builder provides direct access to all OPF fields and exports a corrected EPUB with complete metadata.",
       },
     ],
     comparison: [
       { feature: 'Workflow position', them: 'Integrated with D2D distribution', us: 'Pre-submission validation + formatting' },
-      { feature: 'EPUB you can inspect', them: 'No — conversion is internal', us: 'Yes — download and review before upload' },
-      { feature: 'Output visibility', them: 'Retailer-delivered only', us: 'Full EPUB download' },
+      { feature: 'EPUB you can inspect', them: 'Live preview and file downloads', us: 'Yes — download and review before upload' },
       { feature: 'OPF metadata editing', them: 'Via D2D setup form', us: 'Full field access (Metadata Builder)' },
       { feature: 'Distribution network', them: 'Yes (40+ retailers)', us: 'No — use your existing distributor' },
     ],

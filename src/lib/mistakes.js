@@ -403,7 +403,7 @@ export const MISTAKES = [
       },
       {
         title: 'Incorrect spine width',
-        description: "<p>Spine width is calculated from page count and paper stock. Adding or removing pages after generating the template changes the spine, and a stale width causes a hard rejection. Regenerate the cover template with your final page count.</p>",
+        description: "<p>Spine width is calculated from page count and paper stock. Adding or removing pages after generating the template changes the spine, and a stale width can get the cover rejected. Regenerate the cover template with your final page count.</p>",
         link: { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'Print preparation checklist items' },
       },
       {
