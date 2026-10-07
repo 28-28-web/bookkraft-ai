@@ -1,7 +1,7 @@
 {
   "slug": "pass-epubcheck-before-amazon",
   "title": "How to Pass EPUBCheck Before Uploading to Amazon",
-  "excerpt": "EPUBCheck is the validation tool every store runs on your file. Here is how to read its errors, fix the most common ones, and get a clean pass before you upload to KDP.",
+  "excerpt": "EPUBCheck is the official EPUB conformance checker. Here's how to run it and fix common errors before you upload to Amazon KDP.",
   "published_at": "2026-09-21T09:00:00.000Z",
   "reading_time": 7,
   "meta_title": "How to Pass EPUBCheck Before Uploading to Amazon | BookKraft AI",

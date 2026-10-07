@@ -168,6 +168,7 @@ export default function ManuscriptCleanup() {
                             mode, genre,
                             checks: { repeatedWords: true, cliches: true, dialoguePunct: true, paragraphSpacing: true },
                         })}
+                        onStart={() => track('tool_start', { tool: TOOL, mode: 'full' })}
                         onResult={handleFullResult}
                     />
                 )}

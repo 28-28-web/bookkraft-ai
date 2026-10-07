@@ -12,9 +12,10 @@ import { useEffect, useRef, useState } from 'react';
  *  - buildRequestBody: () => object — extra per-tool fields merged with { text }
  *  - disabled: boolean
  *  - runLabel: string — button label before an estimate exists
+ *  - onStart: () => void — called once when the user confirms a run
  *  - onResult: (mergedResult, { status, creditsCharged, wordCount }) => void
  */
-export default function JobRunner({ toolSlug, text, buildRequestBody, disabled, runLabel = 'Analyze Manuscript', onResult }) {
+export default function JobRunner({ toolSlug, text, buildRequestBody, disabled, runLabel = 'Analyze Manuscript', onStart, onResult }) {
     const [phase, setPhase] = useState('idle'); // idle | estimating | confirm | running | error
     const [estimate, setEstimate] = useState(null);
     const [progress, setProgress] = useState({ completedChunks: 0, totalChunks: 0 });
@@ -47,6 +48,7 @@ export default function JobRunner({ toolSlug, text, buildRequestBody, disabled, 
     };
 
     const startRun = async () => {
+        onStart?.();
         setError('');
         setPhase('running');
         setProgress({ completedChunks: 0, totalChunks: estimate?.chunkCount || 0 });
