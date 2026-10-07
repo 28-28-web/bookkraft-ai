@@ -179,7 +179,7 @@ export const EPUB_KDP_FAQS = [
   },
   {
     q: 'What is EpubCheck and why should I use it?',
-    a: 'EpubCheck is the official EPUB validation tool. It checks your file against the EPUB standard and lists every error. KDP and Apple Books both run EpubCheck automatically when you upload. If your file fails, it gets rejected. Our EPUB Validator checks common structural issues relevant to KDP publishing, in your browser with no Java install. Fix errors before you upload and avoid the back-and-forth rejection cycle. Last verified: Sep 2026.',
+    a: 'EpubCheck is the official EPUB validation tool. It checks your file against the EPUB standard and lists every error. Draft2Digital validates uploaded EPUBs with EpubCheck. Amazon KDP and Apple Books run their own checks on upload, so a clean EpubCheck pass is a good baseline before any store. Our EPUB Validator checks common structural issues relevant to KDP publishing, in your browser with no Java install. Fix errors before you upload and avoid the back-and-forth rejection cycle. Last verified: Sep 2026.',
   },
   {
     q: "What's the difference between free and paid EPUB formatting tools?",

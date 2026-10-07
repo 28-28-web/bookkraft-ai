@@ -43,7 +43,7 @@ export default function PlatformRejectionIndexPage() {
         <div style={{ padding: '24px', background: 'var(--cream)', border: '1px solid var(--border)', borderRadius: 10 }}>
           <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>Catch errors before they cause a rejection</p>
           <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.65, marginBottom: 16 }}>
-            The free EPUB Validator runs EPUBCheck and flags structural, metadata, and navigation errors that KDP, Apple Books, and Draft2Digital use as rejection triggers — before you upload.
+            The free EPUB Validator runs 11 structural checks in your browser and flags structural, metadata, and navigation errors that can cause rejections on KDP, Apple Books, and Draft2Digital — before you upload.
           </p>
           <Link
             href="/tools/epub-validator"

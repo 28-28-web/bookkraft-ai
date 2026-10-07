@@ -66,7 +66,7 @@ export const PLATFORM_REJECTIONS = [
     topReasons: [
       {
         title: 'Strict EPUB validation (EPUBCheck failures)',
-        description: "Apple Books runs EPUBCheck validation and rejects files with any Critical or Error-level issue. Apple is one of the only major platforms to reject on warnings in some cases. Any structural defect — broken spine, missing manifest resource, invalid OPF attribute — will block the upload. Apple also checks HTML validity inside content files, not just OPF structure.",
+        description: "Apple Books checks files on upload and rejects files with structural errors. Apple is one of the only major platforms to reject on warnings in some cases. Any structural defect — broken spine, missing manifest resource, invalid OPF attribute — will block the upload. Apple also checks HTML validity inside content files, not just OPF structure.",
       },
       {
         title: 'Missing or invalid ISBN',

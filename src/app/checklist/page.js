@@ -51,7 +51,7 @@ export default function ChecklistIndexPage() {
         <div style={{ padding: '24px', background: 'var(--cream)', border: '1px solid var(--border)', borderRadius: 10 }}>
           <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>Validate before you check off</p>
           <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.65, marginBottom: 16 }}>
-            The free EPUB Validator runs EPUBCheck and catches the structural errors these checklists cover — missing metadata, broken spine, nav.xhtml issues — before you upload to any platform.
+            The free EPUB Validator runs 11 structural checks in your browser and catches the structural errors these checklists cover — missing metadata, broken spine, nav.xhtml issues — before you upload to any platform.
           </p>
           <Link
             href="/tools/epub-validator"

@@ -168,7 +168,7 @@ export const CHECKLISTS = [
       {
         heading: 'File Validation',
         items: [
-          'Run EPUBCheck 5.x on the final packaged EPUB and confirm the report shows zero Critical or Error-level issues — Apple\'s ingestion pipeline rejects any file with outstanding errors, no appeal process',
+          'Run EPUBCheck 5.x on the final packaged EPUB and confirm the report shows zero Critical or Error-level issues — a clean report is a good baseline before Apple Books checks the file on upload',
           'Open each XHTML chapter file in a markup validator — Apple checks HTML compliance inside chapter documents, a step beyond standard OPF and manifest checking',
           'Search across all chapter files for duplicate id attributes and remove every duplicate before zipping the EPUB',
           'Scan all EPUB 3 content files for EPUB 2 vestiges such as opf:role attributes — mixed-version markup triggers Apple\'s schema validator',
