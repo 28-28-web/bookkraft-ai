@@ -7,6 +7,7 @@ import ReadinessReportCTA from '@/components/ReadinessReportCTA';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
 import { track } from '@/lib/analytics';
 import { checkKDP, checkApple, isTiff, TIFF_NOTE } from '@/lib/coverChecks';
+import FixLinks from '@/components/FixLinks';
 
 const TOOL = 'cover-checker';
 
@@ -82,6 +83,7 @@ function CheckRow({ check }) {
         <div style={{ color: 'rgba(255,255,255,0.55)', fontSize: 12, fontFamily: "var(--font-jetbrains), monospace", marginTop: 2 }}>
           {check.detail}
         </div>
+        {!check.pass && <FixLinks tool={TOOL} check={check.label} color="#C9933A" mutedColor="rgba(255,255,255,0.5)" />}
       </div>
     </div>
   );

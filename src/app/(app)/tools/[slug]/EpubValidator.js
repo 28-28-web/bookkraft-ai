@@ -10,6 +10,8 @@ import { TOOLS } from '@/lib/tools';
 import { useLoadingSteps } from '@/hooks/useLoadingSteps';
 import { track } from '@/lib/analytics';
 import { runEpubChecks } from '@/lib/epubChecks';
+import FixLinks from '@/components/FixLinks';
+import { fixesFor, fixHref } from '@/lib/fixMap';
 
 const TOOL = 'epub-validator';
 
@@ -155,9 +157,11 @@ export default function EpubValidator() {
 
     const fixChain = results
         ? results.checks
-            .filter(c => (c.status === 'fail' || c.status === 'warn') && c.fixLink)
-            .reduce((acc, c) => {
-                if (!acc.find(x => x.fixLink === c.fixLink)) acc.push(c);
+            .filter(c => c.status === 'fail' || c.status === 'warn')
+            .map(c => ({ name: c.name, fix: fixesFor(TOOL, c.name)[0] }))
+            .filter(x => x.fix)
+            .reduce((acc, x) => {
+                if (!acc.find(y => fixHref(y.fix, TOOL) === fixHref(x.fix, TOOL))) acc.push(x);
                 return acc;
             }, [])
         : [];
@@ -292,9 +296,9 @@ export default function EpubValidator() {
                                         <p style={{ fontSize: '0.82rem', color: '#9ca3af', marginBottom: '10px' }}>Or fix step by step:</p>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                             {fixChain.map((item, i) => (
-                                                <a key={i} href={item.fixLink} onClick={() => track('fix_clicked', { tool: TOOL, fix_tool: item.fixTool, issue: item.name, check: item.name, fix_kind: item.fixTool === 'Fix Guide' ? 'guide' : 'tool' })} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.07)', borderRadius: '7px', padding: '10px 14px', textDecoration: 'none', color: '#fff', fontSize: '0.88rem', fontWeight: 500 }}>
+                                                <a key={i} href={fixHref(item.fix, TOOL)} onClick={() => track('fix_clicked', { tool: TOOL, fix_tool: item.fix.slug || item.fix.href, issue: item.name, check: item.name, fix_kind: item.fix.kind })} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.07)', borderRadius: '7px', padding: '10px 14px', textDecoration: 'none', color: '#fff', fontSize: '0.88rem', fontWeight: 500 }}>
                                                     <span style={{ background: '#C9933A', borderRadius: '50%', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700, flexShrink: 0 }}>{i + 1}</span>
-                                                    {item.name} issue → <span style={{ color: '#C9933A', marginLeft: 'auto' }}>Open {item.fixTool} →</span>
+                                                    {item.name} issue → <span style={{ color: '#C9933A', marginLeft: 'auto' }}>{item.fix.label} →</span>
                                                 </a>
                                             ))}
                                         </div>
@@ -328,11 +332,7 @@ export default function EpubValidator() {
                                     <div style={{ flex: 1 }}>
                                         <strong>{c.name}</strong>
                                         <p>{c.detail}</p>
-                                        {c.fixLink && (
-                                            <a href={c.fixLink} onClick={() => track('fix_clicked', { tool: TOOL, fix_tool: c.fixTool, issue: c.name, check: c.name, fix_kind: c.fixTool === 'Fix Guide' ? 'guide' : 'tool' })} style={{ display: 'inline-block', marginTop: '8px', color: '#b8860b', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none' }}>
-                                                → Fix this with {c.fixTool}
-                                            </a>
-                                        )}
+                                        {(c.status === 'fail' || c.status === 'warn') && <FixLinks tool={TOOL} check={c.name} eventExtra={{ issue: c.name }} />}
                                     </div>
                                 </div>
                             ))}

@@ -5,6 +5,7 @@ import ToolResultsCTA from '@/components/ToolResultsCTA';
 import ReadinessReportCTA from '@/components/ReadinessReportCTA';
 import { track } from '@/lib/analytics';
 import { scanDocx } from '@/lib/wordChecks';
+import FixLinks from '@/components/FixLinks';
 
 const TOOL = 'word-cleanup';
 
@@ -179,6 +180,7 @@ export default function WordCleanupPage({ children, faqItems = [] }) {
                     <StatusPill status={c.status} />
                   </div>
                   <p style={{ fontSize: 14, color: '#666', margin: 0 }}>{c.detail}</p>
+                  {c.status !== 'pass' && <FixLinks tool={TOOL} check={c.label} />}
                 </div>
               ))}
             </div>

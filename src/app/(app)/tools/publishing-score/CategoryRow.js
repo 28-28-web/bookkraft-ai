@@ -1,4 +1,6 @@
 import { track } from '@/lib/analytics';
+import FixLinks from '@/components/FixLinks';
+import { fixesFor } from '@/lib/fixMap';
 
 const statusBg = { good: '#e8f5e9', warning: '#fff8e1', critical: '#fdecea' };
 const statusColor = { good: '#2D6A4F', warning: '#b45309', critical: '#c0392b' };
@@ -20,11 +22,13 @@ export default function CategoryRow({ category }) {
         <div style={{background:barColor[status],borderRadius:'999px',height:'6px',width:pct+'%',transition:'width 0.7s'}} />
       </div>
       <p style={{fontSize:'13px',color:'#555',marginBottom:'6px'}}>{insight}</p>
-      {status !== 'good' && (
-        <a href={toolUrl} onClick={() => track('fix_clicked', { tool: 'publishing-score', check: id, fix_tool: toolUrl?.replace('/tools/', ''), fix_kind: 'tool' })} style={{fontSize:'12px',color:'#2D6A4F',fontWeight:'600',textDecoration:'none'}}>
+      {status !== 'good' && (fixesFor('publishing-score', id).length > 0 ? (
+        <FixLinks tool="publishing-score" check={id} color="#2D6A4F" />
+      ) : toolUrl && (
+        <a href={toolUrl} onClick={() => track('fix_clicked', { tool: 'publishing-score', check: id, fix_tool: toolUrl.replace('/tools/', ''), fix_kind: 'tool' })} style={{fontSize:'12px',color:'#2D6A4F',fontWeight:'600',textDecoration:'none'}}>
           Fix with {tool}
         </a>
-      )}
+      ))}
     </div>
   );
 }

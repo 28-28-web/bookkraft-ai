@@ -8,6 +8,7 @@ import { TOOLS } from '@/lib/tools';
 import { useLoadingSteps } from '@/hooks/useLoadingSteps';
 import { track } from '@/lib/analytics';
 import { buildMetadataChecks, extractMetadataFromZip } from '@/lib/metadataChecks';
+import FixLinks from '@/components/FixLinks';
 
 const META_STEPS = [
     { text: 'Reading EPUB...', ms: 800 },
@@ -309,6 +310,7 @@ export default function MetadataBuilder() {
                                     {(c.status === 'fail' || c.status === 'warn') && (
                                         <p style={{ margin: '4px 0 0 0', fontSize: '0.83rem', color: '#b8860b', fontWeight: 600 }}>→ {c.fixHint}</p>
                                     )}
+                                    {(c.status === 'fail' || c.status === 'warn') && <FixLinks tool="metadata-builder" check={c.name} />}
                                 </div>
                             </div>
                         ))}
