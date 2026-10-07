@@ -44,7 +44,7 @@ export default function VellumAlternativePage() {
         </h1>
 
         <p style={{ fontSize: 19, lineHeight: 1.6, marginBottom: 32, opacity: 0.9 }}>
-          Vellum is Mac-only, which is the real reason most Windows authors land here — not because it isn't good software. BookKraft AI isn't a Vellum replacement; it's a pre-flight toolkit that runs on any platform and handles the cleanup, validation, and metadata work <em>before</em> your manuscript goes into Vellum (on a Mac) or straight to KDP.
+          Vellum is Mac-only, which is the real reason most Windows authors land here — not because it isn&apos;t good software. BookKraft AI isn&apos;t a Vellum replacement; it&apos;s a pre-flight toolkit that runs on any platform and handles the cleanup, validation, and metadata work <em>before</em> your manuscript goes into Vellum (on a Mac) or straight to KDP.
         </p>
 
         {/* 3-step flow */}
@@ -121,7 +121,7 @@ export default function VellumAlternativePage() {
           Vellum only runs on a Mac. Renting a cloud Mac adds cost and complexity just to reach Vellum&apos;s design step.
         </p>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
-          BookKraft AI doesn't solve that platform problem by replacing Vellum's design tools — it solves a different, earlier problem: getting your manuscript clean, validated, and metadata-complete on any platform, before design even starts. If you do have Mac access for Vellum, running BookKraft AI first still saves you a cleanup pass; if you don't, BookKraft AI plus KDP's own tools gets a properly formatted book published without ever needing a Mac.
+          BookKraft AI doesn&apos;t solve that platform problem by replacing Vellum&apos;s design tools — it solves a different, earlier problem: getting your manuscript clean, validated, and metadata-complete on any platform, before design even starts. If you do have Mac access for Vellum, running BookKraft AI first still saves you a cleanup pass; if you don&apos;t, BookKraft AI plus KDP&apos;s own tools gets a properly formatted book published without ever needing a Mac.
         </p>
 
         <h2 style={{ fontSize: 28, fontWeight: 700, marginTop: 48, marginBottom: 16 }}>
@@ -165,7 +165,7 @@ export default function VellumAlternativePage() {
             n: 6,
             title: 'Build your metadata',
             href: '/tools/metadata-builder',
-            body: 'Title, author, description, BISAC categories, and language need to match across KDP, your EPUB file, and any other platform you\'re submitting to. The Metadata Builder outputs all of it in the formats each platform expects.',
+            body: 'Title, author, description, and language need to match across KDP, your EPUB file, and any other platform you\'re submitting to. Categories differ: KDP uses its own category list, while IngramSpark and many other distributors use BISAC. The Metadata Builder outputs all of it in the formats each platform expects.',
           },
         ].map((step) => (
           <div key={step.n} style={{ marginBottom: 24, paddingLeft: 16, borderLeft: '3px solid rgba(201,168,76,0.4)' }}>

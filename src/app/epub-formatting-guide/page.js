@@ -88,7 +88,7 @@ const steps = [
   },
   {
     title: 'Complete your metadata and keyword strategy',
-    body: 'Metadata fields differ by platform: KDP wants a specific keyword format, IngramSpark formats categories differently, and EPUB OPF files use yet another structure. Keywords and BISAC categories determine whether readers find your book in store search and browse. Missing or misformatted metadata fields can slow down approval and affect discoverability after publishing.',
+    body: 'Metadata fields differ by platform: KDP wants a specific keyword format, IngramSpark formats categories differently, and EPUB OPF files use yet another structure. Keywords and categories help readers find your book in store search and browse — KDP uses its own category list, while IngramSpark uses BISAC. Missing or misformatted metadata fields can slow down approval and affect discoverability after publishing.',
     tools: [
       { name: 'Metadata Builder', href: '/tools/metadata-builder' },
       { name: 'KDP Keyword & Category Finder', href: '/tools/kdp-keyword-finder' },
@@ -111,7 +111,7 @@ const checklist = [
   'EPUB 3 file generated with correct OPF manifest and cover declaration',
   'EPUB validates with zero structural errors',
   'Cover image meets all platform dimension and file size requirements',
-  'Metadata complete: title, author, language, BISAC category, 7 keywords, description',
+  'Metadata complete: title, author, language, categories (KDP\'s own list; BISAC for IngramSpark), 7 keywords, description',
   'Spine and navigation files reference valid content files',
   'Style sheet audited for consistency across all chapters',
 ];
