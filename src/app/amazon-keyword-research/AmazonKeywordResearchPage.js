@@ -144,7 +144,7 @@ export default function AmazonKeywordResearchPage() {
 
         <h3 style={{ fontSize: 22, fontWeight: 700, marginBottom: 12 }}>Method 1: Amazon autocomplete (the alphabet method)</h3>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 20, opacity: 0.9 }}>
-          Amazon&apos;s autocomplete suggestions can show phrases shoppers search for. No tools required.
+          Amazon&apos;s search suggestions can show what shoppers search for — a starting point for your research. No tools required.
         </p>
         {alphabetMethod.map((step, i) => (
           <div key={i} style={{ marginBottom: 16, paddingLeft: 16, borderLeft: '3px solid rgba(201,168,76,0.4)' }}>

@@ -5,9 +5,9 @@ export const KDP_GUIDE_ARTICLES = [
     metaDescription:
       "If your KDP keywords aren't driving discovery, one of five specific mistakes is usually the cause. Here's how to diagnose which one is hurting your listing.",
     title: "Why Your KDP Keywords Aren't Ranking — 5 Mistakes to Fix",
-    body: `<h2>Your 7 Keyword Slots Are the Algorithm's Only Direct Input From You</h2>
-<p>Amazon's search algorithm can't read your synopsis or interpret your cover design. It reads your title, subtitle, and the 7 keyword fields you enter when publishing — and that's the primary signal it uses to decide which search queries your book appears in.</p>
-<p>Your title and subtitle get indexed automatically. Everything else you're hoping the algorithm picks up — the mood, the tropes, the target audience — it will only find if you put it in the keyword slots. Those 7 keyword boxes are your only direct line to the algorithm. Most authors fill them in fifteen minutes during upload and never revisit them. That's the root of most keyword underperformance.</p>
+    body: `<h2>What KDP Keywords Do</h2>
+<p>KDP says that, along with factors like sales history and Amazon Best Sellers Rank, relevant keywords can boost your placement in search results on the Amazon Store. You can add up to 7 keywords or short phrases when you publish.</p>
+<p>KDP says to avoid information already in your book's metadata, such as the title, so use keywords for what your title doesn't say: the mood, the tropes, the target audience. Many authors fill them in quickly at upload and never revisit them.</p>
 
 <h2>Mistake 1: Using General Words Instead of Specific Ones</h2>
 <p>KDP's <a href="https://kdp.amazon.com/en_US/help/topic/G201298500" target="_blank" rel="noopener nofollow">keywords help page</a> says "specific words work better than general ones." A general word like "mystery" can match far more books than "cozy mystery female detective," which narrows the results to books like yours.</p>
@@ -21,17 +21,17 @@ export const KDP_GUIDE_ARTICLES = [
 <p>KDP's keyword guidelines list what to avoid, including subjective claims about quality ("best novel ever"), time-sensitive statements ("new," "on sale"), the name of an author not associated with your book, brands you don't own, and Amazon program names like Kindle Unlimited. KDP notes the list is not exhaustive. Check every keyword against <a href="/kdp-keyword-guide/kdp-keyword-banned-terms" style="color:var(--gold,#c9a84c);text-decoration:none">what KDP's keyword guidelines say to avoid</a> before submitting.</p>
 
 <h2>Mistake 4: Using the Wrong Phrase Structure for Your Genre</h2>
-<p>Fiction readers and nonfiction readers search in fundamentally different ways, and mixing the patterns kills discovery.</p>
+<p>Fiction readers and nonfiction readers search in fundamentally different ways, and mixing the patterns can hurt discovery.</p>
 <p>Fiction readers search by reading experience: "enemies to lovers slow burn," "dark academia found family," "cozy mystery cat sidekick." They search for what the book will feel like — tropes, settings, emotional payoff, sub-genre texture.</p>
 <p>Nonfiction readers search by problem and outcome: "how to build passive income online," "low-carb meal prep for beginners," "stoic philosophy daily practice." They search for what they want to accomplish after reading.</p>
 <p>A fantasy author who enters topic-style keywords ("world-building techniques," "magic system theory") is writing for other writers — not for fantasy readers searching for their next read. A self-help author who enters trope-style phrases won't match how their audience searches. Identify your genre's phrase pattern first, then build every slot around it.</p>
 
 <h2>Mistake 5: Setting Keywords Once and Never Updating</h2>
-<p>Keyword performance degrades over time. New competing titles enter your categories, seasonal search trends shift, and Amazon's algorithm weighting changes. Keywords that drove discovery at launch may be significantly underperforming six months later.</p>
+<p>How well your keywords work can change over time as new competing titles come out and seasonal search trends shift.</p>
 <p>Review your keywords from time to time, or when you see a drop in sales. Before updating, run fresh research — replacing a working keyword with an untested one is a common self-inflicted wound. Update only the slots that are clearly underperforming, not the whole set at once, so you can track what's working.</p>
 
 <h2>What to Do Instead</h2>
-<p>The most reliable starting point is Amazon's own autocomplete. Type your genre plus a space and a letter into Amazon's book search — every autocomplete suggestion is a real phrase real buyers typed in high enough volume for Amazon to surface it. Work through the alphabet for your genre. This takes 20–30 minutes and gives you validated phrases directly from the source.</p>
+<p>A good starting point is Amazon's own search suggestions. Type your genre plus a space and a letter into Amazon's book search — the suggestions can show what shoppers search for. Work through the alphabet for your genre; it takes 20–30 minutes.</p>
 <p>If you want that research done automatically — tailored to your specific book's genre, comparable titles, target reader, and themes, with category suggestions included — the <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> generates 7 keyword suggestions in one run.</p>`,
     faq: [
       {
@@ -40,7 +40,7 @@ export const KDP_GUIDE_ARTICLES = [
       },
       {
         q: 'Can I test different keywords to see which perform better?',
-        a: "Not directly — KDP doesn't provide keyword-level traffic data. You can track indirect signals: organic page views in KDP reports and BSR movements correlated with keyword update dates. Change one or two slots at a time so changes are traceable.",
+        a: "Not directly — KDP doesn't provide keyword-level traffic data. You can watch indirect signals: your sales in KDP's reports and your Best Sellers Rank around the dates you change keywords. Change one or two slots at a time so changes are traceable.",
       },
       {
         q: 'Does KDP penalize me for changing keywords too often?',
@@ -48,7 +48,7 @@ export const KDP_GUIDE_ARTICLES = [
       },
       {
         q: "Why does my book appear for some keyword searches but not others?",
-        a: "Amazon search combines your keyword slots, title, subtitle, reviews, and sales velocity to determine ranking position. Even with an exact-match keyword phrase, low sales velocity relative to competing titles pushes you lower in results. Keyword relevance determines eligibility; sales velocity determines rank within that result set.",
+        a: "KDP says that, along with factors like sales history and Amazon Best Sellers Rank, relevant keywords can boost your placement in search results. So a keyword can match your book while other books still appear above it. Amazon doesn't publish exactly how it ranks results.",
       },
       {
         q: 'How do I know if my current keywords are working?',
@@ -247,37 +247,34 @@ export const KDP_GUIDE_ARTICLES = [
       "KDP backend keywords are one input into Amazon's search term profile — not the whole thing. Here's how both work, what you control, and how to optimize each.",
     title: 'KDP Backend Keywords vs Amazon Search Terms — What\'s the Difference',
     body: `<h2>Backend Keywords: What They Are and Where You Enter Them</h2>
-<p>When you publish a book on KDP, the publishing workflow includes a "Keywords" step with 7 fields. These are backend keywords — called "backend" because they're not visible to readers on your product page. Readers never see them. They exist purely as metadata that Amazon's search index uses to determine when to surface your book in search results.</p>
-<p>KDP's <a href="https://kdp.amazon.com/en_US/help/topic/G201298500" target="_blank" rel="noopener nofollow" style="color:var(--gold,#c9a84c);text-decoration:none">keywords help page</a> asks you to "keep an eye on the character limit in the text field" rather than giving a number, so check the counter in the field as you type. Amazon treats each field as a phrase unit — what you enter functions as a search phrase that readers might type, not as a bag of individual words. A reader doesn't need to type your exact phrase to trigger a match; Amazon has natural language flexibility. But phrases that closely mirror actual reader search behavior will match more reliably than abstract keyword strings.</p>
+<p>When you publish a book on KDP, the publishing workflow includes a "Keywords" step with 7 fields. These are backend keywords — called "backend" because they're not visible to readers on your product page. Readers never see them. KDP says that, along with factors like sales history and Amazon Best Sellers Rank, relevant keywords can boost your placement in search results on the Amazon Store.</p>
+<p>KDP's <a href="https://kdp.amazon.com/en_US/help/topic/G201298500" target="_blank" rel="noopener nofollow" style="color:var(--gold,#c9a84c);text-decoration:none">keywords help page</a> asks you to "keep an eye on the character limit in the text field" rather than giving a number, so check the counter in the field as you type. KDP also says specific words work better than general ones, and to combine words in the most logical order.</p>
 
 <h2>Amazon Search Terms: Where They Come From</h2>
-<p>"Search terms" is Amazon's broader concept — the full set of signals Amazon uses to determine what searches your book is relevant for. Your backend keyword fields are one direct input into that set, but not the only one.</p>
-<p>Amazon also derives search relevance from:</p>
+<p>Your keywords are one of the things Amazon can use to match your book to searches, but not the only one. Amazon doesn't publish exactly how search works; these parts of your listing can also play a part:</p>
 <ul>
-<li><strong>Your title and subtitle.</strong> Every word in your book's title is automatically indexed. This is why repeating title words in backend keyword slots wastes those slots — the signal is already there.</li>
-<li><strong>Your series name.</strong> If your book is part of a series, the series name contributes its own search signal.</li>
-<li><strong>Your author name.</strong> Readers searching for your name find your books through this signal, not through backend keywords.</li>
-<li><strong>Your book description.</strong> Amazon indexes the text of your description, though it's weighted lower than backend keyword fields and title.</li>
-<li><strong>Reader behavior signals.</strong> Which searches lead to clicks on your book, how long readers stay on your product page, conversion rate from page view to purchase — these behavioral signals influence which queries Amazon continues associating with your book over time.</li>
+<li><strong>Your title and subtitle.</strong> KDP's keyword guidelines say to avoid information already in your metadata, such as the title, so don't repeat title words in your keywords.</li>
+<li><strong>Your series name.</strong> If your book is part of a series, the series name can also help readers find it.</li>
+<li><strong>Your author name.</strong> Readers can find your books by searching your name. KDP says not to repeat contributor names in keywords.</li>
+<li><strong>Your book description.</strong> Your description may also play a part; Amazon doesn't publish how much.</li>
+<li><strong>Sales.</strong> KDP names sales history and Amazon Best Sellers Rank as factors alongside keywords. How Amazon weighs other reader behavior isn't published.</li>
 </ul>
-<p>Backend keyword fields are where you have <em>direct control</em> over search signals. Everything else is derived from your listing content or inferred from reader behavior.</p>
+<p>Keywords are the one field KDP gives you specifically for search terms; the rest of your listing and your sales can matter too.</p>
 
-<h2>How Amazon Combines These Signals for Search Ranking</h2>
-<p>Amazon doesn't just check whether a keyword matches your listing — it ranks results within a matching set. Two books both indexed for "psychological thriller unreliable narrator" will appear in different positions based on relevance score plus performance signals.</p>
-<p>Relevance score is higher when the query closely matches your backend keywords, when your title reinforces the same theme, and when your book is formally categorized in the relevant genre. Performance signals — click-through rate, conversion rate, review velocity — determine where you land within the result set your keywords qualify you for.</p>
-<p>This is why keyword optimization alone isn't a complete strategy. A book with precise keywords but a low-converting cover or blurb will rank lower than a book with slightly less precise keywords and higher reader engagement. Keywords get you into the result set; the rest of the listing determines your position within it.</p>
+<h2>How Keywords Fit With Other Factors</h2>
+<p>KDP says that, along with factors like sales history and Amazon Best Sellers Rank, relevant keywords can boost your placement in search results on the Amazon Store. Amazon doesn't publish how it weighs each factor, so keywords alone may not move your book up — your cover, description and sales can matter too.</p>
 
 <h2>What You Control vs. What Amazon Infers</h2>
 <p>You have direct control over backend keyword fields, title, subtitle, series name, and book description — all editable after publishing through your KDP dashboard.</p>
-<p>Amazon infers search relevance from reader behavior over time. A book that consistently converts well when it appears for a particular query will gradually rank higher for that query, even without keyword changes — behavioral signals continuously update Amazon's relevance model for your listing.</p>
-<p>The practical implication: set your backend keywords precisely at launch, because behavioral data takes time to accumulate and you want Amazon indexing the right queries from day one. Then search Amazon for your keywords from time to time. Over time, you may find Amazon has naturally associated your book with queries you didn't explicitly target — or that you're not ranking for queries where your keyword slot was too vague to generate useful signal.</p>
+<p>Sales and reader behavior can also affect where your book appears over time; Amazon doesn't publish the details.</p>
+<p>The practical step: choose your keywords carefully at launch, then search Amazon for them from time to time. You may find your book showing up for searches you didn't target — or not showing up for ones you did, which can mean a keyword is too general.</p>
 
 <h2>How to Use This Distinction to Optimize Your Listing</h2>
-<p>Since backend keywords are your primary direct control, optimize them for phrases your title and description don't already cover:</p>
-<p><strong>Don't repeat title words.</strong> Amazon already indexes these — backend slots spent on them add no new coverage.</p>
+<p>Use your keywords for words your title and description don't already cover:</p>
+<p><strong>Don't repeat title words.</strong> KDP says to avoid information already in your metadata, such as your title.</p>
 <p><strong>Match reader search phrase patterns for your genre.</strong> Fiction readers search by trope, setting, and sub-genre ("enemies to lovers slow burn contemporary"). Nonfiction readers search by problem and outcome ("how to start a business with no money beginners"). Match the query structure your genre's readers actually use, not how you'd describe the book to another author.</p>
 <p><strong>Be specific.</strong> KDP says specific words work better than general ones: "enemies to lovers fake engagement" says more about your book than "romance fiction contemporary." Combine words in the order readers would search them.</p>
-<p><strong>Revisit from time to time.</strong> As behavioral data accumulates, you'll have better information about which signals are working.</p>
+<p><strong>Revisit from time to time.</strong> As your sales build up, you'll get a clearer idea of which keywords help.</p>
 <p>If you want 7 keyword suggestions for your specific genre, the <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> generates them from your book's genre, comparable titles, target reader, and themes.</p>`,
     faq: [
       {
@@ -290,15 +287,15 @@ export const KDP_GUIDE_ARTICLES = [
       },
       {
         q: "Do backend keywords have more weight than title keywords in Amazon's algorithm?",
-        a: "Title keywords generally carry more weight — Amazon treats a strong title-to-query match as a higher relevance signal than a backend keyword match alone. Backend keyword slots matter despite this because they're your only mechanism for extending relevance to phrases your title doesn't cover. Together, title and backend keywords give you the broadest possible query coverage.",
+        a: "Amazon doesn't publish how it weighs title words against keywords. KDP says to avoid repeating title words in keywords, so use your keywords for words your title doesn't cover.",
       },
       {
         q: 'Should I use long-tail phrases or broad terms in backend keyword fields?',
-        a: 'Long-tail phrases — specific, multi-word queries that match what a reader who wants your exact book would type. Broad terms like "mystery" or "romance" put you in massive result sets where your book, without established sales velocity, ranks near the bottom. A long-tail phrase like "cozy mystery British village amateur sleuth" has a smaller result set but one where you can rank visibly.',
+        a: 'KDP says specific words work better than general ones. A broad word like "mystery" or "romance" can match far more books than "cozy mystery British village amateur sleuth," so specific words can make your book easier to find. Combine them in the order readers would search.',
       },
       {
         q: 'How many words can I put in each KDP keyword field?',
-        a: 'KDP\'s keywords help page doesn\'t set a word count. It asks for up to seven keywords or short phrases and tells you to "keep an eye on the character limit in the text field," so check the counter in the field as you type. A phrase like "slow burn enemies to lovers college setting" is 43 characters and 7 words; "psychological thriller unreliable narrator memory" is 49 characters and 5 words. Use the space for a phrase that closely mirrors how readers in your genre search.',
+        a: 'KDP\'s keywords help page doesn\'t set a word count. It asks for up to seven keywords or short phrases and tells you to "keep an eye on the character limit in the text field," so check the counter in the field as you type. A phrase like "slow burn enemies to lovers college setting" is 43 characters and 7 words; "psychological thriller unreliable narrator memory" is 49 characters and 5 words. Use specific words in a logical order.',
       },
     ],
   },
