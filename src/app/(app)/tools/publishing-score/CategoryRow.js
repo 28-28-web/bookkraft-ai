@@ -1,10 +1,12 @@
+import { track } from '@/lib/analytics';
+
 const statusBg = { good: '#e8f5e9', warning: '#fff8e1', critical: '#fdecea' };
 const statusColor = { good: '#2D6A4F', warning: '#b45309', critical: '#c0392b' };
 const barColor = { good: '#2D6A4F', warning: '#f59e0b', critical: '#e74c3c' };
 const statusIcon = { good: 'check', warning: 'warn', critical: 'x' };
 
 export default function CategoryRow({ category }) {
-  const { label, score, max, status, insight, tool, toolUrl } = category;
+  const { id, label, score, max, status, insight, tool, toolUrl } = category;
   const pct = Math.round((score / max) * 100);
   return (
     <div style={{padding:'16px 24px',borderBottom:'1px solid #f0ece4'}}>
@@ -19,7 +21,7 @@ export default function CategoryRow({ category }) {
       </div>
       <p style={{fontSize:'13px',color:'#555',marginBottom:'6px'}}>{insight}</p>
       {status !== 'good' && (
-        <a href={toolUrl} style={{fontSize:'12px',color:'#2D6A4F',fontWeight:'600',textDecoration:'none'}}>
+        <a href={toolUrl} onClick={() => track('fix_clicked', { tool: 'publishing-score', check: id, fix_tool: toolUrl?.replace('/tools/', ''), fix_kind: 'tool' })} style={{fontSize:'12px',color:'#2D6A4F',fontWeight:'600',textDecoration:'none'}}>
           Fix with {tool}
         </a>
       )}

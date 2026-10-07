@@ -280,11 +280,11 @@ export default function EpubValidator() {
                                     {failCount > 0 && `${failCount} critical ${failCount === 1 ? 'issue' : 'issues'}`}
                                     {failCount > 0 && warnCount > 0 && ' + '}
                                     {warnCount > 0 && `${warnCount} ${warnCount === 1 ? 'warning' : 'warnings'}`}
-                                    {' '}found. BookKraft Pro auto-fixes all of them in under 2 minutes.
+                                    {' '}found. The BookKraft formatting tools can fix several of these; the steps below show where to fix each one.
                                 </p>
 
-                                <a href="/signup?plan=pro" onClick={() => track('fix_clicked', { tool: TOOL, fix_type: 'auto_fix_all', issue_count: failCount + warnCount })} style={{ display: 'block', background: '#C9933A', color: '#fff', padding: '13px', borderRadius: '8px', textDecoration: 'none', fontWeight: 700, fontSize: '1rem', textAlign: 'center', marginBottom: '16px' }}>
-                                    🔧 Auto-Fix All — Start Free Trial
+                                <a href="/signup?plan=starter" onClick={() => track('fix_clicked', { tool: TOOL, fix_type: 'auto_fix_all', issue_count: failCount + warnCount })} style={{ display: 'block', background: '#C9933A', color: '#fff', padding: '13px', borderRadius: '8px', textDecoration: 'none', fontWeight: 700, fontSize: '1rem', textAlign: 'center', marginBottom: '16px' }}>
+                                    🔧 Get the fix tools — Starter, $19 one-time
                                 </a>
 
                                 {fixChain.length > 0 && (
@@ -292,7 +292,7 @@ export default function EpubValidator() {
                                         <p style={{ fontSize: '0.82rem', color: '#9ca3af', marginBottom: '10px' }}>Or fix step by step:</p>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                             {fixChain.map((item, i) => (
-                                                <a key={i} href={item.fixLink} onClick={() => track('fix_clicked', { tool: TOOL, fix_tool: item.fixTool, issue: item.name })} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.07)', borderRadius: '7px', padding: '10px 14px', textDecoration: 'none', color: '#fff', fontSize: '0.88rem', fontWeight: 500 }}>
+                                                <a key={i} href={item.fixLink} onClick={() => track('fix_clicked', { tool: TOOL, fix_tool: item.fixTool, issue: item.name, check: item.name, fix_kind: item.fixTool === 'Fix Guide' ? 'guide' : 'tool' })} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.07)', borderRadius: '7px', padding: '10px 14px', textDecoration: 'none', color: '#fff', fontSize: '0.88rem', fontWeight: 500 }}>
                                                     <span style={{ background: '#C9933A', borderRadius: '50%', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700, flexShrink: 0 }}>{i + 1}</span>
                                                     {item.name} issue → <span style={{ color: '#C9933A', marginLeft: 'auto' }}>Open {item.fixTool} →</span>
                                                 </a>
@@ -313,8 +313,8 @@ export default function EpubValidator() {
                                 <p style={{ fontSize: '0.95rem', color: '#166534', marginBottom: '20px' }}>Great job. Want to make sure your metadata and TOC are perfect too?</p>
                                 <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#166534', marginBottom: '8px' }}>✅ No common issues found</h3>
                                 <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                                    <a href="/tools/metadata-builder" style={{ display: 'inline-block', background: '#fff', color: '#166534', border: '1px solid #166534', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Check Metadata →</a>
-                                    <a href="/signup?plan=starter" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Get All {TOOLS.length} Tools — $19</a>
+                                    <a href="/tools/metadata-builder" onClick={() => track('cta_click', { from: window.location.pathname, to: '/tools/metadata-builder', cta: 'all_passed_metadata' })} style={{ display: 'inline-block', background: '#fff', color: '#166534', border: '1px solid #166534', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Check Metadata →</a>
+                                    <a href="/signup?plan=starter" onClick={() => track('cta_click', { from: window.location.pathname, to: '/signup?plan=starter', cta: 'all_passed_starter' })} style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Get All {TOOLS.length} Tools — $19</a>
                                 </div>
                             </div>
                         )}
@@ -329,7 +329,7 @@ export default function EpubValidator() {
                                         <strong>{c.name}</strong>
                                         <p>{c.detail}</p>
                                         {c.fixLink && (
-                                            <a href={c.fixLink} onClick={() => track('fix_clicked', { tool: TOOL, fix_tool: c.fixTool, issue: c.name })} style={{ display: 'inline-block', marginTop: '8px', color: '#b8860b', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none' }}>
+                                            <a href={c.fixLink} onClick={() => track('fix_clicked', { tool: TOOL, fix_tool: c.fixTool, issue: c.name, check: c.name, fix_kind: c.fixTool === 'Fix Guide' ? 'guide' : 'tool' })} style={{ display: 'inline-block', marginTop: '8px', color: '#b8860b', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none' }}>
                                                 → Fix this with {c.fixTool}
                                             </a>
                                         )}
@@ -354,10 +354,10 @@ export default function EpubValidator() {
                                     Costs 3 credits. Results download as a full HTML report.
                                 </p>
                                 <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                                    <a href="/tools/epub-validator-premium" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>
+                                    <a href="/tools/epub-validator-premium" onClick={() => track('cta_click', { from: window.location.pathname, to: '/tools/epub-validator-premium', cta: 'pro_scan' })} style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>
                                         Run Pro Scan — 3 Credits →
                                     </a>
-                                    <a href="/pricing" style={{ display: 'inline-block', background: 'transparent', color: '#C9933A', border: '1px solid #C9933A', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>
+                                    <a href="/pricing" onClick={() => track('cta_click', { from: window.location.pathname, to: '/pricing', cta: 'buy_credits' })} style={{ display: 'inline-block', background: 'transparent', color: '#C9933A', border: '1px solid #C9933A', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>
                                         Buy Credits
                                     </a>
                                 </div>

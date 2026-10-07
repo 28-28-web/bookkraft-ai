@@ -271,11 +271,11 @@ export default function MetadataBuilder() {
                                 {failCount > 0 && `${failCount} critical ${failCount === 1 ? 'issue' : 'issues'}`}
                                 {failCount > 0 && warnCount > 0 && ' + '}
                                 {warnCount > 0 && `${warnCount} ${warnCount === 1 ? 'warning' : 'warnings'}`}
-                                {' '}found. BookKraft Pro helps you fix and optimize all of them.
+                                {' '}found. Each one is fixed by filling in the matching field — see the steps below.
                             </p>
-                            <a href="/signup?plan=pro" style={{ display: 'block', background: '#C9933A', color: '#fff', padding: '13px', borderRadius: '8px', textDecoration: 'none', fontWeight: 700, fontSize: '1rem', textAlign: 'center', marginBottom: '16px' }}>
-                                🔧 Fix All — Start Free Trial
-                            </a>
+                            <button type="button" onClick={() => { track('fix_clicked', { tool: 'metadata-builder', fix_tool: 'metadata-builder', fix_kind: 'edit', check: 'all', issue_count: failCount + warnCount }); setShowReport(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ display: 'block', width: '100%', background: '#C9933A', color: '#fff', padding: '13px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 700, fontSize: '1rem', textAlign: 'center', marginBottom: '16px' }}>
+                                ✏️ Edit your metadata
+                            </button>
                             <p style={{ fontSize: '0.82rem', color: '#9ca3af', marginBottom: '10px' }}>Or fix step by step:</p>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                 {checks.filter(c => c.status === 'fail' || c.status === 'warn').map((item, i) => (
@@ -293,8 +293,8 @@ export default function MetadataBuilder() {
                             <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#166534', marginBottom: '8px' }}>✅ Your metadata looks great</h3>
                             <p style={{ fontSize: '0.95rem', color: '#166534', marginBottom: '20px' }}>Next step: build your table of contents.</p>
                             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                                <a href="/tools/toc-generator" style={{ display: 'inline-block', background: '#166534', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Generate Table of Contents →</a>
-                                <a href="/signup?plan=starter" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Get All {TOOLS.length} Tools — $19</a>
+                                <a href="/tools/toc-generator" onClick={() => track('cta_click', { from: window.location.pathname, to: '/tools/toc-generator', cta: 'next_step_toc' })} style={{ display: 'inline-block', background: '#166534', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Generate Table of Contents →</a>
+                                <a href="/signup?plan=starter" onClick={() => track('cta_click', { from: window.location.pathname, to: '/signup?plan=starter', cta: 'all_passed_starter' })} style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Get All {TOOLS.length} Tools — $19</a>
                             </div>
                         </div>
                     )}
@@ -331,8 +331,8 @@ export default function MetadataBuilder() {
                         <div style={{ background: '#faf9f7', border: '2px solid #C9933A', borderRadius: '12px', padding: '20px', marginBottom: '20px' }}>
                             <h4 style={{ fontSize: '1rem', fontWeight: 700, color: '#1a1a1a', marginBottom: '8px' }}>✅ Metadata done. Next step:</h4>
                             <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '16px' }}>Build your table of contents. KDP requires a TOC for every ebook.</p>
-                            <a href="/tools/toc-generator" style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, marginRight: '12px' }}>Generate Table of Contents →</a>
-                            <a href="/signup?plan=pro" style={{ display: 'inline-block', color: '#b8860b', fontWeight: 600, textDecoration: 'none', fontSize: '0.9rem' }}>or upgrade to Pro for more credits →</a>
+                            <a href="/tools/toc-generator" onClick={() => track('cta_click', { from: window.location.pathname, to: '/tools/toc-generator', cta: 'next_step_toc' })} style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, marginRight: '12px' }}>Generate Table of Contents →</a>
+                            <a href="/signup?plan=pro" onClick={() => track('cta_click', { from: window.location.pathname, to: '/signup?plan=pro', cta: 'next_step_pro' })} style={{ display: 'inline-block', color: '#b8860b', fontWeight: 600, textDecoration: 'none', fontSize: '0.9rem' }}>or upgrade to Pro for more credits →</a>
                         </div>
                     )}
 
@@ -358,8 +358,8 @@ export default function MetadataBuilder() {
 
                     <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '10px', padding: '20px', textAlign: 'center' }}>
                         <p style={{ fontWeight: 600, marginBottom: '4px', fontSize: '0.95rem' }}>Liked this tool?</p>
-                        <p style={{ color: '#6b7280', fontSize: '0.88rem', marginBottom: '14px' }}>Get all {TOOLS.length} BookKraft tools + auto-fix for everything.</p>
-                        <a href="/signup?plan=starter" style={{ display: 'inline-block', background: '#1a1a1a', color: '#fff', padding: '11px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.95rem' }}>Get Starter — $19</a>
+                        <p style={{ color: '#6b7280', fontSize: '0.88rem', marginBottom: '14px' }}>Get all {TOOLS.length} BookKraft tools — one-time payment, no subscription.</p>
+                        <a href="/signup?plan=starter" onClick={() => track('cta_click', { from: window.location.pathname, to: '/signup?plan=starter', cta: 'liked_tool_starter' })} style={{ display: 'inline-block', background: '#1a1a1a', color: '#fff', padding: '11px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.95rem' }}>Get Starter — $19</a>
                     </div>
                 </div>
                 <ReadinessReportCTA sourceTool="metadata-builder" />

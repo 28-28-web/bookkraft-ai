@@ -30,13 +30,13 @@ export async function POST(req) {
   </ul>
 
   <p style="color: #444; margin-bottom: 20px;">
-    Strong metadata means better category placement, better search visibility, and more readers finding your book.
+    Complete metadata can help readers find and understand your book. Each item above is fixed by filling in the matching field.
   </p>
 
-  <a href="https://bookkraftai.com/signup?plan=pro"
+  <a href="https://bookkraftai.com/tools/metadata-builder"
      style="display: inline-block; background: #C9933A; color: #fff; padding: 12px 24px;
             border-radius: 8px; text-decoration: none; font-weight: 700; margin-bottom: 16px;">
-    Fix All With BookKraft Pro →
+    Back to Metadata Builder →
   </a>
 
   <p style="margin-top: 16px;">

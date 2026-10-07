@@ -1,4 +1,5 @@
 import CategoryRow from './CategoryRow';
+import { track } from '@/lib/analytics';
 
 export default function ScoreCard({ data }) {
   const { total, categories } = data;
@@ -21,8 +22,8 @@ export default function ScoreCard({ data }) {
         ))}
       </div>
       <div style={{background:'#f9f7f4',padding:'24px',textAlign:'center'}}>
-        <p style={{fontSize:'14px',color:'#666',marginBottom:'12px'}}>Fix every issue above and get your book to 100 — KDP-ready.</p>
-        <a href='/pricing' style={{display:'inline-block',background:'#2D6A4F',color:'#fff',fontWeight:'700',padding:'12px 28px',borderRadius:'8px',textDecoration:'none',fontSize:'14px'}}>
+        <p style={{fontSize:'14px',color:'#666',marginBottom:'12px'}}>Each &ldquo;Fix with&rdquo; link above opens the tool for that category.</p>
+        <a href='/pricing' onClick={() => track('cta_click', { from: window.location.pathname, to: '/pricing', cta: 'scorecard_starter' })} style={{display:'inline-block',background:'#2D6A4F',color:'#fff',fontWeight:'700',padding:'12px 28px',borderRadius:'8px',textDecoration:'none',fontSize:'14px'}}>
           Get Starter - $19
         </a>
       </div>

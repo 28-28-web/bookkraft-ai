@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { TOOLS } from '@/lib/tools';
+import { track } from '@/lib/analytics';
 
 export default function UpsellBanner({ toolName = 'this tool' }) {
   const [dismissed, setDismissed] = useState(false);
@@ -49,6 +50,7 @@ export default function UpsellBanner({ toolName = 'this tool' }) {
 
       <Link
         href="/pricing"
+        onClick={() => track('cta_click', { from: window.location.pathname, to: '/pricing', cta: 'upsell_banner' })}
         style={{
           display: 'inline-block',
           background: 'var(--gold, #c9a84c)',

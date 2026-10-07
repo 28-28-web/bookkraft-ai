@@ -29,13 +29,13 @@ export async function POST(req) {
   </ul>
 
   <p style="color: #444; margin-bottom: 20px;">
-    The good news? BookKraft Pro fixes all of these automatically.
+    BookKraft's formatting tools can fix several of these. Starter is $19, one-time.
   </p>
 
-  <a href="https://bookkraftai.com/signup?plan=pro"
+  <a href="https://bookkraftai.com/pricing"
      style="display: inline-block; background: #C9933A; color: #fff; padding: 12px 24px;
             border-radius: 8px; text-decoration: none; font-weight: 700; margin-bottom: 16px;">
-    Start Free Trial — Fix in 2 Minutes
+    See the fix tools — from $19 one-time
   </a>
 
   <p style="margin-top: 16px;">

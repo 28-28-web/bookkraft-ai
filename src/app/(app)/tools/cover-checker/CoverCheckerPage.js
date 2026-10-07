@@ -325,7 +325,7 @@ export default function CoverCheckerPage() {
               <p style={{ color: '#fff', fontSize: 15, marginBottom: 14 }}>
                 Cover passed? Validate the rest of your EPUB file before you upload.
               </p>
-              <Link href="/tools/epub-validator" style={{
+              <Link href="/tools/epub-validator" onClick={() => track('cta_click', { from: window.location.pathname, to: '/tools/epub-validator', cta: 'validate_epub' })} style={{
                 display: 'inline-block', background: '#C9933A', color: '#12141C',
                 padding: '11px 24px', borderRadius: 8, fontWeight: 700, fontSize: 14, textDecoration: 'none',
               }}>

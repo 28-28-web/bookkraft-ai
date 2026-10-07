@@ -39,13 +39,13 @@ export async function POST(req) {
   </table>
 
   <p style="color: #444; margin-bottom: 20px;">
-    Fix every issue above and get your book to 100 — KDP-ready.
+    BookKraft has a tool for each category above. The formatting tools come with Starter, $19 one-time.
   </p>
 
-  <a href="https://bookkraftai.com/signup?plan=pro"
+  <a href="https://bookkraftai.com/pricing"
      style="display: inline-block; background: #C9933A; color: #fff; padding: 12px 24px;
             border-radius: 8px; text-decoration: none; font-weight: 700; margin-bottom: 16px;">
-    Fix All Issues — Start Free Trial
+    See the fix tools — from $19 one-time
   </a>
 
   <p style="margin-top: 16px;">

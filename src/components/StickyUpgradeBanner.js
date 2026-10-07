@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { TOOLS } from '@/lib/tools';
+import { track } from '@/lib/analytics';
 
 export default function StickyUpgradeBanner() {
     const [visible, setVisible] = useState(false);
@@ -108,6 +109,7 @@ export default function StickyUpgradeBanner() {
 
             <Link
                 href="/pricing"
+                onClick={() => track('cta_click', { from: window.location.pathname, to: '/pricing', cta: 'sticky_banner' })}
                 style={{
                     background: '#C9933A',
                     color: '#0F0E0C',
