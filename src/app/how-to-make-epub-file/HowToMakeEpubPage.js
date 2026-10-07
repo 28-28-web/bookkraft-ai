@@ -437,7 +437,7 @@ export default function HowToMakeEpubPage() {
         {/* Validation */}
         <h2 style={H2_STYLE}>Validating your EPUB</h2>
         <p style={P_STYLE}>
-          A file that opens fine in one reader can still fail Amazon&apos;s or Apple&apos;s stricter checks. Validate before uploading anywhere. These are the epubcheck errors you are most likely to meet:
+          A file that opens fine in one reader can still fail Amazon&apos;s or Apple&apos;s checks. Validate before uploading anywhere. These are the epubcheck errors you are most likely to meet:
         </p>
         <DataTable head={['Error', 'What it means', 'Fix']} rows={EPUBCHECK_ERRORS} />
         <p style={P_STYLE}>

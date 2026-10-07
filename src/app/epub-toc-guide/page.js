@@ -235,7 +235,7 @@ export default function EpubTocGuidePage() {
           Each entry in your nav.xhtml should link to a content file that exists in the EPUB archive and is listed in the OPF manifest. Links to files that are present in the nav but missing from the archive cause navigation errors on Kindle devices.
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 48, opacity: 0.9 }}>
-          Apple Books is stricter: it requires EPUB 3 and validates nav.xhtml more rigorously than KDP. Run your EPUB through the{' '}
+          Apple Books requires EPUB 3 and checks nav.xhtml. Run your EPUB through the{' '}
           <Link href="/tools/epub-validator" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             free EPUB Validator
           </Link>

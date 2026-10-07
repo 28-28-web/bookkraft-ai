@@ -102,7 +102,7 @@ export const EPUB_ERRORS = [
     faq: [
       {
         q: 'Why does Kobo specifically flag this?',
-        a: 'Kobo\'s validation is generally stricter about required metadata fields than some other platforms, which is why an empty title might pass elsewhere but fail specifically on Kobo\'s check.',
+        a: 'Platforms can check required metadata fields differently, so an empty title might pass elsewhere but fail on Kobo\'s check.',
       },
     ],
     relatedTool: 'epub-validator',
@@ -273,7 +273,7 @@ export const EPUB_ERRORS = [
     faq: [
       {
         q: 'My EPUB opened fine in Calibre — why does Apple Books still reject it?',
-        a: "Calibre's viewer renders permissively, treating EPUB content as HTML in some versions. Apple Books runs a strict XML parser against each chapter file. A file that displays correctly in Calibre and passes a basic EPUBCheck run can still fail Apple's stricter chapter-level HTML validation.",
+        a: "Calibre's viewer renders permissively, treating EPUB content as HTML in some versions. Apple Books may reject chapter files that aren't well-formed XML. A file that displays correctly in Calibre and passes a basic EPUBCheck run can still fail Apple's chapter-level HTML validation.",
       },
       {
         q: 'How did unclosed tags get into my EPUB?',

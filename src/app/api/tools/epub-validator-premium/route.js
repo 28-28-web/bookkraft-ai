@@ -40,7 +40,7 @@ export async function POST(request) {
 
 You will receive: a list of structural check results (pass/fail/warning) and the specific validation errors found, including detected file size, manifest item count, cover presence, and any duplicate ID conflicts.
 
-For each of these 4 stores — Amazon KDP, Apple Books, Google Play Books, IngramSpark — determine whether the file's current issues (if any) would cause a rejection, a warning, or no problem at all, based on each platform's known distinct requirements (e.g. IngramSpark requires an ISBN and stricter print-cover bleed specs that KDP and pure-ebook stores don't enforce).
+For each of these 4 stores — Amazon KDP, Apple Books, Google Play Books, IngramSpark — determine whether the file's current issues (if any) would cause a rejection, a warning, or no problem at all, based on each platform's known distinct requirements (e.g. IngramSpark requires an ISBN).
 
 Write the summary in plain language a non-technical author can act on. For each flagged issue, state: what it is, why it matters for that specific store, and the concrete fix.
 

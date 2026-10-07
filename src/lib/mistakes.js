@@ -128,8 +128,8 @@ export const MISTAKES = [
         a: "Items 2 (missing cover property) and 3 (broken spine order) are most likely to produce an error during KDP's processing pipeline. Items 1 and 7 (NCX mismatch, ghost spacing) usually let the file through but produce a poor reader experience. Items 4 and 6 (keywords, KDP Select conflict) don't trigger upload rejection but affect discoverability or account standing in ways that show up later.",
       },
       {
-        q: "Does KDP have a stricter validator than EPUBCheck?",
-        a: "KDP's validation is generally more lenient than Apple Books' — it accepts some files with EPUBCheck errors that Apple Books rejects. But KDP runs its own Kindle conversion on upload, which can surface issues EPUBCheck doesn't flag, particularly around NCX structure and spine order. A file that passes EPUBCheck can still produce a broken Kindle navigation experience.",
+        q: "Does KDP check the same things as EPUBCheck?",
+        a: "No. KDP runs its own Kindle conversion on upload, which can surface issues EPUBCheck doesn't flag, particularly around NCX structure and spine order. A file that passes EPUBCheck can still produce a broken Kindle navigation experience.",
       },
       {
         q: "What's the fastest pre-upload check for KDP?",

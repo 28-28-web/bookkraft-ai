@@ -128,9 +128,9 @@ export default function Page() {
         Formatting an ebook involves more than converting a Word file. A publishable EPUB requires a clean manuscript, a valid table of contents, working CSS, complete front and back matter, a correct OPF manifest, and metadata formatted for each store. This guide covers every step, with a tool for each one.
       </p>
       <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 56, opacity: 0.85 }}>
-        The workflow below applies to KDP, Apple Books, and IngramSpark. Each platform has different validation strictness —{' '}
+        The workflow below applies to KDP, Apple Books, and IngramSpark. Each platform checks files differently —{' '}
         <a href="#store-requirements" style={{ color: '#9c7f35', textDecoration: 'none' }}>see the store comparison below</a>
-        {' '}— but a file that passes the full checklist passes everywhere.
+        {' '}— and working through the full checklist gives your file the best chance everywhere.
       </p>
 
       {/* 8-step card grid */}
@@ -238,7 +238,7 @@ export default function Page() {
         Store requirements: KDP vs. Apple Books vs. IngramSpark
       </h2>
       <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 24, opacity: 0.9 }}>
-        Each platform runs its own automated validation on upload. A file can pass KDP and fail Apple Books. Understanding where each store sits on the strictness scale saves a rejection-and-resubmit cycle that can cost days.
+        Each platform runs its own automated validation on upload. A file can pass KDP and fail Apple Books. Knowing what each store checks can save a rejection-and-resubmit cycle that can cost days.
       </p>
 
       <div style={{ overflowX: 'auto', marginBottom: 40 }}>
@@ -247,7 +247,7 @@ export default function Page() {
             <tr style={{ borderBottom: '2px solid rgba(201,168,76,0.4)' }}>
               <th style={{ textAlign: 'left', padding: '10px 16px', fontWeight: 700, width: '18%' }}>Store</th>
               <th style={{ textAlign: 'left', padding: '10px 16px', fontWeight: 700 }}>EPUB version</th>
-              <th style={{ textAlign: 'left', padding: '10px 16px', fontWeight: 700 }}>Validation strictness</th>
+              <th style={{ textAlign: 'left', padding: '10px 16px', fontWeight: 700 }}>What it checks</th>
               <th style={{ textAlign: 'left', padding: '10px 16px', fontWeight: 700 }}>Error messages</th>
             </tr>
           </thead>
@@ -255,7 +255,7 @@ export default function Page() {
             <tr style={{ borderBottom: '1px solid rgba(0,0,0,0.07)' }}>
               <td style={{ padding: '12px 16px', fontWeight: 600 }}>Amazon KDP</td>
               <td style={{ padding: '12px 16px', lineHeight: 1.5 }}>EPUB 2 or EPUB 3</td>
-              <td style={{ padding: '12px 16px', lineHeight: 1.5 }}>Most lenient — tolerates some malformed XML, auto-corrects minor issues</td>
+              <td style={{ padding: '12px 16px', lineHeight: 1.5 }}>Tolerates some malformed XML, auto-corrects minor issues</td>
               <td style={{ padding: '12px 16px', lineHeight: 1.5 }}>Generic (&ldquo;We found issues&rdquo;) — often doesn&apos;t specify what failed</td>
             </tr>
             <tr style={{ borderBottom: '1px solid rgba(0,0,0,0.07)', background: 'rgba(0,0,0,0.02)' }}>
@@ -267,7 +267,7 @@ export default function Page() {
             <tr>
               <td style={{ padding: '12px 16px', fontWeight: 600 }}>IngramSpark</td>
               <td style={{ padding: '12px 16px', lineHeight: 1.5 }}>EPUB 3</td>
-              <td style={{ padding: '12px 16px', lineHeight: 1.5 }}>Between KDP and Apple Books — standard EPUB 3 compliance required</td>
+              <td style={{ padding: '12px 16px', lineHeight: 1.5 }}>Standard EPUB 3 compliance required</td>
               <td style={{ padding: '12px 16px', lineHeight: 1.5 }}>Clearer rejection messages than KDP</td>
             </tr>
           </tbody>

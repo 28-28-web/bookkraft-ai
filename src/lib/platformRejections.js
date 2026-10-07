@@ -61,7 +61,7 @@ export const PLATFORM_REJECTIONS = [
     slug: 'apple-books',
     platform: 'Apple Books',
     metaTitle: 'Why Apple Books Rejects Ebooks — Common Rejection Reasons',
-    metaDescription: "Apple Books rejected your EPUB? Apple's validation is stricter than most platforms. Here are the most common Apple Books rejection reasons and how to fix them before resubmitting.",
+    metaDescription: "Apple Books rejected your EPUB? Here are the most common Apple Books rejection reasons and how to fix them before resubmitting.",
     intro: "<p>Apple Books (distributed through Apple Books Connect) checks files on upload. A file that passes KDP upload can still fail Apple Books validation.</p>",
     topReasons: [
       {
@@ -93,7 +93,7 @@ export const PLATFORM_REJECTIONS = [
     faq: [
       {
         q: 'Does Apple Books accept EPUB 2?',
-        a: "Yes, but Apple strongly recommends EPUB 3 and applies stricter requirements to EPUB 2 submissions. EPUB 3 gives you the most predictable validation outcome.",
+        a: "Apple's current Books Asset Guide covers EPUB 3 files only, so build new books as EPUB 3.",
       },
       {
         q: 'My file passed EPUBCheck but Apple still rejected it — why?',
@@ -175,7 +175,7 @@ export const PLATFORM_REJECTIONS = [
       },
       {
         title: '100MB file size ceiling',
-        description: "Kobo Writing Life enforces a 100MB maximum upload size, significantly stricter than KDP's 650MB or Apple Books' 2GB limit. Illustrated non-fiction, children's picture books, graphic novels, and books with many embedded photographs commonly exceed this. Images that pass other platforms can push a file over Kobo's limit — resize all body images to their actual display dimensions and target an EPUB size under 80MB to give a margin below the ceiling.",
+        description: "Kobo Writing Life has a 100MB maximum upload size. Illustrated non-fiction, children's picture books, graphic novels, and books with many embedded photographs commonly exceed this. Images that pass other platforms can push a file over Kobo's limit — resize all body images to their actual display dimensions and target an EPUB size under 80MB to give a margin below the ceiling.",
       },
       {
         title: "BCP 47 language code not in Kobo's catalog allowlist",
@@ -318,8 +318,8 @@ export const PLATFORM_REJECTIONS = [
     slug: 'ingram-spark',
     platform: 'IngramSpark',
     metaTitle: 'Why IngramSpark Rejects Books — Print PDF and Ebook Distribution Requirements',
-    metaDescription: "IngramSpark rejected your file? IngramSpark's print PDF/X-1a specification is stricter than KDP's. Here are the most common print and ebook rejection causes — bleed, spine width, barcode, embedded fonts — and how to fix each one.",
-    intro: "<p>IngramSpark has two independent rejection pipelines — one for print files and one for ebook distribution — and authors coming from KDP are most often caught by print requirements KDP doesn't enforce. The biggest blocker: both the interior PDF and cover PDF must be in PDF/X-1a format, a prepress standard requiring CMYK color, fully embedded fonts, and no transparency — requirements that consumer tools like Canva and Google Docs don't produce without extra steps.</p>",
+    metaDescription: "IngramSpark rejected your file? IngramSpark recommends PDF/X-1a for print files. Here are the most common print and ebook rejection causes — bleed, spine width, barcode, embedded fonts — and how to fix each one.",
+    intro: "<p>IngramSpark has two independent rejection pipelines — one for print files and one for ebook distribution — and authors coming from KDP are most often caught by print requirements KDP doesn't enforce. A common blocker: IngramSpark recommends PDF/X-1a for print files, a prepress standard built around CMYK color, fully embedded fonts, and no transparency — settings that consumer tools like Canva and Google Docs don't produce without extra steps.</p>",
     topReasons: [
       {
         title: 'Interior or cover PDF not in PDF/X-1a format',
@@ -343,7 +343,7 @@ export const PLATFORM_REJECTIONS = [
       },
       {
         title: 'Ebook distribution failures via the CoreSource pipeline',
-        description: "IngramSpark distributes ebooks through CoreSource, which delivers to Apple Books, Kobo, Barnes & Noble, and other retail partners. A validation failure that IngramSpark's own intake passes can still cause a rejection at the CoreSource or destination-platform level, reported back through IngramSpark's dashboard with limited diagnostic detail. Apple Books' EPUBCheck strictness, Kobo's KEPUB conversion requirements, and retailer-specific metadata checks all apply to IngramSpark-distributed EPUBs — but the error message you receive from IngramSpark may not specify which downstream check failed or at which retailer.",
+        description: "IngramSpark distributes ebooks through CoreSource, which delivers to Apple Books, Kobo, Barnes & Noble, and other retail partners. A validation failure that IngramSpark's own intake passes can still cause a rejection at the CoreSource or destination-platform level, reported back through IngramSpark's dashboard with limited diagnostic detail. Apple Books' checks, Kobo's KEPUB conversion requirements, and retailer-specific metadata checks all apply to IngramSpark-distributed EPUBs — but the error message you receive from IngramSpark may not specify which downstream check failed or at which retailer.",
       },
     ],
     howToFix: "<ol><li>Use IngramSpark's cover template generator before starting your cover design — it outputs the exact spine width, bleed dimensions, and trim size for your page count and paper stock. Finalizing your interior page count before generating the template gives you the correct dimensions to design to.</li><li>Export your interior PDF with PDF/X-1a compliance. In Adobe InDesign: File → Export → PDF/X-1a:2001 preset. In Affinity Publisher: File → Export → PDF → PDF/X-1a. Microsoft Word does not support PDF/X-1a export — use a layout application or a PDF conversion service for your print interior.</li><li>Enable font embedding in your PDF export settings. In InDesign, font embedding is on by default. In Word, go to File → Options → Save → 'Embed fonts in the file' before exporting to PDF.</li><li>Use the free barcode in IngramSpark's cover template, or generate one from the ISBN registered with IngramSpark. You can move it within the back cover area, but don't resize it, and keep it in 100% black on a white box. IngramSpark's own barcode generator or Bowker's barcode tool produce correctly formatted output.</li><li>For ebook distribution failures, run your EPUB through EPUBCheck before uploading and fix all Critical and Error-level issues. For Apple Books-specific failures reported through IngramSpark's dashboard, consult Apple Books' EPUB requirements directly — IngramSpark's error message may not name the specific downstream check that failed.</li></ol>",

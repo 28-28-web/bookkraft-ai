@@ -151,7 +151,7 @@ export const EPUB_KDP_FAQS = [
   },
   {
     q: 'Why does Apple Books reject my EPUB but Amazon accepts it?',
-    a: 'Apple Books has stricter EPUB rules than Amazon. Amazon often accepts files with minor errors; Apple Books rejects them outright. Common reasons for rejection include a cover image that is too small, a missing or broken table of contents, or metadata that does not match the file. Run your EPUB through a validator before uploading. Fix every error flagged and re-upload.',
+    a: 'Apple Books can reject files that Amazon accepts. Common reasons for rejection include a cover image that is too small, a missing or broken table of contents, or metadata that does not match the file. Run your EPUB through a validator before uploading. Fix every error flagged and re-upload.',
   },
   {
     q: 'How do I fix common KDP formatting errors?',
