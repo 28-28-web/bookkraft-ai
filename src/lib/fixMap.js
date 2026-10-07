@@ -14,8 +14,7 @@ const epubGuide = (slug) => ({ kind: 'guide', href: `/epub-errors/${slug}`, labe
 
 // Kindle Format Fixer: double spaces, -- to em dash, straight to curly quotes,
 // 3+ blank lines. Manuscript Mode: double spaces, -- to em dash, empty
-// paragraphs — but its quote option makes quotes straight, so it is not
-// offered for straight quotes.
+// paragraphs, straight to curly quotes (lib/smartQuotes.js).
 const formatFixer = { kind: 'paid', slug: 'kindle-format-fixer', label: 'Fix with Kindle Format Fixer', note: 'paste your text' };
 const manuscriptFix = { kind: 'free', slug: 'manuscript-mode', label: 'Fix while converting with Manuscript Mode' };
 
@@ -39,7 +38,7 @@ const FIXES = {
         'Double spaces': [formatFixer, manuscriptFix],
         'Blank paragraphs': [formatFixer, manuscriptFix],
         'Double hyphens (--)': [formatFixer, manuscriptFix],
-        'Straight quotes': [formatFixer],
+        'Straight quotes': [formatFixer, manuscriptFix],
     },
     'metadata-builder': {
         Keywords: [{ kind: 'paid', slug: 'kdp-keyword-finder', label: 'Find keywords with KDP Keyword Finder' }],

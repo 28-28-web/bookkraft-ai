@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { checkToolAccess } from '@/lib/toolAccess';
+import { smartQuotes } from '@/lib/smartQuotes';
 
 // Strip all HTML tags — used for word count and chapter-pattern matching
 function textContent(html) {
@@ -156,10 +157,10 @@ export async function POST(request) {
                 .replace(/[-]/g, '');
         }
 
+        // Straight quotes to curly. For docx this is mammoth HTML, so tags are
+        // skipped (attribute quotes stay straight).
         if (fixSmartQuotes) {
-            processed = processed
-                .replace(/[‘’]/g, "'")
-                .replace(/[“”]/g, '"');
+            processed = smartQuotes(processed, { html: isDocx });
         }
 
         if (fixEmDashes) {
