@@ -102,8 +102,8 @@ export const MISTAKES = [
         link: { type: 'epub-error', slug: 'broken-spine-order', label: 'Broken spine order errors — full guide' },
       },
       {
-        title: 'Filling keyword slots with single words instead of reader search phrases',
-        description: "<p>KDP gives each title seven keyword slots. Authors who fill them with single words — \"mystery,\" \"thriller,\" \"romance\" — are competing against every title in those broad terms with no qualifier to match reader intent. The same slots filled with three-to-five-word search phrases — \"cozy mystery small town amateur sleuth\" — match how readers actually search and surface the book in a much narrower, more relevant set of results. Same KDP account, same upload, entirely different discoverability outcome.</p>",
+        title: 'Using general words instead of specific ones in keyword slots',
+        description: "<p>KDP lets you add up to seven keywords or short phrases. Its keyword guidance says specific words work better than general ones: a broad word like \"mystery\" or \"thriller\" can match far more books than \"cozy mystery small town amateur sleuth.\" KDP also says to combine words in the most logical order.</p>",
         link: { type: 'platform-rejection', slug: 'amazon-kdp', label: 'KDP submission requirements — full guide' },
       },
       {
@@ -234,8 +234,8 @@ export const MISTAKES = [
         link: { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB metadata checklist items' },
       },
       {
-        title: 'Filling keyword slots with single broad words',
-        description: "<p>KDP gives seven keyword slots. Filling them with single words like \"mystery\" or \"romance\" puts the book in competition with every title in those terms. Long-tail phrases of three to five words match how readers actually search and place the book in a narrower, more relevant result set.</p>",
+        title: 'Filling keyword slots with general words',
+        description: "<p>KDP lets you add up to seven keywords or short phrases. KDP says specific words work better than general ones, so a broad word like \"mystery\" or \"romance\" can match far more books than specific words that describe yours. Combine words in the order readers would search them.</p>",
         link: { type: 'platform-rejection', slug: 'amazon-kdp', label: 'KDP keyword and category requirements' },
       },
       {

@@ -3,39 +3,39 @@ import Link from 'next/link';
 const faqs = [
   {
     q: 'How many keyword slots does Amazon KDP give you?',
-    a: "KDP gives you 7 keyword fields, each up to 50 characters including spaces. Every slot should contain a complete keyword phrase — not a list of comma-separated single words. Amazon indexes phrases as phrases, so \"cozy mystery recipes small town\" is one targeted phrase that matches a specific reader query. Seven separate single words like \"cozy,mystery,recipes,small,town\" give you seven generic signals that compete against everything in those categories.",
+    a: "KDP lets you add up to 7 keywords or short phrases. The keyword field has a character limit, and KDP shows a counter as you type. KDP's guidance: specific words work better than general ones, and you should combine words in the most logical order — customers search \"military science fiction,\" not \"fiction science military.\"",
   },
   {
     q: 'Should I repeat keywords that are already in my title?',
-    a: "No. Amazon automatically indexes your title, subtitle, series name, and author name. Adding words from your title to the backend keyword slots wastes space. Use keyword slots for angles your title doesn't already cover — different subgenres, tropes, settings, or audience descriptors that connect your book to reader queries Amazon wouldn't otherwise know to match.",
+    a: "No. KDP's keyword guidelines say to avoid information already in your book's metadata, such as the title and contributors. Use keyword slots for angles your title doesn't already cover — different subgenres, tropes, settings, or audience descriptors.",
   },
   {
-    q: 'What keywords are banned on Amazon KDP?',
-    a: "Amazon prohibits: superlatives (best, top, greatest, #1), promotional language (sale, cheap, discount, free), words already in your title, category names used as keywords (\"thriller,\" \"romance\"), and competitor author or brand names. Violations result in keywords being stripped silently or the listing being flagged. Use complete descriptive phrases rather than category labels.",
+    q: 'What should I avoid in KDP keywords?',
+    a: "KDP's keyword guidelines list: information already in your book's metadata (title, contributors), words already in your book categories, subjective claims about quality (\"best novel ever\"), time-sensitive statements (\"new,\" \"on sale,\" \"available now\"), information common to most items in the category (\"book\"), spelling errors, the name of an author not associated with your book, brands you don't own, quotation marks, Amazon program names like Kindle Unlimited or KDP Select, and HTML tags. KDP notes the list is not exhaustive.",
   },
   {
     q: 'What are the most searched keywords on Amazon for books?',
-    a: "Amazon doesn't publish search volume data publicly, but its autocomplete function reveals the phrases real readers type most often. For fiction, high-volume patterns include romance subgenre + trope phrases (\"small town romance second chance\"), fantasy setting + magic system phrases (\"dark academy magic enemies to lovers\"), and thriller type + mood phrases (\"psychological thriller unreliable narrator\"). For nonfiction, problem + audience phrases dominate (\"anxiety relief workbook adults,\" \"budget meal prep beginners\"). The common thread: readers search for the reading experience or the outcome, not the book's subject matter.",
+    a: "Amazon doesn't publish search volume for book keywords. Autocomplete suggestions in Amazon's search bar can show phrases shoppers type. For fiction, common patterns combine romance subgenre + trope (\"small town romance second chance\"), fantasy setting + magic system phrases (\"dark academy magic enemies to lovers\"), and thriller type + mood phrases (\"psychological thriller unreliable narrator\"). For nonfiction, problem + audience phrases are common (\"anxiety relief workbook adults,\" \"budget meal prep beginners\"). The common thread: readers search for the reading experience or the outcome, not the book's subject matter.",
   },
   {
     q: 'How often should I update my KDP keywords?',
-    a: "Review every 60–90 days, or sooner if organic traffic drops noticeably. Amazon's algorithm evolves, reader search language shifts with trends, and new competing titles change the competitive landscape for specific phrases. Run fresh research before updating — don't replace working keywords with untested ones. Changing keywords resets some algorithmic signals, so make targeted changes rather than replacing all 7 at once.",
+    a: "There's no fixed schedule. Review your keywords from time to time, or when sales drop. Run fresh research before updating, and change a few at a time so you can tell what made a difference. KDP says keyword updates can take up to 72 hours to appear.",
   },
   {
     q: "What's the difference between KDP backend keywords and category keywords?",
-    a: "Backend keyword slots and category selection are separate inputs that work together. Your 7 keyword slots influence which Amazon searches surface your book. Your categories determine which browse menus it appears in and which bestseller lists it's eligible for. Some categories are only accessible by requesting them through KDP support after publishing — these \"ghost categories\" don't appear in the standard picker. Using category-relevant phrases in your keyword slots can reinforce browse placement beyond the 2 categories you select at upload.",
+    a: "They're separate fields. Keywords can help your book show up in Amazon search results; categories place it in Amazon's browse categories. KDP lets you select 3 categories. KDP's keyword guidelines say not to repeat words already in your categories in your keywords.",
   },
   {
     q: 'Does Amazon use keyword slots for advertising?',
-    a: "Backend keywords influence organic discovery, not ad targeting directly. Amazon Ads uses separate keyword targeting that you set within the ad campaign. That said, the research process overlaps — the same phrases that match organic reader searches are often the right starting point for Sponsored Products keyword targeting. Authors who've done thorough backend keyword research typically start ad campaigns with a stronger keyword list.",
+    a: "KDP's keyword help covers placement in Amazon Store search results, not ads. Amazon Ads campaigns have their own keyword targeting, set up separately in each campaign. The same keyword research can be a starting point for both.",
   },
   {
     q: 'Is there a difference between fiction and nonfiction keyword strategy?',
-    a: "Yes — significantly. Fiction readers search for the reading experience: trope, setting, sub-genre, and emotional tone. Nonfiction readers search for the problem they want solved and the outcome they want to achieve. A thriller author using nonfiction-style problem phrases (\"how to survive a thriller\") or a nonfiction author using fiction-style trope phrases will miss their actual reader. The keyword research approach and the phrase structures that work are different for each.",
+    a: "Yes — significantly. Fiction readers search for the reading experience: trope, setting, sub-genre, and emotional tone. Nonfiction readers search for the problem they want solved and the outcome they want to achieve. A thriller author using nonfiction-style problem phrases (\"how to survive a thriller\") or a nonfiction author using fiction-style trope phrases can miss their actual reader. The keyword research approach and the phrase structures that work are different for each.",
   },
   {
     q: 'How do I check if Amazon has indexed my KDP keywords?',
-    a: "Search Amazon for the exact keyword phrase you submitted — type it into Amazon's book search bar. If your book appears in results, the keyword is indexed. If it doesn't appear, either the keyword hasn't propagated yet (allow up to 3 business days for a new book, or up to 72 hours after a keyword update), or Amazon didn't index that phrase. Narrow the search by adding your author name or a distinctive title word to confirm your book's rank for that phrase. There's no official Amazon tool for keyword indexation — this manual search method is the standard approach authors use.",
+    a: "Search Amazon for the keyword you submitted — type it into Amazon's book search bar. If your book appears in results, the keyword is likely working. If it doesn't appear, the change may not be live yet: KDP says a new book can take up to 3 business days to go live, and keyword updates up to 72 hours. Narrow the search by adding your author name or a distinctive title word to find your book in the results.",
   },
 ];
 
@@ -69,10 +69,10 @@ const genrePatterns = [
 
 const alphabetMethod = [
   { letter: 'Search', action: 'Go to Amazon\'s book search. Type your genre + a space + a letter.' },
-  { letter: 'Record', action: "Note every autocomplete suggestion. Each is a phrase real readers typed enough times for Amazon to surface it." },
-  { letter: 'Repeat', action: "Go through a–z for your primary genre. Add your main sub-genre and repeat. Takes 20–30 minutes but produces validated phrases." },
+  { letter: 'Record', action: "Note every autocomplete suggestion. Suggestions can show phrases other shoppers search for." },
+  { letter: 'Repeat', action: "Go through a–z for your primary genre. Add your main sub-genre and repeat. Takes 20–30 minutes." },
   { letter: 'Filter', action: "Remove phrases that don't describe your specific book. Keep the ones that match your setting, trope, tone, and audience." },
-  { letter: 'Format', action: "Trim each phrase to under 50 characters. Remove words that duplicate your title. Prioritize specificity over breadth." },
+  { letter: 'Format', action: "Keep each keyword within the character limit KDP's field shows. Remove words already in your title. Prefer specific words over general ones." },
 ];
 
 const kdpSteps = [
@@ -84,22 +84,22 @@ const kdpSteps = [
   {
     n: 2,
     title: 'Navigate to Keywords section',
-    body: "In the book details page, scroll to the Keywords section. KDP shows 7 numbered fields labeled \"Keyword 1\" through \"Keyword 7.\" Each field accepts up to 50 characters.",
+    body: "In the book details page, scroll to the Keywords section. KDP lets you add up to 7 keywords or short phrases, and each field has a character limit.",
   },
   {
     n: 3,
-    title: 'Enter one phrase per field',
-    body: "Paste one complete keyword phrase into each field — not a comma-separated list. \"cozy mystery bakery small town\" is one field entry. Amazon treats each field as a complete phrase for matching purposes.",
+    title: 'Combine words in a logical order',
+    body: "KDP says specific words work better than general ones, and to combine keywords in the most logical order — customers search \"military science fiction,\" not \"fiction science military.\" Don't add quotation marks: KDP's guidelines list them among things to avoid.",
   },
   {
     n: 4,
     title: 'Check character counts',
-    body: "Each field has a 50-character limit. KDP shows a character counter as you type. Use all available characters — a 48-character specific phrase outperforms a 12-character generic term in the same slot.",
+    body: "KDP's keyword field has a character limit and shows a counter as you type. Keep each keyword within it.",
   },
   {
     n: 5,
     title: 'Save and republish',
-    body: "Click Save and Continue. If the book is already published, keyword changes go live after KDP processes the update, which can take up to 72 hours. Changes don't require a new review cycle for most edits.",
+    body: "Click Save and Continue. If the book is already published, keyword changes go live after KDP processes the update, which can take up to 72 hours.",
   },
 ];
 
@@ -112,24 +112,25 @@ export default function AmazonKeywordResearchPage() {
         </h1>
 
         <p style={{ fontSize: 19, lineHeight: 1.6, marginBottom: 32, opacity: 0.9 }}>
-          Amazon surfaces books to readers through its search algorithm — and the backend keywords you enter when publishing are a direct input to that algorithm. The 7 keyword slots KDP gives you are your main lever for organic discovery. Getting them right before launch is the difference between a book Amazon knows how to surface and one it doesn&apos;t.
+          KDP says that, along with factors like sales history and Amazon Best Sellers Rank, relevant keywords can boost your placement in search results on the Amazon Store. KDP lets you add up to 7 keywords or short phrases when you publish.
         </p>
 
         {/* How KDP keyword slots work */}
         <h2 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }}>
-          How Amazon uses your 7 keyword slots
+          How KDP keywords work
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 16, opacity: 0.9 }}>
-          KDP gives you 7 backend keyword fields, each up to 50 characters. Amazon uses these to match your book against reader search queries — not as a tag cloud, but as a list of complete phrases. Three things determine how well your keyword slots work:
+          KDP lets you add up to 7 keywords or short phrases, and each field has a character limit. KDP&apos;s{' '}<a href="https://kdp.amazon.com/en_US/help/topic/G201298500" target="_blank" rel="noopener nofollow" style={{ color: '#9c7f35', textDecoration: 'underline' }}>keywords help page</a>{' '}gives this guidance:
         </p>
         <ul style={{ fontSize: 17, lineHeight: 1.9, opacity: 0.9, paddingLeft: 24, marginBottom: 24 }}>
-          <li><strong>Phrases beat single words.</strong> &quot;Cozy mystery with recipes&quot; matches a specific reader query. &quot;Mystery&quot; alone competes against every mystery on Amazon. Treat each 50-character slot as a complete phrase, not a comma-separated word list.</li>
-          <li><strong>Don&apos;t repeat your title.</strong> Amazon already indexes your title, subtitle, and series name. Using those words in keyword slots wastes space — use keywords for angles your title doesn&apos;t cover.</li>
-          <li><strong>Specificity beats reach.</strong> A narrow phrase that matches exactly what a reader typed will surface your book to the right buyer. A broad phrase that matches a wider pool of searches puts you against more competition and serves readers who wanted something else.</li>
+          <li><strong>Specific beats general.</strong> KDP says specific words work better than general ones. &quot;Mystery&quot; alone can match far more books than &quot;cozy mystery recipes.&quot;</li>
+          <li><strong>Don&apos;t repeat your title.</strong> KDP says to avoid information already in your book&apos;s metadata, such as the title. Use keywords for angles your title doesn&apos;t cover.</li>
+          <li><strong>Use a logical order.</strong> KDP says to combine keywords in the order customers would search: &quot;military science fiction,&quot; not &quot;fiction science military.&quot;</li>
         </ul>
         <div style={{ padding: '20px 24px', background: 'rgba(201,168,76,0.06)', border: '1px solid rgba(201,168,76,0.25)', borderRadius: 10, marginBottom: 40 }}>
           <p style={{ fontSize: 16, lineHeight: 1.7, margin: 0, opacity: 0.9 }}>
-            <strong>Banned keyword terms:</strong> Amazon prohibits superlatives (best, top, #1), promotional language (sale, cheap, discount), your title&apos;s own words, bare category names (romance, thriller), and competitor author or brand names. Violations get keyword slots stripped silently — the listing stays up but loses those discovery signals.
+            <strong>What to avoid:</strong> KDP&apos;s keyword guidelines say to avoid subjective claims (&quot;best novel ever&quot;), time-sensitive words (&quot;new,&quot; &quot;on sale&quot;), words already in your title or categories, names of authors not associated with your book, brands you don&apos;t own, and Amazon program names like Kindle Unlimited. See the full list on KDP&apos;s{' '}
+            <a href="https://kdp.amazon.com/en_US/help/topic/G201298500" target="_blank" rel="noopener nofollow" style={{ color: '#9c7f35', textDecoration: 'underline' }}>keywords help page</a>.
           </p>
         </div>
 
@@ -143,7 +144,7 @@ export default function AmazonKeywordResearchPage() {
 
         <h3 style={{ fontSize: 22, fontWeight: 700, marginBottom: 12 }}>Method 1: Amazon autocomplete (the alphabet method)</h3>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 20, opacity: 0.9 }}>
-          Amazon&apos;s autocomplete is the most direct signal available — every suggestion is a phrase real readers typed in high enough volume for Amazon to surface it. No tools required, no API access needed.
+          Amazon&apos;s autocomplete suggestions can show phrases shoppers search for. No tools required.
         </p>
         {alphabetMethod.map((step, i) => (
           <div key={i} style={{ marginBottom: 16, paddingLeft: 16, borderLeft: '3px solid rgba(201,168,76,0.4)' }}>
@@ -164,7 +165,7 @@ export default function AmazonKeywordResearchPage() {
           <Link href="/tools/kdp-keyword-finder" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             KDP Keyword & Category Finder
           </Link>
-          {' '}automates the research step: enter your book&apos;s title, genre, target reader, comparable titles, and key themes — and it generates 7 keyword phrases formatted for KDP&apos;s 50-character slots, with a character count for each. It also produces full Amazon category paths including ghost categories (categories that exist in Amazon&apos;s browse tree but don&apos;t appear in the standard KDP picker), with the exact path text needed for a KDP support request to get added to those categories.
+          {' '}automates the research step: enter your book&apos;s title, genre, target reader, comparable titles, and key themes — and it generates 7 keyword suggestions, each with a character count you can check against the counter in KDP&apos;s keyword field. It also suggests 2 primary and 3 alternative Amazon category paths.
         </p>
         <div style={{ marginBottom: 48, textAlign: 'center' }}>
           <Link
@@ -180,7 +181,7 @@ export default function AmazonKeywordResearchPage() {
           What readers search for on Amazon — by genre
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 20, opacity: 0.9 }}>
-          Amazon doesn&apos;t publish search volume data, but the autocomplete patterns reveal the underlying structure of how readers search. Fiction and nonfiction follow fundamentally different patterns.
+          Amazon doesn&apos;t publish search volume data, but autocomplete suggestions can show common patterns in how readers search. Fiction and nonfiction follow fundamentally different patterns.
         </p>
         <div style={{ marginBottom: 48 }}>
           {genrePatterns.map((g, i) => (
@@ -219,7 +220,7 @@ export default function AmazonKeywordResearchPage() {
         </div>
 
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 32, opacity: 0.9 }}>
-          The key difference: fiction readers search for the <em>reading experience</em> (how will this make me feel, what tropes does it have, what world am I entering). Nonfiction readers search for the <em>outcome</em> (what problem does this solve, who is it for, what will I be able to do). Using the wrong pattern for your genre — nonfiction-style problem phrases for a fantasy novel — will surface your book to readers who weren&apos;t looking for it.
+          The key difference: fiction readers search for the <em>reading experience</em> (how will this make me feel, what tropes does it have, what world am I entering). Nonfiction readers search for the <em>outcome</em> (what problem does this solve, who is it for, what will I be able to do). Using the wrong pattern for your genre — nonfiction-style problem phrases for a fantasy novel — can surface your book to readers who weren&apos;t looking for it.
         </p>
 
         {/* Step-by-step adding to KDP listing */}
@@ -239,16 +240,11 @@ export default function AmazonKeywordResearchPage() {
         ))}
 
         <div style={{ margin: '32px 0 48px', padding: '20px 24px', background: 'rgba(201,168,76,0.06)', border: '1px solid rgba(201,168,76,0.25)', borderRadius: 10 }}>
-          <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8 }}>Ghost categories — how to get into them</h3>
-          <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.9, marginBottom: 8 }}>
-            KDP&apos;s standard category picker shows a subset of Amazon&apos;s actual browse tree. Ghost categories exist in the public tree — you can find books listed in them — but don&apos;t appear in the publisher interface. To get added:
+          <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8 }}>Categories</h3>
+          <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.9, margin: 0 }}>
+            KDP lets you select 3 categories when you set up your book. KDP Support can&apos;t recommend categories, so pick the ones that match your book most closely. See KDP&apos;s{' '}
+            <a href="https://kdp.amazon.com/en_US/help/topic/G200652170" target="_blank" rel="noopener nofollow" style={{ color: '#9c7f35', textDecoration: 'underline' }}>categories help page</a>.
           </p>
-          <ol style={{ fontSize: 16, lineHeight: 1.9, opacity: 0.9, paddingLeft: 24, margin: 0 }}>
-            <li>Publish your book first — you need an ASIN.</li>
-            <li>Email KDP support with your book&apos;s ASIN and the exact category path (e.g. &quot;Kindle Store &gt; Kindle eBooks &gt; Literature &amp; Fiction &gt; Genre Fiction &gt; Horror &gt; Occult&quot;).</li>
-            <li>KDP support adds the category manually — typically within 1–3 business days.</li>
-            <li>You can request up to 10 total categories (2 selected at upload + up to 8 added via support).</li>
-          </ol>
         </div>
 
         {/* FAQ */}
@@ -276,7 +272,7 @@ export default function AmazonKeywordResearchPage() {
           <Link href="/cover-requirements/amazon-kdp-ebook" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             Amazon KDP cover requirements
           </Link>
-          . For KDP browse categories — including ghost categories only accessible via KDP support — see{' '}
+          . For KDP categories, see{' '}
           <Link href="/kdp-category-keywords" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             KDP category keywords
           </Link>
@@ -294,7 +290,7 @@ export default function AmazonKeywordResearchPage() {
         {/* CTA */}
         <div style={{ marginTop: 48, padding: '28px 24px', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 12, textAlign: 'center' }}>
           <p style={{ fontSize: 18, marginBottom: 8, fontWeight: 600 }}>Generate your 7 KDP keywords — tailored to your book.</p>
-          <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Includes ghost category paths. Formatted to KDP&apos;s 50-character limit. Filtered against Amazon&apos;s banned terms list.</p>
+          <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 20 }}>Includes suggested category paths and a character count for each keyword.</p>
           <Link
             href="/tools/kdp-keyword-finder"
             style={{ display: 'inline-block', padding: '13px 30px', background: '#c9a84c', color: '#1a1a1a', borderRadius: 8, fontWeight: 700, textDecoration: 'none', fontSize: 16 }}

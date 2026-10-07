@@ -34,7 +34,7 @@ Target reader: ${reader || 'General audience'}
 Comparable titles: ${comps || 'Not specified'}
 Key themes: ${themes || 'Not specified'}
 
-Rules: 2-5 words each, all <50 chars, different angle per keyword, FULL Amazon breadcrumb paths.
+Rules: 2-5 words each, different angle per keyword, FULL Amazon breadcrumb paths.
 
 Return ONLY this exact JSON structure with no omitted fields:
 {

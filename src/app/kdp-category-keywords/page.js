@@ -75,7 +75,7 @@ export default function KdpCategoryKeywordsPage() {
 
   const articles = [
     { slug: 'why-kdp-keywords-arent-ranking', label: '5 KDP keyword mistakes killing your ranking →' },
-    { slug: 'kdp-keyword-banned-terms', label: 'KDP keyword banned terms — full list →' },
+    { slug: 'kdp-keyword-banned-terms', label: 'What KDP says to avoid in keywords →' },
     { slug: 'how-to-find-amazon-ghost-categories', label: 'Amazon ghost categories — what KDP\'s 3-category rule means →' },
     { slug: 'kdp-category-limit', label: 'KDP category limit — how many can you choose →' },
     { slug: 'backend-keywords-vs-search-terms', label: 'Backend keywords vs Amazon search terms →' },
@@ -157,19 +157,19 @@ export default function KdpCategoryKeywordsPage() {
         </h2>
         <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 12 }}>
           KDP asks for up to seven keywords or short phrases and tells you to keep an eye on the character
-          limit in the text field. Use each slot for a single complete phrase — not a comma-separated list of single words. Real readers type phrases: &ldquo;cozy mystery female detective
-          small town,&rdquo; &ldquo;how to build passive income online.&rdquo; Amazon&apos;s autocomplete shows which
-          phrases buyers search in high enough volume to surface — that&apos;s your primary research starting point.
+          limit in the text field. KDP&apos;s guidance: specific words work better than general ones, and combine
+          words in the most logical order — customers search &ldquo;military science fiction,&rdquo; not &ldquo;fiction
+          science military.&rdquo; Amazon&apos;s autocomplete suggestions can be a starting point for research.
         </p>
         <ul style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink)', paddingLeft: 20, marginBottom: 12 }}>
           <li style={{ marginBottom: 8 }}><strong>Don&apos;t repeat your title.</strong> Amazon indexes your title and subtitle automatically. Keyword slots are for angles your title doesn&apos;t cover.</li>
-          <li style={{ marginBottom: 8 }}><strong>Avoid banned terms.</strong> Amazon silently strips prohibited keywords — superlatives (&ldquo;best,&rdquo; &ldquo;top&rdquo;), price references (&ldquo;sale,&rdquo; &ldquo;cheap&rdquo;), category names, competitor names. No error message, no warning.</li>
+          <li style={{ marginBottom: 8 }}><strong>Avoid terms KDP lists.</strong> KDP&apos;s keyword guidelines say to avoid subjective claims (&ldquo;best novel ever&rdquo;), time-sensitive words (&ldquo;new,&rdquo; &ldquo;on sale&rdquo;), words already in your categories, names of authors not associated with your book, brands you don&apos;t own, and Amazon program names.</li>
           <li style={{ marginBottom: 8 }}><strong>Match your genre&apos;s search pattern.</strong> Fiction readers search by trope and experience. Nonfiction readers search by problem and outcome. Using the wrong pattern reduces how well your phrases match real buyer queries.</li>
-          <li style={{ marginBottom: 8 }}><strong>Review every 60–90 days.</strong> New competing titles, seasonal trends, and algorithm changes degrade keyword performance over time.</li>
+          <li style={{ marginBottom: 8 }}><strong>Review from time to time.</strong> New competing titles and seasonal trends can change how well your keywords work.</li>
         </ul>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 24 }}>
           <Link href="/kdp-keyword-guide/why-kdp-keywords-arent-ranking" style={{ color: 'var(--gold)', textDecoration: 'none', fontWeight: 600, fontSize: 15 }}>5 KDP keyword mistakes killing your ranking →</Link>
-          <Link href="/kdp-keyword-guide/kdp-keyword-banned-terms" style={{ color: 'var(--gold)', textDecoration: 'none', fontWeight: 600, fontSize: 15 }}>Full banned keyword terms list →</Link>
+          <Link href="/kdp-keyword-guide/kdp-keyword-banned-terms" style={{ color: 'var(--gold)', textDecoration: 'none', fontWeight: 600, fontSize: 15 }}>What KDP says to avoid in keywords →</Link>
           <Link href="/kdp-keyword-guide/backend-keywords-vs-search-terms" style={{ color: 'var(--gold)', textDecoration: 'none', fontWeight: 600, fontSize: 15 }}>Backend keywords vs Amazon search terms →</Link>
         </div>
 

@@ -401,7 +401,7 @@ export default function KdpFormattingGuidePage() {
                         <li><strong>dc:language</strong> — the primary language as a BCP 47 tag: <code>en</code> for English, <code>en-US</code> for American English, <code>fr</code> for French. This affects how reading systems handle hyphenation, text-to-speech, and search indexing.</li>
                         <li><strong>dc:identifier</strong> — a unique identifier, typically the ISBN. Must match the identifier referenced by the package element&apos;s <code>unique-identifier</code> attribute, or the EPUB fails spec validation.</li>
                         <li><strong>BISAC subject codes.</strong> BISAC is a standard subject classification. Other retailers and distributors use it. KDP does not: you choose your categories in the KDP dashboard.</li>
-                        <li><strong>7 KDP keyword fields.</strong> KDP lets you add up to 7 keywords or short phrases. Use each box for a phrase a reader might search for — not a list of single words.</li>
+                        <li><strong>7 KDP keyword fields.</strong> KDP lets you add up to 7 keywords or short phrases. KDP says specific words work better than general ones, and to combine them in the most logical order.</li>
                         <li><strong>Book description.</strong> The description field on your KDP product page accepts HTML formatting — bold, italic, lists, and headings. For the character limit, supported tags, and a copywriting structure, see the <Link href="/kdp-book-description" style={LINK_STYLE}>KDP book description guide</Link>.</li>
                     </ul>
                     <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>

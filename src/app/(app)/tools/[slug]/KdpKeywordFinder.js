@@ -4,6 +4,10 @@ import { useState } from 'react';
 import { useAuth } from '@/components/AuthProvider';
 import LivePreview from '@/components/LivePreview';
 
+// Soft hint only. KDP's help gives no number for the keyword field limit, so
+// KDP's own counter is the authority; this just flags unusually long phrases.
+const LONG_PHRASE_HINT = 50;
+
 export default function KdpKeywordFinder() {
     const { refreshProfile } = useAuth();
     const [form, setForm] = useState({ title: '', genre: 'Romance', reader: '', comps: '', themes: '' });
@@ -72,7 +76,10 @@ export default function KdpKeywordFinder() {
                                     <div className="keyword-header">
                                         <span className="keyword-num">#{i + 1}</span>
                                         <span className="keyword-phrase">{kw.phrase}</span>
-                                        <span className={`keyword-chars ${kw.character_count > 50 ? 'keyword-over' : ''}`}>{kw.character_count} chars</span>
+                                        <span className="keyword-chars">{kw.phrase?.length ?? kw.character_count} chars</span>
+                                        {(kw.phrase?.length ?? kw.character_count) > LONG_PHRASE_HINT && (
+                                            <span className="keyword-chars" style={{ background: 'rgba(201,147,58,0.12)', color: '#8a6d1f' }}>long phrase, check KDP&apos;s counter</span>
+                                        )}
                                     </div>
                                     <p className="keyword-rationale">{kw.rationale}</p>
                                     <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '4px' }}>

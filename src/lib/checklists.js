@@ -451,7 +451,7 @@ export const CHECKLISTS = [
         items: [
           'Title and subtitle match the cover word for word, including order',
           'Author name matches your existing Author Page to consolidate your profile',
-          '7 keyword slots filled with 3–5 word long-tail phrases, not single words',
+          'Keywords use specific words in a logical order (KDP allows up to 7 keywords or short phrases)',
           '2 BISAC categories chosen at the most specific subcategory available',
           'Series name and number set consistently if part of a series',
         ],

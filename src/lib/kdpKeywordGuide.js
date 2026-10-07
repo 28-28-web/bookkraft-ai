@@ -9,18 +9,16 @@ export const KDP_GUIDE_ARTICLES = [
 <p>Amazon's search algorithm can't read your synopsis or interpret your cover design. It reads your title, subtitle, and the 7 keyword fields you enter when publishing — and that's the primary signal it uses to decide which search queries your book appears in.</p>
 <p>Your title and subtitle get indexed automatically. Everything else you're hoping the algorithm picks up — the mood, the tropes, the target audience — it will only find if you put it in the keyword slots. Those 7 keyword boxes are your only direct line to the algorithm. Most authors fill them in fifteen minutes during upload and never revisit them. That's the root of most keyword underperformance.</p>
 
-<h2>Mistake 1: Using Single Words Instead of Complete Phrases</h2>
-<p>The most common keyword mistake is entering single words — "mystery," "thriller," "fantasy" — instead of complete phrases.</p>
-<p>Single words put you against every book in the genre. "Mystery" returns tens of thousands of results. "Cozy mystery with a female detective small town" returns a far smaller pool — and it matches the actual query a reader types when they know what they're looking for.</p>
-<p>Real readers type phrases. Amazon's autocomplete exists because people type conversational queries, not index keywords. The suggestions themselves — "cozy mystery bakery," "psychological thriller unreliable narrator" — are real phrases buyers searched frequently enough for Amazon to surface. Use each slot for one complete phrase, up to the character limit KDP shows in the field, not a list of three words separated by commas.</p>
+<h2>Mistake 1: Using General Words Instead of Specific Ones</h2>
+<p>KDP's <a href="https://kdp.amazon.com/en_US/help/topic/G201298500" target="_blank" rel="noopener nofollow">keywords help page</a> says "specific words work better than general ones." A general word like "mystery" can match far more books than "cozy mystery female detective," which narrows the results to books like yours.</p>
+<p>KDP also says to combine keywords in the most logical order — customers search "military science fiction," not "fiction science military" — and to leave out quotation marks, which are on its list of things to avoid.</p>
 
 <h2>Mistake 2: Repeating Words Already in Your Title</h2>
 <p>Amazon already indexes your title and subtitle and uses them for search matching. If your book is called <em>The Bakery Detective</em>, entering "bakery" or "detective" in a keyword slot duplicates a signal Amazon already has — and wastes one of your seven slots on coverage you didn't need to add.</p>
 <p>Use your keyword slots for angles your title doesn't cover: the sub-genre, the setting, the tropes, the target reader's emotional need. The goal is to extend reach into new search queries, not repeat what's already indexed.</p>
 
-<h2>Mistake 3: Using Terms Amazon Bans</h2>
-<p>Amazon's keyword policy prohibits superlatives ("best," "top," "greatest"), price or promotional language ("sale," "cheap," "discount"), category names used as keywords, and competitor author or brand names. Using any of these doesn't generate an error message — Amazon silently strips the banned term and treats the slot as empty.</p>
-<p>This means you can publish, see your 7 slots filled in your KDP dashboard, and still effectively have 4 working keywords because 3 contained banned language that was quietly removed. Check every phrase against Amazon's prohibited terms list before submitting.</p>
+<h2>Mistake 3: Using Terms KDP Asks You to Avoid</h2>
+<p>KDP's keyword guidelines list what to avoid, including subjective claims about quality ("best novel ever"), time-sensitive statements ("new," "on sale"), the name of an author not associated with your book, brands you don't own, and Amazon program names like Kindle Unlimited. KDP notes the list is not exhaustive. Check every keyword against <a href="/kdp-keyword-guide/kdp-keyword-banned-terms" style="color:var(--gold,#c9a84c);text-decoration:none">what KDP's keyword guidelines say to avoid</a> before submitting.</p>
 
 <h2>Mistake 4: Using the Wrong Phrase Structure for Your Genre</h2>
 <p>Fiction readers and nonfiction readers search in fundamentally different ways, and mixing the patterns kills discovery.</p>
@@ -30,11 +28,11 @@ export const KDP_GUIDE_ARTICLES = [
 
 <h2>Mistake 5: Setting Keywords Once and Never Updating</h2>
 <p>Keyword performance degrades over time. New competing titles enter your categories, seasonal search trends shift, and Amazon's algorithm weighting changes. Keywords that drove discovery at launch may be significantly underperforming six months later.</p>
-<p>Review and refresh every 60–90 days, or immediately when you see a drop in organic page views. Before updating, run fresh research — replacing a working keyword with an untested one is a common self-inflicted wound. Update only the slots that are clearly underperforming, not the whole set at once, so you can track what's working.</p>
+<p>Review your keywords from time to time, or when you see a drop in sales. Before updating, run fresh research — replacing a working keyword with an untested one is a common self-inflicted wound. Update only the slots that are clearly underperforming, not the whole set at once, so you can track what's working.</p>
 
 <h2>What to Do Instead</h2>
 <p>The most reliable starting point is Amazon's own autocomplete. Type your genre plus a space and a letter into Amazon's book search — every autocomplete suggestion is a real phrase real buyers typed in high enough volume for Amazon to surface it. Work through the alphabet for your genre. This takes 20–30 minutes and gives you validated phrases directly from the source.</p>
-<p>If you want that research done automatically — tailored to your specific book's genre, comparable titles, target reader, and themes, with banned terms filtered out and category suggestions included — the <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> generates 7 complete phrases in one run.</p>`,
+<p>If you want that research done automatically — tailored to your specific book's genre, comparable titles, target reader, and themes, with category suggestions included — the <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> generates 7 keyword suggestions in one run.</p>`,
     faq: [
       {
         q: 'How long does it take for new KDP keywords to take effect?',
@@ -54,69 +52,70 @@ export const KDP_GUIDE_ARTICLES = [
       },
       {
         q: 'How do I know if my current keywords are working?',
-        a: "Check your KDP dashboard's Traffic Diagnostics report — it shows page views by source (organic search vs. ads vs. browse). A rise in organic page views after a keyword update is a positive signal. You can also search Amazon directly for your keyword phrases and check whether your book appears within the first 50–100 results.",
+        a: "KDP doesn't offer a keyword-level report. Two indirect checks: search Amazon for your keywords and see whether your book appears in the results, and watch your sales in KDP's reports around the date you changed keywords.",
       },
     ],
   },
   {
     slug: 'kdp-keyword-banned-terms',
-    metaTitle: "KDP Keyword Banned Terms — What Amazon's Policy Prohibits | BookKraft AI",
+    metaTitle: "KDP Keyword Banned Terms — What KDP's Guidelines Say to Avoid | BookKraft AI",
     metaDescription:
-      "Amazon silently strips prohibited KDP keywords without warning. Here's what Amazon's policy actually covers, what sits in a grey area, and what to use instead.",
-    title: "KDP Keyword Banned Terms — What Amazon's Policy Prohibits",
-    body: `<h2>Why Amazon Bans Certain Keywords — and What Happens When You Use Them</h2>
-<p>Amazon's keyword policy exists to keep search results useful for buyers. When authors enter prohibited terms, Amazon doesn't reject the submission or flag your account immediately — it silently strips the offending terms and treats that slot as if it were empty. No error message. No warning. Your KDP dashboard still shows the keywords you entered, but Amazon's index doesn't use them.</p>
-<p>The practical consequence: you can publish a book, believe you have 7 keyword slots working, and actually have 3 or 4 — because the others contained terms Amazon quietly discarded. This is one of the most common reasons authors get no organic discovery from what looks like a complete keyword setup.</p>
-
-<h2>Prohibited Terms — What Amazon's Policy Covers</h2>
-<p style="font-size:14px;color:var(--mid);border-left:3px solid var(--border);padding-left:12px;margin-bottom:20px">Amazon updates its keyword policies periodically. The categories below reflect Amazon's published KDP content guidelines as of this writing — check Amazon's current KDP Content Guidelines before making major keyword changes.</p>
-<p><strong>Superlatives and unverifiable ranking claims.</strong> "Best," "top," "greatest," "#1," "most popular." Amazon's guidelines prohibit claims you cannot verify. Avoid these regardless of intent.</p>
-<p><strong>Price and promotional references.</strong> Amazon's guidelines explicitly cite "temporary descriptions" (such as "sale") as prohibited in keyword fields. Terms like "discount," "limited time," "on sale," and "bargain" fall under the same principle.</p>
-<p><strong>Competitor author or brand names.</strong> Explicitly prohibited in Amazon's content guidelines. You cannot use another author's name or another book's title as a keyword to intercept that audience.</p>
-<p><strong>Misleading or inaccurate content claims.</strong> Keywords that falsely describe your book's content — wrong genre, content the book doesn't contain — can result in keyword removal and listing suppression.</p>
-
-<h2>Terms That Are Advised Against or Sit in a Grey Area</h2>
-<p><strong>"Award-winning," "bestselling," "critically acclaimed."</strong> Amazon's guidelines prohibit unverifiable claims — which puts these in a grey area rather than an outright ban. If a book genuinely won a named award or was a verified bestseller, Amazon's stance is less clear-cut than for pure superlatives like "best." In practice the risk is real: Amazon may strip these as prohibited claims. They also add little search value — readers don't search "award-winning mystery." The safer approach is to note verifiable awards in your book description, not the keyword fields.</p>
-<p><strong>Category names as keywords.</strong> Amazon's guidelines advise against using standalone category names as keywords — not because they appear on a prohibited list, but because they're redundant. Your genre is already signaled through formal category selection. A standalone "mystery" or "thriller" adds no new search signal and wastes a slot that could hold a specific reader-facing phrase. Not an explicit prohibition; a wasted opportunity.</p>
-<p><strong>Your own title words.</strong> Not prohibited by policy, but Amazon's guidelines explicitly advise against repeating title words in keyword slots because those words are already indexed. Entering "lighthouse" in a keyword slot when your title is <em>The Lighthouse Keeper's Secret</em> wastes a slot on coverage Amazon already has.</p>
-<p><strong>Subjective quality descriptors.</strong> "Gripping," "unputdownable," "emotional," "page-turning" aren't always stripped, but they add no algorithmic value. Amazon's search isn't matching readers who type "gripping books" — readers search for tropes, genres, and outcomes, not adjectives.</p>
+      "What KDP's keyword guidelines say to avoid — quality claims, time-sensitive words, other authors' names, brands you don't own, Amazon program names — and what to use instead.",
+    title: "KDP Keyword Banned Terms — What KDP's Guidelines Say to Avoid",
+    body: `<h2>What KDP's Keyword Guidelines Say to Avoid</h2>
+<p>KDP's <a href="https://kdp.amazon.com/en_US/help/topic/G201298500" target="_blank" rel="noopener nofollow">keywords help page</a> lists what not to include in your keywords. KDP says the list is not exhaustive, and that all keywords must comply with its Terms and Conditions.</p>
+<ul>
+<li>Information covered elsewhere in your book's metadata (title, contributors, etc.)</li>
+<li>Words already mentioned in your book categories (KDP's example: "19th Century History")</li>
+<li>Subjective claims about quality (e.g. "best novel ever")</li>
+<li>Time-sensitive statements ("new," "on sale," "available now")</li>
+<li>Information common to most items in the category ("book")</li>
+<li>Spelling errors</li>
+<li>Anything misrepresentative, like the name of an author not associated with your book</li>
+<li>Brands that you do not own</li>
+<li>Quotation marks in search terms</li>
+<li>Amazon program names like "Kindle Unlimited" or "KDP Select"</li>
+<li>HTML tags</li>
+</ul>
+<p>KDP's page doesn't say what happens to a keyword that breaks these rules, so check each one before you save.</p>
 
 <h2>How to Check Keywords Before Submitting</h2>
-<p>Before entering any phrase in KDP, run three quick checks:</p>
-<p><strong>Superlative scan.</strong> Does any word claim a ranking or quality position? Remove it.</p>
-<p><strong>Price and promo scan.</strong> Does any word reference cost, availability, or a sale? Remove it.</p>
-<p><strong>Competitor scan.</strong> Does any phrase include another author's name or book title? Remove it.</p>
-<p>Then test each phrase in Amazon's book search autocomplete. If your phrase appears as an autocomplete suggestion, it's a real search query real readers use — that's strong validation that the phrase both matches reader behavior and isn't triggering Amazon's filters (autocomplete suggestions are drawn from actual search history, not prohibited terms).</p>
+<p>Before entering a keyword in KDP, run these checks against KDP's list:</p>
+<p><strong>Quality claims.</strong> Does any word claim the book is the best or top? Remove it.</p>
+<p><strong>Time-sensitive words.</strong> "New," "on sale," "available now"? Remove them.</p>
+<p><strong>Names.</strong> Another author's name, a brand you don't own, or an Amazon program name like Kindle Unlimited? Remove it.</p>
+<p><strong>Repeats.</strong> Words already in your title, contributor names, or categories? Use that slot for something else.</p>
+<p><strong>Formatting.</strong> Quotation marks, HTML tags, or spelling errors? Fix them.</p>
 
-<h2>What to Use Instead of Banned Terms</h2>
-<p>Every banned term represents a slot that could hold a working phrase. The replacement pattern is always the same: turn the prohibited shortcut into a specific, complete phrase that describes what a reader who wants your book would actually search.</p>
+<h2>What to Use Instead</h2>
+<p>KDP says specific words work better than general ones, and to combine keywords in the most logical order. Replace a term KDP asks you to avoid with specific words that describe your book:</p>
 <ul>
-<li>"Best thriller" → "psychological thriller with an unexpected plot twist"</li>
-<li>"Cheap romance novel" → "small town romance with second chance love"</li>
-<li>"James Patterson style" → "fast-paced legal thriller government conspiracy"</li>
-<li>"Mystery" alone → "cozy mystery female amateur sleuth English village"</li>
+<li>"Best thriller" → "psychological thriller plot twist"</li>
+<li>"New romance on sale" → "small town second chance romance"</li>
+<li>"James Patterson style" → "legal thriller government conspiracy"</li>
+<li>"Kindle Unlimited mystery" → "cozy mystery amateur sleuth village"</li>
 </ul>
-<p>If you want 7 phrases already filtered against Amazon's prohibited terms list, the <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> filters out prohibited terms before returning results — you get 7 clean, specific phrases ready to paste into KDP's keyword fields.</p>`,
+<p>The <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> suggests 7 specific keywords for your book. Check them against KDP's list above before you paste them into KDP.</p>`,
     faq: [
       {
-        q: 'Will Amazon tell me if a keyword was removed for violating policy?',
-        a: "No. Amazon silently strips prohibited terms without any notification. Your KDP dashboard continues showing the keywords you entered regardless of whether Amazon is indexing them. The only way to detect silent removal is to search Amazon for your exact phrase and check whether your book appears — or monitor your organic page views in KDP's Traffic Diagnostics report for unexpectedly low discovery.",
+        q: 'Does KDP say what happens to keywords that break its guidelines?',
+        a: "Not on its keywords help page. It says all keywords must comply with KDP's Terms and Conditions and lists what to avoid. To check whether a keyword is working, search Amazon for it and see whether your book appears in the results.",
       },
       {
         q: 'Can I use genre category names like "mystery" or "fantasy" as keywords?',
-        a: "Amazon's guidelines advise against using category names as standalone keywords because those categories are already handled through formal category selection. More practically, single category names are weak keywords — they compete against every book in the genre. A complete phrase that includes the genre as part of a longer, specific query (\"dark fantasy magic academy\" instead of just \"fantasy\") is both policy-compliant and more effective.",
+        a: "KDP's keyword guidelines say to avoid words already mentioned in your book categories (its example is \"19th Century History\"). KDP also says specific words work better than general ones, so use words your categories don't already cover.",
       },
       {
         q: 'What happens if my book is flagged for keyword policy violations?',
-        a: 'Minor violations — prohibited terms in keyword slots — typically result in those keywords being silently removed. Repeated or more serious violations, such as systematically targeting competitor author names or making false content claims, can result in listing suppression or account warnings. KDP reserves the right to remove listings that violate content policies.',
+        a: "KDP's keywords help page doesn't describe penalties; it says all keywords must comply with KDP's Terms and Conditions. Keeping your keywords within KDP's list is the simplest way to avoid problems.",
       },
       {
-        q: 'Are there keyword terms banned on KDP but allowed in Amazon Ads?',
-        a: "Yes. Amazon Ads (Sponsored Products) keyword targeting has different rules from backend keyword fields. In ads you can target categories, genres, and competitor ASINs through product targeting — these aren't available in backend keyword fields. The rules are separate systems with separate policies.",
+        q: 'Do the same keyword rules apply to Amazon Ads?',
+        a: "No. Amazon Ads campaigns have their own keyword targeting and ad policies, separate from the keywords you enter in your KDP book details. KDP's keyword guidelines cover the keywords in your book details.",
       },
       {
-        q: "Does Amazon update its banned terms list?",
-        a: "Amazon updates its content policies periodically, and what's prohibited can change. The most reliable current source is the KDP Content Guidelines page in Amazon's help system. Checking it before a major keyword update — rather than relying on what was permitted a year ago — is good practice.",
+        q: 'Does KDP update its list of terms to avoid?',
+        a: "KDP says its list is not exhaustive. Check KDP's keywords help page before a major keyword update rather than relying on older advice.",
       },
     ],
   },
@@ -271,15 +270,15 @@ export const KDP_GUIDE_ARTICLES = [
 <h2>What You Control vs. What Amazon Infers</h2>
 <p>You have direct control over backend keyword fields, title, subtitle, series name, and book description — all editable after publishing through your KDP dashboard.</p>
 <p>Amazon infers search relevance from reader behavior over time. A book that consistently converts well when it appears for a particular query will gradually rank higher for that query, even without keyword changes — behavioral signals continuously update Amazon's relevance model for your listing.</p>
-<p>The practical implication: set your backend keywords precisely at launch, because behavioral data takes time to accumulate and you want Amazon indexing the right queries from day one. Then monitor which search queries actually drive traffic using KDP's Traffic Diagnostics report. Over time, you may find Amazon has naturally associated your book with queries you didn't explicitly target — or that you're not ranking for queries where your keyword slot was too vague to generate useful signal.</p>
+<p>The practical implication: set your backend keywords precisely at launch, because behavioral data takes time to accumulate and you want Amazon indexing the right queries from day one. Then search Amazon for your keywords from time to time. Over time, you may find Amazon has naturally associated your book with queries you didn't explicitly target — or that you're not ranking for queries where your keyword slot was too vague to generate useful signal.</p>
 
 <h2>How to Use This Distinction to Optimize Your Listing</h2>
 <p>Since backend keywords are your primary direct control, optimize them for phrases your title and description don't already cover:</p>
 <p><strong>Don't repeat title words.</strong> Amazon already indexes these — backend slots spent on them add no new coverage.</p>
 <p><strong>Match reader search phrase patterns for your genre.</strong> Fiction readers search by trope, setting, and sub-genre ("enemies to lovers slow burn contemporary"). Nonfiction readers search by problem and outcome ("how to start a business with no money beginners"). Match the query structure your genre's readers actually use, not how you'd describe the book to another author.</p>
-<p><strong>Use the space the field gives you.</strong> "Enemies to lovers billionaire fake engagement romance" is more valuable than "romance fiction contemporary" — it's specific, it's a complete phrase, and it matches how readers who want that exact book search.</p>
-<p><strong>Revisit every 60–90 days.</strong> As behavioral data accumulates, you'll have better information about which signals are working. KDP's Traffic Diagnostics report shows organic page views — the clearest proxy for keyword-driven discovery.</p>
-<p>If you want 7 phrases already structured for reader search behavior in your specific genre — filtered for Amazon's prohibited terms — the <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> generates them from your book's genre, comparable titles, target reader, and themes.</p>`,
+<p><strong>Be specific.</strong> KDP says specific words work better than general ones: "enemies to lovers fake engagement" says more about your book than "romance fiction contemporary." Combine words in the order readers would search them.</p>
+<p><strong>Revisit from time to time.</strong> As behavioral data accumulates, you'll have better information about which signals are working.</p>
+<p>If you want 7 keyword suggestions for your specific genre, the <a href="/tools/kdp-keyword-finder" style="color:var(--gold,#c9a84c);text-decoration:none">KDP Keyword &amp; Category Finder</a> generates them from your book's genre, comparable titles, target reader, and themes.</p>`,
     faq: [
       {
         q: 'Are "backend keywords" and "search terms" the same thing on KDP?',
@@ -287,7 +286,7 @@ export const KDP_GUIDE_ARTICLES = [
       },
       {
         q: "Can I see which search terms Amazon is indexing my book for?",
-        a: "Not directly. KDP's Traffic Diagnostics report shows organic page view sources but doesn't list specific queries. Some authors use Amazon Sponsored Products campaigns in broad match mode as a proxy — the Search Term report from an active ad campaign shows which queries triggered impressions for your book, which correlates with organic search relevance.",
+        a: "Not directly — KDP doesn't show which searches your book appears for. Some authors use Amazon Sponsored Products campaigns in broad match mode as a rough guide — the Search Term report from an active ad campaign shows which queries triggered impressions for your book, which can hint at the searches it's relevant to.",
       },
       {
         q: "Do backend keywords have more weight than title keywords in Amazon's algorithm?",
