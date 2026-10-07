@@ -134,10 +134,10 @@ export const PLATFORM_REJECTIONS = [
       },
       {
         title: 'Image file issues',
-        description: "D2D's conversion pipeline requires cover images to be submitted separately as a high-resolution JPG (minimum 1400px on the shortest side). Images embedded in the book body must be in standard web formats (JPG, PNG, GIF) — unusual image types or missing MIME type declarations in the manifest cause conversion failures.",
+        description: "D2D's ideal cover is a 1600 × 2400 JPEG. It accepts most image formats, resizes the cover for each store, and asks that the cover show the title and author. Images embedded in the book body must be in standard web formats (JPG, PNG, GIF) — unusual image types or missing MIME type declarations in the manifest can cause conversion failures.",
       },
     ],
-    howToFix: "<ol><li>Confirm your file format is EPUB, DOCX, or RTF — if you have a PDF, convert to DOCX first using Word or Google Docs.</li><li>Validate your EPUB with EPUBCheck before uploading — D2D's validator is less descriptive than EPUBCheck itself, so getting the full error list in advance saves time.</li><li>Prepare your cover image separately: JPG format, minimum 1400px on the short side, RGB color mode.</li><li>Complete all required fields in D2D's metadata interface (title, author, categories, description) before attempting submission.</li><li>If rejected for content reasons, review D2D's current content policy and contact D2D support for clarification on which guideline was triggered.</li></ol>",
+    howToFix: "<ol><li>Confirm your file format is supported: for ebooks, D2D accepts Word, RTF, OTF, TXT and EPUB; PDF is for print only. If you have a PDF, convert to DOCX first using Word or Google Docs.</li><li>Validate your EPUB with EPUBCheck before uploading — D2D checks uploaded EPUBs with Epubcheck, so getting the full error list in advance saves time.</li><li>Prepare your cover image separately: ideally a 1600 × 2400 JPEG that shows the title and author.</li><li>Complete all required fields in D2D's metadata interface (title, author, categories, description) before attempting submission.</li><li>If rejected for content reasons, review D2D's current content policy and contact D2D support for clarification on which guideline was triggered.</li></ol>",
     faq: [
       {
         q: 'Can Draft2Digital convert a DOCX better than an EPUB?',
