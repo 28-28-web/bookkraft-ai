@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
+import Link from 'next/link';
 import UpsellBanner from '@/components/UpsellBanner';
 import ReadinessReportCTA from '@/components/ReadinessReportCTA';
 import StickyUpgradeBanner from '@/components/StickyUpgradeBanner';
@@ -296,7 +297,7 @@ export default function MetadataBuilder() {
                             <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#166534', marginBottom: '8px' }}>✅ Your metadata looks great</h3>
                             <p style={{ fontSize: '0.95rem', color: '#166534', marginBottom: '20px' }}>Next step: build your table of contents.</p>
                             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                                <a href="/tools/toc-generator" onClick={() => track('cta_click', { from: window.location.pathname, to: '/tools/toc-generator', cta: 'next_step_toc' })} style={{ display: 'inline-block', background: '#166534', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Generate Table of Contents →</a>
+                                <Link href="/tools/toc-generator" onClick={() => track('cta_click', { from: window.location.pathname, to: '/tools/toc-generator', cta: 'next_step_toc' })} style={{ display: 'inline-block', background: '#166534', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Generate Table of Contents →</Link>
                                 <a href="/signup?plan=starter" onClick={() => track('cta_click', { from: window.location.pathname, to: '/signup?plan=starter', cta: 'all_passed_starter' })} style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Get All {TOOLS.length} Tools — $19</a>
                             </div>
                         </div>
@@ -335,7 +336,7 @@ export default function MetadataBuilder() {
                         <div style={{ background: '#faf9f7', border: '2px solid #C9933A', borderRadius: '12px', padding: '20px', marginBottom: '20px' }}>
                             <h4 style={{ fontSize: '1rem', fontWeight: 700, color: '#1a1a1a', marginBottom: '8px' }}>✅ Metadata done. Next step:</h4>
                             <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '16px' }}>Build your table of contents. KDP requires a TOC for every ebook.</p>
-                            <a href="/tools/toc-generator" onClick={() => track('cta_click', { from: window.location.pathname, to: '/tools/toc-generator', cta: 'next_step_toc' })} style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, marginRight: '12px' }}>Generate Table of Contents →</a>
+                            <Link href="/tools/toc-generator" onClick={() => track('cta_click', { from: window.location.pathname, to: '/tools/toc-generator', cta: 'next_step_toc' })} style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, marginRight: '12px' }}>Generate Table of Contents →</Link>
                             <a href="/signup?plan=pro" onClick={() => track('cta_click', { from: window.location.pathname, to: '/signup?plan=pro', cta: 'next_step_pro' })} style={{ display: 'inline-block', color: '#b8860b', fontWeight: 600, textDecoration: 'none', fontSize: '0.9rem' }}>or upgrade to Pro for more credits →</a>
                         </div>
                     )}

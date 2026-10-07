@@ -159,12 +159,12 @@ export default function EpubValidator() {
                         <p style={{ fontSize: '0.85rem', color: '#6b7280', margin: 0 }}>
                             Free scan checks 11 core issues.
                         </p>
-                        <a
+                        <Link
                             href="/tools/epub-validator-premium"
                             style={{ fontSize: '0.85rem', color: '#C9933A', fontWeight: 600, textDecoration: 'none' }}
                         >
                             Need ghost spacing + duplicate ID + store report? → Pro Scan
-                        </a>
+                        </Link>
                     </div>
 
                     <div
@@ -267,7 +267,7 @@ export default function EpubValidator() {
                                 )}
 
                                 <p style={{ fontSize: '0.78rem', color: '#6b7280', marginTop: '14px', textAlign: 'center' }}>
-                                    <a href="/blog/common-epub-validation-errors" style={{ color: '#9ca3af' }}>Why is KDP rejecting my EPUB? Read the guide →</a>
+                                    <Link href="/blog/common-epub-validation-errors" style={{ color: '#9ca3af' }}>Why is KDP rejecting my EPUB? Read the guide →</Link>
                                 </p>
                             </div>
                         )}
@@ -278,7 +278,7 @@ export default function EpubValidator() {
                                 <p style={{ fontSize: '0.95rem', color: '#166534', marginBottom: '20px' }}>Great job. Want to make sure your metadata and TOC are perfect too?</p>
                                 <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#166534', marginBottom: '8px' }}>✅ No common issues found</h3>
                                 <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                                    <a href="/tools/metadata-builder" onClick={() => track('cta_click', { from: window.location.pathname, to: '/tools/metadata-builder', cta: 'all_passed_metadata' })} style={{ display: 'inline-block', background: '#fff', color: '#166534', border: '1px solid #166534', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Check Metadata →</a>
+                                    <Link href="/tools/metadata-builder" onClick={() => track('cta_click', { from: window.location.pathname, to: '/tools/metadata-builder', cta: 'all_passed_metadata' })} style={{ display: 'inline-block', background: '#fff', color: '#166534', border: '1px solid #166534', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Check Metadata →</Link>
                                     <a href="/signup?plan=starter" onClick={() => track('cta_click', { from: window.location.pathname, to: '/signup?plan=starter', cta: 'all_passed_starter' })} style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600 }}>Get All {TOOLS.length} Tools — $19</a>
                                 </div>
                             </div>
@@ -315,9 +315,9 @@ export default function EpubValidator() {
                                     Costs 3 credits. Results download as a full HTML report.
                                 </p>
                                 <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                                    <a href="/tools/epub-validator-premium" onClick={() => track('cta_click', { from: window.location.pathname, to: '/tools/epub-validator-premium', cta: 'pro_scan' })} style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>
+                                    <Link href="/tools/epub-validator-premium" onClick={() => track('cta_click', { from: window.location.pathname, to: '/tools/epub-validator-premium', cta: 'pro_scan' })} style={{ display: 'inline-block', background: '#C9933A', color: '#fff', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>
                                         Run Pro Scan — 3 Credits →
-                                    </a>
+                                    </Link>
                                     <a href="/pricing" onClick={() => track('cta_click', { from: window.location.pathname, to: '/pricing', cta: 'buy_credits' })} style={{ display: 'inline-block', background: 'transparent', color: '#C9933A', border: '1px solid #C9933A', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>
                                         Buy Credits
                                     </a>
