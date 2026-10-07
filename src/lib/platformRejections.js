@@ -51,7 +51,7 @@ export const PLATFORM_REJECTIONS = [
       { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table' },
       { type: 'epub-error', slug: 'broken-spine-order', label: 'Broken spine order errors' },
       { type: 'alternative', slug: 'scrivener-alternative', label: 'Scrivener alternative for ebook production' },
-      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
+      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP preflight checklist' },
       { type: 'mistake', slug: 'kdp-formatting-mistakes', label: '7 KDP formatting mistakes indie authors make' },
       { type: 'cover-requirement', slug: 'amazon-kdp-ebook', label: 'Amazon KDP ebook cover size requirements' },
       { type: 'guide', slug: 'kdp-quality-issues', label: 'KDP quality issues and quality notices' },

@@ -27,7 +27,8 @@ export default function ChecklistIndexPage() {
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 48 }}>
-          {CHECKLISTS.map(c => (
+          {/* KDP preflight first: it's the most-searched checklist. */}
+          {[...CHECKLISTS].sort((a, b) => (b.slug === 'kdp-pre-launch-checklist') - (a.slug === 'kdp-pre-launch-checklist')).map(c => (
             <Link
               key={c.slug}
               href={`/checklist/${c.slug}`}

@@ -4,6 +4,59 @@ import { CHECKLISTS, getChecklistBySlug } from '@/lib/checklists';
 import Footer from '@/components/Footer';
 import { buildBreadcrumbSchema } from '@/lib/seo';
 import RelatedLinks from '@/components/RelatedLinks';
+import TrackedLink from '@/components/TrackedLink';
+import ChecklistOptin from '@/components/ChecklistOptin';
+import { TOOLS } from '@/lib/tools';
+import { PRICING } from '@/lib/constants';
+import { priceText } from '@/lib/fixMap';
+
+const toolName = (slug) => TOOLS.find((t) => t.slug === slug)?.name || slug;
+const ROW = { fontSize: 13, color: 'var(--mid)', lineHeight: 1.7, margin: '10px 0 0' };
+
+// Optional per-section extras: free tools, guides, one optional paid tool and
+// the KDP help pages the items are based on. Prices come from TOOLS/PRICING.
+function SectionExtras({ section }) {
+  const { tools, guides, paidTool, sources } = section;
+  return (
+    <>
+      {tools?.length > 0 && (
+        <p style={ROW}>
+          <strong style={{ color: 'var(--ink)' }}>Free tool{tools.length > 1 ? 's' : ''}:</strong>{' '}
+          {tools.map((t, i) => (
+            <span key={t.slug}>
+              {i > 0 && ' · '}
+              <TrackedLink href={`/tools/${t.slug}`} className="link-gold">{toolName(t.slug)}</TrackedLink>
+              {priceText(t.slug) && priceText(t.slug) !== 'free' && ` (${priceText(t.slug)})`}
+            </span>
+          ))}
+        </p>
+      )}
+      {guides?.length > 0 && (
+        <p style={ROW}>
+          <strong style={{ color: 'var(--ink)' }}>Guide{guides.length > 1 ? 's' : ''}:</strong>{' '}
+          {guides.map((g, i) => (
+            <span key={g.href}>{i > 0 && ' · '}<TrackedLink href={g.href} className="link-gold">{g.label}</TrackedLink></span>
+          ))}
+        </p>
+      )}
+      {paidTool && (
+        <p style={ROW}>
+          <strong style={{ color: 'var(--ink)' }}>Optional paid tool:</strong>{' '}
+          <TrackedLink href={`/tools/${paidTool.slug}`} className="link-gold">{toolName(paidTool.slug)}</TrackedLink>
+          {' '}— {priceText(paidTool.slug)} per run; credits come with Starter ({PRICING.starter.label} one-time, {PRICING.starter.credits} credits).
+        </p>
+      )}
+      {sources?.length > 0 && (
+        <p style={{ ...ROW, fontSize: 12 }}>
+          Based on:{' '}
+          {sources.map((s, i) => (
+            <span key={s.url}>{i > 0 && ' · '}<a href={s.url} target="_blank" rel="noopener nofollow" style={{ color: 'var(--mid)', textDecoration: 'underline' }}>{s.label}</a></span>
+          ))}
+        </p>
+      )}
+    </>
+  );
+}
 
 export const dynamicParams = false;
 
@@ -48,11 +101,17 @@ export default async function ChecklistPage({ params }) {
     numberOfItems: itemListElement.length,
     itemListElement,
   };
+  const faqSchema = checklist.faq?.length ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: checklist.faq.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+  } : null;
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       <main className="content-page">
 
         <nav aria-label="Breadcrumb" style={{ fontSize: 13, color: 'var(--mid)', marginBottom: 32 }}>
@@ -65,10 +124,18 @@ export default async function ChecklistPage({ params }) {
           {checklist.title}
         </h1>
 
+        {checklist.dateModified && (
+          <p style={{ fontSize: 13, color: 'var(--mid)', margin: '-8px 0 20px' }}>
+            Checked against KDP help pages: {new Date(`${checklist.dateModified}T00:00:00Z`).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}
+          </p>
+        )}
+
         <div
           style={{ fontSize: 16, lineHeight: 1.75, marginBottom: 40, color: 'var(--ink)' }}
           dangerouslySetInnerHTML={{ __html: checklist.intro }}
         />
+
+        {checklist.optin && <ChecklistOptin source={`checklist-${slug}`} style={{ margin: '0 0 40px' }} />}
 
         {checklist.sections.map((section, si) => (
           <div key={si} style={{ marginBottom: 36 }}>
@@ -106,6 +173,7 @@ export default async function ChecklistPage({ params }) {
                 </div>
               ))}
             </div>
+            <SectionExtras section={section} />
           </div>
         ))}
 
@@ -124,7 +192,7 @@ export default async function ChecklistPage({ params }) {
             Validate your EPUB before uploading
           </p>
           <p style={{ fontSize: 14, color: 'var(--mid)', marginBottom: 16, lineHeight: 1.6 }}>
-            The free EPUB Validator catches structural, metadata, and navigation errors — the same issues this checklist covers — before they become platform rejections. No signup required.
+            The free EPUB Validator runs 11 structural checks in your browser — package, metadata, navigation, cover and more — so you can fix common problems before you upload. No signup required.
           </p>
           <Link href="/tools/epub-validator" className="btn btn-gold btn-cta">
             Validate Your EPUB Free →

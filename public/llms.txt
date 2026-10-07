@@ -104,7 +104,7 @@ Comparison guides for authors evaluating BookKraft AI against other EPUB formatt
 3 pre-upload and pre-submission checklists for common ebook publishing workflows.
 
 - [22-Point EPUB Formatting Checklist](https://bookkraftai.com/checklist/epub-formatting-checklist)
-- [20-Point KDP Pre-Launch Checklist](https://bookkraftai.com/checklist/kdp-pre-launch-checklist)
+- [KDP Preflight Checklist](https://bookkraftai.com/checklist/kdp-pre-launch-checklist)
 - [21-Point Apple Books Submission Checklist](https://bookkraftai.com/checklist/apple-books-submission-checklist)
 
 ## Common Formatting Mistakes

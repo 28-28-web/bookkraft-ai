@@ -322,7 +322,7 @@ export default function KdpQualityIssuesPage() {
 
         <h2 style={h2}>After you fix it</h2>
         <ol style={{ ...body, paddingLeft: 20 }}>
-          <li>Run the new file through the <Link href="/tools/epub-validator" className="link-gold">free EPUB Validator</Link>, then open it in Kindle Previewer.</li>
+          <li>Run the new file through the <Link href="/tools/epub-validator" className="link-gold">free EPUB Validator</Link>, then open it in Kindle Previewer. The <Link href="/checklist/kdp-pre-launch-checklist" className="link-gold">KDP preflight checklist</Link> covers the rest of what to check before you upload again.</li>
           <li>For a quality notice, pick “I will fix” in the <Ext href={KDP.dashboard}>Quality Notifications Dashboard</Ext> and upload the revised file from your Bookshelf.</li>
           <li>For a review rejection, submit the book again. It goes back into review.</li>
           <li>If your book is Blocked, contact KDP support. You can’t edit or delete a Blocked book yourself.</li>

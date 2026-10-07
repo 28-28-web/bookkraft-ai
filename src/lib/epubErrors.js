@@ -258,7 +258,7 @@ export const EPUB_ERRORS = [
       { type: 'platform-rejection', slug: 'apple-books', label: 'Why Apple Books rejects ebooks' },
       { type: 'platform-rejection', slug: 'ingram-spark', label: 'Why IngramSpark rejects books' },
       { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
-      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
+      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP preflight checklist' },
       { type: 'cover-requirement', slug: 'amazon-kdp-ebook', label: 'Amazon KDP ebook cover size requirements' },
     ],
   },

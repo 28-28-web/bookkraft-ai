@@ -85,7 +85,7 @@ Comparison guides for authors evaluating BookKraft AI against other EPUB formatt
 3 pre-upload and pre-submission checklists for common ebook publishing workflows.
 
 - [22-Point EPUB Formatting Checklist](https://bookkraftai.com/checklist/epub-formatting-checklist): A formatted EPUB that passes this checklist will pass technical validation on KDP, Apple Books, and Draft2Digital — covers structure, metadata, navigation, images, and CSS in grouped sections.
-- [20-Point KDP Pre-Launch Checklist](https://bookkraftai.com/checklist/kdp-pre-launch-checklist): Picks up where EPUB validation leaves off — covers Kindle navigation requirements, KDP metadata, content review triggers, and publishing setup decisions specific to Amazon that don't apply to other platforms.
+- [KDP Preflight Checklist](https://bookkraftai.com/checklist/kdp-pre-launch-checklist): What to check before uploading a Kindle eBook to KDP — manuscript, EPUB file, cover, metadata, keywords and categories, pricing and rights, and final upload — each step based on KDP's help pages, with free tools.
 - [21-Point Apple Books Submission Checklist](https://bookkraftai.com/checklist/apple-books-submission-checklist): Pre-submission gate for Apple Books Connect — covers file validation, navigation, cover color mode, ISBN format in content.opf, and the two Apple-specific requirements most commonly overlooked by authors publishing to KDP first.
 
 ## Common Formatting Mistakes

@@ -109,7 +109,7 @@ export const MISTAKES = [
       {
         title: 'Submitting without a Kindle Previewer check',
         description: "<p>KDP converts your EPUB to Kindle Format internally before distributing to Kindle devices. That conversion sometimes produces different output than what you see in Calibre, Adobe Digital Editions, or the KDP online previewer. The Kindle Previewer desktop app downloads the KFX output KDP will actually deliver — not a simulation of it. Running through Previewer is the only step that catches rendering issues specific to the Kindle conversion pipeline before your readers do.</p>",
-        link: { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist — Previewer step' },
+        link: { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP preflight checklist — final upload step' },
       },
       {
         title: 'Enrolling in KDP Select while still listed on Draft2Digital or Smashwords',
@@ -139,7 +139,7 @@ export const MISTAKES = [
     relatedTool: 'epub-validator',
     related: [
       { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
-      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
+      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP preflight checklist' },
       { type: 'epub-error', slug: 'ghost-spacing-epub', label: 'Ghost spacing in e-reader previews' },
       { type: 'epub-error', slug: 'toc-ncx-navpoint-mismatch', label: 'NCX navPoint mismatch errors' },
       { type: 'blog', slug: 'kindle-formatting-mistakes', label: 'Kindle formatting mistakes in Word: 10 fixes before KDP upload' },
@@ -261,7 +261,7 @@ export const MISTAKES = [
     related: [
       { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-048)' },
       { type: 'epub-error', slug: 'cover-image-not-declared', label: 'Cover image not declared in OPF manifest' },
-      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
+      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP preflight checklist' },
       { type: 'mistake', slug: 'kdp-formatting-mistakes', label: '7 KDP formatting mistakes indie authors make' },
       { type: 'guide', slug: 'kdp-quality-issues', label: 'KDP quality issues and quality notices' },
     ],
@@ -404,7 +404,7 @@ export const MISTAKES = [
       {
         title: 'Incorrect spine width',
         description: "<p>Spine width is calculated from page count and paper stock. Adding or removing pages after generating the template changes the spine, and a stale width can get the cover rejected. Regenerate the cover template with your final page count.</p>",
-        link: { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'Print preparation checklist items' },
+        link: { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP preflight checklist' },
       },
       {
         title: 'Missing bleed on a full-wrap cover',
@@ -414,7 +414,7 @@ export const MISTAKES = [
       {
         title: 'Fonts subsetted instead of fully embedded',
         description: "<p>PDF/X-1a requires all fonts fully embedded, not subsetted. Subsetting embeds only the characters used, which is fine for screen PDFs but rejected by print preflight. Set font embedding to embed all in your export settings.</p>",
-        link: { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'File preparation checklist items' },
+        link: { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP preflight checklist — EPUB file step' },
       },
       {
         title: 'Reusing the ebook cover as a print cover',
@@ -439,7 +439,7 @@ export const MISTAKES = [
     related: [
       { type: 'cover-requirement', slug: 'ingramspark-print', label: 'IngramSpark print book cover requirements' },
       { type: 'platform-rejection', slug: 'ingram-spark', label: 'Why IngramSpark rejects books' },
-      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP pre-launch checklist' },
+      { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP preflight checklist' },
       { type: 'mistake', slug: 'ebook-cover-mistakes', label: '5 ebook cover mistakes that get files rejected' },
     ],
   },

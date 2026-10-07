@@ -68,7 +68,7 @@ export default async function sitemap() {
 
   const checklistPages = CHECKLISTS.map((c) => ({
     url: `${BASE}/checklist/${c.slug}`,
-    lastModified: CONTENT_DATE,
+    lastModified: c.dateModified ? new Date(c.dateModified) : CONTENT_DATE,
     changeFrequency: 'monthly',
     priority: 0.7,
   }));

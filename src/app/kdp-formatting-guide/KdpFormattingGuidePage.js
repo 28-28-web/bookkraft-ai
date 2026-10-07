@@ -527,6 +527,10 @@ export default function KdpFormattingGuidePage() {
                         Validate Your EPUB →
                     </TrackedLink>
                 </div>
+                <p style={{ fontSize: 15, lineHeight: 1.7, marginTop: 32, opacity: 0.88 }}>
+                    Want a step-by-step list to tick off before you upload? Use the{' '}
+                    <Link href="/checklist/kdp-pre-launch-checklist" style={LINK_STYLE}>KDP preflight checklist</Link>.
+                </p>
                 <ChecklistOptin source="checklist-kdp-formatting-guide" variant="full" />
             </main>
         </>
