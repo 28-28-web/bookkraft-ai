@@ -22,7 +22,7 @@ const faqSchema = {
             name: 'Do I need to validate my EPUB before uploading to KDP?',
             acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Yes. KDP accepts many structurally broken EPUBs and silently fixes or drops content during conversion — meaning your book can look fine in your editor and still render incorrectly on Kindle devices. Apple Books and IngramSpark are stricter and reject malformed files outright. Validating before submission catches errors before any store sees the file.',
+                text: 'Yes. KDP accepts many structurally broken EPUBs and silently fixes or drops content during conversion — meaning your book can look fine in your editor and still render incorrectly on Kindle devices. Apple Books and IngramSpark can reject malformed files. Validating before submission catches errors before any store sees the file.',
             },
         },
         {
@@ -147,7 +147,7 @@ const faqs = [
     },
     {
         q: 'Do I need to validate my EPUB before uploading to KDP?',
-        a: 'Yes. KDP accepts many structurally broken EPUBs and silently fixes or drops content during conversion — meaning your book can look fine in your editor and still render incorrectly on Kindle devices. Apple Books and IngramSpark are stricter and reject malformed files outright. Validating before submission catches errors before any store sees the file.',
+        a: 'Yes. KDP accepts many structurally broken EPUBs and silently fixes or drops content during conversion — meaning your book can look fine in your editor and still render incorrectly on Kindle devices. Apple Books and IngramSpark can reject malformed files. Validating before submission catches errors before any store sees the file.',
     },
     {
         q: 'How do I create a clickable Table of Contents for Kindle?',
@@ -419,12 +419,12 @@ export default function KdpFormattingGuidePage() {
                         KDP&apos;s upload error messages are often vague. A file can be rejected with &ldquo;We found issues with your file&rdquo; and no further detail. Validating first finds structural problems — container structure, required metadata, spine order, cover image declaration — so you can fix them before any store sees the file.
                     </p>
                     <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
-                        The three major stores have different strictness levels:
+                        The three major stores handle files differently:
                     </p>
                     <ul style={{ margin: '0 0 14px', paddingLeft: 24, lineHeight: 1.7, fontSize: 16, opacity: 0.88 }}>
                         <li><strong>KDP</strong> — accepts some structurally broken EPUBs and silently corrects or drops content. A file can upload successfully and still render incorrectly on Kindle devices.</li>
-                        <li><strong>Apple Books</strong> — stricter: requires EPUB 3, rejects malformed XML, validates image quality and font embedding beyond what KDP checks. A file that uploads to KDP successfully can fail Apple Books submission.</li>
-                        <li><strong>IngramSpark</strong> — sits between the two, with clearer rejection messages but stricter compliance requirements than KDP.</li>
+                        <li><strong>Apple Books</strong> — requires EPUB 3, rejects malformed XML, validates image quality and font embedding beyond what KDP checks. A file that uploads to KDP successfully can fail Apple Books submission.</li>
+                        <li><strong>IngramSpark</strong> — gives clearer rejection messages than KDP.</li>
                     </ul>
                     <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
                         The free <Link href="/tools/epub-validator" style={LINK_STYLE}>online EPUB Validator</Link> runs 11 structural checks in your browser — mimetype, container, OPF package, required metadata, spine, manifest files, navigation, cover image, embedded fonts, EMF/WMF images and file size — with plain-English error messages and fix links. Free, no signup. It does not check the XML inside chapter files; for a full specification check, run EPUBCheck as well. For deeper checks (ghost spacing, duplicate IDs, OPF manifest completeness, store-specific pass/fail reports for KDP, Apple Books, and Google Play), <Link href="/tools/epub-validator-premium" style={LINK_STYLE}>EPUB Validator Pro</Link> runs a full scan — 3 credits per run.

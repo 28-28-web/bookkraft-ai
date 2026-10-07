@@ -348,8 +348,8 @@ export const EPUB_ERRORS = [
         a: "No — a missing ISBN means the dc:identifier value is empty or the element is absent. OPF-048 means the identifier may be present and correctly formatted, but the package element's unique-identifier attribute points to an id that doesn't match any dc:identifier's id attribute. You can have a valid ISBN in the metadata and still get OPF-048.",
       },
       {
-        q: 'Which platforms are strictest about this error?',
-        a: "Apple Books validates OPF-048 and rejects submissions with this error. KDP generally accepts files with this error since it can extract metadata without the cross-reference being intact, though metadata warnings may appear. EPUBCheck flags it at the Error level — fix before distributing regardless of platform.",
+        q: 'Do all platforms treat this error the same way?',
+        a: "Not necessarily. Some stores may reject the file, while others may accept it with metadata warnings. EPUBCheck flags it at the Error level, so fix it before distributing, whatever the platform.",
       },
     ],
     relatedTool: 'epub-validator',

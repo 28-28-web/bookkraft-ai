@@ -87,7 +87,7 @@ export default function PublishingScorePage() {
           <p><strong>KDP Keyword Readiness (15 points)</strong> — Evaluates how well your text positions the book for keyword discoverability on Amazon. This category scores the organic keyword signals in your writing, not just the backend keyword fields — genre clarity, audience specificity, and thematic consistency all contribute.</p>
 
           <h2>Why Check Publishing Readiness Before You Submit</h2>
-          <p>KDP and Apple Books both run automated checks when you upload. KDP is relatively lenient — it auto-corrects some formatting issues — but Apple Books rejects files for problems KDP would quietly accept. IngramSpark is stricter still and charges a revision fee if you need to resubmit. Knowing your score before submitting means you fix issues on your timeline rather than troubleshooting after a rejection.</p>
+          <p>KDP and Apple Books both run automated checks when you upload. KDP is relatively lenient — it auto-corrects some formatting issues — but Apple Books can reject files for problems KDP would quietly accept. Knowing your score before submitting means you fix issues on your timeline rather than troubleshooting after a rejection.</p>
           <p>Beyond rejection risk, a low formatting or style consistency score is a signal that readers will notice something is off — even if they can't articulate what. Reviews that mention "amateurish formatting" or "inconsistent character names" come from exactly the problems these six categories catch. Running a readiness check before publishing is the same logic as proofreading before submitting: it costs nothing to catch a problem early, and real money to fix it after distribution.</p>
 
           <h2>Who This Tool Is For</h2>

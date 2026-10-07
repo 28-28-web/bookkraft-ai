@@ -237,7 +237,7 @@ export const VS_ALTERNATIVES = [
       { feature: 'Workflow position', them: 'Integrated with D2D distribution', us: 'Pre-submission validation + formatting' },
       { feature: 'EPUB you can inspect', them: 'Live preview and file downloads', us: 'Yes — download and review before upload' },
       { feature: 'OPF metadata editing', them: 'Via D2D setup form', us: 'Full field access (Metadata Builder)' },
-      { feature: 'Distribution network', them: 'Yes (40+ retailers)', us: 'No — use your existing distributor' },
+      { feature: 'Distribution network', them: 'Yes', us: 'No — use your existing distributor' },
     ],
     faq: [
       {

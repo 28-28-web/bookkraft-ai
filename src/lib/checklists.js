@@ -308,7 +308,7 @@ export const CHECKLISTS = [
     metaTitle: '16-Point Print Book Pre-Launch Checklist — BookKraft AI',
     metaDescription: 'A print book pre-launch checklist for KDP Print and IngramSpark: PDF/X-1a export, CMYK, bleed, calculated spine width, embedded fonts, and interior margin checks before you submit.',
     title: '16-Point Print Book Pre-Launch Checklist',
-    intro: '<p>Print books follow entirely different rules from ebooks — fixed pages, CMYK color, bleed, and a spine width calculated to your exact page count. This checklist covers the cover and interior requirements for KDP Print and IngramSpark. Prepare to IngramSpark\'s stricter standard and the file will also pass KDP Print.</p>',
+    intro: '<p>Print books follow entirely different rules from ebooks — fixed pages, CMYK color, bleed, and a spine width calculated to your exact page count. This checklist covers the cover and interior requirements for KDP Print and IngramSpark.</p>',
     sections: [
       {
         heading: 'Interior File',

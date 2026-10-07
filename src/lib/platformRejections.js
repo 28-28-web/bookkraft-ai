@@ -113,8 +113,8 @@ export const PLATFORM_REJECTIONS = [
     slug: 'draft2digital',
     platform: 'Draft2Digital',
     metaTitle: 'Why Draft2Digital Rejects Ebooks — Common Reasons and Fixes',
-    metaDescription: "Draft2Digital rejected your file? D2D distributes to 40+ retailers and has its own validation step. Here are the most common Draft2Digital rejection reasons and how to resolve them.",
-    intro: "<p>Draft2Digital's acceptance requirements are stricter than a single-retailer upload because D2D converts your file and delivers it to 40+ retailers simultaneously — a file that passes KDP's upload can fail D2D's pre-conversion check if it would produce broken output for downstream partners. The most common D2D-specific failure categories are unsupported file formats (PDF is rejected; D2D requires EPUB, DOCX, or RTF), EPUB structural errors, and cover images below D2D's 1400px minimum.</p>",
+    metaDescription: "Draft2Digital rejected your file? D2D distributes to many stores and checks uploaded EPUBs with Epubcheck. Here are the most common Draft2Digital rejection reasons and how to resolve them.",
+    intro: "<p>Draft2Digital converts your file and delivers it to many stores, and it checks uploaded EPUBs with Epubcheck. A file that passes KDP's upload can still fail D2D's check. Common D2D-specific problems are unsupported file formats and EPUB structural errors. For ebooks, D2D accepts Word, RTF, OTF, TXT and EPUB files; PDF is for print only. For covers, D2D's ideal is a 1600 × 2400 JPEG.</p>",
     topReasons: [
       {
         title: 'Unsupported file format',

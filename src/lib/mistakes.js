@@ -433,7 +433,7 @@ export const MISTAKES = [
       },
       {
         q: 'Does KDP Print use the same requirements as IngramSpark?',
-        a: 'They are similar but not identical. Both need CMYK, bleed, and a correctly calculated spine, but KDP Print is more forgiving about PDF flavor while IngramSpark strictly requires PDF/X-1a. Prepare to IngramSpark\'s stricter standard and the file will also pass KDP Print.',
+        a: 'They are similar but not identical. Both need CMYK, bleed, and a correctly calculated spine. IngramSpark also recommends exporting as PDF/X-1a:2001.',
       },
     ],
     related: [

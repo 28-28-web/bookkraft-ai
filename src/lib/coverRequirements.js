@@ -384,7 +384,7 @@ export const COVER_REQUIREMENTS = [
     metaTitle: 'Draft2Digital Ebook Cover Requirements — Size, Format, and Distribution Specs',
     metaDescription: 'Draft2Digital cover requirements: a 1600 × 2400 JPEG is ideal, most image formats are accepted, and D2D resizes it for each store. Show title and author.',
     title: 'Draft2Digital Ebook Cover Requirements',
-    intro: '<p>Draft2Digital is an aggregator: you upload one file and it distributes to Apple Books, Kobo, Barnes &amp; Noble, and many other stores. Because your cover flows through to every one of those retailers, it has to meet the strictest requirement in the chain — effectively Apple Books\' standard. Getting the D2D cover right means it passes everywhere D2D sends it.</p>',
+    intro: '<p>Draft2Digital is an aggregator: you upload one file and it distributes to Apple Books, Kobo, Barnes &amp; Noble, and many other stores. D2D asks for a 1600 × 2400 JPEG as the ideal and resizes your cover for each store.</p>',
     specs: [
       { key: 'ideal', verified: true, label: 'Ideal dimensions', value: '1600px wide × 2400px tall (JPEG)' },
       { key: 'ratio', verified: true, label: 'Aspect ratio', value: 'Any tall rectangle; D2D resizes the cover for each store' },
