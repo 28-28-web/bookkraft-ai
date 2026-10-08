@@ -197,6 +197,9 @@ function GuidesResourcesSection() {
             </a>
           ))}
         </div>
+        <p style={{ marginTop: 20, fontSize: 15, color: 'var(--mid)' }}>
+          <Link href="/blog/what-is-amazon-kdp-guide-for-new-authors" className="link-gold">New to KDP? Start here</Link>: what Amazon&apos;s self-publishing platform is, and how royalties and KDP Select work.
+        </p>
       </div>
     </section>
   );
@@ -229,7 +232,7 @@ function ToolsDirectorySection() {
         ))}
 
         <div className="bk-tools-footer">
-          <a href="/tools" className="bk-tools-more">Browse all tools →</a>
+          <Link href="/tools" className="bk-tools-more">Browse all tools →</Link>
         </div>
       </div>
     </section>
@@ -285,7 +288,7 @@ function BookPromoSection() {
             <h2 className="bk-promo-title">Why Your Book Got Rejected</h2>
             <p className="bk-promo-subtitle">The EPUB &amp; KDP Formatting Guide for 2026</p>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 4 }}>
-              <a href="/blog/why-your-book-got-rejected" className="bk-promo-cta bk-promo-cta--amber">Read the blog post →</a>
+              <Link href="/blog/why-your-book-got-rejected" className="bk-promo-cta bk-promo-cta--amber">Read the blog post →</Link>
               <a href="https://www.amazon.com/dp/B0HJ11BGQV" target="_blank" rel="noopener noreferrer" className="bk-promo-cta-ghost">
                 Buy on Amazon →
               </a>
@@ -527,7 +530,7 @@ function ReadinessScoreCard() {
       {/* Footer bar */}
       <div style={{ padding: '18px 34px', background: 'var(--paper-dim)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 13, color: 'rgba(20,20,20,0.55)' }}>
         <span style={{ fontFamily: 'var(--font-ibm-mono), monospace' }}>3 credits · full report</span>
-        <a href="/tools" style={{ color: 'var(--charcoal)', fontWeight: 600, textDecoration: 'none' }}>Rescan after fixing →</a>
+        <Link href="/tools" style={{ color: 'var(--charcoal)', fontWeight: 600, textDecoration: 'none' }}>Rescan after fixing →</Link>
       </div>
     </div>
   );

@@ -107,7 +107,7 @@ export default function KdpEbookPricingPage() {
           KDP Ebook Pricing Strategy
         </h1>
         <p style={{ fontSize: 17, color: 'var(--mid)', lineHeight: 1.7, marginBottom: 48 }}>
-          Price is one of the few variables an author controls after a book is published. KDP allows price changes at any time without republishing, making pricing a continuous decision rather than a one-time one. This guide covers how KDP's royalty tiers interact with pricing, established pricing strategies for fiction and non-fiction, permafree mechanics, and Kindle Unlimited considerations. Where platform-specific numbers are involved — royalty percentages, price thresholds, per-page rates — the guide directs you to verify in the KDP dashboard, as these can change.
+          Price is one of the few variables an author controls after a book is published. KDP allows price changes at any time without republishing, making pricing a continuous decision rather than a one-time one. This guide covers how KDP&apos;s royalty tiers interact with pricing, established pricing strategies for fiction and non-fiction, permafree mechanics, and Kindle Unlimited considerations. Where platform-specific numbers are involved — royalty percentages, price thresholds, per-page rates — the guide directs you to verify in the KDP dashboard, as these can change. If you haven&apos;t published yet, read <Link href="/blog/what-is-amazon-kdp-guide-for-new-authors" style={LINK}>how Kindle Direct Publishing works</Link> first.
         </p>
 
         {/* Royalty tiers */}
@@ -169,10 +169,10 @@ export default function KdpEbookPricingPage() {
           Permafree mechanics
         </h2>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
-          Permafree refers to a book listed permanently at $0 on Amazon. KDP does not allow you to set a price of $0 directly. The established workaround: price the book at $0 on another major retailer that allows free pricing — Kobo, Apple Books, and Draft2Digital all support $0 pricing. Then report the lower price to Amazon via the product page's "tell us about a lower price" link.
+          Permafree refers to a book listed permanently at $0 on Amazon. KDP does not allow you to set a price of $0 directly. The established workaround: price the book at $0 on another major retailer that allows free pricing — Kobo, Apple Books, and Draft2Digital all support $0 pricing. Then report the lower price to Amazon via the product page&apos;s &quot;tell us about a lower price&quot; link.
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 48, opacity: 0.9 }}>
-          Amazon may then price-match to $0. This price-match is voluntary on Amazon's part and is not guaranteed. Amazon can also reverse the price-match at any time. Despite this uncertainty, permafree is a widely used mechanism that has worked consistently for many authors across years — but plan for the possibility of the price-match being removed, especially if you are enrolled in KDP Select (where permafree is incompatible with the exclusivity requirement).
+          Amazon may then price-match to $0. This price-match is voluntary on Amazon&apos;s part and is not guaranteed. Amazon can also reverse the price-match at any time. Despite this uncertainty, permafree is a widely used mechanism that has worked consistently for many authors across years — but plan for the possibility of the price-match being removed, especially if you are enrolled in KDP Select (where permafree is incompatible with the exclusivity requirement).
         </p>
 
         {/* Price testing */}

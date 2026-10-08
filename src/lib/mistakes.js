@@ -143,6 +143,7 @@ export const MISTAKES = [
       { type: 'epub-error', slug: 'ghost-spacing-epub', label: 'Ghost spacing in e-reader previews' },
       { type: 'epub-error', slug: 'toc-ncx-navpoint-mismatch', label: 'NCX navPoint mismatch errors' },
       { type: 'blog', slug: 'kindle-formatting-mistakes', label: 'Kindle formatting mistakes in Word: 10 fixes before KDP upload' },
+      { type: 'blog', slug: 'what-is-amazon-kdp-guide-for-new-authors', label: 'What is Amazon KDP? A guide for new authors' },
       { type: 'guide', slug: 'kdp-quality-issues', label: 'KDP quality issues and quality notices' },
     ],
   },

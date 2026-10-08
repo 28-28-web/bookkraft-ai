@@ -37,7 +37,9 @@ export default function KdpKeywordGuideIndexPage() {
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 40, opacity: 0.9 }}>
           The guides below cover the mistakes that hold keywords back, how to research phrases that match
-          what readers actually type, and how categories and keywords work together.
+          what readers actually type, and how categories and keywords work together. Haven&apos;t set up a
+          book yet? Start with{' '}
+          <Link href="/blog/what-is-amazon-kdp-guide-for-new-authors" style={{ color: 'var(--gold)', textDecoration: 'none' }}>Kindle Direct Publishing explained</Link>.
         </p>
 
         <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--ink)', marginBottom: 16 }}>

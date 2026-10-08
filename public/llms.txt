@@ -119,5 +119,6 @@ Comparison guides for authors evaluating BookKraft AI against other EPUB formatt
 
 - [EPUB Formatting Guide](https://bookkraftai.com/epub-formatting-guide): Comprehensive guide to EPUB structure, manuscript cleanup, TOC generation, metadata, and validation workflow.
 - [KDP Formatting Guide](https://bookkraftai.com/kdp-formatting-guide): Guide to formatting manuscripts for Kindle Direct Publishing.
+- [What Is Amazon KDP?](https://bookkraftai.com/blog/what-is-amazon-kdp-guide-for-new-authors): Kindle Direct Publishing explained for new authors: how it works, royalties, ISBNs, pricing and KDP Select.
 - [FAQ](https://bookkraftai.com/faq)
 - [Pricing](https://bookkraftai.com/pricing)

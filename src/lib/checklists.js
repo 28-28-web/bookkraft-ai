@@ -88,7 +88,7 @@ export const CHECKLISTS = [
     pdfTitle: 'KDP Ebook Preflight Checklist',
     dateModified: '2026-10-08',
     optin: true,
-    intro: "<p>Work through these checks before you upload a Kindle eBook to KDP. Each section links to the KDP help pages it is based on and to a free BookKraft tool that can help. Items that KDP's help pages don't cover are our advice. For EPUB structure in more depth, see the <a href=\"/checklist/epub-formatting-checklist\">EPUB formatting checklist</a>.</p>",
+    intro: "<p>Work through these checks before you upload a Kindle eBook to KDP. Each section links to the KDP help pages it is based on and to a free BookKraft tool that can help. Items that KDP's help pages don't cover are our advice. For EPUB structure in more depth, see the <a href=\"/checklist/epub-formatting-checklist\">EPUB formatting checklist</a>. First book on KDP? Read <a href=\"/blog/what-is-amazon-kdp-guide-for-new-authors\">what Amazon KDP is and how it works</a> before you start.</p>",
     sections: [
       {
         heading: 'Manuscript',
