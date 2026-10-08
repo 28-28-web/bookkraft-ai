@@ -33,7 +33,7 @@ const GROUPS = [
   {
     heading: 'Manifest and spine',
     items: [
-      ['missing-manifest-resource', 'A file in the EPUB isn\'t declared in the OPF manifest (OPF-003).'],
+      ['missing-manifest-resource', 'Your content uses a file that isn\'t declared in the OPF manifest (RSC-008).'],
       ['invalid-opf-manifest-reference', 'The manifest or a content file points to a file that isn\'t in the EPUB (RSC-007).'],
       ['duplicate-manifest-item', 'The same file or ID is declared more than once in the manifest (OPF-074 for a repeated file).'],
       ['broken-spine-order', 'A spine itemref points to a manifest ID that doesn\'t exist (OPF-049) or repeats one (OPF-034).'],
@@ -61,7 +61,7 @@ const GROUPS = [
     heading: 'Images and cover',
     items: [
       ['cover-image-not-declared', 'The cover image is in the EPUB but isn\'t marked with properties="cover-image" in the manifest.'],
-      ['invalid-image-format', 'An image uses a format that isn\'t allowed where it\'s used, such as a TIFF in a chapter file.'],
+      ['invalid-image-format', 'An img element references a format outside the EPUB core media types, such as TIFF (MED-003).'],
       ['emf-image-fallback', 'A non-core resource such as an EMF image has no fallback (RSC-032).'],
       ['missing-alt-text', 'An img element has no alt attribute.'],
     ],

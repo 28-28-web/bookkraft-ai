@@ -70,7 +70,7 @@ BookKraft AI helps indie authors prepare ebook files for platform submission —
 - [Malformed XHTML — Unclosed Tags](https://bookkraftai.com/epub-errors/malformed-xhtml-unclosed-tag)
 - [Unescaped Ampersand in XHTML](https://bookkraftai.com/epub-errors/unescaped-ampersand-xhtml)
 - [NCX navPoint Mismatch — TOC Links to Wrong Chapters](https://bookkraftai.com/epub-errors/toc-ncx-navpoint-mismatch)
-- [Unique Identifier Not Found (OPF-048)](https://bookkraftai.com/epub-errors/unique-identifier-not-found)
+- [Unique Identifier Not Found (OPF-030)](https://bookkraftai.com/epub-errors/unique-identifier-not-found)
 - [Missing container.xml](https://bookkraftai.com/epub-errors/missing-container-xml)
 - [Invalid or Missing mimetype File](https://bookkraftai.com/epub-errors/invalid-mimetype)
 - [Missing Language Declaration (dc:language)](https://bookkraftai.com/epub-errors/missing-language-declaration)
