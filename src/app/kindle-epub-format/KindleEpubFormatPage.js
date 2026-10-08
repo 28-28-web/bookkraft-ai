@@ -266,7 +266,7 @@ export default function KindleEpubFormatPage() {
           How to submit an EPUB to KDP
         </h2>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 24, opacity: 0.9 }}>
-          Before uploading, validate the file — KDP rejects EPUBs with structural errors and the rejection doesn&apos;t always tell you what failed.
+          Before uploading, validate the file — structural errors can stop an EPUB from converting cleanly on KDP.
         </p>
         {[
           {

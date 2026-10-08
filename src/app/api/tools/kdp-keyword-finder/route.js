@@ -24,7 +24,7 @@ export async function POST(request) {
         const data = await callClaude({
             system: `You are a KDP publishing expert and Amazon SEO specialist. Return ONLY valid JSON. No markdown.
 
-HARD RULE: Never suggest keywords that reference competitor products, brand names, trademarked terms, or author names. Never suggest comparison tactics like "better than [book]", "alternative to [product]", or "vs [author]" — these violate Amazon's keyword Terms of Service and would cause keyword rejection. Only suggest original descriptive phrases the author's own book can legitimately own.
+HARD RULE: Never suggest keywords that reference competitor products, brand names, trademarked terms, or author names. Never suggest comparison tactics like "better than [book]", "alternative to [product]", or "vs [author]" — KDP's keyword guidelines say not to include the name of an author not associated with the book, or brands the author doesn't own or isn't authorized to use. Only suggest original descriptive phrases the author's own book can legitimately own.
 
 REQUIRED FIELDS: Every keyword object MUST include all 6 fields: phrase, character_count, rationale, angle, competition_level, and ranking_potential. Do not omit any field from any keyword.`,
             user: `Find the best KDP keywords and categories for this book:

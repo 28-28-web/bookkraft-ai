@@ -57,7 +57,7 @@ BookKraft AI helps indie authors prepare ebook files for platform submission —
 
 8 pages explaining why each major ebook retailer rejects files — platform-specific validation rules, metadata requirements, and content policies.
 
-- [Why Amazon KDP Rejects Ebooks](https://bookkraftai.com/platform-rejection/amazon-kdp): KDP rejects for two distinct reasons — structural EPUB errors that fail automated upload checks immediately, and content policy flags that trigger a human review queue with a 1–5 business day delay.
+- [Why Amazon KDP Rejects Ebooks](https://bookkraftai.com/platform-rejection/amazon-kdp): common reasons KDP rejects or delays ebooks — structural EPUB errors that can fail at upload, and content or quality issues — and how to fix each one.
 - [Why Apple Books Rejects Ebooks](https://bookkraftai.com/platform-rejection/apple-books): Apple Books checks files on upload, requires ISBN-13 for paid books, and validates HTML inside chapter files.
 - [Why Draft2Digital Rejects Ebooks](https://bookkraftai.com/platform-rejection/draft2digital): D2D converts your file for many stores and checks uploaded EPUBs with Epubcheck — for ebooks it accepts Word, RTF, OTF, TXT and EPUB; PDF is for print only.
 - [Why Kobo Rejects Ebooks](https://bookkraftai.com/platform-rejection/kobo): Kobo can reject at two stages — initial upload check or KEPUB conversion — with structural issues that pass EPUBCheck causing silent conversion stalls that leave books stuck in "Processing."

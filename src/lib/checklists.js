@@ -67,7 +67,7 @@ export const CHECKLISTS = [
       },
       {
         q: 'My EPUB passes EPUBCheck but still gets rejected — what\'s left to check?',
-        a: 'EPUBCheck validates structural compliance. Platform-specific rejection causes that EPUBCheck doesn\'t catch include: cover image color profiles (Apple Books rejects CMYK), ISBN format in content.opf (Apple Books requires scheme="ISBN"), and duplicate content flags (KDP compares against existing ASINs). See the platform-specific checklists for Apple Books and KDP for those details.',
+        a: 'EPUBCheck validates structural compliance. Platform-specific requirements that EPUBCheck doesn\'t check include: cover image color mode (Apple\'s Asset Guide says the cover art must use RGB color mode), ISBN format in content.opf (Apple Books requires scheme="ISBN"), and duplicate content flags (KDP compares against existing ASINs). See the platform-specific checklists for Apple Books and KDP for those details.',
       },
     ],
     relatedTool: 'epub-validator',
@@ -271,7 +271,7 @@ export const CHECKLISTS = [
           'Open each XHTML chapter file in a markup validator — Apple checks HTML compliance inside chapter documents, a step beyond standard OPF and manifest checking',
           'Search across all chapter files for duplicate id attributes and remove every duplicate before zipping the EPUB',
           'Scan all EPUB 3 content files for EPUB 2 vestiges such as opf:role attributes — mixed-version markup triggers Apple\'s schema validator',
-          'Audit the CSS file for deprecated or non-standard properties — Apple\'s reading engine promotes certain parse warnings to blocking errors during ingestion',
+          'Audit the CSS file for deprecated or non-standard properties. Apple says books must pass the latest version of EPUBCheck: fix every error it reports, and clearing warnings too is good practice',
         ],
       },
       {

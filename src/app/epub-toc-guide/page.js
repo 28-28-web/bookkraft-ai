@@ -16,7 +16,7 @@ const faqs = [
   },
   {
     q: 'What happens if nav.xhtml is missing from my EPUB?',
-    a: 'EPUBCheck reports a missing navigation document error and the file fails validation. KDP will reject the upload with a navigation error. Apple Books and Kobo also require a valid navigation document. This is one of the most common structural errors in manually edited EPUB files — the nav.xhtml must exist and be listed in the OPF manifest.',
+    a: 'EPUBCheck reports a missing navigation document error and the file fails validation. On KDP, the upload can fail or the Kindle table of contents may not work. Apple Books and Kobo also require a valid navigation document. This is one of the most common structural errors in manually edited EPUB files — the nav.xhtml must exist and be listed in the OPF manifest.',
   },
   {
     q: 'Does KDP use my nav.xhtml to build the Kindle in-book table of contents?',

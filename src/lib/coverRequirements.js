@@ -20,11 +20,11 @@ export const COVER_REQUIREMENTS = [
       { key: 'color', verified: true, label: 'Color mode', value: 'RGB' },
       { key: 'maxSize', verified: true, label: 'Maximum file size', value: '50MB' },
     ],
-    details: '<p>KDP states a minimum of 625px wide by 1000px tall, but recommends the ideal of 1600px × 2560px for the sharpest display across Kindle devices and the Kindle app. The 1.6:1 height-to-width aspect ratio is required — covers with a significantly different ratio will be stretched or cropped to fit KDP\'s display templates. Images must be in RGB color mode; CMYK images are rejected by KDP\'s image processor even though CMYK is standard for print covers. The maximum file size is 50MB, though standard cover images are well under 5MB in practice.</p><p>KDP accepts JPEG and TIFF. PNG is not listed as an accepted format in the current official specification — authors using PNG covers from design tools should convert to JPEG before including the image in their EPUB package.</p><p>KDP\'s Cover Image Guidelines also note that covers with fewer than 500 pixels on the shortest side are not displayed on the Amazon website. Figures verified from KDP Help — <a href="https://kdp.amazon.com/en_US/help/topic/G200645690" target="_blank" rel="noopener nofollow">eBook cover criteria (G200645690)</a> and <a href="https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX" target="_blank" rel="noopener nofollow">Cover Image Guidelines</a>. Last verified September 27, 2026.</p>',
+    details: '<p>KDP states a minimum of 625px wide by 1000px tall, but recommends the ideal of 1600px × 2560px for the sharpest display across Kindle devices and the Kindle app. KDP\'s ideal height-to-width ratio is at least 1.6:1 (1,600 pixels tall for every 1,000 wide). KDP\'s criteria call for RGB color; print covers are usually CMYK, so export a separate RGB file for the ebook. The maximum file size is 50MB, though standard cover images are well under 5MB in practice.</p><p>KDP accepts JPEG and TIFF. PNG is not listed as an accepted format in the current official specification — authors using PNG covers from design tools should convert to JPEG before including the image in their EPUB package.</p><p>KDP\'s Cover Image Guidelines also note that covers with fewer than 500 pixels on the shortest side are not displayed on the Amazon website. Figures verified from KDP Help — <a href="https://kdp.amazon.com/en_US/help/topic/G200645690" target="_blank" rel="noopener nofollow">eBook cover criteria (G200645690)</a> and <a href="https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX" target="_blank" rel="noopener nofollow">Cover Image Guidelines</a>. Last verified September 27, 2026.</p>',
     commonMistakes: [
       {
         title: 'Using a print cover directly',
-        description: 'Print covers are designed at 300 DPI in CMYK color mode. KDP rejects CMYK images. Always export a separate RGB JPEG at the correct pixel dimensions for the ebook cover — do not reuse the print-ready PDF or TIFF.',
+        description: 'Print covers are designed at 300 DPI in CMYK color mode. KDP\'s ebook cover criteria call for RGB. Always export a separate RGB JPEG at the correct pixel dimensions for the ebook cover — do not reuse the print-ready PDF or TIFF.',
       },
       {
         title: 'Dimensions below the minimum',
@@ -32,7 +32,7 @@ export const COVER_REQUIREMENTS = [
       },
       {
         title: 'Wrong aspect ratio',
-        description: 'A 1:1 square cover or a landscape-oriented image will be stretched or letterboxed by KDP\'s display system. Start from a canvas with the correct 1.6:1 height-to-width ratio — 1600×2560px is the standard working size.',
+        description: 'A 1:1 square cover or a landscape-oriented image may not display as intended in store listings. Start from a canvas with the correct 1.6:1 height-to-width ratio — 1600×2560px is the standard working size.',
       },
     ],
     faq: [

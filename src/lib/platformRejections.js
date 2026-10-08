@@ -93,7 +93,7 @@ export const PLATFORM_REJECTIONS = [
     faq: [
       {
         q: 'Does Apple Books accept EPUB 2?',
-        a: "Apple's current Books Asset Guide covers EPUB 3 files only, so build new books as EPUB 3.",
+        a: "Apple's Books Asset Guide (version 5.3 and later) covers EPUB 3 files only and says Apple Books supports the EPUB 3.3 specification. Apple's current pages don't say whether new EPUB 2 files are still accepted, so convert your book to EPUB 3 before you submit.",
       },
       {
         q: 'My file passed EPUBCheck but Apple still rejected it — why?',
