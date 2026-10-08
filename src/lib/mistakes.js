@@ -53,8 +53,8 @@ export const MISTAKES = [
       },
       {
         title: 'Unique identifier cross-reference broken in OPF',
-        description: "<p>Every EPUB requires a <code>dc:identifier</code> element, and the OPF <code>&lt;package&gt;</code> element's <code>unique-identifier</code> attribute must point to that element's id by name. When they don't match — usually because a template was edited or an identifier element was moved — EPUBCheck throws OPF-048. Apple Books rejects the file outright; KDP accepts it but may show metadata warnings in the dashboard.</p>",
-        link: { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-048) — full guide' },
+        description: "<p>Every EPUB requires a <code>dc:identifier</code> element, and the OPF <code>&lt;package&gt;</code> element's <code>unique-identifier</code> attribute must point to that element's id by name. When they don't match — usually because a template was edited or an identifier element was moved — EPUBCheck reports OPF-030. Apple says books must pass the latest version of EPUBCheck, so the upload can fail.</p>",
+        link: { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-030) — full guide' },
       },
     ],
     faq: [
@@ -161,7 +161,7 @@ export const MISTAKES = [
       },
       {
         title: 'Scrivener chapter templates that copy duplicate ID attributes into every chapter',
-        description: "<p>Scrivener's compile system uses a structural template for each chapter, then copies that template for every section. If the template contains <code>id</code> attributes on heading or structural elements, Scrivener copies those IDs into every chapter — producing duplicate IDs across the whole EPUB. The compile preview looks correct, Scrivener's own export validation passes, and EPUBCheck catches it as OPF-030 on the first platform submission.</p>",
+        description: "<p>Scrivener's compile system uses a structural template for each chapter, then copies that template for every section. If the template contains <code>id</code> attributes on heading or structural elements, Scrivener copies those IDs into every chapter — producing duplicate IDs across the whole EPUB. The compile preview looks correct, Scrivener's own export validation passes, and EPUBCheck reports it as an RSC-005 error.</p>",
         link: { type: 'epub-error', slug: 'duplicate-id-epub', label: 'Duplicate ID attribute errors — full guide' },
       },
       {
@@ -201,7 +201,7 @@ export const MISTAKES = [
       },
       {
         q: 'Does running EPUBCheck catch all of these mistakes?',
-        a: "Items 2, 5, and 6 — yes: EPUBCheck flags duplicate IDs (OPF-030), opf:role misuse (RSC-005), and dangling manifest references (RSC-007). Items 3 and 4 — yes: EPUBCheck flags missing EMF fallbacks and font embedding issues. Item 1 (ghost spacing) — no: empty paragraph tags are technically valid XHTML, so EPUBCheck passes them. Item 7 is the validation step itself, not something EPUBCheck catches.",
+        a: "Items 2, 5, and 6 — yes: EPUBCheck flags duplicate IDs (RSC-005), opf:role misuse (RSC-005), and dangling manifest references (RSC-007). Items 3 and 4 — yes: EPUBCheck flags missing EMF fallbacks and font embedding issues. Item 1 (ghost spacing) — no: empty paragraph tags are technically valid XHTML, so EPUBCheck passes them. Item 7 is the validation step itself, not something EPUBCheck catches.",
       },
     ],
     relatedTool: 'epub-validator',
@@ -226,8 +226,8 @@ export const MISTAKES = [
       },
       {
         title: 'Empty or invalid dc:identifier',
-        description: "<p>Every EPUB needs a unique identifier in the <code>dc:identifier</code> field — a valid ISBN-13 or a UUID. When it is empty, or the package's unique-identifier attribute points at the wrong id, EPUBCheck throws OPF-048 and Apple Books rejects the file. A UUID is perfectly valid if you don't have an ISBN.</p>",
-        link: { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-048) — full guide' },
+        description: "<p>Every EPUB needs a unique identifier in the <code>dc:identifier</code> field — a valid ISBN-13 or a UUID. When it is missing or empty, EPUBCheck reports an error; when the package's unique-identifier attribute points at the wrong id, it reports OPF-030. Apple says books must pass the latest version of EPUBCheck, so the upload can fail. A UUID is perfectly valid if you don't have an ISBN.</p>",
+        link: { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-030) — full guide' },
       },
       {
         title: 'Missing dc:language or an invalid language code',
@@ -260,7 +260,7 @@ export const MISTAKES = [
       },
     ],
     related: [
-      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-048)' },
+      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-030)' },
       { type: 'epub-error', slug: 'cover-image-not-declared', label: 'Cover image not declared in OPF manifest' },
       { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP preflight checklist' },
       { type: 'mistake', slug: 'kdp-formatting-mistakes', label: '7 KDP formatting mistakes indie authors make' },

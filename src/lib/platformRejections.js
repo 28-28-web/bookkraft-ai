@@ -254,7 +254,7 @@ export const PLATFORM_REJECTIONS = [
     ],
     relatedTool: 'epub-validator',
     related: [
-      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-048)' },
+      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-030)' },
       { type: 'epub-error', slug: 'unescaped-ampersand-xhtml', label: 'Unescaped ampersand in XHTML' },
       { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
     ],
@@ -360,7 +360,7 @@ export const PLATFORM_REJECTIONS = [
     relatedTool: 'epub-validator',
     related: [
       { type: 'epub-error', slug: 'cover-image-not-declared', label: 'Cover image not declared in OPF manifest' },
-      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-048)' },
+      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-030)' },
       { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
       { type: 'mistake', slug: 'epub-formatting-mistakes', label: '10 EPUB formatting mistakes that cause rejection' },
       { type: 'alternative', slug: 'sigil-alternative', label: 'Sigil alternative for EPUB editing' },
@@ -411,7 +411,7 @@ export const PLATFORM_REJECTIONS = [
     ],
     relatedTool: 'epub-validator',
     related: [
-      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-048)' },
+      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-030)' },
       { type: 'epub-error', slug: 'missing-ncx-navigation', label: 'Missing NCX navigation table' },
       { type: 'platform-rejection', slug: 'draft2digital', label: 'Why Draft2Digital rejects ebooks' },
       { type: 'platform-rejection', slug: 'smashwords', label: 'Why Smashwords rejects ebooks' },

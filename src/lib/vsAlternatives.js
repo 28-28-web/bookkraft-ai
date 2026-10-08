@@ -257,7 +257,7 @@ export const VS_ALTERNATIVES = [
     related: [
       { type: 'platform-rejection', slug: 'draft2digital', label: 'Why Draft2Digital rejects ebooks' },
       { type: 'epub-error', slug: 'ghost-spacing-epub', label: 'Ghost spacing from empty paragraph tags' },
-      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'OPF unique identifier not found (OPF-048)' },
+      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'OPF unique identifier not found (OPF-030)' },
       { type: 'checklist', slug: 'epub-formatting-checklist', label: 'EPUB formatting pre-upload checklist' },
     ],
   },

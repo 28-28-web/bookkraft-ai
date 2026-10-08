@@ -228,10 +228,10 @@ zip -Xr9D mybook.epub META-INF OEBPS`;
 
 const EPUBCHECK_ERRORS = [
   ['Fatal: not well-formed', 'An unclosed tag or an invalid character somewhere in your XHTML.', 'Open the file and line the error names, and look for an unescaped ampersand or angle bracket.'],
-  ['OPF-014', 'A file, usually an image, is used but never listed in content.opf.', 'Add an item entry for it in the manifest.'],
+  ['RSC-008', 'A file, usually an image, is used but never listed in content.opf.', 'Add an item entry for it in the manifest.'],
   ['RSC-005', 'Malformed XML, most often a mismatched tag.', 'Open that .xhtml file and check the tag nesting.'],
-  ['NCX-002', 'toc.ncx points at a chapter file that does not exist or was renamed.', 'Match the src paths to your actual filenames.'],
-  ['MED-003', 'An image src path does not match where the file actually sits.', 'Check the relative path — usually a missing images/ prefix.'],
+  ['RSC-007', 'toc.ncx (or another file) points at a chapter file that does not exist or was renamed.', 'Match the src paths to your actual filenames.'],
+  ['MED-003', 'An img element points at a format outside the EPUB core media types, such as TIFF.', 'Convert the image to JPEG or PNG and update the manifest and src.'],
 ];
 
 export default function HowToMakeEpubPage() {

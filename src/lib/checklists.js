@@ -583,7 +583,7 @@ export const CHECKLISTS = [
     relatedTool: 'metadata-builder',
     related: [
       { type: 'mistake', slug: 'book-metadata-mistakes', label: '6 book metadata mistakes that hurt discoverability' },
-      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-048)' },
+      { type: 'epub-error', slug: 'unique-identifier-not-found', label: 'Unique identifier not found (OPF-030)' },
       { type: 'checklist', slug: 'kdp-pre-launch-checklist', label: 'KDP preflight checklist' },
       { type: 'platform-rejection', slug: 'amazon-kdp', label: 'Why Amazon KDP rejects ebooks' },
     ],
