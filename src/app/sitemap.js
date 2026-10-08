@@ -319,7 +319,7 @@ export default async function sitemap() {
     },
     {
       url: `${BASE}/kindle-epub-format`,
-      lastModified: CONTENT_DATE,
+      lastModified: new Date('2026-10-08'),
       changeFrequency: 'monthly',
       priority: 0.8,
     },

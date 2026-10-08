@@ -287,6 +287,8 @@ export default function EpubFontsPage() {
           <Link href="/epub-css-for-ebooks" style={LINK}>EPUB CSS for ebooks guide</Link>.
           For EPUB metadata and OPF manifest structure, see the{' '}
           <Link href="/epub-metadata-guide" style={LINK}>EPUB metadata guide</Link>.
+          Publishing on Amazon? See the{' '}
+          <Link href="/kindle-epub-format#kindle-epub-settings" style={LINK}>Kindle EPUB settings for fonts</Link> and the rest of the file.
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 32, opacity: 0.9 }}>
           For the full EPUB build workflow — TOC, metadata, chapter structure, images, and platform submission — see the{' '}

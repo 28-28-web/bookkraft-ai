@@ -88,7 +88,7 @@ export default function EpubImagesPage() {
 
         {/* Image formats */}
         <h2 style={{ fontSize: 22, fontWeight: 700, color: 'var(--ink)', marginBottom: 12 }}>
-          Image formats — what's safe and what to hedge
+          Image formats — what&apos;s safe and what to hedge
         </h2>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
           The EPUB specification defines a set of core media types that all reading systems must support. JPEG and PNG are in the core set. Other formats have varying support:
@@ -124,7 +124,7 @@ export default function EpubImagesPage() {
           Inline images in chapter content
         </h2>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
-          Images appear in chapter XHTML files using a standard <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>{'<img>'}</code> element. The <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>src</code> path is relative to the content file's location in the archive:
+          Images appear in chapter XHTML files using a standard <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>{'<img>'}</code> element. The <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>src</code> path is relative to the content file&apos;s location in the archive:
         </p>
         <pre style={{ background: 'var(--cream)', border: '1px solid var(--border)', borderRadius: 8, padding: '16px 20px', fontSize: 13, lineHeight: 1.65, overflowX: 'auto', marginBottom: 16, fontFamily: 'monospace' }}>
           <code>{`<!-- In a chapter XHTML file -->
@@ -145,7 +145,7 @@ export default function EpubImagesPage() {
       media-type="image/png"/>`}</code>
         </pre>
         <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.65, marginBottom: 48 }}>
-          An image present in the archive but not in the manifest triggers a "missing manifest resource" validation error. An image referenced in a content file but physically absent from the archive also fails validation. Both must match.
+          An image present in the archive but not in the manifest triggers a &quot;missing manifest resource&quot; validation error. An image referenced in a content file but physically absent from the archive also fails validation. Both must match.
         </p>
 
         {/* Cover image */}
@@ -153,7 +153,7 @@ export default function EpubImagesPage() {
           Cover image — the special manifest declaration
         </h2>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
-          The cover image requires a specific <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>properties="cover-image"</code> attribute on its manifest item. This is what tells KDP and Apple Books which image to display in their store listings and library views. Without it, the cover image may be physically present but not recognized — resulting in a blank or default cover on the store page:
+          The cover image requires a specific <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>properties=&quot;cover-image&quot;</code> attribute on its manifest item. This is what tells KDP and Apple Books which image to display in their store listings and library views. Without it, the cover image may be physically present but not recognized — resulting in a blank or default cover on the store page:
         </p>
         <pre style={{ background: 'var(--cream)', border: '1px solid var(--border)', borderRadius: 8, padding: '16px 20px', fontSize: 13, lineHeight: 1.65, overflowX: 'auto', marginBottom: 16, fontFamily: 'monospace' }}>
           <code>{`<!-- In content.opf, inside <manifest> -->
@@ -169,7 +169,7 @@ export default function EpubImagesPage() {
       media-type="application/xhtml+xml"/>`}</code>
         </pre>
         <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.65, marginBottom: 48 }}>
-          The <code style={{ fontFamily: 'monospace', fontSize: 13, background: 'var(--cream)', padding: '1px 4px', borderRadius: 3 }}>properties="cover-image"</code> attribute goes on the image file item, not on the XHTML page that displays it. A cover.xhtml file may contain the cover image via an <code style={{ fontFamily: 'monospace', fontSize: 13, background: 'var(--cream)', padding: '1px 4px', borderRadius: 3 }}>{'<img>'}</code> tag, but it is the image item in the manifest that needs the property.
+          The <code style={{ fontFamily: 'monospace', fontSize: 13, background: 'var(--cream)', padding: '1px 4px', borderRadius: 3 }}>properties=&quot;cover-image&quot;</code> attribute goes on the image file item, not on the XHTML page that displays it. A cover.xhtml file may contain the cover image via an <code style={{ fontFamily: 'monospace', fontSize: 13, background: 'var(--cream)', padding: '1px 4px', borderRadius: 3 }}>{'<img>'}</code> tag, but it is the image item in the manifest that needs the property.
         </p>
 
         {/* Alt text */}
@@ -188,7 +188,7 @@ export default function EpubImagesPage() {
 <img src="../Images/divider.png" alt=""/>`}</code>
         </pre>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 48, opacity: 0.9 }}>
-          The distinction matters: a missing <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>alt</code> attribute is an error. An empty <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>alt=""</code> is valid — it explicitly signals that the image is decorative and should be ignored by assistive technology.
+          The distinction matters: a missing <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>alt</code> attribute is an error. An empty <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>alt=&quot;&quot;</code> is valid — it explicitly signals that the image is decorative and should be ignored by assistive technology.
         </p>
 
         {/* Image sizing */}
@@ -196,7 +196,7 @@ export default function EpubImagesPage() {
           Image sizing and file size
         </h2>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
-          E-readers display images at the screen's native resolution — very high-resolution images add file size without visible benefit on most devices. For interior images, a resolution that matches common e-reader screen densities is sufficient; you do not need print-quality 300 DPI images in an ebook.
+          E-readers display images at the screen&apos;s native resolution — very high-resolution images add file size without visible benefit on most devices. For interior images, a resolution that matches common e-reader screen densities is sufficient; you do not need print-quality 300 DPI images in an ebook.
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
           KDP and other platforms have upload size limits for EPUB files. Very large image files — especially uncompressed PNG files — are the most common cause of oversized EPUBs. Compress images before including them in your EPUB, particularly JPEGs where quality above 80–85% is rarely visible on e-ink screens.
@@ -241,7 +241,11 @@ export default function EpubImagesPage() {
           <Link href="/reflowable-vs-fixed-layout-epub" style={{ color: '#9c7f35', textDecoration: 'none' }}>
             reflowable vs fixed-layout EPUB
           </Link>
-          {' '}before you build it.
+          {' '}before you build it. Publishing on Kindle? See{' '}
+          <Link href="/kindle-epub-format#kindle-epub-settings" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            what Kindle expects from images
+          </Link>
+          .
         </p>
 
         {/* CTA */}

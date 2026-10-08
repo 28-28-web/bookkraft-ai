@@ -103,7 +103,7 @@ export default function EpubCssForEbooksPage() {
           How EPUB CSS works differently from browser CSS
         </h2>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
-          In a web browser, your CSS controls the page. In an e-reader, your CSS is one input among several — the reading system applies its own default styles, the reader's chosen font and font-size override yours, and night mode or sepia themes change colors regardless of what you set. This is by design: ebook readers exist to give readers control over their reading experience.
+          In a web browser, your CSS controls the page. In an e-reader, your CSS is one input among several — the reading system applies its own default styles, the reader&apos;s chosen font and font-size override yours, and night mode or sepia themes change colors regardless of what you set. This is by design: ebook readers exist to give readers control over their reading experience.
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
           Kindle adds another layer: KDP converts EPUB to an internal format during processing. Your CSS is reinterpreted rather than rendered directly. Some properties survive the conversion intact; others are dropped or transformed. Apple Books renders EPUB more directly, closer to a browser environment. Kobo and other readers sit at various points in between.
@@ -285,9 +285,9 @@ h3 {
           .
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
-          For Kindle-specific EPUB structure and formatting requirements, see the{' '}
-          <Link href="/kindle-epub-format" style={{ color: '#9c7f35', textDecoration: 'none' }}>
-            Kindle EPUB format guide
+          Kindle normalizes some body-text CSS. For what KDP&apos;s guidelines say it changes, and the other EPUB settings Kindle expects, see the{' '}
+          <Link href="/kindle-epub-format#kindle-epub-settings" style={{ color: '#9c7f35', textDecoration: 'none' }}>
+            CSS Kindle overrides
           </Link>
           .
         </p>

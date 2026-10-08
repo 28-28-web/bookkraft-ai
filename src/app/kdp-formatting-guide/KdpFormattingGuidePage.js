@@ -381,6 +381,9 @@ export default function KdpFormattingGuidePage() {
                         <li><strong>Enhanced Typesetting.</strong> Amazon applies improved hyphenation, kerning, and justification automatically on supported devices when your book meets its requirements. Books with clean EPUB CSS are more likely to qualify; heavy inline styles or image-based text typically disqualify the book. Amazon determines eligibility — there is no manual opt-in.</li>
                         <li><strong>Test with Kindle Previewer.</strong> Amazon&apos;s free Kindle Previewer simulates how your book renders across Kindle devices before upload. Run your EPUB through validation first, then test in Previewer — Previewer surfaces layout issues that validators don&apos;t catch (images, tables, drop cap rendering on older firmware).</li>
                     </ul>
+                    <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 14, opacity: 0.88 }}>
+                        For the export settings themselves (TOC, cover, fonts, images, CSS and metadata), with what KDP&apos;s guidelines say about each, see <Link href="/kindle-epub-format#kindle-epub-settings" style={LINK_STYLE}>Kindle EPUB settings</Link>.
+                    </p>
                     <p style={{ fontSize: 16, lineHeight: 1.7, opacity: 0.88 }}>
                         The most common source of Kindle formatting problems is the Word export: straight quotes, double hyphens, double spaces, and encoding artifacts that render incorrectly after KDP&apos;s conversion. <Link href="/tools/kindle-format-fixer" style={LINK_STYLE}>Kindle Format Fixer</Link> catches and corrects all eight common Word export issues in a single pass, included in the Starter plan.
                     </p>

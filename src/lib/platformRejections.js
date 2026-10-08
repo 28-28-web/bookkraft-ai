@@ -89,7 +89,7 @@ export const PLATFORM_REJECTIONS = [
         description: "Apple Books has content guidelines covering explicit content, depictions of minors, and specific content categories. Books must also include accurate rights and territory declarations. Submitting a book for worldwide distribution when rights are territory-limited causes a rights conflict rejection.",
       },
     ],
-    howToFix: '<ol><li>Validate your EPUB with EPUBCheck 5.x and fix every error before you submit.</li><li>Confirm your ISBN is entered correctly in content.opf as a dc:identifier element with scheme="ISBN".</li><li>Check your cover image: export as JPG or PNG in RGB color mode, at least 1400px on the shorter side, before embedding.</li><li>For EPUB 3 files, verify nav.xhtml exists, is listed in the manifest with properties="nav", and contains a valid <code>&lt;nav epub:type="toc"&gt;</code> element.</li><li>Re-submit through Apple Books Connect.</li></ol>',
+    howToFix: '<ol><li>Validate your EPUB with EPUBCheck 5.x and fix every error before you submit.</li><li>Check your cover image: export as JPG or PNG in RGB color mode, at least 1400px on the shorter side, before embedding.</li><li>For EPUB 3 files, verify nav.xhtml exists, is listed in the manifest with properties="nav", and contains a valid <code>&lt;nav epub:type="toc"&gt;</code> element.</li><li>Re-submit through Apple Books Connect.</li></ol>',
     faq: [
       {
         q: 'Does Apple Books accept EPUB 2?',

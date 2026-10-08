@@ -67,7 +67,7 @@ export const CHECKLISTS = [
       },
       {
         q: 'My EPUB passes EPUBCheck but still gets rejected — what\'s left to check?',
-        a: 'EPUBCheck validates structural compliance. Platform-specific requirements that EPUBCheck doesn\'t check include: cover image color mode (Apple\'s Asset Guide says the cover art must use RGB color mode), ISBN format in content.opf (Apple Books requires scheme="ISBN"), and duplicate content flags (KDP compares against existing ASINs). See the platform-specific checklists for Apple Books and KDP for those details.',
+        a: 'EPUBCheck validates structural compliance. Platform-specific requirements that EPUBCheck doesn\'t check include: cover image color mode (Apple\'s Asset Guide says the cover art must use RGB color mode), and public-domain content (KDP won\'t allow undifferentiated versions of public domain titles if a free version is available in its store). See the platform-specific checklists for Apple Books and KDP for those details.',
       },
     ],
     relatedTool: 'epub-validator',
@@ -114,6 +114,7 @@ export const CHECKLISTS = [
           'File checked in Kindle Previewer, which KDP recommends before you upload an EPUB',
         ],
         tools: [{ slug: 'epub-validator' }],
+        guides: [{ href: '/kindle-epub-format#kindle-epub-settings', label: 'Kindle EPUB settings, topic by topic' }],
         sources: [
           { label: 'KDP: manuscript file size', url: 'https://kdp.amazon.com/en_US/help/topic/G200735140' },
           { label: 'KDP: eBook manuscript formats', url: 'https://kdp.amazon.com/en_US/help/topic/G200634390' },
