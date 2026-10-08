@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     q: 'How do I declare the cover image in the OPF?',
-    a: 'The cover image must be declared in the OPF manifest with properties="cover-image" on the item element. This is separate from the cover.xhtml content file — the properties attribute marks the image file itself, not the HTML page that contains it. Missing this declaration is one of the most common EPUB errors: the image is present in the archive but not flagged as the cover, so KDP and Apple Books show a blank cover in store listings.',
+    a: 'Add properties="cover-image" to the cover image\'s item in the OPF manifest. The attribute marks the image file itself. KDP\'s Cover Image Guidelines list this as the preferred way to identify the internal cover, and say not to add an HTML cover page in addition to the cover image. The cover on your Amazon store page is the marketing cover you upload in KDP, not the image inside the EPUB.',
   },
   {
     q: 'What size should interior images be in my ebook?',
@@ -153,7 +153,7 @@ export default function EpubImagesPage() {
           Cover image — the special manifest declaration
         </h2>
         <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink)', marginBottom: 16, opacity: 0.9 }}>
-          The cover image requires a specific <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>properties=&quot;cover-image&quot;</code> attribute on its manifest item. This is what tells KDP and Apple Books which image to display in their store listings and library views. Without it, the cover image may be physically present but not recognized — resulting in a blank or default cover on the store page:
+          The cover image requires a specific <code style={{ fontFamily: 'monospace', fontSize: 14, background: 'var(--cream)', padding: '1px 5px', borderRadius: 3 }}>properties=&quot;cover-image&quot;</code> attribute on its manifest item, which marks it as the book&apos;s cover inside the EPUB. KDP&apos;s Cover Image Guidelines list this as the preferred way to declare the internal cover. The cover on your Amazon store page is the marketing cover you upload in KDP, not the image inside the file:
         </p>
         <pre style={{ background: 'var(--cream)', border: '1px solid var(--border)', borderRadius: 8, padding: '16px 20px', fontSize: 13, lineHeight: 1.65, overflowX: 'auto', marginBottom: 16, fontFamily: 'monospace' }}>
           <code>{`<!-- In content.opf, inside <manifest> -->
@@ -161,15 +161,10 @@ export default function EpubImagesPage() {
 <item id="cover-image"
       href="Images/cover.jpg"
       media-type="image/jpeg"
-      properties="cover-image"/>
-
-<!-- The cover XHTML page is a separate item without that property -->
-<item id="cover-page"
-      href="cover.xhtml"
-      media-type="application/xhtml+xml"/>`}</code>
+      properties="cover-image"/>`}</code>
         </pre>
         <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.65, marginBottom: 48 }}>
-          The <code style={{ fontFamily: 'monospace', fontSize: 13, background: 'var(--cream)', padding: '1px 4px', borderRadius: 3 }}>properties=&quot;cover-image&quot;</code> attribute goes on the image file item, not on the XHTML page that displays it. A cover.xhtml file may contain the cover image via an <code style={{ fontFamily: 'monospace', fontSize: 13, background: 'var(--cream)', padding: '1px 4px', borderRadius: 3 }}>{'<img>'}</code> tag, but it is the image item in the manifest that needs the property.
+          The <code style={{ fontFamily: 'monospace', fontSize: 13, background: 'var(--cream)', padding: '1px 4px', borderRadius: 3 }}>properties=&quot;cover-image&quot;</code> attribute goes on the image file item. For KDP, don&apos;t add a separate HTML cover page as well: KDP&apos;s <a href="https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX" target="_blank" rel="noopener nofollow" style={{ color: '#9c7f35', textDecoration: 'none' }}>Cover Image Guidelines</a> say an HTML cover page in addition to the cover image may make the cover appear twice or cause the book to fail conversion.
         </p>
 
         {/* Alt text */}

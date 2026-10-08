@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     q: 'Can I send an EPUB to my Kindle directly?',
-    a: "Yes. Use Amazon's Send to Kindle service (sendtokindle.com or the desktop app) — upload the EPUB and Amazon converts it to the Kindle format and delivers it to your registered devices and apps. You can also transfer EPUB files via USB to recent Kindle devices, which handle the conversion on the device.",
+    a: "Yes, through Amazon's Send to Kindle service (sendtokindle.com, the Send to Kindle apps or email). Amazon lists EPUB among the file types Send to Kindle accepts, converts the book and delivers it to your Kindle library.",
   },
   {
     q: 'Should the cover image be inside the EPUB?',
@@ -347,7 +347,7 @@ export default function KindleEpubFormatPage() {
             <strong>AZW3 (KF8)</strong> — Replaced MOBI as Kindle&apos;s primary format around 2011. HTML5 and CSS3 support, better typography and layout control. KDP generates AZW3 from your EPUB submission.
           </li>
           <li>
-            <strong>KFX</strong> — Amazon&apos;s current internal delivery format for newer Kindle devices and apps. Adds improved font rendering, better hyphenation, and Kindle-specific features. KDP generates KFX automatically — you never produce it yourself.
+            <strong>KFX</strong> — Amazon&apos;s current delivery format for newer Kindle devices and apps. KDP creates it for you — you never produce it yourself.
           </li>
         </ul>
         <p style={{ fontSize: 17, lineHeight: 1.7, marginBottom: 32, opacity: 0.9 }}>

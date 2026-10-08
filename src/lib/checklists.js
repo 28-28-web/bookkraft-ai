@@ -278,7 +278,7 @@ export const CHECKLISTS = [
       {
         heading: 'Required Metadata',
         items: [
-          'Add ISBN-13 to content.opf: <dc:identifier opf:scheme="ISBN">978...</dc:identifier> — paid submissions without a properly formatted ISBN are blocked at the intake stage',
+          'ISBN: optional on Apple Books (Apple calls ISBNs "optional, but helpful for sales and charting purposes"). If your book has one, Apple says the Vendor ID should match it',
           'Verify dc:title, dc:creator, and dc:language are populated in content.opf — empty fields are rejected even if the same data is entered in Apple Books Connect',
           'Write a minimum 50-word description in Apple Books Connect — below this the editorial review queue may flag for insufficient metadata',
           'Enter a publisher name in Apple Books Connect (required field in the Connect interface, independent of content.opf)',
@@ -338,9 +338,9 @@ export const CHECKLISTS = [
   {
     slug: 'apple-books-pre-launch-checklist',
     metaTitle: '18-Point Apple Books Pre-Launch Checklist — BookKraft AI',
-    metaDescription: 'Apple Books upload checklist. These 18 points cover EPUB 3 compliance, RGB covers, ISBN scheme, and the nav.xhtml requirements Apple checks at submission.',
+    metaDescription: 'Apple Books upload checklist. These 18 points cover EPUB 3 compliance, RGB covers, identifiers, and the nav.xhtml requirements Apple checks at submission.',
     title: '18-Point Apple Books Pre-Launch Checklist',
-    intro: '<p>A file that uploads to KDP without complaint can still be rejected by Apple Books Connect over cover color mode, ISBN format, or EPUB 3 structure. This checklist covers the Apple-specific requirements that go beyond generic EPUB validation. Complete the general EPUB formatting checklist first, then work through these.</p>',
+    intro: '<p>A file that uploads to KDP without complaint can still be rejected by Apple Books Connect over cover color mode or EPUB 3 structure. This checklist covers the Apple-specific requirements that go beyond generic EPUB validation. Complete the general EPUB formatting checklist first, then work through these.</p>',
     sections: [
       {
         heading: 'File & Structure',
@@ -364,7 +364,7 @@ export const CHECKLISTS = [
       {
         heading: 'Metadata',
         items: [
-          'dc:identifier uses a valid ISBN with scheme="ISBN", or a UUID if no ISBN',
+          'dc:identifier present and referenced by the package unique-identifier attribute, as the EPUB specification requires',
           'dc:title and dc:creator populated and matching the cover',
           'dc:language set to a valid BCP 47 code',
           'Publication date present and correctly formatted',
@@ -384,11 +384,11 @@ export const CHECKLISTS = [
     faq: [
       {
         q: 'Why does Apple Books reject a file that passed EPUBCheck?',
-        a: 'Apple validates against Apple-specific rules beyond EPUBCheck — particularly CMYK cover images, ISBN format (scheme="ISBN" required), and nav.xhtml structure. The three most common Apple-specific failures that pass EPUBCheck are CMYK covers, missing or wrongly formatted ISBNs, and nav.xhtml missing the epub:type attribute.',
+        a: 'Apple\'s Books Asset Guide sets requirements of its own: all books must pass Transporter validation, every file must be listed in the manifest, only UTF-8 and UTF-16 encodings are allowed, characters in URIs must be properly encoded, and cover art must use RGB color mode. Check those as well as EPUBCheck.',
       },
       {
         q: 'Do I need an ISBN for Apple Books?',
-        a: 'Apple Books does not strictly require an ISBN — a UUID identifier is accepted — but if you do include an ISBN, it must be declared with scheme="ISBN" in the dc:identifier. A malformed ISBN declaration is a common rejection cause.',
+        a: 'No. Apple says ISBNs are "optional, but helpful for sales and charting purposes." If your book has an ISBN, Apple says the Vendor ID should match it.',
       },
       {
         q: 'How do I convert an EPUB 2 file to EPUB 3 for Apple Books?',

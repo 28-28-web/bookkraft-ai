@@ -69,10 +69,6 @@ export const PLATFORM_REJECTIONS = [
         description: "Apple Books checks files on upload and rejects files with structural errors. Any structural defect — broken spine, missing manifest resource, invalid OPF attribute — will block the upload. Apple also checks HTML validity inside content files, not just OPF structure.",
       },
       {
-        title: 'Missing or invalid ISBN',
-        description: "For paid books distributed through Apple Books Connect, a valid ISBN-13 is required as the primary identifier. It must be declared in content.opf as a dc:identifier with the correct scheme attribute. Paid books without a valid ISBN are rejected at submission.",
-      },
-      {
         title: 'Image DPI and color profile issues',
         description: "Apple Books asks for cover art in RGB color mode, at least 1400 pixels on the shorter side. CMYK images, common when covers are designed for print, don't meet that rule. Images embedded in the book body must be in web-safe formats (JPG, PNG, GIF) with correct MIME types declared in the manifest.",
       },
