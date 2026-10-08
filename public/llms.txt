@@ -71,6 +71,16 @@ BookKraft AI helps indie authors prepare ebook files for platform submission —
 - [Unescaped Ampersand in XHTML](https://bookkraftai.com/epub-errors/unescaped-ampersand-xhtml)
 - [NCX navPoint Mismatch — TOC Links to Wrong Chapters](https://bookkraftai.com/epub-errors/toc-ncx-navpoint-mismatch)
 - [Unique Identifier Not Found (OPF-048)](https://bookkraftai.com/epub-errors/unique-identifier-not-found)
+- [Missing container.xml](https://bookkraftai.com/epub-errors/missing-container-xml)
+- [Invalid or Missing mimetype File](https://bookkraftai.com/epub-errors/invalid-mimetype)
+- [Missing Language Declaration (dc:language)](https://bookkraftai.com/epub-errors/missing-language-declaration)
+- [Broken Internal Link](https://bookkraftai.com/epub-errors/broken-internal-link)
+- [Missing EPUB 3 Navigation Document (nav.xhtml)](https://bookkraftai.com/epub-errors/missing-nav-document)
+- [Invalid OPF Package Structure](https://bookkraftai.com/epub-errors/invalid-opf-structure)
+- [Duplicate Item in OPF Manifest](https://bookkraftai.com/epub-errors/duplicate-manifest-item)
+- [Missing Alt Text on Images](https://bookkraftai.com/epub-errors/missing-alt-text)
+- [Missing dc:identifier](https://bookkraftai.com/epub-errors/missing-dc-identifier)
+- [Unsupported Image Format](https://bookkraftai.com/epub-errors/invalid-image-format)
 
 ## Platform Rejection Guides
 

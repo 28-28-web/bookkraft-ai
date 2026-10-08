@@ -6,6 +6,12 @@ import { buildBreadcrumbSchema } from '@/lib/seo';
 import RelatedLinks from '@/components/RelatedLinks';
 import TrackedLink from '@/components/TrackedLink';
 
+const HUB_ANCHORS = [
+  ['See ', 'all EPUB errors'],
+  ['See the ', 'EPUB error index'],
+  ['See ', 'the full list of EPUB errors'],
+];
+
 export async function generateStaticParams() {
   return EPUB_ERRORS.map(e => ({ slug: e.slug }));
 }
@@ -27,6 +33,19 @@ export default async function EpubErrorPage({ params }) {
   const error = getErrorBySlug(slug);
   if (!error) notFound();
 
+  // Rotate the in-body anchor to the hub so 26 pages don't share one phrase.
+  const [hubPrefix, hubAnchor] = HUB_ANCHORS[EPUB_ERRORS.findIndex(e => e.slug === slug) % HUB_ANCHORS.length];
+
+  const faqSchema = error.faq?.length ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: error.faq.map(({ q, a }) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  } : null;
+
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: 'Home', url: 'https://bookkraftai.com/' },
     { name: 'EPUB Errors', url: 'https://bookkraftai.com/epub-errors' },
@@ -39,6 +58,12 @@ export default async function EpubErrorPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
       <main className="content-page">
 
         {/* Breadcrumb */}
@@ -87,7 +112,7 @@ export default async function EpubErrorPage({ params }) {
         <div className="info-card">
           <p style={{ fontWeight: 700, fontSize: 16, marginBottom: 6, color: 'var(--ink)' }}>Check your EPUB before uploading</p>
           <p style={{ fontSize: 14, color: 'var(--mid)', marginBottom: 16, lineHeight: 1.6 }}>
-            The free EPUB Validator catches structure, metadata, and navigation errors — no signup, no Java, runs in the browser.
+            The free EPUB Validator checks structure, metadata, and navigation — no signup. It runs in your browser, and your file isn&apos;t uploaded.
           </p>
           <TrackedLink href="/tools/epub-validator" className="btn btn-gold btn-cta">
             Validate Your EPUB Free →
@@ -100,6 +125,11 @@ export default async function EpubErrorPage({ params }) {
             EPUB formatting guide
           </Link>{' '}
           for the full workflow: manuscript cleanup, TOC, front matter, EPUB 3 generation, and validation.
+        </p>
+
+        <p style={{ fontSize: 14, color: 'var(--mid)', lineHeight: 1.7 }}>
+          Not the error you&apos;re seeing? {hubPrefix}
+          <Link href="/epub-errors" className="link-gold">{hubAnchor}</Link>, grouped by type.
         </p>
 
         <RelatedLinks related={error.related} />

@@ -35,7 +35,7 @@ BookKraft AI helps indie authors prepare ebook files for platform submission —
 
 16 pages covering specific EPUB validation errors — cause, fix steps, and FAQ for each error code or structural problem.
 
-- [EPUB Errors Index](https://bookkraftai.com/epub-errors): Full index of all 16 EPUB error reference pages with error codes and brief descriptions.
+- [EPUB Errors Index](https://bookkraftai.com/epub-errors): Full index of all 26 EPUB error reference pages with error codes and brief descriptions.
 - [Fallback Required for EMF Images](https://bookkraftai.com/epub-errors/emf-image-fallback): EMF (Windows Metafile) images embedded during Word-to-EPUB conversion are not a valid EPUB image type and require a fallback — fix by re-saving affected images as PNG or JPG before conversion.
 - [Font Link Validation Failed](https://bookkraftai.com/epub-errors/font-link-validation): Fires when an EPUB references a font file that is missing, corrupted, or has a license that prohibits embedding in distributed files.
 - [Missing Manifest Resource](https://bookkraftai.com/epub-errors/missing-manifest-resource): A file exists inside the EPUB package or is referenced by content but is not declared in the OPF manifest — usually caused by conversion tools that generate files without updating the manifest.
@@ -52,6 +52,16 @@ BookKraft AI helps indie authors prepare ebook files for platform submission —
 - [Unescaped Ampersand in XHTML](https://bookkraftai.com/epub-errors/unescaped-ampersand-xhtml): A literal & in EPUB content causes a fatal XML parse error — the file cannot be processed at all. Every & must be written as &amp; in EPUB XHTML content and metadata.
 - [NCX navPoint Mismatch — TOC Links to Wrong Chapters](https://bookkraftai.com/epub-errors/toc-ncx-navpoint-mismatch): An NCX navPoint mismatch means the ebook's table of contents links to wrong chapters or missing anchor IDs — caused by chapter reordering after NCX generation or anchor ID changes in target files.
 - [Unique Identifier Not Found (OPF-048)](https://bookkraftai.com/epub-errors/unique-identifier-not-found): OPF-048 fires when the unique-identifier attribute on the OPF package element names a cross-reference ID that doesn't match any dc:identifier element — not a missing ISBN, but a broken cross-reference between two attribute names.
+- [Missing container.xml](https://bookkraftai.com/epub-errors/missing-container-xml): META-INF/container.xml, which tells reading systems where the OPF file is, is missing (RSC-002) or can't be parsed.
+- [Invalid or Missing mimetype File](https://bookkraftai.com/epub-errors/invalid-mimetype): The mimetype file is missing, isn't the first file in the ZIP, or doesn't contain application/epub+zip (PKG-006, PKG-007).
+- [Missing Language Declaration (dc:language)](https://bookkraftai.com/epub-errors/missing-language-declaration): The OPF metadata has no dc:language element.
+- [Broken Internal Link](https://bookkraftai.com/epub-errors/broken-internal-link): A link inside the book points to a missing file (RSC-007) or a missing #anchor (RSC-012).
+- [Missing EPUB 3 Navigation Document (nav.xhtml)](https://bookkraftai.com/epub-errors/missing-nav-document): An EPUB 3 file has no navigation document: no manifest item has the nav property.
+- [Invalid OPF Package Structure](https://bookkraftai.com/epub-errors/invalid-opf-structure): The OPF package document doesn't follow the expected structure, such as an element in the wrong place (RSC-005).
+- [Duplicate Item in OPF Manifest](https://bookkraftai.com/epub-errors/duplicate-manifest-item): The same file or ID is declared more than once in the manifest (OPF-074 for a repeated file).
+- [Missing Alt Text on Images](https://bookkraftai.com/epub-errors/missing-alt-text): An img element has no alt attribute.
+- [Missing dc:identifier](https://bookkraftai.com/epub-errors/missing-dc-identifier): The OPF metadata has no dc:identifier element, which every EPUB needs.
+- [Unsupported Image Format](https://bookkraftai.com/epub-errors/invalid-image-format): An image uses a format that isn't allowed where it's used, such as a TIFF in a chapter file.
 
 ## Platform Rejection Guides
 

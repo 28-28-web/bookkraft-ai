@@ -355,7 +355,7 @@ export default async function sitemap() {
     },
     {
       url: `${BASE}/epub-errors`,
-      lastModified: CONTENT_DATE,
+      lastModified: new Date('2026-10-08'),
       changeFrequency: 'weekly',
       priority: 0.7,
     },
